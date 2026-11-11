@@ -168,7 +168,7 @@
     "ref": "core/crates/proxy/local/src/lib.rs:192"
   },
   {
-    "fact": "缺少任务调度宿主时，core 命令执行器安装报错 Core command execution requires a task scheduler host。",
+    "fact": "未预设执行器时安装闭包；实际执行 Core 命令时要求 Host 调度器。安装本身只写执行器并返回运行时，不检查调度器；缺少任务调度宿主时，执行已安装的执行器报错 `Core command execution requires a task scheduler host`。",
     "ref": "core/crates/proxy/local/src/lib.rs:185"
   },
   {
@@ -208,7 +208,7 @@
     "ref": "core/crates/proxy/local/src/lib.rs:230"
   },
   {
-    "fact": "fileSystemHost 在未设置 FileSystemHost 时 panic。",
+    "fact": "截至基线 364d1d594，fileSystemHost() 在未设置 `FileSystemHost` 时 panic；上游 053c6686 已改成 filesystem() -> Arc<VisualFileSystem>（同文件 :283），调用 hostManager.vfs().expect(\"LocalCoreProxy requires VFS\")。",
     "ref": "core/crates/proxy/local/src/lib.rs:283"
   },
   {
@@ -364,16 +364,12 @@
     "ref": "core/crates/proxy/dart-codegen/src/lib.rs:55"
   },
   {
-    "fact": "render_dart_models 只收录从对象方法可达的可序列化类型。",
+    "fact": "`render_dart_models` 先收录从对象方法可达的可序列化类型，再经 `include_source_tree_model_types` 额外收录 operit_node_runtime 的源码树模型类型。",
     "ref": "core/crates/proxy/dart-codegen/src/lib.rs:76"
   },
   {
     "fact": "模型类型按 full_type 排序。",
     "ref": "core/crates/proxy/dart-codegen/src/lib.rs:84"
-  },
-  {
-    "fact": "include_source_tree_model_types 额外收录 operit_node_runtime 的源码树模型类型。",
-    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:338"
   },
   {
     "fact": "生成的模型文件导入 dart:async、dart:typed_data、CoreLinkCodec 与 CoreLinkProtocol。",

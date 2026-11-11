@@ -14,7 +14,7 @@ date: 2026-11-11
 - 命令参数里的 `--json` 是 JSON 模式开关，分发前从参数中滤除（`core/crates/command/core/src/lib.rs:26`）。
 - 本页 seed 覆盖 `chat`、`model`、`tool`、`sync` 四个命令文件的全文。
 - README 列出 14 组命令：`chat`、`model`、`memory`、`tool`、`plugin`、`package`、`skill`、`MCP`、`storage`、`workspace`、`host`、`prefs`、`update`、`log`（`core/crates/command/README.md:9`）。
-- README 列出的 14 组命令不含 sync，但 seed 内有 `sync.rs` 实现 `reset-transactions`（`core/crates/command/core/src/commands/sync.rs:11`）。
+- README 列出的 14 组命令不含 sync，但 seed 内有 sync.rs 实现 `reset-transactions`（`core/crates/command/core/src/commands/sync.rs:11`）。
 - 其余 10 组（`memory`、`plugin`、`package`、`skill`、`MCP`、`storage`、`workspace`、`host`、`prefs`、`update`、`log`）的实现不在本页 seed 内，本页不展开（`core/crates/command/README.md:9`）。
 - 本页命令名以 seed 代码里的用法文本为准，不照抄 README 旧命令（`core/crates/command/core/src/commands/chat.rs:699`）。
 
@@ -85,7 +85,7 @@ date: 2026-11-11
 
 - `chat send` 未指定会话且无当前会话时报错（`core/crates/command/core/src/commands/chat.rs:594`）。
 - `chat send` 先调 `requireChatExists` 确认会话存在（`core/crates/command/core/src/commands/chat.rs:595`）。
-- `chat send` 无 `--chat` 时用当前会话 id（`core/crates/command/core/src/commands/chat.rs:594`）。
+- `chat send` 无 --chat 时用当前会话 id（`core/crates/command/core/src/commands/chat.rs:594`）。
 - 回滚未应用时输出提示：消息须存在且为用户消息、工作区快照须仍可用，只保留最新一次编辑轮次（`core/crates/command/core/src/commands/chat.rs:216`）。
 - `stats` 只输出中性汇总统计：总会话数与总消息数（`core/crates/command/core/src/commands/chat.rs:364`）。
 - `tool exec` 用 `ToolExecutionPolicy::Direct` 策略执行，只取最后一个结果（`core/crates/command/core/src/commands/tool.rs:117`）。
@@ -104,7 +104,7 @@ date: 2026-11-11
 - `print_model_usage` 的用法列表包含 `codex-login`（`core/crates/command/core/src/commands/model.rs:974`）。
 - 未知 `model` 子命令落到 `print_model_usage`；用法里列出的 codex-login 没有对应的执行分支（`core/crates/command/core/src/commands/model.rs:663`）。
 - `print_chat_usage` 写 `operit2 chat show <chat-id> [--runtime]`（`core/crates/command/core/src/commands/chat.rs:701`）。
-- `show_chat` 只读 `args[0]` 作 `chatId`，不读后续参数，`--runtime` 不起作用（`core/crates/command/core/src/commands/chat.rs:86`）。
+- `show_chat` 只读 `args`[0] 作 `chatId`，不读后续参数，`--runtime` 不起作用（`core/crates/command/core/src/commands/chat.rs:86`）。
 - `print_chat_usage` 的 `chat new` 用法行没有列出 --workspace（`core/crates/command/core/src/commands/chat.rs:699`）。
 - 解析器接受 `--workspace` 选项（`core/crates/command/core/src/commands/chat.rs:447`）。
 
@@ -137,13 +137,13 @@ date: 2026-11-11
 3. `run_core_command` 识别并剥离 `--json`，建 CoreCommandOutput（`core/crates/command/core/src/lib.rs:26`）。
 4. 委托 `commands::run_core_command` 分发（`core/crates/command/core/src/lib.rs:34`）。
 5. `chat` 的 15 个子命令由 `match` 分支分发（`core/crates/command/core/src/commands/chat.rs:39`）。
-6. `chat send`：解析参数 → 取会话（`--chat` 或当前会话）（`core/crates/command/core/src/commands/chat.rs:594`）。
+6. `chat send`：解析参数 → 取会话（--chat 或当前会话）（`core/crates/command/core/src/commands/chat.rs:594`）。
 7. 附件经 `AttachmentTransferManager` 导入（`core/crates/command/core/src/commands/chat.rs:601`）。
 8. `sendChatMessage` 发送并等回执（`core/crates/command/core/src/commands/chat.rs:623`）。
 9. `model` 组不经应用门面（`core/crates/command/core/src/commands/model.rs:35`）。
 10. `ModelConfigManager::default()` 与 `FunctionalConfigManager::default()` 直接读写配置（`core/crates/command/core/src/commands/model.rs:25`）。
 11. `tool exec`：解析 params-json 为 `ToolCall`，以 `Direct` 策略执行，取最后一个结果（`core/crates/command/core/src/commands/tool.rs:117`）。
-12. `sync reset-transactions`：调 `syncResetTransactions` 重建同步历史（`core/crates/command/core/src/commands/sync.rs:25`）。
+12. sync reset-transactions：调 `syncResetTransactions` 重建同步历史（`core/crates/command/core/src/commands/sync.rs:25`）。
 13. 收尾：`output.finalizeJson`（`core/crates/command/core/src/lib.rs:35`）。
 
 ## 来源

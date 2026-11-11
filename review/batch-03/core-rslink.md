@@ -25,14 +25,14 @@ date: 2026-11-11
 - `from_core_response_value` — Link 响应值解码为调用方返回类型（`core/crates/rslink/runtime/src/lib.rs:252`）。
 - `core_route_call_request` — 构造内部 Link 调用请求（`core/crates/rslink/runtime/src/lib.rs:273`）。
 - `core_route_watch_request` — 构造内部 Link watch 请求（`core/crates/rslink/runtime/src/lib.rs:283`）。
-- `core_route_call_response` — 经路由运行时执行调用（`core/crates/rslink/runtime/src/lib.rs:317`）。
+- `core_route_call_response` — 经路由运行时执行调用（`core/crates/rslink/runtime/src/lib.rs:319`）。
 - `core_flow_event_stream` — Flow 转 Link 事件流（`core/crates/rslink/runtime/src/lib.rs:414`）。
 - `core_state_flow_event_stream` — StateFlow 转 Link 事件流（`core/crates/rslink/runtime/src/lib.rs:445`）。
 - `core_state_flow_from_stream` — 事件流重建本地 StateFlow（`core/crates/rslink/runtime/src/lib.rs:486`）。
 - `core_route_proxy_watch` — 路由代理 watch（`core/crates/rslink/runtime/src/lib.rs:648`）。
 - `TypeResolver` — codegen 的类型解析器（`core/crates/rslink/codegen/src/lib.rs:17`）。
 - `collect_type_registry` — codegen 的类型注册表收集（`core/crates/rslink/codegen/src/lib.rs:17`）。
-- 主入口：注解生成的路由调用经 `core_route_call_response` 进入已安装的 `CoreRouteRuntime`（`core/crates/rslink/runtime/src/lib.rs:317`）。
+- 主入口：注解生成的路由调用经 `core_route_call_response` 进入已安装的 `CoreRouteRuntime`（`core/crates/rslink/runtime/src/lib.rs:319`）。
 - 数据流向：Rust 值经 `to_core_value` 编码为 `CoreValue` 发出 Link 请求或事件（`core/crates/rslink/runtime/src/lib.rs:224`）。
 - 数据流向：对端用 `from_core_response_value` 把 Link 响应值解码回 Rust 值（`core/crates/rslink/runtime/src/lib.rs:252`）。
 - 数据流向：流以内嵌描述符往返，源由 `CoreStreamPool` 登记（`core/crates/rslink/runtime/src/lib.rs:27`）。
@@ -58,9 +58,8 @@ date: 2026-11-11
 - `core_route_call_request` 以 `nextCoreRouteRequestId` 生成请求 id、以 `CORE_INTERNAL_TARGET` 为目标构造 `CoreCallRequest`（`core/crates/rslink/runtime/src/lib.rs:273`）。
 - `core_route_watch_request` 以同样方式构造内部 Link watch 请求（`core/crates/rslink/runtime/src/lib.rs:283`）。
 - `core_route_args` 复用 `core_value_map` 构造路由参数，传输优化由 Link 负责（`core/crates/rslink/runtime/src/lib.rs:268`）。
-- `core_route_call_response` 用 `core_route_call_request` 构造请求，并记录 `wrapper.call` 追踪日志（`core/crates/rslink/runtime/src/lib.rs:317`）。
+- `core_route_call_response` 用 `core_route_call_request` 构造请求，并记录 `wrapper.call` 追踪日志（`core/crates/rslink/runtime/src/lib.rs:319`）。
 - `core_route_error_uses_local_source` 在错误码为 `CORE_NODE_UNREACHABLE`、`PEER_LINK_CLOSED`、`PEER_RESPONSE_CLOSED`、`PEER_SEND_FAILED`、`PEER_WATCH_SOURCE_CLOSED` 之一时返回 true（`core/crates/rslink/runtime/src/lib.rs:351`）。
-- `core_route_error_uses_local_source` 返回 true 时，路由打开错误由本地源继续执行（`core/crates/rslink/runtime/src/lib.rs:349`）。
 - `generated_proxy_request_id` 用宿主时钟毫秒生成 `core-proxy-{millis}` 格式的代理请求 id（`core/crates/rslink/runtime/src/lib.rs:1378`）。
 
 ### 流与 watch
@@ -78,21 +77,21 @@ date: 2026-11-11
 ### StateFlow 重建
 
 - `core_state_flow_from_stream` 从远程 Link Core 事件流重建本地 `StateFlow`（`core/crates/rslink/runtime/src/lib.rs:486`）。
-- 从流重建 `StateFlow` 时，流提前结束返回 `WATCH_STREAM_EMPTY` 错误（`core/crates/rslink/runtime/src/lib.rs:509`）。
-- 从流重建 `StateFlow` 时，首个事件已完成返回 `WATCH_STREAM_COMPLETED` 错误（`core/crates/rslink/runtime/src/lib.rs:549`）。
-- 从流重建 `StateFlow` 时，首个事件为增量返回 `WATCH_STREAM_DELTA_FIRST` 错误（`core/crates/rslink/runtime/src/lib.rs:556`）。
-- `StateFlow` 重建任务以 `core-rslinkrs-state-flow` 为名调度到宿主运行时任务调度器（`core/crates/rslink/runtime/src/lib.rs:579`）。
+- 从流重建 StateFlow 时，流提前结束返回 `WATCH_STREAM_EMPTY` 错误（`core/crates/rslink/runtime/src/lib.rs:509`）。
+- 从流重建 StateFlow 时，首个事件已完成返回 `WATCH_STREAM_COMPLETED` 错误（`core/crates/rslink/runtime/src/lib.rs:549`）。
+- 从流重建 StateFlow 时，首个事件为增量返回 `WATCH_STREAM_DELTA_FIRST` 错误（`core/crates/rslink/runtime/src/lib.rs:556`）。
+- StateFlow 重建任务以 `core-rslinkrs-state-flow` 为名调度到宿主运行时任务调度器（`core/crates/rslink/runtime/src/lib.rs:579`）。
 
 ### 路由代理 watch
 
-- `core_route_state_flow` 经 `CoreRouteRuntime::watch` 打开注解生成的 `StateFlow` watch（`core/crates/rslink/runtime/src/lib.rs:719`）。
+- `core_route_state_flow` 经 CoreRouteRuntime::watch 打开注解生成的 `StateFlow` watch（`core/crates/rslink/runtime/src/lib.rs:719`）。
 - 路由代理 watch 要求上游首个事件为 `Snapshot`，否则返回 `WATCH_SNAPSHOT_REQUIRED` 错误（`core/crates/rslink/runtime/src/lib.rs:669`）。
 - 路由代理 watch 在 `snapshot` 参数为 true 时只转发首个快照即返回（`core/crates/rslink/runtime/src/lib.rs:677`）。
 - `adopt_routed_watch_value` 在编码路由 watch 值时捕获流附件并交给 adopter 注册（`core/crates/rslink/runtime/src/lib.rs:637`）。
 - `core_route_state_flow_with_local_source` 接受本地 `StateFlow` 作为路由 watch 的本地源（`core/crates/rslink/runtime/src/lib.rs:778`）。
 - 带本地源的路由 watch 经 `runtime.watchWithLocalSource` 打开（`core/crates/rslink/runtime/src/lib.rs:813`）。
-- `core_route_state_flow_value_decoder` 为路由 `StateFlow` 值创建带流源注册表的解码器（`core/crates/rslink/runtime/src/lib.rs:818`）。
-- `adopt_core_stream_attachments` 把捕获的流源按 `streamId` 登记进路由流源注册表（`core/crates/rslink/runtime/src/lib.rs:863`）。
+- `core_route_state_flow_value_decoder` 为路由 StateFlow 值创建带流源注册表的解码器（`core/crates/rslink/runtime/src/lib.rs:818`）。
+- `adopt_core_stream_attachments` 把捕获的流源按 streamId 登记进路由流源注册表（`core/crates/rslink/runtime/src/lib.rs:863`）。
 
 ### 反向流
 
@@ -102,17 +101,17 @@ date: 2026-11-11
 - `CoreReverseStreamSender` trait 要求实现 `send` 与 `close`：`send` 解码并投递一个 Link 值，`close` 完成类型化流输入（`core/crates/rslink/runtime/src/lib.rs:122`）。
 - `TypedCoreReverseStreamSender<T>` 用 `ReverseStreamSender<T>` 桥接类型化反向流生产者（`core/crates/rslink/runtime/src/lib.rs:129`）。
 - 反向流条目解码失败时返回 `INVALID_REVERSE_STREAM_ITEM` 错误（`core/crates/rslink/runtime/src/lib.rs:141`）。
-- `CoreReverseStreamSession::new` 以类型化反向流发送端与完成接收端创建会话（`core/crates/rslink/runtime/src/lib.rs:157`）。
+- `CoreReverseStreamSession` 的 `new` 以类型化反向流发送端与完成接收端创建会话（`core/crates/rslink/runtime/src/lib.rs:157`）。
 - `pushItem` 把一个 Link 值按序投递进反向流（`core/crates/rslink/runtime/src/lib.rs:171`）。
 - `close` 关闭发送端后等待运行时消费者的完成结果（`core/crates/rslink/runtime/src/lib.rs:176`）。
 - 对已关闭的反向流会话再次调用 `close` 返回 `REVERSE_STREAM_CLOSED` 错误（`core/crates/rslink/runtime/src/lib.rs:181`）。
-- `CoreReverseStreamSession` 的 `CoreLinkPushSession` 实现把 `send` 转给 `pushItem`、把 `close` 转给 `CoreReverseStreamSession::close`（`core/crates/rslink/runtime/src/lib.rs:191`）。
+- `CoreReverseStreamSession` 的 `CoreLinkPushSession` 实现把 `send` 转给 `pushItem`、把 `close` 转给 `CoreReverseStreamSession::close`（`core/crates/rslink/runtime/src/lib.rs:192`）。
 - `core_reverse_stream_channel` 创建一对类型化反向流通道（`core/crates/rslink/runtime/src/lib.rs:1373`）。
 
 ### 内嵌流
 
-- `CoreStreamPool` 以 `StdMutex` 保护的 `HashMap` 按 `streamId` 登记 `Arc<CoreStreamSource>`（`core/crates/rslink/runtime/src/lib.rs:27`）。
-- `CoreStreamPool::new` 创建一个空的本地流源池（`core/crates/rslink/runtime/src/lib.rs:33`）。
+- `CoreStreamPool` 以 `StdMutex` 保护的 `HashMap` 按 streamId 登记 `Arc<CoreStreamSource>`（`core/crates/rslink/runtime/src/lib.rs:27`）。
+- `CoreStreamPool` 的 `new` 创建一个空的本地流源池（`core/crates/rslink/runtime/src/lib.rs:33`）。
 - `adoptAll` 逐个收养序列化 Core 值时捕获的全部流附件（`core/crates/rslink/runtime/src/lib.rs:40`）。
 - `adopt` 在同一 `streamId` 已有不同源时只记 duplicate 日志，不替换已有源（`core/crates/rslink/runtime/src/lib.rs:95`）。
 - `openCoreStreamWatch` 只接受 `propertyName` 为 `openCoreStream` 的 watch 请求（`core/crates/rslink/runtime/src/lib.rs:47`）。
@@ -149,7 +148,7 @@ date: 2026-11-11
 - 从 `build_type_resolver` 重导出 `is_supported_arg_type`、`is_supported_return_type` 与 `normalize_type`（`core/crates/rslink/codegen/src/lib.rs:19`）。
 - 从 `build_utils` 重导出 `dispatch_name_from_schema_key`、`full_type_for_source_with_crate`、`identifier_words`、`lower_first`、`module_path_for_source_with_crate` 与 `parent_module_path`（`core/crates/rslink/codegen/src/lib.rs:23`）。
 - Dart 输出等生成器位于 proxy emitter crate，`Rslink` 自身不做 Dart 输出（`core/crates/rslink/README.md:14`）。
-- 范围说明：本页 seed 只含 lib.rs 的模块声明与重导出，IR 结构与类型解析的实现在 `build_model.rs`、`build_type_resolver.rs`、`build_utils.rs` 内，不在本页 seed 内，本页不展开其内部结构（`core/crates/rslink/codegen/src/lib.rs:11`）。
+- 范围说明：本页 seed 只含 lib.rs 的模块声明与重导出，IR 结构与类型解析的实现在 `build_model`、`build_type_resolver`、`build_utils` 内，不在本页 seed 内，本页不展开其内部结构（`core/crates/rslink/codegen/src/lib.rs:11`）。
 
 ## 关键符号
 
@@ -164,7 +163,7 @@ date: 2026-11-11
 - `object_args` — 从请求载荷提取字符串键参数 map（`core/crates/rslink/runtime/src/lib.rs:202`）。
 - `core_route_call_request` — 构造内部 Link 调用请求（`core/crates/rslink/runtime/src/lib.rs:273`）。
 - `core_route_watch_request` — 构造内部 Link watch 请求（`core/crates/rslink/runtime/src/lib.rs:283`）。
-- `core_route_call_response` — 经路由运行时执行调用（`core/crates/rslink/runtime/src/lib.rs:317`）。
+- `core_route_call_response` — 经路由运行时执行调用（`core/crates/rslink/runtime/src/lib.rs:319`）。
 - `decode_core_call_response` — 解码路由调用返回（`core/crates/rslink/runtime/src/lib.rs:342`）。
 - `core_route_error_uses_local_source` — 路由错误是否留本地源判定（`core/crates/rslink/runtime/src/lib.rs:349`）。
 - `core_event_stream_channel` — 无界 Core 事件流通道对（`core/crates/rslink/runtime/src/lib.rs:366`）。
@@ -187,10 +186,10 @@ date: 2026-11-11
 ## 调用链
 
 1. 注解生成的调用方用 `core_route_call_request` 构造指向 `CORE_INTERNAL_TARGET` 的调用请求（`core/crates/rslink/runtime/src/lib.rs:273`）。
-2. `core_route_call_response` 把请求交给已安装的 `CoreRouteRuntime` 执行（`core/crates/rslink/runtime/src/lib.rs:317`）。
+2. `core_route_call_response` 把请求交给已安装的 `CoreRouteRuntime` 执行（`core/crates/rslink/runtime/src/lib.rs:319`）。
 3. `decode_core_call_response` 从响应 result 解码调用方返回类型（`core/crates/rslink/runtime/src/lib.rs:342`）。
 4. 注解生成的 watch 用 `core_route_watch_request` 构造 watch 请求（`core/crates/rslink/runtime/src/lib.rs:283`）。
-5. `core_route_state_flow` 经 `CoreRouteRuntime::watch` 打开 watch（`core/crates/rslink/runtime/src/lib.rs:719`）。
+5. `core_route_state_flow` 经 CoreRouteRuntime::watch 打开 watch（`core/crates/rslink/runtime/src/lib.rs:719`）。
 6. `core_state_flow_from_stream` 等首个快照事件，重建本地 `StateFlow` 后续增量跟进（`core/crates/rslink/runtime/src/lib.rs:486`）。
 7. 反向流：以 `CorePushRequest` 经 `runtime.openPush` 建 Push 会话，逐项发送后关闭（`core/crates/rslink/runtime/src/lib.rs:305`）。
 8. 内嵌流：值序列化时捕获的流源由 `adoptAll` 收养（`core/crates/rslink/runtime/src/lib.rs:40`）。

@@ -184,7 +184,7 @@
     "ref": "core/crates/plugin/theme/src/lib.rs:495"
   },
   {
-    "fact": "Windows 保留名 con、prn、aux、nul、com1–com9、lpt1–lpt9 作路径首段即拒绝。",
+    "fact": "Windows 保留名 con、prn、aux、nul、com1–com9、lpt1–lpt9 命中任意路径组件的主干即拒绝，例如 assets/images/con.png、assets/fonts/nul.ttf 均被拒绝（路径首段是 assets）；该检查没有平台条件，在所有 Host 上执行。",
     "ref": "core/crates/plugin/theme/src/lib.rs:506"
   },
   {
@@ -212,8 +212,16 @@
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1063"
   },
   {
-    "fact": "light 调色板的 required 列表含 46 个颜色 token，首项为 primary。",
+    "fact": "`light` 是 palette 的必填调色板。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:764"
+  },
+  {
+    "fact": "light 调色板的 required 列表含 46 个颜色 token，首项为 `primary`。",
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:336"
+  },
+  {
+    "fact": "`dark` 是 palette 的必填调色板。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:764"
   },
   {
     "fact": "dark 调色板的 required 列表含 46 个颜色 token，与 light 逐项相同。",
@@ -224,7 +232,11 @@
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:17"
   },
   {
-    "fact": "palette 必填 light 与 dark。",
+    "fact": "`palette` 是 theme-v1 schema 根对象的必填节。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1063"
+  },
+  {
+    "fact": "palette 的 required 列表为 `light` 与 `dark`。",
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:764"
   },
   {
@@ -232,7 +244,11 @@
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:774"
   },
   {
-    "fact": "background.fit 只允许 cover，alignment 只允许 center。",
+    "fact": "background 节的 `fit` 只允许 `cover`。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:784"
+  },
+  {
+    "fact": "`alignment` 只允许 `center`。",
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:790"
   },
   {
@@ -256,11 +272,19 @@
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:864"
   },
   {
-    "fact": "chat.avatarShape 只允许 circle 或 square，默认 circle；avatarCornerRadius 范围 0–32，默认 8。",
+    "fact": "chat 节的 `avatarShape` 只允许 `circle` 或 `square`，默认 `circle`。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:870"
+  },
+  {
+    "fact": "`avatarCornerRadius` 范围 0–32，默认 8。",
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:876"
   },
   {
-    "fact": "chat 必填 style、wideLayout、showAvatar、avatarShape、avatarCornerRadius、cursorUserColor、user、ai。",
+    "fact": "`chat` 是 theme-v1 schema 根对象的必填节。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1063"
+  },
+  {
+    "fact": "chat 的 required 列表含 `style`、`wideLayout`、`showAvatar`、`avatarShape`、`avatarCornerRadius`、`cursorUserColor`、`user`、`ai`。",
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:901"
   },
   {
@@ -268,8 +292,12 @@
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:916"
   },
   {
-    "fact": "input 只必填 style 与 floating。",
-    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1054"
+    "fact": "`input` 是 theme-v1 schema 根对象的必填节。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1063"
+  },
+  {
+    "fact": "input 的 required 列表为 `style` 与 `floating`。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1018"
   },
   {
     "fact": "input.settingsAsset 只接受 assets/images 路径或 null。",
@@ -288,7 +316,11 @@
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1028"
   },
   {
-    "fact": "typography 必填 global、user、ai。",
+    "fact": "`typography` 是 theme-v1 schema 根对象的必填节。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1063"
+  },
+  {
+    "fact": "typography 的 required 列表为 `global`、`user`、`ai`。",
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1054"
   },
   {
@@ -312,11 +344,19 @@
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1168"
   },
   {
-    "fact": "bubbleImage 必填 asset、renderMode、crop、slice、scale。",
+    "fact": "`bubbleImage` 是 theme-v1 schema 的 $defs 定义之一。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1073"
+  },
+  {
+    "fact": "bubbleImage 的 required 列表含 `asset`、`renderMode`、`crop`、`slice`、`scale`。",
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1176"
   },
   {
-    "fact": "bubble 必填 color、textColor、image、roundedCorners、padding。",
+    "fact": "`bubble` 是 theme-v1 schema 的 $defs 定义之一。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1184"
+  },
+  {
+    "fact": "bubble 的 required 列表含 `color`、`textColor`、`image`、`roundedCorners`、`padding`。",
     "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1239"
   },
   {
@@ -336,7 +376,11 @@
     "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:7"
   },
   {
-    "fact": "theme-template schema 的 files 每项必填 path 与 mediaType。",
+    "fact": "`files` 是 theme-template schema 根对象的必填字段。",
+    "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:50"
+  },
+  {
+    "fact": "files 每项的 required 列表为 `path` 与 `mediaType`。",
     "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:31"
   },
   {

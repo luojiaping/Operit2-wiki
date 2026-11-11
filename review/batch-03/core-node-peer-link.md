@@ -39,7 +39,7 @@ date: 2026-11-11
 - `__operit_core_binding_` 加原方法名 — 生成的元数据函数，返回 binding 名（`core/crates/node/route-macros/src/lib.rs:163`）
 - `__operit_core_permission_` 加原方法名 — 生成的元数据函数，返回 permission 字符串（`core/crates/node/route-macros/src/lib.rs:164`）
 - 主入口：传输侧是 PeerLink 的 `connect`（`core/crates/node/peer-link/src/lib.rs:129`）。
-- 主入口：监听侧是 `PeerLink::listen`（`core/crates/node/peer-link/src/lib.rs:138`）。
+- 主入口：监听侧是 PeerLink 的 `listen`（`core/crates/node/peer-link/src/lib.rs:138`）。
 - 主入口：路由侧是 `operit_core_route` 注解（`core/crates/node/route-macros/src/lib.rs:86`）。
 - 数据流向：调用方经 PeerLink 的 `connect` 建连（`core/crates/node/peer-link/src/lib.rs:129`）。
 - 数据流向：连接上传输 `PeerMessage` 信封，保留 Call、Watch、Push 三种操作（`core/crates/node/peer-link/src/lib.rs:50`）。
@@ -99,7 +99,10 @@ date: 2026-11-11
 - 单来源确认桶容量 5，每十分钟回补 1 个令牌（`core/crates/node/runtime/src/peer/pairing_throttle.rs:25`）。
 - 单来源新建配对桶容量 4，每分钟回补 1 个令牌（`core/crates/node/runtime/src/peer/pairing_throttle.rs:29`）。
 - 全局新建配对桶容量 6，每分钟回补 1 个令牌（`core/crates/node/runtime/src/peer/pairing_throttle.rs:33`）。
-- 来源桶总数上限 512（`core/crates/node/runtime/src/peer/pairing_throttle.rs:37`）。
+- `MAX_SOURCE_BUCKETS` 常量为 512，不是无条件硬上限（`core/crates/node/runtime/src/peer/pairing_throttle.rs:37`）。
+- 新来源先插入 `sourceConfirmations` 桶（`core/crates/node/runtime/src/peer/pairing_throttle.rs:91`）。
+- 任一桶 `available` 为假时直接返回，不消费也不清理；全局桶耗尽后持续用新来源进拒绝分支，来源表可增长到 512 以上（`core/crates/node/runtime/src/peer/pairing_throttle.rs:96`）。
+- 只有成功消费令牌后才调 `prune` 清理（`core/crates/node/runtime/src/peer/pairing_throttle.rs:101`）。
 - `prune` 在桶数超限时先丢弃已完全回补的桶，再按最小键删除，直到回到上限内（`core/crates/node/runtime/src/peer/pairing_throttle.rs:126`）。
 - `refill` 按流逝的墙钟时间回补令牌，并用饱和减法容忍时钟回拨（`core/crates/node/runtime/src/peer/pairing_throttle.rs:53`）。
 - 回补后的令牌数不超过容量上限（`core/crates/node/runtime/src/peer/pairing_throttle.rs:57`）。
@@ -146,8 +149,8 @@ date: 2026-11-11
 - sources 含 `core/crates/node/route-macros/src`（`core/peer-protocol.json:35`）。
 - sources 含 `core/crates/node/runtime/src/peer` 目录（`core/peer-protocol.json:18`）。
 - `revisions` 数组从 version 1 起编号（`core/peer-protocol.json:42`）。
-- 最新修订为 `version` 15（`core/peer-protocol.json:100`）。
-- `schemaRoots` 列出 7 个模式根目录（`core/peer-protocol.json:104`）。
+- 截至基线 364d1d594，最新修订为 `version` 15（`core/peer-protocol.json:100`）；上游 053c6686 已是 version 19（同文件 :116）。
+- 截至基线 364d1d594，`schemaRoots` 列出 7 个模式根目录（`core/peer-protocol.json:104`）；上游 053c6686 已是 8 个（:120 起，新增 foundation/vfs）。
 - 清单的消费方式不在本页 seed 范围内：本页 seed 不含读取该清单的构建脚本，不对清单的用途做断言（`core/peer-protocol.json:2`）。
 
 ## 关键符号
@@ -167,7 +170,7 @@ date: 2026-11-11
 - `DEFAULT_MAX_PEER_MESSAGE_BYTES` — 单条消息默认上限 4 MiB（`core/crates/node/peer-link/src/lib.rs:14`）
 - `MESSAGE_TOO_LARGE_ERROR` — 超限错误文本（`core/crates/node/peer-link/src/lib.rs:18`）
 - `subscribeDiscovery` — mDNS 发现订阅（`core/crates/node/runtime/src/peer/discovery.rs:15`）
-- `HostRuntimePeerService::rememberDiscoveryRecords` — 按 fullName 留存发现记录（`core/crates/node/runtime/src/peer/discovery.rs:7`）
+- HostRuntimePeerService 的 `rememberDiscoveryRecords` — 按 fullName 留存发现记录（`core/crates/node/runtime/src/peer/discovery.rs:7`）
 - `reconnectionEndpoints` — 新发现地址优先于已保存 endpoint（`core/crates/node/runtime/src/peer/discovery.rs:32`）
 - `saveAuthenticatedEndpoint` — 只提交已鉴权地址（`core/crates/node/runtime/src/peer/discovery.rs:52`）
 - `PairingThrottle` — 内存令牌桶节流器（`core/crates/node/runtime/src/peer/pairing_throttle.rs:76`）

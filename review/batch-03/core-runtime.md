@@ -42,10 +42,10 @@ CORE_VERSION 是编译进 runtime crate 的 Cargo 包版本，供 CoreNode 兼�
 ### 组装：newWithContext
 
 newWithContext 接收一个 HostManager 并安装共享 Host 默认值（`core/crates/runtime/application/src/core/application/OperitApplication.rs:141`）。
-runtimeStorageHost 已提供但其 runtimeRootDir() 失败时，newWithContext 用 expect 直接 panic（`core/crates/runtime/application/src/core/application/OperitApplication.rs:145`）。
-newWithContext 中 runtimeStorageHost 已提供而缺失 FileSystemHost 时用 expect 直接 panic（`core/crates/runtime/application/src/core/application/OperitApplication.rs:152`）。
-runtimeStorageHost 已提供时，newWithContext 把日志文件解析为 /operitapp/data/logs/operit.log 与 /operitapp/data/logs/toolpkg.log（`core/crates/runtime/application/src/core/application/OperitApplication.rs:159`）。
-日志文件配置失败时只记警告，应用继续使用控制台与内存日志（`core/crates/runtime/application/src/core/application/OperitApplication.rs:167`）。
+runtimeStorageHost 已提供但其 runtimeRootDir() 失败时，newWithContext 用 expect 直接 panic（`core/crates/runtime/application/src/core/application/OperitApplication.rs:145`）。截至基线 364d1d594，日志配置失败后只记警告、继续使用控制台与内存日志；上游 053c6686 已改为 hostManager.vfs().expect(...)（OperitApplication.rs:143）与 configure_log_files(...).expect("Runtime VFS log files must be writable")（OperitApplication.rs:148），配置失败会 panic。
+newWithContext 中 runtimeStorageHost 已提供而缺失 FileSystemHost 时用 expect 直接 panic（`core/crates/runtime/application/src/core/application/OperitApplication.rs:152`）。截至基线 364d1d594，日志配置失败后只记警告、继续使用控制台与内存日志；上游 053c6686 已改为 hostManager.vfs().expect(...)（OperitApplication.rs:143）与 configure_log_files(...).expect("Runtime VFS log files must be writable")（OperitApplication.rs:148），配置失败会 panic。
+runtimeStorageHost 已提供时，newWithContext 把日志文件解析为 /operitapp/data/logs/operit.log 与 /operitapp/data/logs/toolpkg.log（`core/crates/runtime/application/src/core/application/OperitApplication.rs:159`）。截至基线 364d1d594，日志配置失败后只记警告、继续使用控制台与内存日志；上游 053c6686 已改为 hostManager.vfs().expect(...)（OperitApplication.rs:143）与 configure_log_files(...).expect("Runtime VFS log files must be writable")（OperitApplication.rs:148），配置失败会 panic。
+日志文件配置失败时只记警告，应用继续使用控制台与内存日志（`core/crates/runtime/application/src/core/application/OperitApplication.rs:167`）。截至基线 364d1d594，日志配置失败后只记警告、继续使用控制台与内存日志；上游 053c6686 已改为 hostManager.vfs().expect(...)（OperitApplication.rs:143）与 configure_log_files(...).expect("Runtime VFS log files must be writable")（OperitApplication.rs:148），配置失败会 panic。
 HostManager 携带对应 Host 时，newWithContext 把 runtimeStorageHost、runtimeSqliteHost、hostSecretStore 注册为进程级默认值（`core/crates/runtime/application/src/core/application/OperitApplication.rs:183`）。
 HostManager 携带 httpHost 与 webSocketHost 时，newWithContext 把两者注册为默认值（`core/crates/runtime/application/src/core/application/OperitApplication.rs:189`）。
 newWithContext 无条件把 GitHub 登录 token 源注册为默认值（`core/crates/runtime/application/src/core/application/OperitApplication.rs:191`）。
@@ -53,7 +53,7 @@ HostManager 携带 serviceDiscoveryHost 与 httpServerHost 时，newWithContext 
 HostManager 携带 tcpHost、serialPortHost 与 hostRuntimeTaskSchedulerHost 时，newWithContext 把三者注册为默认值（`core/crates/runtime/application/src/core/application/OperitApplication.rs:203`）。
 开启 javascript 特性时，newWithContext 要求 HostManager 提供 HostJavaScriptRuntimeHost，缺失时 expect 直接 panic（`core/crates/runtime/application/src/core/application/OperitApplication.rs:215`）。
 开启 javascript 特性时，工具运行时依赖使用 HostJsExecutionProvider 作为 JS 执行提供方（`core/crates/runtime/application/src/core/application/OperitApplication.rs:229`）。
-FileSystemHost 缺失时，newWithContext 在 chatFileSystemHost 处用 expect 直接 panic（无条件）（`core/crates/runtime/application/src/core/application/OperitApplication.rs:220`）。
+FileSystemHost 缺失时，newWithContext 在 chatFileSystemHost 处用 expect 直接 panic（无条件）（`core/crates/runtime/application/src/core/application/OperitApplication.rs:220`）。截至基线，聊天初始化直接要求 FileSystemHost；上游 053c6686 已改为 hostManager.vfs().expect("Chat runtime requires VFS")（OperitApplication.rs:185）。
 newWithContext 创建 ToolRuntimeSupportService 作为运行时工具支持（`core/crates/runtime/application/src/core/application/OperitApplication.rs:225`）。
 newWithContext 创建 AIToolHandler、ToolPkgBridgeRuntime 与 ProviderRuntimeSupportService，分别作为工具处理器、ToolPkg 桥运行时与 Provider 运行时上下文（`core/crates/runtime/application/src/core/application/OperitApplication.rs:233`）。
 newWithContext 把工具运行时服务绑定到工具处理器与 Provider 运行时上下文，且只绑定一次，重复绑定时 expect 报错（`core/crates/runtime/application/src/core/application/OperitApplication.rs:237`）。
@@ -147,7 +147,7 @@ buildAttachmentTag 对有 VFS 定位的同步附件先在本地解析物理路�
 直接图片附件失败时记错误日志并回退为普通附件，不中止整次发送（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:833`）。
 直接音频附件经 buildDirectMediaAttachmentTag 生成媒体链接（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:853`）。
 直接视频附件经 buildDirectMediaAttachmentTag 生成媒体链接（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:861`）。
-直接图片附件注册要求 FileSystemHost，读不到字节或文件为空时报错（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:893`）。
+直接图片附件注册要求 FileSystemHost，读不到字节或文件为空时报错（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:893`）。截至基线，直接图片读取走 FileSystemHost 边界；上游 053c6686 的注册入口已接收 Option<&VisualFileSystem>（AIMessageManager.rs:885），经 fileResource 与 FileSource::readBytes 读取。
 图片池返回 imageId 为 error 时直接图片附件注册失败（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:904`）。
 附件属性含 id、filename、type，nodeId 非空时加 node_id（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:975`）。
 工具路径以 /app/、/operitapp/、/mnt/、/virtual/ 开头时附件属性加 path，fileSize 大于 0 时加 size（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:986`）。

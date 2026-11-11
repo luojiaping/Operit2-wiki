@@ -16,7 +16,7 @@ date: 2026-11-11
 自动摘要只取决于配置的上下文 token 阈值（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:646`）。
 摘要 hook 在摘要生成全过程分发三阶段事件，hook 可改写提示词与结果（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:86`）。
 压缩与 CoreNode 切换互不干扰：路由变更测试断言切换后不产生摘要任务（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3753`）。
-上下文用量显示存在：`chatInputMenuSummary` 返回当前窗口大小与累计 token 数（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2981`）。
+上下文用量显示存在：chatInputMenuSummary 返回当前窗口大小与累计 token 数（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2981`）。
 摘要消息的 sender 为 summary、roleName 为 system（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:608`）。
 
 ## AI 速览
@@ -39,7 +39,7 @@ date: 2026-11-11
 - ToolPkgSummaryHookBridge — ToolPkg 摘要 hook 桥（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:60`）
 - FunctionalPrompts 的 `buildSummarySystemPrompt` — 摘要系统提示词（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:159`）
 - FunctionalPrompts 的 `SUMMARY_PROMPT` — 摘要指令（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:3`）
-- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2981`）
+- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2962`）
 - beforeChangeRoute — 路由变更前钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:849`）
 - afterChangeRoute — 路由变更后钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:869`）
 - 主入口：`compactChat`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1527`）
@@ -140,7 +140,7 @@ date: 2026-11-11
 ### 上下文用量显示
 
 - `ChatInputMenuSummary` 含 `currentWindowSize`、`inputTokenCount`、`outputTokenCount` 与 `maxContextLength` 四个值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2981`）。
-- `chatInputMenuSummary` 的 `maxContextLength` 取自已解析模型配置的 `config.context.maxContextLength`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2984`）。
+- chatInputMenuSummary 的 `maxContextLength` 取自已解析模型配置的 `config.context.maxContextLength`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2984`）。
 - ChatServiceCore 的 `currentWindowSizeFlow` 暴露当前上下文窗口大小的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3125`）。
 - ChatServiceCore 的 `inputTokenCountFlow` 暴露累计输入 token 数的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3133`）。
 - ChatServiceCore 的 `outputTokenCountFlow` 暴露累计输出 token 数的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3141`）。
@@ -177,7 +177,7 @@ date: 2026-11-11
 - ToolPkgSummaryHookBridge — ToolPkg 摘要 hook 桥（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:60`）
 - FunctionalPrompts 的 `buildSummarySystemPrompt` — 摘要系统提示词（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:159`）
 - FunctionalPrompts 的 `SUMMARY_PROMPT` — 摘要指令（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:3`）
-- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2981`）
+- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2962`）
 - beforeChangeRoute — 路由变更前钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:849`）
 - afterChangeRoute — 路由变更后钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:869`）
 

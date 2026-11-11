@@ -78,7 +78,7 @@ date: 2026-11-11
 
 **消息删除**
 
-- `deleteMessage` 只向同步层记一条消息删除记录（`recordMessageDeletion`），不直接删行（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1091）。
+- `deleteMessage` 本身未直接编写 DELETE SQL，而是委托同步 store（`recordMessageDeletion`），在同一 SQLite 事务中删除本地消息、变体及 parts，并记录同步删除操作（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1091）（core/crates/persistence/store/src/sync/SqlChatSyncStore.rs:381）（core/crates/persistence/store/src/sync/SqlChatSyncStore.rs:701）。
 - `deleteMessagesFrom` 删除从指定时间戳起的全部消息（`recordMessagesFromDeletion`）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1259）。
 - `clearChatMessages` 删除会话内全部消息与变体（`recordAllMessagesForChatDeletion`）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1269）。
 
@@ -103,7 +103,7 @@ date: 2026-11-11
 - `loadChatMessagesWithOptions` 的 order 只有 desc 走倒序，其他值一律按 ASC（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1609）。
 - loadChatMessagesWithOptions 的 limit 小于 1 时按 1 处理（`limit.max(1)`）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1618）。
 - `loadChatMessagesRange` 要求 0 <= start <= end，否则报 `range requires 0 <= start <= end`（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1629）。
-- loadChatMessagesRange 返回条数为 end - start + 1（`checked_sub` 后 `checked_add(1)`）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1637）。
+- loadChatMessagesRange 读取上限为 end - start + 1（`checked_sub` 后 `checked_add(1)`，由 `LIMIT` 执行，历史不足时返回更少）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1637）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1654）。
 - loadRuntimeChatMessages 从最新一条 `summary` 消息起（含该摘要）加载消息，供模型上下文（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1744）。
 - loadMessagesAfterLatestSummaryInRange 只取最新摘要之后的消息，不含摘要本身（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1722）。
 - `getLatestSummaryTimestamp` 返回一个会话里最新摘要消息的时间戳（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1697）。

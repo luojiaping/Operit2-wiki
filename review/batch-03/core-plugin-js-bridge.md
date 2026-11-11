@@ -12,7 +12,7 @@ javascript-bridge crate 只公开 `pub mod javascript` 一个模块（`core/crat
 该 crate 以 `extern crate self as operit_js_bridge` 把自身命名为 `operit_js_bridge`（`core/crates/plugin/javascript-bridge/src/lib.rs:1`）。
 `JsEngine` 是 JS 执行引擎，实现 SDK 的 `JsExecutionEngine` trait（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2646`）。
 `HostJsExecutionProvider` 实现 SDK 的 `JsExecutionProvider` trait，是引擎的提供方（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:91`）。
-JS 通过 `__operitNative*` 宿主绑定调用宿主操作，35 个同步绑定以 `executeHostOperation` 为统一分发函数注册到 Host 运行时（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1930`）。
+JS 通过 `__operitNative`* 宿主绑定调用宿主操作，35 个同步绑定以 `executeHostOperation` 为统一分发函数注册到 Host 运行时（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1930`）。
 12 个异步宿主绑定以 `executeHostOperation` 的结果结算 Promise（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2151`）。
 引擎与 SDK 的衔接点是 `JsExecutionHost`：host 与 context 同时存在时先调 `context.validate()` 再调 `host.for_toolpkg_execution_context(context)`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:303`）。
 `JsExecutionHost` 与 `JsExecutionProvider` 两个 trait 的定义见 [[core-plugin-sdk|插件——Plugin SDK]]。
@@ -24,7 +24,7 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 - `JsEngineWorker` — 持有引擎 owner 与可选执行宿主的工作体（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:76`）
 - `JsEngineOwner` — 持有生命周期中断、运行时宿主、状态句柄与存活标志（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:81`）
 - `JsEngineState` — 引擎状态，持有运行时、执行宿主与包上下文（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:283`）
-- `PreparedJsEngine` — 未绑定引擎，`bind` 一次绑定包环境（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:788`）
+- `PreparedJsEngine` — 未绑定引擎，bind 一次绑定包环境（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:788`）
 - `JsPackageBinding` — 一次性包绑定，重复绑定返回错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:820`）
 - `HostJsExecutionProvider` — SDK `JsExecutionProvider` trait 的实现，持有预备引擎池（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:16`）
 - `HostJsExecutionEngineFactory` — 执行引擎工厂，持有执行宿主与预备引擎池（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:53`）
@@ -35,7 +35,7 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 - `JsIpcTiming` — IPC 计时，以 Host 调度器的单调时钟记录提交时刻（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:149`）
 - `JsPendingScriptExecution` — 进行中的脚本执行，被丢弃时以会话结束完成调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:199`）
 - `executeHostOperation` — 宿主操作统一分发函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1930`）
-- `toolPkgCallContext` — 调用身份推导：包目标、上下文键与运行时（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2421`）
+- toolPkgCallContext — 调用身份推导：包目标、上下文键与运行时（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2421`）
 - `parseToolCallValue` — 解析工具调用值：工具名、参数与设备（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:30`）
 - `toolExecutionResultValue` — 生成工具执行结果信封（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:332`）
 - 主入口函数：`new_toolpkg_execution_engine`（创建绑定包环境的引擎）（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:852`）
@@ -239,8 +239,8 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 - `registerHostBindings` — 注册宿主绑定（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1888`）
 - `registerCoreRoute` — 注册 Core 路由（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1866`）
 - `executeHostOperation` — 宿主操作统一分发函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1930`）
-- `dispatchStructuredToolCall` — 结构化工具调用分发（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2221`）
-- `toolPkgCallContext` — 调用身份推导（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2421`）
+- dispatchStructuredToolCall — 结构化工具调用分发（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2221`）
+- toolPkgCallContext — 调用身份推导（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2421`）
 - `parseToolCallValue` — 解析工具调用值（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:30`）
 - `toolExecutionResultValue` — 生成工具执行结果信封（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:332`）
 - `BINARY_DATA_REGISTRY` — 二进制结果注册表（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:45`）
@@ -251,7 +251,7 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 ### JS 调用宿主工具
 
 1. JS 调用 `__operitNativeCallToolStructured`，专属闭包分发结构化工具调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2005`）。
-2. `dispatchStructuredToolCall` 接受类型、名称、参数与归属调用 ID 四个参数，另可附第 5 个设备元数据参数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2221`）。
+2. dispatchStructuredToolCall 接受类型、名称、参数与归属调用 ID 四个参数，另可附第 5 个设备元数据参数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2221`）。
 3. 结构化工具调用在 Host 调度器的阻塞池上执行，工具执行器可做阻塞宿主调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2280`）。
 4. 参数经 `parseToolCallValue` 校验，工具名去空白后为空时返回 `"Tool name cannot be empty"`（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:30`）。
 5. 参数必须是 JSON 对象，否则返回 `"Tool params must be a JSON object"`（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:34`）。

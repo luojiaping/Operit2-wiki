@@ -52,7 +52,7 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - 多数 hook 注册用 `hookId` 标识一次注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:11`）。
 - 消息处理、XML 渲染与输入菜单开关三类用 `pluginId` 标识插件（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:22`）。
 - `ToolPkgAiProviderRegistration` 是 ToolPkg 支撑的 AI Provider 注册结构，不是 hook 注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:144`）。
-- 除菜单对话框子结构外，所有注册结构都有 `containerPackageName`、`functionName` 与可选的 `functionSource`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:12`）。
+- 14 个 hook 注册结构都有 `containerPackageName`、`functionName` 与可选的 `functionSource`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:12`）；菜单对话框子结构只含 `screen` 与 `title`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:91`）；AI Provider 注册 `ToolPkgAiProviderRegistration`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:144`）是四组独立方法字段 `listModelsFunctionName`/`listModelsFunctionSource`、`sendMessageFunctionName`/`sendMessageFunctionSource`、`testConnectionFunctionName`/`testConnectionFunctionSource`、`calculateInputTokensFunctionName`/`calculateInputTokensFunctionSource`，无通用函数名与函数来源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:151`）。
 
 ### 调用输入与结果解码
 

@@ -204,7 +204,7 @@
     "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:33"
   },
   {
-    "fact": "`MAX_SOURCE_BUCKETS` 为 512，限制来源轮换攻击下的内存占用。",
+    "fact": "`MAX_SOURCE_BUCKETS` 为 512，只是来源桶数的常量值，不是无条件硬上限：新来源先插入桶，额度不足直接返回而不清理，只有成功消费令牌后才调 prune，因此来源表可增长到 512 以上。",
     "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:37"
   },
   {
@@ -380,11 +380,11 @@
     "ref": "core/peer-protocol.json:42"
   },
   {
-    "fact": "最新修订为 version 15。",
+    "fact": "截至基线 364d1d594，最新修订为 version 15；上游 053c6686 已是 version 19（同文件 :116）。",
     "ref": "core/peer-protocol.json:100"
   },
   {
-    "fact": "schemaRoots 列出 7 个模式根目录。",
+    "fact": "截至基线 364d1d594，schemaRoots 列出 7 个模式根目录；上游 053c6686 已是 8 个（:120 起，新增 foundation/vfs）。",
     "ref": "core/peer-protocol.json:104"
   },
   {

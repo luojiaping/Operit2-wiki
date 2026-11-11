@@ -41,7 +41,7 @@ README 声明的边界：生成的本地代理分发不得查询路由运行时�
 ### 扫描：从源码到代理 IR
 
 - `CoreProxyRegisteredRoots` 显式登记 14 个源码根目录，外加 proxy manifest 目录（`core/crates/proxy/scan/src/lib.rs:22`）
-- `CoreProxyRegisteredRoots::from_proxy_manifest_dir` 从 proxy crate 路径派生各根目录，例如 runtime 根指向 `../../runtime/application/src`（`core/crates/proxy/scan/src/lib.rs:44`）
+- CoreProxyRegisteredRoots::from_proxy_manifest_dir 从 proxy crate 路径派生各根目录，例如 runtime 根指向 `../../runtime/application/src`（`core/crates/proxy/scan/src/lib.rs:44`）
 - `CoreProxyScanConfig` 包装根注册表（`core/crates/proxy/scan/src/lib.rs:69`）。
 `from_proxy_manifest_dir` 由 proxy crate 路径创建标准扫描配置（`core/crates/proxy/scan/src/lib.rs:80`）。
 - 本文件重导出 `operit_rslink_codegen` 的全部符号，代理 IR 类型来自该共享库，见 [[core-rslink|RsLink]]（`core/crates/proxy/scan/src/lib.rs:17`）。
@@ -66,20 +66,19 @@ README 声明的边界：生成的本地代理分发不得查询路由运行时�
 
 - `write_rust_proxy_artifacts` 写出生成的 Rust 代理分发与 schema 产物（`core/crates/proxy/rust-codegen/src/lib.rs:16`）。
 Rust 发射器渲染 schema JSON 与生成的 Rust 分发代码，写入 `generated_core_dispatch.rs`，并返回 schema JSON 字符串（`core/crates/proxy/rust-codegen/src/lib.rs:23`）。
-- schema 产物写到仓库根 `core/generated/core_proxy_schema.json`；仓库根由 proxy manifest 目录上溯四级得到，要求 proxy/local 位于 `core/crates/proxy` 之下（`core/crates/proxy/rust-codegen/src/lib.rs:36`）
+- schema 产物写到仓库根 core/generated/core_proxy_schema.json；仓库根由 proxy manifest 目录上溯四级得到，要求 proxy/local 位于 `core/crates/proxy` 之下（`core/crates/proxy/rust-codegen/src/lib.rs:36`）
 - `write_generated_file` 仅在内容字节变化时才写文件（`core/crates/proxy/rust-codegen/src/lib.rs:45`）
-- local crate 通过 `include!` 引入 `OUT_DIR/generated_core_dispatch.rs` 中的生成分发代码（`core/crates/proxy/local/src/lib.rs:22`）
+- local crate 通过 `include!` 引入 OUT_DIR/generated_core_dispatch.rs 中的生成分发代码（`core/crates/proxy/local/src/lib.rs:22`）
 - `pluginSdkSurface()` 返回由显式源码注解生成的 SDK 路由面 `PluginSdkSurface`（`core/crates/proxy/local/src/lib.rs:29`）
 
 ### Dart 发射器：生成 Flutter 模型与客户端
 
 - `write_dart_proxy_artifacts` 把生成的 Dart 产物写到生成目录（`core/crates/proxy/dart-codegen/src/lib.rs:44`）。
-- 生成目录为 `apps/flutter/app/lib/core/proxy/generated/`，仓库根由 manifest 目录上溯四级得到（`core/crates/proxy/dart-codegen/src/lib.rs:48`）
+- 生成目录为 apps/flutter/app/lib/core/proxy/generated/，仓库根由 manifest 目录上溯四级得到（`core/crates/proxy/dart-codegen/src/lib.rs:48`）
 - 生成的 Dart 产物为 `CoreProxyModels.g.dart` 与 `CoreProxyClients.g.dart`（`core/crates/proxy/dart-codegen/src/lib.rs:55`）
 - 生成的 Dart 文件以 `// GENERATED CODE - DO NOT MODIFY BY HAND` 开头（`core/crates/proxy/dart-codegen/src/lib.rs:2084`）
-- `render_dart_models` 只收录从对象方法可达的可序列化类型（`core/crates/proxy/dart-codegen/src/lib.rs:76`）。
+- `render_dart_models` 先收录从对象方法可达的可序列化类型，再经 `include_source_tree_model_types` 额外收录 operit_node_runtime 的源码树模型类型（`core/crates/proxy/dart-codegen/src/lib.rs:76`，同文件 :79 调用该额外收录函数，函数定义在 :338）。
 - 模型类型按 `full_type` 排序（`core/crates/proxy/dart-codegen/src/lib.rs:84`）。
-`include_source_tree_model_types` 额外收录 `operit_node_runtime` 的源码树模型类型（`core/crates/proxy/dart-codegen/src/lib.rs:338`）。
 - 生成的模型文件导入 `dart:async`、`dart:typed_data`、`CoreLinkCodec` 与 `CoreLinkProtocol`（`core/crates/proxy/dart-codegen/src/lib.rs:84`）
 - `fromCoreLinkError` 从 `CoreLinkError` 构造 `CoreProxyErrorDetails`（`core/crates/proxy/dart-codegen/src/lib.rs:137`）
 - 错误详情模型的字段为 `errorType`、`message`、`variant`、`kind`、`httpStatus`、`remoteMessage`、`fields`（`core/crates/proxy/dart-codegen/src/lib.rs:165`）
@@ -110,7 +109,7 @@ Rust 发射器渲染 schema JSON 与生成的 Rust 分发代码，写入 `genera
 - `application` 对象额外生成 `runCoreCommand`，经 `bridge.callApplication` 执行 CLI 风格的 Core 命令（`core/crates/proxy/dart-codegen/src/lib.rs:386`）
 - 反向流方法返回 `Future<void>`，经 `bridge.push` 发送 `CorePushRequest`（`core/crates/proxy/dart-codegen/src/lib.rs:445`）。
 反向流方法逐项 `sink.add`，最后在 `finally` 中关闭 sink（`core/crates/proxy/dart-codegen/src/lib.rs:460`）。
-- 调用方法返回 `Future<返回类型>`（`core/crates/proxy/dart-codegen/src/lib.rs:481`）。
+- 调用方法返回 Future<返回类型>（`core/crates/proxy/dart-codegen/src/lib.rs:481`）。
 调用方法经 bridge 发送 `CoreCallRequest`（`core/crates/proxy/dart-codegen/src/lib.rs:494`）。
 - 登记表中的方法走 `callControlBytes`，其余走 `callBytes`（`core/crates/proxy/dart-codegen/src/lib.rs:488`）。
 - `control_call_registry` 只含一对（`services.runtimeHostInteractionService`，`respondOwnerHostInteraction`）（`core/crates/proxy/dart-codegen/src/lib.rs:518`）
@@ -119,10 +118,10 @@ Rust 发射器渲染 schema JSON 与生成的 Rust 分发代码，写入 `genera
 工厂参数以 `__core_factory_arg_{index}` 为键传入（`core/crates/proxy/dart-codegen/src/lib.rs:550`）。
 工厂方法返回目标 schema 键的新代理实例，工厂目标对象必须已生成（`core/crates/proxy/dart-codegen/src/lib.rs:565`）。
 - watch 方法由 `render_dart_watch_method` 生成（`core/crates/proxy/dart-codegen/src/lib.rs:576`）。
-watch 方法经 `bridge.watchStream` 发起请求，并过滤掉 `Completed` 事件（`core/crates/proxy/dart-codegen/src/lib.rs:609`）。
+watch 方法经 bridge.watchStream 发起请求，并过滤掉 `Completed` 事件（`core/crates/proxy/dart-codegen/src/lib.rs:609`）。
 - 完整流用 `CoreLinkStreamEventValueDecoder` 解码；增量列表 watch 用 `CoreLinkListEventDecoder`；其余 watch 用 `CoreLinkEventValueDecoder`（`core/crates/proxy/dart-codegen/src/lib.rs:602`）
 - `dart_type` 把 `Vec<u8>`、`CoreBuffer` 与 `operit_link::CoreBuffer` 映射为 `Uint8List`（`core/crates/proxy/dart-codegen/src/lib.rs:1513`）
-- `dart_type` 把 `Option<T>` 映射为 `T?`（`core/crates/proxy/dart-codegen/src/lib.rs:1516`）
+- `dart_type` 把 Option<T> 映射为 T?（`core/crates/proxy/dart-codegen/src/lib.rs:1516`）
 - `dart_type` 把 `Vec` 与 `HashSet` 映射为 `List`，把 `HashMap` 与 `BTreeMap` 映射为 `Map`（`core/crates/proxy/dart-codegen/src/lib.rs:1530`）。
 - `dart_type` 把 `()` 映射为 `void`、`bool` 映射为 `bool`、Rust 整数映射为 `int`、`f32`/`f64` 映射为 `double`（`core/crates/proxy/dart-codegen/src/lib.rs:1546`）
 - 把 `String` 与 `&str` 映射为 `String`，`serde_json::Value` 映射为 `Object?`（`core/crates/proxy/dart-codegen/src/lib.rs:1552`）
@@ -139,7 +138,7 @@ watch 方法经 `bridge.watchStream` 发起请求，并过滤掉 `Completed` 事
 - `installCoreCommandExecutor` 只在非 wasm32 目标上编译，wasm32 目标不安装 core 命令执行器（`core/crates/proxy/local/src/lib.rs:163`）
 - 在非 wasm32 目标上，`installCoreCommandExecutor` 安装 core 命令执行器；`hostManager.coreCommandExecutor` 已设置时返回 `None`，不重复安装（`core/crates/proxy/local/src/lib.rs:167`）。
 - core 命令执行器以任务名 `core-tool-command` 调度 `operit_command_core::run_core_command`（`core/crates/proxy/local/src/lib.rs:192`）。
-- 缺少任务调度宿主时，core 命令执行器安装报错 `Core command execution requires a task scheduler host`（`core/crates/proxy/local/src/lib.rs:185`）
+- 未预设执行器时安装闭包；实际执行 Core 命令时要求 Host 调度器，缺少任务调度宿主时报错 `Core command execution requires a task scheduler host`（`core/crates/proxy/local/src/lib.rs:185`）。安装时在同文件 :170 创建闭包，调度器检查在闭包内 :180–187；安装本身 :213–215 只写执行器并返回运行时，不检查调度器。
 - `generatedTargetForSchema` 把 schema 键映射为稳定的目标字符串，`generatedTargetForType` 把具体运行时类型名映射为生成的本地对象 ID（`core/crates/proxy/local/src/lib.rs:76`）
 - `bindCoreNodeToolRuntime` 经 `toolRuntimeSupport` 安装服务端 CoreNode 工具能力，不占用应用分发锁（`core/crates/proxy/local/src/lib.rs:87`）
 - `bindCoreRouteChangeHandler` 安装 AI 回合完成后使用的路由变更控制器（`core/crates/proxy/local/src/lib.rs:98`）
@@ -149,8 +148,8 @@ watch 方法经 `bridge.watchStream` 发起请求，并过滤掉 `Completed` 事
 - 组装时用共享客户端、应用客户端、运行时存储宿主与 `generatedTargetForSchema` 组装 `CoreNodeLocalRuntime`（`core/crates/proxy/local/src/lib.rs:272`）。
 - 组装时挂接 `peerServices`，并把绑定闭包与 `openPush` 闭包传入（`core/crates/proxy/local/src/lib.rs:278`）。
 - `runtimeStorageHost` 在未设置 `RuntimeStorageHost` 时 panic（`core/crates/proxy/local/src/lib.rs:230`）
-- `fileSystemHost` 在未设置 `FileSystemHost` 时 panic（`core/crates/proxy/local/src/lib.rs:283`）
-- `CoreLinkSharedClient::call` 经 `dispatchCall` 分发，成功返回 `CoreCallResponse::ok`，失败返回 `CoreCallResponse::err`（`core/crates/proxy/local/src/lib.rs:320`）
+- 截至基线 364d1d594，fileSystemHost() 在未设置 `FileSystemHost` 时 panic（`core/crates/proxy/local/src/lib.rs:283`）；上游 053c6686 已改成 filesystem() -> Arc<VisualFileSystem>（同文件 :283），调用 hostManager.vfs().expect("LocalCoreProxy requires VFS")。
+- CoreLinkSharedClient::call 经 `dispatchCall` 分发，成功返回 `CoreCallResponse::ok`，失败返回 `CoreCallResponse::err`（`core/crates/proxy/local/src/lib.rs:320`）
 - `dispatchCall` 把请求交给生成的 `generated_dispatch_core_proxy_call`，在 `isolation::future` 中执行，并把捕获的流附件收养进流池（`core/crates/proxy/local/src/lib.rs:429`）
 - 异步 watch 快照在 `withCoreStreamCapture` 与 `isolation::future` 中调用生成的 `generated_dispatch_core_proxy_watch_snapshot_async`，错误消息后追加请求上下文（`core/crates/proxy/local/src/lib.rs:336`）。
 - `watch` 目标为 `CORE_STREAM_TARGET` 时从流池打开匿名流源，否则走生成的 watch 分发（`core/crates/proxy/local/src/lib.rs:350`）
@@ -172,7 +171,7 @@ watch 方法经 `bridge.watchStream` 发起请求，并过滤掉 `Completed` 事
 - 桥契约还包含 `watchLocalApplication` 与 `openLocalApplicationPush` 两个方法（`core/crates/proxy/bridge/src/lib.rs:27`）。
 - `LocalApplicationSharedClient` 把一个 `LocalApplicationBridgeTarget` 适配为共享 Link 客户端，绑定到一个 `application_object_id`（`core/crates/proxy/bridge/src/lib.rs:36`）
 - 目标不匹配时客户端返回 `LOCAL_APPLICATION_TARGET_REQUIRED` 错误（`core/crates/proxy/bridge/src/lib.rs:51`）。
-- `LocalApplicationSharedClient::call` 先校验 target，不一致返回 `targetError`，否则委托给桥目标的 `callLocalApplication`（`core/crates/proxy/bridge/src/lib.rs:68`）
+- LocalApplicationSharedClient::call 先校验 target，不一致返回 `targetError`，否则委托给桥目标的 `callLocalApplication`（`core/crates/proxy/bridge/src/lib.rs:68`）
 - `watchSnapshot` 先校验 target，不一致返回 `targetError`，否则委托给桥目标的 `watchLocalApplicationSnapshot`（`core/crates/proxy/bridge/src/lib.rs:77`）
 - `watch` 先校验 target，不一致返回 `targetError`，否则委托给桥目标的 `watchLocalApplication`（`core/crates/proxy/bridge/src/lib.rs:85`）
 - `openPush` 先校验 target，不一致返回 `targetError`，否则委托给桥目标的 `openLocalApplicationPush`（`core/crates/proxy/bridge/src/lib.rs:96`）
@@ -217,7 +216,7 @@ watch 方法经 `bridge.watchStream` 发起请求，并过滤掉 `Completed` 事
 12. `write_rust_proxy_artifacts` 写出生成的 Rust 代理分发与 schema 产物（`core/crates/proxy/rust-codegen/src/lib.rs:16`）。
 13. `write_dart_proxy_artifacts` 写出生成的 Dart 产物（`core/crates/proxy/dart-codegen/src/lib.rs:44`）。
 14. `new` 接收 `OperitApplication`，建成运行时（`core/crates/proxy/local/src/lib.rs:128`）。
-15. Dart 客户端经 `bridge.callBytes` 发送 `CoreCallRequest`（`core/crates/proxy/dart-codegen/src/lib.rs:494`）
+15. Dart 客户端经 bridge.callBytes 发送 `CoreCallRequest`（`core/crates/proxy/dart-codegen/src/lib.rs:494`）
 16. `dispatchCall` 把请求交给生成的 `generated_dispatch_core_proxy_call`（`core/crates/proxy/local/src/lib.rs:429`）。
 17. watch 请求经生成的 watch 分发打开流，流附件由 `adoptCoreStreamAttachments` 收养进 `coreStreamPool`（`core/crates/proxy/local/src/lib.rs:467`）
 
