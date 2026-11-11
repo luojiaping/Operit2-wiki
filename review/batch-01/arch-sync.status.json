@@ -1,1 +1,9 @@
-{"issue":10,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"持久化同步总览：Space 内持久化操作与 Blob 的交换、事务模型与强制校正","updated":"2026-11-11"}
+{
+  "issue": 10,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "持久化同步总览：Space 内持久化操作与 Blob 的交换、事务模型与强制校正",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6789513570
+}

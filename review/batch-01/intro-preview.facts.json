@@ -166,5 +166,21 @@
   {
     "fact": "docs/release-notes/ 目录下只有两份文件：2.0.0-preview.22-build28.md 与 2.0.0-preview.27-build33.md",
     "ref": "docs/release-notes/2.0.0-preview.22-build28.md:1"
+  },
+  {
+    "fact": "operit2 cli update check 支持无参数调用，无参数时自动使用 CARGO_PKG_VERSION 作当前版本。",
+    "ref": "apps/cli/src/cli/mod.rs:531"
+  },
+  {
+    "fact": "operit2 cli update check 接受显式参数 current_version，显式参数覆盖版本比较基准。",
+    "ref": "apps/cli/src/cli/mod.rs:559"
+  },
+  {
+    "fact": "cli update check 只检查是否有可用更新，不下载。",
+    "ref": "docs/release-versioning.md:419"
+  },
+  {
+    "fact": "发布包命名的共享实现是 tools/build_scripts/release_artifacts.py。",
+    "ref": "docs/release-versioning.md:90"
   }
 ]

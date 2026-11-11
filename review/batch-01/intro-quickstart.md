@@ -2,7 +2,7 @@
 title: 第一次运行
 module: intro
 platforms: [windows, linux, macos, android, ios, ohos, web]
-sources: [README.md, docs/device-space-lan-discovery.md, apps/flutter/app/web/README.md, apps/cli/src/cli/link.rs, apps/cli/src/cli/mod.rs, apps/cli/src/cli/transfer.rs, apps/cli/src/cli/web.rs, apps/cli/src/main.rs, apps/flutter/app/web_dev_config.yaml, core/crates/command/core/src/commands/storage.rs]
+sources: [README.md, docs/device-space-lan-discovery.md, apps/flutter/app/web/README.md, apps/cli/src/cli/link.rs, apps/cli/src/cli/mod.rs, apps/cli/src/cli/transfer.rs, apps/cli/src/cli/web.rs, apps/cli/src/main.rs, apps/flutter/app/web_dev_config.yaml, core/crates/command/core/src/commands/storage.rs, core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs, core/crates/foundation/model/src/ModelConfigData.rs, core/crates/persistence/store/src/PreferencesDataStore.rs, core/crates/node/runtime/src/NodeSpaceService.rs, core/crates/node/runtime/src/peer/space_join.rs, apps/flutter/app/lib/ui/common/PeerQrCodeDialog.dart, apps/flutter/app/lib/ui/common/DeviceSpaceDiscoveryPanel.dart, apps/flutter/app/lib/ui/common/SpaceJoinWidgets.dart, apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart]
 date: 2026-11-11
 ---
 
@@ -31,6 +31,11 @@ Operit2 处于 Preview 阶段，底层结构、数据格式、插件契约与跨
 - `nodeId` — 发现广播与连接码中的节点标识（`docs/device-space-lan-discovery.md:9`）
 - `ServiceDiscovery` — 记录发现接口、地址、守护进程错误与扫描总数的日志来源（`docs/device-space-lan-discovery.md:46`）
 - `RuntimePeerService` — 记录广播总数与四类过滤总数的组件（`docs/device-space-lan-discovery.md:51`）
+- `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:603`）
+- `ModelConfigManager::preferenceStore` — 模型配置管理器入口，用 newWithStorage 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:108`）
+- `PreferencesDataStore::newWithStorage` — 创建 Space 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2924`）
+- `SpaceJoinRequest` — 加入申请记录，状态字段是 SpaceJoinStatus（`core/crates/node/runtime/src/NodeSpaceService.rs:313`）
+- `SpaceJoinStatus` — Pending、Approving、Approved、Rejected、Cancelled、Expired、Joined（`core/crates/node/runtime/src/NodeSpaceService.rs:307`）
 
 主入口：
 
@@ -109,6 +114,7 @@ TXT 元数据必须包含 `nodeId`、`displayName` 与 `transports`，不完整�
 `operit2 cli link qr http --no-discovery` 在没有守护进程或 TUI 属主运行时启动 HTTP 监听器并保持到 Ctrl-C（`docs/device-space-lan-discovery.md:130`）。
 `link qr` 的 `--json` 以无终端转义序列的形式输出连接信息（`docs/device-space-lan-discovery.md:135`）。
 交互式 `link session` 中 `qr` 显示同一连接码，`pair <connection-code>` 完成 QR 配对，`space` 命令提交或检查加入请求（`docs/device-space-lan-discovery.md:138`）。
+Flutter 扫码后点 `Confirm join` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4565`）。
 
 ### Web Access
 
@@ -140,7 +146,16 @@ runtime 布局：`runtime/src` 存放 TypeScript 源码，`runtime/generated` �
 
 命令参数以 `operit2 --help` 与 `operit2 cli` 的实际输出为准；不得用默认开发 token 在公网监听；不得把 token、私钥或真实业务数据放进公开日志或截图（`README.md:53`）。
 
-API 密钥、设备私钥、配对密钥、会话与本地平台权限默认归属本地节点，加入 `Space` 不会自动复制（`README.md:128`）。`Full` 只表示放宽 AI 能力限制，不提升 `Host` 权限，也不创造操作系统没有的能力（`README.md:129`）。
+README 称 API 密钥、设备私钥、配对密钥、会话与本地平台权限默认归属本地节点，加入 `Space` 不会自动复制（`README.md:128`）。`Full` 只表示放宽 AI 能力限制，不提升 `Host` 权限，也不创造操作系统没有的能力（`README.md:129`）。
+
+Provider 配置走另一条路，与上面这句 README 原则冲突：
+`ModelConfigManager` 的模型配置 store 由 `preferenceStore` 创建（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:136`）。
+`preferenceStore` 用 `PreferencesDataStore::newWithStorage` 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:112`）。
+`newWithStorage` 创建的是 `Space` 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2924`）。
+`writeProvider` 把整个 `ProviderProfile` 以 `provider_<id>` 为键写入同步偏好（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332`）。
+`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:603`）。
+结论：Provider 凭证存在随配置同步的实现路径，加入 `Space` 不会自动复制不能作为当前实现的保证（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332`）。
+范围说明：以上只核实了代码里的同步偏好写入路径，没有做真实双设备同步实验，不保证另一台设备实际收到凭证。
 
 ## 关键符号
 
@@ -153,6 +168,11 @@ API 密钥、设备私钥、配对密钥、会话与本地平台权限默认归�
 - `nodeId` — 发现广播与连接码中的节点标识（`docs/device-space-lan-discovery.md:9`）
 - `ServiceDiscovery` — 记录发现接口、地址、守护进程错误与扫描总数的日志来源（`docs/device-space-lan-discovery.md:46`）
 - `RuntimePeerService` — 记录广播总数与四类过滤总数的组件（`docs/device-space-lan-discovery.md:51`）
+- `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:603`）
+- `ModelConfigManager::preferenceStore` — 模型配置管理器入口，用 newWithStorage 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:108`）
+- `PreferencesDataStore::newWithStorage` — 创建 Space 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2924`）
+- `SpaceJoinRequest` — 加入申请记录，状态字段是 SpaceJoinStatus（`core/crates/node/runtime/src/NodeSpaceService.rs:313`）
+- `SpaceJoinStatus` — 加入申请状态机（`core/crates/node/runtime/src/NodeSpaceService.rs:307`）
 - `web_dev_config.yaml` — Flutter Web 开发服务器的配置，内置服务器地址 127.0.0.1:4835（`apps/flutter/app/web/README.md:18`）
 - `operit2 cli link` — CLI 的配对、发现与 Space 管理入口（`apps/cli/src/cli/link.rs:36`）
 
@@ -162,10 +182,18 @@ API 密钥、设备私钥、配对密钥、会话与本地平台权限默认归�
 2. 启动本节点：`operit2` 进入 TUI（`README.md:175`），或从仓库根目录用 `cargo run --manifest-path apps/cli/Cargo.toml --bin operit2` 启动 CLI（`README.md:170`）。
 3. 启动监听器：`operit2 cli link listen http`（`apps/cli/src/cli/link.rs:1309`）；设备在监听器运行且 `discoveryEnabled` 开启时才广播（`docs/device-space-lan-discovery.md:7`）。
 4. 发现对端：`operit2 cli link discover`（`apps/cli/src/cli/link.rs:1304`），或在添加设备对话框里 5 秒扫描（`docs/device-space-lan-discovery.md:11`）。
-5. 配对：扫码用 `operit2 cli link qr`（`apps/cli/src/cli/link.rs:1305`），或 `operit2 cli link pair [device-name|connection-code]` 后输入六位配对码（`apps/cli/src/cli/link.rs:1303`）。
-6. 加入 Space：`operit2 cli link space join [device-name|number]`（`apps/cli/src/cli/link.rs:1310`），用 `operit2 cli link space show` 核对 Space 名称与成员数量（`apps/cli/src/cli/link.rs:729`）。
-7. 用浏览器访问：`operit2 cli web open` 打开 https://web.operit.app/（`apps/cli/src/cli/web.rs:6`）；打开页面不会自动让浏览器成为 `Space` 中的独立节点（`README.md:72`）。
-8. 备份：`operit2 cli export snapshot <path>` 导出快照（`apps/cli/src/cli/transfer.rs:53`），恢复用 `operit2 cli backup restore <path>`（`apps/cli/src/cli/transfer.rs:122`），检查用 `operit2 cli backup inspect <snapshot-zip-path>`（`apps/cli/src/cli/transfer.rs:123`）。
+5. 连接码配对——提供方：`operit2 cli link qr` 显示二维码与连接码（`apps/cli/src/cli/link.rs:195`）。
+6. 连接码配对——接收方：`operit2 cli link pair <connection-code>`，`operit://` 分支配对成功后直接返回，不出现六位码提示（`apps/cli/src/cli/link.rs:122`）。
+7. 手动配对：`operit2 cli link pair <device-name>` 后在接收设备上读六位码，CLI 提示输入配对码完成配对（`apps/cli/src/cli/link.rs:127`）。
+8. 加入 Space：`operit2 cli link space join [device-name|number]` 只提交加入申请并打印回执（`apps/cli/src/cli/link.rs:799`）。
+9. 加入审批：Space 一侧用 `link space requests incoming` 查看收到的申请，用 `link space approve [applicant-name]` 或 `reject` 做决定（`apps/cli/src/cli/link.rs:830`）。
+10. 查申请状态：申请人用 `link space requests outgoing` 列出已发出的申请（`apps/cli/src/cli/link.rs:805`）。
+11. 刷新申请：`link space refresh [space-name]` 对发出的申请调用 `refreshDeviceSpaceJoin` 并打印更新后的回执（`apps/cli/src/cli/link.rs:824`）。
+12. 成功判据：已批准的加入申请经 `adoptApprovedMembership` 落为 `Joined`（`core/crates/node/runtime/src/peer/space_join.rs:1318`）。
+13. 核对成员：用 `operit2 cli link space show` 核对 Space 名称与成员数量（`apps/cli/src/cli/link.rs:729`）。
+14. Flutter 扫码：扫码后点 `Confirm join` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4565`）。
+15. 用浏览器访问：`operit2 cli web open` 打开 https://web.operit.app/（`apps/cli/src/cli/web.rs:6`）；打开页面不会自动让浏览器成为 `Space` 中的独立节点（`README.md:72`）。
+16. 备份：`operit2 cli export snapshot <path>` 导出快照（`apps/cli/src/cli/transfer.rs:53`），恢复用 `operit2 cli backup restore <path>`（`apps/cli/src/cli/transfer.rs:122`），检查用 `operit2 cli backup inspect <snapshot-zip-path>`（`apps/cli/src/cli/transfer.rs:123`）。
 
 ## 来源
 
@@ -179,3 +207,12 @@ API 密钥、设备私钥、配对密钥、会话与本地平台权限默认归�
 - apps/cli/src/main.rs
 - apps/flutter/app/web_dev_config.yaml
 - core/crates/command/core/src/commands/storage.rs
+- core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs
+- core/crates/foundation/model/src/ModelConfigData.rs
+- core/crates/persistence/store/src/PreferencesDataStore.rs
+- core/crates/node/runtime/src/NodeSpaceService.rs
+- core/crates/node/runtime/src/peer/space_join.rs
+- apps/flutter/app/lib/ui/common/PeerQrCodeDialog.dart
+- apps/flutter/app/lib/ui/common/DeviceSpaceDiscoveryPanel.dart
+- apps/flutter/app/lib/ui/common/SpaceJoinWidgets.dart
+- apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart

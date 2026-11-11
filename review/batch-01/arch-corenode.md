@@ -2,7 +2,7 @@
 title: CoreNode
 module: arch
 platforms: [all]
-sources: [docs/core-node-space-binding-architecture.md, core/CRATE_BOUNDARIES.md, core/crates/README.md, core/crates/application/core/src/lib.rs, core/crates/node/runtime/src/CoreNodeRouter.rs, core/crates/proxy/local/src/lib.rs]
+sources: [docs/core-node-space-binding-architecture.md, core/CRATE_BOUNDARIES.md, core/crates/README.md, core/crates/application/core/src/lib.rs, core/crates/node/runtime/src/CoreNodeRouter.rs, core/crates/proxy/local/src/lib.rs, core/crates/tool/services/src/tools/ToolRegistration.rs, core/crates/node/runtime/src/SpacePersistenceSyncService.rs]
 date: 2026-11-11
 ---
 
@@ -112,7 +112,13 @@ date: 2026-11-11
 
 ### 节点工具：查看与切换
 
-`Agent` 通过 `list_core_nodes()` 获得 `{ currentNodeId, nodeIds }`，通过 `switch_core(nodeId)` 切换执行节点（`docs/core-node-space-binding-architecture.md:155`）。
+`Agent` 通过 `list_core_nodes()` 获得节点列表，通过 `switch_core(nodeId)` 切换执行节点（`docs/core-node-space-binding-architecture.md:155`）。
+
+list_core_nodes 返回 `{ currentNodeId, nodes }`（`core/crates/tool/services/src/tools/ToolRegistration.rs:179`）。
+
+`nodes` 是对象数组，每项有 `nodeId`、`displayName`、`userName`、`platform`、`model`、`reachable`、`canExecute`（`core/crates/tool/services/src/tools/ToolRegistration.rs:185`）。
+
+只有 `relayHops` 或 `relayPath` 有值时才出现在每项里（`core/crates/tool/services/src/tools/ToolRegistration.rs:190`）。
 
 `list_core_nodes` 只读取本机已经同步的 `Space` 成员视图（`docs/core-node-space-binding-architecture.md:159`）。
 
@@ -138,7 +144,13 @@ date: 2026-11-11
 
 节点断开后保留自己的操作日志；重新连接时从双方时钟差异继续同步；同步不是由用户触发的一次事务，也不依赖当前 `Binding`（`docs/core-node-space-binding-architecture.md:214`）。
 
-全量交换由变更门控调度，空闲设备不重复搬运未变化的状态；每个同步周期对每个可达成员先发送一次常量大小的 `syncClockDigest` 探针（`docs/core-node-space-binding-architecture.md:217`）。
+全量交换由变更门控调度，空闲设备不重复搬运未变化的状态（`docs/core-node-space-binding-architecture.md:217`）。
+
+同步门控先检查 `backoffElapsed`：退避未到期时本周期不做完整交换；`pendingWork` 或 `consecutiveFailures` 大于 0 时直接安排完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:716`）。
+
+未获存储复制授权的成员走 `authority_only` 分支，直接继续控制交换，不发摘要探针（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:728`）。
+
+只有具备存储复制授权、处于正常变更门控状态的可达成员，才用 `syncClockDigest` 判断是否需要完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:67`）。
 
 失败按对端指数退避（2 秒起、60 秒封顶），成功后复位（`docs/core-node-space-binding-architecture.md:230`）。
 
@@ -353,3 +365,5 @@ Router 在比较写入前验证目标属于 `Space` 且 `Link` 路由可达（`d
 - core/crates/proxy/local/src/lib.rs（组装位置核实）
 - core/crates/foundation/host-api/src/HostManager.rs（组装位置核实）
 - core/crates/runtime/application/src/core/application/OperitApplication.rs（组装位置核实）
+- core/crates/tool/services/src/tools/ToolRegistration.rs（list_core_nodes 工具实现核实）
+- core/crates/node/runtime/src/SpacePersistenceSyncService.rs（同步门控核实）

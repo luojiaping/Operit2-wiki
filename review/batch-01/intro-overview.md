@@ -148,6 +148,16 @@ Operit2 采用从外到内逐层收紧的能力模型（README.md:109）：
 
 - Space 成员资格不会授予其他节点读取本机文件、使用本机终端或获得管理员/root 能力（README.md:127）
 - API key、设备私钥、配对密钥、session 和本地平台权限默认属于节点本地，不会因为加入 Space 自动复制（README.md:128）
+- `ModelConfigManager::new` 用 `preferenceStore` 创建模型配置存储（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:136）
+- `preferenceStore` 调用 `PreferencesDataStore::newWithStorage`（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:108）
+- `newWithStorage` 创建 Space 偏好存储（core/crates/persistence/store/src/PreferencesDataStore.rs:2924）
+- 同步偏好存储创建时建立 `PreferencesSyncDescriptor`（core/crates/persistence/store/src/PreferencesDataStore.rs:2956）
+- 同步偏好存储创建时建立 `SyncOperationStore` 同步操作存储（core/crates/persistence/store/src/PreferencesDataStore.rs:2962）
+- `ModelConfigManager` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>`（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332）
+- 该 `ProviderProfile` 包含 `apiKey` 和 `apiKeyPool`（core/crates/foundation/model/src/ModelConfigData.rs:604）
+- 因此 Provider 凭证存在随配置同步的路径，不能把它与设备身份、配对密钥、OS 权限统称“不复制”（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332）
+- 该路径与 README.md:128 的“不复制”原则存在冲突（README.md:128）
+- 本页未做真实双设备同步实验，上述路径是否实际触发同步未验证
 - `Full` 只表示 AI 能力限制放宽，不表示 Host 提权，也不能创造操作系统没有的能力（README.md:129）
 - 应用内部的 sandbox 字段和 UI 不能冒充真实的操作系统级隔离边界（README.md:130）
 - 对外监听 Link 或 Web Access 前，应使用强 token、受限监听地址、TLS/防火墙和脱敏日志（README.md:131）
@@ -195,14 +205,23 @@ Rust Core、平台 Host、节点连接、持久化同步和插件运行时已经
 
 ### Web Access 本地开发
 
-1. 终端一，在 `apps/flutter/app` 目录运行 `fvm flutter run -d web-server --web-hostname 127.0.0.1 --web-port 4835`（README.md:202）
-2. 终端二，在仓库根目录运行 `node tools/dev_web_access_proxy.mjs --upstream-port 4835 --listen-port 4836`（README.md:202）
-3. 打开 `http://127.0.0.1:4836`；如果端口被占用，可以同时修改 Flutter 上游端口和代理的 `--upstream-port`，但要保持两者一致（README.md:208）
+1. 在 `apps/flutter/app` 目录运行（apps/flutter/app/web/README.md:23）
+2. 运行命令是 `fvm flutter run -d web-server`（apps/flutter/app/web/README.md:30）
+3. 浏览器打开 `http://127.0.0.1:4835`（apps/flutter/app/web/README.md:30）
+4. Flutter 原生读取 `web_dev_config.yaml`，不需要单独的 Node 代理进程（apps/flutter/app/web/README.md:18）
+5. 开发服务器地址由 `web_dev_config.yaml` 配置为 `127.0.0.1:4835`（apps/flutter/app/web_dev_config.yaml:4）
+6. README.md:202 的双终端加 Node 代理流程引用的 `tools/dev_web_access_proxy.mjs` 在基线中不存在，照做会失败（README.md:202）
 
 ## 来源
 
 - README.md（262 行，全文已读）
 - README-zh.md（262 行，全文已读）
+- core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs（核对 preferenceStore、writeProvider 相关行）
+- core/crates/foundation/model/src/ModelConfigData.rs（核对 ProviderProfile 字段）
+- core/crates/persistence/store/src/PreferencesDataStore.rs（核对 newWithStorage 与同步存储创建）
+- apps/flutter/app/web/README.md（核对 Web 开发流程）
+- apps/flutter/app/web_dev_config.yaml（核对开发服务器地址）
+- edge/boards/pb_sbc01_h3/Cargo.toml（核对板卡入口）
 
 两份白皮书 PDF（docs/Operit2-Technical-Whitepaper.pdf、docs/Operit2技术白皮书.pdf）只核存在，未读正文，本页不引用白皮书内容。
 

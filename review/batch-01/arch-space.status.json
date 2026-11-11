@@ -1,1 +1,9 @@
-{"issue":8,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Space 是节点成员、路由和持久化同步的范围，只负责协作范围、承载连接与同步范围三件事，不表达执行位置与数据归属。","updated":"2026-11-11"}
+{
+  "issue": 8,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "Space 是节点成员、路由和持久化同步的范围，只负责协作范围、承载连接与同步范围三件事，不表达执行位置与数据归属。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6789510166
+}

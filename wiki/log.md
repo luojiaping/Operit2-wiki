@@ -12,3 +12,10 @@
 - 质量走查（.quality.json）：4 页有记录——intro-quickstart（README 旧命令与代码不符、代理脚本缺失）、arch-overview（edge-architecture.md 断链、§8 旧名）、arch-corenode（两处断链）、arch-sync（edge-architecture.md 断链）。
 - 阅读登记：16 个源文件 complete，见 tracking/read-status.json。
 - 评审 Issue：#2–#11，状态均为 review-pending。
+
+## 2026-11-11 · batch-01 修订版（用户首轮评审后打回重写）
+
+- 用户于 2026-11-11 在 Issue #2–#11 各留一条审查意见，结论均为需修改（静态源码核对，基线 364d1d594 未变）；修订意见原文已拉取存档于 tracking/reviews-batch-01/issue-2.md～issue-11.md。
+- 三个跨页问题：Provider 凭证同步与 README:128 原则冲突（4 页）、“目标不可达时原子接管”不符合实现（3 页）、交接的屏障/代际去重是设计约束而非已实现调用链（2 页）；另有各页 P2 项（Web 开发脚本缺失、list_core_nodes 返回字段、update check 参数、配对三种操作、syncClockDigest 探针条件、快照校正条件、诊断日志字段、RoutedLink 字段、速览引用补齐等）。
+- 修订：10 页并行修订，facts 761 → 876 条（+115），引用机械核验 0 坏引用；Lint 硬失败 0、警告 0；各页 .status.json 保持 review-pending，watcher 水位线已前移到各条审查留言的 comment id。
+- 本版重新部署后请用户复审，Issue #2–#11 不变。
