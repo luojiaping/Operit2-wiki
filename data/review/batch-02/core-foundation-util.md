@@ -115,7 +115,8 @@ date: 2026-11-11
 
 - `v` 写 `VERBOSE_LEVEL_1` 级别的诊断（core/crates/foundation/util/src/AppLogger.rs:388）。
 - `v_with_level` 对超出 `VERBOSE_LEVEL_1` 至 `VERBOSE_LEVEL_6` 的级别断言失败（core/crates/foundation/util/src/AppLogger.rs:393）。
-- `v_with_level` 写入成功返回 0，失败返回 -1（core/crates/foundation/util/src/AppLogger.rs:393）。
+- `v_with_level` 在立即写入时写入成功返回 0、失败返回 -1（core/crates/foundation/util/src/AppLogger.rs:393）。
+- 批处理作用域内 `v_with_level` 只把日志行排入线程本地队列即返回 0，文件尚未实际写入，调用方不能据返回 0 判断已落盘（core/crates/foundation/util/src/AppLogger.rs:590）。
 - `trace` 写 `VERBOSE_LEVEL_5` 级别的诊断，`trace_detail` 写 `VERBOSE_LEVEL_6` 级别的诊断（core/crates/foundation/util/src/AppLogger.rs:402）。
 - `d` 写 `DEBUG` 级别，`i` 写 `INFO` 级别（core/crates/foundation/util/src/AppLogger.rs:412）。
 - `w` 写 `WARN` 级别，`e` 写 `ERROR` 级别（core/crates/foundation/util/src/AppLogger.rs:422）。
@@ -127,7 +128,7 @@ date: 2026-11-11
 - `write_entry` 的时间戳取 `TimeUtils::currentTimeMillisU128`（core/crates/foundation/util/src/AppLogger.rs:494）。
 - `write_entry` 在保留历史开启时把条目追加到内存历史（core/crates/foundation/util/src/AppLogger.rs:512）。
 - `write_entry` 把运行日志行追加到运行日志文件并把结果记入 `write_result`（core/crates/foundation/util/src/AppLogger.rs:521）。
-- `write_entry` 在任一文件 sink 失败时返回 `Err`（core/crates/foundation/util/src/AppLogger.rs:485）。
+- `write_entry` 在立即写入时任一文件 sink 失败返回 `Err`（core/crates/foundation/util/src/AppLogger.rs:485）。
 - 控制台输出先走 `tryLogHostConsole`，失败时 `ERROR` 与 `ASSERT` 走 stderr、其余走 stdout（core/crates/foundation/util/src/AppLogger.rs:554）。
 - `is_loggable` 只比较级别与控制台最低级别，忽略 `tag` 参数（core/crates/foundation/util/src/AppLogger.rs:472）。
 - `is_verbose_loggable` 要求 `VERBOSE` 通过控制台阈值且级别在 `VERBOSE_LEVEL_1` 至当前上限内（core/crates/foundation/util/src/AppLogger.rs:477）。
@@ -139,6 +140,7 @@ date: 2026-11-11
 - `batch_future_file_writes` 只按每次同步轮询分批，future 让出或换线程前刷掉（core/crates/foundation/util/src/AppLogger.rs:184）。
 - `LogFileWriteBatch` 在 drop 时深度减 1，为 0 时取出全部攒写（core/crates/foundation/util/src/AppLogger.rs:123）。
 - 取出的攒写经 `append_line_with_rotation_cap` 按文件刷入（core/crates/foundation/util/src/AppLogger.rs:135）。
+- 刷入结果以 `let _ =` 丢弃，刷入失败无法回传给此前已结束的日志调用，调用方不能依赖返回值获知所有后续写入错误（core/crates/foundation/util/src/AppLogger.rs:135）。
 - `LogFileWriteBatch` 的刷入在解开过程也会执行（core/crates/foundation/util/src/AppLogger.rs:119）。
 - `append_line` 在批处理深度大于 0 时把同文件同宿主的写入合并到线程本地批（core/crates/foundation/util/src/AppLogger.rs:575）。
 - 追加时文件超过 4 MB 则轮转（core/crates/foundation/util/src/AppLogger.rs:612）：旧文件移到 `.1` 归档并重建空文件（core/crates/foundation/util/src/AppLogger.rs:654）。

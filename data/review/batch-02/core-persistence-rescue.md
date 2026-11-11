@@ -87,7 +87,7 @@ date: 2026-11-11
 
 - `validate_path` 拒绝空路径、超 4096 字节、含反斜杠、冒号或空字节、含空段、`.` 或 `..` 的路径（core/crates/persistence/rescue/src/lib.rs:317）
 - `validate_files` 要求 `sha256` 为 64 位十六进制，拒绝重复路径与祖先重叠（core/crates/persistence/rescue/src/lib.rs:330）
-- `validate_source_files` 只验路径合法与重复（core/crates/persistence/rescue/src/lib.rs:343）
+- `validate_source_files` 在摘要计算前验源路径，检查文件数不超过 `MAX_FILES` 上限、路径合法、路径不重复、祖先路径不重叠四类，不验长度与哈希（core/crates/persistence/rescue/src/lib.rs:343）
 - `validate_ancestors` 按 `/` 切分逐段查，祖先与子路径共存时拒绝（core/crates/persistence/rescue/src/lib.rs:354）
 - `verify_payload` 用 `CHUNK_BYTES` 大小的缓冲流式读，累计用 `checked_add` 防溢出（core/crates/persistence/rescue/src/lib.rs:367）
 - 累计超声明 `byte_length` 时拒绝；结束时总长与 `sha256` 一致（core/crates/persistence/rescue/src/lib.rs:372）

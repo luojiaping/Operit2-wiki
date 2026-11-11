@@ -1,1 +1,9 @@
-{"issue":21,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"工具系统——包、技能与 MCP：包工具执行、技能加载管理、MCP 接入调用与 JS 运行时","updated":"2026-11-11"}
+{
+  "issue": 21,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "工具系统——包、技能与 MCP：包工具执行、技能加载管理、MCP 接入调用与 JS 运行时",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6791247256
+}

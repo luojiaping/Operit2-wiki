@@ -37,3 +37,10 @@
 - 质量走查（.quality.json）：8 页有记录——core-overview（CRATE_BOUNDARIES.md 文档声称与 Cargo.toml 实现 6 处不一致）、core-foundation（HostManager 默认宿主取回不一致、hostCapabilities 未定义 id 直接 panic、setDefault* 丢弃 OnceLock 结果）、core-foundation-util（ArchiveUtil 空 struct 零功能）、core-persistence-store（mergedProjection 合并成员未去重）、core-provider-services（EnhancedAIService 运行时配置失败直接 panic，5 处）、core-provider-local-model（STT segments 恒为空、verifiedAtMs 无人写入真实值）、core-tool-execution（refreshPermissionRequestState 只有 false 一行零调用）、core-tool-packages-mcp（包工具声明 READ、MCP 调用声明 WRITE 的权限不对称）。
 - 阅读登记：60 个源文件 complete（本批），见 tracking/read-status.json。
 - 评审 Issue：#12–#21，状态均为 review-pending。首页统计随部署更新为 21 页知识页面、11 页已发布、2366 条原子事实、3 个编译批次。
+
+## 2026-11-11 · batch-02 修订版（用户首轮评审后）
+
+- 用户于 2026-11-11 在 Issue #12–#21 各留一条审查意见：5 页需修改（#12、#14、#16、#17、#21），5 页本轮未发现阻断问题（#13、#15、#18、#19、#20）；审查意见原文存 tracking/reviews-batch-02/issue-12.md～issue-21.md。
+- 5 页并行修订：#12 删 runtime 依赖“冲突”判断（方向链读反了）并改标题六处→五处；#14 日志返回值区分立即写入与批处理排队；#16 操作日志位置由已退休 JSONL 改为当前 SQLite Journal（transactions.sqlite），扫描/隔离 API 明确为遗留 JSONL；#17 validate_source_files 补全四类检查（数量上限、合法、重复、祖先重叠）；#21 依赖调用 main 限制角色纠正 + 技能激活不走冒号命名。facts 1489 → 1498 条（+9），引用机械核验 0 坏引用；Lint 硬失败 0、警告 0；各页 .status.json 保持 review-pending，watcher 水位线已前移到各条审查留言的 comment id。
+- 本版重新部署后请用户复审，Issue #12–#21 不变。
+- 首页统计随部署更新为 21 页知识页面、11 页已发布、2375 条原子事实。

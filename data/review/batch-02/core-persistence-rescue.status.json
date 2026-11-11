@@ -1,1 +1,9 @@
-{"issue":17,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"离线便携式数据救援：不启动 Core/数据库，ZIP 归档加 manifest 校验后暂存发布","updated":"2026-11-11"}
+{
+  "issue": 17,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "离线便携式数据救援：不启动 Core/数据库，ZIP 归档加 manifest 校验后暂存发布",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6791245460
+}

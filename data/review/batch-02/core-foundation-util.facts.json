@@ -304,7 +304,7 @@
     "ref": "core/crates/foundation/util/src/AppLogger.rs:393"
   },
   {
-    "fact": "AppLogger::v_with_level 写入成功返回 0，失败返回 -1。",
+    "fact": "AppLogger::v_with_level 在立即写入时写入成功返回 0、失败返回 -1。",
     "ref": "core/crates/foundation/util/src/AppLogger.rs:393"
   },
   {
@@ -368,7 +368,7 @@
     "ref": "core/crates/foundation/util/src/AppLogger.rs:521"
   },
   {
-    "fact": "write_entry 在任一文件 sink 失败时返回 Err。",
+    "fact": "write_entry 在立即写入时任一文件 sink 失败返回 Err。",
     "ref": "core/crates/foundation/util/src/AppLogger.rs:485"
   },
   {
@@ -602,5 +602,13 @@
   {
     "fact": "Stream.rs 的测试 fn_stream_starts_producer_during_collection 验证生产者在收集开始前不启动。",
     "ref": "core/crates/foundation/util/src/stream/Stream.rs:396"
+  },
+  {
+    "fact": "批处理分支中 append_line 在排队后立即返回 Ok(())，文件尚未实际写入。",
+    "ref": "core/crates/foundation/util/src/AppLogger.rs:590"
+  },
+  {
+    "fact": "LogFileWriteBatch 刷入排队写入的结果以 let _ = 丢弃，刷入失败无法回传给此前已结束的日志调用。",
+    "ref": "core/crates/foundation/util/src/AppLogger.rs:135"
   }
 ]
