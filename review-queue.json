@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11 16:26 UTC",
+  "updated": "2026-11-11 16:41 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -1012,6 +1012,42 @@
       "updated": "2026-11-11"
     },
     {
+      "id": "batch-06/plugin-catalog-buildin",
+      "batch": "batch-06",
+      "title": "内置插件目录",
+      "module": "plugins",
+      "status": "review-pending",
+      "issue": 66,
+      "issue_title": "[评审] 内置插件目录",
+      "md": "review/batch-06/plugin-catalog-buildin.md",
+      "facts": "review/batch-06/plugin-catalog-buildin.facts.json",
+      "lint": "review/batch-06/plugin-catalog-buildin.lint.md",
+      "seed_files": [],
+      "facts_count": 100,
+      "refs_valid": "",
+      "critic": "",
+      "summary": "内置插件目录：16 个内置插件（9 个单文件 .ts 包＋7 个目录包）、默认启用情况、单文件包与目录包的区别、character_cards 体量来源",
+      "updated": "2026-11-11"
+    },
+    {
+      "id": "batch-06/plugin-catalog-external",
+      "batch": "batch-06",
+      "title": "外置（官方可选）插件目录",
+      "module": "plugins",
+      "status": "review-pending",
+      "issue": 67,
+      "issue_title": "[评审] 外置（官方可选）插件目录",
+      "md": "review/batch-06/plugin-catalog-external.md",
+      "facts": "review/batch-06/plugin-catalog-external.facts.json",
+      "lint": "review/batch-06/plugin-catalog-external.lint.md",
+      "seed_files": [],
+      "facts_count": 100,
+      "refs_valid": "",
+      "critic": "",
+      "summary": "外置插件目录：external 目录 30 个插件与 tsconfig.json 的磁盘清点，subagents 五个工具、六个演示性质插件与 image_workbench、waifu、wechat、qqbot 的边界。",
+      "updated": "2026-11-11"
+    },
+    {
       "id": "batch-06/plugin-compose-dsl",
       "batch": "batch-06",
       "title": "Compose DSL 界面",
@@ -1081,6 +1117,24 @@
       "refs_valid": "",
       "critic": "",
       "summary": "MCP 作为 Core 工具运行时：服务器配置、安装、启用、工具发现与执行、设备空间共享",
+      "updated": "2026-11-11"
+    },
+    {
+      "id": "batch-06/plugin-packagebuilder",
+      "batch": "batch-06",
+      "title": "PackageBuilder（随软件携带的插件开发 Skill）",
+      "module": "plugins",
+      "status": "review-pending",
+      "issue": 64,
+      "issue_title": "[评审] PackageBuilder（随软件携带的插件开发 Skill）",
+      "md": "review/batch-06/plugin-packagebuilder.md",
+      "facts": "review/batch-06/plugin-packagebuilder.facts.json",
+      "lint": "review/batch-06/plugin-packagebuilder.lint.md",
+      "seed_files": [],
+      "facts_count": 206,
+      "refs_valid": "",
+      "critic": "",
+      "summary": "PackageBuilder 随软件携带的插件开发 Skill：标准开发流程、API 2.0.0 manifest 声明与 1.0.x 旧包迁移检查",
       "updated": "2026-11-11"
     },
     {

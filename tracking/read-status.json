@@ -1,6 +1,6 @@
 {
  "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
- "updated": "2026-11-11 14:54 UTC",
+ "updated": "2026-11-11 16:41 UTC",
  "files": {
   "README.md": {
    "status": "complete",
@@ -179,16 +179,16 @@
   },
   "core/crates/tool/services/src/tools/mcp/MCPManager.rs": {
    "status": "complete",
-   "batch": "batch-02",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-02/core-tool-packages-mcp.md",
+   "evidence": "review/batch-06/plugin-mcp.md",
    "lines": 207
   },
   "core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs": {
    "status": "complete",
-   "batch": "batch-02",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-02/core-tool-packages-mcp.md",
+   "evidence": "review/batch-06/plugin-mcp.md",
    "lines": 808
   },
   "core/crates/tool/services/src/tools/ToolJsRuntime.rs": {
@@ -2983,6 +2983,62 @@
    "date": "2026-11-11",
    "evidence": "review/batch-05/app-host-capability-matrix.md",
    "lines": 20
+  },
+  "core/crates/tool/services/src/tools/mcp/MCPPackage.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-mcp.md",
+   "lines": 192
+  },
+  "core/crates/tool/services/src/tools/mcp/MCPToolParameter.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-mcp.md",
+   "lines": 196
+  },
+  "core/crates/tool/services/src/tools/mcp/MCPServerConfig.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-mcp.md",
+   "lines": 12
+  },
+  "core/crates/tool/services/src/tools/mcp/MCPTool.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-mcp.md",
+   "lines": 8
+  },
+  "core/crates/tool/services/src/tools/mcp/mod.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-mcp.md",
+   "lines": 17
+  },
+  "core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-mcp.md",
+   "lines": 886
+  },
+  "core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-mcp.md",
+   "lines": 674
+  },
+  "core/crates/tool/services/src/tools/mcp_runtime/mod.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-mcp.md",
+   "lines": 7
   }
  }
 }
