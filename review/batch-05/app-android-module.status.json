@@ -1,1 +1,9 @@
-{"issue":43,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Android 模块应用：与 Flutter APK 共享同一 Core 与 JNI 库的 Root 模块打包/启动形态，业务数据位于 /data/adb/operit2，更新时保留。","updated":"2026-11-11"}
+{
+  "issue": 43,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "Android 模块应用：与 Flutter APK 共享同一 Core 与 JNI 库的 Root 模块打包/启动形态，业务数据位于 /data/adb/operit2，更新时保留。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6799474248
+}
