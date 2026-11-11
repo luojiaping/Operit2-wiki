@@ -1,0 +1,7 @@
+core/crates/persistence/README.md
+core/crates/persistence/store/src/lib.rs
+core/crates/persistence/store/src/SqliteStore.rs
+core/crates/persistence/store/src/CoreNodeIdentityStore.rs
+core/crates/persistence/store/src/CoreNodeBindingStore.rs
+core/crates/persistence/store/src/CoreSpaceStore.rs
+core/crates/persistence/store/src/PreferencesDataStore.rs

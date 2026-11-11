@@ -1,0 +1,6 @@
+core/crates/tool/services/src/tools/PackageToolExecutor.rs
+core/crates/tool/services/src/tools/skill/SkillManager.rs
+core/crates/tool/services/src/tools/skill/SkillPackage.rs
+core/crates/tool/services/src/tools/mcp/MCPManager.rs
+core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs
+core/crates/tool/services/src/tools/ToolJsRuntime.rs

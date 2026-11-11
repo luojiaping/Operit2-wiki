@@ -26,3 +26,14 @@
 - 本轮 3 处修订：#2 旧正文 150 行与 facts 第 48 条的无条件“不复制”保证改成“README 声明的原则”（与 intro-not-what 同口径）；#11 配置身份校验补上适用条件（只在 extensionOwner 不是 MODEL_CONFIGURATION_OWNER 即 host.chat.model 时执行）并补常量事实 1 条；#9 删去第 70 行与第 64 行重复的 generation 递增句。
 - 修订后 facts 876 → 877 条，lint 硬失败 0、警告 0。用户主聊 2026-11-11 15:50 指示“评审完了这一轮改完直接上线”，10 页状态同日翻为 approved（approved_at 2026-11-11 07:52 UTC），不再走下一轮评审。
 - 首页统计随部署更新为 11 页已发布、877 条原子事实。
+
+## 2026-11-11 · batch-02（第 3 章 Core 前 10 页，待评审）
+
+- 来源：AAswordman/Operit2 @ 364d1d594；大纲 v1（11 章 115 页）第 3 章前 10 页。
+- 页：core-overview、core-foundation、core-foundation-util、core-persistence-store、core-persistence-sync、core-persistence-rescue、core-provider-services、core-provider-local-model、core-tool-execution、core-tool-packages-mcp。
+- 事实：1489 条原子事实（facts.json），引用全部落在源文件行号范围内，坏引用 0；critic 修正后 1482 → 1489 条（+7：core-overview +1、core-foundation +2、core-foundation-util +2、core-persistence-store +1、core-persistence-sync +1）。
+- Lint：`lint.py --dir review/batch-02` 硬失败 0、警告 0。
+- Critic：首 5 页全审（core-overview、core-foundation、core-foundation-util、core-persistence-store、core-persistence-sync），结论均为「需修改」小修，已按 critic.md 逐项修正并复验 lint 0/0；其余 5 页 facts 引用机械核验 0 坏引用。
+- 质量走查（.quality.json）：8 页有记录——core-overview（CRATE_BOUNDARIES.md 文档声称与 Cargo.toml 实现 6 处不一致）、core-foundation（HostManager 默认宿主取回不一致、hostCapabilities 未定义 id 直接 panic、setDefault* 丢弃 OnceLock 结果）、core-foundation-util（ArchiveUtil 空 struct 零功能）、core-persistence-store（mergedProjection 合并成员未去重）、core-provider-services（EnhancedAIService 运行时配置失败直接 panic，5 处）、core-provider-local-model（STT segments 恒为空、verifiedAtMs 无人写入真实值）、core-tool-execution（refreshPermissionRequestState 只有 false 一行零调用）、core-tool-packages-mcp（包工具声明 READ、MCP 调用声明 WRITE 的权限不对称）。
+- 阅读登记：60 个源文件 complete（本批），见 tracking/read-status.json。
+- 评审 Issue：#12–#21，状态均为 review-pending。首页统计随部署更新为 21 页知识页面、11 页已发布、2366 条原子事实、3 个编译批次。

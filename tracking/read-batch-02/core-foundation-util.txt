@@ -1,0 +1,10 @@
+core/crates/foundation/util/Cargo.toml
+core/crates/foundation/util/src/lib.rs
+core/crates/foundation/util/src/FileUtils.rs
+core/crates/foundation/util/src/AppLogger.rs
+core/crates/foundation/util/src/ArchiveUtil.rs
+core/crates/foundation/util/src/stream/Stream.rs
+core/crates/foundation/util/src/stream/mod.rs
+core/crates/foundation/util/src/streamnative/mod.rs
+core/crates/foundation/util/src/exceptions/mod.rs
+core/crates/foundation/util/src/stream/plugins/mod.rs

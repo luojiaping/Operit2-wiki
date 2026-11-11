@@ -1,0 +1,7 @@
+core/crates/foundation/README.md
+core/crates/foundation/host-api/src/lib.rs
+core/crates/foundation/host-api/src/HostManager.rs
+core/crates/foundation/model/src/ChatMessage.rs
+core/crates/foundation/model/src/ModelCatalog.rs
+core/crates/foundation/link/src/lib.rs
+core/crates/foundation/link/src/protocol.rs

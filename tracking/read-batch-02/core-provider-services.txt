@@ -1,0 +1,6 @@
+core/crates/provider/README.md
+core/crates/provider/services/src/lib.rs
+core/crates/provider/services/src/chat/llmprovider/AIService.rs
+core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs
+core/crates/provider/services/src/chat/EnhancedAIService.rs
+core/crates/provider/services/src/runtime_support.rs

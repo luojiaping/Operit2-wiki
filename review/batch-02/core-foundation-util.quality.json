@@ -1,0 +1,1 @@
+[{"category":"maintainability","confidence":"high","evidence":"pub struct ArchiveUtil;","file":"core/crates/foundation/util/src/ArchiveUtil.rs","issue":"ArchiveUtil 是空 struct，只有 Debug、Clone、Default 派生，无字段也无方法，全仓库只在自身定义与 lib.rs 的 pub mod 声明两处出现，零调用、零 impl 方法，疑似占位或残留。","line":2,"severity":"suggestion"}]

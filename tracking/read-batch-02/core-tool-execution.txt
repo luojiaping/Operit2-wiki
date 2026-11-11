@@ -1,0 +1,6 @@
+core/crates/tool/README.md
+core/crates/tool/services/src/lib.rs
+core/crates/tool/services/src/ToolExecutionManager.rs
+core/crates/tool/services/src/tools/AIToolHandler.rs
+core/crates/tool/services/src/tools/ToolRegistration.rs
+core/crates/tool/services/src/tools/ToolPermissionSystem.rs

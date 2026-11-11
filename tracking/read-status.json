@@ -1,6 +1,6 @@
 {
  "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
- "updated": "2026-11-11 06:10 UTC",
+ "updated": "2026-11-11 08:27 UTC",
  "files": {
   "README.md": {
    "status": "complete",
@@ -60,16 +60,16 @@
   },
   "core/CRATE_BOUNDARIES.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-02",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-corenode.md",
+   "evidence": "review/batch-02/core-overview.md",
    "lines": 188
   },
   "core/crates/README.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-02",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-corenode.md",
+   "evidence": "review/batch-02/core-overview.md",
    "lines": 26
   },
   "docs/sync-architecture.md": {
@@ -81,9 +81,9 @@
   },
   "core/crates/persistence/store/src/CoreNodeBindingStore.rs": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-02",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-binding.md",
+   "evidence": "review/batch-02/core-persistence-store.md",
    "lines": 481
   },
   "docs/transaction-model.md": {
@@ -113,6 +113,405 @@
    "date": "2026-11-11",
    "evidence": "review/batch-01/arch-routing.md",
    "lines": 252
+  },
+  "core/crates/persistence/rescue/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-rescue.md",
+   "lines": 470
+  },
+  "core/crates/provider/local-model/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-local-model.md",
+   "lines": 47
+  },
+  "core/crates/provider/local-model/src/LocalModelRegistry.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-local-model.md",
+   "lines": 261
+  },
+  "core/crates/provider/local-model/src/LocalModelProvider.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-local-model.md",
+   "lines": 675
+  },
+  "core/crates/provider/local-model/src/LocalInference.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-local-model.md",
+   "lines": 108
+  },
+  "core/crates/provider/local-model/src/runtime_support.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-local-model.md",
+   "lines": 41
+  },
+  "core/crates/tool/services/src/tools/PackageToolExecutor.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-packages-mcp.md",
+   "lines": 114
+  },
+  "core/crates/tool/services/src/tools/skill/SkillManager.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-packages-mcp.md",
+   "lines": 849
+  },
+  "core/crates/tool/services/src/tools/skill/SkillPackage.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-packages-mcp.md",
+   "lines": 11
+  },
+  "core/crates/tool/services/src/tools/mcp/MCPManager.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-packages-mcp.md",
+   "lines": 207
+  },
+  "core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-packages-mcp.md",
+   "lines": 808
+  },
+  "core/crates/tool/services/src/tools/ToolJsRuntime.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-packages-mcp.md",
+   "lines": 633
+  },
+  "core/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-overview.md",
+   "lines": 96
+  },
+  "core/peer-protocol.json": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-overview.md",
+   "lines": 113
+  },
+  "core/crates/persistence/store/src/SyncOperationStore.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-sync.md",
+   "lines": 2030
+  },
+  "core/crates/persistence/store/src/SyncBlobIo.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-sync.md",
+   "lines": 139
+  },
+  "core/crates/persistence/store/src/SyncAppliedChanges.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-sync.md",
+   "lines": 68
+  },
+  "core/crates/persistence/store/src/MergeRules.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-sync.md",
+   "lines": 47
+  },
+  "core/crates/persistence/store/src/PreferenceMerge.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-sync.md",
+   "lines": 828
+  },
+  "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-sync.md",
+   "lines": 588
+  },
+  "core/crates/persistence/store/src/RuntimeFileSyncStore.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-sync.md",
+   "lines": 643
+  },
+  "core/crates/persistence/store/src/FileSyncPolicy.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-sync.md",
+   "lines": 286
+  },
+  "core/crates/provider/README.md": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-services.md",
+   "lines": 14
+  },
+  "core/crates/provider/services/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-services.md",
+   "lines": 8
+  },
+  "core/crates/provider/services/src/chat/llmprovider/AIService.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-services.md",
+   "lines": 190
+  },
+  "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-services.md",
+   "lines": 1431
+  },
+  "core/crates/provider/services/src/chat/EnhancedAIService.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-services.md",
+   "lines": 4019
+  },
+  "core/crates/provider/services/src/runtime_support.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-provider-services.md",
+   "lines": 625
+  },
+  "core/crates/foundation/util/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation-util.md",
+   "lines": 28
+  },
+  "core/crates/foundation/util/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation-util.md",
+   "lines": 54
+  },
+  "core/crates/foundation/util/src/FileUtils.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation-util.md",
+   "lines": 223
+  },
+  "core/crates/foundation/util/src/AppLogger.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation-util.md",
+   "lines": 937
+  },
+  "core/crates/foundation/util/src/ArchiveUtil.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation-util.md",
+   "lines": 2
+  },
+  "core/crates/foundation/util/src/stream/Stream.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation-util.md",
+   "lines": 413
+  },
+  "core/crates/foundation/util/src/stream/mod.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation-util.md",
+   "lines": 12
+  },
+  "core/crates/foundation/util/src/streamnative/mod.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation-util.md",
+   "lines": 4
+  },
+  "core/crates/foundation/util/src/exceptions/mod.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation-util.md",
+   "lines": 1
+  },
+  "core/crates/foundation/util/src/stream/plugins/mod.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation-util.md",
+   "lines": 6
+  },
+  "core/crates/foundation/README.md": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation.md",
+   "lines": 16
+  },
+  "core/crates/foundation/host-api/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation.md",
+   "lines": 3577
+  },
+  "core/crates/foundation/host-api/src/HostManager.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation.md",
+   "lines": 662
+  },
+  "core/crates/foundation/model/src/ChatMessage.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation.md",
+   "lines": 142
+  },
+  "core/crates/foundation/model/src/ModelCatalog.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation.md",
+   "lines": 421
+  },
+  "core/crates/foundation/link/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation.md",
+   "lines": 38
+  },
+  "core/crates/foundation/link/src/protocol.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-foundation.md",
+   "lines": 1204
+  },
+  "core/crates/tool/README.md": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-execution.md",
+   "lines": 13
+  },
+  "core/crates/tool/services/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-execution.md",
+   "lines": 10
+  },
+  "core/crates/tool/services/src/ToolExecutionManager.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-execution.md",
+   "lines": 942
+  },
+  "core/crates/tool/services/src/tools/AIToolHandler.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-execution.md",
+   "lines": 3111
+  },
+  "core/crates/tool/services/src/tools/ToolRegistration.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-execution.md",
+   "lines": 1784
+  },
+  "core/crates/tool/services/src/tools/ToolPermissionSystem.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-tool-execution.md",
+   "lines": 254
+  },
+  "core/crates/persistence/README.md": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-store.md",
+   "lines": 13
+  },
+  "core/crates/persistence/store/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-store.md",
+   "lines": 92
+  },
+  "core/crates/persistence/store/src/SqliteStore.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-store.md",
+   "lines": 568
+  },
+  "core/crates/persistence/store/src/CoreNodeIdentityStore.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-store.md",
+   "lines": 163
+  },
+  "core/crates/persistence/store/src/CoreSpaceStore.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-store.md",
+   "lines": 2972
+  },
+  "core/crates/persistence/store/src/PreferencesDataStore.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-store.md",
+   "lines": 3972
   }
  }
 }

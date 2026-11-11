@@ -1,0 +1,12 @@
+{
+  "core-overview": 12,
+  "core-foundation": 13,
+  "core-foundation-util": 14,
+  "core-persistence-store": 15,
+  "core-persistence-sync": 16,
+  "core-persistence-rescue": 17,
+  "core-provider-services": 18,
+  "core-provider-local-model": 19,
+  "core-tool-execution": 20,
+  "core-tool-packages-mcp": 21
+}

@@ -1,0 +1,5 @@
+core/crates/provider/local-model/src/lib.rs
+core/crates/provider/local-model/src/LocalModelRegistry.rs
+core/crates/provider/local-model/src/LocalModelProvider.rs
+core/crates/provider/local-model/src/LocalInference.rs
+core/crates/provider/local-model/src/runtime_support.rs
