@@ -2,8 +2,10 @@
   "issue": 25,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "SDK 代码生成（声明树、JS 运行时、四语言客户端、注册契约）与 sdk-ipc 通道及 36 行桥接器。",
   "updated": "2026-11-11",
-  "approved_by_comment_id": 6795387020
+  "approved_by_comment_id": 6795387020,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 13:21 UTC"
 }

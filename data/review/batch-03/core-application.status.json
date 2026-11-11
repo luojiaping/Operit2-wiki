@@ -2,8 +2,10 @@
   "issue": 33,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "应用组装——CoreApplication 门面：runtime、proxy、node、access 四类 crate 组装成一棵 Core 树，Host 只拿公开句柄",
   "updated": "2026-11-11",
-  "approved_by_comment_id": 6795389984
+  "approved_by_comment_id": 6795389984,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 13:21 UTC"
 }

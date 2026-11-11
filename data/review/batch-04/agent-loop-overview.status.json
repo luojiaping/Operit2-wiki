@@ -1,1 +1,11 @@
-{"issue":35,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Agent 回路总览：一轮发送链路、switch_core 切换边界、Binding 路由配合、切换不触发总结压缩","updated":"2026-11-11"}
+{
+  "issue": 35,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "approved",
+  "summary": "Agent 回路总览：一轮发送链路、switch_core 切换边界、Binding 路由配合、切换不触发总结压缩",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6796547090,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 13:21 UTC"
+}
