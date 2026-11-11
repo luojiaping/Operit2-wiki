@@ -1,0 +1,13 @@
+{
+  "plugin-toolpkg-overview": 58,
+  "plugin-manifest": 59,
+  "plugin-js-wasm-runtime": 60,
+  "plugin-compose-dsl": 61,
+  "plugin-mcp": 62,
+  "plugin-skills": 63,
+  "plugin-packagebuilder": 64,
+  "plugin-quick-plugin-creator": 65,
+  "plugin-catalog-buildin": 66,
+  "plugin-catalog-external": 67,
+  "plugin-theme": 68
+}
