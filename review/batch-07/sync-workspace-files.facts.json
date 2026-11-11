@@ -1,0 +1,434 @@
+[
+ {
+  "fact": "MANAGED_ROOTS 由 workspaces、RUNTIME_CHAT_OUTPUTS_DIR_PATH 与 LEGACY_CHAT_ATTACHMENTS_DIR_PATH 三个受管根组成",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:20"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 manages 在路径以受管根加斜杠开头时返回真",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:81"
+ },
+ {
+  "fact": "工作区 VFS 入口 /operitapp/workspaces/<目录> 对应存储位置 workspaces/<目录>",
+  "ref": "docs/workspace-file-sync.md:7"
+ },
+ {
+  "fact": "产出目录 VFS 入口 /operitapp/outputs/<父对话创建时间> 对应存储位置 runtime/data/chat_outputs/<父对话创建时间>",
+  "ref": "docs/workspace-file-sync.md:8"
+ },
+ {
+  "fact": "旧附件 VFS 入口 /operitapp/data/data/chat_attachments/<chatId> 对应存储位置 runtime/data/chat_attachments/<chatId>",
+  "ref": "docs/workspace-file-sync.md:9"
+ },
+ {
+  "fact": "同一 Space 内，应用管理的工作区、无工作区时的对话产出目录与兼容旧版的附件目录按各自的 .operit/sync.json 自动双向复制普通文件，同步完成后副本可离线使用",
+  "ref": "docs/workspace-file-sync.md:3"
+ },
+ {
+  "fact": "只有配对、尚未加入同一 Space 时不共享文件",
+  "ref": "docs/workspace-file-sync.md:3"
+ },
+ {
+  "fact": "scanUnlocked 对每个受管根下的目录条目调用 FileSyncPolicy 的 loadForScan 加载该目录的策略",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:184"
+ },
+ {
+  "fact": "POLICY_PATH 的值为 .operit/sync.json",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:11"
+ },
+ {
+  "fact": "FileSyncPolicy 的默认 version 为 1",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:27"
+ },
+ {
+  "fact": "FileSyncPolicy 的默认 ignoreFiles 为 [.gitignore]",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:28"
+ },
+ {
+  "fact": "FileSyncPolicy 的默认 exclude 含 .git/、node_modules/、target/ 与 build/",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:30"
+ },
+ {
+  "fact": "FileSyncPolicy 的默认 exclude 含 dist/、.dart_tool/、.gradle/ 与 __pycache__/",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:34"
+ },
+ {
+  "fact": "FileSyncPolicy 的默认 maxFileBytes 为 DEFAULT_AUTO_SYNC_FILE_BYTES",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:42"
+ },
+ {
+  "fact": "FileSyncPolicy 的默认 maxTotalBytes 为 DEFAULT_AUTO_SYNC_TOTAL_BYTES",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:43"
+ },
+ {
+  "fact": "默认策略的 maxFileBytes 为 16777216，maxTotalBytes 为 268435456",
+  "ref": "docs/workspace-file-sync.md:27"
+ },
+ {
+  "fact": "默认单文件 16 MiB，每个受管理目录自动同步总量 256 MiB",
+  "ref": "docs/workspace-file-sync.md:32"
+ },
+ {
+  "fact": "maxFileBytes 与 maxTotalBytes 只控制自动复制，不限制本地原件大小，也不是设备总磁盘配额",
+  "ref": "docs/workspace-file-sync.md:32"
+ },
+ {
+  "fact": ".operit/sync.json 本身始终参与同步",
+  "ref": "docs/workspace-file-sync.md:32"
+ },
+ {
+  "fact": "FileSyncPolicy 的 ensure 只在策略文件不存在时写入默认策略，已有配置保留",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:71"
+ },
+ {
+  "fact": "策略文件缺失时 loadForScan 返回默认策略",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:57"
+ },
+ {
+  "fact": "策略 version 不为 1 时 loadForScan 报错 Unsupported sync policy version",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:63"
+ },
+ {
+  "fact": "MAX_POLICY_BYTES 为 256 * 1024，限制策略文件与忽略文件的读取长度",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:13"
+ },
+ {
+  "fact": "读取超出限额时 readLimitedForScan 报错 exceeds the allowed",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:175"
+ },
+ {
+  "fact": "validateRelative 拒绝空串、斜杠开头、含反斜杠、冒号或 NUL，以及含空段、. 段或 .. 段的 ignoreFiles 条目",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:186"
+ },
+ {
+  "fact": "rulesForScan 把 exclude 的每条规则加入 GitignoreBuilder",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:97"
+ },
+ {
+  "fact": "rulesForScan 再读取 ignoreFiles 指定的忽略文件并追加规则",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:106"
+ },
+ {
+  "fact": "includesForScan 对控制路径直接返回真，即控制路径始终计入同步",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:129"
+ },
+ {
+  "fact": "ignoreFiles 含 .gitignore 时，includesForScan 沿路径的各级父目录读取 .gitignore 并追加规则",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:135"
+ },
+ {
+  "fact": "ignored 按规则顺序求值，后出现的白名单反选推翻前面的忽略",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:220"
+ },
+ {
+  "fact": "isControl 判定路径等于受管目录下的 .operit/sync.json 或 .operit 目录本身",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:229"
+ },
+ {
+  "fact": "scanUnlocked 中控制路径与定位文件不计入单文件限额与总量预算，直接进入待同步清单",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:196"
+ },
+ {
+  "fact": "外部挂载目录 /virtual/... 与 /data/... 不会被扫描",
+  "ref": "docs/workspace-file-sync.md:13"
+ },
+ {
+  "fact": "软链接、链接目录、失效链接、Windows junction/reparse point 以及非普通文件跳过，不跟随目标",
+  "ref": "docs/workspace-file-sync.md:13"
+ },
+ {
+  "fact": "接收端也不通过已有链接读写文件",
+  "ref": "docs/workspace-file-sync.md:13"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 scan 只扫描受管根，不查挂载的 VFS 目录",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:93"
+ },
+ {
+  "fact": "目标路径上某组件已存在但不在目录列表中时，接收端报错 Workspace synchronization will not follow a link",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:536"
+ },
+ {
+  "fact": "checkDestination 在目标路径出现文件与目录类型冲突时报错 Workspace file/directory conflict",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:530"
+ },
+ {
+  "fact": "validatePath 要求路径属于受管路径且所有权为 Space",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:579"
+ },
+ {
+  "fact": "排除文件继续保留在原设备，已有副本不会因为策略收紧而自动删除",
+  "ref": "docs/workspace-file-sync.md:54"
+ },
+ {
+  "fact": "新增忽略规则、文件变大或超过总量预算只会停止自动复制，不会作为删除广播，也不清理其他设备已有副本",
+  "ref": "docs/workspace-file-sync.md:36"
+ },
+ {
+  "fact": "取消忽略或放宽限额后，保留的远端最新状态可重新应用",
+  "ref": "docs/workspace-file-sync.md:36"
+ },
+ {
+  "fact": "无效 JSON、超大的规则文件或非法规则会报告错误并停止该次扫描，不发布一批错误删除",
+  "ref": "docs/workspace-file-sync.md:36"
+ },
+ {
+  "fact": "超限原件保留在本机，分享 <原文件名>.operit-ref.json 定位文件",
+  "ref": "docs/workspace-file-sync.md:34"
+ },
+ {
+  "fact": "FileReference 的 format 为 operit_file_reference，version 为 1",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:257"
+ },
+ {
+  "fact": "FileReference 含 nodeId、path、fileName、fileSize 与可选的 modifiedAt",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:240"
+ },
+ {
+  "fact": "FileReference 的 validate 要求 path 以 /app/、/operitapp/、/mnt/、/virtual/ 之一开头",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:271"
+ },
+ {
+  "fact": "wantsBlob 在申请 Blob 之前检查本地策略，避免先下载大文件再排除",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:404"
+ },
+ {
+  "fact": "被策略推迟的文件进入 deferred，策略放宽后 deferredBlobs 重新变得可传输",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:410"
+ },
+ {
+  "fact": "acceptsForScan 对待接收文件用本地策略的 maxFileBytes 核对单文件上限",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:440"
+ },
+ {
+  "fact": "acceptsForScan 把待接收文件大小与同目录下已收文件大小相加后与 maxTotalBytes 比较",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:453"
+ },
+ {
+  "fact": "captureReference 在定位文件路径已被占用且内容与新定位不符时报错 Reference path is occupied",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:281"
+ },
+ {
+  "fact": "removeLocalReference 只删除本节点自己生成的定位文件",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:299"
+ },
+ {
+  "fact": "文件只按修改时间和大小判同，没有创建时间或定期内容哈希检查",
+  "ref": "docs/workspace-file-sync.md:43"
+ },
+ {
+  "fact": "未变化的文件不读内容，文件有变化时只读取一次",
+  "ref": "docs/workspace-file-sync.md:43"
+ },
+ {
+  "fact": "upsert 携带源文件修改时间（Unix 微秒），接收端写入字节后恢复该时间",
+  "ref": "docs/workspace-file-sync.md:44"
+ },
+ {
+  "fact": "writePending 写入字节后按快照的 modifiedAt 调用 setModifiedAt 恢复修改时间",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:492"
+ },
+ {
+  "fact": "文件内容改变生成 upsert，消失生成 delete，重命名表示旧路径删除、新路径写入",
+  "ref": "docs/workspace-file-sync.md:45"
+ },
+ {
+  "fact": "删除优先于新增，以支持文件与目录之间切换",
+  "ref": "docs/workspace-file-sync.md:45"
+ },
+ {
+  "fact": "扫描时先为被替换路径记 tombstone 再发布 upsert",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:238"
+ },
+ {
+  "fact": "收到文件后更新清单，不把远端内容当成新本地修改再次广播",
+  "ref": "docs/workspace-file-sync.md:47"
+ },
+ {
+  "fact": "接收前先持久化待应用内容，异常退出后重放待应用写入",
+  "ref": "docs/workspace-file-sync.md:48"
+ },
+ {
+  "fact": "扫描失败不发布缺失文件删除",
+  "ref": "docs/workspace-file-sync.md:48"
+ },
+ {
+  "fact": "受管根不可用且清单中仍有该根下文件时，scanUnlocked 报错拒绝批量删除",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:177"
+ },
+ {
+  "fact": "首次加入 Space 后重新登记设备已有的本体文件，避免旧操作日志不再导出而使本地文件无法分享",
+  "ref": "docs/workspace-file-sync.md:49"
+ },
+ {
+  "fact": "trackPaths 在应用修改前后各扫描一次，即时捕获应用内写入",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:120"
+ },
+ {
+  "fact": "定时扫描稳定空闲时以指数退避拉长轮询间隔，2 秒起，上限 60 秒，发现变更立即回到 2 秒",
+  "ref": "docs/workspace-file-sync.md:42"
+ },
+ {
+  "fact": "关闭 Core 后不后台运行，重新启动时补扫",
+  "ref": "docs/workspace-file-sync.md:42"
+ },
+ {
+  "fact": "停止 Space 同步服务时停止定时扫描",
+  "ref": "docs/workspace-file-sync.md:50"
+ },
+ {
+  "fact": "本地清单保存在 runtime/sync/workspace_inventory.json，记录已观察到的文件修改时间和大小，不同步给其他设备",
+  "ref": "docs/workspace-file-sync.md:41"
+ },
+ {
+  "fact": "删除后清理空的子目录，保留工作区根目录",
+  "ref": "docs/workspace-file-sync.md:53"
+ },
+ {
+  "fact": "独立空目录、文件权限和执行位不作为同步对象",
+  "ref": "docs/workspace-file-sync.md:53"
+ },
+ {
+  "fact": "同时修改同一文件时按现有同步操作的确定性顺序（时间、设备 ID、序号）决定最终版本，不做逐行合并",
+  "ref": "docs/workspace-file-sync.md:52"
+ },
+ {
+  "fact": "同步复制文件字节，不是 Git 或文本协同编辑",
+  "ref": "docs/workspace-file-sync.md:52"
+ },
+ {
+  "fact": "目录随文件创建",
+  "ref": "docs/workspace-file-sync.md:53"
+ },
+ {
+  "fact": "产出目录绑定保存在 runtime/data/chat_output_bindings/<chatId>.json，随 Space 同步",
+  "ref": "docs/workspace-file-sync.md:11"
+ },
+ {
+  "fact": "产出目录名采用首次父对话创建时间 YYYY-MM-DD_HH-mm-ss-SSS，绑定保存后不按当天重算",
+  "ref": "docs/workspace-file-sync.md:11"
+ },
+ {
+  "fact": "子孙对话和消息分支继承已保存的产出目录绑定",
+  "ref": "docs/workspace-file-sync.md:11"
+ },
+ {
+  "fact": "提升子对话、删除父对话、切换工作区不会改变已有产出目录",
+  "ref": "docs/workspace-file-sync.md:11"
+ },
+ {
+  "fact": "创建时间相同允许共用同一产出目录",
+  "ref": "docs/workspace-file-sync.md:11"
+ },
+ {
+  "fact": "产出区域不会被当作用户绑定的工作区",
+  "ref": "docs/workspace-file-sync.md:11"
+ },
+ {
+  "fact": "managedDirectory 取受管根下第一段作为拥有该文件的受管目录",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:563"
+ },
+ {
+  "fact": "managedVfsPath 把 workspaces/ 前缀映射为 /operitapp/workspaces/",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:573"
+ },
+ {
+  "fact": "managedVfsPath 把 chat_outputs 前缀映射为 /operitapp/outputs/",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:574"
+ },
+ {
+  "fact": "managedVfsPath 把其余 runtime/ 前缀映射为 /operitapp/data/",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:575"
+ },
+ {
+  "fact": "同步复用 runtime_file 域、SHA-256 Blob、原有向量时钟、成员校验与传输，不增加第二套同步协议",
+  "ref": "docs/workspace-file-sync.md:40"
+ },
+ {
+  "fact": "每个接收批次只扫一次工作区，应用整批操作后才推进同步时钟",
+  "ref": "docs/workspace-file-sync.md:47"
+ },
+ {
+  "fact": "同一文件的一组待处理状态只落盘最终胜者",
+  "ref": "docs/workspace-file-sync.md:46"
+ },
+ {
+  "fact": "scanRead 对 NotFound 与 PermissionDenied 跳过该路径并保留先前清单",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:264"
+ },
+ {
+  "fact": "聊天文件变更快照保存在对应工作区的 .operit/backups/<聊天作用域>/，state.json 记录最近编辑轮次的文件变更，objects/ 保存按内容哈希寻址的文件字节",
+  "ref": "docs/workspace-file-sync.md:82"
+ },
+ {
+  "fact": "每个聊天只保留最近一次涉及文件修改的轮次",
+  "ref": "docs/workspace-file-sync.md:74"
+ },
+ {
+  "fact": ".operit 被快照捕获规则排除，避免备份把自身再次备份",
+  "ref": "docs/workspace-file-sync.md:78"
+ },
+ {
+  "fact": "工作区本体中的备份文件按普通文件同步规则处理，外部挂载内的备份仍遵循外部挂载不参与同步的边界",
+  "ref": "docs/workspace-file-sync.md:79"
+ },
+ {
+  "fact": "VFS 的 /virtual 入口挂到平台文件系统及授权资源后端，挂载与访问边界见 sync-vfs 页",
+  "ref": "docs/vfs-mounts.md:5"
+ },
+ {
+  "fact": "被排除的目录在遍历前剪枝，不复制内容，也不逐文件生成定位索引",
+  "ref": "docs/workspace-file-sync.md:77"
+ },
+ {
+  "fact": "不得整体排除存放附件和定位文件的 .operit/",
+  "ref": "docs/workspace-file-sync.md:77"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 owns 在操作域为 RUNTIME_FILE_SYNC_DOMAIN 且 manages 覆盖 entityId 时判定归属",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:76"
+ },
+ {
+  "fact": "FileSyncPolicy 含 version、ignoreFiles、exclude、maxFileBytes 与 maxTotalBytes 五个字段",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:20"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 affectedBy 覆盖受管路径与其祖先路径",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:87"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 scanUnlocked 执行一次完整扫描并返回变化数",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:152"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 collect 遍历每个受管子目录并按策略收集文件",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:309"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 applyOperation 落盘操作并追加操作记录",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:333"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 materializeOperations 按批应用操作",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:345"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 finishPending 完成待应用写入并提交清单",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:466"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 removeEmptyParents 删除后清理空的父目录，保留工作区根目录",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:510"
+ },
+ {
+  "fact": "validateFilePath 要求受管文件属于某个受管目录，不接受目录本身作为文件路径",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:584"
+ },
+ {
+  "fact": "REFERENCE_SUFFIX 的值为 .operit-ref.json",
+  "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:12"
+ },
+ {
+  "fact": "WorkspaceFileSyncStore 的 applyUnlocked 只接受 upsert 与 delete 两种操作",
+  "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:381"
+ }
+]

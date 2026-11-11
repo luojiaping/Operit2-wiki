@@ -1,0 +1,6 @@
+sync-workspace-files seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+docs/workspace-file-sync.md — 88 行
+docs/vfs-mounts.md — 57 行
+core/crates/persistence/store/src/WorkspaceFileSyncStore.rs — 588 行
+core/crates/persistence/store/src/FileSyncPolicy.rs — 286 行
+合计 1019 行，全部读完

@@ -1,0 +1,318 @@
+[
+  {
+    "fact": "文档定义多设备 Space 的路由与实时数据分发算法",
+    "ref": "docs/device-net-routing-distribution.md:5"
+  },
+  {
+    "fact": "文档定义多设备 Space 的路由与实时数据分发算法，覆盖由已认证 Peer Links 构成的应用层 overlay",
+    "ref": "docs/device-net-routing-distribution.md:7"
+  },
+  {
+    "fact": "文档不定义设备角色、执行位置、身份，以及 EasyTier 这类承载层使用的 NAT 穿越算法",
+    "ref": "docs/device-net-routing-distribution.md:8"
+  },
+  {
+    "fact": "EasyTier 这类承载层选择两个可达虚拟地址之间的物理包路径，Operit 选择 Core 请求的下一个已认证 Peer Link 并决定一个实时源在哪里复制，两者是独立的决策",
+    "ref": "docs/device-net-routing-distribution.md:11"
+  },
+  {
+    "fact": "文档的目标之一是选择代价最小的活跃路由，而不只是 overlay 跳数最少的路由",
+    "ref": "docs/device-net-routing-distribution.md:19"
+  },
+  {
+    "fact": "文档的目标之一是共享的实时状态源在一条边上只发一次，再在共同中间节点分发",
+    "ref": "docs/device-net-routing-distribution.md:21"
+  },
+  {
+    "fact": "文档的目标之一是保持每个逻辑 Watch 的顺序、完成、取消与失败行为",
+    "ref": "docs/device-net-routing-distribution.md:23"
+  },
+  {
+    "fact": "文档的目标之一是让过载可见，并隔离慢订阅者而不阻塞其他订阅者",
+    "ref": "docs/device-net-routing-distribution.md:25"
+  },
+  {
+    "fact": "文档的目标之一是只使用已认证的 Space 成员与活跃的直连 Peer Links",
+    "ref": "docs/device-net-routing-distribution.md:26"
+  },
+  {
+    "fact": "LinkAdvertisement 的字段为 sourceNodeId、targetNodeId、channelEpoch、sequence、measuredAt、expiresAt、smoothedRttMs、lossPermille、congestionPermille",
+    "ref": "docs/device-net-routing-distribution.md:37"
+  },
+  {
+    "fact": "channelEpoch 在 Peer Link 重建时变化，sequence 在该 epoch 内单调递增",
+    "ref": "docs/device-net-routing-distribution.md:47"
+  },
+  {
+    "fact": "接收方为每条有向边保留最新的 LinkAdvertisement，并在 expiresAt 丢弃广告",
+    "ref": "docs/device-net-routing-distribution.md:48"
+  },
+  {
+    "fact": "直连 Peer Link 用带序号的心跳请求与回显测量往返时间，保留有界的最近样本窗口，再发布指数加权移动平均值",
+    "ref": "docs/device-net-routing-distribution.md:51"
+  },
+  {
+    "fact": "loss 是错过测量窗口的心跳序号占比，congestion 是帧被承载层接受前观测到的有界出站帧队列占用率",
+    "ref": "docs/device-net-routing-distribution.md:53"
+  },
+  {
+    "fact": "广告在实质变化时发出，并按固定刷新间隔发出，实质变化阈值、整数化与刷新周期防止遥测把持久同步日志变成心跳传输",
+    "ref": "docs/device-net-routing-distribution.md:58"
+  },
+  {
+    "fact": "Space 拓扑控制面把最新广告带给每个成员",
+    "ref": "docs/device-net-routing-distribution.md:61"
+  },
+  {
+    "fact": "边合格的条件之一是两端都是当前 Space 成员",
+    "ref": "docs/device-net-routing-distribution.md:66"
+  },
+  {
+    "fact": "边合格的条件之一是广告未过期",
+    "ref": "docs/device-net-routing-distribution.md:67"
+  },
+  {
+    "fact": "边合格的条件之一是本地源端点是一条活跃的直连 Peer Link",
+    "ref": "docs/device-net-routing-distribution.md:68"
+  },
+  {
+    "fact": "边合格的条件之一是边有合法的 channel epoch 与 sequence",
+    "ref": "docs/device-net-routing-distribution.md:69"
+  },
+  {
+    "fact": "本地源端点的合格规则保护路由不受陈旧拓扑投影影响，每个远程中间节点在转发前执行同样的合格检查",
+    "ref": "docs/device-net-routing-distribution.md:72"
+  },
+  {
+    "fact": "路由器用 Dijkstra 算法计算有向最短路径树，图由合格的 LinkAdvertisement 构成",
+    "ref": "docs/device-net-routing-distribution.md:78"
+  },
+  {
+    "fact": "边代价是整数，对持有相同链路状态代系的所有节点保持稳定",
+    "ref": "docs/device-net-routing-distribution.md:80"
+  },
+  {
+    "fact": "边代价公式为 cost(u, v) = 1000 + 10 * smoothedRttMs(u, v) + 25 * lossPermille(u, v) + 10 * congestionPermille(u, v)",
+    "ref": "docs/device-net-routing-distribution.md:84"
+  },
+  {
+    "fact": "基础代价 1000 防止一串各自低延迟的链路靠累积舍入噪声取胜",
+    "ref": "docs/device-net-routing-distribution.md:89"
+  },
+  {
+    "fact": "代价系数是配置常量，不是协议字段",
+    "ref": "docs/device-net-routing-distribution.md:91"
+  },
+  {
+    "fact": "RouteDecision 包含 destinationNodeId、nextHopNodeId、totalCost、topologyGeneration",
+    "ref": "docs/device-net-routing-distribution.md:96"
+  },
+  {
+    "fact": "总代价相等时选择字典序最小的第一跳，使独立路由器收敛到同一路径并使测试确定",
+    "ref": "docs/device-net-routing-distribution.md:103"
+  },
+  {
+    "fact": "无合格路径的路由查找返回不可达错误，绝不凭成员关系或陈旧广告凭空造边",
+    "ref": "docs/device-net-routing-distribution.md:105"
+  },
+  {
+    "fact": "RoutedCoreRequest.ttl 是硬循环上限，初始 TTL 为合格顶点数，每转发一跳减一",
+    "ref": "docs/device-net-routing-distribution.md:108"
+  },
+  {
+    "fact": "路由器为新调用、Watch 打开或 Push 打开重新计算路由，已打开的 Watch 与 Push 在其生命周期内保留既有物理路径",
+    "ref": "docs/device-net-routing-distribution.md:111"
+  },
+  {
+    "fact": "Watch 路由在生成的 Core 路由元数据中声明一个分发类：Unicast 或 SnapshotShared",
+    "ref": "docs/device-net-routing-distribution.md:119"
+  },
+  {
+    "fact": "Unicast 用于执行事件、工具流、增量、仅追加日志，以及任何后来订阅者必须看到完整历史的序列，且总是打开独立的上游流",
+    "ref": "docs/device-net-routing-distribution.md:125"
+  },
+  {
+    "fact": "SnapshotShared 用于有完整当前快照及后续替换的状态投影，新接入的订阅者先收到最新缓存快照再收到后续变化",
+    "ref": "docs/device-net-routing-distribution.md:129"
+  },
+  {
+    "fact": "一条路由不能仅因两个序列化请求看起来相等就进入 SnapshotShared 类",
+    "ref": "docs/device-net-routing-distribution.md:131"
+  },
+  {
+    "fact": "生成的声明是分发分类的唯一权威，传输层不从对象 id、方法名、参数名或事件负载推断分类",
+    "ref": "docs/device-net-routing-distribution.md:134"
+  },
+  {
+    "fact": "每个路由器拥有一个 SharedWatchHub，SnapshotShared 条目以 (spaceId, targetNodeId, routeKind, target, propertyName, canonicalArguments, topologyGeneration) 为键",
+    "ref": "docs/device-net-routing-distribution.md:141"
+  },
+  {
+    "fact": "canonicalArguments 是排除请求 id 后的结构化 Link 编解码表示，Core Value 映射已有确定键序，键使用其编码字节而非文本搜索或子串约定",
+    "ref": "docs/device-net-routing-distribution.md:147"
+  },
+  {
+    "fact": "SharedWatchEntry 恰好拥有一个上游 Watch，包含 latestSnapshot、upstreamSubscription、downstreamSubscribers、routeDecision",
+    "ref": "docs/device-net-routing-distribution.md:155"
+  },
+  {
+    "fact": "第一个消费者沿加权路由打开上游 Watch，快照已存入后进入的消费者在其自己的逻辑订阅 id 上收到该快照",
+    "ref": "docs/device-net-routing-distribution.md:162"
+  },
+  {
+    "fact": "changed 事件按源顺序复制给每个活跃消费者，完成事件关闭全部消费者并移除条目，最后一个消费者取消时关闭上游 Watch 并移除条目",
+    "ref": "docs/device-net-routing-distribution.md:164"
+  },
+  {
+    "fact": "每个下游订阅者有有界事件队列，触及上限时该逻辑订阅以 PEER_WATCH_CONSUMER_SLOW 关闭，不拖慢源端或其他消费者",
+    "ref": "docs/device-net-routing-distribution.md:169"
+  },
+  {
+    "fact": "队列占用计入链路拥塞度量，用于后续路由决策",
+    "ref": "docs/device-net-routing-distribution.md:171"
+  },
+  {
+    "fact": "共享 Watch 条目构成以源为根的反向最短路径树，C 与 D 经 B 订阅 A 的同一 SnapshotShared 源时只产生一条 A 到 B 的上游流与两条 B 到消费者的流，源事件只经过 A-B 一次",
+    "ref": "docs/device-net-routing-distribution.md:179"
+  },
+  {
+    "fact": "控制面保持个体化与已认证，包含 CoreLinkWatchRequest::Open、CoreLinkWatchRequest::Close、路由错误与 LinkAdvertisement",
+    "ref": "docs/device-net-routing-distribution.md:190"
+  },
+  {
+    "fact": "数据面只有在 SnapshotShared 声明核查通过后才可共享，共享内容为 CoreEvent 的 snapshot 与 changed 事件",
+    "ref": "docs/device-net-routing-distribution.md:197"
+  },
+  {
+    "fact": "每个下游事件按该消费者的逻辑请求 id 重写，每个消费者流内保留原始源顺序",
+    "ref": "docs/device-net-routing-distribution.md:199"
+  },
+  {
+    "fact": "文档划分的模块职责表中，operit-peer-link/connection 负责心跳回显、本地度量、有界帧队列与逐消费者事件投递",
+    "ref": "docs/device-net-routing-distribution.md:207"
+  },
+  {
+    "fact": "文档划分的模块职责表中，operit-store/CoreSpaceStore 负责一条含直连对端与链路度量的持久化拓扑记录、过期过滤、有向 Dijkstra 与确定性路由决策",
+    "ref": "docs/device-net-routing-distribution.md:208"
+  },
+  {
+    "fact": "文档划分的模块职责表中，operit-node-runtime/CoreNodeRouter 为新操作选择路由并拥有 SharedWatchHub",
+    "ref": "docs/device-net-routing-distribution.md:209"
+  },
+  {
+    "fact": "文档划分的模块职责表中，operit-link 与路由代码生成负责为每个真实 Core Watch 路由声明 Unicast 或 SnapshotShared",
+    "ref": "docs/device-net-routing-distribution.md:210"
+  },
+  {
+    "fact": "文档的验证拓扑之一是直连高延迟边与两跳低延迟路径，Dijkstra 选择总代价更低的路径",
+    "ref": "docs/device-net-routing-distribution.md:215"
+  },
+  {
+    "fact": "文档的验证拓扑之一是过期的广告或不活跃的本地 Peer Link 导致路由不存在",
+    "ref": "docs/device-net-routing-distribution.md:218"
+  },
+  {
+    "fact": "文档的验证拓扑之一是 C 与 D 经 B 订阅 A 的同一 SnapshotShared 源时，B 持有一个上游 Watch 并在 A-B 上每个事件只发一次",
+    "ref": "docs/device-net-routing-distribution.md:220"
+  },
+  {
+    "fact": "文档的验证拓扑之一是慢速共享订阅者关闭时不拖慢健康消费者",
+    "ref": "docs/device-net-routing-distribution.md:224"
+  },
+  {
+    "fact": "文档的验证拓扑之一是承载层关闭结束受影响的树分支，不影响无关订阅",
+    "ref": "docs/device-net-routing-distribution.md:226"
+  },
+  {
+    "fact": "持久同步 worker 先通过直连配对交换已认证的 Space 投影，再枚举经加权路由图可达的每个当前 Space 成员并与之做常规向量时钟交换",
+    "ref": "docs/device-net-routing-distribution.md:231"
+  },
+  {
+    "fact": "多跳成员直接经既有路由 Core 调用路径参与反熵，不要求在源设备上有出站配对记录",
+    "ref": "docs/device-net-routing-distribution.md:234"
+  },
+  {
+    "fact": "直连对端拓扑与链路质量度量同属一个 Space 拥有的拓扑实体，移除直连 Peer Link 会移除其拓扑边与质量度量，没有当前拓扑边的度量不能产生合格路由",
+    "ref": "docs/device-net-routing-distribution.md:240"
+  },
+  {
+    "fact": "该文件实现类型化的对端同步协议，本地管理目标永不暴露",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:1"
+  },
+  {
+    "fact": "NODE_SYNC_TARGET 的值为 $node.sync",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:5"
+  },
+  {
+    "fact": "SyncRequest 的字段为 limit 与 force，且该结构体用 deny_unknown_fields 拒绝未知字段",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:9"
+  },
+  {
+    "fact": "PeerSyncMethod 枚举包含 CoreVersion、Protocol、DeviceSpace、SyncClock、SyncClockDigest、SyncRequest、SyncProgress、SyncConsistency",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:18"
+  },
+  {
+    "fact": "PeerSyncMethod 枚举包含 SyncReadSnapshot、SyncReadCoverage、SyncRepairSnapshot、SyncOperationsSince、SyncApplyOperations、SyncBlobExists、SyncReadBlobChunk、SyncApplyImmediateBindingOperation",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:26"
+  },
+  {
+    "fact": "PeerSyncMethod 的 requiresStorageProvider 对 SyncClock、SyncClockDigest、SyncOperationsSince、SyncApplyOperations、SyncBlobExists、SyncReadBlobChunk、SyncConsistency、SyncReadSnapshot、SyncReadCoverage、SyncRepairSnapshot、SyncRequest、SyncProgress 返回 true",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:38"
+  },
+  {
+    "fact": "设备空间检查与即时执行绑定是控制面调用，不是复制持久业务数据的邀请",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:35"
+  },
+  {
+    "fact": "PeerSyncMethod 的 request 用 NODE_SYNC_TARGET 与序列化后的方法名构建 CoreCallRequest",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:44"
+  },
+  {
+    "fact": "PeerSyncMethod 的 fromRequest 校验确切的对端方法与类型化操作信封，未知方法以 PEER_SYNC_METHOD_DENIED 失败",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:56"
+  },
+  {
+    "fact": "SyncApplyOperations 要求操作数组，参数无效时以 PEER_SYNC_INVALID_OPERATIONS 失败",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:67"
+  },
+  {
+    "fact": "SyncReadSnapshot 与 SyncReadCoverage 校验 ReadSnapshot 参数，SyncRepairSnapshot 校验 RepairSnapshot 参数，快照参数无效时以 PEER_SYNC_INVALID_SNAPSHOT 失败",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:75"
+  },
+  {
+    "fact": "ReadSnapshot 的字段为 owner 与 token，且该结构体用 deny_unknown_fields 拒绝未知字段",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:86"
+  },
+  {
+    "fact": "RepairSnapshot 的字段为 owner、expected 与 reference，且该结构体用 deny_unknown_fields 拒绝未知字段",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:92"
+  },
+  {
+    "fact": "ApplyOperations 的字段为 operations，类型为 Vec<SyncOperation>，且该结构体用 deny_unknown_fields 拒绝未知字段",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:97"
+  },
+  {
+    "fact": "PeerSyncPushMethod 只有一个变体 SyncReceiveBlob",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:103"
+  },
+  {
+    "fact": "PeerSyncPushMethod 的 fromRequest 只接受 syncReceiveBlob 推送，其他推送方法以 PEER_SYNC_METHOD_DENIED 拒绝",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:190"
+  },
+  {
+    "fact": "测试断言 PeerSyncMethod 经 request 与 fromRequest 往返后相等，且请求目标为 NODE_SYNC_TARGET",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:146"
+  },
+  {
+    "fact": "测试断言 startPairing 不是对端同步操作，PeerSyncMethod 的 fromRequest 对其返回错误",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:170"
+  },
+  {
+    "fact": "测试断言 SyncApplyOperations 拒绝含 complete、forceApply、spaceMerge、firstJoin 的参数",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:175"
+  },
+  {
+    "fact": "测试断言对端同步推送只接受 syncReceiveBlob，startListening 被拒绝",
+    "ref": "core/crates/node/runtime/src/PeerSync.rs:191"
+  }
+]

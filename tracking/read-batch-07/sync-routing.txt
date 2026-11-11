@@ -1,0 +1,4 @@
+sync-routing seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+docs/device-net-routing-distribution.md — 241 行
+core/crates/node/runtime/src/PeerSync.rs — 196 行
+合计 437 行，全部读完

@@ -1,0 +1,5 @@
+sync-progress seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+docs/device-space-large-sync-progress.md — 93 行
+docs/device-space-native-testing.md — 169 行
+core/crates/node/runtime/src/SpaceSyncProgress.rs — 551 行
+合计 813 行，全部读完

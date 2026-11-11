@@ -1,0 +1,6 @@
+sync-vfs seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+docs/vfs-mounts.md — 57 行
+docs/filesystem-access-boundary.md — 20 行
+core/crates/tool/services/src/files/VisualFileSystem.rs — 492 行
+core/crates/tool/services/src/files/PathMapper.rs — 1279 行
+合计 1848 行，全部读完

@@ -1,0 +1,6 @@
+sync-discovery-join seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+docs/device-space-lan-discovery.md — 139 行
+docs/link-access-architecture.md — 252 行
+core/crates/node/runtime/src/peer/discovery.rs — 69 行
+core/crates/node/runtime/src/peer/space_join.rs — 1550 行
+合计 2010 行，全部读完

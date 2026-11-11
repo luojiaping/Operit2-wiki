@@ -1,0 +1,5 @@
+sync-transaction-model seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+docs/transaction-model.md — 189 行
+docs/transaction-sync-contract.md — 75 行
+core/crates/persistence/store/src/Transaction.rs — 1680 行
+合计 1944 行，全部读完

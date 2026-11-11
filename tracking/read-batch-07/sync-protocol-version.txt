@@ -1,0 +1,5 @@
+sync-protocol-version seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+docs/peer-protocol-versioning.md — 59 行
+core/peer-protocol.json — 113 行
+core/crates/node/runtime/src/SyncConsistency.rs — 261 行
+合计 433 行，全部读完

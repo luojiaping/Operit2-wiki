@@ -1,6 +1,6 @@
 {
  "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
- "updated": "2026-11-11 16:41 UTC",
+ "updated": "2026-11-11 19:57 UTC",
  "files": {
   "README.md": {
    "status": "complete",
@@ -46,9 +46,9 @@
   },
   "docs/device-space-lan-discovery.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-space.md",
+   "evidence": "review/batch-07/sync-discovery-join.md",
    "lines": 139
   },
   "apps/flutter/app/web/README.md": {
@@ -74,9 +74,9 @@
   },
   "docs/sync-architecture.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-sync.md",
+   "evidence": "review/batch-07/sync-overview.md",
    "lines": 131
   },
   "core/crates/persistence/store/src/CoreNodeBindingStore.rs": {
@@ -88,30 +88,30 @@
   },
   "docs/transaction-model.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-sync.md",
+   "evidence": "review/batch-07/sync-transaction-model.md",
    "lines": 189
   },
   "docs/transaction-sync-contract.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-sync.md",
+   "evidence": "review/batch-07/sync-transaction-model.md",
    "lines": 75
   },
   "docs/device-net-routing-distribution.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-routing.md",
+   "evidence": "review/batch-07/sync-routing.md",
    "lines": 241
   },
   "docs/link-access-architecture.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-routing.md",
+   "evidence": "review/batch-07/sync-discovery-join.md",
    "lines": 252
   },
   "core/crates/persistence/rescue/src/lib.rs": {
@@ -207,9 +207,9 @@
   },
   "core/peer-protocol.json": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-node-peer-link.md",
+   "evidence": "review/batch-07/sync-protocol-version.md",
    "lines": 113
   },
   "core/crates/persistence/store/src/SyncOperationStore.rs": {
@@ -249,9 +249,9 @@
   },
   "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs": {
    "status": "complete",
-   "batch": "batch-02",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-02/core-persistence-sync.md",
+   "evidence": "review/batch-07/sync-workspace-files.md",
    "lines": 588
   },
   "core/crates/persistence/store/src/RuntimeFileSyncStore.rs": {
@@ -263,9 +263,9 @@
   },
   "core/crates/persistence/store/src/FileSyncPolicy.rs": {
    "status": "complete",
-   "batch": "batch-02",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-02/core-persistence-sync.md",
+   "evidence": "review/batch-07/sync-workspace-files.md",
    "lines": 286
   },
   "core/crates/provider/README.md": {
@@ -536,9 +536,9 @@
   },
   "core/crates/node/runtime/src/peer/discovery.rs": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-node-peer-link.md",
+   "evidence": "review/batch-07/sync-discovery-join.md",
    "lines": 69
   },
   "core/crates/node/runtime/src/peer/pairing_throttle.rs": {
@@ -1019,16 +1019,16 @@
   },
   "core/crates/node/runtime/src/PeerSync.rs": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-node-runtime.md",
+   "evidence": "review/batch-07/sync-routing.md",
    "lines": 196
   },
   "core/crates/node/runtime/src/SpacePersistenceSyncService.rs": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-node-runtime.md",
+   "evidence": "review/batch-07/sync-overview.md",
    "lines": 1907
   },
   "core/crates/node/runtime/src/SpaceRuntime.rs": {
@@ -2979,9 +2979,9 @@
   },
   "docs/filesystem-access-boundary.md": {
    "status": "complete",
-   "batch": "batch-05",
+   "batch": "batch-07",
    "date": "2026-11-11",
-   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "evidence": "review/batch-07/sync-vfs.md",
    "lines": 20
   },
   "core/crates/tool/services/src/tools/mcp/MCPPackage.rs": {
@@ -3438,6 +3438,83 @@
    "date": "2026-11-11",
    "evidence": "review/batch-06/plugin-theme.md",
    "lines": 55
+  },
+  "core/crates/persistence/store/src/Transaction.rs": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-transaction-model.md",
+   "lines": 1680
+  },
+  "docs/workspace-file-sync.md": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-workspace-files.md",
+   "lines": 88
+  },
+  "docs/vfs-mounts.md": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-vfs.md",
+   "lines": 57
+  },
+  "core/crates/tool/services/src/files/VisualFileSystem.rs": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-vfs.md",
+   "lines": 492
+  },
+  "core/crates/tool/services/src/files/PathMapper.rs": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-vfs.md",
+   "lines": 1279
+  },
+  "core/crates/node/runtime/src/peer/space_join.rs": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-discovery-join.md",
+   "lines": 1550
+  },
+  "docs/device-space-large-sync-progress.md": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-progress.md",
+   "lines": 93
+  },
+  "docs/device-space-native-testing.md": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-progress.md",
+   "lines": 169
+  },
+  "core/crates/node/runtime/src/SpaceSyncProgress.rs": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-progress.md",
+   "lines": 551
+  },
+  "docs/peer-protocol-versioning.md": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-protocol-version.md",
+   "lines": 59
+  },
+  "core/crates/node/runtime/src/SyncConsistency.rs": {
+   "status": "complete",
+   "batch": "batch-07",
+   "date": "2026-11-11",
+   "evidence": "review/batch-07/sync-protocol-version.md",
+   "lines": 261
   }
  }
 }

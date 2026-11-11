@@ -1,0 +1,4 @@
+sync-overview seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+docs/sync-architecture.md — 131 行
+core/crates/node/runtime/src/SpacePersistenceSyncService.rs — 1907 行
+合计 2038 行，全部读完
