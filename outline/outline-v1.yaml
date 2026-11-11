@@ -1,0 +1,1908 @@
+# Operit2-wiki 大纲 v1
+# 生成依据：2026-11-11 六路子代理只读清点（Core / apps+hosts / plugins / edge+tools / docs / 定位与 Agent 回路），
+#   逐目录 git ls-files 计数 + 文件头抽查 + 关键文件 ls 核实；未全文读文件。
+# 规模：115 页 / 11 章。est_lines 为 seed 文件 wc -l 求和（含空行注释），实际有效代码约少 15-25%；
+#   跨页重复引用的 seed（如 README.md、theme schema、sync 文档）各算一次，合计约 580,324 行，去重后更少。
+# 口径：seed 文件须逐个核实存在；只抽查、未通读的部分见各页 notes，不得当作全读结论。
+# 与 Operit-wiki v3 的区别：Operit2 是跨平台项目，大纲按“概念 + 平台矩阵”组织，不按源码目录 1:1 铺页；
+#   Core 章纠正：11 个是领域分组，真 crate 是 29 个。
+version: 1
+generated: 2026-11-11
+source_repo: AAswordman/Operit2
+source_commit: 364d1d594
+source_commit_date: 2026-11-11
+total_files: 6335
+total_pages: 115
+
+chapters:
+  - chapter: 定位与入门
+    pages:
+      - id: intro-overview
+        title: Operit2 是什么
+        module: intro
+        seed_files:
+          - README.md
+          - README-zh.md
+        questions:
+          - Operit2 一句话定位是什么
+          - 它源于什么项目，目前在打磨什么
+          - 单节点 Agent 现在已经包含哪些能力
+          - 哪些能力在各平台并不相同，取决于什么
+        est_lines: 524
+        status: review-pending
+      - id: intro-not-what
+        title: Operit2 不是什么
+        module: intro
+        seed_files:
+          - README.md
+          - README-zh.md
+          - docs/core-node-space-binding-architecture.md
+        questions:
+          - 为什么 Operit2 不是“任务流转 + 手机审批”
+          - 为什么 Space 中没有固定主节点
+          - 加入 Space 会自动获得其他设备的系统权限吗
+          - 什么东西不会被搬迁
+        est_lines: 1018
+        status: review-pending
+        notes: 定位铁律页，措辞以 README 与架构文档原文为准，不发挥。
+      - id: intro-preview
+        title: 预览版与破坏性变更
+        module: intro
+        seed_files:
+          - README.md
+          - docs/release-versioning.md
+          - docs/release-notes/2.0.0-preview.22-build28.md
+          - docs/release-notes/2.0.0-preview.27-build33.md
+        questions:
+          - Preview 阶段哪些东西可能发生 breaking 变更
+          - 版本号命名规则是什么
+          - 现有 release notes 覆盖到哪个版本
+          - 用户如何判断自己用的版本是否还受支持
+        est_lines: 819
+        status: review-pending
+        notes: release notes 仅 preview.22 / preview.27 两份，按构建写，覆盖不全。
+      - id: intro-quickstart
+        title: 第一次运行
+        module: intro
+        seed_files:
+          - README.md
+          - docs/device-space-lan-discovery.md
+          - apps/flutter/app/web/README.md
+        questions:
+          - 配对、发现、加入 Space 的 CLI 入口命令是什么
+          - 为什么不要用默认开发 token 对公网监听
+          - Web Access 打开页面会不会自动成为 Space 节点
+          - 快照备份能迁移什么、不能迁移什么
+        est_lines: 456
+        status: review-pending
+        notes: 命令参数以 operit2 --help 实际输出为准，文档不得照抄旧参数。
+
+  - chapter: 架构总览
+    pages:
+      - id: arch-overview
+        title: 整体架构（总览）
+        module: arch
+        seed_files:
+          - README.md
+          - docs/core-node-space-binding-architecture.md
+          - core/CRATE_BOUNDARIES.md
+        questions:
+          - Core、Host、Space 三者各自负责什么
+          - 一个请求从 App 进入后先到哪里
+          - 持久化同步与实时传输是两条什么路径
+          - 架构中明确不引入哪些概念
+        est_lines: 944
+        status: review-pending
+        notes: 架构文档 §8 的模块对照表用的是旧模块名，写页时须以 core/CRATE_BOUNDARIES.md 为准核对现名。
+      - id: arch-corenode
+        title: CoreNode
+        module: arch
+        seed_files:
+          - docs/core-node-space-binding-architecture.md
+          - core/CRATE_BOUNDARIES.md
+          - core/crates/README.md
+        questions:
+          - CoreNode 由哪三部分组成
+          - 为什么一个 CoreNode 只有一个 OperitApplication 和一个 HostManager
+          - CoreNode 之间地位对等体现在哪里
+          - 需要另一台设备的 Host 能力时怎么办
+        est_lines: 708
+        status: review-pending
+        notes: 代码侧的 CoreNode 组装位置未核实，写页时需再定位。
+      - id: arch-space
+        title: Space
+        module: arch
+        seed_files:
+          - docs/core-node-space-binding-architecture.md
+          - docs/sync-architecture.md
+          - docs/device-space-lan-discovery.md
+        questions:
+          - Space 只负责哪三件事
+          - Space 表达执行位置或数据归属吗
+          - 配对完成后会不会自动加入 Space
+          - 成员表分裂如何收敛
+        est_lines: 764
+        status: review-pending
+      - id: arch-binding
+        title: Binding
+        module: arch
+        seed_files:
+          - docs/core-node-space-binding-architecture.md
+          - core/crates/persistence/store/src/CoreNodeBindingStore.rs
+        questions:
+          - Binding 一句话表达什么
+          - Binding 的 key 是什么
+          - generation 单调递增起什么作用
+          - 切换 Binding 会移动数据或 Agent 吗
+        est_lines: 975
+        status: review-pending
+      - id: arch-sync
+        title: 持久化同步（总览）
+        module: arch
+        seed_files:
+          - docs/sync-architecture.md
+          - docs/transaction-model.md
+          - docs/transaction-sync-contract.md
+        questions:
+          - 哪些数据进入 Space 同步、哪些永远留在本地
+          - 同步的变更门控如何工作
+          - 单页同步的上限是多少
+          - 断开重连后如何续同步
+        est_lines: 395
+        status: review-pending
+        notes: 总览页，机制细节见第 7 章多设备同步；三份文档只核实存在与行数，写页时须逐篇读。
+      - id: arch-routing
+        title: 路由与转发
+        module: arch
+        seed_files:
+          - docs/core-node-space-binding-architecture.md
+          - docs/device-net-routing-distribution.md
+          - docs/link-access-architecture.md
+        questions:
+          - RoutedLink 外层携带什么、不携带什么
+          - 第一跳有什么硬性要求
+          - Call / Watch / Push 在转发时如何保持身份
+          - 路由失败有哪些情形
+        est_lines: 987
+        status: review-pending
+        notes: RouteTable 是运行时实现，不是领域概念，不要写成领域实体。
+
+  - chapter: Core
+    pages:
+      - id: core-overview
+        title: Core 总览与 crate 边界
+        module: core
+        seed_files:
+          - core/CRATE_BOUNDARIES.md
+          - core/Cargo.toml
+          - core/crates/README.md
+          - core/peer-protocol.json
+        questions:
+          - 11 个领域分组与 29 个真 crate 是什么关系
+          - 依赖方向为什么是 plugin-sdk/host-api → util → model → store → tools/providers → runtime
+          - 子 crate 需要父级行为时走什么机制
+          - peer-protocol.json 是什么的来源
+        est_lines: 423
+        status: review-pending
+      - id: core-foundation
+        title: 基础层——共享契约与数据模型
+        module: core
+        seed_files:
+          - core/crates/foundation/README.md
+          - core/crates/foundation/host-api/src/lib.rs
+          - core/crates/foundation/host-api/src/HostManager.rs
+          - core/crates/foundation/model/src/ChatMessage.rs
+          - core/crates/foundation/model/src/ModelCatalog.rs
+          - core/crates/foundation/link/src/lib.rs
+          - core/crates/foundation/link/src/protocol.rs
+        questions:
+          - HostManager 如何界定平台宿主的能力边界
+          - operit-model 里哪些数据结构是跨 crate 共用的
+          - Link 协议层长什么样
+        est_lines: 6060
+        status: review-pending
+        notes: 不含 util（另拆一页）；foundation/README 提到未来要加 contracts crate，目前不存在，别写成已有。
+      - id: core-foundation-util
+        title: 基础层——通用工具库
+        module: core
+        seed_files:
+          - core/crates/foundation/util/src/lib.rs
+          - core/crates/foundation/util/src/FileUtils.rs
+          - core/crates/foundation/util/src/AppLogger.rs
+          - core/crates/foundation/util/src/ArchiveUtil.rs
+          - core/crates/foundation/util/src/stream/Stream.rs
+        questions:
+          - util 里有哪些子能力
+          - 哪些能力带 feature 门
+        est_lines: 1629
+        status: review-pending
+        notes: 79 个 .rs、17,476 行的大杂烩，页内按子能力分组写，不要逐文件罗列。
+      - id: core-persistence-store
+        title: 持久化——store 聚合 crate
+        module: core
+        seed_files:
+          - core/crates/persistence/README.md
+          - core/crates/persistence/store/src/lib.rs
+          - core/crates/persistence/store/src/SqliteStore.rs
+          - core/crates/persistence/store/src/CoreNodeIdentityStore.rs
+          - core/crates/persistence/store/src/CoreNodeBindingStore.rs
+          - core/crates/persistence/store/src/CoreSpaceStore.rs
+          - core/crates/persistence/store/src/PreferencesDataStore.rs
+        questions:
+          - store 聚合了哪些仓库
+          - 偏好存储与合并的入口在哪里
+          - Repository 归属规则是什么
+        est_lines: 8261
+        status: review-pending
+        notes: 同步类存储另拆 core-persistence-sync；persistence/README 的目标拆分是计划不是现状，别写成已拆。
+      - id: core-persistence-sync
+        title: 持久化——同步存储
+        module: core
+        seed_files:
+          - core/crates/persistence/store/src/SyncOperationStore.rs
+          - core/crates/persistence/store/src/SyncBlobIo.rs
+          - core/crates/persistence/store/src/SyncAppliedChanges.rs
+          - core/crates/persistence/store/src/MergeRules.rs
+          - core/crates/persistence/store/src/PreferenceMerge.rs
+          - core/crates/persistence/store/src/WorkspaceFileSyncStore.rs
+          - core/crates/persistence/store/src/RuntimeFileSyncStore.rs
+          - core/crates/persistence/store/src/FileSyncPolicy.rs
+        questions:
+          - 同步操作日志与 Blob 是怎么存的
+          - 冲突合并规则长什么样
+          - 工作区文件同步与运行时文件同步的存储有何不同
+        est_lines: 4629
+        status: review-pending
+        notes: 与 core-node-runtime 的同步运行时页重叠：本页只写“存什么、怎么存”，执行与重放写 node 页。
+      - id: core-persistence-rescue
+        title: 持久化——数据救援
+        module: core
+        seed_files:
+          - core/crates/persistence/rescue/src/lib.rs
+        questions:
+          - 离线便携救援在不启动 Core/数据库的前提下怎么做
+          - 救援的输入输出格式是什么
+        est_lines: 470
+        status: review-pending
+        notes: 单文件 crate，短页；上游文档 docs/data-rescue.md 可作交叉引用。
+      - id: core-provider-services
+        title: Provider——服务聚合
+        module: core
+        seed_files:
+          - core/crates/provider/README.md
+          - core/crates/provider/services/src/lib.rs
+          - core/crates/provider/services/src/chat/EnhancedAIService.rs
+          - core/crates/provider/services/src/chat/llmprovider/AIService.rs
+          - core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs
+          - core/crates/provider/services/src/runtime_support.rs
+        questions:
+          - AIService 与各家 Provider 适配器是什么关系
+          - 对话编排做了什么
+          - ProviderRuntimeSupport 向 runtime 要哪些能力
+          - STT/TTS 与 market 服务挂在哪里
+        est_lines: 6287
+        status: review-pending
+        notes: provider/services 是聚合 crate，README 的目标拆分是计划不是现状。
+      - id: core-provider-local-model
+        title: Provider——本地模型
+        module: core
+        seed_files:
+          - core/crates/provider/local-model/src/lib.rs
+          - core/crates/provider/local-model/src/LocalModelRegistry.rs
+          - core/crates/provider/local-model/src/LocalModelProvider.rs
+          - core/crates/provider/local-model/src/LocalInference.rs
+          - core/crates/provider/local-model/src/runtime_support.rs
+        questions:
+          - 本地模型清单与已装注册表如何维护
+          - 模型下载走谁
+          - LocalModelRuntimeSupport 暴露了什么给 runtime
+        est_lines: 1132
+        status: review-pending
+        notes: 本页同时覆盖“本地模型”主题，不再单立 model-local 页。
+      - id: core-tool-execution
+        title: 工具系统——执行与注册
+        module: core
+        seed_files:
+          - core/crates/tool/README.md
+          - core/crates/tool/services/src/lib.rs
+          - core/crates/tool/services/src/ToolExecutionManager.rs
+          - core/crates/tool/services/src/tools/AIToolHandler.rs
+          - core/crates/tool/services/src/tools/ToolRegistration.rs
+          - core/crates/tool/services/src/tools/ToolPermissionSystem.rs
+        questions:
+          - 工具从模型输出到执行再到结果回填的完整链路
+          - 注册表与权限系统如何工作
+          - AIToolHook 在链路的哪个位置
+        est_lines: 6114
+        status: review-pending
+      - id: core-tool-packages-mcp
+        title: 工具系统——包、技能与 MCP
+        module: core
+        seed_files:
+          - core/crates/tool/services/src/tools/PackageToolExecutor.rs
+          - core/crates/tool/services/src/tools/skill/SkillManager.rs
+          - core/crates/tool/services/src/tools/skill/SkillPackage.rs
+          - core/crates/tool/services/src/tools/mcp/MCPManager.rs
+          - core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs
+          - core/crates/tool/services/src/tools/ToolJsRuntime.rs
+        questions:
+          - 技能包如何加载与执行
+          - MCP 服务器与工具如何接入
+          - JS 工具运行时与 plugin 的 JS 桥是什么关系
+        est_lines: 2622
+        status: review-pending
+        notes: 与 core-plugin-sdk 页重叠：包格式/加载器在 plugin-sdk，包的执行与管理在 tools。
+      - id: core-plugin-sdk
+        title: 插件——Plugin SDK
+        module: core
+        seed_files:
+          - core/crates/plugin/README.md
+          - core/crates/plugin/sdk/src/lib.rs
+          - core/crates/plugin/sdk/src/PackageManager.rs
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs
+          - core/crates/plugin/sdk/src/js_sdk/core.rs
+        questions:
+          - ToolPkg 的包模型与加载流程是什么
+          - Hook 系统有哪些挂载点
+          - Compose DSL 如何声明 UI
+          - JsExecutionHost / JsExecutionProvider 两个 trait 如何分工
+        est_lines: 6809
+        status: review-pending
+      - id: core-plugin-js-bridge
+        title: 插件——JS 桥
+        module: core
+        seed_files:
+          - core/crates/plugin/javascript-bridge/src/lib.rs
+          - core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs
+          - core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs
+          - core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs
+        questions:
+          - JsEngine 如何实现 JsExecutionProvider
+          - JS 如何调用宿主操作
+          - 引擎与 SDK 的 JsExecutionHost 如何衔接
+        est_lines: 4188
+        status: review-pending
+      - id: core-plugin-theme
+        title: 插件——主题 v1 契约
+        module: core
+        seed_files:
+          - core/crates/plugin/theme/src/lib.rs
+          - core/crates/plugin/theme/schema/theme-v1.schema.json
+          - core/crates/plugin/theme/schema/theme-template.schema.json
+        questions:
+          - theme v1 schema 约束了什么
+          - 为什么这个 crate 不做 I/O、不做主题应用
+          - 校验通过是否等于安装/渲染安全
+        est_lines: 1869
+        status: review-pending
+        notes: 纯契约 crate，短页；与“主题”功能章分开，本页只写契约。
+      - id: core-plugin-codegen
+        title: 插件——SDK 代码生成与 IPC
+        module: core
+        seed_files:
+          - core/crates/plugin/codegen/src/lib.rs
+          - core/crates/plugin/codegen/src/declarations.rs
+          - core/crates/plugin/codegen/src/client_codegen.rs
+          - core/crates/plugin/codegen/src/registration.rs
+          - core/crates/plugin/sdk-macros/src/lib.rs
+          - core/crates/plugin/sdk-ipc/src/lib.rs
+          - core/crates/plugin/sdk-ipc-bridge/src/lib.rs
+        questions:
+          - SDK 声明与客户端代码如何生成
+          - sdk-ipc 的 client/server/frame/handler 如何分工
+          - sdk-ipc-bridge 只有 36 行，它是什么
+        est_lines: 3921
+        status: review-pending
+      - id: core-runtime
+        title: Runtime 总览与 OperitApplication
+        module: core
+        seed_files:
+          - core/crates/runtime/README.md
+          - core/crates/runtime/application/src/lib.rs
+          - core/crates/runtime/application/src/core/application/OperitApplication.rs
+          - core/crates/runtime/application/src/core/chat/AIMessageManager.rs
+          - core/crates/runtime/application/src/R.rs
+        questions:
+          - OperitApplication 如何组装各子 crate 的服务
+          - 应用启动与生命周期是怎样的
+          - CORE_VERSION 在节点兼容检查里起什么作用
+        est_lines: 3467
+        status: review-pending
+      - id: core-runtime-services
+        title: Runtime——业务服务
+        module: core
+        seed_files:
+          - core/crates/runtime/application/src/services/ChatServiceCore.rs
+          - core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs
+          - core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs
+          - core/crates/runtime/application/src/services/RuntimeTerminalService.rs
+        questions:
+          - ChatServiceCore 管什么
+          - ProviderRuntimeSupport / ToolRuntimeSupport 两个 Service 各自实现了哪些 trait 方法
+          - 终端、浏览器、STT/TTS 服务如何挂进 runtime
+        est_lines: 6589
+        status: review-pending
+      - id: core-runtime-data
+        title: Runtime——数据与插件宿主
+        module: core
+        seed_files:
+          - core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs
+          - core/crates/runtime/application/src/data/preferences/AgreementPreferences.rs
+          - core/crates/runtime/application/src/plugins/PluginRegistry.rs
+          - core/crates/runtime/application/src/plugins/BuiltinPluginAssets.rs
+          - core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs
+          - core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs
+        questions:
+          - Operit1 快照如何导入迁移
+          - 偏好数据存在哪、如何分层
+          - 插件注册表与 ToolPkg 宿主如何配合
+        est_lines: 1699
+        status: review-pending
+      - id: core-node-runtime
+        title: 节点——节点运行时
+        module: core
+        seed_files:
+          - core/crates/node/README.md
+          - core/crates/node/runtime/src/lib.rs
+          - core/crates/node/runtime/src/CoreNodeRouter.rs
+          - core/crates/node/runtime/src/SpaceRuntime.rs
+          - core/crates/node/runtime/src/PeerSync.rs
+          - core/crates/node/runtime/src/SpacePersistenceSyncService.rs
+          - core/crates/node/runtime/src/NodeSpaceService.rs
+        questions:
+          - CoreNodeRouter 如何决定一次调用走本地还是跨节点
+          - SpaceRuntime 与 SpacePersistenceSyncService 如何分工
+          - 节点身份、配对与会话准入在哪里实现
+        est_lines: 9235
+        status: review-pending
+        notes: node/README 提到 runtime/src/remote，但该目录不存在（文档滞后）。
+      - id: core-node-peer-link
+        title: 节点——PeerLink 传输与路由宏
+        module: core
+        seed_files:
+          - core/crates/node/peer-link/src/lib.rs
+          - core/crates/node/route-macros/src/lib.rs
+          - core/crates/node/runtime/src/peer/discovery.rs
+          - core/crates/node/runtime/src/peer/pairing_throttle.rs
+          - core/peer-protocol.json
+        questions:
+          - PeerLink 引擎与 HTTP/WS/TCP/串口载体如何组织
+          - 配对节流与发现机制是怎样的
+          - route-macros 生成的路由元数据长什么样
+        est_lines: 1281
+        status: review-pending
+      - id: core-proxy
+        title: 代理生成——扫描、发射器与本地代理运行时
+        module: core
+        seed_files:
+          - core/crates/proxy/README.md
+          - core/crates/proxy/scan/src/lib.rs
+          - core/crates/proxy/local/src/lib.rs
+          - core/crates/proxy/bridge/src/lib.rs
+          - core/crates/proxy/rust-codegen/src/lib.rs
+          - core/crates/proxy/dart-codegen/src/lib.rs
+        questions:
+          - 代理扫描如何从源码生成代理 IR
+          - Rust 与 Dart 发射器各生成什么
+          - 本地代理运行时如何分发调用与管理流
+        est_lines: 3322
+        status: review-pending
+      - id: core-rslink
+        title: RsLink——Rust 间 Link 协议层
+        module: core
+        seed_files:
+          - core/crates/rslink/README.md
+          - core/crates/rslink/runtime/src/lib.rs
+          - core/crates/rslink/codegen/src/lib.rs
+        questions:
+          - RsLink 解决什么问题
+          - codegen 的 IR 与类型解析为谁服务
+        est_lines: 1807
+        status: review-pending
+      - id: core-application
+        title: 应用组装——CoreApplication 门面
+        module: core
+        seed_files:
+          - core/crates/application/README.md
+          - core/crates/application/core/src/lib.rs
+          - core/crates/application/core/src/device_transport.rs
+        questions:
+          - CoreApplication 如何把 runtime、proxy、node 组装成一棵 Core 树
+          - Host 侧应该拿什么句柄、不应该碰什么
+        est_lines: 518
+        status: review-pending
+      - id: core-command
+        title: 命令层——CLI 命令编排
+        module: core
+        seed_files:
+          - core/crates/command/README.md
+          - core/crates/command/core/src/lib.rs
+          - core/crates/command/core/src/commands/chat.rs
+          - core/crates/command/core/src/commands/sync.rs
+          - core/crates/command/core/src/commands/tool.rs
+          - core/crates/command/core/src/commands/model.rs
+        questions:
+          - 命令层覆盖哪些命令组
+          - 命令层与 core-application 门面的关系
+        est_lines: 1971
+        status: review-pending
+  - chapter: Agent 回路
+    pages:
+      - id: agent-loop-overview
+        title: Agent 回路总览
+        module: agent
+        seed_files:
+          - core/crates/runtime/application/src/services/ChatServiceCore.rs
+          - core/crates/runtime/application/src/core/chat/AIMessageManager.rs
+          - core/crates/provider/services/src/chat/enhance/ConversationService.rs
+        questions:
+          - 一轮模型请求从用户输入到工具循环再到回填的完整链路是什么
+          - 工具调用在哪个边界可以切换 CoreNode
+          - 模型工具循环与 Binding 路由如何配合
+          - 切换 CoreNode 时会不会触发会话总结或上下文压缩
+        est_lines: 6845
+        status: review-pending
+        notes: 三个文件均未通读，只凭 grep 命中与文件头定位；ChatServiceCore.rs 3796 行，写页时须按函数拆读。
+      - id: agent-chat-branch
+        title: 会话与分支
+        module: agent
+        seed_files:
+          - core/crates/persistence/store/src/repository/ChatHistoryManager.rs
+          - docs/chat-send-api.md
+        questions:
+          - 会话、消息、变体、分支如何存储
+          - 分支聊天如何创建与读取
+          - 整段会话删除有什么特殊语义
+          - chat-send-api 规定的发送入口有哪些
+        est_lines: 2238
+        status: review-pending
+      - id: agent-compaction
+        title: 上下文压缩与摘要
+        module: agent
+        seed_files:
+          - core/crates/runtime/application/src/services/ChatServiceCore.rs
+          - core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs
+          - core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs
+        questions:
+          - 手动压缩的入口是什么
+          - 自动压缩存在吗、由什么触发
+          - 摘要 hook 的上下文包含什么
+          - 压缩与 CoreNode 切换的时序关系是什么
+        est_lines: 4087
+        status: review-pending
+        notes: 待重核——2026-10-13 差距调查称“自动 compaction 缺失”为 P0，但 HEAD 上有反证（auto/handoff-triggered compaction 提及），旧结论不可直接沿用；上下文用量显示是否存在未核实。
+      - id: agent-subagents
+        title: Subagent 并行
+        module: agent
+        seed_files:
+          - plugins/packages/external/subagents/src/main.ts
+          - plugins/packages/external/subagents/src/manager.ts
+          - plugins/packages/external/subagents/src/tools.ts
+          - plugins/packages/external/subagents/src/model.ts
+          - plugins/packages/external/subagents/src/service.ts
+          - plugins/packages/external/subagents/src/storage.ts
+          - plugins/packages/external/subagents/src/client.ts
+          - plugins/packages/external/subagents/manifest.json
+          - plugins/packages/external/subagents/README.md
+        questions:
+          - subagents 插件提供哪几个工具
+          - 并发上限与调度方式是什么
+          - 子任务完成会不会唤醒父会话
+          - 重启后进行中的子任务是什么状态
+        est_lines: 930
+        status: review-pending
+        notes: 待重核——2026-10-25 走查结论（上限 8、不唤醒、重启标 interrupted）针对合入时版本，写页前必须重读 manager.ts 与 tools.ts。
+      - id: agent-memory
+        title: 记忆
+        module: agent
+        seed_files:
+          - plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts
+          - plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts
+          - plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts
+          - plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts
+          - plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts
+          - plugins/packages/buildin/character_cards/src/memory-jobs/producer.ts
+          - plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts
+        questions:
+          - 记忆位于哪里
+          - scheduler / analysis / embeddings 各自负责什么
+          - 记忆如何进入 Space 同步
+          - 记忆写入与聊天摘要是什么关系
+        est_lines: 1018
+        status: review-pending
+        notes: 旧名 extended_memory_tools 已作废（PR #257 之后勿用）；7 个文件内容均未读，写页时须逐文件读。
+      - id: agent-character-cards
+        title: 角色卡
+        module: agent
+        seed_files:
+          - plugins/packages/buildin/character_cards/README.md
+          - plugins/packages/buildin/character_cards/src/chat-lifecycle.ts
+          - plugins/packages/buildin/character_cards/src/chat-storage.ts
+          - plugins/packages/buildin/character_cards/src/chat-bindings.ts
+          - plugins/packages/buildin/character_cards/src/character-prompt.ts
+        questions:
+          - 角色卡与聊天如何绑定
+          - 角色卡的生命周期由谁管理
+          - 角色提示词如何组装进对话
+          - 角色卡与主题配置的关系是什么
+        est_lines: 691
+        status: review-pending
+      - id: agent-hooks
+        title: Hooks
+        module: agent
+        seed_files:
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs
+          - core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs
+        questions:
+          - ToolPkg 的 hook 有哪些类型
+          - 聊天运行时的 hook 如何桥接到 ToolPkg
+          - hook 超时如何处理
+          - hook 与 SummaryHook 是什么关系
+        est_lines: 545
+        status: review-pending
+        notes: docs/toolpkg-pre-hook-timeout.md 在 HEAD 上不存在，不得引用；超时行为须从代码中核实。
+      - id: agent-slash
+        title: Slash 命令
+        module: agent
+        seed_files:
+          - apps/cli/src/tui/input/commands.rs
+          - apps/cli/src/cli/mod.rs
+          - apps/cli/src/chat_runtime.rs
+        questions:
+          - TUI 里有哪些内置 slash 命令
+          - /resume 如何工作
+          - slash 命令由谁解析、分发
+          - 用户自定义 slash 命令加载机制存在吗
+        est_lines: 4121
+        status: review-pending
+        notes: 命令清单须以 commands.rs 实测为准，不得沿用旧调查的“18 个”数字；自定义加载机制待重核。
+
+  - chapter: 应用与 Host
+    pages:
+      - id: app-android-module
+        title: Android 模块应用
+        module: apps
+        seed_files:
+          - apps/android-module/README.md
+          - apps/android-module/src/Runtime.rs
+          - apps/android-module/android/src/main/kotlin/app/operit/ModuleMain.kt
+          - apps/android-module/build.py
+          - apps/android-module/package/module.prop
+          - apps/android-module/package/customize.sh
+          - apps/android-module/package/service.sh
+          - apps/android-module/package/action.sh
+          - apps/android-module/package/uninstall.sh
+          - apps/android-module/package/operit-host-ctl
+        questions:
+          - 模块应用与普通 Flutter APK 是什么关系
+          - Root 执行环境由谁提供
+          - 构建与发布产物是什么
+          - 模块业务数据在 /data/adb/operit2，更新时如何保留
+        est_lines: 920
+        status: review-pending
+        notes: 只有 11 个文件，是最小的应用；职责是“另一种打包/启动形态”，不是另一套 App。
+      - id: app-cli
+        title: 命令行应用 operit2
+        module: apps
+        seed_files:
+          - apps/cli/Cargo.toml
+          - apps/cli/src/main.rs
+          - apps/cli/src/bootstrap.rs
+          - apps/cli/src/cli/mod.rs
+          - apps/cli/src/cli/link.rs
+          - apps/cli/src/cli/host_ops.rs
+          - apps/cli/src/cli/network_control_ui.rs
+          - apps/cli/src/cli/transfer.rs
+          - apps/cli/src/cli/web.rs
+          - apps/cli/src/daemon.rs
+          - apps/cli/src/mdns.rs
+          - apps/cli/src/rescue.rs
+          - apps/cli/src/chat_runtime.rs
+          - apps/cli/src/core_proxy.rs
+          - apps/cli/src/tui/mod.rs
+        questions:
+          - CLI 是完整 CoreNode 还是瘦客户端
+          - link 子命令提供哪些能力
+          - daemon 与 mdns 发现、rescue 各是做什么的
+          - TUI 与 Flutter UI 的能力边界是什么
+        est_lines: 39429
+        status: review-pending
+        notes: Rust 35,333 行；tests/ 下有 Python 会话测试，写作时别只看 .rs。
+      - id: app-flutter
+        title: Flutter 应用（主客户端）
+        module: apps
+        seed_files:
+          - apps/flutter/app/README.md
+          - apps/flutter/app/pubspec.yaml
+          - apps/flutter/app/lib/
+          - apps/flutter/native/operit-flutter-bridge/
+          - apps/flutter/packages/operit_ui/
+        questions:
+          - 一个 Flutter 应用如何覆盖 Android/iOS/macOS/Windows/Linux/Web/OHOS
+          - Dart 侧与 Rust Core 如何桥接
+          - 为什么用 AAswordman/flutter-ohos 分支而不是官方 Flutter
+          - lib/ui 与 lib/core 的分工是什么
+        est_lines: 223607
+        status: review-pending
+        notes: v1 只做总览页：单页覆盖 20 万行不现实，v2 再拆 lib/ui 功能页、bridge 页、平台壳页；est_lines 已排除 thirdparty（vendored 第三方）。
+      - id: app-server
+        title: 服务端应用（占位）
+        module: apps
+        seed_files:
+          - apps/server/.gitkeep
+        questions:
+          - server 应用目前是什么状态
+          - 服务端形态由谁承接
+        est_lines: 1
+        status: review-pending
+        notes: 空目录占位，无任何代码。本页只写一段 stub，说明“尚未实现、不要按名字脑补功能”，或推迟到代码落地后再写。
+      - id: host-android
+        title: Android Host
+        module: hosts
+        seed_files:
+          - hosts/README.md
+          - hosts/android/Cargo.toml
+          - hosts/android/src/lib.rs
+          - hosts/android/src/terminal.rs
+          - hosts/android/src/terminal_privilege.rs
+          - hosts/android/src/managed_runtime.rs
+          - hosts/android/src/filesystem.rs
+          - hosts/android/src/document_filesystem.rs
+          - hosts/android/src/local_inference.rs
+          - hosts/android/src/secret_store.rs
+          - hosts/android/src/service_discovery.rs
+          - hosts/android/src/system_operation.rs
+          - hosts/android/src/tts_playback.rs
+          - hosts/android/src/tts_synthesis.rs
+          - hosts/android/src/web_visit.rs
+          - hosts/android/src/bluetooth.rs
+        questions:
+          - Android Host 提供哪些能力
+          - 终端特权与普通终端的边界是什么
+          - 与 apps/android-module 的关系
+        est_lines: 5120
+        status: review-pending
+      - id: host-apple
+        title: Apple Host（macOS 与 iOS 共享实现）
+        module: hosts
+        seed_files:
+          - hosts/apple/Cargo.toml
+          - hosts/apple/src/lib.rs
+          - hosts/apple/src/tools/fs/mod.rs
+          - hosts/apple/src/tools/terminal/mod.rs
+          - hosts/apple/src/tools/terminal/terminal_macos.rs
+          - hosts/apple/src/tools/browser/mod.rs
+          - hosts/apple/src/tools/runtime/mod.rs
+          - hosts/apple/src/tools/storage/mod.rs
+          - hosts/apple/src/tools/system/mod.rs
+          - hosts/apple/src/tools/system/battery.rs
+          - hosts/apple/src/tools/system/packages.rs
+          - hosts/apple/src/tools/local_inference/mod.rs
+          - hosts/apple/src/tools/tts/mod.rs
+          - hosts/apple/src/tools/http/mod.rs
+          - hosts/apple/src/tools/audio/mod.rs
+          - hosts/apple/src/tools/bluetooth/mod.rs
+          - hosts/apple/src/sandbox.rs
+          - hosts/apple/src/service_discovery.rs
+          - hosts/macos/src/lib.rs
+        questions:
+          - Apple Host 在 macOS 与 iOS 之间如何复用
+          - 沙盒对文件/终端能力有什么限制
+          - macOS 的 createRuntimeHostManager 注册了哪些 Host
+        est_lines: 5383
+        status: review-pending
+        notes: hosts/macos 只有 3 个文件，全部是重命名 re-export，无独立实现，并入本页。
+      - id: host-ios
+        title: iOS Host 与 ARM64 Linux 运行时
+        module: hosts
+        seed_files:
+          - hosts/ios/README.md
+          - hosts/ios/Cargo.toml
+          - hosts/ios/src/lib.rs
+          - hosts/ios/src/terminal.rs
+          - hosts/ios/src/bridge.rs
+          - hosts/ios/src/managed_runtime.rs
+          - hosts/ios/src/serial.rs
+        questions:
+          - iOS 终端如何工作
+          - Host 目录如何以原始绝对路径 bind mount 到 Linux 运行时
+          - 串口现状：为什么说“没有已安装的原生串口 accessory provider”
+          - iOS 容器 UUID 变化时路径如何恢复
+        est_lines: 1307
+        status: review-pending
+        notes: est_lines 只是 Host 本体；vendored 的 linux-runtime 另拆一页，不可混进行数。
+      - id: host-ios-linux-runtime
+        title: iOS 内嵌 ARM64 Linux 运行时（vendored）
+        module: hosts
+        seed_files:
+          - hosts/ios/linux-runtime/README.md
+          - hosts/ios/linux-runtime/docs/README.md
+          - hosts/ios/linux-runtime/docs/completeness.md
+          - hosts/ios/linux-runtime/docs/delivery-status.md
+          - hosts/ios/linux-runtime/include/operit/arm64_runtime.h
+        questions:
+          - 这是一个什么东西
+          - completeness.md 如何区分实现、接线、验证
+          - Guest 指令执行、ELF 装载、fork/COW、文件/挂载、网络、PTY 各由哪些模块负责
+          - 性能与验收状态在哪份文档里
+        est_lines: 80271
+        status: review-pending
+        notes: vendored 子系统，有自己的 docs/ 与交付状态文档；写作 seed 应以其 docs/ 为主，不要试图通读 80,271 行 C++。
+      - id: host-linux
+        title: Linux Host
+        module: hosts
+        seed_files:
+          - hosts/linux/Cargo.toml
+          - hosts/linux/src/lib.rs
+          - hosts/linux/src/tools/terminal/mod.rs
+          - hosts/linux/src/tools/fs/mod.rs
+          - hosts/linux/src/tools/runtime/mod.rs
+          - hosts/linux/src/tools/storage/mod.rs
+          - hosts/linux/src/tools/system/mod.rs
+          - hosts/linux/src/tools/system/packages.rs
+          - hosts/linux/src/tools/browser/mod.rs
+          - hosts/linux/src/tools/http/mod.rs
+          - hosts/linux/src/tools/audio/mod.rs
+          - hosts/linux/src/tools/bluetooth/mod.rs
+          - hosts/linux/src/tools/tts/mod.rs
+          - hosts/linux/src/plugin_sdk_ipc.rs
+        questions:
+          - Linux Host 的 tools 与 Android/Windows 的同名 tools 有何异同
+          - 系统包管理提供什么能力
+          - daemon 能力由谁提供
+        est_lines: 7016
+        status: review-pending
+      - id: host-windows
+        title: Windows Host
+        module: hosts
+        seed_files:
+          - hosts/windows/Cargo.toml
+          - hosts/windows/src/lib.rs
+          - hosts/windows/src/daemon.rs
+          - hosts/windows/src/process.rs
+          - hosts/windows/src/tools/terminal/mod.rs
+          - hosts/windows/src/tools/fs/mod.rs
+          - hosts/windows/src/tools/runtime/mod.rs
+          - hosts/windows/src/tools/storage/mod.rs
+          - hosts/windows/src/tools/system/mod.rs
+          - hosts/windows/src/tools/system/application_update.rs
+          - hosts/windows/src/tools/system/application_update.ps1
+          - hosts/windows/src/tools/system/packages.rs
+          - hosts/windows/src/tools/browser/mod.rs
+          - hosts/windows/src/tools/http/mod.rs
+          - hosts/windows/src/tools/audio/mod.rs
+          - hosts/windows/src/tools/bluetooth/mod.rs
+          - hosts/windows/src/tools/tts/mod.rs
+          - hosts/windows/src/tools/mci.rs
+          - hosts/windows/src/plugin_sdk_ipc.rs
+          - hosts/windows/src/plugin_sdk_pipe.rs
+        questions:
+          - Windows 终端、进程管理、daemon 与 Unix 平台有何不同
+          - 应用更新如何工作
+          - MCI 是什么能力
+          - Plugin SDK IPC 在 Windows 上走 pipe，与其他平台有何不同
+        est_lines: 8908
+        status: review-pending
+        notes: Rust 8,724 行，是 hosts 里 Rust 行数最多的平台实现。
+      - id: host-web
+        title: Web/WASM Host
+        module: hosts
+        seed_files:
+          - hosts/web/README.md
+          - hosts/web/Cargo.toml
+          - hosts/web/src/lib.rs
+          - hosts/web/src/common.rs
+          - hosts/web/src/javascript_runtime.rs
+          - hosts/web/src/javascript_promises.js
+          - hosts/web/src/tools/fs/mod.rs
+          - hosts/web/src/tools/browser/mod.rs
+          - hosts/web/src/tools/browser_session/mod.rs
+          - hosts/web/src/tools/runtime/mod.rs
+          - hosts/web/src/tools/storage/mod.rs
+          - hosts/web/src/tools/system/mod.rs
+          - hosts/web/src/tools/terminal/mod.rs
+          - hosts/web/src/tools/archive/mod.rs
+          - hosts/web/src/tools/websocket.rs
+        questions:
+          - Web Host 如何实现全部 host trait
+          - 插件 JS 执行为什么用浏览器原生引擎
+          - 结构化克隆 + MessagePack 64 KiB 共享缓冲区的同步调用机制是怎样的
+          - hosts/web 与“应用内浏览器/WebView/工作区浏览器”有何区别
+        est_lines: 5461
+        status: review-pending
+      - id: host-ohos
+        title: OpenHarmony Host
+        module: hosts
+        seed_files:
+          - hosts/ohos/README.md
+          - hosts/ohos/Cargo.toml
+          - hosts/ohos/src/lib.rs
+          - hosts/ohos/src/terminal.rs
+          - hosts/ohos/src/managed_runtime.rs
+          - hosts/ohos/src/filesystem.rs
+          - hosts/ohos/src/documents.rs
+          - hosts/ohos/src/storage.rs
+          - hosts/ohos/src/http.rs
+          - hosts/ohos/src/local_inference.rs
+          - hosts/ohos/src/system_operation.rs
+          - hosts/ohos/src/tts_playback.rs
+          - hosts/ohos/src/audio_playback.rs
+          - hosts/ohos/src/bluetooth.rs
+        questions:
+          - OHOS Host 提供哪些能力
+          - 托管运行时如何通过 QEMU-vroot Alpine 实现
+          - 本地推理与 TTS 播放是如何分工的
+          - 应用存储根目录为什么必须显式传入 bridge 创建函数
+        est_lines: 3164
+        status: review-pending
+        notes: README 已有能力清单 + 明确的“不宣称”项，是全库唯一这样写的 Host README，矩阵页应照此格式要求其他平台补齐。
+      - id: host-common
+        title: Host 共享实现
+        module: hosts
+        seed_files:
+          - hosts/common/operit-host-native-common/src/lib.rs
+          - hosts/common/operit-host-native-common/src/DaemonHost.rs
+          - hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs
+          - hosts/common/operit-host-native-common/src/SerialPort.rs
+          - hosts/common/operit-host-native-common/src/ServiceDiscovery.rs
+          - hosts/common/operit-host-native-common/src/SharedBuffer.rs
+          - hosts/common/operit-host-native-common/src/Tcp.rs
+          - hosts/common/operit-host-native-filesystem/src/lib.rs
+          - hosts/common/operit-host-native-http/src/lib.rs
+          - hosts/common/operit-host-native-storage/src/lib.rs
+          - hosts/common/operit-host-native-terminal/src/lib.rs
+          - hosts/common/operit-host-native-scheduler/src/lib.rs
+          - hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs
+          - hosts/common/operit-host-data-rescue/src/lib.rs
+          - hosts/common/chromium_browser.rs
+          - hosts/common/terminal_command.rs
+          - hosts/unix/daemon.rs
+          - hosts/plugin-sdk-client/src/lib.rs
+          - hosts/tests/daemon.rs
+        questions:
+          - hosts/common 的 8 个 crate 各提供什么共享能力
+          - 共享实现与平台实现的分界线是什么
+          - chromium_browser.rs 与 terminal_command.rs 为什么是顶层 .rs 而不是 crate
+          - 数据救援与 CLI 的 rescue、docs/data-rescue.md 是什么关系
+        est_lines: 19273
+        status: review-pending
+        notes: hosts/unix（仅 daemon.rs）、hosts/plugin-sdk-client（仅调度器）、hosts/tests（仅测试脚手架）均无独立平台意义，并入本页。
+      - id: app-host-capability-matrix
+        title: 能力 × 平台矩阵
+        module: hosts
+        seed_files:
+          - core/crates/foundation/host-api/src/lib.rs
+          - core/crates/foundation/host-api/src/HostManager.rs
+          - core/crates/foundation/host-api/README.md
+          - hosts/android/src/lib.rs
+          - hosts/apple/src/lib.rs
+          - hosts/ios/src/lib.rs
+          - hosts/linux/src/lib.rs
+          - hosts/macos/src/lib.rs
+          - hosts/ohos/src/lib.rs
+          - hosts/web/src/lib.rs
+          - hosts/windows/src/lib.rs
+          - hosts/ohos/README.md
+          - hosts/web/README.md
+          - hosts/ios/README.md
+          - hosts/README.md
+          - docs/permission-access-architecture.md
+          - docs/filesystem-access-boundary.md
+          - docs/core-node-space-binding-architecture.md
+        questions:
+          - 能力全集从哪来
+          - 每个格子填什么，判定标准是什么
+          - 已知明确的“不支持”有哪些
+          - 矩阵脚本如何取数，多久重新生成一次
+        est_lines: 0
+        status: review-pending
+        notes: 本页不以源码文件为 seed，矩阵由脚本生成；库里不存在统一的“Host 能力清单”数据文件，唯一的权威清单是 host-api 的 trait 定义 + 各平台注册；hosts/README.md 已过时（写 hosts/boards、hosts/server，均已不存在），引用时要标注过时项。
+
+  - chapter: 插件系统
+    pages:
+      - id: plugin-toolpkg-overview
+        title: ToolPkg 2.0.0 总览
+        module: plugins
+        seed_files:
+          - plugins/README.md
+          - plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md
+          - plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md
+          - docs/toolpkg-runtime.md
+        questions:
+          - ToolPkg 是什么
+          - ToolPkg API 2.0.0 与 1.0.0/1.0.1 是什么关系
+          - schema_version、api_version、version 三个版本号各指什么
+          - buildin / external / examples 三类包的打包区别是什么
+        est_lines: 1721
+        status: review-pending
+        notes: Agent Plugins 1.0 可移植子集在代码里无对应实现（plugin.json 与 mcp.json 全仓零命中），本页作对照说明，不单独立页。
+      - id: plugin-manifest
+        title: 清单 manifest 与安装作用域
+        module: plugins
+        seed_files:
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgPackageModels.rs
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs
+          - plugins/docs/V1_COMPATIBILITY.md
+          - plugins/packages/buildin/character_cards/manifest.json
+          - plugins/packages/buildin/workflow/manifest.json
+          - plugins/packages/external/moss_atelier/manifest.json
+        questions:
+          - manifest 有哪些字段
+          - installation_scope device 与 space 有什么区别
+          - 环境变量与配置归谁所有
+          - 1.0.0/1.0.1 的包在 2.0.0 运行时上加载兼容性如何
+        est_lines: 4086
+        status: review-pending
+        notes: manifest 字段全称以 ToolPkgParser.rs 的 ToolPkgManifest 结构体为准。
+      - id: plugin-js-wasm-runtime
+        title: JS/TS 与 Wasm 运行时
+        module: plugins
+        seed_files:
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs
+          - plugins/types/quickjs-runtime.d.ts
+        questions:
+          - JS 引擎是什么
+          - Wasm 模块如何加载、调用
+          - 注册流程是怎样的
+          - 脚本超时与取消规则是什么
+        est_lines: 1371
+        status: review-pending
+      - id: plugin-compose-dsl
+        title: Compose DSL 界面
+        module: plugins
+        seed_files:
+          - core/crates/plugin/sdk/src/toolpkg/compose/README.md
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgComposeDslBridge.rs
+          - core/crates/plugin/sdk/src/toolpkg/ToolPkgComposeDslRuntimeScript.rs
+          - plugins/types/compose-dsl.d.ts
+          - plugins/tools/compile_compose_module.mjs
+        questions:
+          - Compose DSL 如何声明界面
+          - ctx.useEffect 的订阅与清理规则是什么
+          - 页面资源快照机制是怎样的
+          - XML 渲染桥的修订号机制起什么作用
+        est_lines: 5149
+        status: review-pending
+        notes: compose-dsl.d.ts 是生成文件，只可引用、不展开。
+      - id: plugin-mcp
+        title: MCP 集成
+        module: plugins
+        seed_files:
+          - core/crates/tool/services/src/tools/mcp/MCPManager.rs
+          - core/crates/tool/services/src/tools/mcp/MCPPackage.rs
+          - core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs
+          - core/crates/tool/services/src/tools/mcp/MCPToolParameter.rs
+          - core/crates/tool/services/src/tools/mcp/MCPServerConfig.rs
+          - core/crates/tool/services/src/tools/mcp/MCPTool.rs
+          - core/crates/tool/services/src/tools/mcp/mod.rs
+          - core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs
+          - core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs
+          - core/crates/tool/services/src/tools/mcp_runtime/mod.rs
+        questions:
+          - MCP 在 Operit2 里是什么扩展类型
+          - MCP 服务器如何配置、安装、启用
+          - MCP 工具如何变成 Agent 可调用的工具
+          - MCP 配置在设备空间内如何共享
+        est_lines: 3007
+        status: review-pending
+        notes: MCP 是独立于 ToolPkg 的 Core 工具运行时；docs/mcp-remote-smoke.md 在 HEAD 上不存在，不得引用。
+      - id: plugin-skills
+        title: Skills 机制
+        module: plugins
+        seed_files:
+          - core/crates/tool/services/src/tools/skill/SkillManager.rs
+          - core/crates/tool/services/src/tools/skill/SkillPackage.rs
+          - core/crates/tool/services/src/tools/skill/mod.rs
+          - core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs
+          - core/crates/tool/services/src/tools/skill_runtime/mod.rs
+        questions:
+          - Skill 是什么
+          - Skill 如何打包、安装、按需导入
+          - Skill 与 Agent 运行时如何交互
+        est_lines: 1425
+        status: review-pending
+        notes: 本页同时覆盖 Agent 回路的 Skills 主题，不再单立 agent-skills 页；PackageBuilder 本身就是一个随包 Skill。
+      - id: plugin-packagebuilder
+        title: PackageBuilder（随软件携带的插件开发 Skill）
+        module: plugins
+        seed_files:
+          - plugins/skills/external/PackageBuilder/SKILL.md
+          - plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md
+          - plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md
+          - plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md
+        questions:
+          - PackageBuilder 是什么
+          - 用 PackageBuilder 开发一个插件的标准流程是什么
+          - API 2.0.0 下新建包要在 manifest 里声明什么
+          - 旧版 1.0.0/1.0.1 包迁移要检查哪些项
+        est_lines: 2197
+        status: review-pending
+        notes: SKILL.md 自述的 references/、types/、examples/ 目录在磁盘上不存在，是打包时由 skill.include.json 解析还原的，写页时必须按磁盘实况写。
+      - id: plugin-quick-plugin-creator
+        title: QuickPluginCreator（App 内现场生成插件）
+        module: plugins
+        seed_files:
+          - apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart
+          - apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart
+          - plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md
+        questions:
+          - App 里的入口实际做什么
+          - 它与 PackageBuilder、operit_editor 是什么关系
+          - 现场生成的插件如何安装、测试、发布
+        est_lines: 324
+        status: review-pending
+        notes: 该入口只安装 PackageBuilder、设为 AI 可见、启用 operit_editor，并把需求填为聊天草稿，不自动生成源码。
+      - id: plugin-catalog-buildin
+        title: 内置插件目录
+        module: plugins
+        seed_files:
+          - plugins/packages/buildin/README.md
+          - plugins/packages/buildin/character_cards/manifest.json
+          - plugins/packages/buildin/workflow/manifest.json
+        questions:
+          - 内置插件有哪些，各解决什么问题
+          - 哪些内置插件是默认启用的
+          - 单文件 .ts 包与目录包的区别是什么
+          - character_cards 为什么这么大
+        est_lines: 4359
+        status: review-pending
+        notes: buildin 共 19 项 = 16 个插件 + README.md + tsconfig.json + resources/ 共享资源目录；character_cards 的 src 是 97 个文件、15212 行 TS，如需深挖应单独立页。
+      - id: plugin-catalog-external
+        title: 外置（官方可选）插件目录
+        module: plugins
+        seed_files:
+          - plugins/packages/external/subagents/manifest.json
+          - plugins/packages/external/moss_atelier/manifest.json
+          - plugins/packages/external/worldbook/manifest.json
+          - plugins/packages/external/wechat/manifest.json
+        questions:
+          - 外置插件与内置插件的打包、加载、启用方式有何不同
+          - subagents 插件提供哪些工具
+          - 哪些外置插件是演示性质的
+          - image_workbench、waifu、wechat、qqbot 这类大插件各自的边界是什么
+        est_lines: 5553
+        status: review-pending
+        notes: external 共 31 项 = 30 个插件 + tsconfig.json；moss_atelier 是纯主题包（manifest 无 main 字段）。
+      - id: plugin-theme
+        title: 主题即插件（theme-as-ToolPkg）
+        module: plugins
+        seed_files:
+          - core/crates/plugin/theme/schema/theme-v1.schema.json
+          - core/crates/plugin/theme/schema/theme-template.schema.json
+          - docs/theme-v1-contract.md
+          - docs/theme-studio-protocol-v1.md
+          - plugins/packages/external/moss_atelier/manifest.json
+        questions:
+          - manifest 的 themes 数组如何声明主题模板
+          - 主题模板与 ThemeConfig 是什么关系
+          - 主题如何安装、作用域、同步、更新与卸载
+          - moss_atelier 这个例子包含哪两套模板
+        est_lines: 1519
+        status: review-pending
+        notes: 本页同时覆盖 docs 的 theme-contract 主题，不再单立 theme-contract 页；与 core-plugin-theme（契约 crate）分工：本页写 manifest 用法与安装同步，那边写 schema 本身。
+  - chapter: 多设备同步
+    pages:
+      - id: sync-overview
+        title: 同步总览：Space 持久化同步
+        module: sync
+        seed_files:
+          - docs/sync-architecture.md
+          - core/crates/node/runtime/src/SpacePersistenceSyncService.rs
+        questions:
+          - 哪些节点参与同步
+          - 数据路径是怎样走的
+          - 配对、成员资格、路由可达性、存储授权四类校验如何分工
+          - SpacePersistenceSyncService 的授权、交换、分页、Blob、调度各管什么
+        est_lines: 2038
+        status: review-pending
+        notes: sync-architecture.md 引用了不存在的 edge-architecture.md，Edge 控制状态边界一句目前无来源，不可直接写。
+      - id: sync-transaction-model
+        title: 事务模型与同步契约
+        module: sync
+        seed_files:
+          - docs/transaction-model.md
+          - docs/transaction-sync-contract.md
+          - core/crates/persistence/store/src/Transaction.rs
+        questions:
+          - 事务的记号体系各自指什么
+          - 两端事务按什么顺序合并
+          - preference / layout / SQL 三种迁移的区别是什么
+          - 最终同步后两个文件一致是如何保证的
+        est_lines: 1944
+        status: review-pending
+        notes: transaction-model.md 只读到记号表，合并规则在 20 行之后，未读；文档的形式化模型是否被代码实现，须逐条对照。
+      - id: sync-workspace-files
+        title: 工作区文件同步与 .operit/sync.json
+        module: sync
+        seed_files:
+          - docs/workspace-file-sync.md
+          - docs/vfs-mounts.md
+          - core/crates/persistence/store/src/WorkspaceFileSyncStore.rs
+          - core/crates/persistence/store/src/FileSyncPolicy.rs
+        questions:
+          - 哪些目录参与双向复制
+          - .operit/sync.json 的默认策略是什么
+          - 外部挂载目录、软链接、失效链接、Windows junction 为什么跳过
+          - 产出目录绑定如何继承
+        est_lines: 1019
+        status: review-pending
+      - id: sync-vfs
+        title: VFS 挂载与文件访问边界
+        module: sync
+        seed_files:
+          - docs/vfs-mounts.md
+          - docs/filesystem-access-boundary.md
+          - core/crates/tool/services/src/files/VisualFileSystem.rs
+          - core/crates/tool/services/src/files/PathMapper.rs
+        questions:
+          - VFS 根入口各挂到哪里
+          - 业务代码为什么不许直接拿调用方路径调 FileSystemHost
+          - 原生访问边界由什么强制执行
+          - Host 文件选择结果如何变成 VFS 路径
+        est_lines: 1848
+        status: review-pending
+        notes: 与 sync-workspace-files 页分工：本页讲挂载与边界，上一页讲同步策略，避免重复。
+      - id: sync-discovery-join
+        title: 局域网发现、配对与加入 Space
+        module: sync
+        seed_files:
+          - docs/device-space-lan-discovery.md
+          - docs/link-access-architecture.md
+          - core/crates/node/runtime/src/peer/discovery.rs
+          - core/crates/node/runtime/src/peer/space_join.rs
+        questions:
+          - 发现协议：查询什么服务名
+          - Link 的 Call / Watch / Push 三个基础操作各自是什么
+          - 配对只授予什么授权
+          - space_join 的 refresh 流程是怎样的
+        est_lines: 2010
+        status: review-pending
+        notes: link-access-architecture.md 自述路由行为与 Host 边界“仍有待清理项”，本页不得写“路由已统一”之外的结论。
+      - id: sync-progress
+        title: 大同步进度与联调记录
+        module: sync
+        seed_files:
+          - docs/device-space-large-sync-progress.md
+          - docs/device-space-native-testing.md
+          - core/crates/node/runtime/src/SpaceSyncProgress.rs
+        questions:
+          - 首次加入与离线后大批增量同步走同一条链路吗
+          - 同步进度什么时候才向界面发布
+          - 接收成功为什么不等于业务应用成功
+          - 2026-11-11 的 iOS/macOS 联调实际观察到了什么
+        est_lines: 813
+        status: review-pending
+        notes: device-space-native-testing.md 是单次联调记录（模拟器、特定版本），必须标注日期、版本、模拟器边界，不可写成通用结论。
+      - id: sync-protocol-version
+        title: 协议版本与构建指纹
+        module: sync
+        seed_files:
+          - docs/peer-protocol-versioning.md
+          - core/peer-protocol.json
+          - core/crates/node/runtime/src/SyncConsistency.rs
+        questions:
+          - 软件版本、厂商固件版本、协议版本三者为何各自独立
+          - core/peer-protocol.json 的指纹覆盖哪些内容
+          - 新协议实现文件为什么必须加入 sources
+          - 协议不同时返回什么错误
+        est_lines: 433
+        status: review-pending
+      - id: sync-routing
+        title: 设备间路由与实时分发
+        module: sync
+        seed_files:
+          - docs/device-net-routing-distribution.md
+          - core/crates/node/runtime/src/PeerSync.rs
+        questions:
+          - Operit 的路由决策与承载层选路是什么关系
+          - 选代价最小的活跃路由如何实现
+          - 共享的实时状态源如何做到一条边只发一次、再分发
+          - 本文档不定义哪些内容
+        est_lines: 437
+        status: review-pending
+        notes: 与 arch-routing 分工：本页讲网络选路与实时分发，那边讲调用路由与 Binding。
+
+  - chapter: UI 与主题
+    pages:
+      - id: theme-studio
+        title: Theme Studio 预览协议 v1
+        module: theme
+        seed_files:
+          - docs/theme-studio-protocol-v1.md
+          - tools/theme/studio_message_port.ts
+          - core/crates/plugin/theme/src/preview.rs
+          - core/crates/plugin/theme/src/wasm.rs
+        questions:
+          - 信任边界：主题作者能提供什么、不能提供什么
+          - 固定握手流程是怎样的
+          - 预览核的校验在什么位置执行
+          - themeSha256 / 素材 SHA-256 的作用是什么
+        est_lines: 764
+        status: review-pending
+      - id: theme-render
+        title: 主题渲染与媒体校验
+        module: theme
+        seed_files:
+          - docs/theme-studio-protocol-v1.md
+          - core/crates/plugin/theme/src/media.rs
+          - core/crates/plugin/theme/src/lib.rs
+          - core/crates/plugin/theme/src/export.rs
+          - core/crates/plugin/theme/src/json.rs
+        questions:
+          - L4 图片 / SVG / 字体 / 九宫格像素检查各查什么
+          - 校验通过前为什么不允许 Flutter 解码
+          - 主题如何导出为二进制
+        est_lines: 1969
+        status: review-pending
+        notes: 文档薄、代码厚的页，写手须以代码为主、文档为辅。
+      - id: theme-sync
+        title: 主题的安装、作用域与同步
+        module: theme
+        seed_files:
+          - docs/theme-v1-contract.md
+          - docs/plugin-storage.md
+          - core/crates/persistence/store/src/PreferenceMerge.rs
+        questions:
+          - 主题安装的作用域如何决定
+          - 偏好 owner 声明与物化协调如何工作
+          - 主题配置的 schema 迁移在哪里执行
+          - 插件 dataStore 与 Rust PreferencesDataStore 是同一套合并执行器吗
+        est_lines: 963
+        status: review-pending
+        notes: “主题偏好 schema 3→4 迁移”在本次清点中未在代码中核实，写手必须先定位迁移实现再写，不可直接沿用。
+      - id: ui-display
+        title: 工具展示语义与 WebView 渲染
+        module: theme
+        seed_files:
+          - docs/tool-display-semantics.md
+          - docs/webview-rendering.md
+        questions:
+          - 工具的展示信息由谁声明
+          - 内置工具的声明与 tool_display_labels.json 如何配合
+          - WebView 应用缩放与页面缩放为何独立
+        est_lines: 140
+        status: review-pending
+        notes: tool_display 宏的实现位置本次未定位，写手须在 core/crates/plugin/sdk 内定位后补 seed。
+
+  - chapter: 模型与 Provider
+    pages:
+      - id: model-catalog
+        title: 模型目录与模型识别
+        module: model
+        seed_files:
+          - docs/model-catalog.md
+          - core/crates/runtime/application/src/services/ModelCatalogService.rs
+          - core/crates/foundation/model/collects/ModelCatalog.rs
+        questions:
+          - 价格、上下文长度、能力、思考档位来自哪里
+          - 目录缓存多久过期
+          - 本地运行的模型为什么不依赖此目录
+          - 没有模型列表接口的服务商如何处理
+        est_lines: 428
+        status: review-pending
+      - id: model-chat-send
+        title: 模型调用与聊天发送契约
+        module: model
+        seed_files:
+          - docs/chat-send-api.md
+          - core/crates/plugin/sdk/src/js_sdk/chat.rs
+        questions:
+          - 当前 SDK 对外暴露的发送方法恰好是哪三个
+          - Rust 权威实现与 TypeScript 导出各在哪里
+          - 发送、取消、流式输出的执行控制如何划分
+        est_lines: 862
+        status: review-pending
+      - id: model-tts
+        title: TTS 供应商目录
+        module: model
+        seed_files:
+          - docs/tts-providers.md
+          - core/crates/foundation/model/src/TtsCatalog.rs
+          - core/crates/provider/services/src/tts/VoiceServiceFactory.rs
+        questions:
+          - TTS 设置界面从哪里读供应商、请求模板、鉴权头、音频格式、音色列表
+          - 七家供应商各自的默认模型、音频格式、音色来源
+          - 在线音色查询每页取多少条
+          - 合成请求与音色查询走哪条 HTTP 通道
+        est_lines: 285
+        status: review-pending
+
+  - chapter: Edge 与厂商接入
+    pages:
+      - id: edge-overview
+        title: Edge 总览与产品形态
+        module: edge
+        seed_files:
+          - edge/README.md
+        questions:
+          - edge/ 收纳哪三类东西
+          - 产品形态由谁决定，哪些能力走共享协议
+          - 统一验收入口是哪条命令
+        est_lines: 57
+        status: review-pending
+        notes: PB_SBC01_H3 跑完整 Core 只是该产品选择、不是 SDK 要求，此句须原样写入。
+      - id: edge-sdk-entry
+        title: operit-edge-sdk 入口与功能开关
+        module: edge
+        seed_files:
+          - edge/sdk/README.md
+          - edge/sdk/Cargo.toml
+          - edge/sdk/src/lib.rs
+          - edge/sdk/src/agent.rs
+          - edge/sdk/src/http_agent.rs
+          - edge/sdk/src/space_device.rs
+          - edge/tools/check-sdk-dependencies.py
+        questions:
+          - 稳定厂商入口是哪个 crate
+          - agent / space / http-agent / scene 四个功能各提供什么
+          - SpaceDevice::assemble 与 EdgeNode::headless 各用于什么装配方式
+          - 依赖审计脚本检查哪几种功能组合
+        est_lines: 625
+        status: review-pending
+        notes: 须写明“这不是 no_std SDK”，启用空间接入需要 std、持久化、熵源与异步 Host。
+      - id: edge-sdk-contract
+        title: Edge 契约 crate
+        module: edge
+        seed_files:
+          - edge/sdk/contract/README.md
+          - edge/sdk/contract/src/lib.rs
+          - edge/sdk/contract/src/chat_display.rs
+          - edge/sdk/contract/src/image_preview.rs
+        questions:
+          - contract crate 只包含什么，不实现什么
+          - 为什么 Node 与 Proxy 都能依赖它而不互相依赖
+        est_lines: 161
+        status: review-pending
+        notes: 小页；可与 proxy 页合并写，拆分与否由大纲定稿决定。
+      - id: edge-sdk-node
+        title: Edge 节点 crate
+        module: edge
+        seed_files:
+          - edge/sdk/node/README.md
+          - edge/sdk/node/src/lib.rs
+          - edge/sdk/node/src/PeerRouter.rs
+          - edge/sdk/node/src/peer.rs
+          - edge/sdk/node/src/service.rs
+        questions:
+          - EdgePeerRouter 接受哪些路由，不承担什么
+          - 原生服务如何注册
+          - 配对与空间加入为什么是两个独立步骤
+          - 没有 storage.provide 时设备能保存什么，不能参与什么
+        est_lines: 1825
+        status: review-pending
+      - id: edge-sdk-proxy
+        title: Edge 代理 crate
+        module: edge
+        seed_files:
+          - edge/sdk/proxy/README.md
+          - edge/sdk/proxy/src/lib.rs
+        questions:
+          - Proxy 如何封装 Link 请求构造与响应解码
+          - 调用方为什么不直接构造 CoreCallRequest / CoreValue / CoreEvent
+        est_lines: 555
+        status: review-pending
+        notes: 小页；与 contract 页同属“共享实现命名入口”，可考虑合并。
+      - id: edge-sdk-scene
+        title: Scene 服务与资源格式
+        module: edge
+        seed_files:
+          - edge/sdk/scene/README.md
+          - edge/sdk/scene/src/lib.rs
+          - edge/sdk/scene/src/protocol.rs
+          - plugins/docs/edge-scene.md
+        questions:
+          - edge.scene 服务管哪四件事
+          - 配置与资源如何以一次原子快照保存与恢复
+          - 线路与资产格式见哪份文档
+        est_lines: 792
+        status: review-pending
+      - id: edge-manufacturer-guide
+        title: 厂商接入指南
+        module: edge
+        seed_files:
+          - edge/docs/manufacturer-guide.md
+        questions:
+          - 离线传感器、HTTP 模型、加入空间三种需求各启用哪些功能
+          - 最小装配六步是什么
+          - 配对、加入空间、授权三者为什么不能互相代替
+          - ESP32 模拟器的固定堆与栈预算是多少
+        est_lines: 54
+        status: review-pending
+        notes: 厂商的“第一页”，须放在章节最前。
+      - id: edge-architecture
+        title: Edge 在设备空间中的职责与边界
+        module: edge
+        seed_files:
+          - edge/docs/architecture.md
+        questions:
+          - 硬件 Edge 节点与完整 CoreNode 在应用组成、Agent/ToolPkg、业务副本上有何区别
+          - 内置 edge 角色有什么权限，没有什么权限
+          - 配对、解除配对、退出空间、隔离、移除五种操作各影响什么
+          - ESP32 的独立模式与远端 Core 模式两条聊天路径如何切换
+        est_lines: 128
+        status: review-pending
+      - id: edge-core-entry-protocol
+        title: 受限设备的空间与展示链路
+        module: edge
+        seed_files:
+          - edge/docs/core-entry-protocol.md
+        questions:
+          - 控制状态如何发布与校验
+          - 聊天展示投影包含什么、排除什么
+          - 为什么展示投影不能代替授权
+        est_lines: 99
+        status: review-pending
+        notes: 后 39 行未读，写作前须补读全文。
+      - id: edge-esp32-firmware
+        title: ESP32 固件
+        module: edge
+        seed_files:
+          - edge/boards/esp32/README.md
+          - edge/boards/esp32/src/main.rs
+          - edge/boards/esp32/src/runtime_host.rs
+          - edge/boards/esp32/src/wifi.rs
+          - edge/boards/esp32/src/device_services.rs
+          - edge/boards/esp32/src/device_preferences.rs
+          - edge/boards/esp32/src/device_http.rs
+          - edge/boards/esp32/src/device_speech.rs
+          - edge/boards/esp32/src/space_work.rs
+        questions:
+          - 固件如何配对
+          - Wi-Fi 如何配置
+          - 独立聊天与远端 Core 聊天的上下文规则有何不同
+          - 设备 preference 的上限与合并规则是什么
+        est_lines: 2819
+        status: review-pending
+        notes: README 后 605 行未读，src/*.rs 均未读内容，写作前须全文读 README 再抽事实。
+      - id: edge-esp32-chat
+        title: ESP32 聊天实现
+        module: edge
+        seed_files:
+          - edge/boards/esp32/src/edge_chat.rs
+          - edge/boards/esp32/src/standalone_chat.rs
+        questions:
+          - 独立聊天如何直连模型服务
+          - 远端 Core 模式下 Edge 只保存什么
+          - 迟到结果为什么不能进入新会话
+        est_lines: 2516
+        status: review-pending
+      - id: edge-esp32-editor
+        title: ESP32 编辑器与调试工具
+        module: edge
+        seed_files:
+          - edge/boards/esp32/editor/README.md
+          - edge/boards/esp32/editor/FRONTEND.md
+          - edge/boards/esp32/editor/AGENT_API.md
+        questions:
+          - 编辑器提供哪四项能力
+          - 模拟器如何复用固件模块并通过真实 TCP 连桌面 Core
+          - 修改 Web、共享 C UI、Rust 模拟器后各如何生效
+        est_lines: 399
+        status: review-pending
+        notes: editor/ 下 99 个文件只读了 README 头，写作前须补。
+      - id: edge-esp32-resources
+        title: ESP32 资源预算与内存实测
+        module: edge
+        seed_files:
+          - edge/docs/esp32-memory-profile-2026-10-27.md
+        questions:
+          - 模拟器固定 Rust 堆与三类任务栈预算各是多少
+          - 峰值 252,208 字节中占比最大的三项是什么
+          - 为什么模拟器数据不能直接当作真机整板 RAM
+        est_lines: 107
+        status: review-pending
+        notes: 后 57 行未读，写作前补读；须注明测量条件。
+      - id: edge-acceptance-v1
+        title: Edge 验收记录与 V1 收尾
+        module: edge
+        seed_files:
+          - edge/docs/acceptance.md
+          - edge/docs/v1-closeout.md
+        questions:
+          - 统一验收入口覆盖哪些场景，结果如何
+          - SDK 全功能测试与 8 种功能组合依赖审计的结果是什么
+          - V1 收尾时固件容量阻塞如何修复
+          - 哪些“通过”明确不代表真机通过
+        est_lines: 288
+        status: review-pending
+        notes: 验收基线与大纲基线不同，页内须注明基线号。
+      - id: edge-headless-sensor
+        title: 无屏传感器产品
+        module: edge
+        seed_files:
+          - edge/boards/headless_sensor/README.md
+          - edge/boards/headless_sensor/src/main.rs
+        questions:
+          - 无屏产品暴露哪两个服务
+          - 控制台配对与加入的命令顺序是什么
+          - 如何把演示后端换成真实 HAL 或 HttpBackend
+        est_lines: 192
+        status: review-pending
+      - id: edge-pb-sbc01-h3
+        title: PB_SBC01_H3 机器人
+        module: edge
+        seed_files:
+          - edge/boards/pb_sbc01_h3/README.md
+          - edge/boards/pb_sbc01_h3/board/README.md
+          - edge/boards/pb_sbc01_h3/src/main.rs
+          - edge/boards/pb_sbc01_h3/src/app.rs
+          - edge/boards/pb_sbc01_h3/src/config.rs
+          - edge/boards/pb_sbc01_h3/src/face_console.rs
+          - edge/boards/pb_sbc01_h3/board/src/lib.rs
+        questions:
+          - 两个二进制各负责什么
+          - 板级目录、hosts/linux、sdk/node、sdk/proxy 四处边界如何分工
+          - 机器人脸部状态文件写在哪里
+        est_lines: 610
+        status: review-pending
+        notes: 页首注明——PB_SBC01_H3 选择运行完整 Core，这是该产品的选择，不是 SDK 的要求。
+
+  - chapter: 开发与工具
+    pages:
+      - id: tools-overview
+        title: tools 总览
+        module: tools
+        seed_files:
+          - tools/build_scripts/README.md
+        questions:
+          - tools/ 收纳哪几类工具，哪类不随产品发行
+          - 本地构建与 GitHub Actions 为什么共用同一批入口
+          - 构建产物与私密凭据各放在哪个被忽略的目录
+        est_lines: 374
+        status: review-pending
+      - id: tools-build-scripts
+        title: 构建脚本入口
+        module: tools
+        seed_files:
+          - tools/build_scripts/README.md
+          - tools/build_scripts/build_flutter_android.py
+          - tools/build_scripts/build_flutter_windows.py
+          - tools/build_scripts/build_cli_windows.py
+          - tools/build_scripts/build_windows_msi.py
+          - tools/build_scripts/build_esp32.py
+          - tools/build_scripts/build_local.py
+          - tools/build_scripts/cargo_build.py
+          - tools/build_scripts/common.py
+          - tools/build_scripts/release_artifacts.py
+        questions:
+          - 构建脚本按什么命名
+          - Flutter、CLI、ESP32 三类构建各有哪些入口脚本
+          - 发布包文件名规则是什么
+        est_lines: 1606
+        status: review-pending
+        notes: build_scripts/ 共 38 个文件，本页只列 10 个代表性入口，其余 28 个未读。
+      - id: tools-windows-installer
+        title: Windows MSI 安装器与卸载数据清理
+        module: tools
+        seed_files:
+          - tools/windows-installer/README-Windows.txt
+          - tools/windows-installer/Package.wxs
+          - tools/windows-installer/cleanup/Program.cs
+          - tools/windows-installer/shared/UserDataCleanup.cs
+          - tools/windows-installer/ui/SetupWindow.xaml.cs
+          - tools/windows-installer/tests/MsiContractTests.cs
+          - tools/build_scripts/build_windows_msi.py
+        questions:
+          - MSI 安装版与压缩包版卸载数据的方式有何不同
+          - 数据清理覆盖哪六处位置，为什么清理不可回滚
+          - Operit2DataCleanup.exe 为什么不依赖 Flutter、Rust DLL 或 MSI
+          - MsiContractTests 覆盖哪些契约
+        est_lines: 1058
+        status: review-pending
+        notes: 本次合并新出现的内容；SetupWindow.xaml 本体与 actions/ 下 4 个文件未计入、未读。
+      - id: tools-release
+        title: 发布流程
+        module: tools
+        seed_files:
+          - tools/release/RELEASE_SPEC.md
+          - tools/release/build_release.py
+          - tools/release/publish_dist.py
+          - tools/release/release_interactive.py
+          - docs/release-versioning.md
+        questions:
+          - 版本、GitHub tag、更新通道与包资产规则由哪份文档定义
+          - build_release.py 必须遵循什么
+          - download_action_artifacts.py 与 release_interactive.py 各在流程的哪一步
+        est_lines: 2040
+        status: review-pending
+        notes: build_release.py 1371 行是本页最大单文件，写作前须分段抽事实。
+      - id: tools-runtime-kits
+        title: 各平台运行时工具包
+        module: tools
+        seed_files:
+          - tools/android-runtime/README.md
+          - tools/ios-runtime/README.md
+          - tools/ohos-runtime/README.md
+          - tools/web-runtime/README.md
+        questions:
+          - 四个运行时工具包各准备什么
+          - iOS 终端后端为什么是独立的 AArch64 Linux runtime，而不是 V86
+          - 各运行时工具包的构建说明在哪个 BUILDING.md
+        est_lines: 187
+        status: review-pending
+      - id: tools-theme-studio
+        title: 主题工具与 Web Studio
+        module: tools
+        seed_files:
+          - tools/theme/README.md
+          - tools/theme/studio/README.md
+          - tools/theme/build_preview.py
+          - tools/theme/studio_message_port.ts
+        questions:
+          - 主题包格式为什么是 ToolPkg
+          - 预览内核如何构建为不可变的 rendererReleaseId 目录
+          - Studio 与 Rust/WASM 校验器之间走什么协议
+          - 内置字体子集化配方由哪个脚本维护
+        est_lines: 661
+        status: review-pending
+        notes: 与 theme-studio 页分工：本页写工具与构建配方，那边写预览协议。
+      - id: tools-tests
+        title: 跨边界测试集
+        module: tools
+        seed_files:
+          - tools/tests/android_runtime_contracts.test.mjs
+          - tools/tests/builtin_tool_catalog.test.mjs
+          - tools/tests/compose_dsl_artifact.test.mjs
+        questions:
+          - tests/ 共 152 个文件，按什么维度组织
+          - 顶层 124 个文件中 .mjs/.kt 测试占 82 个，其余是什么
+          - 哪几类测试覆盖 Android 运行时、内置工具目录与 Compose DSL
+        est_lines: 574
+        status: review-pending
+        notes: 索引型页面，三个种子文件仅作示例、均未读内容；其余 149 个文件未逐个列出。
+      - id: tools-figma
+        title: Figma 界面桥接工具
+        module: tools
+        seed_files:
+          - tools/figma/README.md
+          - tools/figma/INTERACTIVE_APP.md
+          - tools/figma/LIVE.md
+        questions:
+          - 当前工具只能做到什么，明确做不到什么
+          - 两个入口各生成什么，共用什么文件格式
+          - 交互应用的验收标准与待解架构问题见哪份文档
+        est_lines: 349
+        status: review-pending
+        notes: README 开头自述“当前实现尚未达到目标”，页内须原样保留这句限定，不可写成已完成。
+      - id: tools-perf-benchmarks
+        title: 性能场景与基准
+        module: tools
+        seed_files:
+          - tools/link-perf/README.md
+          - tools/link-perf/run_link_perf.ps1
+          - tools/benchmarks/macos_idle.py
+          - tools/benchmarks/markdown_pipeline.md
+        questions:
+          - Link 性能场景为什么必须针对 CoreNodeRouter → PeerLink → CoreNode 写
+          - 性能报告必须记录哪四项
+          - benchmarks/ 下 macOS/iOS 的 traces 各测什么
+        est_lines: 211
+        status: review-pending
+      - id: tools-peer-protocol-check
+        title: 协议版本检查脚本
+        module: tools
+        seed_files:
+          - tools/check_peer_protocol.py
+          - core/peer-protocol.json
+        questions:
+          - 该脚本检查什么
+          - 它与 core 内 node-runtime 构建时的 SHA-256 校验是什么关系
+          - 违反时如何防止旧哈希被替换而不升级版本
+        est_lines: 171
+        status: review-pending
+        notes: 小页，可并入发布流程页或 Core 协议页，拆分与否由大纲定稿决定。
+      - id: tools-docs-whitepaper
+        title: 白皮书 PDF 构建
+        module: tools
+        seed_files:
+          - tools/docs/README.md
+          - tools/docs/build_whitepaper.py
+        questions:
+          - 可编辑原稿是哪个文件，构建产物写到哪里
+          - 排版规范的关键项是什么
+          - 构建依赖哪些库，字体如何嵌入
+        est_lines: 501
+        status: review-pending
+        notes: 原稿 docs/whitepaper/Operit2论文版.md 不在 tools/ 内，写作时须核实该文件是否存在（本次未核实）。
+      - id: dev-building
+        title: 构建指南
+        module: dev
+        seed_files:
+          - BUILDING.md
+        questions:
+          - 仓库布局是怎样的
+          - 各平台构建的前置要求是什么
+          - 哪些构建输入是钉死的
+          - Windows GNU 工具链常见问题如何处理
+        est_lines: 883
+        status: review-pending
+        notes: 只读了标题层级，正文未读；BUILDING.md 含大量命令块，写页时须逐节读。
+      - id: dev-contributing
+        title: 贡献指南
+        module: dev
+        seed_files:
+          - CONTRIBUTING.md
+        questions:
+          - 改动范围有什么限制
+          - 提交前必须跑哪些本地检查
+          - 分支与提交命名规则是什么
+          - PR 流程与许可、行为规范是什么
+        est_lines: 93
+        status: review-pending
+        notes: 只读了标题层级，正文未读；文件仅 93 行，写页时可全文读。
+      - id: dev-release
+        title: 版本与发布
+        module: dev
+        seed_files:
+          - docs/release-versioning.md
+          - docs/release-notes/2.0.0-preview.22-build28.md
+          - docs/release-notes/2.0.0-preview.27-build33.md
+        questions:
+          - 版本号命名规则是什么
+          - release notes 现在覆盖到哪个版本
+          - 10 月“没有更新日志”的结论还成立吗
+          - 发布流程由哪些 workflow 负责
+        est_lines: 557
+        status: review-pending
+        notes: 10 月结论已过期：docs/release-notes/ 已存在，但只有两份，覆盖不全；.github/workflows 本轮未读。
+      - id: troubleshoot-mobile
+        title: 排障·移动端（Android / iOS）
+        module: dev
+        seed_files:
+          - docs/android-root-shell.md
+          - docs/performance-ios-2026-10-27.md
+          - docs/testflight-feedback-investigation-2026-11-09.md
+        questions:
+          - Android root shell 的能力边界与风险是什么
+          - iOS 性能问题如何定位
+          - TestFlight 反馈的典型问题有哪些
+          - 移动端 Host 能力与桌面端有何不同
+        est_lines: 332
+        status: review-pending
+      - id: troubleshoot-desktop
+        title: 排障·桌面端（Windows / macOS / Linux）
+        module: dev
+        seed_files:
+          - docs/flutter-impeller-render-target-failure.md
+          - docs/webview-rendering.md
+        questions:
+          - Flutter Impeller 渲染目标失败如何处理
+          - WebView 渲染在桌面端有什么已知问题
+          - Windows GNU 工具链问题见哪一页
+        est_lines: 169
+        status: review-pending
+        notes: 本页 seed 偏薄；docs/windows-webview-composition.md 在 HEAD 上不存在，不得引用，疑似被 webview-rendering.md 取代，须核实。
+      - id: troubleshoot-web
+        title: 排障·Web 与 Web Access
+        module: dev
+        seed_files:
+          - apps/flutter/app/web/README.md
+          - docs/webview-rendering.md
+        questions:
+          - Web Access 如何部署与访问
+          - 浏览器 Host 与 WebAssembly 运行时的能力边界是什么
+          - Web 端与桌面端渲染差异如何排查
+        est_lines: 137
+        status: review-pending
+        notes: 本页 seed 偏薄；docs/browser-session-lifecycle.md 存在但行数未测，写页时补测后可加入 seed；docs/openharmony-flutter-adaptation-checklist.md 在 HEAD 上不存在，不得引用。
+      - id: migrate-operit1
+        title: 从 Operit1 迁移
+        module: dev
+        seed_files:
+          - README.md
+          - docs/data-rescue.md
+        questions:
+          - Operit1 快照如何检查与导入
+          - 迁移时哪些数据能带过来、哪些不能
+          - 数据救援的流程是什么
+          - 详细的 Operit1→Operit2 FAQ 在哪里
+        est_lines: 302
+        status: review-pending
+        notes: 不重写迁移 FAQ。Operit-wiki 已有迁移 FAQ 草稿（~/workspace/wiki-drafts/appendix-operit1-to-operit2-faq.md），本页只引用它并写 CLI 入口与边界。
