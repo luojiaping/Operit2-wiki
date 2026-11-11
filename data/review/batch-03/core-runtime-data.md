@@ -8,12 +8,12 @@ date: 2026-11-11
 
 ## 概述
 
-- 本页覆盖 `core/crates/runtime/application` 内的两块宿主职责：数据侧的 Operit1 快照导入迁移与插件侧的内置插件注册和 ToolPkg 会话创建钩子（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:326`）。
+- 本页覆盖 core/crates/runtime/application 内的两块宿主职责：数据侧的 Operit1 快照导入迁移与插件侧的内置插件注册和 ToolPkg 会话创建钩子（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:326`）。
 - 数据侧的导入器是 `Operit1SnapshotImportManager`，它把 Operit1（Android 一代）的备份快照解析后写入 Operit2 运行时存储（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:328`）。
 - 插件侧的注册表是 `PluginRegistry`，它是内置运行时插件的全局注册表（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:19`）。
 - 快照源自 Android 一代应用：内部路径以 `com.ai.assistance.operit` 开头（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:104`）。
 - 默认头像为 `file:///android_asset/operit.png`（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:111`）。
-- 偏好分层在本页 seed 内只在导入侧可见，详见“偏好数据的导入侧分流”小节；`AgreementPreferences.rs` 全文件只有一行空 struct 声明，不含分层实现（`core/crates/runtime/application/src/data/preferences/AgreementPreferences.rs:1`）。
+- 偏好分层在本页 seed 内只在导入侧可见，详见“偏好数据的导入侧分流”小节；AgreementPreferences.rs 全文件只有一行空 struct 声明，不含分层实现（`core/crates/runtime/application/src/data/preferences/AgreementPreferences.rs:1`）。
 
 ## AI 速览
 
@@ -24,7 +24,7 @@ date: 2026-11-11
 - `Operit1SnapshotImportResult` — 导入后计数，含聊天、消息、统计、记忆与文件数（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:146`）。
 - `Operit1SnapshotImportProgress` — 导入进度，含 stage、title、detail、progress、active（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:165`）。
 - `PluginRegistry` — 内置插件全局注册表（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:19`）。
-- `OperitPlugin` — 运行时插件契约：`id()` 与 `register()`（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:10`）。
+- `OperitPlugin` — 运行时插件契约：`id`() 与 `register`()（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:10`）。
 - `ToolboxPlugin` — id 为 `builtin.toolbox`、注册为空实现的内置插件（`core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs:6`）。
 - 构建期生成的插件资产引入点，全文件只有一行 `include!`（`core/crates/runtime/application/src/plugins/BuiltinPluginAssets.rs:1`）。
 - `snapshot()` — 会话创建前钩子桥的快照入口（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:73`）。
@@ -53,7 +53,7 @@ date: 2026-11-11
 - 快照条目复制缓冲区为 256 * 1024 字节（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:102`）。
 - 导入首先进入 parse 阶段，解析清单、配置与数据索引，进度 0.08（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:415`）。
 - model_config 阶段调 `importAllModelConfigsFromParsed` 迁移全部模型配置（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:427`）。
-- structured_preferences 阶段调 `importSpeechPreferences` 迁移语音配置，角色卡、提示词、角色组和记忆写入插件存储（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:435`）。
+- structured_preferences 阶段只调 `importSpeechPreferences` 迁移语音配置，仅导入 TTS 配置（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:435`）。
 - preferences 阶段调 `importDataStorePreferences` 迁移偏好设置（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:440`）。
 - files 阶段调 `importSnapshotFiles` 迁移资源文件（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:450`）。
 - chats 阶段调 `importChatDatabase` 迁移聊天记录，随后调 `importTokenStatistics`（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:456`）。
@@ -69,13 +69,13 @@ date: 2026-11-11
 - 导入进度经 `operit1SnapshotImportProgressFlow().set_value` 发布（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:235`）。
 - 聊天数据库条目 `ENTRY_DATABASE` 暂存到 `OPERIT1_SNAPSHOT_SQLITE_INSPECTION_PATH`（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:973`）。
 - WAL 与 SHM 边车仅当快照中存在对应条目时才暂存（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:956`）。
-- 暂存的聊天库经 `sqliteHost.openSqliteDatabase` 打开，再经 `prepareOperit1RoomImport` 规范化（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:990`）。
-- 暂存条目经 `writeArchiveEntryToStorage` 写入暂存路径，操作完成后经 `storageHost.delete` 删除（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:939`）。
+- 暂存的聊天库经 sqliteHost 的 `openSqliteDatabase` 打开，再经 `prepareOperit1RoomImport` 规范化（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:990`）。
+- 暂存条目经 `writeArchiveEntryToStorage` 写入暂存路径，操作完成后经 storageHost 的 `delete` 删除（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:939`）。
 - 聊天解析用 `buildChatArchiveFromOperit1ToOperit2DatabaseBridge` 从旧库构建归档（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:711`）。
-- 角色与记忆导入由 `importCharactersAndMemory` 完成（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:717`）。
+- 角色与记忆导入由 chats 阶段的 importChatDatabase 内调 `importCharactersAndMemory` 完成（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:717`）。
 - 归档绑定由 `resolveOperit1ArchiveBindings` 解析（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:718`）。
 - 归档绑定由 `publishOperit1ArchiveBindings` 发布（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:759`）。
-- 聊天归档经 `ChatHistoryManager::importChatArchiveWithProgress` 写入并带进度回调（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:743`）。
+- 聊天归档经 ChatHistoryManager 的 `importChatArchiveWithProgress` 写入并带进度回调（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:743`）。
 - `importTokenStatistics` 仅当桥为 `Operit1RoomV21ToOperit2SqliteV29` 时导入，否则返回 (0, 0)（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:783`）。
 - token 用量从 `token_usage_records` 表读取（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:794`）。
 - 定价模型从 `token_stats_models` 表读取（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:806`）。
@@ -91,17 +91,17 @@ date: 2026-11-11
 - 模型配置的 `modelId` 须在其 `modelIds` 内，否则报错（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:529`）。
 - 配置的 `apiEndpoint` 非空，否则报错缺少服务地址（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:535`）。
 - 单配置导入用 `buildOperit1ProviderProfile` 以 `DEFAULT_PROVIDER_ID` 构建供应商档案（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:538`）。
-- 单配置导入调用 `ModelConfigManager::replaceDefaultProviderProfile` 替换默认供应商档案（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:545`）。
-- 单配置导入调用 `FunctionalConfigManager::setModelForFunction(FunctionType::CHAT, DEFAULT_PROVIDER_ID, modelId)` 绑定聊天功能模型（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:551`）。
+- 单配置导入调用 ModelConfigManager 的 `replaceDefaultProviderProfile` 替换默认供应商档案（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:545`）。
+- 单配置导入调用 FunctionalConfigManager::setModelForFunction(FunctionType::CHAT, DEFAULT_PROVIDER_ID, modelId) 绑定聊天功能模型（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:551`）。
 - 导入结果 `Operit1ModelConfigImportResult` 含 `providerId`、`providerTypeId`、`providerName`、`modelId`、`importedModelCount`、`chatBindingUpdated`、`skippedFields`（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:318`）。
 
 ### 偏好数据的导入侧分流
 
 - 导入只统计含非未采纳键的偏好文件，未采纳键由 `isOperit1UnadoptedPreferenceKey` 过滤（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:580`）。
-- `user_preferences` 文件先跑 `UserPreferencesManager::migratePreferences(1)`，再经 `UserPreferencesManager::store` 写入（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:601`）。
-- `ENTRY_USER_PREFERENCES` 在写入前还跑 `migratePreferences(2)` 与 `migratePreferences(3)`（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:638`）。
-- `api_settings` 文件跑 `ApiPreferences::migratePreferences(1)` 后经 `ApiPreferences::store` 写入（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:607`）。
-- `github_auth` 文件先跑 `migrateOperit1GitHubUserInfo`，再跑 `GitHubAuthPreferences::migratePreferences(1)`（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:614`）。
+- `user_preferences` 文件先跑 UserPreferencesManager 的 `migratePreferences`(1)，再经 `UserPreferencesManager::store` 写入（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:601`）。
+- `ENTRY_USER_PREFERENCES` 在写入前还跑 `migratePreferences`(2) 与 `migratePreferences`(3)（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:638`）。
+- `api_settings` 文件跑 ApiPreferences 的 `migratePreferences`(1) 后经 `ApiPreferences::store` 写入（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:607`）。
+- `github_auth` 文件先跑 `migrateOperit1GitHubUserInfo`，再跑 GitHubAuthPreferences 的 `migratePreferences`(1)（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:614`）。
 - `current_chat_id` 文件写入 `CoreNodeStateStore`，路径为 `CURRENT_CHAT_ID_PREFERENCES_PATH`（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:618`）。
 - 其余偏好文件默认写入 `PreferencesDataStore::new(filePath)`（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:625`）。
 - 非字符串偏好值经 `toTargetNativePreferenceEntry` 转为目标原生条目（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:632`）。
@@ -110,17 +110,17 @@ date: 2026-11-11
 
 ### 插件注册表
 
-- `OperitPlugin` trait 要求 `Send` 与 `Sync`，含 `id()` 与 `register()` 两个方法（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:10`）。
+- `OperitPlugin` trait 要求 `Send` 与 `Sync`，含 `id`() 与 `register`() 两个方法（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:10`）。
 - 注册表用 `PLUGINS`、`INSTALLED_PLUGIN_IDS`、`BUILTINS_INITIALIZED` 三个 `OnceLock` 全局静态量保存状态（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:19`）。
 - `register` 按 id 去重替换：先 `retain` 掉同 id 的已注册插件再 `push`（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:27`）。
 - `register` 记录 `plugin.registry.register` 日志并带 `pluginId`（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:34`）。
 - `initializeBuiltins` 用 `BUILTINS_INITIALIZED` 布尔门控保证内置插件只初始化一次（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:46`）。
-- 初始化注册 `ToolboxPlugin` 与 `ToolPkgCommonBridgePlugin::new(toolpkg_runtime)`，随后调 `installAll`（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:59`）。
+- 初始化注册 `ToolboxPlugin` 与 ToolPkgCommonBridgePlugin 的 `new`(toolpkg_runtime)，随后调 `installAll`（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:59`）。
 - 克隆插件列表并记录 `plugin.registry.install.scan` 日志，含 `pluginCount`（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:75`）。
 - 每个插件只安装一次：已安装 id 集合 `insert` 成功才调 `plugin.register()`（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:90`）。
 - `ToolboxPlugin` 实现 `OperitPlugin`，id 为 `builtin.toolbox`（`core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs:6`）。
-- `ToolboxPlugin::register()` 为空实现（`core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs:10`）。
-- `BuiltinPluginAssets.rs` 全文件只有一行 `include!`，引入构建期生成的 `builtin_plugin_assets.rs`（`core/crates/runtime/application/src/plugins/BuiltinPluginAssets.rs:1`）。
+- ToolboxPlugin 的 `register`() 为空实现（`core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs:10`）。
+- BuiltinPluginAssets.rs 全文件只有一行 `include!`，引入构建期生成的 `builtin_plugin_assets.rs`（`core/crates/runtime/application/src/plugins/BuiltinPluginAssets.rs:1`）。
 
 ### ToolPkg 会话创建钩子桥
 
@@ -135,7 +135,7 @@ date: 2026-11-11
 - 运行时未注册时报错 `Chat lifecycle runtime is not registered`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:84`）。
 - `dispatchBeforeCreate` 先调 `validateCreationDraft` 校验草稿，再按序执行各所有者钩子（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:95`）。
 - 无钩子时直接返回空 `BTreeMap`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:102`）。
-- 钩子超时预算取自 `ApiPreferences::getToolPkgPreHookTimeoutSeconds`，经 `ToolPkgPreHookTimeout::fromSeconds` 换算（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:105`）。
+- 钩子超时预算取自 ApiPreferences 的 `getToolPkgPreHookTimeoutSeconds`，经 `ToolPkgPreHookTimeout::fromSeconds` 换算（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:105`）。
 - 每个钩子经 `ToolPkgPreHookTimeout::runHook` 以 `TOOLPKG_EVENT_CHAT_LIFECYCLE` 与 `CHAT_LIFECYCLE_BEFORE_CREATE` 事件执行（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:112`）。
 - 同一包名重复出现时报错 `Duplicate chat lifecycle hook owner`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:130`）。
 - 草稿校验要求草稿 id 非空（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:155`）。
@@ -194,11 +194,11 @@ date: 2026-11-11
 
 ### 会话创建前钩子分发
 
-1. `ToolPkgChatLifecycleHookBridge::register` 绑定进程级运行时（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:64`）。
+1. ToolPkgChatLifecycleHookBridge 的 `register` 绑定进程级运行时（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:64`）。
 2. `snapshot()` 取分离的已就绪运行时快照并收集已启用钩子（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:73`）。
 3. `dispatchBeforeCreate` 先调 `validateCreationDraft` 校验草稿（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:95`）。
 4. 无钩子时直接返回空 `BTreeMap`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:102`）。
-5. 超时预算取自 `ApiPreferences::getToolPkgPreHookTimeoutSeconds`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:105`）。
+5. 超时预算取自 ApiPreferences 的 `getToolPkgPreHookTimeoutSeconds`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:105`）。
 6. 每个钩子经 `ToolPkgPreHookTimeout::runHook` 按序执行（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:112`）。
 7. 钩子结果由 `parseCreationResult` 解析（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:272`）。
 8. 全部钩子成功后返回按包名分组的扩展映射（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:130`）。
@@ -206,7 +206,7 @@ date: 2026-11-11
 ### 内置插件初始化
 
 1. `initializeBuiltins` 用布尔门控保证只初始化一次（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:46`）。
-2. 注册 `ToolboxPlugin` 与 `ToolPkgCommonBridgePlugin::new(toolpkg_runtime)`（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:59`）。
+2. 注册 `ToolboxPlugin` 与 ToolPkgCommonBridgePlugin 的 `new`(toolpkg_runtime)（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:59`）。
 3. 逐个安装未安装插件，每个插件只调一次 `register()`（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:90`）。
 
 ## 来源

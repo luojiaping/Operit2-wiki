@@ -132,7 +132,7 @@
     "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1242"
   },
   {
-    "fact": "deleteMessage 只向同步层记一条消息删除记录（recordMessageDeletion），不直接删行",
+    "fact": "deleteMessage 委托同步 store（`recordMessageDeletion`），在同一 SQLite 事务中删除本地消息、变体及 parts，并记录同步删除操作",
     "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1091"
   },
   {
@@ -196,8 +196,8 @@
     "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1629"
   },
   {
-    "fact": "loadChatMessagesRange 返回条数为 end - start + 1（checked_sub 后 checked_add(1)）",
-    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1637"
+    "fact": "loadChatMessagesRange 读取上限为 end - start + 1（`LIMIT`，历史不足时返回更少）",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1654"
   },
   {
     "fact": "loadRuntimeChatMessages 从最新一条 summary 消息起（含该摘要）加载消息，供模型上下文",

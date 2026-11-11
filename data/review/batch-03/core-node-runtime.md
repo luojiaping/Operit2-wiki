@@ -34,9 +34,9 @@ README 把 `runtime/src/remote` 列为节点身份与会话持久化、配对、
 - `SpaceJoinRequest` — 设备入群申请（`core/crates/node/runtime/src/NodeSpaceService.rs:315`）
 - `SpaceJoinStatus` — Pending、Approving、Approved、Rejected、Cancelled、Expired 与 Joined 七种状态（`core/crates/node/runtime/src/NodeSpaceService.rs:310`）
 - 主入口：`callSpaceWithOrigin` 解析路由并取绑定键（`core/crates/node/runtime/src/CoreNodeRouter.rs:978`）
-- 主入口：`CoreNodeRouter::routedCall` 处理到达本节点的路由调用（`core/crates/node/runtime/src/CoreNodeRouter.rs:1924`）
-- 主入口：`SpacePersistenceSyncService::synchronizeOnce` 执行一轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:362`）
-- 主入口：`NodeSpaceService::dispatchPeerSpaceCall` 分发对端 Space 调用（`core/crates/node/runtime/src/NodeSpaceService.rs:362`）
+- 主入口：CoreNodeRouter 的 `routedCall` 处理到达本节点的路由调用（`core/crates/node/runtime/src/CoreNodeRouter.rs:1924`）
+- 主入口：SpacePersistenceSyncService 的 `synchronizeOnce` 执行一轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:362`）
+- 主入口：NodeSpaceService 的 `dispatchPeerSpaceCall` 分发对端 Space 调用（`core/crates/node/runtime/src/NodeSpaceService.rs:362`）
 - 数据流向：调用 → 路由解析 → 本地执行或跨节点转发 → 持久化操作经同步轮次在可达成员间对账与复制。
 
 ## 核心机制
@@ -125,8 +125,8 @@ README 把 `runtime/src/remote` 列为节点身份与会话持久化、配对、
 - Space watch 快照在路由未注册时返回 `SPACE_ROUTE_NOT_FOUND`（`core/crates/node/runtime/src/SpaceRuntime.rs:92`）。
 - 对 `CORE_STREAM_TARGET` 的 watch 走 `openEmbeddedStream`（`core/crates/node/runtime/src/SpaceRuntime.rs:121`）。
 - `openEmbeddedStream` 要求 `propertyName` 为 `openCoreStream`，否则返回 `watchNotFound`（`core/crates/node/runtime/src/SpaceRuntime.rs:158`）。
-- `SpaceStreamPool::adopt` 只在 `streamId` 不存在时插入，不覆盖已有流（`core/crates/node/runtime/src/SpaceRuntime.rs:30`）。
-- `SpaceRuntime::new` 接收 `ChatRuntimeHolder`（`core/crates/node/runtime/src/SpaceRuntime.rs:43`）。
+- SpaceStreamPool 的 `adopt` 只在 `streamId` 不存在时插入，不覆盖已有流（`core/crates/node/runtime/src/SpaceRuntime.rs:30`）。
+- SpaceRuntime 的 `new` 接收 `ChatRuntimeHolder`（`core/crates/node/runtime/src/SpaceRuntime.rs:43`）。
 - 推送路由解析后，非 `pushToolPkgRoute` 走 `generated_space_push_on_chat_core`，`pushToolPkgRoute` 先验 `requireSpacePackage`（`core/crates/node/runtime/src/SpaceRuntime.rs:216`）。
 - `CoreLinkSharedClient` 的 `call` 委托给 SpaceRuntime 的 `call`（`core/crates/node/runtime/src/SpaceRuntime.rs:197`）。
 - `executeLocalCall` 对 `DEVICE_TOOL_TARGET` 返回 `DEVICE_TOOL_MODE_INVALID`，设备工具要求可取消的 watch（`core/crates/node/runtime/src/CoreNodeRouter.rs:1284`）。
@@ -237,8 +237,8 @@ README 把 `runtime/src/remote` 列为节点身份与会话持久化、配对、
 - `PeerSpaceSnapshot` 含 space、deviceProfiles、controlOperations、topology 与 departures（`core/crates/node/runtime/src/NodeSpaceService.rs:36`）。
 - `NodeSpaceContext` 要求 storage、spaceStore、networkControlStore、peers 与 localNodeId，`isSpaceEndpoint` 默认返回 false（`core/crates/node/runtime/src/NodeSpaceService.rs:351`）。
 - `NodeSpaceContext` 要求 `nodeIsReachable` 与 `callNode`，`afterJoined` 默认返回 Ok（`core/crates/node/runtime/src/NodeSpaceService.rs:352`）。
-- `NodeSpaceService::new` 从 `CoreNodeIdentityStore` 取 localNodeId（`core/crates/node/runtime/src/NodeSpaceService.rs:516`）。
-- `NodeSpaceService::initialize` 要求 profile.nodeId 等于本节点，否则报错，并把 protocolVersion 置为 `PeerProtocol::VERSION`（`core/crates/node/runtime/src/NodeSpaceService.rs:525`）。
+- NodeSpaceService 的 `new` 从 `CoreNodeIdentityStore` 取 localNodeId（`core/crates/node/runtime/src/NodeSpaceService.rs:516`）。
+- NodeSpaceService 的 `initialize` 要求 profile.nodeId 等于本节点，否则报错，并把 protocolVersion 置为 `PeerProtocol::VERSION`（`core/crates/node/runtime/src/NodeSpaceService.rs:525`）。
 - `requirePairedSpacePeer` 要求当前直接配对，方向不限，否则报错（`core/crates/node/runtime/src/NodeSpaceService.rs:548`）。
 - `acceptPeerSpaceCall` 先要求当前直接配对，再分发到 `dispatchPeerSpaceCall`（`core/crates/node/runtime/src/NodeSpaceService.rs:556`）。
 - `dispatchPeerSpaceCall` 按方法名分发对端 Space 调用（`core/crates/node/runtime/src/NodeSpaceService.rs:362`）。
@@ -289,53 +289,53 @@ README 把 `runtime/src/remote` 列为节点身份与会话持久化、配对、
 
 - `CoreNodeRouter` — 路由决策与跨节点调用的持有者（`core/crates/node/runtime/src/CoreNodeRouter.rs:65`）
 - `CoreNodeLocalRuntime` — 本地执行上下文（`core/crates/node/runtime/src/CoreNodeRouter.rs:82`）
-- `CoreNodeRouter::installNodeServices` — 只装配一次节点服务（`core/crates/node/runtime/src/CoreNodeRouter.rs:279`）
-- `CoreNodeRouter::nodeServices` — 取已装配的节点服务，未装配报错（`core/crates/node/runtime/src/CoreNodeRouter.rs:285`）
-- `CoreNodeRouter::localNodeId` — 返回路由器的稳定节点身份（`core/crates/node/runtime/src/CoreNodeRouter.rs:344`）
-- `CoreNodeRouter::routeNodeId` — 解析 Local 或 Binding 的目标节点（`core/crates/node/runtime/src/CoreNodeRouter.rs:433`）
-- `CoreNodeRouter::effectiveBinding` — 属主不可达时返回指向本节点的绑定副本（`core/crates/node/runtime/src/CoreNodeRouter.rs:454`）
-- `CoreNodeRouter::bindingRouteStatus` — 返回绑定路由的属主与活动节点状态（`core/crates/node/runtime/src/CoreNodeRouter.rs:461`）
-- `CoreNodeRouter::requireRoutePermission` — 按 Caller 或 Target 主体校验路由权限（`core/crates/node/runtime/src/CoreNodeRouter.rs:522`）
-- `CoreNodeRouter::callSpaceWithOrigin` — 解析路由、取绑定键并决定本地或跨节点执行（`core/crates/node/runtime/src/CoreNodeRouter.rs:976`）
-- `CoreNodeRouter::prepareCreationBinding` — 创建或保持执行绑定（`core/crates/node/runtime/src/CoreNodeRouter.rs:938`）
-- `CoreNodeRouter::callNode` — 直发节点调用，`NODE_SPACE_TARGET` 不中继（`core/crates/node/runtime/src/CoreNodeRouter.rs:816`）
-- `CoreNodeRouter::routedCall` — 处理到达本节点的路由调用（`core/crates/node/runtime/src/CoreNodeRouter.rs:1924`）
-- `CoreNodeRouter::routedWatchSnapshot` — 路由 watch 快照的入口（`core/crates/node/runtime/src/CoreNodeRouter.rs:2030`）
-- `CoreNodeRouter::routedWatch` — 路由 watch 流的入口（`core/crates/node/runtime/src/CoreNodeRouter.rs:2060`）
-- `CoreNodeRouter::routedOpenPush` — 路由推送会话的入口（`core/crates/node/runtime/src/CoreNodeRouter.rs:2111`）
-- `CoreNodeRouter::watchBindingFlow` — 为逻辑 watch 派生泵任务（`core/crates/node/runtime/src/CoreNodeRouter.rs:1375`）
-- `CoreNodeRouter::pumpBindingFlow` — 每段重解析绑定并泵送事件流（`core/crates/node/runtime/src/CoreNodeRouter.rs:1413`）
-- `CoreNodeRouter::shouldRoute` — 决定一次调用是否跨节点（`core/crates/node/runtime/src/CoreNodeRouter.rs:2352`）
-- `CoreNodeRouter::shouldUseLocalWatchSource` — 决定一次 watch 是否用本地源（`core/crates/node/runtime/src/CoreNodeRouter.rs:2417`）
-- `CoreNodeRouter::nodeIsReachable` — 判断节点可达性（`core/crates/node/runtime/src/CoreNodeRouter.rs:626`）
-- `CoreNodeRouter::nodeRoutePlan` — 计算到目标节点的中继计划（`core/crates/node/runtime/src/CoreNodeRouter.rs:641`）
-- `CoreNodeRouter::routeTtl` — ttl 等于 Space 成员数（`core/crates/node/runtime/src/CoreNodeRouter.rs:1869`）
-- `CoreNodeRouter::requireDirectPeer` — 要求当前直接配对（`core/crates/node/runtime/src/CoreNodeRouter.rs:1913`）
+- CoreNodeRouter 的 `installNodeServices` — 只装配一次节点服务（`core/crates/node/runtime/src/CoreNodeRouter.rs:279`）
+- CoreNodeRouter 的 `nodeServices` — 取已装配的节点服务，未装配报错（`core/crates/node/runtime/src/CoreNodeRouter.rs:285`）
+- CoreNodeRouter 的 `localNodeId` — 返回路由器的稳定节点身份（`core/crates/node/runtime/src/CoreNodeRouter.rs:344`）
+- CoreNodeRouter 的 `routeNodeId` — 解析 Local 或 Binding 的目标节点（`core/crates/node/runtime/src/CoreNodeRouter.rs:433`）
+- CoreNodeRouter 的 `effectiveBinding` — 属主不可达时返回指向本节点的绑定副本（`core/crates/node/runtime/src/CoreNodeRouter.rs:454`）
+- CoreNodeRouter 的 `bindingRouteStatus` — 返回绑定路由的属主与活动节点状态（`core/crates/node/runtime/src/CoreNodeRouter.rs:461`）
+- CoreNodeRouter 的 `requireRoutePermission` — 按 Caller 或 Target 主体校验路由权限（`core/crates/node/runtime/src/CoreNodeRouter.rs:522`）
+- CoreNodeRouter 的 `callSpaceWithOrigin` — 解析路由、取绑定键并决定本地或跨节点执行（`core/crates/node/runtime/src/CoreNodeRouter.rs:976`）
+- CoreNodeRouter 的 `prepareCreationBinding` — 创建或保持执行绑定（`core/crates/node/runtime/src/CoreNodeRouter.rs:938`）
+- CoreNodeRouter 的 `callNode` — 直发节点调用，`NODE_SPACE_TARGET` 不中继（`core/crates/node/runtime/src/CoreNodeRouter.rs:816`）
+- CoreNodeRouter 的 `routedCall` — 处理到达本节点的路由调用（`core/crates/node/runtime/src/CoreNodeRouter.rs:1924`）
+- CoreNodeRouter 的 `routedWatchSnapshot` — 路由 watch 快照的入口（`core/crates/node/runtime/src/CoreNodeRouter.rs:2030`）
+- CoreNodeRouter 的 `routedWatch` — 路由 watch 流的入口（`core/crates/node/runtime/src/CoreNodeRouter.rs:2060`）
+- CoreNodeRouter 的 `routedOpenPush` — 路由推送会话的入口（`core/crates/node/runtime/src/CoreNodeRouter.rs:2111`）
+- CoreNodeRouter 的 `watchBindingFlow` — 为逻辑 watch 派生泵任务（`core/crates/node/runtime/src/CoreNodeRouter.rs:1375`）
+- CoreNodeRouter 的 `pumpBindingFlow` — 每段重解析绑定并泵送事件流（`core/crates/node/runtime/src/CoreNodeRouter.rs:1413`）
+- CoreNodeRouter 的 `shouldRoute` — 决定一次调用是否跨节点（`core/crates/node/runtime/src/CoreNodeRouter.rs:2352`）
+- CoreNodeRouter 的 `shouldUseLocalWatchSource` — 决定一次 watch 是否用本地源（`core/crates/node/runtime/src/CoreNodeRouter.rs:2417`）
+- CoreNodeRouter 的 `nodeIsReachable` — 判断节点可达性（`core/crates/node/runtime/src/CoreNodeRouter.rs:626`）
+- CoreNodeRouter 的 `nodeRoutePlan` — 计算到目标节点的中继计划（`core/crates/node/runtime/src/CoreNodeRouter.rs:641`）
+- CoreNodeRouter 的 `routeTtl` — ttl 等于 Space 成员数（`core/crates/node/runtime/src/CoreNodeRouter.rs:1869`）
+- CoreNodeRouter 的 `requireDirectPeer` — 要求当前直接配对（`core/crates/node/runtime/src/CoreNodeRouter.rs:1913`）
 - `GeneratedSpaceRoute` — 生成的 Space 路由元数据（`core/crates/node/runtime/src/lib.rs:30`）
 - `GeneratedCoreRoute` — Local 与 Binding 两种路由目标（`core/crates/node/runtime/src/lib.rs:8`）
 - `GeneratedRoutePermissionSubject` — Caller 与 Target 两种权限主体（`core/crates/node/runtime/src/lib.rs:15`）
 - `GeneratedRouteLifecycle` — Normal、BeforeChangeRoute 与 AfterChangeRoute 三种生命周期（`core/crates/node/runtime/src/lib.rs:22`）
-- `GeneratedSpaceRoute::bindingKey` — 从参数 map 取绑定键（`core/crates/node/runtime/src/lib.rs:44`）
+- GeneratedSpaceRoute 的 `bindingKey` — 从参数 map 取绑定键（`core/crates/node/runtime/src/lib.rs:44`）
 - `SpaceRuntime` — Space 侧运行时对象注册表与内嵌流池（`core/crates/node/runtime/src/SpaceRuntime.rs:11`）
-- `SpaceRuntime::call` — 本地执行 Space 调用（`core/crates/node/runtime/src/SpaceRuntime.rs:51`）
-- `SpaceRuntime::watch` — 本地打开 Space 监听流（`core/crates/node/runtime/src/SpaceRuntime.rs:121`）
-- `SpaceRuntime::openPush` — 本地打开 Space 推送会话（`core/crates/node/runtime/src/SpaceRuntime.rs:210`）
-- `SpaceStreamPool::adopt` — 只在流不存在时登记内嵌流（`core/crates/node/runtime/src/SpaceRuntime.rs:30`）
+- SpaceRuntime 的 `call` — 本地执行 Space 调用（`core/crates/node/runtime/src/SpaceRuntime.rs:51`）
+- SpaceRuntime 的 `watch` — 本地打开 Space 监听流（`core/crates/node/runtime/src/SpaceRuntime.rs:121`）
+- SpaceRuntime 的 `openPush` — 本地打开 Space 推送会话（`core/crates/node/runtime/src/SpaceRuntime.rs:210`）
+- SpaceStreamPool 的 `adopt` — 只在流不存在时登记内嵌流（`core/crates/node/runtime/src/SpaceRuntime.rs:30`）
 - `PeerSyncMethod` — 16 种对端同步方法（`core/crates/node/runtime/src/PeerSync.rs:14`）
-- `PeerSyncMethod::requiresStorageProvider` — 判断方法是否要求存储提供方（`core/crates/node/runtime/src/PeerSync.rs:37`）
-- `PeerSyncMethod::fromRequest` — 解析同步请求并校验参数信封（`core/crates/node/runtime/src/PeerSync.rs:54`）
+- PeerSyncMethod 的 `requiresStorageProvider` — 判断方法是否要求存储提供方（`core/crates/node/runtime/src/PeerSync.rs:37`）
+- PeerSyncMethod 的 `fromRequest` — 解析同步请求并校验参数信封（`core/crates/node/runtime/src/PeerSync.rs:54`）
 - `SpacePersistenceSyncService` — 可达成员间的持久化同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:152`）
-- `SpacePersistenceSyncService::synchronizeOnce` — 执行一轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:362`）
-- `SpacePersistenceSyncService::synchronizePeer` — 与一个对端同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:563`）
-- `SpacePersistenceSyncService::synchronizeDomains` — 双向对账时钟并复制操作（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:878`）
-- `SpacePersistenceSyncService::exchangePairedDeviceSpaceProjection` — 交换对端 Space 投影（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1093`）
-- `SpacePersistenceSyncService::transferBlob` — 按 64 KiB 分块传输 blob（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1250`）
-- `SpacePersistenceSyncService::scheduleSynchronization` — 合并触发原因后排队同步任务（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1297`）
+- SpacePersistenceSyncService 的 `synchronizeOnce` — 执行一轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:362`）
+- SpacePersistenceSyncService 的 `synchronizePeer` — 与一个对端同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:563`）
+- SpacePersistenceSyncService 的 `synchronizeDomains` — 双向对账时钟并复制操作（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:878`）
+- SpacePersistenceSyncService 的 `exchangePairedDeviceSpaceProjection` — 交换对端 Space 投影（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1093`）
+- SpacePersistenceSyncService 的 `transferBlob` — 按 64 KiB 分块传输 blob（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1250`）
+- SpacePersistenceSyncService 的 `scheduleSynchronization` — 合并触发原因后排队同步任务（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1297`）
 - `NodeSpaceService` — 无应用执行运行时的设备的轻量组装（`core/crates/node/runtime/src/NodeSpaceService.rs:508`）
-- `NodeSpaceService::initialize` — 校验本地身份并置协议版本（`core/crates/node/runtime/src/NodeSpaceService.rs:525`）
-- `NodeSpaceService::dispatchPeerSpaceCall` — 分发对端 Space 调用（`core/crates/node/runtime/src/NodeSpaceService.rs:362`）
-- `NodeSpaceService::observePeerSpaceSnapshot` — 观察并校验对端 Space 快照（`core/crates/node/runtime/src/NodeSpaceService.rs:421`）
-- `NodeSpaceService::acceptSpaceControlCall` — 处理控制交换（`core/crates/node/runtime/src/NodeSpaceService.rs:723`）
+- NodeSpaceService 的 `initialize` — 校验本地身份并置协议版本（`core/crates/node/runtime/src/NodeSpaceService.rs:525`）
+- NodeSpaceService 的 `dispatchPeerSpaceCall` — 分发对端 Space 调用（`core/crates/node/runtime/src/NodeSpaceService.rs:362`）
+- NodeSpaceService 的 `observePeerSpaceSnapshot` — 观察并校验对端 Space 快照（`core/crates/node/runtime/src/NodeSpaceService.rs:421`）
+- NodeSpaceService 的 `acceptSpaceControlCall` — 处理控制交换（`core/crates/node/runtime/src/NodeSpaceService.rs:723`）
 - `NodeSpaceContext` — NodeSpaceService 的存储与对端访问契约（`core/crates/node/runtime/src/NodeSpaceService.rs:351`）
 - `SpaceJoinRequest` — 设备入群申请（`core/crates/node/runtime/src/NodeSpaceService.rs:315`）
 - `SpaceJoinStatus` — 七种入群状态（`core/crates/node/runtime/src/NodeSpaceService.rs:310`）

@@ -852,10 +852,6 @@
     "ref": "core/crates/plugin/sdk-ipc/src/server.rs:486"
   },
   {
-    "fact": "registerRequest 以 (会话 ID, 请求 ID) 为键登记活跃请求。",
-    "ref": "core/crates/plugin/sdk-ipc/src/server.rs:496"
-  },
-  {
     "fact": "finishRequest 只在登记句柄一致时移除请求，返回请求是否仍可发布。",
     "ref": "core/crates/plugin/sdk-ipc/src/server.rs:518"
   },
@@ -998,10 +994,6 @@
   {
     "fact": "runtime_method_name 去掉方法名前的 r# 前缀与 _overload_ 后缀。",
     "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:726"
-  },
-  {
-    "fact": "pascal_case_to_snake_case 把 PascalCase 变体名还原为 snake_case。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:733"
   },
   {
     "fact": "plugin/sdk 的 build.rs 在构建时依次运行 generate_js_tools_runtime（输出 OUT_DIR/js_tools.js）、generate_declaration_tree（输出 OUT_DIR/types）、generate_builtin_tool_names（输出 OUT_DIR/builtin_tool_names.rs）。",

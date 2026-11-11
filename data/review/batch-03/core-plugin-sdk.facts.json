@@ -40,7 +40,7 @@
     "ref": "core/crates/plugin/sdk/src/PackageManager.rs:24"
   },
   {
-    "fact": "PluginPackageManager::new 接收执行引擎工厂、资源源、文件系统宿主与包状态解析器四组宿主接口。",
+    "fact": "截至基线 364d1d594，PluginPackageManager::new 接收执行引擎工厂、资源源、文件系统宿主与包状态解析器四组宿主接口，第三组输入为 fileSystemHost: Arc<dyn FileSystemHost>（PackageManager.rs:37）；上游 053c6686 已改为 filesystem: Arc<VisualFileSystem>（同文件 :37），并将同一 VFS 实例传给 ToolPkgManager（ToolPkgManager.rs:95、103），四组输入为执行引擎工厂、资源源、Arc<VisualFileSystem>、包状态解析器，第三组是 VFS 实例而非平台文件系统 Host，直接传入旧 Arc<dyn FileSystemHost> 与当前签名不匹配。",
     "ref": "core/crates/plugin/sdk/src/PackageManager.rs:34"
   },
   {

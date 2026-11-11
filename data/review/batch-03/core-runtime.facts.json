@@ -64,19 +64,19 @@
     "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:141"
   },
   {
-    "fact": "runtimeStorageHost 已提供但其 runtimeRootDir() 失败时，newWithContext 用 expect 直接 panic。",
+    "fact": "runtimeStorageHost 已提供但其 runtimeRootDir() 失败时，newWithContext 用 expect 直接 panic。截至基线 364d1d594，日志配置失败后只记警告、继续使用控制台与内存日志；上游 053c6686 已改为 hostManager.vfs().expect(...)（OperitApplication.rs:143）与 configure_log_files(...).expect(\"Runtime VFS log files must be writable\")（OperitApplication.rs:148），配置失败会 panic。",
     "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:145"
   },
   {
-    "fact": "newWithContext 中 runtimeStorageHost 已提供而缺失 FileSystemHost 时用 expect 直接 panic。",
+    "fact": "newWithContext 中 runtimeStorageHost 已提供而缺失 FileSystemHost 时用 expect 直接 panic。截至基线 364d1d594，日志配置失败后只记警告、继续使用控制台与内存日志；上游 053c6686 已改为 hostManager.vfs().expect(...)（OperitApplication.rs:143）与 configure_log_files(...).expect(\"Runtime VFS log files must be writable\")（OperitApplication.rs:148），配置失败会 panic。",
     "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:152"
   },
   {
-    "fact": "runtimeStorageHost 已提供时，newWithContext 把日志文件解析为 /operitapp/data/logs/operit.log 与 /operitapp/data/logs/toolpkg.log。",
+    "fact": "runtimeStorageHost 已提供时，newWithContext 把日志文件解析为 /operitapp/data/logs/operit.log 与 /operitapp/data/logs/toolpkg.log。截至基线 364d1d594，日志配置失败后只记警告、继续使用控制台与内存日志；上游 053c6686 已改为 hostManager.vfs().expect(...)（OperitApplication.rs:143）与 configure_log_files(...).expect(\"Runtime VFS log files must be writable\")（OperitApplication.rs:148），配置失败会 panic。",
     "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:159"
   },
   {
-    "fact": "日志文件配置失败时只记警告，应用继续使用控制台与内存日志。",
+    "fact": "日志文件配置失败时只记警告，应用继续使用控制台与内存日志。截至基线 364d1d594，日志配置失败后只记警告、继续使用控制台与内存日志；上游 053c6686 已改为 hostManager.vfs().expect(...)（OperitApplication.rs:143）与 configure_log_files(...).expect(\"Runtime VFS log files must be writable\")（OperitApplication.rs:148），配置失败会 panic。",
     "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:167"
   },
   {
@@ -692,7 +692,7 @@
     "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:861"
   },
   {
-    "fact": "直接图片附件注册要求 FileSystemHost，读不到字节或文件为空时报错。",
+    "fact": "直接图片附件注册要求 FileSystemHost，读不到字节或文件为空时报错。截至基线，直接图片读取走 FileSystemHost 边界；上游 053c6686 的注册入口已接收 Option<&VisualFileSystem>（AIMessageManager.rs:885），经 fileResource 与 FileSource::readBytes 读取。",
     "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:893"
   },
   {
@@ -768,7 +768,7 @@
     "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:627"
   },
   {
-    "fact": "FileSystemHost 缺失时，newWithContext 在 chatFileSystemHost 处用 expect 直接 panic（无条件）。",
+    "fact": "FileSystemHost 缺失时，newWithContext 在 chatFileSystemHost 处用 expect 直接 panic（无条件）。截至基线，聊天初始化直接要求 FileSystemHost；上游 053c6686 已改为 hostManager.vfs().expect(\"Chat runtime requires VFS\")（OperitApplication.rs:185）。",
     "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:220"
   },
   {

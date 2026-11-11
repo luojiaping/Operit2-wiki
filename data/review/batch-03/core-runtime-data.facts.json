@@ -168,7 +168,7 @@
     "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:427"
   },
   {
-    "fact": "structured_preferences 阶段进度 0.36，调 importSpeechPreferences 迁移语音配置，角色卡、提示词、角色组和记忆写入插件存储。",
+    "fact": "structured_preferences 阶段进度 0.36，只调 importSpeechPreferences 迁移语音配置，仅导入 TTS 配置。",
     "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:435"
   },
   {
@@ -260,7 +260,7 @@
     "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:711"
   },
   {
-    "fact": "角色与记忆导入由 importCharactersAndMemory 完成。",
+    "fact": "角色与记忆导入由 chats 阶段的 importChatDatabase 内调 importCharactersAndMemory 完成。",
     "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:717"
   },
   {

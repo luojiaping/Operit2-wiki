@@ -68,7 +68,7 @@
     "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2981"
   },
   {
-    "fact": "`chatInputMenuSummary` 的 `maxContextLength` 取自已解析模型配置的 `config.context.maxContextLength`",
+    "fact": "chatInputMenuSummary 的 `maxContextLength` 取自已解析模型配置的 `config.context.maxContextLength`",
     "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2984"
   },
   {

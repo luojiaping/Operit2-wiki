@@ -109,7 +109,7 @@
   },
   {
     "fact": "CoreReverseStreamSession 的 CoreLinkPushSession 实现把 send 转给 pushItem、把 close 转给 CoreReverseStreamSession::close。",
-    "ref": "core/crates/rslink/runtime/src/lib.rs:191"
+    "ref": "core/crates/rslink/runtime/src/lib.rs:192"
   },
   {
     "fact": "object_args 只接受 CoreValue::Map 与 CoreValue::Null，其余值返回 INVALID_ARGS 错误。",
@@ -169,7 +169,7 @@
   },
   {
     "fact": "core_route_call_response 用 core_route_call_request 构造请求，并记录 wrapper.call 追踪日志。",
-    "ref": "core/crates/rslink/runtime/src/lib.rs:317"
+    "ref": "core/crates/rslink/runtime/src/lib.rs:319"
   },
   {
     "fact": "decode_core_call_response 从 CoreCallResponse 的 result 解码调用方返回类型。",
@@ -178,10 +178,6 @@
   {
     "fact": "core_route_error_uses_local_source 在错误码为 CORE_NODE_UNREACHABLE、PEER_LINK_CLOSED、PEER_RESPONSE_CLOSED、PEER_SEND_FAILED、PEER_WATCH_SOURCE_CLOSED 之一时返回 true。",
     "ref": "core/crates/rslink/runtime/src/lib.rs:351"
-  },
-  {
-    "fact": "core_route_error_uses_local_source 返回 true 时，路由打开错误由本地源继续执行。",
-    "ref": "core/crates/rslink/runtime/src/lib.rs:349"
   },
   {
     "fact": "decode_core_call_unit_response 把成功响应映射为 ()，失败原样返回。",

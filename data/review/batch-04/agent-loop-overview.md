@@ -11,7 +11,7 @@ date: 2026-11-11
 本页描述一轮 Agent 请求在 Core 层的完整链路，从用户输入经模型工具循环到回填（`core/crates/runtime/application/src/services/ChatServiceCore.rs:537`）。
 回路逻辑在 Rust Core 层实现，全部平台共用；`ChatInputMenuSettings` 的设置属于聊天绑定选定的执行 Core，不属于 UI 设备（`core/crates/runtime/application/src/services/ChatServiceCore.rs:121`）。
 ChatServiceCore 是 Runtime 域的聊天服务核心（见 [[core-runtime|Runtime 总览与 OperitApplication]]），持有四个委托与服务字段（`core/crates/runtime/application/src/services/ChatServiceCore.rs:244`）。
-模型工具循环本体在 `EnhancedAIService` 内，本页 seed 未通读其实现，只核实调用点（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:465`）。
+模型工具循环本体在 EnhancedAIService 内，本页 seed 未通读其实现，只核实调用点（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:465`）。
 轮次编排本体在 MessageCoordinationDelegate，本页只读过其中 `sendRoutedContinuation` 与总结检查相关区段（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:486`）。
 
 ## AI 速览
@@ -177,7 +177,7 @@ compactChat 压缩完成后释放执行租约（`executionLease`）（`core/crat
 1. sendUserMessage（路由入口）把一轮发送交给 `startUserMessage`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:550`）。
 2. 非续发且未处理过时，startUserMessage 派发 `SUBMIT_REQUESTED` 钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:619`）。
 3. 非续发且未处理过时，钩子放行后派发 `SUBMITTED` 钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:654`）。
-4. 取会话独占 `EnhancedAIService`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:660`）。
+4. 取会话独占 EnhancedAIService（`core/crates/runtime/application/src/services/ChatServiceCore.rs:660`）。
 5. 协调委托 `sendUserMessage`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:666`）。
 6. AIMessageManager.sendMessage 登记本次发送操作（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:324`）。
 7. 投影历史，`promptHistoryOverride` 有值时跳过 `getMemoryFromMessages`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:351`）。

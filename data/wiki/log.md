@@ -81,3 +81,12 @@
 - 结论：batch-03 需修改 8 页（#22、#24、#26、#27、#28、#30、#31、#32），本轮未发现阻断问题 5 页（#23、#25、#29、#33、#34）；batch-04 需修改 3 页（#36、#40、#41），本轮未发现阻断问题 5 页（#35、#37、#38、#39、#42）。
 - 用户主聊 2026-11-11 21:21 指示「10 页没阻断问题的先发布，11 页改完再审」，10 页状态同日翻为 approved（approved_by=luojiaping，approved_at 2026-11-11 13:21 UTC，水位线保留）：batch-03 的 core-plugin-js-bridge、core-plugin-codegen、core-node-runtime、core-application、core-command；batch-04 的 agent-loop-overview、agent-compaction、agent-subagents、agent-memory、agent-slash。11 页修订中，基线是否前移至 053c6686 待定。
 - 首页统计随部署更新为 42 页知识页面、31 页已发布、5204 条原子事实、5 个编译批次。
+
+## 2026-11-11 · batch-03/04 用户首轮评审修订（11 页，待复审）
+
+- 修订对象：用户 2026-11-11 21:02–21:11 在 Issue #22–#42 留下的静态审查意见（原文存 tracking/reviews-batch-03/issue-22.md～issue-34.md、tracking/reviews-batch-04/issue-35.md～issue-42.md）。协调员逐项核实：评审实质内容全部属实，无一条判错；其中原有事实偏差 8 项、上游后续变化 8 项（VFS 迁移 FileSystemHost → VisualFileSystem 横跨 #22/#26/#27/#31 四页）、非阻断精确化 2 项。
+- 修订 11 页：batch-03 的 core-plugin-sdk（#22，3 处加时效标注）、core-plugin-theme（#24，保留名检查改为任意路径组件主干命中即拒，补 con.png/nul.ttf 例子）、core-runtime（#26，6 条 facts + 6 行正文加时效标注）、core-runtime-services（#27，fact #163 dataDir 按评审删除——该事实在基线 364d1d594 下为真，上游 053c6686 已删；另 fact #255 加时效标注）、core-runtime-data（#28，structured_preferences 阶段限定为语音配置迁移，角色/记忆移到 chats 阶段 :717）、core-node-peer-link（#30，512 是常量非硬上限；修订 15→19、schemaRoots 7→8 加时效标注）、core-proxy（#31，执行时才要求调度器；fact #92/#94 合并）、core-rslink（#32，删除正文 :63 执行断言与 fact #46）；batch-04 的 agent-chat-branch（#36，deleteMessage 同一事务删本地数据并记同步操作；「返回条数」→「读取上限」）、agent-character-cards（#40，Core 扩展只存不透明引用；补公开 API 步骤）、agent-hooks（#41，收窄为 14 个 hook 注册结构）。上游变化只加时效标注，不改 .status.json 的 source_commit（仍 364d1d594）；基线是否整体前移至 053c6686 待用户拍板。修订 brief 落 tracking/revision-briefs/。
+- 事实数：batch-03 1979 → 1985（评审修订 −3：#27 −1、#31 −1、#32 −1；theme 断言拆分 +11：91 → 102；core-plugin-codegen 删 2 条重复事实：259 → 257）；batch-04 850 不变；全站 5204 → 5210。
+- 正文引用同口径复核另清零 392 处：第一轮 176 处（core-plugin-sdk 55、core-runtime-services 78、core-plugin-theme 37、agent-compaction 4、agent-loop-overview 2，含 theme 拆分时纠正一处锚点错误 :1054 → :1018）；第二轮 216 处（core-plugin-codegen 126、core-node-runtime 46、core-runtime-data 23、core-application 8、core-plugin-js-bridge 6、core-command 5、core-node-peer-link 2，均为修订前已存在的残留）。修法：方法名在窗口内的改写为「Type 的 `method`」，其余去反引号改 plain 文本。
+- 核验：父级自写脚本（facts 与正文逐处查「反引号符号须在同行任一引用 ±5 行内」）全批 facts 2835 条、bad 0；lint.py 两批各硬失败 0、警告 0。
+- 状态：11 页仍为 review-pending，待用户复审；首页统计随部署更新为 42 页知识页面、31 页已发布、5210 条原子事实、5 个编译批次。

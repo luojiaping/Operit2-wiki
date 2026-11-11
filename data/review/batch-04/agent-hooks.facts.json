@@ -68,7 +68,7 @@
     "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:176"
   },
   {
-    "fact": "除菜单对话框子结构外，所有注册结构都有 `containerPackageName`、`functionName` 与可选的 `functionSource`。",
+    "fact": "14 个 hook 注册结构都有 `containerPackageName`、`functionName` 与可选的 `functionSource`；菜单对话框子结构与 AI Provider 注册不在此列，AI Provider 注册用四组独立方法字段、无通用 `functionName`/`functionSource`。",
     "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:12"
   },
   {

@@ -27,13 +27,13 @@ Core 整体的 crate 拆分见 [[core-overview|Core 总览与 crate 边界]]；R
 - `ChannelRegistry` — 通道注册表（`core/crates/application/core/src/device_transport.rs:21`）
 - `execute_transport` — 设备传输操作的入口（`core/crates/application/core/src/device_transport.rs:108`）
 
-主入口：`CoreApplication::start`（`core/crates/application/core/src/lib.rs:81`）。
+主入口：CoreApplication 的 `start`（`core/crates/application/core/src/lib.rs:81`）。
 数据流向：Host 以 `HostManager` 与 `LinkDeviceInfo` 组装 `CoreApplicationConfig`（`core/crates/application/core/src/lib.rs:24`）→
 `start` 由此建出 `LocalCoreProxy`（`core/crates/application/core/src/lib.rs:86`）→
 再由它派生 `CoreNodeRouter`（`core/crates/application/core/src/lib.rs:132`）→
 再创建 `RuntimeRemoteLinkService`（`core/crates/application/core/src/lib.rs:141`）→
-Host 拿 `localClient()` 等句柄使用（`core/crates/application/core/src/lib.rs:209`）→
-`shutdown()` 停整棵树（`core/crates/application/core/src/lib.rs:239`）。
+Host 拿 `localClient`() 等句柄使用（`core/crates/application/core/src/lib.rs:209`）→
+`shutdown`() 停整棵树（`core/crates/application/core/src/lib.rs:239`）。
 
 ## 核心机制
 
@@ -183,11 +183,11 @@ Host 拿 `localClient()` 等句柄使用（`core/crates/application/core/src/lib
 10. `pluginSdkIpcBridge` 只在提供 `pluginSdkIpcHost` 时创建（`core/crates/application/core/src/lib.rs:162`）。
 11. `pluginSdkIpcBridge` 创建后调用 `bridge.start`（`core/crates/application/core/src/lib.rs:177`）。
 12. `installNodeServices` 把 `NodeServices` 装进 `nodeRouter`，再按 `startSpaceSync` 启动 Space 同步（`core/crates/application/core/src/lib.rs:193`）。
-13. 使用阶段：Host 经 `localClient()` 拿本地 Core 客户端句柄（`core/crates/application/core/src/lib.rs:209`）。
-14. 使用阶段：Host 经 `nodeRouter()` 拿路由分发句柄（`core/crates/application/core/src/lib.rs:219`）。
-15. 使用阶段：Host 经 `accessServices()` 拿 Access 服务门面（`core/crates/application/core/src/lib.rs:234`）。
-16. 停止：`shutdown()` 先停 Space 同步，再停 `peers`，最后调 `shutdownNow()`（`core/crates/application/core/src/lib.rs:239`）。
-17. `shutdownNow()` 停桥、停 Space 同步、关 ToolPkg 执行引擎、清 Core 路由运行时（`core/crates/application/core/src/lib.rs:251`）。
+13. 使用阶段：Host 经 `localClient`() 拿本地 Core 客户端句柄（`core/crates/application/core/src/lib.rs:209`）。
+14. 使用阶段：Host 经 `nodeRouter`() 拿路由分发句柄（`core/crates/application/core/src/lib.rs:219`）。
+15. 使用阶段：Host 经 `accessServices`() 拿 Access 服务门面（`core/crates/application/core/src/lib.rs:234`）。
+16. 停止：`shutdown`() 先停 Space 同步，再停 `peers`，最后调 `shutdownNow()`（`core/crates/application/core/src/lib.rs:239`）。
+17. `shutdownNow`() 停桥、停 Space 同步、关 ToolPkg 执行引擎、清 Core 路由运行时（`core/crates/application/core/src/lib.rs:251`）。
 18. `open` 分支建 `watchNode` 输出流与 `openPushNode` 输入会话（`core/crates/application/core/src/device_transport.rs:124`）。
 19. open 成功返回带 `handle` 的值（`core/crates/application/core/src/device_transport.rs:140`）。
 

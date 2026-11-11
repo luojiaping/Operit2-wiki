@@ -44,8 +44,8 @@
     "ref": "plugins/packages/buildin/character_cards/src/storage/chats.ts:20"
   },
   {
-    "fact": "绑定选择串以 version 1 的 `ChatMarker` 存在聊天扩展里。",
-    "ref": "plugins/packages/buildin/character_cards/src/chat-markers.ts:8"
+    "fact": "Core 扩展只保存不透明引用 {recordId, schemaVersion: 1}，选择串不在 Core 聊天扩展里；选择串由插件绑定文件持有——创建时 `initializeChatExtension` 定选择后由 `prepareChatBinding` 预写草稿绑定，正式提交时转为插件偏好里的 binding_ 加聊天 id。",
+    "ref": "plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:127"
   },
   {
     "fact": "`decodeChatMarker` 拒绝扩展里出现 `groupId` 字段，群组成员关系只由插件文件拥有。",
@@ -212,7 +212,7 @@
     "ref": "plugins/packages/buildin/character_cards/src/operations.ts:530"
   },
   {
-    "fact": "执行侧解析先从聊天扩展解码标记，再用 `parseChatSelection` 解析选择串。",
+    "fact": "公开解析 API 先按 chatId 读取插件自己的绑定，再临时构造 {version: 1, selection} 写入内部 `request.chatExtension`，交给领域解析；执行侧再从聊天扩展解码标记并用 `parseChatSelection` 解析选择串。",
     "ref": "plugins/packages/buildin/character_cards/src/domain.ts:395"
   },
   {

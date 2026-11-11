@@ -648,10 +648,6 @@
     "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:465"
   },
   {
-    "fact": "RuntimeProviderSupport::dataDir 返回运行时数据根目录",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:496"
-  },
-  {
     "fact": "RuntimeProviderSupport::updateTokensForProviderModel 经 ApiPreferences 记录指定 provider 与模型的 token 用量",
     "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:508"
   },
@@ -1016,7 +1012,7 @@
     "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:213"
   },
   {
-    "fact": "resolve_terminal_working_dir 对 /app、/operitapp、/mnt、/virtual 路径走 VFS 解析，其余路径走宿主原生解析",
+    "fact": "截至基线 364d1d594，resolve_terminal_working_dir 对 /app、/operitapp、/mnt、/virtual 路径走 VFS 解析，其余路径走宿主原生解析；上游 053c6686 已删除四根路径分支，宿主目录回调统一走 VFS 链（resolve_terminal_working_dir，同文件 :451–463）；上一层仍先由 TerminalHost::resolveWorkingDirectory 处理所选终端的命名空间（同文件 :310–312），不是所有终端路径都直接送 VFS",
     "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:457"
   }
 ]
