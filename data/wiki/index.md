@@ -21,7 +21,16 @@
 
 ## Core
 
-（待生成，大纲 v1 评审中）
+- Core 总览与 crate 边界（`core-overview`）：11 个领域分组、29 个真 crate、依赖方向、父级行为 trait 机制与 peer-protocol.json。
+- 基础层——共享契约与数据模型（`core-foundation`）：host-api 宿主能力契约、HostManager、model 聊天消息与模型目录、Link 协议层。
+- 基础层——通用工具库（`core-foundation-util`）：日志器、文件分类与流框架，48 个公开模块清点与 3 个 full feature 门。
+- 持久化——store 聚合 crate（`core-persistence-store`）：SQLite 连接与事务、节点身份、Binding、Space 成员与选路、偏好存储的同步与节点本地两种形态。
+- 持久化——同步存储（`core-persistence-sync`）：操作日志、时钟、实体版本、blob、工作区清单、文件策略与偏好合并声明的存法。
+- 持久化——数据救援（`core-persistence-rescue`）：不启动 Core/数据库，ZIP 归档加 manifest 校验后暂存发布。
+- Provider——服务聚合（`core-provider-services`）：AIService 接口、ClaudeProvider 适配器、EnhancedAIService 对话编排与 ProviderRuntimeSupport 运行时支持。
+- Provider——本地模型（`core-provider-local-model`）：已装模型与引擎注册表、清单结构、桌面 Sherpa STT/TTS 推理与 LocalModelRuntimeSupport。
+- 工具系统——执行与注册（`core-tool-execution`）：解析、批处理、注册表、权限与 hook 的完整链路。
+- 工具系统——包、技能与 MCP（`core-tool-packages-mcp`）：包工具执行、技能加载管理、MCP 接入调用与 JS 运行时。
 
 ## Agent 回路
 

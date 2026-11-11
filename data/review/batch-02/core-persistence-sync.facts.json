@@ -1,0 +1,654 @@
+[
+  {
+    "fact": "SyncOperation 由 opId、originDeviceId、sequence、domain、entityType、entityId、operation、semantics、payload、createdAt、schemaVersion 共 11 个字段组成。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:244"
+  },
+  {
+    "fact": "SyncOperationSemantics 只有 EntityState 与 Transaction 两种语义：前者替换一个声明实体的状态，后者保留一条不可变的有序变更。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:210"
+  },
+  {
+    "fact": "SyncOperationSemantics 在 SQL 中的存储值是 entity_state 与 transaction。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:219"
+  },
+  {
+    "fact": "verifySyncOperation 用操作摘要比对同一 opId 的已有操作与传入操作，不一致即报错。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:262"
+  },
+  {
+    "fact": "DEFAULT_SYNC_PAGE_BYTES 是 4 MiB，单个同步交换页不超过该字节数。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:41"
+  },
+  {
+    "fact": "SyncClock 用 BTreeMap<String, i64> 按设备记录已知的最后序列号。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:44"
+  },
+  {
+    "fact": "SyncClock::sequenceFor 对未知设备返回 0。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:57"
+  },
+  {
+    "fact": "SyncClock::includes 要求本地时钟覆盖对方时钟的每一个设备序列。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:70"
+  },
+  {
+    "fact": "SyncReceipt 用 BTreeMap<String, Vec<[i64; 2]>> 按来源记录确切的已收区间。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:120"
+  },
+  {
+    "fact": "SyncReceipt::validate 拒绝空来源、超过 256 字符的来源、起始不大于 0、结束小于起始、起始不大于前一区间结束的区间。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:131"
+  },
+  {
+    "fact": "SyncOperationOrder::fromOperation 对 contractVersion 为 1 的 preferences 操作取 payload 的 logicalTime，对带 initial 标记的 runtime_file 操作取 1，其余操作取 createdAt。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:328"
+  },
+  {
+    "fact": "appendLocalOperation 生成的 opId 是 originDeviceId 与序列号以冒号连接，序列号是本地时钟与日志最高值加一。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1818"
+  },
+  {
+    "fact": "appendLocalOperation 生成的操作 schemaVersion 为 1，createdAt 取当前墙钟毫秒。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1822"
+  },
+  {
+    "fact": "本地设备标识格式是 core-{毫秒}-{UUID 简写}，首次生成后持久保存。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:759"
+  },
+  {
+    "fact": "本地设备标识存在 {root}/local_device_id 文件中。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1420"
+  },
+  {
+    "fact": "向量时钟存在 {root}/clocks.json 文件中。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1408"
+  },
+  {
+    "fact": "已应用的实体版本存在 {root}/entity_versions.jsonl 文件中，每行一条 JSON。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1426"
+  },
+  {
+    "fact": "导出下限存在 {root}/export_floors.json 文件中。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1432"
+  },
+  {
+    "fact": "每个来源设备的操作日志存在 {root}/operations/{safeId}.jsonl 文件中，safeId 把非字母数字字符（除连字符与下划线）替换为下划线。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1439"
+  },
+  {
+    "fact": "隔离边车路径是 {root}/operations/{safeId}.jsonl.quarantine。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1449"
+  },
+  {
+    "fact": "已注册设备清单存在 {root}/devices.json 文件中。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1414"
+  },
+  {
+    "fact": "operationsSinceWithInventory 在 domains 为空或包含 preferences 时先发布偏好 outbox 再读日志。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:802"
+  },
+  {
+    "fact": "localClock 读本地时钟前先发布偏好 outbox。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:917"
+  },
+  {
+    "fact": "currentLocalClock 只读缓存的本地时钟，不发布偏好 outbox。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:926"
+  },
+  {
+    "fact": "markLocalOperationsUnexportable 把本地设备及其 preferences 派生来源的当前序列设为导出下限。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:977"
+  },
+  {
+    "fact": "setExportFloor 只提高导出下限不降低，已有值大于等于传入序列时直接返回。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:988"
+  },
+  {
+    "fact": "exportFloorFor 未设下限的来源返回 0。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1012"
+  },
+  {
+    "fact": "shouldApplyOperations 比较新操作与已记录的实体版本。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1075"
+  },
+  {
+    "fact": "新操作只在顺序大于已记录版本时才应用，未知实体默认应用。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1090"
+  },
+  {
+    "fact": "recordAppliedOperations 把已应用的操作批量记入实体版本日志。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1111"
+  },
+  {
+    "fact": "顺序不大于已记录版本的操作被跳过，不写入实体版本日志。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1128"
+  },
+  {
+    "fact": "observeOperationWithClock 只在操作序列大于已知序列时推进本地时钟并写回。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1178"
+  },
+  {
+    "fact": "observeNetworkControlOperation 只接受 domain 为 network_control 的操作。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1196"
+  },
+  {
+    "fact": "observeNetworkControlOperation 用 {originDeviceId}:control 作为独立时钟键确认，不推进业务序列。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1204"
+  },
+  {
+    "fact": "encryptedPreferenceSyncOperation 只在 domain 为 preferences、操作为 set 或 transaction、且 payload 的 encrypted 为 true 时成立。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1596"
+  },
+  {
+    "fact": "加密偏好同步载荷的存储格式标识是 operit.sync.encrypted_payload。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:356"
+  },
+  {
+    "fact": "scanOperationLog 逐行把操作日志分类为可解码或损坏，损坏内容只记入 findings，不导致扫描失败。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1285"
+  },
+  {
+    "fact": "quarantineOperationLines 把损坏行移入隔离边车，不删除任何内容，每行保留原始偏移、哈希与隔离时间戳。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1464"
+  },
+  {
+    "fact": "storageSafeId 把设备标识中非字母数字且非连字符、下划线的字符替换为下划线。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1581"
+  },
+  {
+    "fact": "boundSyncOperationPage 按序列化字节预算截断同步操作页。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1632"
+  },
+  {
+    "fact": "截断超预算页面时始终保留第一条操作，单个超大记录不阻塞导出。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1643"
+  },
+  {
+    "fact": "compactSyncOperations 压缩同步操作页，保留 preferences 历史用于身份重放。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1652"
+  },
+  {
+    "fact": "压缩时保留全部 preferences 域操作与全部 Transaction 语义操作，EntityState 语义每实体只保留最新序列。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1667"
+  },
+  {
+    "fact": "syncEntityVersionKey 把操作身份编码为 domain、entityType、entityId 三元组的 JSON 字符串。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1685"
+  },
+  {
+    "fact": "networkControlClockKey 的格式是 {originDeviceId}:control。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1696"
+  },
+  {
+    "fact": "receiveOperations 把接收到的操作以 pending 状态存入日志。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1874"
+  },
+  {
+    "fact": "publishPreferenceOutboxes 逐个发布已注册偏好数据集的 outbox。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:697"
+  },
+  {
+    "fact": "单个数据集发布失败只记日志并记录错误，其余数据集继续发布。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:712"
+  },
+  {
+    "fact": "preferenceDatasets 返回已注册的偏好数据集路径与加密标志，含插件在界面关闭时准备的数据集。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:877"
+  },
+  {
+    "fact": "preferenceMergeHistory 只读跨数据集的合并声明与身份决策，不读业务历史。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:845"
+  },
+  {
+    "fact": "preferenceHistory 返回偏好域的穷尽历史。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:829"
+  },
+  {
+    "fact": "导出时跳过序列号不大于导出下限的记录。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1992"
+  },
+  {
+    "fact": "导出时非 preferences 域的 EntityState 操作每实体只导出最新一条胜者。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:2001"
+  },
+  {
+    "fact": "RuntimeFileSyncReference 由 contentHash 与 size 两个字段组成。",
+    "ref": "core/crates/persistence/store/src/SyncBlobIo.rs:9"
+  },
+  {
+    "fact": "validateContentHash 要求内容哈希是 64 字符的小写十六进制 SHA-256。",
+    "ref": "core/crates/persistence/store/src/SyncBlobIo.rs:24"
+  },
+  {
+    "fact": "verifyBlob 校验引用声明的大小与内容的 SHA-256 哈希是否一致。",
+    "ref": "core/crates/persistence/store/src/SyncBlobIo.rs:32"
+  },
+  {
+    "fact": "BUFFER_BYTES 是 64 KiB，同步 blob 的流式读写按该大小分块。",
+    "ref": "core/crates/persistence/store/src/SyncBlobIo.rs:65"
+  },
+  {
+    "fact": "write_json 在引用大小不大于 64 KiB 时一次性原子写，否则走流式写入会话。",
+    "ref": "core/crates/persistence/store/src/SyncBlobIo.rs:89"
+  },
+  {
+    "fact": "write_stream 经写入会话流式写 blob，边写边算 SHA-256。",
+    "ref": "core/crates/persistence/store/src/SyncBlobIo.rs:97"
+  },
+  {
+    "fact": "流式写入完成后校验总字节数与哈希，不符则报错且不提交写入会话。",
+    "ref": "core/crates/persistence/store/src/SyncBlobIo.rs:109"
+  },
+  {
+    "fact": "read_json 流式读取 blob 并在读完后校验哈希与大小。",
+    "ref": "core/crates/persistence/store/src/SyncBlobIo.rs:132"
+  },
+  {
+    "fact": "initialization_reference 只在 operation 为 initialize 且 entityType 为 initialization 时从 payload 的 transactionBlob 取引用。",
+    "ref": "core/crates/persistence/store/src/SyncBlobIo.rs:46"
+  },
+  {
+    "fact": "verify_initialization 在已下载初始化 blob 的头部与信封不一致时报错，比较时把双方 payload 置空。",
+    "ref": "core/crates/persistence/store/src/SyncBlobIo.rs:55"
+  },
+  {
+    "fact": "subscribe 用 Arc::ptr_eq 按存储 host 身份过滤订阅，只接收同一 host 的变更。",
+    "ref": "core/crates/persistence/store/src/SyncAppliedChanges.rs:30"
+  },
+  {
+    "fact": "SyncAppliedChanges::publish 在变更为空时直接返回，且只在数据与同步时钟提交后、在 store 锁之外调用。",
+    "ref": "core/crates/persistence/store/src/SyncAppliedChanges.rs:47"
+  },
+  {
+    "fact": "监听器 panic 被捕获并记日志，已提交的数据不受影响。",
+    "ref": "core/crates/persistence/store/src/SyncAppliedChanges.rs:58"
+  },
+  {
+    "fact": "canonicalContent 排除身份字段与声明的忽略字段后比较完整的 JSON 内容。",
+    "ref": "core/crates/persistence/store/src/MergeRules.rs:6"
+  },
+  {
+    "fact": "canonicalValue 把对象键按 BTreeMap 排序，保留数组顺序作为业务数据。",
+    "ref": "core/crates/persistence/store/src/MergeRules.rs:18"
+  },
+  {
+    "fact": "uniqueNames 在名字冲突时加全角括号数字后缀，并跳过已被保留的名字。",
+    "ref": "core/crates/persistence/store/src/MergeRules.rs:33"
+  },
+  {
+    "fact": "RUNTIME_FILE_SYNC_DOMAIN 的值是 runtime_file。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:14"
+  },
+  {
+    "fact": "isCompleteState 要求 domain 为 runtime_file、entityType 为 file、semantics 为 EntityState、操作为 upsert 或 delete。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:60"
+  },
+  {
+    "fact": "RuntimeFileSnapshot 由扁平化的 blob 引用与可选的 modifiedAt 组成。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:22"
+  },
+  {
+    "fact": "FileCoverage 由 owner 与 covered 集合组成，失败方只提供覆盖证明而不重发业务内容。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:41"
+  },
+  {
+    "fact": "FileCorrectionReference 由 source、superseded 与 skipped 集合组成，skipped 只记录确切失败的原始文件。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:49"
+  },
+  {
+    "fact": "recordSnapshot 存 blob 后以本地设备号追加本地操作，initial 时设备号加 :initial 后缀。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:121"
+  },
+  {
+    "fact": "recordDeletion 只追加 payload 为 null 的 delete 操作，不动本地文件。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:207"
+  },
+  {
+    "fact": "writeBlob 先校验引用再写 blob。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:398"
+  },
+  {
+    "fact": "readBlob 读完 blob 后校验哈希与大小。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:446"
+  },
+  {
+    "fact": "storeBlob 计算内容的 SHA-256 并写入 blobs/{hash}，返回引用。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:416"
+  },
+  {
+    "fact": "blobPath 校验哈希后返回 {syncRoot}/blobs/{hash}。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:457"
+  },
+  {
+    "fact": "hasBlob 只查 blob 是否存在，不读内容也不哈希。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:386"
+  },
+  {
+    "fact": "readBlobChunk 在 offset 或 length 为负时报错。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:391"
+  },
+  {
+    "fact": "requiredBlob 对 initialize/initialization 操作取 initialization_reference，非 runtime_file 域返回 None，非 Space 所有权返回 None。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:321"
+  },
+  {
+    "fact": "非 file 的 entityType 在取 blob 引用时报错。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:330"
+  },
+  {
+    "fact": "prepareTransactionForTransport 只处理无 blob 引用的 initialize/initialization 操作。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:343"
+  },
+  {
+    "fact": "操作大小超过 32 KiB 时 payload 换成只含 transactionBlob 引用的小信封。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:350"
+  },
+  {
+    "fact": "hydrateTransaction 对非 initialize 操作原样返回，chat 与 plugin_storage 域不读 blob。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:357"
+  },
+  {
+    "fact": "requireSpaceFile 拒绝未注册为 Space 同步的文件进入运行时文件同步。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:470"
+  },
+  {
+    "fact": "upsert 操作读 blob 写文件、恢复 modifiedAt 并 flush 文件。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:300"
+  },
+  {
+    "fact": "delete 操作只在文件存在时删除，其他操作报错。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:308"
+  },
+  {
+    "fact": "writeSnapshot 在 initial 且已有快照时直接返回，不重复写。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:93"
+  },
+  {
+    "fact": "writeSnapshot 把显式变更与初始种子走同一文件同步路径。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:91"
+  },
+  {
+    "fact": "插件数据库文件拒绝进入文件同步，要求用记录级存储操作。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:101"
+  },
+  {
+    "fact": "trackChanges 在变更前后各抓一次文件快照。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:225"
+  },
+  {
+    "fact": "变化的文件记录新快照，消失的文件记录删除。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:234"
+  },
+  {
+    "fact": "resetTransactions 重新发布当前字节与删除 tombstone。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:136"
+  },
+  {
+    "fact": "重新发布后收回已被替换的文件历史。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:157"
+  },
+  {
+    "fact": "MANAGED_ROOTS 是 workspaces、聊天输出目录与旧版聊天附件目录三个托管根。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:20"
+  },
+  {
+    "fact": "WorkspaceFileSyncStore::owns 要求 domain 为 runtime_file 且路径被 manages 覆盖。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:75"
+  },
+  {
+    "fact": "WorkspaceFileSyncStore::manages 要求路径以托管根加斜杠开头。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:81"
+  },
+  {
+    "fact": "affectedBy 覆盖托管路径及其祖先与后代路径。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:87"
+  },
+  {
+    "fact": "工作区清单存在 {root}/workspace_inventory.json 文件中。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:127"
+  },
+  {
+    "fact": "ScanState 由 files、references、deferred、pending 四部分组成。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:34"
+  },
+  {
+    "fact": "prepareSpaceJoin 在加入 Space 前恢复未完成写入。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:105"
+  },
+  {
+    "fact": "加入 Space 时本地文件保留，只重新清点清单，避免本设备独有的文件被 stranded。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:99"
+  },
+  {
+    "fact": "加入 Space 时工作区清单重置为 ScanState::default()。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:108"
+  },
+  {
+    "fact": "scan 只遍历托管根，不查挂载的 VFS 目录。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:93"
+  },
+  {
+    "fact": "trackPaths 在变更前后各扫描一次工作区。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:121"
+  },
+  {
+    "fact": "applyOperation 在落库后把操作追加到操作日志。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:335"
+  },
+  {
+    "fact": "materializeOperations 对非 file 实体或非本页拥有的操作报错。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:349"
+  },
+  {
+    "fact": "materializeOperations 在 bootstrap 时跳过 shouldApplyOperation 判断。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:356"
+  },
+  {
+    "fact": "applyUnlocked 把 upsert 解释为快照、delete 解释为空，其他操作报错。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:384"
+  },
+  {
+    "fact": "策略拒绝或目标检查失败的传入状态存入 deferred，不丢弃。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:394"
+  },
+  {
+    "fact": "wantsBlob 按策略判断一个 upsert 操作是否需要其 blob。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:404"
+  },
+  {
+    "fact": "deferredBlobs 返回策略变化后重新符合条件的已延迟文件的引用。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:410"
+  },
+  {
+    "fact": "recoverPending 在任何扫描前先完成中断的传入写入。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:457"
+  },
+  {
+    "fact": "finishPending 先写已验证的字节，再提交清单。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:466"
+  },
+  {
+    "fact": "writePending 的 upsert 写字节、恢复 modifiedAt 并 flush 文件。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:492"
+  },
+  {
+    "fact": "writePending 的 delete 只在文件存在时删除。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:500"
+  },
+  {
+    "fact": "checkDestination 拒绝目标路径上的符号链接与文件/目录类型冲突。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:527"
+  },
+  {
+    "fact": "managedDirectory 取托管根下的第一段目录作为文件所属目录。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:563"
+  },
+  {
+    "fact": "managedVfsPath 把 workspaces/ 映射为 /operitapp/workspaces/，聊天输出映射为 /operitapp/outputs/，runtime/ 映射为 /operitapp/data/。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:574"
+  },
+  {
+    "fact": "validatePath 要求托管路径属于 Space 所有权。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:578"
+  },
+  {
+    "fact": "captureReference 为超限文件写 .operit-ref.json 边车保存 FileReference。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:277"
+  },
+  {
+    "fact": "超限大文件只同步边车引用，原始大文件留在来源节点。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:200"
+  },
+  {
+    "fact": "POLICY_PATH 是 .operit/sync.json。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:11"
+  },
+  {
+    "fact": "REFERENCE_SUFFIX 是 .operit-ref.json。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:12"
+  },
+  {
+    "fact": "MAX_POLICY_BYTES 是 256 KiB，策略文件与忽略文件读取不超过该上限。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:13"
+  },
+  {
+    "fact": "默认策略的 exclude 含 .git/、node_modules/、target/、build/、dist/、.dart_tool/、.gradle/、__pycache__/。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:33"
+  },
+  {
+    "fact": "默认策略的 maxFileBytes 与 maxTotalBytes 取布局默认值。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:43"
+  },
+  {
+    "fact": "策略文件不存在时 load 返回默认策略。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:49"
+  },
+  {
+    "fact": "策略 version 不是 1 时 load 报错。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:62"
+  },
+  {
+    "fact": "ensure 只在策略文件不存在时写入默认策略，已存在不覆盖。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:73"
+  },
+  {
+    "fact": "readLimited 分块读取并在超过上限时报错。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:153"
+  },
+  {
+    "fact": "validateRelative 拒绝空路径、绝对路径、反斜杠、冒号、NUL、空段、单点与双点段。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:183"
+  },
+  {
+    "fact": "isControl 把策略文件本身与 .operit 目录判定为控制路径，恒被包含。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:229"
+  },
+  {
+    "fact": "FileReference 含 nodeId、path、fileName、fileSize 与可选的 modifiedAt。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:240"
+  },
+  {
+    "fact": "FileReference 的 format 是 operit_file_reference，version 是 1。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:266"
+  },
+  {
+    "fact": "FileReference::validate 要求路径以 /app/、/operitapp/、/mnt/、/virtual/ 之一开头。",
+    "ref": "core/crates/persistence/store/src/FileSyncPolicy.rs:266"
+  },
+  {
+    "fact": "isMergeMetadata 要求 domain 为 preferences，且操作为 alias，或 payload 或 entries 中含合并声明键或插件偏好 schema 键。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:21"
+  },
+  {
+    "fact": "PreferenceMergeStore::values 声明 version 为 1，无 catalog、无 references、无 projection。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:45"
+  },
+  {
+    "fact": "PreferenceMergeSchema::owner 先查原生注册，再查 CoreSpaceStore，再查插件偏好路径。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:72"
+  },
+  {
+    "fact": "validateDeclaration 要求声明 version 为 1，references 不超过 256 条。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:118"
+  },
+  {
+    "fact": "catalog 声明要求 key_prefix、identity_field、name_field 非空，identity_field 不等于 name_field，ignored_fields 不含 name_field 且不超过 64，retired_keys 不超过 64。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:127"
+  },
+  {
+    "fact": "reference 声明要求 target 以 .preferences.json 结尾、以 runtime/ 开头，path 不超过 32 段。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:136"
+  },
+  {
+    "fact": "偏好合并 schema 的聚合上限是 catalogs 不超过 64、references 不超过 256、projections 不超过 64。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:188"
+  },
+  {
+    "fact": "同一偏好合并 schema 中重复的存储路径被拒绝。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:178"
+  },
+  {
+    "fact": "combineDeclarations 只在版本、catalog、projection 相同且较长声明的 references 以较短声明开头时合并，取较长者。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:244"
+  },
+  {
+    "fact": "applyIndependentOperations 让每个数据集独立提交与独立失败，不共享提交或失败边界。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:269"
+  },
+  {
+    "fact": "PreferenceMergeOutcome 由 paths、operations、skipped、result 四个字段组成。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:260"
+  },
+  {
+    "fact": "declaredAliases 只解析已记录的别名决策，不从内容推断身份。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:436"
+  },
+  {
+    "fact": "resolveIdentity 沿别名链传递解析，遇到循环报错。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:809"
+  },
+  {
+    "fact": "referenceKey 的格式是路径加分隔符加身份。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:826"
+  },
+  {
+    "fact": "rewriteReferenceValue 按 Field、ObjectValues、ArrayValues、Variant、Identity 路径段逐级改写引用。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:768"
+  },
+  {
+    "fact": "Identity 路径段必须在路径末尾。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:794"
+  },
+  {
+    "fact": "keyMatches 排除 retired_keys，要求身份非空。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:718"
+  },
+  {
+    "fact": "nameRecords 用 uniqueNames 分配确定性显示名，保留稳定的实体身份。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:680"
+  },
+  {
+    "fact": "currentRecords 读取属于一个声明配置目录的当前记录。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:644"
+  },
+  {
+    "fact": "记录的身份字段必须与键名一致。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:662"
+  },
+  {
+    "fact": "writeRecords 先删除旧记录与 retired 键，再写规范记录。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:728"
+  },
+  {
+    "fact": "SyncOperationStore 由 storageHost、rootPath 与 sharedState 三个字段组成。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:416"
+  },
+  {
+    "fact": "PreferenceMergeSchema 收集偏好合并声明所属的存储，含 stores 一个列表。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:61"
+  },
+  {
+    "fact": "PreferenceMergeStore 由 path、encrypted、open 与 merge 四个字段组成。",
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:31"
+  }
+]
