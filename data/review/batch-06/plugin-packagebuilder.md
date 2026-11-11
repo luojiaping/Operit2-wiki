@@ -11,7 +11,7 @@ date: 2026-11-11
 - `PackageBuilder` 是当前 Operit 随软件携带的插件开发 Skill。`plugins/skills/external/PackageBuilder/SKILL.md:8`
 - 文档声明：`PackageBuilder` 的类型和示例来自当前版本内置资源，不从云端拉取其他版本。`plugins/skills/external/PackageBuilder/SKILL.md:8`
 - 文档声明：`PackageBuilder` 的描述是使用当前 Operit 随软件携带的类型定义和示例开发、打包、安装与测试插件包，并通过现有 host API 核对环境与路径。`plugins/skills/external/PackageBuilder/SKILL.md:3`
-- 磁盘实况：PackageBuilder 磁盘目录只有 `SKILL.md` 与 `skill.include.json` 两个文件；SKILL.md 树状图里的 `references/`、`types/`、`examples/` 由 `skill.include.json` 在打包时解析还原。`plugins/skills/external/PackageBuilder/skill.include.json:4`
+- 磁盘实况：PackageBuilder 磁盘目录只有 SKILL.md 与 skill.include.json 两个文件；SKILL.md 树状图里的 `references/`、types/、examples/ 由 skill.include.json 在打包时解析还原。`plugins/skills/external/PackageBuilder/skill.include.json:4`
 - 文档声明：安装 Skill 时从随软件携带的插件归档中还原示例已使用的资源，保留完整的相对路径和原始文件；示例源码不要求对应插件已安装或启用。`plugins/skills/external/PackageBuilder/SKILL.md:40`
 - 文档声明：CLI 和 App 使用同一套资源与安装逻辑。`plugins/skills/external/PackageBuilder/SKILL.md:40`
 - 文档声明：包管理创作入口只准备 Skill 和包，并把需求填入聊天草稿；用户发送后才开始开发；它不自动生成、构建、安装或发布插件。`plugins/skills/external/PackageBuilder/SKILL.md:53`
@@ -50,12 +50,12 @@ date: 2026-11-11
 
 - SKILL.md 自述的随包资料树列出 `references/` 目录，含 `PLUGIN_CREATION_WORKFLOW.md`、`SCRIPT_DEV_GUIDE.md`、`TOOLPKG_FORMAT_GUIDE.md`。`plugins/skills/external/PackageBuilder/SKILL.md:23`
 - SKILL.md 自述的随包资料树列出 `types/` 目录，含 `index.d.ts`、`core.d.ts`、`toolpkg.d.ts`。`plugins/skills/external/PackageBuilder/SKILL.md:27`
-- SKILL.md 自述的随包资料树列出 `examples/` 目录，含 `packages/buildin/` 与 `packages/external/`。`plugins/skills/external/PackageBuilder/SKILL.md:32`
-- 文档声明：`skill.include.json` 把 `PLUGIN_CREATION_WORKFLOW.md`、`SCRIPT_DEV_GUIDE.md`、`TOOLPKG_FORMAT_GUIDE.md` 三份开发文档映射到 Skill 内的 `references/` 路径。`plugins/skills/external/PackageBuilder/skill.include.json:8`
-- 文档声明：`skill.include.json` 把 `../../../types` 映射到 Skill 内的 `types` 目录。`plugins/skills/external/PackageBuilder/skill.include.json:16`
-- 文档声明：`skill.include.json` 把 `../../../packages/buildin` 映射到 `examples/packages/buildin`。`plugins/skills/external/PackageBuilder/skill.include.json:20`
-- 文档声明：`skill.include.json` 把 `../../../packages/external` 映射到 `examples/packages/external`。`plugins/skills/external/PackageBuilder/skill.include.json:33`
-- 文档声明：`skill.include.json` 的示例排除 `.sync_state.json`、`node_modules`、`dist`、`build`、`tests-dist`。`plugins/skills/external/PackageBuilder/skill.include.json:26`
+- SKILL.md 自述的随包资料树列出 `examples/` 目录，含 packages/buildin/ 与 packages/external/。`plugins/skills/external/PackageBuilder/SKILL.md:32`
+- 文档声明：skill.include.json 把 `PLUGIN_CREATION_WORKFLOW.md`、`SCRIPT_DEV_GUIDE.md`、`TOOLPKG_FORMAT_GUIDE.md` 三份开发文档映射到 Skill 内的 `references/` 路径。`plugins/skills/external/PackageBuilder/skill.include.json:8`
+- 文档声明：skill.include.json 把 `../../../types` 映射到 Skill 内的 `types` 目录。`plugins/skills/external/PackageBuilder/skill.include.json:16`
+- 文档声明：skill.include.json 把 `../../../packages/buildin` 映射到 `examples/packages/buildin`。`plugins/skills/external/PackageBuilder/skill.include.json:20`
+- 文档声明：skill.include.json 把 `../../../packages/external` 映射到 `examples/packages/external`。`plugins/skills/external/PackageBuilder/skill.include.json:33`
+- 文档声明：skill.include.json 的示例排除 `.sync_state.json`、`node_modules`、`dist`、`build`、`tests-dist`。`plugins/skills/external/PackageBuilder/skill.include.json:26`
 - 文档声明：示例目录提供开发源码与构建配置，不携带 `dist/`、`build/`、`tests-dist/` 中的生成文件或成品包。`plugins/skills/external/PackageBuilder/SKILL.md:38`
 - 文档声明：Compose UI 按普通、可读的 CommonJS JavaScript 交付，保留界面声明和回调，运行时负责 Compose 编译与缓存；不要指导用户生成或修改 Compose 内部预编译产物。`plugins/skills/external/PackageBuilder/SKILL.md:38`
 
@@ -74,7 +74,7 @@ date: 2026-11-11
 - 文档声明：完整复制 Skill 的 `types/`，不从旧仓库或云端下载另一版声明；项目通过 `../types` 引用声明；位于 `src/` 的三斜线引用是 `../../types/index.d.ts`。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:74`
 - 文档声明：TypeScript 输出可读的 CommonJS JavaScript；Compose UI 保留 `ctx.UI.*` 界面声明和回调，由运行时完成 Compose 编译与缓存；交付文件供用户直接编辑，不生成 Compose 内部预编译产物。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:75`
 - 文档声明：网络、文件与终端操作使用 `Tools.Network`、`Tools.Files`、`Tools.System.terminal` 及其 host API；不要用平台分支实现另一套插件运行链路；声明文件的存在不代表当前 host 实现了所有能力。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:76`
-- 文档声明：`package.json` 示例声明开发依赖 `typescript` 为 `^5.0.0`，构建命令为 `tsc -p tsconfig.json`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:64`
+- 文档声明：package.json 示例声明开发依赖 `typescript` 为 `^5.0.0`，构建命令为 `tsc -p tsconfig.json`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:64`
 - 文档声明：`tsconfig.json` 示例的 `target` 为 `es2020`，`module` 为 `commonjs`，`lib` 为 `es2020`，`rootDir` 为 `src`，`outDir` 为 `dist`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:74`
 - 文档声明：CommonJS 对应当前运行时模块加载方式；不能把构建时使用的 Node.js 当作脚本执行宿主。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:90`
 - 文档声明：确认真实编译器可用后执行项目声明的构建命令，例如 `npm run build`；检查退出码与 `dist/` 文件，不根据命令已提交宣称构建成功。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:93`
@@ -137,7 +137,7 @@ date: 2026-11-11
 ### 主脚本注册与执行上下文
 
 - 文档声明：`main.js` 示例中 `registerToolPkg()` 调用 `ToolPkg.registerToolboxUiModule` 注册 UI 模块。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:343`
-- 文档声明：`main.js` 导出 `registerToolPkg`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:460`
+- 文档声明：main.js 导出 `registerToolPkg`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:460`
 - 文档声明：每个 ToolPkg 的 `registerToolPkg()` 会在独立的临时 JavaScript engine 中执行，注册状态不会跨包共享；主脚本注册必须在 60 秒内完成；同步死循环和超过时限的异步注册都会被终止，并将加载错误归属到当前包，扫描随后继续处理其他包。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`
 - 文档声明：注册期间禁止调用 `ToolPkg.readResource(...)` 和 `ToolPkg.wasm.call(...)`，调用会立即抛出异常；模块加载仍可使用 `require/import`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`
 - 文档声明：`ToolPkg.registerToolboxUiModule` 的 `runtime` 运行时类型默认 `compose_dsl`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:474`
@@ -146,7 +146,7 @@ date: 2026-11-11
 - 文档声明：`ToolPkg.registerDesktopWidget` 的 `route` 与 `routeId` 是已注册路由 ID，为必填项；`render` 与 `renderRouteId` 默认等于 `route`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:491`
 - 文档声明：`ToolPkg.registerAppLifecycleHook` 的 `event` 与 `function` 为必填项。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:499`
 - 文档声明：`ToolPkg.registerAppLifecycleHook` 支持的 application 事件包括 `application_on_create`、`application_on_foreground`、`application_on_background`、`application_on_low_memory`、`application_on_trim_memory`、`application_on_terminate`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:511`
-- 文档声明：`ToolPkg.registerAppLifecycleHook` 支持的 activity 事件包括 `activity_on_create`、`activity_on_start`、`activity_on_resume`、`activity_on_pause`、`activity_on_stop`、`activity_on_destroy`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:517`
+- 文档声明：`ToolPkg.registerAppLifecycleHook` 支持的 activity 事件包括 `activity_on_create`、`activity_on_start`、`activity_on_resume`、`activity_on_pause`、`activity_on_stop`、`activity_on_destroy`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:511` `plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:517`
 - 文档声明：`main` 上下文是 `manifest.main` 指向的包入口脚本，承载包级逻辑：注册 hook、执行 hook、注册/处理包级 IPC、承载包级内存态；同一个 ToolPkg 容器共用一个包级 JS engine，内部 context key 形如 `toolpkg_main:<toolpkg_id>`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:536`
 - 文档声明：`ui` 上下文是 `*.ui.js` 的 Compose DSL screen/action handler，渲染界面、响应点击、读取 UI state；每个 UI route、widget、XML render 实例有自己的 JS engine。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:537`
 - 文档声明：`sandbox` 上下文是独立工具脚本、子包工具脚本、调试脚本，执行一次性工具逻辑；可以通过 IPC 调用所属 ToolPkg 的 `main`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:538`
@@ -173,13 +173,13 @@ date: 2026-11-11
 - 文档声明：Compose DSL 的特点包括声明式语法、组件化设计、状态管理、事件处理。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:992`
 - 文档声明：Compose DSL 布局组件包括 `Column`（垂直布局）、`Row`（水平布局）、`Box`（容器）、`Spacer`（间距）。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1055`
 - 文档声明：Compose DSL 基础组件包括 `Text`、`TextField`、`Button`、`IconButton`、`Switch`、`Checkbox`、`Card`、`Icon`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1065`
-- 文档声明：UI 示例用 `ctx.useState` 管理 `url` 与 `token` 状态，用 `ctx.callTool('windows_control:windows_test_connection', {...})` 调用工具。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1009`
+- 文档声明：UI 示例用 `ctx.useState` 管理 `url` 与 `token` 状态，用 ctx.callTool('windows_control:windows_test_connection', {...}) 调用工具。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1009`
 - 文档声明：UI 模块通过 `ctx.getEnv('API_KEY')` 读环境变量，通过 `ctx.setEnv` 与 `ctx.setEnvs` 写环境变量。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1116`
 - 文档声明：UI 模块通过 `ctx.isPackageImported`、`ctx.importPackage`、`ctx.removePackage`、`ctx.usePackage`、`ctx.listImportedPackages` 管理包。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1128`
-- 文档声明：UI 模块通过 `ctx.resolveToolName({packageName, subpackageId, toolName, preferImported})` 解析工具名。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1137`
-- 文档声明：`ctx.navigate(route, args?)` 会触发真实路由跳转；`ctx.listRoutes()` 返回当前可导航路由列表，包含 `routeId`、`runtime` 等字段；`ctx.getHostRoutes()` 只返回宿主 Native 路由；Native 路由 ID 命名规则为 `native.<Screen 对象名的 snake_case>`，例如 `Screen.Toolbox` 对应 `native.toolbox`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1154`
+- 文档声明：UI 模块通过 ctx.resolveToolName({packageName, subpackageId, toolName, preferImported}) 解析工具名。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1137`
+- 文档声明：`ctx.navigate(route, args?)` 会触发真实路由跳转；`ctx.listRoutes()` 返回当前可导航路由列表，包含 `routeId`、`runtime` 等字段；`ctx.getHostRoutes()` 只返回宿主 Native 路由；Native 路由 ID 命名规则为 native.<Screen 对象名的 snake_case>，例如 `Screen.Toolbox` 对应 `native.toolbox`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1154`
 - 文档声明：`ctx.openFilePicker(options?)` 仅使用 `picker` 指定选择来源；未传入 `picker` 时打开文档选择器。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1161`
-- 文档声明：`ctx.openFilePicker` 通过 Flutter `file_selector` 在 Android、iOS、Linux、macOS、Windows、Web 和 OpenHarmony 使用各平台的文件选择器；不适用该 `picker` 的选项会直接报错；结果提供平台文件路径或浏览器对象 URL。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1173`
+- 文档声明：`ctx.openFilePicker` 通过 Flutter `file_selector` 在 Android、iOS、Linux、macOS、Windows、Web 和 OpenHarmony 使用各平台的文件选择器；不适用该 `picker` 的选项会直接报错；结果提供平台文件路径或浏览器对象 URL。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1161` `plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1173`
 - 文档声明：`ctx.saveFile(options)` 将 UTF-8 文本交给宿主的跨平台文件保存服务，由用户在系统保存界面选择位置。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1177`
 - 文档声明：`ToolPkg.registerToolboxUiModule(...)` 仍然保留；宿主内部把它自动映射为注册一个 `compose_dsl` UI route 与自动挂载一个 `toolbox` 导航入口；旧接口不会自动创建主侧边栏插件入口，需要主侧边栏插件入口时额外调用 `ToolPkg.registerNavigationEntry(...)` 并使用 `surface` 为 `main_sidebar_plugins`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1193`
 - 文档声明：UI 模块可用 `getLang()` 取当前语言，返回 `zh` 或 `en`；可用 `ctx.getCurrentPackageName()`、`ctx.getCurrentToolPkgId()`、`ctx.getCurrentUiModuleId()`、`ctx.getModuleSpec()` 取当前包与模块信息。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1201`
@@ -217,7 +217,7 @@ date: 2026-11-11
 - 文档声明：引用 Release 时，Operit 会下载所选资产并与当前本地插件计算 SHA-256 比对；市场服务还会确认该 Release 的创建者就是当前 Operit 登录的 GitHub 账号。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:39`
 - 文档声明：发布需要登录、用户确认及真实服务响应，不是创作入口自动完成的动作；交付时分别列出源码目录、成品路径、包 id、安装与启用状态、已执行的测试和结果，以及发布状态；未测试或未发布的环节要明确标注。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:120`
 - 文档声明：已安装的 Skill 更新资料时，当前创作准备流程会复用已经安装的 PackageBuilder，不会自动覆盖它的附件；更新应用资源不会同步改写用户已安装的 Skill。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:34`
-- 文档声明：要使用当前版本的内置资料，先核对 `["skill", "show", "PackageBuilder"]` 返回的目录并备份用户修改；获得用户确认后执行 `skill delete`、`skill load`、`skill visible true`、`skill show` 四步。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:36`
+- 文档声明：要使用当前版本的内置资料，先核对 `["skill", "show", "PackageBuilder"]` 返回的目录并备份用户修改；获得用户确认后执行 skill delete、skill load、skill visible true、skill show 四步。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:36`
 
 ### 旧版迁移检查
 
@@ -293,7 +293,7 @@ date: 2026-11-11
 4. 用 TypeScript 编写源码并输出 CommonJS JavaScript，保留 `.ts`、`tsconfig.json` 和最终产物。`plugins/skills/external/PackageBuilder/SKILL.md:47`
 5. 按 `manifest` 清单路径打包：`Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 生成不含外层目录的 `.toolpkg` 归档，manifest 位于 ZIP 根目录。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:78`
 6. 调用 `operit_editor` 执行 `["package", "import", "<artifact_host_path>"]` 导入成品，再执行 `["package", "enable", "<package_id>"]` 启用。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:86`
-7. 用 `["package", "list"]` 与 `["package", "show", "<runtime_package_name>"]` 核对真实工具名与 `enabled` 状态。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:94`
+7. 用 ["package", "list"] 与 `["package", "show", "<runtime_package_name>"]` 核对真实工具名与 `enabled` 状态。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:94`
 8. 用 `["package", "exec", "<runtime_package_name>:<tool_name>", "{}"]` 执行导出工具，用 `["log", "package"]` 查看日志。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:90`
 9. 同 ID 更新时，先获用户确认，再依次执行删除、重新导入、按记录恢复启用状态、重新测试。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:102`
 10. 本地测试通过后，用户在 Artifact 市场发布页面选择直接发布本地插件或引用 GitHub Release 资产。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:115`

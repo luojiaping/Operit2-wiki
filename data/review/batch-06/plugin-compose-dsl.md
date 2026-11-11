@@ -26,7 +26,7 @@ Web 使用相同的 Host 注册与 Compose 格式（`core/crates/plugin/sdk/src/
 - `useMemo` — 按键复用计算值，直至依赖列表变化（`plugins/types/compose-dsl.d.ts:4830`）
 - `lazyItems` — 用稳定条目键与固定主轴尺寸构建指定范围（`plugins/types/compose-dsl.d.ts:4814`）
 - `ComposeTheme` — 读取与观察当前插件 UI 宿主已解析主题的服务（`plugins/types/compose-dsl.d.ts:4784`）
-- 主入口：`compiler.artifact(source, identity)` 是 `compileComposeModule` 返回的编译结果（`plugins/tools/compile_compose_module.mjs:24`）。
+- 主入口：`compiler.artifact(source, identity)` 是 `compileComposeModule` 返回的编译结果（`plugins/tools/compile_compose_module.mjs:11`）（`plugins/tools/compile_compose_module.mjs:24`）。
 - 数据流向：插件源码编译为布局程序，常规提交发出事务（`core/crates/plugin/sdk/src/toolpkg/compose/README.md:21`）。
 
 ## 核心机制
@@ -75,7 +75,7 @@ Memo 与惰性条目执行保留其词法 hook 与订阅归属（`core/crates/pl
 `ComposeTheme` 的 `getCurrent` 返回当前已解析主题，在没有 UI 宿主提供主题时抛出错误（`plugins/types/compose-dsl.d.ts:4784`）。
 `ComposeTheme` 的 `subscribe` 观察后续主题变化，并返回取消订阅函数（`plugins/types/compose-dsl.d.ts:4788`）。
 被显式编辑隐藏的参数不在传输快照中保留已移除源地址（`core/crates/plugin/sdk/src/toolpkg/compose/README.md:27`）。
-`ComposeLazyViewport` 的 `contentRevision` 在插件内容变化时使已测量的占位尺寸失效（`plugins/types/compose-dsl.d.ts:3851`）。
+`ComposeLazyViewport` 的 `contentRevision` 在插件内容变化时使已测量的占位尺寸失效（`plugins/types/compose-dsl.d.ts:3843`）（`plugins/types/compose-dsl.d.ts:3851`）。
 `ComposeLazyViewport` 是所属 Flutter 列表的视口元数据（`plugins/types/compose-dsl.d.ts:3885`）。
 有限的 CLI 与桌面快照使用相同二进制格式显式物化其视图（`core/crates/plugin/sdk/src/toolpkg/compose/README.md:96`）。
 Flutter 从该缓冲投影索引容器，而不解码第二棵参数树（`core/crates/plugin/sdk/src/toolpkg/compose/README.md:95`）。
@@ -101,7 +101,7 @@ Flutter 对每个布局程序只安装与校验一次（`core/crates/plugin/sdk/
 - `compileComposeModule` — 在页面创建前提前编译可移植 JavaScript，不执行插件代码（`plugins/tools/compile_compose_module.mjs:10`）
 - `compileComposeModule` 的 `TypeError` — `source` 与 `identity` 均为非空字符串的要求，违反时抛出（`plugins/tools/compile_compose_module.mjs:12`）
 - `OperitComposeCompiler` — 首次使用时在 vm 上下文中装入解析器、制品与编译器源后缓存的编译器（`plugins/tools/compile_compose_module.mjs:22`）
-- `compiler.artifact(source, identity)` — `compileComposeModule` 返回的编译结果（`plugins/tools/compile_compose_module.mjs:24`）
+- `compiler.artifact(source, identity)` — `compileComposeModule` 返回的编译结果（`plugins/tools/compile_compose_module.mjs:11`）（`plugins/tools/compile_compose_module.mjs:24`）
 - `readComposeDslParserSource` — 返回与 facade 同一份构建清单中的受信任的仅源解析器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgComposeDslBridge.rs:3`）
 - `buildComposeDslParserDefinition` — 把同步源提供方注入解析器 facade（`core/crates/plugin/sdk/src/toolpkg/ToolPkgComposeDslBridge.rs:7`）
 - `buildComposeDslCompilerDefinition` — 组装独立宿主执行器与离线测试用的唯一源编译器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgComposeDslBridge.rs:13`）
@@ -117,7 +117,7 @@ Flutter 对每个布局程序只安装与校验一次（`core/crates/plugin/sdk/
 - `useEffect` — 运行组合拥有的工作，并在依赖变化或处置时执行清理（`plugins/types/compose-dsl.d.ts:4834`）
 - `useMemo` — 按键复用计算值，直至依赖列表变化（`plugins/types/compose-dsl.d.ts:4830`）
 - `lazyItems` — 用稳定条目键与固定主轴尺寸构建指定范围（`plugins/types/compose-dsl.d.ts:4814`）
-- `ComposeLazyViewport` 的 `contentRevision` — 在插件内容变化时使已测量的占位尺寸失效（`plugins/types/compose-dsl.d.ts:3851`）
+- `ComposeLazyViewport` 的 `contentRevision` — 在插件内容变化时使已测量的占位尺寸失效（`plugins/types/compose-dsl.d.ts:3843`）（`plugins/types/compose-dsl.d.ts:3851`）
 - `ComposeThemeSnapshot` — 包含 `brightness` 与 `colors` 的主题快照（`plugins/types/compose-dsl.d.ts:4765`）
 - `ComposeTheme` 的 `getCurrent` — 返回当前已解析主题，在没有 UI 宿主提供主题时抛出错误（`plugins/types/compose-dsl.d.ts:4784`）
 - `ComposeTheme` 的 `subscribe` — 观察后续主题变化，并返回取消订阅函数（`plugins/types/compose-dsl.d.ts:4788`）

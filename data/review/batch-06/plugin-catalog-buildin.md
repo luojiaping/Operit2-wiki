@@ -8,13 +8,13 @@ date: 2026-11-11
 
 ## 概述
 
-内置插件是 `plugins/packages/buildin/` 下的 ToolPkg 源码，会被打包进 Operit2 内置插件资产（`plugins/packages/buildin/README.md:3`）。
+内置插件是 plugins/packages/buildin/ 下的 ToolPkg 源码，会被打包进 Operit2 内置插件资产（`plugins/packages/buildin/README.md:3`）。
 磁盘清点：buildin 共 19 项，16 个插件加 README.md、tsconfig.json 与 resources/ 共享资源目录（`plugins/packages/buildin/README.md:3`）。
-16 个插件分两类：9 个单文件 `.ts` 包与 7 个目录包（`plugins/packages/buildin/README.md:3`）。
+16 个插件分两类：9 个单文件 .ts 包与 7 个目录包（`plugins/packages/buildin/README.md:3`）。
 
 ## AI 速览
 
-- `manifest.json` — 目录包的清单，声明 `toolpkg_id` 与 `main` 入口（`plugins/packages/buildin/character_cards/manifest.json:6`）。
+- manifest.json — 目录包的清单，声明 `toolpkg_id` 与 `main` 入口（`plugins/packages/buildin/character_cards/manifest.json:6`）。
 - `METADATA` — 单文件包顶部的元数据注释块（`plugins/packages/buildin/12306.ts:1`）。
 - `enabledByDefault` — 单文件包是否默认启用，12306 拓展为 true（`plugins/packages/buildin/12306.ts:10`）。
 - `enabled_by_default` — 目录包是否默认启用，角色卡为 true（`plugins/packages/buildin/character_cards/manifest.json:17`）。
@@ -31,14 +31,14 @@ date: 2026-11-11
 
 ### 目录清单
 
-变更审阅（`com.operit.change_review`）— 回复下方列出 AI 改过的文件，可一键撤销，也能在工作区里逐行对比；默认启用（`plugins/packages/buildin/change_review/manifest.json:13`）。
-角色卡（`com.operit.character_cards`）— 创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库；默认启用（`plugins/packages/buildin/character_cards/manifest.json:17`）。
-日常生活工具包（`com.operit.daily_life`）— 让 AI 帮你查天气、设提醒、看日期和设备状态，还能截屏；默认启用（`plugins/packages/buildin/daily_life/manifest.json:13`）。
-目标模式（`com.operit.goal_mode_bundle`）— 给对话定一个目标，AI 会持续推进直到真正完成，状态显示在输入框上方；默认启用（`plugins/packages/buildin/goal_mode/manifest.json:16`）。
-消息翻译（`com.operit.message_translation`）— 长按任意聊天消息就能翻译，原文和译文对照显示；默认启用（`plugins/packages/buildin/message_translation/manifest.json:16`）。
-计划模式（`com.operit.plan_mode_bundle`）— 开启后 AI 先和你商量好计划、不改动文件，你确认后一键开始实施；默认启用（`plugins/packages/buildin/plan_mode/manifest.json:16`）。
-工作流（`com.operit.workflow`）— 用可视化节点搭建自动化流程：条件分支、调用工具、定时运行，每次执行都有记录；默认禁用（`plugins/packages/buildin/workflow/manifest.json:17`）。
-12306 拓展（`12306_ticket`）— 提供 12306 火车票信息查询功能，包括余票、中转、经停站等；默认启用（`plugins/packages/buildin/12306.ts:10`）。
+变更审阅（`com.operit.change_review`）— 回复下方列出 AI 改过的文件，可一键撤销，也能在工作区里逐行对比；默认启用（`plugins/packages/buildin/change_review/manifest.json:3`）。
+角色卡（`com.operit.character_cards`）— 创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库；默认启用（`plugins/packages/buildin/character_cards/manifest.json:3`）。
+日常生活工具包（`com.operit.daily_life`）— 让 AI 帮你查天气、设提醒、看日期和设备状态，还能截屏；默认启用（`plugins/packages/buildin/daily_life/manifest.json:3`）。
+目标模式（`com.operit.goal_mode_bundle`）— 给对话定一个目标，AI 会持续推进直到真正完成，状态显示在输入框上方；默认启用（`plugins/packages/buildin/goal_mode/manifest.json:3`）。
+消息翻译（`com.operit.message_translation`）— 长按任意聊天消息就能翻译，原文和译文对照显示；默认启用（`plugins/packages/buildin/message_translation/manifest.json:3`）。
+计划模式（`com.operit.plan_mode_bundle`）— 开启后 AI 先和你商量好计划、不改动文件，你确认后一键开始实施；默认启用（`plugins/packages/buildin/plan_mode/manifest.json:3`）。
+工作流（`com.operit.workflow`）— 用可视化节点搭建自动化流程：条件分支、调用工具、定时运行，每次执行都有记录；默认禁用（`plugins/packages/buildin/workflow/manifest.json:3`）。
+12306 拓展（`12306_ticket`）— 提供 12306 火车票信息查询功能，包括余票、中转、经停站等；默认启用（`plugins/packages/buildin/12306.ts:3`）。
 AI 相互对话（ai_chat）— 调用 AI 模型 API 实现 AI 之间智能对话互动（`plugins/packages/buildin/ai_chat.ts:10`）。
 Browser 自动化操作（browser）— 严格对齐 Playwright MCP 默认 browser 工具面的浏览器自动化工具集；默认启用（`plugins/packages/buildin/browser.ts:12`）。
 Crossref 学术文献查询（crossref）— Crossref 学术文献查询工具，提供 DOI 查询、关键词搜索、作者搜索等功能，帮助用户查找和获取学术文章元数据；默认启用（`plugins/packages/buildin/crossref.ts:13`）。
@@ -60,11 +60,11 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 
 ### 单文件包与目录包的区别
 
-单文件包是一个 `.ts` 文件，顶部含 `METADATA` 注释块（`plugins/packages/buildin/12306.ts:1`）。
-单文件包没有 `manifest.json`，元数据只在 `METADATA` 注释块里（`plugins/packages/buildin/12306.ts:1`）。
+单文件包是一个 .ts 文件，顶部含 `METADATA` 注释块（`plugins/packages/buildin/12306.ts:1`）。
+单文件包没有 manifest.json，元数据只在 `METADATA` 注释块里（`plugins/packages/buildin/12306.ts:1`）。
 单文件包由 buildin 根目录的 tsconfig 编译，其 include 包含根目录 `*.ts`（`plugins/packages/buildin/tsconfig.json:30`）。
 根 tsconfig 的 outDir 是 `../../.out/buildin`（`plugins/packages/buildin/tsconfig.json:8`）。
-目录包以 `manifest.json` 声明 `toolpkg_id` 与 `main` 入口（`plugins/packages/buildin/character_cards/manifest.json:6`）。
+目录包以 manifest.json 声明 `toolpkg_id` 与 `main` 入口（`plugins/packages/buildin/character_cards/manifest.json:6`）。
 目录包的主入口是编译产物 `dist/main.js`（`plugins/packages/buildin/character_cards/manifest.json:6`）。
 目录包自带 tsconfig，以 change_review 为例其 include 为 `src/**/*.ts`（`plugins/packages/buildin/change_review/tsconfig.json:13`）。
 目录包可带 `subpackages`，角色卡含 `character_memory` 子包，入口是 `dist/tools.js`（`plugins/packages/buildin/character_cards/manifest.json:20`）。
@@ -85,7 +85,7 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 角色卡另有 web/ 前端 54 个文件，其中 .ts 文件 51 个、合计 2718 行（`plugins/packages/buildin/character_cards/web/app.ts:1`）。
 角色卡有记忆查询代码，`MemoryQueryResult` 是记忆查询结果类型（`plugins/packages/buildin/character_cards/src/memory-recall.ts:1`）。
 角色卡的存储代码引入 `CharacterChatStore`（`plugins/packages/buildin/character_cards/src/storage/database.ts:1`）。
-角色卡有群聊执行代码，`executor.ts` 引用 `ToolPkg` 类型（`plugins/packages/buildin/character_cards/src/group-execution/executor.ts:1`）。
+角色卡有群聊执行代码，executor.ts 引用 `ToolPkg` 类型（`plugins/packages/buildin/character_cards/src/group-execution/executor.ts:1`）。
 角色卡有向量检索代码，`VectorIndex` 基于 `ToolPkg.WasmInstance`（`plugins/packages/buildin/character_cards/src/search/usearch.ts:3`）。
 角色卡的 `usearch` 模块以 C++ 实现，`source_language` 为 cpp（`plugins/packages/buildin/character_cards/manifest.json:45`）。
 角色卡的 wasm 模块导出包括 `index_create`、`index_add_batch`、`index_search`（`plugins/packages/buildin/character_cards/manifest.json:54`）。
@@ -122,7 +122,7 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 
 ## 调用链
 
-1. ToolPkg 源码放在 `plugins/packages/buildin/`（`plugins/packages/buildin/README.md:3`）。
+1. ToolPkg 源码放在 plugins/packages/buildin/（`plugins/packages/buildin/README.md:3`）。
 2. 源码被打包进 Operit2 内置插件资产（`plugins/packages/buildin/README.md:3`）。
 3. 目录包从清单 `main` 入口 `dist/main.js` 加载（`plugins/packages/buildin/character_cards/manifest.json:6`）。
 4. 目录包的子包从 `entry` 入口加载，角色卡记忆子包入口是 `dist/tools.js`（`plugins/packages/buildin/character_cards/manifest.json:20`）。

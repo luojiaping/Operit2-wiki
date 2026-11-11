@@ -34,7 +34,7 @@ date: 2026-11-11
 - `validateAuthoredToolPkg` — 导出已有 ToolPkg 时对合并后归档的所有模板执行校验。(docs/theme-studio-protocol-v1.md:76)
 - `operit.theme.preview.load.v1` — Studio 向预览核加载规范化主题草稿的消息。(docs/theme-studio-protocol-v1.md:37)
 - `operit.theme.preview.rendered.v1` — 真实 Flutter 帧绘制完成后发出的回执。(docs/theme-studio-protocol-v1.md:54)
-- 主入口是 `previewToolPkgTheme` 与 `ThemeTemplateService`，另一主入口是 Studio 的 `exportToolPkgFromTheme`。(docs/theme-v1-contract.md:47)
+- 主入口是 `previewToolPkgTheme` 与 `ThemeTemplateService`，另一主入口是 Studio 的 `exportToolPkgFromTheme`。(docs/theme-v1-contract.md:47) (docs/theme-studio-protocol-v1.md:75)
 - 数据流向：manifest 声明模板 → 包管理安装 → 新建时读取模板 → 预览校验 → 复制资源并烘焙成独立 ThemeConfig → 配置随 Space 同步 → 渲染只读配置与资源。(docs/theme-v1-contract.md:51)
 
 ## 核心机制
@@ -103,7 +103,7 @@ date: 2026-11-11
 
 - `moss_atelier` 的 `toolpkg_id` 为 `com.operit.moss_atelier`，`version` 为 `0.1.0`，`api_version` 为 `2.0.0`。(plugins/packages/external/moss_atelier/manifest.json:4)
 - `moss_atelier` 的中文显示名为苔庭，英文显示名为 Moss Atelier。(plugins/packages/external/moss_atelier/manifest.json:8)
-- `moss_atelier` 的中文描述为苔绿与暖砂两套外观模板，配有完整明暗配色、柔和背景与悬浮输入框。(plugins/packages/external/moss_atelier/manifest.json:12)
+- `moss_atelier` 的中文描述为苔绿与暖砂两套外观模板，配有完整明暗配色、柔和背景与悬浮输入框。(plugins/packages/external/moss_atelier/manifest.json:3)
 - 示例包的 `enabled_by_default` 为 false。(plugins/packages/external/moss_atelier/manifest.json:18)
 - 示例包的 `themes` 包含 `moss` 模板。(plugins/packages/external/moss_atelier/manifest.json:29)
 - 第二套模板的 `id` 为 `dune`。(plugins/packages/external/moss_atelier/manifest.json:45)
@@ -143,11 +143,11 @@ date: 2026-11-11
 - Studio 通过 `export_toolpkg_from_theme_transfer` 创建包含模板的普通 ToolPkg。(docs/theme-v1-contract.md:39)
 - 编辑既有包时 Studio 保留其他 manifest 能力、其他模板及原有资源，导出只更新所选模板及用户修改的包元数据。(docs/theme-v1-contract.md:39)
 - 编辑既有 ToolPkg 时，Studio 将所选模板的渲染结果写回对应声明，保留其他脚本、资源和模板，原包及所选模板 ID 随本地草稿一起保存在 IndexedDB。(docs/theme-studio-protocol-v1.md:93)
-- 协议与契约测试入口为 `cargo test -p operit-plugin-theme` 与 `node --experimental-strip-types --test tools/theme/studio_message_port.test.ts`。(docs/theme-studio-protocol-v1.md:89)
+- 协议与契约测试入口为 `cargo test --manifest-path core/Cargo.toml -p operit-plugin-theme` 与 `node --experimental-strip-types --test tools/theme/studio_message_port.test.ts`。(docs/theme-studio-protocol-v1.md:89)
 
 ## 关键符号
 
-- `themes` — manifest 的主题模板数组，每项含 `id`、`path`、`preview`、`files`。(docs/theme-v1-contract.md:3)
+- `themes` — manifest 的主题模板数组，每项含 `id`、`path`、`preview`、`files`。(docs/theme-v1-contract.md:17)
 - `ToolPkgArchiveParser::readThemeTemplates` — 枚举并校验包内主题模板的入口。(docs/theme-v1-contract.md:37)
 - `validate_declared_theme_templates` — 校验已声明模板资源的函数。(docs/theme-v1-contract.md:37)
 - `validate_toolpkg_theme_templates` — 检查 Studio 生成的根目录 manifest 输出的函数。(docs/theme-v1-contract.md:37)
@@ -156,7 +156,7 @@ date: 2026-11-11
 - `previewToolPkgTheme(packageName, templateId)` — 读取注册包并验证模板与媒体的函数。(docs/theme-v1-contract.md:47)
 - `ThemeTemplateService` — 复制模板资源并替换引用的服务。(docs/theme-v1-contract.md:47)
 - `ThemeConfigManager.create` — 创建独立命名配置的原有入口。(docs/theme-v1-contract.md:47)
-- `ThemeConfigManager.apply` — 选中独立配置的原有入口。(docs/theme-v1-contract.md:47)
+- `ThemeConfigManager` 的 `apply` — 选中独立配置的原有入口。(docs/theme-v1-contract.md:47)
 - `themePaletteJson` — 保存完整明暗配色的可选外观字段。(docs/theme-v1-contract.md:49)
 - `export_toolpkg_from_theme_transfer` — Studio 创建含模板 ToolPkg 的入口。(docs/theme-v1-contract.md:39)
 - `normalizeThemeDraft` — WASM 绑定，校验并展开编辑态草稿默认值。(docs/theme-studio-protocol-v1.md:73)
@@ -172,7 +172,7 @@ date: 2026-11-11
 4. 烘焙：`ThemeTemplateService` 将模板图片和字体复制到 `runtime/data/user_assets/theme` 资源池，把包内相对引用替换为外观资源引用。(docs/theme-v1-contract.md:47)
 5. 建配置：原有 `ThemeConfigManager.create` 和 `apply` 创建并选中独立配置，模板只是创建源。(docs/theme-v1-contract.md:47)
 6. 同步与渲染：配置和复制后的资源沿用原有 Space 同步，后续渲染读取配置与外观资源，不再依赖来源插件是否安装。(docs/theme-v1-contract.md:51)
-7. Studio 导出：草稿经 `normalizeThemeDraft` 规范化后由 `operit.theme.preview.load.v1` 加载，真实帧渲染后经 `operit.theme.preview.capture.v1` 捕获 `preview.png`，再由 `exportToolPkgFromTheme` 生成确定性 Stored ZIP（`.toolpkg`）。(docs/theme-studio-protocol-v1.md:67)
+7. Studio 导出：草稿经 `normalizeThemeDraft` 规范化后由 `operit.theme.preview.load.v1` 加载，真实帧渲染后经 `operit.theme.preview.capture.v1` 捕获 `preview.png`，再由 `exportToolPkgFromTheme` 生成确定性 Stored ZIP（`.toolpkg`）。(docs/theme-studio-protocol-v1.md:67) (docs/theme-studio-protocol-v1.md:73) (docs/theme-studio-protocol-v1.md:33)
 
 ## 来源
 

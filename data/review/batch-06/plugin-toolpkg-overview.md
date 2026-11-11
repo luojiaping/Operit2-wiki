@@ -26,7 +26,7 @@ ToolPkg 支持将多个功能相关的子包（`subpackages`）组织在一起�
 - `ToolPkg.ipc` — 跨上下文共享状态与调用能力的显式通道（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:574`）
 - `ToolPkg.wasm.call` — 调用 native WASM runtime 的导出函数，当前 ABI 支持 `i32`、`i64`、`f32`、`f64` 标量参数和返回值（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`）
 - `ToolPkg.getConfigDir` — 包配置目录，在模块顶层、`registerToolPkg()` 内和执行期间均可用（`docs/toolpkg-runtime.md:95`）
-- `ToolPkg.route` — 路由装饰器，`binding` 是包含现有 Core Binding key 的参数的从零开始的位置（`docs/toolpkg-runtime.md:35`）
+- `ToolPkg.route` — 路由装饰器，`binding` 是包含现有 Core Binding key 的参数的从零开始的位置（`docs/toolpkg-runtime.md:18`）
 - `installation_scope` — 固定安装范围为 `device` 或 `space`（`docs/toolpkg-runtime.md:3`）
 - 主入口函数是 `registerToolPkg`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）
 
@@ -55,7 +55,7 @@ ToolPkg API `2.0.0` 基本所有公共接口都通过统一 host 能力提供跨
 `packages/buildin/` 是打包为内置插件的 ToolPkg 源码（`plugins/README.md:8`）。
 `packages/external/` 是随应用打包、由用户从 "more plugins" 加载的官方捆绑 ToolPkg 源码（`plugins/README.md:9`）。
 `packages/examples/` 是用于开发和手动测试的示例 ToolPkg 源码（`plugins/README.md:10`）。
-`packages/buildin/`、`packages/external/`、`packages/examples/` 使用相同的源码布局，区别是打包方式：`buildin` 作为当前内置插件加载，`external` 作为可选官方插件捆绑，`examples` 保留为开发示例（`plugins/README.md:18`）。
+`packages/buildin/`、`packages/external/`、`packages/examples/` 使用相同的源码布局，区别是打包方式：`buildin` 作为当前内置插件加载，`external` 作为可选官方插件捆绑，`examples` 保留为开发示例（`plugins/README.md:17`）。
 `packages/external/image_workbench/` 提供可选的官方 Image Workbench，从 "more plugins" 提供，默认禁用（`plugins/README.md:14`）。
 主仓库内置与 external 资源同步脚本是 `plugins/tools/sync_plugin_packages.py`，同步更新 `core/crates/runtime/application/assets/plugins/buildin/` 与 `external/`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:830`）。
 内置资源同步服务于应用资源构建，不等于向正在运行的应用安装插件（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:830`）。
@@ -97,7 +97,7 @@ Device 安装拥有本地数据，Space 安装拥有同步数据（`docs/toolpkg
 Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，与聊天工作区无关（`docs/toolpkg-runtime.md:5`）。
 包环境变量属于安装所有者，包括其全部子包；Space 安装同步这些配置快照，device 安装保留在本地（`docs/toolpkg-runtime.md:7`）。
 只有 `space` 安装的包才能对外暴露远程实现（`docs/toolpkg-runtime.md:37`）。
-`@ToolPkg.route({ binding: 0 })` 装饰的方法可被路由，`binding` 是包含现有 Core Binding key 的参数的从零开始的位置（`docs/toolpkg-runtime.md:35`）。
+`@ToolPkg.route({ binding: 0 })` 装饰的方法可被路由，`binding` 是包含现有 Core Binding key 的参数的从零开始的位置（`docs/toolpkg-runtime.md:18`）。
 示例用 `ToolPkg.getSpaceDataDir()` 拼接 `goals.sqlite` 路径打开 Space 数据目录下的数据库（`docs/toolpkg-runtime.md:21`）。
 `ToolPkg.getConfigDir()` 在模块顶层、`registerToolPkg()` 内和执行期间均可用（`docs/toolpkg-runtime.md:95`）。
 只有 `submit_requested` 和 pre-hooks 共享一个总期限，默认 10 秒，可在高级工具设置中配置为 1 至 60 秒（`docs/toolpkg-runtime.md:128`）。
@@ -145,8 +145,8 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 ## 调用链
 
 1. 具体 API 以 PackageBuilder 的当前版本 `types/` 为准，包名和目录树是格式示例（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:9`）。
-2. `Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 创建不含外层目录的 `.toolpkg` 归档，`manifest` 位于归档根目录（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:814`）。
-3. 用户在包管理中执行 `package import` 导入成品，再执行 `package enable` 启用包（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:86`）。
+2. `Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 创建不含外层目录的 .toolpkg 归档，`manifest` 位于归档根目录（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:814`）。
+3. 用户在包管理中执行 package import 导入成品，再执行 package enable 启用包（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:86`）。
 4. `registerToolPkg()` 在独立的临时 JavaScript engine 中执行注册，60 秒内完成（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
 5. 子包工具按 `<subpackage_id>:<tool_name>` 注册（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:243`）。
 6. `ToolPkg.registerToolboxUiModule` 与 `ToolPkg.registerUiRoute` 注册 UI 模块与路由（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:473`）。

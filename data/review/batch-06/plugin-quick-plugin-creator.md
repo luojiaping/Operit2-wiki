@@ -41,7 +41,7 @@ date: 2026-11-11
 输入内容变化时若已有错误提示则清除 `_requirementError`（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:106`）。
 确认时调用 `runQuickPluginCreatorSetup` 准备创作资源（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:61`）。
 准备进行中确认按钮与取消按钮均被禁用，确认按钮显示 `M3LoadingIndicator`（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:130`）。
-取消按钮点击后调用 `Navigator.pop` 关闭对话框（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:125`）。
+取消按钮点击后调用 `Navigator.of(context).pop()` 关闭对话框（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:125`）。
 确认按钮文案是“准备并前往聊天”（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:133`）。
 准备失败时对话框不关闭，停留在当前界面（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:65`）。
 准备失败时对话框在输入框下方以错误色显示 `setupResult` 的 `error`（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:116`）。
@@ -171,7 +171,7 @@ host paths 和 host capabilities 当前并未通过 core command 暴露（`plugi
 1. 用户在包管理打开“快速创作你的插件”，`QuickPluginCreatorDialog` 的 `show` 打开需求对话框（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:16`）。
 2. 用户输入需求并点击“准备并前往聊天”，`_confirm` 校验需求非空（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:46`）。
 3. 确认处理调用 `runQuickPluginCreatorSetup` 准备创作资源（`apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart:61`）。
-4. `runQuickPluginCreatorSetup` 先调用 `skillRepository` 的 `ensureQuickPluginCreatorSkillVisible`（`apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart:28`）。
+4. `runQuickPluginCreatorSetup` 先调用 `skillRepository` 的 `ensureQuickPluginCreatorSkillVisible`（`apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart:22`）（`apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart:28`）。
 5. 再调用 `packageManager` 的 `enablePackage` 启用 `operit_editor`，并用 `isPackageEnabled` 复核真实启用状态（`apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart:31`）。
 6. 复核未通过时抛出 `StateError`（`apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart:36`）。
 7. 准备流程捕获异常并返回 `success` 为 `false` 的结果（`apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart:46`）。
@@ -183,7 +183,7 @@ host paths 和 host capabilities 当前并未通过 core command 暴露（`plugi
 13. 完整复制 `Skill` 的 `types/`，不从旧仓库或云端下载另一版声明（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:74`）。
 14. 按实际 shell 执行项目已声明的构建命令，检查退出码、超时状态和真实输出文件（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:75`）。
 15. 用文件工具 `Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 创建不含外层目录的 `.toolpkg` 归档，`manifest` 位于 ZIP 根目录（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:78`）。
-16. 首次安装与测试按 `package list`、导入、启用、再查列表、查看包、执行工具、查看日志的顺序执行（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:88`）。
+16. 首次安装与测试按 package list、导入、启用、再查列表、查看包、执行工具、查看日志的顺序执行（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:88`）。
 17. 同 ID 更新时调用 `["package", "delete", "<package_id>"]`，确认删除成功（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:108`）。
 18. 再调用 `["package", "import", "<artifact_host_path>"]` 重新导入，导入失败时保留错误并停止（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:109`）。
 19. 本地测试完成后，用户在 `Artifact` 市场的发布页面选择已安装的本地插件（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:115`）。

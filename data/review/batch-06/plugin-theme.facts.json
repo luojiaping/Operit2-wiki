@@ -324,7 +324,7 @@
   "ref": "docs/theme-studio-protocol-v1.md:93"
  },
  {
-  "fact": "协议与契约测试入口为 `cargo test -p operit-plugin-theme` 与 `node --experimental-strip-types --test tools/theme/studio_message_port.test.ts`",
+  "fact": "协议与契约测试入口为 `cargo test --manifest-path core/Cargo.toml -p operit-plugin-theme` 与 `node --experimental-strip-types --test tools/theme/studio_message_port.test.ts`",
   "ref": "docs/theme-studio-protocol-v1.md:89"
  },
  {
