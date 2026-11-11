@@ -121,7 +121,7 @@ Rust 发射器渲染 schema JSON 与生成的 Rust 分发代码，写入 `genera
 watch 方法经 bridge.watchStream 发起请求，并过滤掉 `Completed` 事件（`core/crates/proxy/dart-codegen/src/lib.rs:609`）。
 - 完整流用 `CoreLinkStreamEventValueDecoder` 解码；增量列表 watch 用 `CoreLinkListEventDecoder`；其余 watch 用 `CoreLinkEventValueDecoder`（`core/crates/proxy/dart-codegen/src/lib.rs:602`）
 - `dart_type` 把 `Vec<u8>`、`CoreBuffer` 与 `operit_link::CoreBuffer` 映射为 `Uint8List`（`core/crates/proxy/dart-codegen/src/lib.rs:1513`）
-- `dart_type` 把 Option<T> 映射为 T?（`core/crates/proxy/dart-codegen/src/lib.rs:1516`）
+- `dart_type` 把 `Option<T>` 映射为 T?（`core/crates/proxy/dart-codegen/src/lib.rs:1516`）
 - `dart_type` 把 `Vec` 与 `HashSet` 映射为 `List`，把 `HashMap` 与 `BTreeMap` 映射为 `Map`（`core/crates/proxy/dart-codegen/src/lib.rs:1530`）。
 - `dart_type` 把 `()` 映射为 `void`、`bool` 映射为 `bool`、Rust 整数映射为 `int`、`f32`/`f64` 映射为 `double`（`core/crates/proxy/dart-codegen/src/lib.rs:1546`）
 - 把 `String` 与 `&str` 映射为 `String`，`serde_json::Value` 映射为 `Object?`（`core/crates/proxy/dart-codegen/src/lib.rs:1552`）
@@ -148,7 +148,7 @@ watch 方法经 bridge.watchStream 发起请求，并过滤掉 `Completed` 事�
 - 组装时用共享客户端、应用客户端、运行时存储宿主与 `generatedTargetForSchema` 组装 `CoreNodeLocalRuntime`（`core/crates/proxy/local/src/lib.rs:272`）。
 - 组装时挂接 `peerServices`，并把绑定闭包与 `openPush` 闭包传入（`core/crates/proxy/local/src/lib.rs:278`）。
 - `runtimeStorageHost` 在未设置 `RuntimeStorageHost` 时 panic（`core/crates/proxy/local/src/lib.rs:230`）
-- 截至基线 364d1d594，fileSystemHost() 在未设置 `FileSystemHost` 时 panic（`core/crates/proxy/local/src/lib.rs:283`）；上游 053c6686 已改成 filesystem() -> Arc<VisualFileSystem>（同文件 :283），调用 hostManager.vfs().expect("LocalCoreProxy requires VFS")。
+- 截至基线 364d1d594，fileSystemHost() 在未设置 `FileSystemHost` 时 panic（`core/crates/proxy/local/src/lib.rs:283`）；上游 053c6686 已改成 filesystem() -> `Arc<VisualFileSystem>`（同文件 :283），调用 hostManager.vfs().expect("LocalCoreProxy requires VFS")。
 - CoreLinkSharedClient::call 经 `dispatchCall` 分发，成功返回 `CoreCallResponse::ok`，失败返回 `CoreCallResponse::err`（`core/crates/proxy/local/src/lib.rs:320`）
 - `dispatchCall` 把请求交给生成的 `generated_dispatch_core_proxy_call`，在 `isolation::future` 中执行，并把捕获的流附件收养进流池（`core/crates/proxy/local/src/lib.rs:429`）
 - 异步 watch 快照在 `withCoreStreamCapture` 与 `isolation::future` 中调用生成的 `generated_dispatch_core_proxy_watch_snapshot_async`，错误消息后追加请求上下文（`core/crates/proxy/local/src/lib.rs:336`）。
