@@ -1,0 +1,1 @@
+{"issue":46,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"服务端应用为空目录占位：apps/server 下仅有 1 字节的 .gitkeep，无代码与 README，尚未实现。","updated":"2026-11-11"}

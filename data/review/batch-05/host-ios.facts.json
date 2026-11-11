@@ -1,0 +1,438 @@
+[
+  {
+    "fact": "Flutter Runner 的终端通过 Rust 桥接调用 `Arm64TerminalBridge.mm`，使用原版 Alpine AArch64 软件包。",
+    "ref": "hosts/ios/README.md:5"
+  },
+  {
+    "fact": "iOS README 记录旧 x86 后端已从产品构建和终端路由移除。",
+    "ref": "hosts/ios/README.md:5"
+  },
+  {
+    "fact": "ARM64 安装器把打包的 `arm64-rootfs.tar.gz` 一次性导入应用数据容器内的 `Library/Application Support/operit-arm64/rootfs-arm64`。",
+    "ref": "hosts/ios/README.md:9"
+  },
+  {
+    "fact": "后续启动复用已导入的 rootfs，`/root`、shell 配置与装入 `/usr` 的软件在进程重启与保留应用数据的应用更新后保留。",
+    "ref": "hosts/ios/README.md:11"
+  },
+  {
+    "fact": "删除应用数据会同时删除该 Alpine 文件系统。",
+    "ref": "hosts/ios/README.md:13"
+  },
+  {
+    "fact": "Host 目录通过运行时 bind mount 以原始绝对路径共享。",
+    "ref": "hosts/ios/README.md:15"
+  },
+  {
+    "fact": "同路径 bind mount 与 Android 的同路径 bind mount 一致。",
+    "ref": "hosts/ios/README.md:16"
+  },
+  {
+    "fact": "Documents 目录与 Operit2 应用支持目录对每个 shell 可用。",
+    "ref": "hosts/ios/README.md:16"
+  },
+  {
+    "fact": "创建会话时也可以挂载一个 Host 工作目录。",
+    "ref": "hosts/ios/README.md:18"
+  },
+  {
+    "fact": "shell 与原生文件工具立即读写同一批文件。",
+    "ref": "hosts/ios/README.md:19"
+  },
+  {
+    "fact": "挂载在每次启动时重建，不涉及 workspace 复制或基于哈希的 MCP 路径。",
+    "ref": "hosts/ios/README.md:20"
+  },
+  {
+    "fact": "`/root` 这类仅 Linux 路径属于持久化 Alpine 文件系统。",
+    "ref": "hosts/ios/README.md:21"
+  },
+  {
+    "fact": "真机上 Host 路径以应用的 `/var/mobile/...` 容器路径开头。",
+    "ref": "hosts/ios/README.md:23"
+  },
+  {
+    "fact": "模拟器使用 `/Users/...` 路径，iOS 在更新期间可以更改容器 UUID。",
+    "ref": "hosts/ios/README.md:24"
+  },
+  {
+    "fact": "iOS README 记录原生 bootstrap 通道把已持久化的 runtime/workspace 根恢复到当前容器。",
+    "ref": "hosts/ios/README.md:25"
+  },
+  {
+    "fact": "脚本对终端自有文件使用 `$HOME`，对共享文件使用 Host 提供的当前绝对 workspace 路径。",
+    "ref": "hosts/ios/README.md:26"
+  },
+  {
+    "fact": "Core 通过 `SerialPortHost` 打开串口端点。",
+    "ref": "hosts/ios/README.md:31"
+  },
+  {
+    "fact": "iOS Host 当前报告没有已安装的原生串口 accessory provider。",
+    "ref": "hosts/ios/README.md:32"
+  },
+  {
+    "fact": "实现一个 accessory provider 并在 host manager 注册后，现有的 Link 成帧与配对协议无需 Core 增加平台分支即可启用。",
+    "ref": "hosts/ios/README.md:33"
+  },
+  {
+    "fact": "该串口说明不表示 iOS 上存在不受限的 USB/UART 访问。",
+    "ref": "hosts/ios/README.md:35"
+  },
+  {
+    "fact": "iOS Host 的 crate 名为 `operit-host-ios-native`，版本为 `0.1.0`。",
+    "ref": "hosts/ios/Cargo.toml:2"
+  },
+  {
+    "fact": "iOS Host crate 的 license 为 MIT，`publish` 为 false。",
+    "ref": "hosts/ios/Cargo.toml:6"
+  },
+  {
+    "fact": "iOS Host 依赖路径为 `../../core/crates/foundation/host-api` 的 `operit-host-api`。",
+    "ref": "hosts/ios/Cargo.toml:10"
+  },
+  {
+    "fact": "iOS Host 依赖路径为 `../apple` 的 `operit-host-apple-native`。",
+    "ref": "hosts/ios/Cargo.toml:11"
+  },
+  {
+    "fact": "iOS Host 依赖 `operit-host-native-common`，开启 `tcp`、`storage`、`terminal` 三个 feature。",
+    "ref": "hosts/ios/Cargo.toml:12"
+  },
+  {
+    "fact": "`createRuntimeHostManager` 接收 `runtimeRoot`、`workspaceRoot`、`webVisitHost` 与 `managedRuntimeHost`，返回 `HostManager`，仅在 `target_os = \"ios\"` 下编译。",
+    "ref": "hosts/ios/src/lib.rs:41"
+  },
+  {
+    "fact": "组装 iOS Host 管理器时调用 `installAppleLogSink` 安装 Apple 日志 sink。",
+    "ref": "hosts/ios/src/lib.rs:47"
+  },
+  {
+    "fact": "运行时存储 Host 由 `IosRuntimeStorageHost::new(runtimeRoot, workspaceRoot)` 创建。",
+    "ref": "hosts/ios/src/lib.rs:48"
+  },
+  {
+    "fact": "`HostManager` 由 `IosFileSystemHost`、`webVisitHost` 与 `IosSystemOperationHost` 构建。",
+    "ref": "hosts/ios/src/lib.rs:57"
+  },
+  {
+    "fact": "`hostManager.httpHost` 与 `hostManager.webSocketHost` 均使用 `IosHttpHost`。",
+    "ref": "hosts/ios/src/lib.rs:62"
+  },
+  {
+    "fact": "`hostManager.httpServerHost` 使用 `NativeHttpServerHost`，`hostManager.tcpHost` 使用 `NativeTcpHost`。",
+    "ref": "hosts/ios/src/lib.rs:64"
+  },
+  {
+    "fact": "`hostManager.serialPortHost` 设置为 `IosSerialPortHost`。",
+    "ref": "hosts/ios/src/lib.rs:65"
+  },
+  {
+    "fact": "`hostManager.managedRuntimeHost` 设置为传入的 `managedRuntimeHost` 参数。",
+    "ref": "hosts/ios/src/lib.rs:67"
+  },
+  {
+    "fact": "`IosPluginSdkIpcHost` 是 `MemoryPluginSdkIpcHost`，iOS 插件在应用沙箱内执行并共享同一进程。",
+    "ref": "hosts/ios/src/lib.rs:37"
+  },
+  {
+    "fact": "lib.rs 注释说明容器长临时路径下的文件系统 socket 超出 `SUN_LEN`，同一处把 `IosPluginSdkIpcHost` 定义为 `MemoryPluginSdkIpcHost`。",
+    "ref": "hosts/ios/src/lib.rs:36"
+  },
+  {
+    "fact": "归档暂存 Host 由 `NativeArchiveStagingHost` 以 `runtimeStorageHost` 的 `runtimeRootDir()` 创建，缺失时以 “iOS runtime storage root must be configured” 报错。",
+    "ref": "hosts/ios/src/lib.rs:54"
+  },
+  {
+    "fact": "终端标识常量为：`ARM64_TERMINAL` 是 `arm64`，`SYSTEM_SHELL_TERMINAL` 是 `shell`，`SHELL_TERMINAL_TYPE` 是 `shell`。",
+    "ref": "hosts/ios/src/terminal.rs:21"
+  },
+  {
+    "fact": "非 macOS 目标上 `PLATFORM` 为 `ios`，macOS 目标上 `PLATFORM` 为 `macos`。",
+    "ref": "hosts/ios/src/terminal.rs:18"
+  },
+  {
+    "fact": "`IosTerminalBackend` 只有 `Arm64` 与 `SystemShell` 两个变体。",
+    "ref": "hosts/ios/src/terminal.rs:26"
+  },
+  {
+    "fact": "`IosTerminalState` 保存 `arm64ConfigurationId`、`sessionBackends` 与 `sessionWrites`。",
+    "ref": "hosts/ios/src/terminal.rs:33"
+  },
+  {
+    "fact": "`IosTerminalHost` 持有 `state`、`systemShell` 与 `systemShellAvailable`。",
+    "ref": "hosts/ios/src/terminal.rs:40"
+  },
+  {
+    "fact": "`IosTerminalHost` 的 `new` 用 `systemShell.probe(\"/\")` 探测系统 shell，`systemShellAvailable` 取探测是否成功。",
+    "ref": "hosts/ios/src/terminal.rs:57"
+  },
+  {
+    "fact": "macOS 专用的 `arm64Only` 把 `systemShellAvailable` 设为 false，只用 Linux 后端。",
+    "ref": "hosts/ios/src/terminal.rs:72"
+  },
+  {
+    "fact": "`primaryBackend` 始终返回 `Arm64`。",
+    "ref": "hosts/ios/src/terminal.rs:92"
+  },
+  {
+    "fact": "`requestedBackend` 把 (`ARM64_TERMINAL`, `SHELL_TERMINAL_TYPE`) 映射为 `Arm64`。",
+    "ref": "hosts/ios/src/terminal.rs:100"
+  },
+  {
+    "fact": "仅在 `systemShellAvailable` 为真时，(`SYSTEM_SHELL_TERMINAL`, `SHELL_TERMINAL_TYPE`) 映射为 `SystemShell`。",
+    "ref": "hosts/ios/src/terminal.rs:104"
+  },
+  {
+    "fact": "系统 shell 不可用时，请求 (`SYSTEM_SHELL_TERMINAL`, `SHELL_TERMINAL_TYPE`) 返回 “iOS system /bin/sh is unavailable because this host cannot start a privileged PTY” 错误。",
+    "ref": "hosts/ios/src/terminal.rs:107"
+  },
+  {
+    "fact": "其他实现与类型组合返回 “Unsupported iOS terminal implementation and type” 错误。",
+    "ref": "hosts/ios/src/terminal.rs:112"
+  },
+  {
+    "fact": "终端信息把 `arm64` 终端标为可用，描述为 “Operit ARM64 Linux shell using the configured root filesystem”。",
+    "ref": "hosts/ios/src/terminal.rs:352"
+  },
+  {
+    "fact": "终端信息把系统 shell 的可用性记为 `systemShellAvailable`，描述为 “iOS system /bin/sh; requires a jailbroken or otherwise privileged host”。",
+    "ref": "hosts/ios/src/terminal.rs:348"
+  },
+  {
+    "fact": "托管运行时目录挂载向原生侧发送 `managedRuntimeMount`，携带 `hostDirectory` 与 `mountPoint`。",
+    "ref": "hosts/ios/src/terminal.rs:82"
+  },
+  {
+    "fact": "ARM64 后端解析工作目录时发送 `terminalWorkspaceMount`，`hostDirectory` 与 `mountPoint` 取同一目录值。",
+    "ref": "hosts/ios/src/terminal.rs:328"
+  },
+  {
+    "fact": "系统 shell 后端解析工作目录时直接调用 `resolveHostDirectory`，不经过挂载。",
+    "ref": "hosts/ios/src/terminal.rs:336"
+  },
+  {
+    "fact": "ARM64 会话启动发送 `terminalStart`，携带 `sessionName`、`terminalType`（`SHELL_TERMINAL_TYPE`）、`workingDir`、`rows` 与 `cols`。",
+    "ref": "hosts/ios/src/terminal.rs:216"
+  },
+  {
+    "fact": "ARM64 会话启动在取 `sessionId` 前用 `requireArm64Configuration` 校验创建响应。",
+    "ref": "hosts/ios/src/terminal.rs:225"
+  },
+  {
+    "fact": "`requireArm64Configuration` 在响应 `configurationId` 与当前配置不一致时返回错误。",
+    "ref": "hosts/ios/src/terminal.rs:165"
+  },
+  {
+    "fact": "配置标识变化时仅丢弃 ARM64 会话的注册，系统 shell 会话保留；新标识取自 `arm64RuntimeConfigurationId`。",
+    "ref": "hosts/ios/src/terminal.rs:151"
+  },
+  {
+    "fact": "`sessionBackend` 对 ARM64 会话先做 `synchronizeArm64Configuration` 再返回后端。",
+    "ref": "hosts/ios/src/terminal.rs:179"
+  },
+  {
+    "fact": "未注册的会话标识返回 “iOS terminal session backend is not registered” 错误。",
+    "ref": "hosts/ios/src/terminal.rs:186"
+  },
+  {
+    "fact": "ARM64 会话读取发送 `terminalRead`，返回 `bytes` 字段的字节。",
+    "ref": "hosts/ios/src/terminal.rs:386"
+  },
+  {
+    "fact": "ARM64 写入按 16 KiB 分块重试，截止时间为 30 秒。",
+    "ref": "hosts/ios/src/terminal.rs:412"
+  },
+  {
+    "fact": "ARM64 写入每块发送 `terminalWrite`，用 `acceptedBytes` 校验原生侧接受的字节数。",
+    "ref": "hosts/ios/src/terminal.rs:417"
+  },
+  {
+    "fact": "ARM64 会话调整大小发送 `terminalResize`，携带 `rows` 与 `cols`。",
+    "ref": "hosts/ios/src/terminal.rs:448"
+  },
+  {
+    "fact": "ARM64 退出码轮询发送 `terminalPoll`，`exitCode` 为 null 或缺失时返回 `None`。",
+    "ref": "hosts/ios/src/terminal.rs:468"
+  },
+  {
+    "fact": "ARM64 会话关闭发送 `terminalClose`，随后移除会话注册。",
+    "ref": "hosts/ios/src/terminal.rs:490"
+  },
+  {
+    "fact": "`listSessions` 发送 `terminalList`，只保留 `configurationId` 与当前代次一致的 ARM64 会话。",
+    "ref": "hosts/ios/src/terminal.rs:505"
+  },
+  {
+    "fact": "会话列表仅在 `systemShellAvailable` 为真时追加系统 shell 会话。",
+    "ref": "hosts/ios/src/terminal.rs:516"
+  },
+  {
+    "fact": "ARM64 的 `terminalCreateOrGet` 响应同样经过 `requireArm64Configuration` 校验。",
+    "ref": "hosts/ios/src/terminal.rs:254"
+  },
+  {
+    "fact": "ARM64 会话内执行发送 `terminalExecute`，输出取自 `outputBytes` 字段。",
+    "ref": "hosts/ios/src/terminal.rs:291"
+  },
+  {
+    "fact": "ARM64 流式执行调用 `callArm64TerminalStreaming` 传输输出回调，命令结果仍从响应取 `outputBytes` 与 `exitCode`。",
+    "ref": "hosts/ios/src/terminal.rs:572"
+  },
+  {
+    "fact": "隐藏命令执行先创建或复用名为 `hidden:{executorKey}` 的会话，再在该会话内执行命令。",
+    "ref": "hosts/ios/src/terminal.rs:600"
+  },
+  {
+    "fact": "ARM64 会话收到 `interrupt` 控制时发送 `terminalSignal`，`signal` 为 2。",
+    "ref": "hosts/ios/src/terminal.rs:642"
+  },
+  {
+    "fact": "iOS 终端输入同时传入文本与控制序列时返回错误，文本与控制序列均缺失时也返回错误。",
+    "ref": "hosts/ios/src/terminal.rs:633"
+  },
+  {
+    "fact": "`controlSequence` 把 `interrupt` 映射为 U+0003，把 `eof` 映射为 U+0004，把 `newline` 映射为换行符。",
+    "ref": "hosts/ios/src/terminal.rs:845"
+  },
+  {
+    "fact": "ARM64 会话屏幕查询发送 `terminalScreen`，内容取自 `contentBytes` 字段。",
+    "ref": "hosts/ios/src/terminal.rs:678"
+  },
+  {
+    "fact": "关闭会话返回 `TerminalCloseOutput`，`success` 为 true，消息为 “iOS terminal session closed”。",
+    "ref": "hosts/ios/src/terminal.rs:661"
+  },
+  {
+    "fact": "`terminalText` 用 `String::from_utf8_lossy` 把 PTY 字节解码为文本。",
+    "ref": "hosts/ios/src/terminal.rs:813"
+  },
+  {
+    "fact": "`requiredText` 去除首尾空白，空白值返回错误。",
+    "ref": "hosts/ios/src/terminal.rs:759"
+  },
+  {
+    "fact": "`positiveDimension` 拒绝为零的行列尺寸。",
+    "ref": "hosts/ios/src/terminal.rs:771"
+  },
+  {
+    "fact": "`shellTerminalType` 只接受 `shell` 类型，其他值返回错误。",
+    "ref": "hosts/ios/src/terminal.rs:749"
+  },
+  {
+    "fact": "Rust 声明外部函数 `operit_ios_arm64_terminal_call`，接收命令与请求 JSON 的 C 字符串，返回原生分配的 C 字符串。",
+    "ref": "hosts/ios/src/bridge.rs:10"
+  },
+  {
+    "fact": "流式执行使用外部函数 `operit_ios_arm64_terminal_execute_streaming`，接收命令、请求 JSON、上下文与输出回调。",
+    "ref": "hosts/ios/src/bridge.rs:20"
+  },
+  {
+    "fact": "macOS 目标把 `operit_ios_arm64_terminal_call` 链接为 `operit_macos_arm64_terminal_call`。",
+    "ref": "hosts/ios/src/bridge.rs:10"
+  },
+  {
+    "fact": "`callArm64Terminal` 把请求编码为 JSON 后调用原生终端函数，再解码原生响应。",
+    "ref": "hosts/ios/src/bridge.rs:36"
+  },
+  {
+    "fact": "`arm64RuntimeConfigurationId` 查询 `arm64RuntimeState`，`configured` 为 false 时返回 `None`。",
+    "ref": "hosts/ios/src/bridge.rs:47"
+  },
+  {
+    "fact": "运行时状态缺少配置标识时返回 “ARM64 runtime state has no configuration identifier” 错误。",
+    "ref": "hosts/ios/src/bridge.rs:56"
+  },
+  {
+    "fact": "桥接返回空指针时，`decodeResponse` 返回 “ARM64 terminal bridge returned no response” 错误。",
+    "ref": "hosts/ios/src/bridge.rs:60"
+  },
+  {
+    "fact": "原生响应先复制字节，再用 `operit_ios_arm64_terminal_free` 释放原生分配。",
+    "ref": "hosts/ios/src/bridge.rs:66"
+  },
+  {
+    "fact": "响应含 `error` 字段时，该字段作为 `HostError` 返回。",
+    "ref": "hosts/ios/src/bridge.rs:72"
+  },
+  {
+    "fact": "响应缺少 `result` 字段时返回 “ARM64 terminal bridge response has no result” 错误。",
+    "ref": "hosts/ios/src/bridge.rs:76"
+  },
+  {
+    "fact": "流式执行以 `terminalExecute` 为命令调用流式原生函数，并把 `receive` 作为输出回调传入。",
+    "ref": "hosts/ios/src/bridge.rs:131"
+  },
+  {
+    "fact": "输出回调收到无效帧（长度非零但指针为空，或长度超过 `isize::MAX`）时记录 “ARM64 terminal returned an invalid output frame” 错误并返回 false。",
+    "ref": "hosts/ios/src/bridge.rs:94"
+  },
+  {
+    "fact": "输出回调用 `catch_unwind` 包裹调用方回调，回调 panic 时记录 “ARM64 terminal output callback panicked” 错误。",
+    "ref": "hosts/ios/src/bridge.rs:108"
+  },
+  {
+    "fact": "`ARM64_RUNTIME_WORKSPACE` 为 `/root/.operit/managed_runtime`。",
+    "ref": "hosts/ios/src/managed_runtime.rs:14"
+  },
+  {
+    "fact": "`runtimeWorkspaceDir` 返回 `ARM64_RUNTIME_WORKSPACE`。",
+    "ref": "hosts/ios/src/managed_runtime.rs:122"
+  },
+  {
+    "fact": "带 `cwd` 的启动请求先经 `mountRuntimeWorkingDirectory` 挂载 Host 工作目录，会话与进程工作目录均取该目录。",
+    "ref": "hosts/ios/src/managed_runtime.rs:51"
+  },
+  {
+    "fact": "无工作目录的启动请求以 `/root` 为会话工作目录，以 `ARM64_RUNTIME_WORKSPACE` 为进程工作目录，并要求创建进程工作目录。",
+    "ref": "hosts/ios/src/managed_runtime.rs:62"
+  },
+  {
+    "fact": "`mountRuntimeWorkingDirectory` 拒绝非绝对路径的 Host 工作目录。",
+    "ref": "hosts/ios/src/managed_runtime.rs:86"
+  },
+  {
+    "fact": "Host 父目录以自身绝对路径挂载，即 `mountManagedRuntimeDirectory(hostParent, hostParent)`。",
+    "ref": "hosts/ios/src/managed_runtime.rs:102"
+  },
+  {
+    "fact": "运行时可执行文件映射为：`Node` 对应 `/usr/bin/node`，`Python` 对应 `/usr/bin/python3`，`Uv` 对应 `/usr/bin/uv`，`Pnpm` 对应 `/usr/bin/pnpm`。",
+    "ref": "hosts/ios/src/managed_runtime.rs:138"
+  },
+  {
+    "fact": "`executablePath` 非空时直接返回该路径，不使用程序默认值。",
+    "ref": "hosts/ios/src/managed_runtime.rs:132"
+  },
+  {
+    "fact": "`runRuntimeCommand` 启动进程后等待退出、取 stdout 文本，`stderr` 返回空字符串。",
+    "ref": "hosts/ios/src/managed_runtime.rs:160"
+  },
+  {
+    "fact": "`startProcess` 用 `buildLaunch` 构建启动描述后启动 `TerminalManagedRuntimeProcess`。",
+    "ref": "hosts/ios/src/managed_runtime.rs:115"
+  },
+  {
+    "fact": "`IosSerialPortHost` 的 `open` 接收 `port` 与 `_baud_rate`，恒返回 `Err`。",
+    "ref": "hosts/ios/src/serial.rs:11"
+  },
+  {
+    "fact": "`open` 的错误文本说明 iOS Host 对该端口没有串口 accessory provider，需要原生 accessory transport。",
+    "ref": "hosts/ios/src/serial.rs:13"
+  },
+  {
+    "fact": "原生 accessory provider 可以实现同一 `SerialPortHost` 契约，无需改动 Core 的串口 Link 协议。",
+    "ref": "hosts/ios/src/serial.rs:6"
+  },
+  {
+    "fact": "iOS Host 对外导出 `IosTerminalHost`，即 `terminal` 模块的终端 Host。",
+    "ref": "hosts/ios/src/lib.rs:33"
+  },
+  {
+    "fact": "iOS Host 对外导出 `IosManagedRuntimeHost`，即 `managed_runtime` 模块的托管运行时 Host。",
+    "ref": "hosts/ios/src/lib.rs:19"
+  },
+  {
+    "fact": "同一 `IosRuntimeStorageHost` 实例被克隆用作运行时存储写 Host、运行时 SQLite Host 与 Host 密钥库。",
+    "ref": "hosts/ios/src/lib.rs:48"
+  }
+]

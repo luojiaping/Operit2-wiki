@@ -1,0 +1,710 @@
+[
+  {
+    "fact": "OpenHarmony Host 的 crate 名为 `operit-host-ohos-native`。",
+    "ref": "hosts/ohos/Cargo.toml:2"
+  },
+  {
+    "fact": "`operit-host-ohos-native` 的版本为 0.1.0。",
+    "ref": "hosts/ohos/Cargo.toml:3"
+  },
+  {
+    "fact": "`operit-host-ohos-native` 声明 `publish = false`，不对外发布。",
+    "ref": "hosts/ohos/Cargo.toml:6"
+  },
+  {
+    "fact": "`operit-host-ohos-native` 拥有由 `target_env = \"ohos\"` 选中的 Rust Host 实现。",
+    "ref": "hosts/ohos/README.md:3"
+  },
+  {
+    "fact": "README 列出的初始能力包括 POSIX 应用文件访问。",
+    "ref": "hosts/ohos/README.md:9"
+  },
+  {
+    "fact": "README 列出的初始能力包括原生 HTTP。",
+    "ref": "hosts/ohos/README.md:10"
+  },
+  {
+    "fact": "README 列出的初始能力包括 runtime storage。",
+    "ref": "hosts/ohos/README.md:11"
+  },
+  {
+    "fact": "README 列出的初始能力包括 SQLite storage。",
+    "ref": "hosts/ohos/README.md:12"
+  },
+  {
+    "fact": "README 列出的初始能力包括 PTY 会话。",
+    "ref": "hosts/ohos/README.md:13"
+  },
+  {
+    "fact": "README 列出的初始能力包括经 QEMU-vroot Alpine 的托管 Python、Node、uv、pnpm 运行时。",
+    "ref": "hosts/ohos/README.md:14"
+  },
+  {
+    "fact": "README 列出的初始能力包括离线 Tesseract OCR 与 Poppler PDF 光栅化。",
+    "ref": "hosts/ohos/README.md:15"
+  },
+  {
+    "fact": "README 列出的初始能力包括 Flutter 自有浏览器交互。",
+    "ref": "hosts/ohos/README.md:16"
+  },
+  {
+    "fact": "README 列出的初始能力包括 Sherpa ONNX 本地推理。",
+    "ref": "hosts/ohos/README.md:17"
+  },
+  {
+    "fact": "README 列出的初始能力包括 ArkTS AVPlayer 生成式 TTS 播放控制。",
+    "ref": "hosts/ohos/README.md:18"
+  },
+  {
+    "fact": "OpenHarmony 应用存储根目录须传给 `operit_flutter_bridge_create_with_storage_roots_and_system_language`。",
+    "ref": "hosts/ohos/README.md:22"
+  },
+  {
+    "fact": "通用 bridge 创建函数不选择应用路径。",
+    "ref": "hosts/ohos/README.md:23"
+  },
+  {
+    "fact": "OHOS 本地推理加载 checksum 验证的 Sherpa ONNX 引擎，该引擎由本地模型注册表选中并来自已安装运行时目录。",
+    "ref": "hosts/ohos/README.md:25"
+  },
+  {
+    "fact": "TTS 提供方经 Core 生成 runtime storage 音频，一个 ArkTS `AVPlayer` 拥有播放、暂停、恢复、停止与状态查询。",
+    "ref": "hosts/ohos/README.md:27"
+  },
+  {
+    "fact": "API 18 SDK 不暴露公开系统文本转语音合成 API。",
+    "ref": "hosts/ohos/README.md:28"
+  },
+  {
+    "fact": "OHOS Host 不宣称 `SYSTEM_TTS`。",
+    "ref": "hosts/ohos/README.md:30"
+  },
+  {
+    "fact": "终端从 checksum 验证的离线 Alpine 仓库安装打包的包。",
+    "ref": "hosts/ohos/README.md:32"
+  },
+  {
+    "fact": "更新对已有 rootfs 运行 apk，用户安装的包与文件保留。",
+    "ref": "hosts/ohos/README.md:33"
+  },
+  {
+    "fact": "Guest DNS 由活动 OHOS 所有者网络提供。",
+    "ref": "hosts/ohos/README.md:34"
+  },
+  {
+    "fact": "安装期间校验归档哈希与包载荷，就绪结果由当前进程的终端实例共享。",
+    "ref": "hosts/ohos/README.md:35"
+  },
+  {
+    "fact": "通用 Flutter 音频 widgets 使用所有者 audioplayers 协议适配器。",
+    "ref": "hosts/ohos/README.md:38"
+  },
+  {
+    "fact": "PDF 预览使用已有打印光栅通道与同一终端 Host，共享 Dart 无平台条件。",
+    "ref": "hosts/ohos/README.md:39"
+  },
+  {
+    "fact": "离线 OCR 回调由 OHOS Host 组装固定，而非不可用的原生 OCR 方法。",
+    "ref": "hosts/ohos/README.md:41"
+  },
+  {
+    "fact": "依赖项包括 `operit-host-api`。",
+    "ref": "hosts/ohos/Cargo.toml:9"
+  },
+  {
+    "fact": "依赖项包括 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage、terminal 特性。",
+    "ref": "hosts/ohos/Cargo.toml:10"
+  },
+  {
+    "fact": "依赖项包括 `operit-local-models`。",
+    "ref": "hosts/ohos/Cargo.toml:11"
+  },
+  {
+    "fact": "依赖项包括 `libloading` 0.8。",
+    "ref": "hosts/ohos/Cargo.toml:13"
+  },
+  {
+    "fact": "`newOhosFileSystemHost` 创建 `OhosFileSystemHost`。",
+    "ref": "hosts/ohos/src/lib.rs:38"
+  },
+  {
+    "fact": "`createRuntimeHostManager` 接受显式的 `runtimeRoot` 与 `workspaceRoot`。",
+    "ref": "hosts/ohos/src/lib.rs:44"
+  },
+  {
+    "fact": "`NativeArchiveStagingHost` 以 `runtimeRoot` 创建。",
+    "ref": "hosts/ohos/src/lib.rs:55"
+  },
+  {
+    "fact": "`OhosRuntimeStorageHost` 由 `runtimeRoot` 与 `workspaceRoot` 创建。",
+    "ref": "hosts/ohos/src/lib.rs:63"
+  },
+  {
+    "fact": "`runtimeSqliteHost` 是 `runtimeStorageHost` 的 clone。",
+    "ref": "hosts/ohos/src/lib.rs:64"
+  },
+  {
+    "fact": "系统操作 Host 由 `fromOwnerCallbacks` 从语言读取、截图、文本识别与系统控制四个所有者回调构造。",
+    "ref": "hosts/ohos/src/lib.rs:65"
+  },
+  {
+    "fact": "`HostManager` 由 `withFileSystemWebVisitAndSystemOperationHosts` 组装文件系统、网页访问与系统操作 Host。",
+    "ref": "hosts/ohos/src/lib.rs:71"
+  },
+  {
+    "fact": "`context.httpHost` 是 `OhosHttpHost` 的 new 结果。",
+    "ref": "hosts/ohos/src/lib.rs:78"
+  },
+  {
+    "fact": "`context.httpServerHost` 是 `NativeHttpServerHost`。",
+    "ref": "hosts/ohos/src/lib.rs:79"
+  },
+  {
+    "fact": "`context.tcpHost` 是 `NativeTcpHost`。",
+    "ref": "hosts/ohos/src/lib.rs:80"
+  },
+  {
+    "fact": "`context.serialPortHost` 是 `NativeSerialPortHost`。",
+    "ref": "hosts/ohos/src/lib.rs:81"
+  },
+  {
+    "fact": "`context.webSocketHost` 是 `OhosHttpHost` 的 new 结果。",
+    "ref": "hosts/ohos/src/lib.rs:82"
+  },
+  {
+    "fact": "`context.managedRuntimeHost` 取调用方传入的 `managedRuntimeHost`。",
+    "ref": "hosts/ohos/src/lib.rs:83"
+  },
+  {
+    "fact": "运行时组合以 `withLocalInferenceHost` 注册 `OhosLocalInferenceHost` 的 new 结果。",
+    "ref": "hosts/ohos/src/lib.rs:88"
+  },
+  {
+    "fact": "服务发现 Host 是 `ServiceDiscoveryProvider` 的 default 结果。",
+    "ref": "hosts/ohos/src/lib.rs:93"
+  },
+  {
+    "fact": "`OhosHostJavaScriptRuntimeHost` 是 `NativeHostJavaScriptRuntimeHost` 的重导出。",
+    "ref": "hosts/ohos/src/lib.rs:26"
+  },
+  {
+    "fact": "`OhosHostRuntimeTaskSchedulerHost` 是 `NativeHostRuntimeTaskSchedulerHost` 的重导出。",
+    "ref": "hosts/ohos/src/lib.rs:28"
+  },
+  {
+    "fact": "终端 Host 的 `PLATFORM` 为 `ohos`。",
+    "ref": "hosts/ohos/src/terminal.rs:18"
+  },
+  {
+    "fact": "`backendForTerminal` 只接受 native 与 shell、qemu-vroot 与 shell 两组实现与类型配对。",
+    "ref": "hosts/ohos/src/terminal.rs:248"
+  },
+  {
+    "fact": "QEMU-vroot 可执行文件路径为 `/data/app/bin/qemu-harmonix-aarch64`。",
+    "ref": "hosts/ohos/src/terminal.rs:22"
+  },
+  {
+    "fact": "打包的 Alpine rootfs 目录名为 `alpine-3.23.6-aarch64`。",
+    "ref": "hosts/ohos/src/terminal.rs:25"
+  },
+  {
+    "fact": "打包的 Alpine rootfs 归档名为 `alpine-minirootfs-3.23.6-aarch64.tar.gz`。",
+    "ref": "hosts/ohos/src/terminal.rs:26"
+  },
+  {
+    "fact": "安装标记文件名为 `.operit-rootfs.sha256`。",
+    "ref": "hosts/ohos/src/terminal.rs:28"
+  },
+  {
+    "fact": "Host 根挂载点 `VROOT_HOST_MOUNT_ROOT` 为 `/mnt/host-root`。",
+    "ref": "hosts/ohos/src/terminal.rs:30"
+  },
+  {
+    "fact": "`isAvailable` 要求 qemu-vroot 可执行文件、rootfs 归档与校验和文件三者都存在。",
+    "ref": "hosts/ohos/src/terminal.rs:81"
+  },
+  {
+    "fact": "`ensureReady` 在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs。",
+    "ref": "hosts/ohos/src/terminal.rs:88"
+  },
+  {
+    "fact": "归档安装前由 `verifyRootfsArchiveSha256` 校验归档 SHA-256。",
+    "ref": "hosts/ohos/src/terminal.rs:114"
+  },
+  {
+    "fact": "`readRootfsSha256` 要求校验和为 64 位十六进制字符并转小写。",
+    "ref": "hosts/ohos/src/terminal.rs:623"
+  },
+  {
+    "fact": "打包安装经 apk 以 `--no-network` 离线运行。",
+    "ref": "hosts/ohos/src/terminal.rs:169"
+  },
+  {
+    "fact": "rootfs 不存在时 payload 直接改名为 rootfs。",
+    "ref": "hosts/ohos/src/terminal.rs:156"
+  },
+  {
+    "fact": "已存在 rootfs 时安装经 apk 做 add --upgrade，不替换用户 rootfs。",
+    "ref": "hosts/ohos/src/terminal.rs:180"
+  },
+  {
+    "fact": "安装后经 ./bin/busybox --install -s 安装 shell 命令。",
+    "ref": "hosts/ohos/src/terminal.rs:198"
+  },
+  {
+    "fact": "宿主 asset 目录的 `resolv.conf` 不存在时创建空文件，guest 的 `etc/resolv.conf` 换成指向它的符号链接。",
+    "ref": "hosts/ohos/src/terminal.rs:208"
+  },
+  {
+    "fact": "安装完成时把校验和写入 `VROOT_INSTALL_MARKER` 的 installing 临时文件再改名为安装标记。",
+    "ref": "hosts/ohos/src/terminal.rs:218"
+  },
+  {
+    "fact": "`verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`。",
+    "ref": "hosts/ohos/src/terminal.rs:690"
+  },
+  {
+    "fact": "`OhosTerminalHost` 的 `new` 接受显式的 runtimeRoot 与 workspaceRoot。",
+    "ref": "hosts/ohos/src/terminal.rs:236"
+  },
+  {
+    "fact": "`OhosTerminalHost` 以 `sessionBackends` 记录每个会话的后端。",
+    "ref": "hosts/ohos/src/terminal.rs:231"
+  },
+  {
+    "fact": "`createVrootShell` 为 QEMU-vroot Alpine 创建 PTY 启动器。",
+    "ref": "hosts/ohos/src/terminal.rs:530"
+  },
+  {
+    "fact": "vroot shell 在 guest 内执行 cd \"$OPERIT_OHOS_HOST_WORKING_DIR\" && exec /bin/sh -i。",
+    "ref": "hosts/ohos/src/terminal.rs:546"
+  },
+  {
+    "fact": "vroot 会话默认工作目录为 `VROOT_HOST_MOUNT_ROOT` 拼接 workspaceRoot。",
+    "ref": "hosts/ohos/src/terminal.rs:550"
+  },
+  {
+    "fact": "`terminalInfo` 把 qemu-vroot 列为默认终端。",
+    "ref": "hosts/ohos/src/terminal.rs:343"
+  },
+  {
+    "fact": "qemu-vroot 条目 available 取 `isAvailable` 的结果。",
+    "ref": "hosts/ohos/src/terminal.rs:349"
+  },
+  {
+    "fact": "native 条目 available 取 `/bin/sh` 是否存在。",
+    "ref": "hosts/ohos/src/terminal.rs:355"
+  },
+  {
+    "fact": "`startPtySession` 对 qemu-vroot 要求工作目录为绝对路径。",
+    "ref": "hosts/ohos/src/terminal.rs:376"
+  },
+  {
+    "fact": "qemu-vroot 工作目录解析把原生目录映射为 `VROOT_HOST_MOUNT_ROOT` 前缀的 guest 路径。",
+    "ref": "hosts/ohos/src/terminal.rs:332"
+  },
+  {
+    "fact": "`createOrGetTypedSession` 固定走 `QEMU_VROOT_TERMINAL` 后端。",
+    "ref": "hosts/ohos/src/terminal.rs:450"
+  },
+  {
+    "fact": "`executeHiddenCommand` 固定走 QemuVroot 后端。",
+    "ref": "hosts/ohos/src/terminal.rs:487"
+  },
+  {
+    "fact": "`listSessions` 合并 native 与 vroot 两路会话并逐条记录后端。",
+    "ref": "hosts/ohos/src/terminal.rs:424"
+  },
+  {
+    "fact": "`closePtySession` 关闭 PTY 后移除会话后端记录。",
+    "ref": "hosts/ohos/src/terminal.rs:417"
+  },
+  {
+    "fact": "`OhosManagedRuntimeHost` 的 `new` 接受终端 Host 与 workspaceRoot。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:25"
+  },
+  {
+    "fact": "托管运行时启动目标的终端为 `QEMU_VROOT_TERMINAL`，类型为 `SHELL_TERMINAL_TYPE`。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:55"
+  },
+  {
+    "fact": "请求未指定 cwd 时宿主工作目录取 workspaceRoot。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:45"
+  },
+  {
+    "fact": "`vrootHostPath` 要求 MCP 工作目录为绝对路径。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:80"
+  },
+  {
+    "fact": "宿主绝对路径映射为 `VROOT_HOST_MOUNT_ROOT` 前缀的 guest 路径。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:87"
+  },
+  {
+    "fact": "`mapVrootPath` 把宿主工作目录下的路径映射为 guest 挂载路径。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:91"
+  },
+  {
+    "fact": "`mapVrootEnvironment` 对每个环境变量值做同样的路径映射。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:102"
+  },
+  {
+    "fact": "`runtimeWorkspaceDir` 位于 workspaceRoot 下的 `.operit` 与 `managed_runtime` 两级目录并创建目录。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:116"
+  },
+  {
+    "fact": "`resolveRuntimeExecutable` 在显式 executablePath 非空时使用该路径。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:122"
+  },
+  {
+    "fact": "默认可执行文件为 Node 的 `/usr/bin/node`、Python 的 `/usr/bin/python3`、Uv 的 `/usr/bin/uv`、Pnpm 的 `/usr/bin/pnpm`。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:134"
+  },
+  {
+    "fact": "`ManagedRuntimeProgram::Command` 按名字原样作可执行文件。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:138"
+  },
+  {
+    "fact": "`runRuntimeCommand` 在 QEMU-vroot Alpine 内运行一次性命令并等待退出。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:151"
+  },
+  {
+    "fact": "一次性运行时命令结果的 `stderr` 为空字符串。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:161"
+  },
+  {
+    "fact": "`OhosFileSystemHost` 内部包装 `PosixFileSystemHost`，环境为 ohos。",
+    "ref": "hosts/ohos/src/filesystem.rs:23"
+  },
+  {
+    "fact": "`fromPlatformActions` 接受 opener 与 sharer 两个平台回调。",
+    "ref": "hosts/ohos/src/filesystem.rs:33"
+  },
+  {
+    "fact": "`openFile` 在未注册 opener 时返回 file opener 未注册错误。",
+    "ref": "hosts/ohos/src/filesystem.rs:181"
+  },
+  {
+    "fact": "`shareFile` 在未注册 sharer 时返回 file sharer 未注册错误。",
+    "ref": "hosts/ohos/src/filesystem.rs:191"
+  },
+  {
+    "fact": "`validateReadableFile` 要求路径存在且为文件。",
+    "ref": "hosts/ohos/src/filesystem.rs:45"
+  },
+  {
+    "fact": "文档工具调用经 `executeHiddenCommand` 执行，executorKey 为 ohos-documents，超时 120_000 毫秒。",
+    "ref": "hosts/ohos/src/documents.rs:23"
+  },
+  {
+    "fact": "`runTool` 在超时或非零退出时返回含退出码与输出的错误。",
+    "ref": "hosts/ohos/src/documents.rs:22"
+  },
+  {
+    "fact": "OCR 经 guest 内 `/usr/bin/tesseract` 离线识别，线程限制为 2，模式为 `--psm 3`。",
+    "ref": "hosts/ohos/src/documents.rs:62"
+  },
+  {
+    "fact": "中文高质 OCR 语言为 `chi_sim+chi_tra+eng`。",
+    "ref": "hosts/ohos/src/documents.rs:47"
+  },
+  {
+    "fact": "中文低质 OCR 语言仅为 `chi_sim`。",
+    "ref": "hosts/ohos/src/documents.rs:56"
+  },
+  {
+    "fact": "拉丁语 OCR 语言为 eng，日语高质为 `jpn+eng`，韩语高质为 `kor+eng`。",
+    "ref": "hosts/ohos/src/documents.rs:48"
+  },
+  {
+    "fact": "`guestPath` 把规范化后的绝对路径加 `VROOT_HOST_MOUNT_ROOT` 前缀。",
+    "ref": "hosts/ohos/src/documents.rs:16"
+  },
+  {
+    "fact": "PDF 光栅化 dpi 为 scale 乘 72。",
+    "ref": "hosts/ohos/src/documents.rs:75"
+  },
+  {
+    "fact": "PDF 光栅化结果从 `pages.json` 读取有序 PNG 名。",
+    "ref": "hosts/ohos/src/documents.rs:111"
+  },
+  {
+    "fact": "`renderPdf` 要求 scale 有限且为正。",
+    "ref": "hosts/ohos/src/documents.rs:92"
+  },
+  {
+    "fact": "`OhosRuntimeStorageHost` 包装 `NativeRuntimeStorageHost` 并以 `delegate_runtime_storage` 委派。",
+    "ref": "hosts/ohos/src/storage.rs:11"
+  },
+  {
+    "fact": "`OhosRuntimeStorageHost` 的 `new` 接受 runtimeRoot 与 workspaceRoot。",
+    "ref": "hosts/ohos/src/storage.rs:15"
+  },
+  {
+    "fact": "`OhosHttpHost` 内部包装 `NativeHttpHost`。",
+    "ref": "hosts/ohos/src/http.rs:12"
+  },
+  {
+    "fact": "`executeHttpRequest` 经 OpenHarmony 原生网络栈执行 HTTP 请求。",
+    "ref": "hosts/ohos/src/http.rs:67"
+  },
+  {
+    "fact": "`openWebSocket` 经共享原生 Host 打开 OpenHarmony WebSocket。",
+    "ref": "hosts/ohos/src/http.rs:95"
+  },
+  {
+    "fact": "`OhosLocalInferenceHost` 的 `new` 创建无状态 OHOS 本地推理 Host。",
+    "ref": "hosts/ohos/src/local_inference.rs:18"
+  },
+  {
+    "fact": "`transcribeLocalSpeech` 经 `transcribeStreamingTransducer` 处理。",
+    "ref": "hosts/ohos/src/local_inference.rs:25"
+  },
+  {
+    "fact": "`synthesizeLocalSpeech` 经 `synthesizeTts` 处理。",
+    "ref": "hosts/ohos/src/local_inference.rs:33"
+  },
+  {
+    "fact": "本地推理经 `libloading` 的 `Library` 动态加载 Sherpa 库。",
+    "ref": "hosts/ohos/src/local_inference.rs:7"
+  },
+  {
+    "fact": "STT 请求的驱动须为 `SherpaOnnxStreamingTransducer`。",
+    "ref": "hosts/ohos/src/local_inference.rs:315"
+  },
+  {
+    "fact": "STT 特征采样率为 16_000，特征维为 80。",
+    "ref": "hosts/ohos/src/local_inference.rs:340"
+  },
+  {
+    "fact": "STT 解码方法为 `greedy_search`。",
+    "ref": "hosts/ohos/src/local_inference.rs:334"
+  },
+  {
+    "fact": "STT 推理 provider 为 cpu。",
+    "ref": "hosts/ohos/src/local_inference.rs:333"
+  },
+  {
+    "fact": "STT 的 `max_active_paths` 为 4，`enable_endpoint` 为 0。",
+    "ref": "hosts/ohos/src/local_inference.rs:373"
+  },
+  {
+    "fact": "本地推理线程数上限为 4。",
+    "ref": "hosts/ohos/src/local_inference.rs:919"
+  },
+  {
+    "fact": "TTS 驱动除 Vits、Matcha、Kitten 外均返回不支持错误。",
+    "ref": "hosts/ohos/src/local_inference.rs:576"
+  },
+  {
+    "fact": "TTS 输出文件长度不超过 44 字节时判为无效 WAV。",
+    "ref": "hosts/ohos/src/local_inference.rs:583"
+  },
+  {
+    "fact": "TTS 响应 `outputFormat` 为 wav。",
+    "ref": "hosts/ohos/src/local_inference.rs:591"
+  },
+  {
+    "fact": "`loadSherpaLibraries` 先加载 `libonnxruntime.so` 再加载 `libsherpa-onnx-c-api.so`。",
+    "ref": "hosts/ohos/src/local_inference.rs:746"
+  },
+  {
+    "fact": "`validateTtsSpeakerId` 要求 speaker 在 0 到 speakerCount 减 1 之间。",
+    "ref": "hosts/ohos/src/local_inference.rs:820"
+  },
+  {
+    "fact": "TTS 输出文件须不存在，父目录须存在。",
+    "ref": "hosts/ohos/src/local_inference.rs:893"
+  },
+  {
+    "fact": "TTS 合成在引擎 `speakerCount` 与 manifest 不一致时报错。",
+    "ref": "hosts/ohos/src/local_inference.rs:704"
+  },
+  {
+    "fact": "声明的模型文件逃逸模型目录时报错。",
+    "ref": "hosts/ohos/src/local_inference.rs:861"
+  },
+  {
+    "fact": "TTS 合成要求文本非空。",
+    "ref": "hosts/ohos/src/local_inference.rs:791"
+  },
+  {
+    "fact": "TTS 合成语速须有限且为正。",
+    "ref": "hosts/ohos/src/local_inference.rs:800"
+  },
+  {
+    "fact": "`OhosSystemOperationHost` 由 `fromOwnerCallbacks` 从四个所有者回调构造。",
+    "ref": "hosts/ohos/src/system_operation.rs:27"
+  },
+  {
+    "fact": "`getSystemLanguageCode` 经 languageReader 读取系统语言代码。",
+    "ref": "hosts/ohos/src/system_operation.rs:250"
+  },
+  {
+    "fact": "`captureScreenshot` 经 screenshotCapturer 截图。",
+    "ref": "hosts/ohos/src/system_operation.rs:368"
+  },
+  {
+    "fact": "`recognizeText` 经文本识别回调执行。",
+    "ref": "hosts/ohos/src/system_operation.rs:373"
+  },
+  {
+    "fact": "`execute` 把操作名与参数交给 controller 回调。",
+    "ref": "hosts/ohos/src/system_operation.rs:41"
+  },
+  {
+    "fact": "`installApp` 要求 Immediate 安装时机。",
+    "ref": "hosts/ohos/src/system_operation.rs:290"
+  },
+  {
+    "fact": "`sendNotification` 以 `send_notification` 操作执行。",
+    "ref": "hosts/ohos/src/system_operation.rs:255"
+  },
+  {
+    "fact": "`getDeviceInfo` 以 `device_info` 操作执行。",
+    "ref": "hosts/ohos/src/system_operation.rs:363"
+  },
+  {
+    "fact": "`OhosTtsPlaybackHost` 的 `new` 接受所有者 AVPlayer 控制器。",
+    "ref": "hosts/ohos/src/tts_playback.rs:22"
+  },
+  {
+    "fact": "`supportsSystemSpeech` 返回 false。",
+    "ref": "hosts/ohos/src/tts_playback.rs:38"
+  },
+  {
+    "fact": "`speakText` 返回 API 18 不提供系统 TTS 合成 Host 的错误。",
+    "ref": "hosts/ohos/src/tts_playback.rs:52"
+  },
+  {
+    "fact": "`playAudio` 以 play 命令发送音频路径。",
+    "ref": "hosts/ohos/src/tts_playback.rs:43"
+  },
+  {
+    "fact": "`playAudio` 在音频路径为空时报错。",
+    "ref": "hosts/ohos/src/tts_playback.rs:43"
+  },
+  {
+    "fact": "`pauseSpeech` 以 pause 命令暂停当前语音会话。",
+    "ref": "hosts/ohos/src/tts_playback.rs:59"
+  },
+  {
+    "fact": "`resumeSpeech` 以 resume 命令恢复当前语音会话。",
+    "ref": "hosts/ohos/src/tts_playback.rs:64"
+  },
+  {
+    "fact": "`stopSpeech` 以 stop 命令停止当前语音会话。",
+    "ref": "hosts/ohos/src/tts_playback.rs:69"
+  },
+  {
+    "fact": "`speechState` 以 state 命令查询当前语音会话状态。",
+    "ref": "hosts/ohos/src/tts_playback.rs:74"
+  },
+  {
+    "fact": "`OhosAudioPlaybackHost` 由 `fromPlayers` 从音频播放器与音乐播放器两个所有者回调构造。",
+    "ref": "hosts/ohos/src/audio_playback.rs:29"
+  },
+  {
+    "fact": "`playAudio` 经 player 回调播放本地音频文件。",
+    "ref": "hosts/ohos/src/audio_playback.rs:39"
+  },
+  {
+    "fact": "`playMusic` 以 `OhosMusicCommand::Play` 发送音乐播放请求。",
+    "ref": "hosts/ohos/src/audio_playback.rs:45"
+  },
+  {
+    "fact": "`musicStatus` 以 `OhosMusicCommand::Status` 查询音乐播放状态。",
+    "ref": "hosts/ohos/src/audio_playback.rs:75"
+  },
+  {
+    "fact": "`OhosMusicCommand` 含 Play、Pause、Resume、Stop、Seek、SetVolume、Status 七个变体。",
+    "ref": "hosts/ohos/src/audio_playback.rs:13"
+  },
+  {
+    "fact": "`OhosBluetoothHost` 由 `fromController` 从平台所有者回调构造。",
+    "ref": "hosts/ohos/src/bluetooth.rs:26"
+  },
+  {
+    "fact": "`execute` 把命令与参数交给 controller 回调并解码响应。",
+    "ref": "hosts/ohos/src/bluetooth.rs:28"
+  },
+  {
+    "fact": "`supportsClassicListening` 返回 true。",
+    "ref": "hosts/ohos/src/bluetooth.rs:52"
+  },
+  {
+    "fact": "`requestBluetoothPermission` 以 `request_permission` 命令请求蓝牙权限。",
+    "ref": "hosts/ohos/src/bluetooth.rs:55"
+  },
+  {
+    "fact": "`bluetoothState` 以 `state` 命令查询蓝牙状态。",
+    "ref": "hosts/ohos/src/bluetooth.rs:60"
+  },
+  {
+    "fact": "`scanBluetoothDevices` 以 `scan` 命令扫描蓝牙设备。",
+    "ref": "hosts/ohos/src/bluetooth.rs:75"
+  },
+  {
+    "fact": "`bluetoothListen` 以 `classic_listen` 命令监听经典蓝牙。",
+    "ref": "hosts/ohos/src/bluetooth.rs:95"
+  },
+  {
+    "fact": "`bluetoothBleConnect` 以 `ble_connect` 命令连接 BLE 设备。",
+    "ref": "hosts/ohos/src/bluetooth.rs:156"
+  },
+  {
+    "fact": "`OhosTerminalHost` 是 OpenHarmony PTY 终端 Host。",
+    "ref": "hosts/ohos/src/terminal.rs:227"
+  },
+  {
+    "fact": "`OhosVrootRuntime` 持有 QEMU-vroot 运行时的路径与安装状态。",
+    "ref": "hosts/ohos/src/terminal.rs:39"
+  },
+  {
+    "fact": "`OhosTerminalBackend` 区分 NativeShell 与 QemuVroot 两种终端后端。",
+    "ref": "hosts/ohos/src/terminal.rs:33"
+  },
+  {
+    "fact": "`OhosManagedRuntimeHost` 是 OpenHarmony 托管运行时 Host。",
+    "ref": "hosts/ohos/src/managed_runtime.rs:18"
+  },
+  {
+    "fact": "`OhosFileSystemHost` 是 OpenHarmony 文件系统 Host。",
+    "ref": "hosts/ohos/src/filesystem.rs:13"
+  },
+  {
+    "fact": "`OhosRuntimeStorageHost` 是 OpenHarmony 运行时存储 Host。",
+    "ref": "hosts/ohos/src/storage.rs:7"
+  },
+  {
+    "fact": "`OhosHttpHost` 是 OpenHarmony HTTP Host。",
+    "ref": "hosts/ohos/src/http.rs:11"
+  },
+  {
+    "fact": "`OhosLocalInferenceHost` 是 OpenHarmony 本地推理 Host。",
+    "ref": "hosts/ohos/src/local_inference.rs:14"
+  },
+  {
+    "fact": "`OhosSystemOperationHost` 是 OpenHarmony 系统操作 Host。",
+    "ref": "hosts/ohos/src/system_operation.rs:18"
+  },
+  {
+    "fact": "`OhosTtsPlaybackHost` 是 OpenHarmony TTS 播放 Host。",
+    "ref": "hosts/ohos/src/tts_playback.rs:17"
+  },
+  {
+    "fact": "`OhosTtsPlaybackCommand` 含 command 与 audioPath 两个字段。",
+    "ref": "hosts/ohos/src/tts_playback.rs:8"
+  },
+  {
+    "fact": "`OhosAudioPlaybackHost` 是 OpenHarmony 音频播放 Host。",
+    "ref": "hosts/ohos/src/audio_playback.rs:22"
+  },
+  {
+    "fact": "`OhosMusicCommand` 是音乐播放命令枚举。",
+    "ref": "hosts/ohos/src/audio_playback.rs:11"
+  },
+  {
+    "fact": "`OhosBluetoothHost` 是 OpenHarmony 蓝牙 Host。",
+    "ref": "hosts/ohos/src/bluetooth.rs:17"
+  }
+]

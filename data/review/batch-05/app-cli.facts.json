@@ -1,0 +1,446 @@
+[
+  {
+    "fact": "operit-cli 的版本是 2.0.0-preview.31",
+    "ref": "apps/cli/Cargo.toml:3"
+  },
+  {
+    "fact": "CLI 可执行文件名为 operit2",
+    "ref": "apps/cli/Cargo.toml:12"
+  },
+  {
+    "fact": "operit-cli 依赖 operit-node-runtime",
+    "ref": "apps/cli/Cargo.toml:31"
+  },
+  {
+    "fact": "operit-cli 依赖 operit-runtime",
+    "ref": "apps/cli/Cargo.toml:39"
+  },
+  {
+    "fact": "operit-cli 依赖 mdns-sd 0.12",
+    "ref": "apps/cli/Cargo.toml:28"
+  },
+  {
+    "fact": "TUI 渲染依赖 ratatui 0.28",
+    "ref": "apps/cli/Cargo.toml:44"
+  },
+  {
+    "fact": "终端控制依赖 crossterm 0.28",
+    "ref": "apps/cli/Cargo.toml:21"
+  },
+  {
+    "fact": "无参数启动 operit2 进入 TUI",
+    "ref": "apps/cli/src/main.rs:57"
+  },
+  {
+    "fact": "operit2 rescue 把参数交给 rescue::run",
+    "ref": "apps/cli/src/main.rs:61"
+  },
+  {
+    "fact": "operit2 cli 把参数交给 cli::run_cli_root",
+    "ref": "apps/cli/src/main.rs:66"
+  },
+  {
+    "fact": "operit2 daemon 把参数交给 daemon::run",
+    "ref": "apps/cli/src/main.rs:67"
+  },
+  {
+    "fact": "operit2 tui 把参数交给 tui::run_tui_command",
+    "ref": "apps/cli/src/main.rs:68"
+  },
+  {
+    "fact": "operit2 install 与 operit2 uninstall 把参数交给 cli::run_cli_root",
+    "ref": "apps/cli/src/main.rs:69"
+  },
+  {
+    "fact": "create_cli_core_application 启动 CLI 的 CoreApplication",
+    "ref": "apps/cli/src/bootstrap.rs:238"
+  },
+  {
+    "fact": "短命 CLI Core 在 owner 运行时关闭 Space 同步",
+    "ref": "apps/cli/src/bootstrap.rs:248"
+  },
+  {
+    "fact": "带节点服务的 CLI Core 创建入口固定关闭 Space 同步",
+    "ref": "apps/cli/src/bootstrap.rs:267"
+  },
+  {
+    "fact": "create_cli_host_manager 构造 CLI 的 HostManager",
+    "ref": "apps/cli/src/bootstrap.rs:65"
+  },
+  {
+    "fact": "CLI host 只在 Windows、Linux、macOS 上实现",
+    "ref": "apps/cli/src/bootstrap.rs:62"
+  },
+  {
+    "fact": "CLI 设备身份用 LinkDeviceInfo::nativeCliOnHost 构造",
+    "ref": "apps/cli/src/bootstrap.rs:78"
+  },
+  {
+    "fact": "OPERIT_CLI_CONFIG_DIR 环境变量覆盖 CLI 配置目录",
+    "ref": "apps/cli/src/bootstrap.rs:630"
+  },
+  {
+    "fact": "显式 CLI 配置下插件 SDK IPC 实例按身份隔离",
+    "ref": "apps/cli/src/bootstrap.rs:108"
+  },
+  {
+    "fact": "rescue 默认运行时根取自 NativeRuntimeStorageHost 的默认根",
+    "ref": "apps/cli/src/bootstrap.rs:758"
+  },
+  {
+    "fact": "local_cli_core 创建进程内本地 CLI Core",
+    "ref": "apps/cli/src/core_proxy.rs:51"
+  },
+  {
+    "fact": "CliCore 的 proxy 是包着 SharedLocalCore 的 GeneratedCoreProxy",
+    "ref": "apps/cli/src/core_proxy.rs:56"
+  },
+  {
+    "fact": "SharedLocalCore 持有 Arc<LocalCoreProxy>",
+    "ref": "apps/cli/src/core_proxy.rs:14"
+  },
+  {
+    "fact": "run_cli_root_inner 在启动自有 Core 之前先调用 try_run_cli_command",
+    "ref": "apps/cli/src/cli/mod.rs:155"
+  },
+  {
+    "fact": "有 owner 时 CLI 命令经 try_run_cli_command 走 owner 的控制通道",
+    "ref": "apps/cli/src/daemon.rs:491"
+  },
+  {
+    "fact": "route_supported 把交互与本地命令排除在 owner 路由之外",
+    "ref": "apps/cli/src/daemon.rs:528"
+  },
+  {
+    "fact": "model codex-login 不走 owner 路由",
+    "ref": "apps/cli/src/daemon.rs:533"
+  },
+  {
+    "fact": "run_cli_root 剥离 --json 后分发命令",
+    "ref": "apps/cli/src/cli/mod.rs:102"
+  },
+  {
+    "fact": "cli_json_mode 表示本次调用是否要求 JSON 输出",
+    "ref": "apps/cli/src/cli/mod.rs:80"
+  },
+  {
+    "fact": "run_cli_root_inner 按首个参数分发 CLI 命令",
+    "ref": "apps/cli/src/cli/mod.rs:116"
+  },
+  {
+    "fact": "CLI_COMMANDS 表定义固有 CLI 命令族",
+    "ref": "apps/cli/src/cli/mod.rs:1794"
+  },
+  {
+    "fact": "单元测试断言 CLI_COMMANDS 覆盖 31 个固有 CLI 命令族",
+    "ref": "apps/cli/src/cli/mod.rs:2316"
+  },
+  {
+    "fact": "read_cli_plugin_commands 通过 plugin commands --json 读取插件命令目录",
+    "ref": "apps/cli/src/cli/mod.rs:1848"
+  },
+  {
+    "fact": "插件命令与固有 CLI 命令同名时报错",
+    "ref": "apps/cli/src/cli/mod.rs:1855"
+  },
+  {
+    "fact": "cli_usage_lines 的用法文本列出 --link <session> 全局选项",
+    "ref": "apps/cli/src/cli/mod.rs:1868"
+  },
+  {
+    "fact": "run_identity_command 处理 identity 本地管理命令",
+    "ref": "apps/cli/src/cli/mod.rs:203"
+  },
+  {
+    "fact": "identity 子命令包含 list、current、create、use、rename",
+    "ref": "apps/cli/src/cli/mod.rs:1942"
+  },
+  {
+    "fact": "除 chat shell 外，chat 子命令转发给 Core 命令",
+    "ref": "apps/cli/src/cli/mod.rs:176"
+  },
+  {
+    "fact": "model codex-login 只接受 browser 或 device 两种方式",
+    "ref": "apps/cli/src/cli/mod.rs:1470"
+  },
+  {
+    "fact": "market auth login 走 GitHub OAuth 回调完成登录",
+    "ref": "apps/cli/src/cli/mod.rs:1647"
+  },
+  {
+    "fact": "run_update_cli_command 处理 update 的发现、下载与安装",
+    "ref": "apps/cli/src/cli/mod.rs:510"
+  },
+  {
+    "fact": "install_current_cli 从当前可执行文件安装 CLI",
+    "ref": "apps/cli/src/cli/mod.rs:842"
+  },
+  {
+    "fact": "install_cli_from_source 把同一二进制复制为 operit 与 operit2 两个命令",
+    "ref": "apps/cli/src/cli/mod.rs:901"
+  },
+  {
+    "fact": "非 Windows 的 CLI 安装目录是 ~/.local/bin",
+    "ref": "apps/cli/src/cli/mod.rs:1096"
+  },
+  {
+    "fact": "cli_update_target 用产品 cli 与当前系统、架构构造更新目标",
+    "ref": "apps/cli/src/cli/host_ops.rs:21"
+  },
+  {
+    "fact": "Windows CLI 运行时库包含 operit_local_llm.dll",
+    "ref": "apps/cli/src/cli/host_ops.rs:29"
+  },
+  {
+    "fact": "run_link_command 分发 link 的子命令",
+    "ref": "apps/cli/src/cli/link.rs:33"
+  },
+  {
+    "fact": "run_link_command 把 session 交给 run_link_session",
+    "ref": "apps/cli/src/cli/link.rs:40"
+  },
+  {
+    "fact": "link 包含 stream-probe 与 edge-call 子命令",
+    "ref": "apps/cli/src/cli/link.rs:45"
+  },
+  {
+    "fact": "link pair 配对时在接收设备上读六位确认码",
+    "ref": "apps/cli/src/cli/link.rs:127"
+  },
+  {
+    "fact": "连接二维码有效期为 5 分钟",
+    "ref": "apps/cli/src/cli/link.rs:210"
+  },
+  {
+    "fact": "link listen 接受 http、ws、tcp、serial、bluetooth 五种传输",
+    "ref": "apps/cli/src/cli/link.rs:273"
+  },
+  {
+    "fact": "link discover 默认超时 2000 毫秒",
+    "ref": "apps/cli/src/cli/link.rs:679"
+  },
+  {
+    "fact": "link discover 通过 discoverPeers 发现对端",
+    "ref": "apps/cli/src/cli/link.rs:700"
+  },
+  {
+    "fact": "link doctor 默认只读，--repair 才隔离损坏的日记行",
+    "ref": "apps/cli/src/cli/link.rs:610"
+  },
+  {
+    "fact": "run_link_space_command 处理设备空间的查看与成员管理",
+    "ref": "apps/cli/src/cli/link.rs:711"
+  },
+  {
+    "fact": "run_link_control_command 处理空间网络控制策略命令",
+    "ref": "apps/cli/src/cli/link.rs:889"
+  },
+  {
+    "fact": "run_link_stream_probe_command 用路由探测验证 StateFlow 与嵌入流",
+    "ref": "apps/cli/src/cli/link.rs:1115"
+  },
+  {
+    "fact": "run_link_edge_call_command 向指定设备发起 edge 调用",
+    "ref": "apps/cli/src/cli/link.rs:498"
+  },
+  {
+    "fact": "print_link_usage 列出 link 的全部子命令用法",
+    "ref": "apps/cli/src/cli/link.rs:1296"
+  },
+  {
+    "fact": "network_capabilities 把 all、audit、relay、storage、execute、view 等短名映射为协议能力",
+    "ref": "apps/cli/src/cli/network_control_ui.rs:155"
+  },
+  {
+    "fact": "network_device_label 用设备名、用户名、平台、型号拼接设备标签",
+    "ref": "apps/cli/src/cli/network_control_ui.rs:10"
+  },
+  {
+    "fact": "daemon 子命令包含 run、start、status、stop",
+    "ref": "apps/cli/src/daemon.rs:701"
+  },
+  {
+    "fact": "OwnerGuard::acquire 为一个身份抢占排他 Core 所有权锁",
+    "ref": "apps/cli/src/daemon.rs:135"
+  },
+  {
+    "fact": "OwnerGuard::mark_ready 把 owner 状态发布为 ready",
+    "ref": "apps/cli/src/daemon.rs:214"
+  },
+  {
+    "fact": "ControlServer::bind 在宿主控制端点上监听",
+    "ref": "apps/cli/src/daemon.rs:308"
+  },
+  {
+    "fact": "控制通道的 run 操作在 owner 的 Core 上执行命令",
+    "ref": "apps/cli/src/daemon.rs:457"
+  },
+  {
+    "fact": "控制通道拒绝关闭 TUI 拥有的身份",
+    "ref": "apps/cli/src/daemon.rs:443"
+  },
+  {
+    "fact": "控制通道读超时为 3600 秒",
+    "ref": "apps/cli/src/daemon.rs:35"
+  },
+  {
+    "fact": "单条控制请求上限 16 MiB",
+    "ref": "apps/cli/src/daemon.rs:29"
+  },
+  {
+    "fact": "DAEMON_READY_TIMEOUT 是 60 秒",
+    "ref": "apps/cli/src/daemon.rs:37"
+  },
+  {
+    "fact": "daemon start 用 DAEMON_READY_TIMEOUT 限时等待就绪",
+    "ref": "apps/cli/src/daemon.rs:915"
+  },
+  {
+    "fact": "mDNS 服务类型是 _operit._tcp.local.",
+    "ref": "apps/cli/src/mdns.rs:7"
+  },
+  {
+    "fact": "MdnsRegistration::register 注册 mDNS 服务",
+    "ref": "apps/cli/src/mdns.rs:16"
+  },
+  {
+    "fact": "discover_devices 浏览 mDNS 服务发现设备",
+    "ref": "apps/cli/src/mdns.rs:51"
+  },
+  {
+    "fact": "mDNS 发现要求服务带 deviceId 属性",
+    "ref": "apps/cli/src/mdns.rs:84"
+  },
+  {
+    "fact": "mDNS 发现只保留 IPv4 地址",
+    "ref": "apps/cli/src/mdns.rs:72"
+  },
+  {
+    "fact": "mDNS 地址排序把私网地址排在最前",
+    "ref": "apps/cli/src/mdns.rs:150"
+  },
+  {
+    "fact": "rescue 入口不启动 Core、不打开 SQLite",
+    "ref": "apps/cli/src/rescue.rs:1"
+  },
+  {
+    "fact": "rescue 子命令包含 describe、export、inspect、import、resume",
+    "ref": "apps/cli/src/rescue.rs:85"
+  },
+  {
+    "fact": "rescue import 替换在线数据时要求 --confirm",
+    "ref": "apps/cli/src/rescue.rs:150"
+  },
+  {
+    "fact": "rescue resume 要求 --confirm",
+    "ref": "apps/cli/src/rescue.rs:157"
+  },
+  {
+    "fact": "聊天 shell 经 CliCore 代理运行",
+    "ref": "apps/cli/src/chat_runtime.rs:8"
+  },
+  {
+    "fact": "shell 启动参数包含 --chat、--resume、--source、--input、--update-current-version",
+    "ref": "apps/cli/src/chat_runtime.rs:322"
+  },
+  {
+    "fact": "交互 shell 支持 /help、/exit、/switch、/resume 等命令",
+    "ref": "apps/cli/src/chat_runtime.rs:694"
+  },
+  {
+    "fact": "交互 shell 支持 /attach、/send 等命令",
+    "ref": "apps/cli/src/chat_runtime.rs:700"
+  },
+  {
+    "fact": "shell 发送消息复用 chat send Core 命令并取回执",
+    "ref": "apps/cli/src/chat_runtime.rs:718"
+  },
+  {
+    "fact": "run_tui_command 是 TUI 入口",
+    "ref": "apps/cli/src/tui/mod.rs:92"
+  },
+  {
+    "fact": "TUI 启动时以 tui 模式抢占身份 owner 锁",
+    "ref": "apps/cli/src/tui/mod.rs:99"
+  },
+  {
+    "fact": "TUI 绑定与 daemon 相同的控制服务器",
+    "ref": "apps/cli/src/tui/mod.rs:181"
+  },
+  {
+    "fact": "tui 启动参数包含 --link-listen、--no-listen、--link-join、--chat、--resume",
+    "ref": "apps/cli/src/tui/mod.rs:266"
+  },
+  {
+    "fact": "TUI 启动时按保存的监听配置启动入站监听",
+    "ref": "apps/cli/src/tui/mod.rs:313"
+  },
+  {
+    "fact": "TUI 启动时加入已配对的节点空间",
+    "ref": "apps/cli/src/tui/mod.rs:369"
+  },
+  {
+    "fact": "TUI 工具审批请求等待 60 秒",
+    "ref": "apps/cli/src/tui/mod.rs:456"
+  },
+  {
+    "fact": "TUI 包含 diff 子模块",
+    "ref": "apps/cli/src/tui/mod.rs:10"
+  },
+  {
+    "fact": "TUI 包含 render、theme、transcript 等子模块",
+    "ref": "apps/cli/src/tui/mod.rs:37"
+  },
+  {
+    "fact": "export memory 导出记忆",
+    "ref": "apps/cli/src/cli/transfer.rs:20"
+  },
+  {
+    "fact": "export chat 导出聊天记录 JSON",
+    "ref": "apps/cli/src/cli/transfer.rs:36"
+  },
+  {
+    "fact": "export snapshot 导出快照",
+    "ref": "apps/cli/src/cli/transfer.rs:53"
+  },
+  {
+    "fact": "import 支持 operit1-snapshot 迁移一代快照",
+    "ref": "apps/cli/src/cli/transfer.rs:106"
+  },
+  {
+    "fact": "backup 子命令包含 create、restore、inspect",
+    "ref": "apps/cli/src/cli/transfer.rs:120"
+  },
+  {
+    "fact": "快照导入按 64 KiB 分块上传",
+    "ref": "apps/cli/src/cli/transfer.rs:11"
+  },
+  {
+    "fact": "stageArchiveUpload 以流式分块暂存待导入的归档",
+    "ref": "apps/cli/src/cli/transfer.rs:293"
+  },
+  {
+    "fact": "web 入口指向 https://web.operit.app/",
+    "ref": "apps/cli/src/cli/web.rs:3"
+  },
+  {
+    "fact": "web 子命令只接受 open",
+    "ref": "apps/cli/src/cli/web.rs:6"
+  },
+  {
+    "fact": "空间压力测试启动六个真实 CLI 进程",
+    "ref": "apps/cli/tests/space-stress.md:3"
+  },
+  {
+    "fact": "网络控制会话测试以 link session 启动真实 CLI 进程",
+    "ref": "apps/cli/tests/network_control_session.py:40"
+  },
+  {
+    "fact": "link space join 在只有一个已配对设备时不需要参数",
+    "ref": "apps/cli/tests/network_control_session.py:152"
+  },
+  {
+    "fact": "mcp_http_streaming.rs 包含流式响应与超时测试 streamed_responses_and_deadlines",
+    "ref": "apps/cli/tests/mcp_http_streaming.rs:22"
+  }
+]

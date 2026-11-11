@@ -1,0 +1,910 @@
+[
+  {
+    "fact": "Apple Host 的 crate 名为 operit-host-apple-native",
+    "ref": "hosts/apple/Cargo.toml:2"
+  },
+  {
+    "fact": "Apple Host crate 的版本为 0.1.0 且 publish 为 false",
+    "ref": "hosts/apple/Cargo.toml:3"
+  },
+  {
+    "fact": "Apple Host 定义了 default 与 arm64-runtime 两个特性，默认值均为空",
+    "ref": "hosts/apple/Cargo.toml:9"
+  },
+  {
+    "fact": "Apple Host 依赖 operit-host-api",
+    "ref": "hosts/apple/Cargo.toml:19"
+  },
+  {
+    "fact": "Apple Host 依赖 operit-host-native-common，并启用 fs、http、scheduler、storage 四个特性",
+    "ref": "hosts/apple/Cargo.toml:20"
+  },
+  {
+    "fact": "iOS 与 macOS 目标依赖 security-framework 与 core-foundation",
+    "ref": "hosts/apple/Cargo.toml:30"
+  },
+  {
+    "fact": "macOS 目标额外依赖 tungstenite，并为 operit-host-native-common 启用 terminal 特性",
+    "ref": "hosts/apple/Cargo.toml:34"
+  },
+  {
+    "fact": "hosts/apple/src/lib.rs 以 pub mod tools 公开工具模块",
+    "ref": "hosts/apple/src/lib.rs:6"
+  },
+  {
+    "fact": "chromium_browser 模块只在 macOS 下编译",
+    "ref": "hosts/apple/src/lib.rs:5"
+  },
+  {
+    "fact": "service_discovery 模块只在 target_vendor 为 apple 时编译，并导出 AppleServiceDiscoveryHost",
+    "ref": "hosts/apple/src/lib.rs:11"
+  },
+  {
+    "fact": "installAppleLogSink 在 macOS 与 iOS 下导出",
+    "ref": "hosts/apple/src/lib.rs:15"
+  },
+  {
+    "fact": "AppleHostJavaScriptRuntimeHost、AppleHostRuntimeEventSchedulerHost 与 AppleHostRuntimeTaskSchedulerHost 是 operit_host_native_common 对应 Host 的重命名 re-export",
+    "ref": "hosts/apple/src/lib.rs:17"
+  },
+  {
+    "fact": "AppleBrowserAutomationHost 与 AppleWebVisitHost 只在 macOS 下导出",
+    "ref": "hosts/apple/src/lib.rs:23"
+  },
+  {
+    "fact": "AppleManagedRuntimeHost 只在 macOS 下导出",
+    "ref": "hosts/apple/src/lib.rs:29"
+  },
+  {
+    "fact": "ApplePluginSdkIpcHost 是 UnixPluginSdkIpcHost 的重命名，在 macOS 与 iOS 下导出",
+    "ref": "hosts/apple/src/lib.rs:36"
+  },
+  {
+    "fact": "开启 arm64-runtime 特性且目标为 macOS aarch64 时，lib.rs 把 hosts/ios/src/bridge.rs 引入为 bridge 模块",
+    "ref": "hosts/apple/src/lib.rs:43"
+  },
+  {
+    "fact": "AppleHostRuntimeEventHost 由 tools::host_runtime_event 导出",
+    "ref": "hosts/apple/src/lib.rs:25"
+  },
+  {
+    "fact": "macOS 的 AppleTerminalHost 来自 terminal_macos.rs",
+    "ref": "hosts/apple/src/tools/terminal/mod.rs:8"
+  },
+  {
+    "fact": "iOS 下 terminalInfo 返回“iOS does not expose a local PTY host”错误",
+    "ref": "hosts/apple/src/tools/terminal/mod.rs:43"
+  },
+  {
+    "fact": "iOS 下 listSessions 返回空列表而不报错",
+    "ref": "hosts/apple/src/tools/terminal/mod.rs:78"
+  },
+  {
+    "fact": "开启 arm64-runtime 特性且目标为 macOS aarch64 时，terminal 模块把 hosts/ios/src/terminal.rs 引入为 arm64 模块",
+    "ref": "hosts/apple/src/tools/terminal/mod.rs:4"
+  },
+  {
+    "fact": "processIsolation 返回当前进程的 HostIsolation",
+    "ref": "hosts/apple/src/sandbox.rs:6"
+  },
+  {
+    "fact": "macOS 上签名查询报告未沙盒时隔离级别为 HostIsolation::None",
+    "ref": "hosts/apple/src/sandbox.rs:13"
+  },
+  {
+    "fact": "macOS 上签名查询失败时隔离级别回落为 HostIsolation::OsAppSandbox，不宣称无限制执行",
+    "ref": "hosts/apple/src/sandbox.rs:15"
+  },
+  {
+    "fact": "非 macOS 目标上隔离级别直接为 HostIsolation::OsAppSandbox",
+    "ref": "hosts/apple/src/sandbox.rs:21"
+  },
+  {
+    "fact": "macOS 沙盒判定检查签名授权项 com.apple.security.app-sandbox",
+    "ref": "hosts/apple/src/sandbox.rs:69"
+  },
+  {
+    "fact": "AppleFileOpener 是打开单个文件的回调函数类型",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:22"
+  },
+  {
+    "fact": "AppleFileSystemHost 的 new 以默认值构造",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:39"
+  },
+  {
+    "fact": "AppleFileSystemHost 的 fromFileOpener 构造带文件打开回调的 Host",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:43"
+  },
+  {
+    "fact": "openAppendFile 打开追加文件句柄供重复日志追加使用",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:53"
+  },
+  {
+    "fact": "validatePath 要求路径为非空的 Apple 平台绝对路径",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:67"
+  },
+  {
+    "fact": "environmentDescriptor 返回 appleEnvironmentDescriptor 构造的环境描述符",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:60"
+  },
+  {
+    "fact": "环境描述符的 privilege 为 HostPrivilege::Normal",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:547"
+  },
+  {
+    "fact": "环境描述符的 isolation 取自 sandbox 的 processIsolation",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:548"
+  },
+  {
+    "fact": "能力列表含 fs.read、fs.write、fs.search 与 fs.archive",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:562"
+  },
+  {
+    "fact": "能力列表含 os.open、os.share、audio.playback 与 music.playback",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:566"
+  },
+  {
+    "fact": "能力列表含 bluetooth.classic、bluetooth.ble、tts.synthesis 与 tts.playback",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:570"
+  },
+  {
+    "fact": "能力列表含 system.notifications.send、system.location 与 ocr.recognition",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:574"
+  },
+  {
+    "fact": "能力列表含 runtime.process、runtime.storage 与 runtime.sqlite",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:577"
+  },
+  {
+    "fact": "结构化能力含 system.location，域为 System，操作为 Read",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:583"
+  },
+  {
+    "fact": "结构化能力含 ocr.recognition，域为 Media，操作为 Read",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:589"
+  },
+  {
+    "fact": "结构化能力含 fs.read 与 fs.write",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:598"
+  },
+  {
+    "fact": "结构化能力含 runtime.process 与 system.notifications.send",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:610"
+  },
+  {
+    "fact": "macOS 沙盒下容器外文件需用户选择文件夹授权（user-selected folder authorization），子进程仍受沙盒限制",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:626"
+  },
+  {
+    "fact": "macOS 非沙盒时 workspaceRoots 把物理根 / 映射为 VFS 的 /virtual/macos",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:639"
+  },
+  {
+    "fact": "macOS 下描述符追加 screen.capture 能力",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:645"
+  },
+  {
+    "fact": "入门要求只有通知一项，isRequired 为 true，初始状态为 Missing",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:666"
+  },
+  {
+    "fact": "非 iOS 与非 macOS 目标上 appleOnboardingRequirements 返回空列表",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:658"
+  },
+  {
+    "fact": "readFile 以 UTF-8 文本读文件",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:102"
+  },
+  {
+    "fact": "writeFile 在写入前自动创建父目录",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:143"
+  },
+  {
+    "fact": "deleteFile 删除目录时按 recursive 标志选择 remove_dir_all 或 remove_dir",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:175"
+  },
+  {
+    "fact": "moveFile 用 fs::rename 移动文件",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:213"
+  },
+  {
+    "fact": "复制目录时要求 recursive 标志，否则报错",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:230"
+  },
+  {
+    "fact": "用 GlobBuilder 按 pattern 匹配，并用 WalkBuilder 按 maxDepth 限制遍历深度",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:268"
+  },
+  {
+    "fact": "用 RegexMatcherBuilder 编译正则",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:348"
+  },
+  {
+    "fact": "以 BinaryDetection::quit 在 NUL 字节处停止，并以 maxResults 限制匹配数",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:359"
+  },
+  {
+    "fact": "用 CompressionMethod::Deflated 压缩",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:421"
+  },
+  {
+    "fact": "用 enclosed_name 校验 zip 条目路径",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:457"
+  },
+  {
+    "fact": "openFile 优先调用已注册的 opener 回调打开文件",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:477"
+  },
+  {
+    "fact": "macOS 上无 opener 时调用 open 命令打开文件",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:483"
+  },
+  {
+    "fact": "非 macOS 且无 opener 时报错，提示应用方未注册 Apple file opener",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:491"
+  },
+  {
+    "fact": "shareFile 在 macOS 上用 open -R 在 Finder 中揭示文件",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:503"
+  },
+  {
+    "fact": "iOS 上文件分享报错，要求由 Flutter 方 UI 发起",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:515"
+  },
+  {
+    "fact": "applePlatformName 在 iOS 下返回 ios，在 macOS 下返回 macos",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:690"
+  },
+  {
+    "fact": "appleHostPlatform 在 iOS 下返回 HostPlatform::Ios，在 macOS 下返回 HostPlatform::Macos",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:676"
+  },
+  {
+    "fact": "AppleTerminalHost 的 new 先以 processIsolation 判定进程是否处于 OsAppSandbox",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:32"
+  },
+  {
+    "fact": "沙盒下只注册一个 bash 适配器，且关闭 controlling TTY",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:38"
+  },
+  {
+    "fact": "非沙盒下注册 /bin/bash 与 /bin/zsh 两个登录 shell",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:42"
+  },
+  {
+    "fact": "非沙盒下默认 shell 取自 SHELL 环境变量，缺省为 /bin/zsh",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:47"
+  },
+  {
+    "fact": "沙盒下终端类型描述为 macOS sandbox PTY（without controlling TTY）",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:122"
+  },
+  {
+    "fact": "非沙盒下终端类型描述为 macOS native 登录 PTY，带作业控制",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:124"
+  },
+  {
+    "fact": "只接受 terminal 为 native 的请求，否则报 Unsupported macOS terminal 错误",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:70"
+  },
+  {
+    "fact": "hostForSession 按 ownsSession 查找会话，未知会话报 Unknown macOS terminal session 错误",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:83"
+  },
+  {
+    "fact": "createOrGetSession 使用 primary 解释器创建或复用会话",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:237"
+  },
+  {
+    "fact": "开启 arm64-runtime 特性时 terminal 为 arm64 的请求转交给 arm64 终端 Host",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:101"
+  },
+  {
+    "fact": "开启 arm64-runtime 特性时 macos-arm64- 前缀的会话 ID 转交给 arm64 终端 Host",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:176"
+  },
+  {
+    "fact": "开启 arm64-runtime 特性时 terminalType 为 shell 的类型会话转交给 arm64 终端 Host",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:247"
+  },
+  {
+    "fact": "executeHiddenCommand 使用 primary 解释器执行隐藏命令",
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:308"
+  },
+  {
+    "fact": "AppleWebVisitHost 的 visitWeb 通过临时 Chromium 会话访问网页",
+    "ref": "hosts/apple/src/tools/browser/mod.rs:28"
+  },
+  {
+    "fact": "浏览器自动化请求由内部 Host 的 executeBrowserTool 执行",
+    "ref": "hosts/apple/src/tools/browser/mod.rs:56"
+  },
+  {
+    "fact": "浏览器候选路径优先读 OPERIT_BROWSER_PATH 环境变量",
+    "ref": "hosts/apple/src/tools/browser/mod.rs:63"
+  },
+  {
+    "fact": "浏览器候选路径含 Chrome、Chrome Canary、Edge、Brave 与 Chromium 的 macOS 安装路径",
+    "ref": "hosts/apple/src/tools/browser/mod.rs:76"
+  },
+  {
+    "fact": "托管运行时 stdio 缓冲区为 64KB",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:16"
+  },
+  {
+    "fact": "托管运行时单帧下限为 4KB",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:17"
+  },
+  {
+    "fact": "Reveal 动作调用 open -R",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:118"
+  },
+  {
+    "fact": "Terminal 动作调用 open -a Terminal 打开目标所在目录",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:124"
+  },
+  {
+    "fact": "runtimeWorkspaceDir 为 Library/Application Support 下的 Operit2/managed_runtime，并自动建目录",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:141"
+  },
+  {
+    "fact": "Node 解析为 node，Python 解析为 python3 与 python",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:160"
+  },
+  {
+    "fact": "Uv 解析为 uv，Pnpm 解析为 pnpm",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:162"
+  },
+  {
+    "fact": "子进程 stdin、stdout 与 stderr 全部接成管道",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:189"
+  },
+  {
+    "fact": "托管运行时 stderr 缓冲超过 400 行时丢弃最旧行",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:222"
+  },
+  {
+    "fact": "托管运行时 stdout 与 stderr 读取任务以 managed-runtime-pipes 为名提交给 NativeHostRuntimeTaskSchedulerHost",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:229"
+  },
+  {
+    "fact": "一次性执行命令并返回 exitCode、stdout 与 stderr",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:258"
+  },
+  {
+    "fact": "小于 4KB 的协议行直接写 stdin 并换行，达到 4KB 的行拼成一帧写入",
+    "ref": "hosts/apple/src/tools/runtime/mod.rs:269"
+  },
+  {
+    "fact": "AppleRuntimeStorageHost 内部包装 NativeRuntimeStorageHost",
+    "ref": "hosts/apple/src/tools/storage/mod.rs:15"
+  },
+  {
+    "fact": "运行时存储通过 delegate_runtime_storage 宏委托给内部 storage",
+    "ref": "hosts/apple/src/tools/storage/mod.rs:19"
+  },
+  {
+    "fact": "defaultRuntimeRoot 为 Library/Application Support 下的 Operit2/runtime",
+    "ref": "hosts/apple/src/tools/storage/mod.rs:26"
+  },
+  {
+    "fact": "defaultWorkspaceRoot 为 Library/Application Support 下的 Operit2/workspaces",
+    "ref": "hosts/apple/src/tools/storage/mod.rs:33"
+  },
+  {
+    "fact": "Keychain 服务名为 Operit2.HostSecretStore",
+    "ref": "hosts/apple/src/tools/storage/mod.rs:80"
+  },
+  {
+    "fact": "readSecret 用 get_generic_password 读 Keychain，未找到（错误码 -25300）时返回 None",
+    "ref": "hosts/apple/src/tools/storage/mod.rs:50"
+  },
+  {
+    "fact": "writeSecret 用 set_generic_password 写 Keychain",
+    "ref": "hosts/apple/src/tools/storage/mod.rs:62"
+  },
+  {
+    "fact": "deleteSecret 用 delete_generic_password 删 Keychain，未找到时同样视为成功",
+    "ref": "hosts/apple/src/tools/storage/mod.rs:69"
+  },
+  {
+    "fact": "密钥只允许 ASCII 字母数字与 . _ -，空密钥或非法字符报错",
+    "ref": "hosts/apple/src/tools/storage/mod.rs:88"
+  },
+  {
+    "fact": "AppleSystemOperationHost 在 iOS 上通过 observeBatteryEventJson 接收应用方转发的电池事件",
+    "ref": "hosts/apple/src/tools/system/mod.rs:23"
+  },
+  {
+    "fact": "macOS 上用 plutil 读取 OperitDistributionType",
+    "ref": "hosts/apple/src/tools/system/mod.rs:41"
+  },
+  {
+    "fact": "返回 MacosPkg 包、universal 架构与 Immediate 安装时机",
+    "ref": "hosts/apple/src/tools/system/mod.rs:56"
+  },
+  {
+    "fact": "非 macOS 上返回 None",
+    "ref": "hosts/apple/src/tools/system/mod.rs:61"
+  },
+  {
+    "fact": "getSystemLanguageCode 用 CFLocaleCopyCurrent 查询当前区域",
+    "ref": "hosts/apple/src/tools/system/mod.rs:70"
+  },
+  {
+    "fact": "把区域标识中的下划线换成连字符",
+    "ref": "hosts/apple/src/tools/system/mod.rs:81"
+  },
+  {
+    "fact": "macOS 上调用 osascript 发送通知",
+    "ref": "hosts/apple/src/tools/system/mod.rs:100"
+  },
+  {
+    "fact": "iOS 上发送通知报错，要求走应用通知层",
+    "ref": "hosts/apple/src/tools/system/mod.rs:118"
+  },
+  {
+    "fact": "macOS 上用 defaults write 写系统设置",
+    "ref": "hosts/apple/src/tools/system/mod.rs:140"
+  },
+  {
+    "fact": "iOS 上修改系统设置报错，系统设置不可写",
+    "ref": "hosts/apple/src/tools/system/mod.rs:159"
+  },
+  {
+    "fact": "macOS 上用 defaults read 读系统设置",
+    "ref": "hosts/apple/src/tools/system/mod.rs:178"
+  },
+  {
+    "fact": "iOS 上读取系统设置报错，系统设置不可读",
+    "ref": "hosts/apple/src/tools/system/mod.rs:192"
+  },
+  {
+    "fact": "installApp 要求 Immediate 安装时机",
+    "ref": "hosts/apple/src/tools/system/mod.rs:207"
+  },
+  {
+    "fact": "installApp 在 macOS 上走 packages::install",
+    "ref": "hosts/apple/src/tools/system/mod.rs:211"
+  },
+  {
+    "fact": "iOS 上安装应用报错，应用安装对该 Host 不可用",
+    "ref": "hosts/apple/src/tools/system/mod.rs:216"
+  },
+  {
+    "fact": "uninstallApp 在 macOS 上走 packages::uninstall，非 macOS 报错并提示用系统应用设置",
+    "ref": "hosts/apple/src/tools/system/mod.rs:229"
+  },
+  {
+    "fact": "listInstalledApps 在 macOS 上走 packages::list，iOS 上报错称未暴露",
+    "ref": "hosts/apple/src/tools/system/mod.rs:237"
+  },
+  {
+    "fact": "startApp 在 macOS 上走 packages::start",
+    "ref": "hosts/apple/src/tools/system/mod.rs:255"
+  },
+  {
+    "fact": "iOS 上启动应用报错，应用启动对该 Host 不可用",
+    "ref": "hosts/apple/src/tools/system/mod.rs:259"
+  },
+  {
+    "fact": "stopApp 在 macOS 上走 packages::stop",
+    "ref": "hosts/apple/src/tools/system/mod.rs:273"
+  },
+  {
+    "fact": "iOS 上停止应用报错，应用停止对该 Host 不可用",
+    "ref": "hosts/apple/src/tools/system/mod.rs:277"
+  },
+  {
+    "fact": "getNotifications 在两个 Apple 平台上都报错，称通知历史不对第三方 Host 暴露",
+    "ref": "hosts/apple/src/tools/system/mod.rs:290"
+  },
+  {
+    "fact": "getAppUsageTime 要求 sinceHours 与 limit 大于 0",
+    "ref": "hosts/apple/src/tools/system/mod.rs:299"
+  },
+  {
+    "fact": "macOS 上查询应用使用时长报错，称历史前台用量不暴露，Screen Time 需单独授权的集成",
+    "ref": "hosts/apple/src/tools/system/mod.rs:310"
+  },
+  {
+    "fact": "两个 Apple 平台上查询设备定位都报错，要求由 Flutter 方 UI 请求定位",
+    "ref": "hosts/apple/src/tools/system/mod.rs:337"
+  },
+  {
+    "fact": "设备名作 deviceId，制造商固定为 Apple",
+    "ref": "hosts/apple/src/tools/system/mod.rs:467"
+  },
+  {
+    "fact": "macOS 上以 uname -m 取机型、以 sw_vers 取系统版本",
+    "ref": "hosts/apple/src/tools/system/mod.rs:448"
+  },
+  {
+    "fact": "iOS 上机型固定为 ios、系统版本为空",
+    "ref": "hosts/apple/src/tools/system/mod.rs:454"
+  },
+  {
+    "fact": "macOS 上用 screencapture -x 截图到临时路径",
+    "ref": "hosts/apple/src/tools/system/mod.rs:349"
+  },
+  {
+    "fact": "iOS 上截图报错，要求由 Flutter 方 UI 请求截图",
+    "ref": "hosts/apple/src/tools/system/mod.rs:366"
+  },
+  {
+    "fact": "macOS 上生成 Swift 脚本调用 Vision 的 VNRecognizeTextRequest 做 OCR",
+    "ref": "hosts/apple/src/tools/system/mod.rs:398"
+  },
+  {
+    "fact": "语言映射为 Latin 对 en-US、Chinese 对 zh-Hans、Japanese 对 ja-JP、Korean 对 ko-KR",
+    "ref": "hosts/apple/src/tools/system/mod.rs:388"
+  },
+  {
+    "fact": "iOS 上 OCR 报错，要求由 Flutter 方 UI 请求",
+    "ref": "hosts/apple/src/tools/system/mod.rs:431"
+  },
+  {
+    "fact": "iOS 电池快照只接受 domain 为 host 且 platform 为 ios 的事件",
+    "ref": "hosts/apple/src/tools/system/battery.rs:8"
+  },
+  {
+    "fact": "电池事件主题 system.battery.low 与 system.battery.okay 取 level 与 charging 字段",
+    "ref": "hosts/apple/src/tools/system/battery.rs:13"
+  },
+  {
+    "fact": "电源事件主题 system.power.connected 与 system.power.disconnected 取 batteryLevel 与 connected 字段",
+    "ref": "hosts/apple/src/tools/system/battery.rs:13"
+  },
+  {
+    "fact": "电量只接受 0 到 100 之间的有限值并四舍五入",
+    "ref": "hosts/apple/src/tools/system/battery.rs:20"
+  },
+  {
+    "fact": "电量或充电状态缺失时 BatterySnapshot 的 value 返回 (-1, false)",
+    "ref": "hosts/apple/src/tools/system/battery.rs:30"
+  },
+  {
+    "fact": "iOS 上 observe_ios_event 把编码后的事件写入 IOS_BATTERY 静态快照",
+    "ref": "hosts/apple/src/tools/system/battery.rs:42"
+  },
+  {
+    "fact": "macOS 上运行 pmset -g batt 并解析输出",
+    "ref": "hosts/apple/src/tools/system/battery.rs:62"
+  },
+  {
+    "fact": "只认 charging、charged 与 finishing charge 为充电中",
+    "ref": "hosts/apple/src/tools/system/battery.rs:89"
+  },
+  {
+    "fact": "list 扫描用户 Applications 与 /Applications，含系统应用时追加 /System/Applications 与 CoreServices 应用目录",
+    "ref": "hosts/apple/src/tools/system/packages.rs:53"
+  },
+  {
+    "fact": "scan 遍历深度超过 4 时停止",
+    "ref": "hosts/apple/src/tools/system/packages.rs:20"
+  },
+  {
+    "fact": "scan 用 plutil 读取 CFBundleIdentifier，读不到时用 bundle 路径作键",
+    "ref": "hosts/apple/src/tools/system/packages.rs:31"
+  },
+  {
+    "fact": "start 用 open -a 启动解析出的应用路径",
+    "ref": "hosts/apple/src/tools/system/packages.rs:92"
+  },
+  {
+    "fact": "stop 先查 System Events 中的运行进程，未运行则报错",
+    "ref": "hosts/apple/src/tools/system/packages.rs:99"
+  },
+  {
+    "fact": "uninstall 拒绝卸载 /System 与 /Library 下的受保护系统应用",
+    "ref": "hosts/apple/src/tools/system/packages.rs:117"
+  },
+  {
+    "fact": "uninstall 拒绝卸载正在运行的 Host 自身",
+    "ref": "hosts/apple/src/tools/system/packages.rs:123"
+  },
+  {
+    "fact": "uninstall 通过 Finder 把应用移到废纸篓",
+    "ref": "hosts/apple/src/tools/system/packages.rs:127"
+  },
+  {
+    "fact": "install 接受 .app 时用 Finder 的 duplicate 复制到 /Applications",
+    "ref": "hosts/apple/src/tools/system/packages.rs:159"
+  },
+  {
+    "fact": "install 复制 .app 成功后把 installState 标记为 Completed",
+    "ref": "hosts/apple/src/tools/system/packages.rs:169"
+  },
+  {
+    "fact": "install 接受 .pkg、.mpkg 或 .dmg 时打开安装器并标记 InstallerOpened",
+    "ref": "hosts/apple/src/tools/system/packages.rs:180"
+  },
+  {
+    "fact": "install 拒绝其他类型并列出支持的安装器类型",
+    "ref": "hosts/apple/src/tools/system/packages.rs:173"
+  },
+  {
+    "fact": "AppleLocalInferenceHost 把推理交给 AppleLocalInferenceExecutor 回调执行",
+    "ref": "hosts/apple/src/tools/local_inference/mod.rs:15"
+  },
+  {
+    "fact": "transcribeLocalSpeech 以方法名 transcribeLocalSpeech 调用执行器",
+    "ref": "hosts/apple/src/tools/local_inference/mod.rs:37"
+  },
+  {
+    "fact": "synthesizeLocalSpeech 以方法名 synthesizeLocalSpeech 调用执行器",
+    "ref": "hosts/apple/src/tools/local_inference/mod.rs:44"
+  },
+  {
+    "fact": "把请求序列化为 JSON 发给执行器，再把返回的 JSON 字符串解码为响应",
+    "ref": "hosts/apple/src/tools/local_inference/mod.rs:64"
+  },
+  {
+    "fact": "AppleTtsSynthesisHost 由 AppleTtsSynthesizer 回调构造",
+    "ref": "hosts/apple/src/tools/tts/mod.rs:28"
+  },
+  {
+    "fact": "AppleTtsPlaybackHost 由 AppleTtsPlaybackController 回调构造",
+    "ref": "hosts/apple/src/tools/tts/mod.rs:34"
+  },
+  {
+    "fact": "AppleTtsPlaybackHost 的 supportsSystemSpeech 固定返回 true",
+    "ref": "hosts/apple/src/tools/tts/mod.rs:67"
+  },
+  {
+    "fact": "playAudio 与 speakText 分别映射为 play 与 speak 命令",
+    "ref": "hosts/apple/src/tools/tts/mod.rs:74"
+  },
+  {
+    "fact": "pauseSpeech 与 resumeSpeech 分别映射为 pause 与 resume 命令",
+    "ref": "hosts/apple/src/tools/tts/mod.rs:82"
+  },
+  {
+    "fact": "stopSpeech 与 speechState 分别映射为 stop 与 status 命令",
+    "ref": "hosts/apple/src/tools/tts/mod.rs:92"
+  },
+  {
+    "fact": "AppleHttpHost 内部持有 NativeHttpHost",
+    "ref": "hosts/apple/src/tools/http/mod.rs:15"
+  },
+  {
+    "fact": "imageDelivery 委托给 inner",
+    "ref": "hosts/apple/src/tools/http/mod.rs:62"
+  },
+  {
+    "fact": "executeHttpRequest 委托给 inner",
+    "ref": "hosts/apple/src/tools/http/mod.rs:68"
+  },
+  {
+    "fact": "openHttpResponseStream 委托给 inner",
+    "ref": "hosts/apple/src/tools/http/mod.rs:27"
+  },
+  {
+    "fact": "openWebSocket 委托给 inner",
+    "ref": "hosts/apple/src/tools/http/mod.rs:104"
+  },
+  {
+    "fact": "AppleAudioPlaybackHost 由 AppleAudioPlayer 与 AppleMusicPlayer 两个回调构造",
+    "ref": "hosts/apple/src/tools/audio/mod.rs:27"
+  },
+  {
+    "fact": "AppleMusicCommand 含 Play、Pause、Resume、Stop、Seek、SetVolume 与 Status 七个变体",
+    "ref": "hosts/apple/src/tools/audio/mod.rs:14"
+  },
+  {
+    "fact": "playMusic、pauseMusic 与 resumeMusic 分别映射为 Play、Pause 与 Resume",
+    "ref": "hosts/apple/src/tools/audio/mod.rs:45"
+  },
+  {
+    "fact": "stopMusic 与 seekMusic 分别映射为 Stop 与 Seek",
+    "ref": "hosts/apple/src/tools/audio/mod.rs:55"
+  },
+  {
+    "fact": "setMusicVolume 与 musicStatus 分别映射为 SetVolume 与 Status",
+    "ref": "hosts/apple/src/tools/audio/mod.rs:62"
+  },
+  {
+    "fact": "playAudio 直接调用 player 回调播放指定路径",
+    "ref": "hosts/apple/src/tools/audio/mod.rs:37"
+  },
+  {
+    "fact": "AppleBluetoothHost 把蓝牙操作转交给 AppleBluetoothController 回调",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:9"
+  },
+  {
+    "fact": "supportsClassicListening 固定返回 false",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:38"
+  },
+  {
+    "fact": "requestBluetoothPermission、bluetoothState 与 requestEnableBluetooth 分别发 request_permission、state 与 request_enable 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:45"
+  },
+  {
+    "fact": "listBluetoothBondedDevices 发 bonded_devices 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:53"
+  },
+  {
+    "fact": "scanBluetoothDevices 发 scan 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:59"
+  },
+  {
+    "fact": "经典蓝牙连接与监听分别发 classic_connect 与 classic_listen 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:70"
+  },
+  {
+    "fact": "bluetoothAccept 发 classic_accept 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:80"
+  },
+  {
+    "fact": "bluetoothSend 发 classic_send 命令，参数含 sessionId、text 与 dataBase64",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:89"
+  },
+  {
+    "fact": "bluetoothClose 发 close 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:117"
+  },
+  {
+    "fact": "BLE 连接与发现服务分别发 ble_connect 与 ble_discover_services 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:133"
+  },
+  {
+    "fact": "BLE 读特征与写特征分别发 ble_read_characteristic 与 ble_write_characteristic 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:152"
+  },
+  {
+    "fact": "BLE 写后读发 ble_write_and_read_characteristic 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:165"
+  },
+  {
+    "fact": "BLE 订阅特征发 ble_subscribe_characteristic 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:175"
+  },
+  {
+    "fact": "bluetoothBleReadNotifications 发 ble_read_notifications 命令",
+    "ref": "hosts/apple/src/tools/bluetooth/mod.rs:183"
+  },
+  {
+    "fact": "Apple 服务发现走 Bonjour 守护进程，遵循系统本地网络权限",
+    "ref": "hosts/apple/src/service_discovery.rs:1"
+  },
+  {
+    "fact": "AppleServiceDiscoveryHost 按服务类型缓存共享 Browser",
+    "ref": "hosts/apple/src/service_discovery.rs:137"
+  },
+  {
+    "fact": "serviceKind 要求服务类型以 .local. 结尾",
+    "ref": "hosts/apple/src/service_discovery.rs:160"
+  },
+  {
+    "fact": "DNS-SD 错误码 -65570 表示本地网络访问被拒绝",
+    "ref": "hosts/apple/src/service_discovery.rs:150"
+  },
+  {
+    "fact": "decodeTxt 按长度前缀切分 TXT 记录",
+    "ref": "hosts/apple/src/service_discovery.rs:179"
+  },
+  {
+    "fact": "TXT 记录条目以 key=value 形式拆分，缺等号时报错",
+    "ref": "hosts/apple/src/service_discovery.rs:189"
+  },
+  {
+    "fact": "encodeTxt 以单字节长度前缀编码每条 TXT 属性",
+    "ref": "hosts/apple/src/service_discovery.rs:200"
+  },
+  {
+    "fact": "同时解码 IPv4（family 2）与 IPv6（family 30）的 Darwin 地址",
+    "ref": "hosts/apple/src/service_discovery.rs:223"
+  },
+  {
+    "fact": "BrowserState 的 snapshot 在守护进程失败时返回错误而不返回空设备列表",
+    "ref": "hosts/apple/src/service_discovery.rs:36"
+  },
+  {
+    "fact": "Worker 启动时以 recv_timeout 等待最长 3 秒的操作初始化",
+    "ref": "hosts/apple/src/service_discovery.rs:76"
+  },
+  {
+    "fact": "discover 要求 timeoutMs 为正，超时为 0 时报错",
+    "ref": "hosts/apple/src/service_discovery.rs:666"
+  },
+  {
+    "fact": "discover 刷新浏览器后等待 timeoutMs 再返回快照",
+    "ref": "hosts/apple/src/service_discovery.rs:669"
+  },
+  {
+    "fact": "已有记录通过 callback(record) 立即回放给订阅者",
+    "ref": "hosts/apple/src/service_discovery.rs:700"
+  },
+  {
+    "fact": "取消订阅时 Drop 实现只移除本次订阅的回调",
+    "ref": "hosts/apple/src/service_discovery.rs:124"
+  },
+  {
+    "fact": "supportsAdvertisement 返回 true",
+    "ref": "hosts/apple/src/service_discovery.rs:630"
+  },
+  {
+    "fact": "调用 DNSServiceRegister 向 Bonjour 守护进程注册服务",
+    "ref": "hosts/apple/src/service_discovery.rs:583"
+  },
+  {
+    "fact": "localAddresses 委托给 operit_host_native_common 的 localNetworkAddresses",
+    "ref": "hosts/apple/src/service_discovery.rs:625"
+  },
+  {
+    "fact": "hosts/macos 把 AppleFileSystemHost 重命名为 MacosFileSystemHost 导出",
+    "ref": "hosts/macos/src/lib.rs:20"
+  },
+  {
+    "fact": "MacosServiceDiscoveryHost 是 AppleServiceDiscoveryHost 的重命名",
+    "ref": "hosts/macos/src/lib.rs:4"
+  },
+  {
+    "fact": "浏览器、托管运行时与网页访问 Host 只在 macOS 下以 Macos* 名导出",
+    "ref": "hosts/macos/src/lib.rs:37"
+  },
+  {
+    "fact": "MacosPluginSdkIpcHost 是 ApplePluginSdkIpcHost 的重命名",
+    "ref": "hosts/macos/src/lib.rs:33"
+  },
+  {
+    "fact": "开启 daemon 特性时 macOS 壳包含 unix/daemon.rs 作为 daemon 模块",
+    "ref": "hosts/macos/src/lib.rs:7"
+  },
+  {
+    "fact": "createRuntimeHostManager 接收 runtimeRoot、workspaceRoot 与外部传入的 webVisitHost",
+    "ref": "hosts/macos/src/lib.rs:45"
+  },
+  {
+    "fact": "运行时存储 Host 由 MacosRuntimeStorageHost::new(runtimeRoot, workspaceRoot) 创建",
+    "ref": "hosts/macos/src/lib.rs:51"
+  },
+  {
+    "fact": "runtimeStorageWriteHost、runtimeSqliteHost 与 hostSecretStore 都是 runtimeStorageHost 的 clone",
+    "ref": "hosts/macos/src/lib.rs:53"
+  },
+  {
+    "fact": "基础 Host 由 withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts 一次注册，含文件系统、网页访问、HTTP、系统操作、托管运行时、运行时存储与 SQLite 存储",
+    "ref": "hosts/macos/src/lib.rs:58"
+  },
+  {
+    "fact": "通过 withHostSecretStore 注册密钥库",
+    "ref": "hosts/macos/src/lib.rs:64"
+  },
+  {
+    "fact": "通过 withWebSocketHost 复用 MacosHttpHost 作 WebSocket Host",
+    "ref": "hosts/macos/src/lib.rs:65"
+  },
+  {
+    "fact": "注册 NativeHttpServerHost、NativeTcpHost 与 NativeSerialPortHost",
+    "ref": "hosts/macos/src/lib.rs:67"
+  },
+  {
+    "fact": "archiveStagingHost 由 NativeArchiveStagingHost::new(runtimeRoot) 创建",
+    "ref": "hosts/macos/src/lib.rs:48"
+  },
+  {
+    "fact": "通过 withArchiveStagingHost 注册归档暂存 Host",
+    "ref": "hosts/macos/src/lib.rs:69"
+  },
+  {
+    "fact": "通过 withRuntimeStorageWriteHost 注册存储写入 Host",
+    "ref": "hosts/macos/src/lib.rs:70"
+  },
+  {
+    "fact": "注册 MacosHostRuntimeEventHost、MacosHostRuntimeEventSchedulerHost 与 MacosHostJavaScriptRuntimeHost",
+    "ref": "hosts/macos/src/lib.rs:72"
+  },
+  {
+    "fact": "以 AppleServiceDiscoveryHost::default() 注册服务发现 Host",
+    "ref": "hosts/macos/src/lib.rs:74"
+  },
+  {
+    "fact": "通过 withHostRuntimeTaskSchedulerHost 注册任务调度器 Host",
+    "ref": "hosts/macos/src/lib.rs:75"
+  },
+  {
+    "fact": "通过 withPluginSdkIpcHost 注册插件 SDK IPC Host",
+    "ref": "hosts/macos/src/lib.rs:76"
+  }
+]
