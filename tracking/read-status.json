@@ -1,0 +1,118 @@
+{
+ "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
+ "updated": "2026-11-11 06:10 UTC",
+ "files": {
+  "README.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-overview.md",
+   "lines": 262
+  },
+  "README-zh.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/intro-not-what.md",
+   "lines": 262
+  },
+  "docs/core-node-space-binding-architecture.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-routing.md",
+   "lines": 494
+  },
+  "docs/release-versioning.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/intro-preview.md",
+   "lines": 446
+  },
+  "docs/release-notes/2.0.0-preview.22-build28.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/intro-preview.md",
+   "lines": 96
+  },
+  "docs/release-notes/2.0.0-preview.27-build33.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/intro-preview.md",
+   "lines": 15
+  },
+  "docs/device-space-lan-discovery.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-space.md",
+   "lines": 139
+  },
+  "apps/flutter/app/web/README.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/intro-quickstart.md",
+   "lines": 55
+  },
+  "core/CRATE_BOUNDARIES.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-corenode.md",
+   "lines": 188
+  },
+  "core/crates/README.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-corenode.md",
+   "lines": 26
+  },
+  "docs/sync-architecture.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-sync.md",
+   "lines": 131
+  },
+  "core/crates/persistence/store/src/CoreNodeBindingStore.rs": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-binding.md",
+   "lines": 481
+  },
+  "docs/transaction-model.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-sync.md",
+   "lines": 189
+  },
+  "docs/transaction-sync-contract.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-sync.md",
+   "lines": 75
+  },
+  "docs/device-net-routing-distribution.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-routing.md",
+   "lines": 241
+  },
+  "docs/link-access-architecture.md": {
+   "status": "complete",
+   "batch": "batch-01",
+   "date": "2026-11-11",
+   "evidence": "review/batch-01/arch-routing.md",
+   "lines": 252
+  }
+ }
+}

@@ -1,0 +1,4 @@
+README.md
+docs/release-versioning.md
+docs/release-notes/2.0.0-preview.22-build28.md
+docs/release-notes/2.0.0-preview.27-build33.md

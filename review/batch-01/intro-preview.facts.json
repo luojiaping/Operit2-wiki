@@ -1,0 +1,170 @@
+[
+  {
+    "fact": "Operit2 当前处于 Preview Release 阶段。",
+    "ref": "README.md:4"
+  },
+  {
+    "fact": "预览阶段底层结构、数据格式、插件契约与跨设备工作流仍会发生 breaking changes。",
+    "ref": "README.md:14"
+  },
+  {
+    "fact": "Operit2 的能力在各平台不完全相同，是否可执行取决于目标节点的 Host 描述、系统权限、已装服务与当前用户批准。",
+    "ref": "README.md:39"
+  },
+  {
+    "fact": "不得用默认开发 token 对公网监听。",
+    "ref": "README.md:53"
+  },
+  {
+    "fact": "插件开发入口接口（Rust SDK、TypeScript 声明、codegen）仍在演进。",
+    "ref": "README.md:64"
+  },
+  {
+    "fact": "运行时、Host 能力、权限、兼容版本与状态作用域声明将继续细化，跨设备可移植性仍是主要开发重点，插件及依赖须在目标平台验证。",
+    "ref": "README.md:66"
+  },
+  {
+    "fact": "Server 是未来的部署形态与 Host 方向，当前仓库没有可直接发布的完整 Server 产品。",
+    "ref": "README.md:103"
+  },
+  {
+    "fact": "仓库包含多平台 Host 适配路径，但能构建不等于跨设备互操作已验证。",
+    "ref": "README.md:105"
+  },
+  {
+    "fact": "当前焦点是个人设备空间，数千节点调度未验证，企业组织治理不是产品目标；Rust 本身不保证无资源泄漏。",
+    "ref": "README.md:148"
+  },
+  {
+    "fact": "标记为 target、plan 或 direction of evolution 的架构文档不代表所有平台已实现；以源码、命令帮助输出、构建结果与目标平台运行时结果为准。",
+    "ref": "README.md:246"
+  },
+  {
+    "fact": "版本格式兼容 SemVer：stable 为 2.0.0，preview 为 2.0.0-preview.1，rc 为 2.0.0-rc.1，dev 为 2.0.0-dev.20260619。",
+    "ref": "docs/release-versioning.md:10"
+  },
+  {
+    "fact": "Git tag 使用同一版本加前缀 v，例如 v2.0.0-preview.1。",
+    "ref": "docs/release-versioning.md:19"
+  },
+  {
+    "fact": "Build metadata 允许存在且不改变更新顺序。",
+    "ref": "docs/release-versioning.md:24"
+  },
+  {
+    "fact": "不得把 build metadata 用作发布计数器，公开 preview 构建用 prerelease 标识。",
+    "ref": "docs/release-versioning.md:30"
+  },
+  {
+    "fact": "版本排序为 2.0.0-dev.20260619 < 2.0.0-preview.1 < 2.0.0-preview.2 < 2.0.0-rc.1 < 2.0.0；同 major.minor.patch 下 stable 新于 prerelease。",
+    "ref": "docs/release-versioning.md:37"
+  },
+  {
+    "fact": "更新通道由当前已装版本派生：stable 版本走 stable channel，prerelease 版本走 preview channel。",
+    "ref": "docs/release-versioning.md:47"
+  },
+  {
+    "fact": "Stable channel 只接受 stable GitHub releases；Preview channel 接受 prerelease 与 stable GitHub releases。",
+    "ref": "docs/release-versioning.md:51"
+  },
+  {
+    "fact": "Release tag 与 GitHub prerelease 标志必须一致：preview 与 rc 对应 true，stable 对应 false。",
+    "ref": "docs/release-versioning.md:60"
+  },
+  {
+    "fact": "Draft releases 被更新器忽略。",
+    "ref": "docs/release-versioning.md:65"
+  },
+  {
+    "fact": "首次公开 preview 使用 v2.0.0-preview.1。",
+    "ref": "docs/release-versioning.md:69"
+  },
+  {
+    "fact": "首次 stable 发布使用 v2.0.0。",
+    "ref": "docs/release-versioning.md:75"
+  },
+  {
+    "fact": "发布包文件名格式为 operit2-<product>-<platform>-<architecture>-<release-version>.<extension>。",
+    "ref": "docs/release-versioning.md:87"
+  },
+  {
+    "fact": "发布包不附带单独的 checksum 文件。",
+    "ref": "docs/release-versioning.md:113"
+  },
+  {
+    "fact": "更新发现从最近 30 个 releases 懒加载，只在当前页无兼容包时加载更老页面。",
+    "ref": "docs/release-versioning.md:160"
+  },
+  {
+    "fact": "选中的版本只在新于已装版本时才提供，更新发现不降级已装应用。",
+    "ref": "docs/release-versioning.md:166"
+  },
+  {
+    "fact": "发布版本来源是 apps/cli/Cargo.toml 与 core/crates/runtime/application/Cargo.toml 的 package.version，两值必须相同且不得含 build metadata；CLI 用其作 cliVersion，App 从 operit-runtime 暴露 coreVersion。",
+    "ref": "docs/release-versioning.md:177"
+  },
+  {
+    "fact": "Flutter 平台版本与 Operit2 发布版本分离：apps/flutter/app/pubspec.yaml 的 version 为 major.minor.patch+buildNumber。",
+    "ref": "docs/release-versioning.md:182"
+  },
+  {
+    "fact": "Flutter major.minor.patch 必须与 Operit2 发布版本一致；buildNumber 只是 Android、Windows、Linux 与 macOS 构建的平台包元数据。",
+    "ref": "docs/release-versioning.md:191"
+  },
+  {
+    "fact": "App 与 full 构建成功后 buildNumber 加 1；CLI-only 构建不改 buildNumber。",
+    "ref": "docs/release-versioning.md:193"
+  },
+  {
+    "fact": "构建发布脚本是 tools/release/build_release.py。",
+    "ref": "docs/release-versioning.md:209"
+  },
+  {
+    "fact": "publish_dist.py 只上传已 staged 在 tools/release/dist 的文件，不重新构建。",
+    "ref": "docs/release-versioning.md:239"
+  },
+  {
+    "fact": "更新器实现在 core/crates/foundation/util/src/GithubReleaseUtil.rs。",
+    "ref": "docs/release-versioning.md:397"
+  },
+  {
+    "fact": "App/CLI 发布版本不控制 Core 或 Edge 的配对、路由与同步。",
+    "ref": "docs/release-versioning.md:444"
+  },
+  {
+    "fact": "release notes 之一是 2.0.0-preview.22 · Apple Build 28，对比基线为 Build 27 / 2.0.0-preview.21。",
+    "ref": "docs/release-notes/2.0.0-preview.22-build28.md:3"
+  },
+  {
+    "fact": "preview.22 本次二进制提交为 72c6240b8abdb43235622c1c7891057783e6ef97，Apple 版本 2.0.0，Build 28。",
+    "ref": "docs/release-notes/2.0.0-preview.22-build28.md:4"
+  },
+  {
+    "fact": "preview.22 的内容用于两端 TestFlight 的测试内容，不含 CI、测试维护及其他平台专属改动。",
+    "ref": "docs/release-notes/2.0.0-preview.22-build28.md:5"
+  },
+  {
+    "fact": "preview.22 附代码核对依据表，逐项列出变更对应的提交与文件。",
+    "ref": "docs/release-notes/2.0.0-preview.22-build28.md:79"
+  },
+  {
+    "fact": "release notes 之二是 Operit2 2.0.0-preview.27 · Apple build 33。",
+    "ref": "docs/release-notes/2.0.0-preview.27-build33.md:1"
+  },
+  {
+    "fact": "preview.27 新增构建配置 OPERIT_ARM64_WASM，默认 OFF。",
+    "ref": "docs/release-notes/2.0.0-preview.27-build33.md:4"
+  },
+  {
+    "fact": "preview.27 的 Wasm 关闭构建运行时 CTest 40/40 通过。",
+    "ref": "docs/release-notes/2.0.0-preview.27-build33.md:10"
+  },
+  {
+    "fact": "preview.27 声明上述结果不代表原始绘图脚本的完整耗时已得到验证。",
+    "ref": "docs/release-notes/2.0.0-preview.27-build33.md:15"
+  },
+  {
+    "fact": "docs/release-notes/ 目录下只有两份文件：2.0.0-preview.22-build28.md 与 2.0.0-preview.27-build33.md",
+    "ref": "docs/release-notes/2.0.0-preview.22-build28.md:1"
+  }
+]

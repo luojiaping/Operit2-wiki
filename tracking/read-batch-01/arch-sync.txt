@@ -1,0 +1,3 @@
+docs/sync-architecture.md
+docs/transaction-model.md
+docs/transaction-sync-contract.md
