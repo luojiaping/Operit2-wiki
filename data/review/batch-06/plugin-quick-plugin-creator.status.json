@@ -1,0 +1,1 @@
+{"issue":65,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"QuickPluginCreator 入口只准备 PackageBuilder 与 operit_editor 并把需求填为聊天草稿，不自动生成源码；现场插件的安装、测试与发布按 operit_editor 命令流程走。","updated":"2026-11-11"}

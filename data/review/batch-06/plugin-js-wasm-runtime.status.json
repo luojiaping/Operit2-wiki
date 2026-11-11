@@ -1,0 +1,1 @@
+{"issue":60,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"JS/TS 与 Wasm 运行时：QuickJS 类型声明、ToolPkg.wasm 的 JS API、wasmi Rust 宿主、归档加载与注册桥。","updated":"2026-11-11"}
