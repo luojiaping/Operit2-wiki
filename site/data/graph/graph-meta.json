@@ -1,8 +1,8 @@
 {
-  "built": "2026-11-12",
+  "built": "2026-11-11",
   "nodes": 139,
-  "edges": 576,
+  "edges": 580,
   "isolated_nodes": 0,
-  "bridge_nodes": 5,
+  "bridge_nodes": 8,
   "source": "outline-v1.yaml + 已写正文交叉引用（确定性生成）"
 }
