@@ -90,3 +90,10 @@
 - 正文引用同口径复核另清零 392 处：第一轮 176 处（core-plugin-sdk 55、core-runtime-services 78、core-plugin-theme 37、agent-compaction 4、agent-loop-overview 2，含 theme 拆分时纠正一处锚点错误 :1054 → :1018）；第二轮 216 处（core-plugin-codegen 126、core-node-runtime 46、core-runtime-data 23、core-application 8、core-plugin-js-bridge 6、core-command 5、core-node-peer-link 2，均为修订前已存在的残留）。修法：方法名在窗口内的改写为「Type 的 `method`」，其余去反引号改 plain 文本。
 - 核验：父级自写脚本（facts 与正文逐处查「反引号符号须在同行任一引用 ±5 行内」）全批 facts 2835 条、bad 0；lint.py 两批各硬失败 0、警告 0。
 - 状态：11 页仍为 review-pending，待用户复审；首页统计随部署更新为 42 页知识页面、31 页已发布、5210 条原子事实、5 个编译批次。
+
+## 2026-11-11 · batch-03/04 第 2 轮复核（11 页）
+
+- 另一审核 agent 于 2026-11-11 22:06–22:07（CST）在 11 个 Issue 各留一条第 2 轮复核意见（核对对象 wiki 77e3b7ca，对照上游 main 053c6686；原文存 tracking/reviews-batch-03-round2/issue-22.md～issue-32.md、tracking/reviews-batch-04-round2/issue-36.md～issue-41.md）。
+- 结论：9 页「本轮已列问题均已修复，未发现新的阻断问题」（#24、#26、#27、#28、#30、#32、#36、#40、#41）；2 页「仍需修改」，均为 P2 展示问题——正文时效标注里的泛型类型写成普通文本，站点 innerHTML 渲染会把尖括号部分当 HTML 标签丢掉：#22（core-plugin-sdk 正文 :12、:220 的 filesystem: Arc<VisualFileSystem>、Arc<VisualFileSystem>、Arc<dyn FileSystemHost>）、#31（core-proxy 正文 :124 的 Option<T>、:151 的 Arc<VisualFileSystem>）。
+- P2 修复：两页 8 处泛型全部恢复内联代码标记；逐项核验——Arc<VisualFileSystem> 在上游 PackageManager.rs:37 逐字存在，proxy 上游 lib.rs:283 返回 Arc<operit_vfs::VisualFileSystem::VisualFileSystem>（简写形式按复核意见原文），Option<T> → T? 映射在基线 dart-codegen lib.rs:1516 核实（single_generic_arg 取 Option 内层、可空加 ?）。事实数不变（全站 5210），lint 0/0；父级脚本余 6 处均为上述已逐项核验的上游符号，不按基线窗口判坏。提交 b3ffe1c＋生成数据同步 e7911ba，部署 gh-pages cf39b39；#22、#31 各留交付留言（comment id 6798144728、6798145257）。
+- 注意：复核意见以 luojiaping 账号发出，但正文不含批准词，watcher 不会翻状态；翻 approved 仍须用户主聊明确指示。9 页是否先发布，待用户拍板。
