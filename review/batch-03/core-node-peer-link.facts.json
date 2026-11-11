@@ -1,0 +1,402 @@
+[
+  {
+    "fact": "本 crate 只做传输契约，不做配对、授权、路由、持久化或全局 Host 查找。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:3"
+  },
+  {
+    "fact": "`DEFAULT_MAX_PEER_MESSAGE_BYTES` 为 4 MiB，是普通应用嵌入的默认资源上限。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:14"
+  },
+  {
+    "fact": "`MESSAGE_TOO_LARGE_ERROR` 为 \"peer message exceeds limit\"，调用方将其归类为容量上限而非鉴权故障。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:18"
+  },
+  {
+    "fact": "`PeerTransport` 选择 Host 传输方式而非另一种应用协议，含 `Http`、`WebSocket`、`Tcp`、`Serial`、`Bluetooth` 五种载体。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:23"
+  },
+  {
+    "fact": "`PeerListenerCapabilities` 列出独立可用的入站 peer 传输与 LAN 发现，含 `transports` 与 `discoveryAdvertisement` 两个字段。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:33"
+  },
+  {
+    "fact": "`PeerEndpoint` 含 `nodeId` 与 `address`，`nodeId` 只是寻址元数据，绝不是身份或授权证明。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:41"
+  },
+  {
+    "fact": "`PeerMessage` 是 untagged 枚举，分 `Request` 与 `Response` 两向，保留已有的 Call、Watch、Push 操作信封。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:50"
+  },
+  {
+    "fact": "PeerMessage 的 `decode` 先由 `MessageDirection::read` 一次判定方向，不做推测性请求解码。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:57"
+  },
+  {
+    "fact": "`decodeOwned` 直接从单个自有传输帧保留二进制参数。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:65"
+  },
+  {
+    "fact": "MessageDirection 的 `read` 扫描 MessagePack 的 `body` 字段，再查 `result` 字段：存在为 Response，不存在为 Request。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:83"
+  },
+  {
+    "fact": "`PeerConnection` 要求实现保持消息顺序，并在 receive 取消后保留未完整输入。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:96"
+  },
+  {
+    "fact": "PeerConnection 的 `remoteAddress` 默认返回 None，返回的是实际接入来源，不是客户端自报的身份或地址。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:101"
+  },
+  {
+    "fact": "`receive` 返回 None 表示连接已结束，而不是当前无消息。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:107"
+  },
+  {
+    "fact": "`close` 是幂等的，会唤醒等待中的 I/O；丢弃连接也必须释放 Host 资源。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:109"
+  },
+  {
+    "fact": "`PeerListener` 只接受连接，接受连接绝不意味着鉴权或配对成功。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:114"
+  },
+  {
+    "fact": "PeerListener 的 `localAddress` 返回实际绑定的 socket，含 Host 选定的端口；非网络传输没有 socket 地址。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:117"
+  },
+  {
+    "fact": "`accept` 返回 None 表示监听器已关闭；已接受连接的远端身份仍是不可信的运行时输入。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:120"
+  },
+  {
+    "fact": "`PeerLink` 是传输契约，I/O 使用显式传入的 Host。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:126"
+  },
+  {
+    "fact": "PeerLink 的 `connect` 接收显式传入的 `HostManager`、`source`、`target` 与 `transport`。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:129"
+  },
+  {
+    "fact": "`listen` 只需本地 endpoint，远端 endpoint 在 accept 时到达。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:138"
+  },
+  {
+    "fact": "`serialFrameCounters` 返回 `[u32; 4]`，依次为有效帧、CRC 错误、噪声字节、过期未完整 UART 帧。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:147"
+  },
+  {
+    "fact": "`HostPeerLink` 由 transport 子模块提供并在 lib.rs 重导出。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:11"
+  },
+  {
+    "fact": "`detectTransport` 用一次即弃 TCP 连接判定对端说哪种 Link 载体。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:160"
+  },
+  {
+    "fact": "配对可从裸 `ip:port` 开始，无需用户先选传输方式。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:152"
+  },
+  {
+    "fact": "探测 socket 在真实传输连接前关闭；帧式接收方只计一次丢弃的伪造帧。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:158"
+  },
+  {
+    "fact": "`detectTransport` 要求 Host 安装 TCP Host，否则返回 \"TCP Host is not installed\" 错误。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:164"
+  },
+  {
+    "fact": "探测请求是 `GET /link`，带 `Upgrade: websocket` 与固定的 RFC 6455 示例 `Sec-WebSocket-Key`。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:180"
+  },
+  {
+    "fact": "探测读等待 5 秒超时，超时返回 \"transport detection on {socket} timed out\"。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:191"
+  },
+  {
+    "fact": "对端无字节关闭连接时，判定为 `Tcp`，即帧式接收方丢弃了无法解析的长度头。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:198"
+  },
+  {
+    "fact": "响应头不是 `HTTP/` 前缀时，判定为 `Tcp`。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:208"
+  },
+  {
+    "fact": "响应状态码 101 时判定为 `WebSocket`，其余 HTTP 状态判定为 `Http`。",
+    "ref": "core/crates/node/peer-link/src/lib.rs:214"
+  },
+  {
+    "fact": "mDNS 端点只是拨号提示，只有已有的配对密钥能授权地址变更。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:1"
+  },
+  {
+    "fact": "`subscribeDiscovery` 通过 `serviceDiscoveryHost` 订阅 `_operit-link._tcp.local.` 服务。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:18"
+  },
+  {
+    "fact": "`rememberDiscoveryRecords` 按 `fullName` 留存发现记录，配对与未配对节点都保留。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:7"
+  },
+  {
+    "fact": "订阅失败时记一条 \"Automatic LAN discovery unavailable\" 警告并返回 None。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:25"
+  },
+  {
+    "fact": "`reconnectionEndpoints` 先试新发现的地址，再试已保存的 endpoint，同时保留非网络载体。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:32"
+  },
+  {
+    "fact": "发现地址的传输由地址前缀推导：`http://` 对应 Http，`ws://` 对应 WebSocket，其余对应 Tcp。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:41"
+  },
+  {
+    "fact": "已保存的 endpoint 若不在候选列表中，追加在列表末尾。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:47"
+  },
+  {
+    "fact": "`saveAuthenticatedEndpoint` 只提交已鉴权的地址，`sessionId` 或 `sessionSecret` 不符时返回 `PEER_PAIRING_CHANGED` 错误。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:56"
+  },
+  {
+    "fact": "并发的操作方编辑优先于正在进行的连接：endpoint 或 transport 已被改动时直接返回 Ok，不做变更。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:58"
+  },
+  {
+    "fact": "地址与传输已与目标一致时直接返回 Ok，不做任何事。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:60"
+  },
+  {
+    "fact": "地址更新成功后记一条 \"Authenticated pairing endpoint refreshed\" 日志并调用 `changed()`。",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:62"
+  },
+  {
+    "fact": "六位配对码只有在攻击者只有少量在线尝试次数时才安全。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:3"
+  },
+  {
+    "fact": "仅靠每笔待配对的计数器不够，因为每次新会话都会拿到新码，攻击者能轮换会话直到某次猜中。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:5"
+  },
+  {
+    "fact": "节流状态故意只放内存，重启 CoreNode 即清空；攻击者无法重启接收方。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:10"
+  },
+  {
+    "fact": "`CONFIRMATION_GLOBAL_CAPACITY` 为 10，即所有待配对共用的确认次数上限。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:20"
+  },
+  {
+    "fact": "`CONFIRMATION_GLOBAL_REFILL_MS` 为一小时，即全局确认令牌每小时回补一个。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:23"
+  },
+  {
+    "fact": "`CONFIRMATION_SOURCE_CAPACITY` 为 5，即单个来源的确认次数上限。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:25"
+  },
+  {
+    "fact": "`CONFIRMATION_SOURCE_REFILL_MS` 为十分钟，即单个来源的确认令牌每十分钟回补一个。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:27"
+  },
+  {
+    "fact": "`CREATION_SOURCE_CAPACITY` 为 4，`CREATION_SOURCE_REFILL_MS` 为一分钟，即单个来源每分钟回补一个新建配对令牌。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:29"
+  },
+  {
+    "fact": "`CREATION_GLOBAL_CAPACITY` 为 6，`CREATION_GLOBAL_REFILL_MS` 为一分钟，即全局每分钟回补一个新建配对令牌。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:33"
+  },
+  {
+    "fact": "`MAX_SOURCE_BUCKETS` 为 512，限制来源轮换攻击下的内存占用。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:37"
+  },
+  {
+    "fact": "`refill` 按流逝的墙钟时间回补令牌，并用饱和减法容忍时钟回拨。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:53"
+  },
+  {
+    "fact": "回补后的令牌数不超过容量上限。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:57"
+  },
+  {
+    "fact": "`available` 先回补再检查令牌数是否大于 0。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:63"
+  },
+  {
+    "fact": "`take` 先回补再饱和减一。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:68"
+  },
+  {
+    "fact": "`allowConfirmation` 只有 `globalConfirmations` 与 `sourceConfirmations` 两个桶都允许时才消费，且先查后扣。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:89"
+  },
+  {
+    "fact": "`allowCreation` 只有 `globalCreations` 与 `sourceCreations` 两个桶都允许时才消费，且先查后扣。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:110"
+  },
+  {
+    "fact": "`prune` 在桶数超过上限时先丢弃已完全回补的桶，再按最小键删除，直到桶数回到上限内。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:126"
+  },
+  {
+    "fact": "`pairingSource` 对网络传输取 `remoteAddress` 的 IP；串口与蓝牙各共用一个以传输命名的桶。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:142"
+  },
+  {
+    "fact": "确认与新建配对使用互不共享的四只桶，配对流量不会互相消耗对方的额度。",
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:76"
+  },
+  {
+    "fact": "`operit_core_route` 是一个过程宏属性。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:86"
+  },
+  {
+    "fact": "路由注解的 `binding` 参数是必需的标识符，缺失时编译报错 \"missing `binding = argument`\"。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:45"
+  },
+  {
+    "fact": "`permission` 省略时默认为空字符串。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:54"
+  },
+  {
+    "fact": "`permission` 必须写成 `caller:capability` 或 `target:capability`，否则编译报错。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:69"
+  },
+  {
+    "fact": "`create_binding` 必须是非空字符串，否则编译报错 \"binding creation requires a target capability\"。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:51"
+  },
+  {
+    "fact": "`sdk` 是一个无值的开关标志。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:34"
+  },
+  {
+    "fact": "被注解方法的原实现改名为 `__operit_core_local_` 加原方法名，包装器保留原方法签名。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:107"
+  },
+  {
+    "fact": "被路由方法最多接受一个 `ReverseStream` 输入，否则编译报错。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:120"
+  },
+  {
+    "fact": "带 `ReverseStream` 的路由方法必须是 async 方法，否则编译报错。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:124"
+  },
+  {
+    "fact": "被路由方法必须声明 `binding` 参数，否则编译报错。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:130"
+  },
+  {
+    "fact": "宏生成 `__operit_core_binding_` 加原方法名，返回 binding 名对应的静态字符串。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:163"
+  },
+  {
+    "fact": "宏生成 `__operit_core_permission_` 加原方法名，返回 permission 对应的静态字符串。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:164"
+  },
+  {
+    "fact": "宏生成 `__operit_core_route_call_` 加原方法名的调用辅助函数。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:165"
+  },
+  {
+    "fact": "宏生成 `__operit_core_route_watch_snapshot_` 与 `__operit_core_route_watch_` 加原方法名的两个订阅辅助函数。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:167"
+  },
+  {
+    "fact": "路由参数排除反向流输入，逐个经 `core_arg_entry` 序列化。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:170"
+  },
+  {
+    "fact": "反向流路由包装器先问 `shouldRoute`，命中时走 `core_route_reverse_stream`。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:187"
+  },
+  {
+    "fact": "返回状态流的包装器用 `shouldRouteWatch` 与 `shouldUseLocalWatchSource` 决定走远端订阅还是本地源订阅。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:236"
+  },
+  {
+    "fact": "远端订阅经 `core_route_state_flow` 建立。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:199"
+  },
+  {
+    "fact": "本地源订阅经 `core_route_state_flow_with_local_source` 建立，本地实现作为数据源传入。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:214"
+  },
+  {
+    "fact": "异步调用包装器先问 `shouldRoute`，命中时经 `core_route_call_response` 发起远端调用并按声明的返回类型解码。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:256"
+  },
+  {
+    "fact": "同步方法不走路由，包装器直接调本地实现。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:271"
+  },
+  {
+    "fact": "反向流方法生成 `__operit_core_route_push_` 加原方法名的推送辅助函数。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:276"
+  },
+  {
+    "fact": "对 `ReverseStream` 方法做值调用时返回 `REVERSE_STREAM_REQUIRES_PUSH` 错误，要求改走 Push 传输。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:307"
+  },
+  {
+    "fact": "`operit_plugin_sdk_expose` 原样返回被注解项，不做任何改写。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:97"
+  },
+  {
+    "fact": "`operit_core_internal` 原样返回被注解项，只做内部方法标记。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:620"
+  },
+  {
+    "fact": "`before_change_route` 标记在 Core 路由变更前立即调用的生命周期回调。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:626"
+  },
+  {
+    "fact": "`after_change_route` 标记在 Core 路由到达目标后调用的生命周期回调。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:632"
+  },
+  {
+    "fact": "unit 返回值编码为 `CoreValue::Null`。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:483"
+  },
+  {
+    "fact": "成功时经 `to_core_value` 编码，失败时转为 `CoreLinkError::internal`。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:493"
+  },
+  {
+    "fact": "sources 列出 38 条 peer 协议相关源码路径。",
+    "ref": "core/peer-protocol.json:2"
+  },
+  {
+    "fact": "sources 含 `core/crates/node/peer-link/src`。",
+    "ref": "core/peer-protocol.json:4"
+  },
+  {
+    "fact": "sources 含 `core/crates/node/route-macros/src`。",
+    "ref": "core/peer-protocol.json:35"
+  },
+  {
+    "fact": "sources 含 `core/crates/node/runtime/src/peer` 目录。",
+    "ref": "core/peer-protocol.json:18"
+  },
+  {
+    "fact": "revisions 数组从 version 1 起编号。",
+    "ref": "core/peer-protocol.json:42"
+  },
+  {
+    "fact": "最新修订为 version 15。",
+    "ref": "core/peer-protocol.json:100"
+  },
+  {
+    "fact": "schemaRoots 列出 7 个模式根目录。",
+    "ref": "core/peer-protocol.json:104"
+  },
+  {
+    "fact": "StateFlow 远端订阅失败时，生成的包装器以 panic 报错，而不是返回错误。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:207"
+  },
+  {
+    "fact": "StateFlow 本地源订阅失败时，生成的包装器同样以 panic 报错。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:223"
+  },
+  {
+    "fact": "远端调用响应解码失败时，`decode_core_call_response` 的结果经 expect 解包，失败即 panic。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:589"
+  }
+]

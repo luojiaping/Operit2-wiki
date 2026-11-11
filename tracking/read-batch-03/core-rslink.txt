@@ -1,0 +1,3 @@
+core/crates/rslink/README.md
+core/crates/rslink/runtime/src/lib.rs
+core/crates/rslink/codegen/src/lib.rs

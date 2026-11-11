@@ -1,0 +1,3 @@
+core/crates/plugin/theme/src/lib.rs
+core/crates/plugin/theme/schema/theme-v1.schema.json
+core/crates/plugin/theme/schema/theme-template.schema.json

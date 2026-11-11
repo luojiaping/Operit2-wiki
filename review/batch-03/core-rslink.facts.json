@@ -1,0 +1,354 @@
+[
+  {
+    "fact": "Rslink 拥有可复用的 Rust-to-link-to-Rust 协议层。",
+    "ref": "core/crates/rslink/README.md:3"
+  },
+  {
+    "fact": "Rslink 是纯协议与共享类型转换基础，供 proxy、route、CLI local core 与 route-space 的 Rust 流程复用。",
+    "ref": "core/crates/rslink/README.md:5"
+  },
+  {
+    "fact": "runtime 子 crate 提供把 Rust 值转为 Link 值再转回的运行时辅助。",
+    "ref": "core/crates/rslink/README.md:9"
+  },
+  {
+    "fact": "codegen 子 crate 提供代码生成器使用的共享 IR、类型解析、命名与 schema 基础。",
+    "ref": "core/crates/rslink/README.md:10"
+  },
+  {
+    "fact": "Rslink 不是 core-app 代理运行时、节点路由或 Dart 输出，三者分别位于 proxy、node 与 proxy emitter crate。",
+    "ref": "core/crates/rslink/README.md:14"
+  },
+  {
+    "fact": "本文件声明 build_model、build_type_resolver、build_utils 三个内部模块。",
+    "ref": "core/crates/rslink/codegen/src/lib.rs:11"
+  },
+  {
+    "fact": "本文件以 pub use build_model::* 全量重导出 build_model 的公开符号。",
+    "ref": "core/crates/rslink/codegen/src/lib.rs:15"
+  },
+  {
+    "fact": "本文件从 build_type_resolver 重导出 TypeResolver、collect_type_registry、collect_serializable_type_definitions 与 collect_error_type_definitions。",
+    "ref": "core/crates/rslink/codegen/src/lib.rs:17"
+  },
+  {
+    "fact": "本文件从 build_type_resolver 重导出 is_supported_arg_type、is_supported_return_type 与 normalize_type。",
+    "ref": "core/crates/rslink/codegen/src/lib.rs:19"
+  },
+  {
+    "fact": "本文件从 build_utils 重导出 dispatch_name_from_schema_key、full_type_for_source_with_crate、identifier_words、lower_first、module_path_for_source_with_crate 与 parent_module_path。",
+    "ref": "core/crates/rslink/codegen/src/lib.rs:23"
+  },
+  {
+    "fact": "本文件顶行声明 #![allow(non_snake_case)]，符号使用 camelCase 命名。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1"
+  },
+  {
+    "fact": "CoreStreamAttachmentAdopter 是 Arc<dyn Fn(Vec<CoreStreamAttachment>) + Send + Sync> 的类型别名。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:24"
+  },
+  {
+    "fact": "CoreStreamPool 以 StdMutex 保护的 HashMap 按 streamId 登记 Arc<CoreStreamSource>。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:27"
+  },
+  {
+    "fact": "CoreStreamPool::new 创建一个空的本地流源池。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:33"
+  },
+  {
+    "fact": "adoptAll 逐个收养序列化 Core 值时捕获的全部流附件。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:40"
+  },
+  {
+    "fact": "adopt 在同一 streamId 已有不同源时只记 duplicate 日志，不替换已有源。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:95"
+  },
+  {
+    "fact": "openCoreStreamWatch 只接受 propertyName 为 openCoreStream 的 watch 请求。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:47"
+  },
+  {
+    "fact": "openCoreStreamWatch 在 propertyName 不是 openCoreStream 时返回 CoreLinkError::watchNotFound。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:51"
+  },
+  {
+    "fact": "openCoreStreamWatch 从请求参数中解出 streamId 字符串。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:51"
+  },
+  {
+    "fact": "CoreReverseStreamSession 持有 Box<dyn CoreReverseStreamSender> 与一个 oneshot 完成接收端。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:113"
+  },
+  {
+    "fact": "CoreReverseStreamSender trait 要求实现 send 与 close：send 解码并投递一个 Link 值，close 完成类型化流输入。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:122"
+  },
+  {
+    "fact": "TypedCoreReverseStreamSender<T> 用 ReverseStreamSender<T> 桥接类型化反向流生产者。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:129"
+  },
+  {
+    "fact": "反向流条目解码失败时返回 INVALID_REVERSE_STREAM_ITEM 错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:141"
+  },
+  {
+    "fact": "CoreReverseStreamSession::new 以类型化反向流发送端与完成接收端创建会话。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:157"
+  },
+  {
+    "fact": "pushItem 把一个 Link 值按序投递进反向流。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:171"
+  },
+  {
+    "fact": "close 关闭发送端后等待运行时消费者的完成结果。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:176"
+  },
+  {
+    "fact": "对已关闭的反向流会话再次调用 close 返回 REVERSE_STREAM_CLOSED 错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:181"
+  },
+  {
+    "fact": "CoreReverseStreamSession 的 CoreLinkPushSession 实现把 send 转给 pushItem、把 close 转给 CoreReverseStreamSession::close。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:191"
+  },
+  {
+    "fact": "object_args 只接受 CoreValue::Map 与 CoreValue::Null，其余值返回 INVALID_ARGS 错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:202"
+  },
+  {
+    "fact": "decode_core_arg 从参数 map 中取出并移除指定名参数，缺失时按 CoreValue::Null 解码。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:214"
+  },
+  {
+    "fact": "to_core_value 把可序列化运行时值转为原生 Link 值模型，失败返回内部错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:224"
+  },
+  {
+    "fact": "to_core_arg_value 把调用方参数转为 Link 请求值，失败返回 INVALID_ARGS 错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:229"
+  },
+  {
+    "fact": "to_named_core_arg_value 在转换失败的 INVALID_ARGS 错误中带上参数名。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:235"
+  },
+  {
+    "fact": "core_arg_entry 把命名调用方参数转为 (String, CoreValue) 的 map 条目。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:244"
+  },
+  {
+    "fact": "from_core_response_value 把 Link 响应值解码为生成调用方的返回类型，失败返回 INVALID_RESPONSE 错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:252"
+  },
+  {
+    "fact": "core_call_error 以 COMMAND_ERROR 码与附带 details 构造命令错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:258"
+  },
+  {
+    "fact": "core_value_map 从 (String, CoreValue) 字段集合构造 CoreValue::Map。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:263"
+  },
+  {
+    "fact": "core_route_args 复用 core_value_map 构造路由参数，传输优化由 Link 负责。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:268"
+  },
+  {
+    "fact": "core_route_call_request 以 nextCoreRouteRequestId 生成请求 id、以 CORE_INTERNAL_TARGET 为目标构造 CoreCallRequest。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:273"
+  },
+  {
+    "fact": "core_route_watch_request 以同样方式构造内部 Link watch 请求。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:283"
+  },
+  {
+    "fact": "core_route_reverse_stream 接受 CoreRouteRuntime、方法名、参数与 ReverseStream<T> 输入，其中 T 须实现 Serialize 与 Send。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:296"
+  },
+  {
+    "fact": "反向流路由以 CorePushRequest 经 runtime.openPush 建立 Push 会话，逐项发送输入值后关闭会话。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:305"
+  },
+  {
+    "fact": "core_route_call_response 用 core_route_call_request 构造请求，并记录 wrapper.call 追踪日志。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:317"
+  },
+  {
+    "fact": "decode_core_call_response 从 CoreCallResponse 的 result 解码调用方返回类型。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:342"
+  },
+  {
+    "fact": "core_route_error_uses_local_source 在错误码为 CORE_NODE_UNREACHABLE、PEER_LINK_CLOSED、PEER_RESPONSE_CLOSED、PEER_SEND_FAILED、PEER_WATCH_SOURCE_CLOSED 之一时返回 true。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:351"
+  },
+  {
+    "fact": "core_route_error_uses_local_source 返回 true 时，路由打开错误由本地源继续执行。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:349"
+  },
+  {
+    "fact": "decode_core_call_unit_response 把成功响应映射为 ()，失败原样返回。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:361"
+  },
+  {
+    "fact": "core_event_stream_channel 创建一对无界 Core 事件流通道（发送端与接收端）。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:366"
+  },
+  {
+    "fact": "require_empty_core_stream_attachments 返回一个断言附件为空的 adopter，路由值不得捕获匿名 Core 流。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:375"
+  },
+  {
+    "fact": "send_core_watch_value_with_attachments 在编码 watch 更新时用 withCoreStreamCaptureSync 捕获流附件。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:390"
+  },
+  {
+    "fact": "watch 值编码用 CoreValue::incrementalEvent 对照上一值生成事件。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:398"
+  },
+  {
+    "fact": "core_flow_event_stream 把 Flow 转为 Link Core 事件流。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:414"
+  },
+  {
+    "fact": "Flow 订阅以 FlowCancellation 与 subscribeWithCancellation 进行，取消时关闭事件流。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:429"
+  },
+  {
+    "fact": "core_state_flow_event_stream 把 StateFlow 转为 Link Core 事件流。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:445"
+  },
+  {
+    "fact": "core_route_state_flow_event_stream 把本地路由 StateFlow 转为事件流。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:480"
+  },
+  {
+    "fact": "core_state_flow_from_stream 从远程 Link Core 事件流重建本地 StateFlow。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:486"
+  },
+  {
+    "fact": "从流重建 StateFlow 时，流提前结束返回 WATCH_STREAM_EMPTY 错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:509"
+  },
+  {
+    "fact": "从流重建 StateFlow 时，首个事件已完成返回 WATCH_STREAM_COMPLETED 错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:549"
+  },
+  {
+    "fact": "从流重建 StateFlow 时，首个事件为增量返回 WATCH_STREAM_DELTA_FIRST 错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:556"
+  },
+  {
+    "fact": "StateFlow 重建任务以 core-rslinkrs-state-flow 为名调度到宿主运行时任务调度器。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:579"
+  },
+  {
+    "fact": "adopt_routed_watch_value 在编码路由 watch 值时捕获流附件并交给 adopter 注册。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:637"
+  },
+  {
+    "fact": "路由代理 watch 要求上游首个事件为 Snapshot，否则返回 WATCH_SNAPSHOT_REQUIRED 错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:669"
+  },
+  {
+    "fact": "路由代理 watch 在 snapshot 参数为 true 时只转发首个快照即返回。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:677"
+  },
+  {
+    "fact": "core_route_state_flow 经 CoreRouteRuntime::watch 打开注解生成的 StateFlow watch。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:719"
+  },
+  {
+    "fact": "core_route_state_flow_with_local_source 接受本地 StateFlow 作为路由 watch 的本地源。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:778"
+  },
+  {
+    "fact": "带本地源的路由 watch 经 runtime.watchWithLocalSource 打开。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:813"
+  },
+  {
+    "fact": "core_route_state_flow_value_decoder 为路由 StateFlow 值创建带流源注册表的解码器。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:818"
+  },
+  {
+    "fact": "adopt_core_stream_attachments 把捕获的流源按 streamId 登记进路由流源注册表。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:863"
+  },
+  {
+    "fact": "路由内嵌流描述符只解析 target 为 CORE_STREAM_TARGET 且 propertyName 为 openCoreStream 的描述符。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:906"
+  },
+  {
+    "fact": "core_route_embedded_stream_source 创建一个经路由 watch 打开内嵌流的本地 CoreStreamSource。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:951"
+  },
+  {
+    "fact": "内嵌流打开参数写入源方法、源模式与源参数三项。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1103"
+  },
+  {
+    "fact": "core_route_embedded_stream_open_args 在打开参数不是 map 时返回 INVALID_ARGS 错误。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1091"
+  },
+  {
+    "fact": "core_value_shape 把 CoreValue 归纳为 null、bool、signed、unsigned、float、string、bytes、list、map 九种粗粒度形状。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1114"
+  },
+  {
+    "fact": "core_value_trace_field 把单个 Core 值格式化为紧凑追踪字段字符串。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1228"
+  },
+  {
+    "fact": "core_stream_id_argument 从 Link 参数 map 中读取 streamId 字符串。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1243"
+  },
+  {
+    "fact": "forward_core_event_stream 经宿主运行时调度器把 Core 事件流转发到无界发送端。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1254"
+  },
+  {
+    "fact": "字符串流的每个值转为 CoreEventKind::Changed 事件。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1296"
+  },
+  {
+    "fact": "字符串事件流结束时发送 CoreEventKind::Completed 事件。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1310"
+  },
+  {
+    "fact": "事件流条目经 to_core_value 编码。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1336"
+  },
+  {
+    "fact": "编码后的条目以 CoreEventKind::Changed 发出。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1348"
+  },
+  {
+    "fact": "事件流结束时发送 CoreEventKind::Completed 事件。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1360"
+  },
+  {
+    "fact": "设置 OPERIT_PROFILE_COMPOSE_STAGES 环境变量时，每个事件写一条 stderr 性能行。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1333"
+  },
+  {
+    "fact": "core_reverse_stream_channel 创建一对类型化反向流通道。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1373"
+  },
+  {
+    "fact": "本文件包含 #[cfg(test)] 测试模块。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1384"
+  },
+  {
+    "fact": "runtime 文件包含 #[cfg(test)] 测试模块。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1384"
+  },
+  {
+    "fact": "测试验证 watch 首次发送快照、变化后发送增量，且增量可还原为新值。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1403"
+  },
+  {
+    "fact": "routed_state_flow_embedded_stream_opens_through_route_runtime 测试验证路由 StateFlow 值在重序列化时保留内嵌流源。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1639"
+  },
+  {
+    "fact": "stream_pool_keeps_one_source_for_duplicate_logical_stream_id 测试验证同一逻辑 streamId 的重复附件只保留第一个源。",
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1686"
+  }
+]

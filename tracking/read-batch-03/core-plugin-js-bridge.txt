@@ -1,0 +1,4 @@
+core/crates/plugin/javascript-bridge/src/lib.rs
+core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs
+core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs
+core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs

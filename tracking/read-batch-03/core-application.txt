@@ -1,0 +1,3 @@
+core/crates/application/README.md
+core/crates/application/core/src/lib.rs
+core/crates/application/core/src/device_transport.rs

@@ -1,0 +1,7 @@
+core/crates/plugin/README.md
+core/crates/plugin/sdk/src/lib.rs
+core/crates/plugin/sdk/src/PackageManager.rs
+core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs
+core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs
+core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs
+core/crates/plugin/sdk/src/js_sdk/core.rs

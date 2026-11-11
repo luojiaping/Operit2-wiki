@@ -1,0 +1,4 @@
+core/crates/runtime/application/src/services/ChatServiceCore.rs
+core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs
+core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs
+core/crates/runtime/application/src/services/RuntimeTerminalService.rs

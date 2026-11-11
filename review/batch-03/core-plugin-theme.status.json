@@ -1,0 +1,1 @@
+{"issue":24,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"主题 v1 契约：纯契约 crate，只做内存内校验，校验通过不等于安装与渲染安全","updated":"2026-11-11"}

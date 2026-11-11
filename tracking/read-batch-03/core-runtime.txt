@@ -1,0 +1,5 @@
+core/crates/runtime/README.md
+core/crates/runtime/application/src/lib.rs
+core/crates/runtime/application/src/core/application/OperitApplication.rs
+core/crates/runtime/application/src/core/chat/AIMessageManager.rs
+core/crates/runtime/application/src/R.rs

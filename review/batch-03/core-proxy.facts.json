@@ -1,0 +1,566 @@
+[
+  {
+    "fact": "Proxy crates 负责 core-app 本地代理面及其代码生成器。",
+    "ref": "core/crates/proxy/README.md:3"
+  },
+  {
+    "fact": "代理生成是面向本地 core app 调用的根注册扫描，路由生成是面向 Rust 内部路由调用的注解驱动扫描，两者属于不同领域。",
+    "ref": "core/crates/proxy/README.md:5"
+  },
+  {
+    "fact": "scan crate 是根注册的源码扫描器与共享代理 IR 构建器。",
+    "ref": "core/crates/proxy/README.md:9"
+  },
+  {
+    "fact": "rust-codegen 是代理 IR 的 Rust 发射器。",
+    "ref": "core/crates/proxy/README.md:10"
+  },
+  {
+    "fact": "dart-codegen 是代理 IR 的 Dart 发射器。",
+    "ref": "core/crates/proxy/README.md:11"
+  },
+  {
+    "fact": "bridge crate 提供共享代理桥契约。",
+    "ref": "core/crates/proxy/README.md:12"
+  },
+  {
+    "fact": "local crate 是本地代理运行时，包含生成的分发代码、对象注册表与流池。",
+    "ref": "core/crates/proxy/README.md:13"
+  },
+  {
+    "fact": "Proxy crates 对本地调用使用共享 link 值协议。",
+    "ref": "core/crates/proxy/README.md:17"
+  },
+  {
+    "fact": "README 声明的边界：Proxy crates 不得成为 router、space runtime、access server 或 peer-link 生命周期的所有者。",
+    "ref": "core/crates/proxy/README.md:17"
+  },
+  {
+    "fact": "README 声明的边界：生成的本地代理分发不得查询路由运行时状态，也不得决定一次调用或 watch 是否跨节点，该决定属于 Rust 内部路由包装器。",
+    "ref": "core/crates/proxy/README.md:19"
+  },
+  {
+    "fact": "CoreProxyRegisteredRoots 显式登记 14 个源码根目录，外加 proxy_manifest_dir。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:22"
+  },
+  {
+    "fact": "CoreProxyRegisteredRoots::from_proxy_manifest_dir 从 proxy crate 路径派生各根目录，例如 runtime_src 指向 ../../runtime/application/src。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:44"
+  },
+  {
+    "fact": "CoreProxyScanConfig 包装 CoreProxyRegisteredRoots。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:69"
+  },
+  {
+    "fact": "from_proxy_manifest_dir 由 proxy crate 路径创建标准扫描配置。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:80"
+  },
+  {
+    "fact": "本文件重导出 operit_rslink_codegen 的全部符号，代理 IR 类型来自该共享库。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:17"
+  },
+  {
+    "fact": "CoreProxyScanOutput 携带 proxy_manifest_dir、objects（Vec<SourceObject>）、serializable_type_definitions 与 error_type_definitions。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:88"
+  },
+  {
+    "fact": "scan_core_proxy 为 15 个源根各指定 crate 名，例如 runtime 根为 operit_runtime、proxy 根为 operit_proxy_local、model 根为 operit_model。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:97"
+  },
+  {
+    "fact": "扫描从 CARGO_CFG_TARGET_ARCH 读取目标架构，缺失时 panic，并对受限根调用 enforce_host_platform_boundaries 做宿主平台边界检查。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:126"
+  },
+  {
+    "fact": "emit_source_tree_rerun_if_changed 递归遍历源树，把每个目录与文件登记为 cargo:rerun-if-changed。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:233"
+  },
+  {
+    "fact": "collect_serializable_type_definitions 从全部源根收集可序列化类型定义。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:149"
+  },
+  {
+    "fact": "serializable_types 只保留 supports_serialize 的类型，deserializable_types 只保留 supports_deserialize 的类型。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:161"
+  },
+  {
+    "fact": "collect_type_registry 从全部源根收集类型注册表。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:167"
+  },
+  {
+    "fact": "object_specs 以 core_proxy_root、runtime_root、store_root、tools_root、provider_root、server_root 六个根为对象规约来源。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:171"
+  },
+  {
+    "fact": "collect_public_object_types 从全部源根收集公开对象类型。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:176"
+  },
+  {
+    "fact": "每个对象规约由 scan_object 扫描，输入为可序列化类型集合、可反序列化类型集合与类型注册表。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:184"
+  },
+  {
+    "fact": "discover_factory_object_specs 从已扫描对象、对象规约与公开对象类型中发现工厂对象规约。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:192"
+  },
+  {
+    "fact": "mark_factory_methods 在已扫描对象上标记工厂方法。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:200"
+  },
+  {
+    "fact": "工厂规约同样经 scan_object 扫描后追加到 objects。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:205"
+  },
+  {
+    "fact": "扫描完成后 objects 按 schema_key 排序。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:212"
+  },
+  {
+    "fact": "每个对象的 object_id 由 stable_target(schema_key) 生成；重复 object_id 触发 Duplicate Core target 断言。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:215"
+  },
+  {
+    "fact": "stable_target 把 schema 名直接编码为 core/{schema_key}，不用注册表索引或哈希。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:244"
+  },
+  {
+    "fact": "新增或重排声明不改变已有目标地址，stable_target(\"application.packageManager\") 为 core/application.packageManager。",
+    "ref": "core/crates/proxy/scan/src/lib.rs:258"
+  },
+  {
+    "fact": "本 crate 通过 include! 引入 OUT_DIR/generated_core_dispatch.rs 中的生成分发代码，以及 OUT_DIR/plugin_sdk_surface.rs 中的插件 SDK 面。",
+    "ref": "core/crates/proxy/local/src/lib.rs:22"
+  },
+  {
+    "fact": "pluginSdkSurface() 返回由显式源码注解生成的 SDK 路由面 PluginSdkSurface。",
+    "ref": "core/crates/proxy/local/src/lib.rs:29"
+  },
+  {
+    "fact": "LocalCoreProxy 以 Mutex<OperitApplication> 持有应用，并以 Arc<OperitApplication> 保留 applicationServices 共享实时服务。",
+    "ref": "core/crates/proxy/local/src/lib.rs:36"
+  },
+  {
+    "fact": "代理持有 coreStreamPool（CoreStreamPool），用于收养与打开流。",
+    "ref": "core/crates/proxy/local/src/lib.rs:49"
+  },
+  {
+    "fact": "new 接收 OperitApplication，用 chatRuntimeHolder 创建 spaceRuntime。",
+    "ref": "core/crates/proxy/local/src/lib.rs:131"
+  },
+  {
+    "fact": "toolPkgShutdown 取自包管理器的 executionEngineShutdown，用于释放容器拥有的执行引擎 worker。",
+    "ref": "core/crates/proxy/local/src/lib.rs:138"
+  },
+  {
+    "fact": "new 新建一个 CoreStreamPool 作为代理自有的流池。",
+    "ref": "core/crates/proxy/local/src/lib.rs:152"
+  },
+  {
+    "fact": "installCoreCommandExecutor 只在非 wasm32 目标上编译，wasm32 目标不安装 core 命令执行器。",
+    "ref": "core/crates/proxy/local/src/lib.rs:163"
+  },
+  {
+    "fact": "在非 wasm32 目标上，installCoreCommandExecutor 安装 core 命令执行器；hostManager.coreCommandExecutor 已设置时返回 None，不重复安装。",
+    "ref": "core/crates/proxy/local/src/lib.rs:167"
+  },
+  {
+    "fact": "core 命令执行器以任务名 core-tool-command 调度 operit_command_core::run_core_command。",
+    "ref": "core/crates/proxy/local/src/lib.rs:192"
+  },
+  {
+    "fact": "缺少任务调度宿主时，core 命令执行器安装报错 Core command execution requires a task scheduler host。",
+    "ref": "core/crates/proxy/local/src/lib.rs:185"
+  },
+  {
+    "fact": "generatedTargetForSchema 把 schema 键映射为稳定的目标字符串，generatedTargetForType 把具体运行时类型名映射为生成的本地对象 ID。",
+    "ref": "core/crates/proxy/local/src/lib.rs:76"
+  },
+  {
+    "fact": "bindCoreNodeToolRuntime 经 toolRuntimeSupport 安装服务端 CoreNode 工具能力，不占用应用分发锁。",
+    "ref": "core/crates/proxy/local/src/lib.rs:87"
+  },
+  {
+    "fact": "bindCoreRouteChangeHandler 安装 AI 回合完成后使用的路由变更控制器。",
+    "ref": "core/crates/proxy/local/src/lib.rs:98"
+  },
+  {
+    "fact": "bindDeviceToolRuntime 把设备工具运行时绑定委托给 toolRuntimeSupport。",
+    "ref": "core/crates/proxy/local/src/lib.rs:67"
+  },
+  {
+    "fact": "localApplicationSharedClient 为 core/application 缓存共享客户端，存活时直接复用。",
+    "ref": "core/crates/proxy/local/src/lib.rs:248"
+  },
+  {
+    "fact": "coreNodeLocalRuntime 构建共享节点能力容器。",
+    "ref": "core/crates/proxy/local/src/lib.rs:256"
+  },
+  {
+    "fact": "组装时用共享客户端、应用客户端、运行时存储宿主与 generatedTargetForSchema 组装 CoreNodeLocalRuntime。",
+    "ref": "core/crates/proxy/local/src/lib.rs:272"
+  },
+  {
+    "fact": "组装时挂接 peerServices，并把绑定闭包与 openPush 闭包传入。",
+    "ref": "core/crates/proxy/local/src/lib.rs:278"
+  },
+  {
+    "fact": "runtimeStorageHost 在未设置 RuntimeStorageHost 时 panic。",
+    "ref": "core/crates/proxy/local/src/lib.rs:230"
+  },
+  {
+    "fact": "fileSystemHost 在未设置 FileSystemHost 时 panic。",
+    "ref": "core/crates/proxy/local/src/lib.rs:283"
+  },
+  {
+    "fact": "CoreLinkSharedClient::call 经 dispatchCall 分发，成功返回 CoreCallResponse::ok，失败返回 CoreCallResponse::err。",
+    "ref": "core/crates/proxy/local/src/lib.rs:320"
+  },
+  {
+    "fact": "dispatchCall 把请求交给生成的 generated_dispatch_core_proxy_call，在 isolation::future 中执行，并把捕获的流附件收养进流池。",
+    "ref": "core/crates/proxy/local/src/lib.rs:429"
+  },
+  {
+    "fact": "异步 watch 快照在 withCoreStreamCapture 与 isolation::future 中调用生成的 generated_dispatch_core_proxy_watch_snapshot_async，错误消息后追加请求上下文。",
+    "ref": "core/crates/proxy/local/src/lib.rs:336"
+  },
+  {
+    "fact": "watch 目标为 CORE_STREAM_TARGET 时从流池打开匿名流源，否则走生成的 watch 分发。",
+    "ref": "core/crates/proxy/local/src/lib.rs:350"
+  },
+  {
+    "fact": "dispatchWatchSnapshot 是同步分发器，调用生成的 generated_dispatch_core_proxy_watch_snapshot。",
+    "ref": "core/crates/proxy/local/src/lib.rs:448"
+  },
+  {
+    "fact": "dispatchWatch 是同步分发器，目标为 CORE_STREAM_TARGET 时从流池打开，否则调用生成的 generated_dispatch_core_proxy_watch。",
+    "ref": "core/crates/proxy/local/src/lib.rs:458"
+  },
+  {
+    "fact": "watchSnapshotSync 对外暴露同步 watch 快照分发。",
+    "ref": "core/crates/proxy/local/src/lib.rs:437"
+  },
+  {
+    "fact": "watchSync 对外暴露同步 watch 流分发。",
+    "ref": "core/crates/proxy/local/src/lib.rs:443"
+  },
+  {
+    "fact": "openPushLocal 直接在本地 Core 代理上打开调用方拥有的输入流。",
+    "ref": "core/crates/proxy/local/src/lib.rs:107"
+  },
+  {
+    "fact": "isReverseStreamRequest 判断一次 push 请求是否为生成的反向流方法。",
+    "ref": "core/crates/proxy/local/src/lib.rs:116"
+  },
+  {
+    "fact": "openReverseStream 委托给生成的 generated_open_reverse_stream。",
+    "ref": "core/crates/proxy/local/src/lib.rs:121"
+  },
+  {
+    "fact": "LocalApplicationBridgeTarget 实现中，callLocalApplication 经 dispatchCall 分发，不重新进入服务端服务对象路由。",
+    "ref": "core/crates/proxy/local/src/lib.rs:374"
+  },
+  {
+    "fact": "watchLocalApplicationSnapshot 加锁后用生成的 generated_dispatch_application_watch_snapshot 读取快照，不经过代理分发器。",
+    "ref": "core/crates/proxy/local/src/lib.rs:390"
+  },
+  {
+    "fact": "watchLocalApplication 加锁后用生成的 generated_dispatch_application_watch 打开 watch，并传入流附件收养器。",
+    "ref": "core/crates/proxy/local/src/lib.rs:408"
+  },
+  {
+    "fact": "openLocalApplicationPush 经 openPushLocal 打开生成的应用输入流。",
+    "ref": "core/crates/proxy/local/src/lib.rs:416"
+  },
+  {
+    "fact": "adoptCoreStreamAttachments 把序列化流源转交给代理自有的流池。",
+    "ref": "core/crates/proxy/local/src/lib.rs:467"
+  },
+  {
+    "fact": "openCoreStreamWatch 从流池打开匿名流源。",
+    "ref": "core/crates/proxy/local/src/lib.rs:472"
+  },
+  {
+    "fact": "shutdownToolPkgExecutionEngines 调用 toolPkgShutdown 释放容器拥有的执行引擎 worker，不占用异步应用锁。",
+    "ref": "core/crates/proxy/local/src/lib.rs:158"
+  },
+  {
+    "fact": "测试 generated_factories_ignore_application_lock_and_open_core_stream_pool 覆盖工厂调用与 watch 不依赖应用锁。",
+    "ref": "core/crates/proxy/local/src/lib.rs:497"
+  },
+  {
+    "fact": "未知属性的 watch 在解析工厂后失败，错误码为 WATCH_NOT_FOUND。",
+    "ref": "core/crates/proxy/local/src/lib.rs:557"
+  },
+  {
+    "fact": "LocalApplicationBridgeTarget 分发应用自有的 Link 请求，不进入服务对象路由。",
+    "ref": "core/crates/proxy/bridge/src/lib.rs:12"
+  },
+  {
+    "fact": "LocalApplicationBridgeTarget 包含 callLocalApplication 与 watchLocalApplicationSnapshot 两个方法。",
+    "ref": "core/crates/proxy/bridge/src/lib.rs:15"
+  },
+  {
+    "fact": "桥契约还包含 watchLocalApplication 与 openLocalApplicationPush 两个方法。",
+    "ref": "core/crates/proxy/bridge/src/lib.rs:27"
+  },
+  {
+    "fact": "LocalApplicationSharedClient 把一个 LocalApplicationBridgeTarget 适配为共享 Link 客户端，绑定到一个 application_object_id。",
+    "ref": "core/crates/proxy/bridge/src/lib.rs:36"
+  },
+  {
+    "fact": "目标不匹配时客户端返回 LOCAL_APPLICATION_TARGET_REQUIRED 错误。",
+    "ref": "core/crates/proxy/bridge/src/lib.rs:51"
+  },
+  {
+    "fact": "LocalApplicationSharedClient::call 先校验 target，不一致返回 targetError，否则委托给桥目标的 callLocalApplication。",
+    "ref": "core/crates/proxy/bridge/src/lib.rs:68"
+  },
+  {
+    "fact": "watchSnapshot 先校验 target，不一致返回 targetError，否则委托给桥目标的 watchLocalApplicationSnapshot。",
+    "ref": "core/crates/proxy/bridge/src/lib.rs:77"
+  },
+  {
+    "fact": "watch 先校验 target，不一致返回 targetError，否则委托给桥目标的 watchLocalApplication。",
+    "ref": "core/crates/proxy/bridge/src/lib.rs:85"
+  },
+  {
+    "fact": "openPush 先校验 target，不一致返回 targetError，否则委托给桥目标的 openLocalApplicationPush。",
+    "ref": "core/crates/proxy/bridge/src/lib.rs:96"
+  },
+  {
+    "fact": "write_rust_proxy_artifacts 写出生成的 Rust 代理分发与 schema 产物。",
+    "ref": "core/crates/proxy/rust-codegen/src/lib.rs:16"
+  },
+  {
+    "fact": "Rust 发射器渲染 schema JSON 与生成的 Rust 分发代码，写入 generated_core_dispatch.rs，并返回 schema JSON 字符串。",
+    "ref": "core/crates/proxy/rust-codegen/src/lib.rs:23"
+  },
+  {
+    "fact": "schema 产物写到仓库根 core/generated/core_proxy_schema.json；仓库根由 proxy_manifest_dir 上溯四级得到，要求 proxy/local 位于 core/crates/proxy 之下。",
+    "ref": "core/crates/proxy/rust-codegen/src/lib.rs:36"
+  },
+  {
+    "fact": "write_generated_file 仅在内容字节变化时才写文件。",
+    "ref": "core/crates/proxy/rust-codegen/src/lib.rs:45"
+  },
+  {
+    "fact": "dart_default_value 给 Dart 类型提供默认值：String 为 ''、int 为 0、double 为 0.0、bool 为 false、Uint8List 为 Uint8List(0)、List 为 const []、Map 为 const {}、可空类型与其余类型为 null。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:17"
+  },
+  {
+    "fact": "dart_field_default_expr 只为带 serde default 的字段返回默认值表达式。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:32"
+  },
+  {
+    "fact": "write_dart_proxy_artifacts 把生成的 Dart 产物写到生成目录。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:44"
+  },
+  {
+    "fact": "生成目录为 apps/flutter/app/lib/core/proxy/generated/，仓库根由 manifest_dir 上溯四级得到。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:48"
+  },
+  {
+    "fact": "生成的 Dart 产物为 CoreProxyModels.g.dart 与 CoreProxyClients.g.dart。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:55"
+  },
+  {
+    "fact": "render_dart_models 只收录从对象方法可达的可序列化类型。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:76"
+  },
+  {
+    "fact": "模型类型按 full_type 排序。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:84"
+  },
+  {
+    "fact": "include_source_tree_model_types 额外收录 operit_node_runtime 的源码树模型类型。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:338"
+  },
+  {
+    "fact": "生成的模型文件导入 dart:async、dart:typed_data、CoreLinkCodec 与 CoreLinkProtocol。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:84"
+  },
+  {
+    "fact": "fromCoreLinkError 从 CoreLinkError 构造 CoreProxyErrorDetails。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:137"
+  },
+  {
+    "fact": "错误详情模型的字段为 errorType、message、variant、kind、httpStatus、remoteMessage、fields。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:165"
+  },
+  {
+    "fact": "结构体模型生成 Dart 类，文档注明对应的 Rust 类型。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:640"
+  },
+  {
+    "fact": "结构体模型提供 fromJson 工厂。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:657"
+  },
+  {
+    "fact": "结构体模型提供 toJson。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:693"
+  },
+  {
+    "fact": "结构体模型提供 fromMessagePack 工厂做直接 MessagePack 解码。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:732"
+  },
+  {
+    "fact": "解码时缺失且无 serde 默认值的字段抛 FormatException。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:762"
+  },
+  {
+    "fact": "纯单元枚举生成 Dart enum，各变体带 json 名。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:792"
+  },
+  {
+    "fact": "未知枚举值抛 ArgumentError。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:816"
+  },
+  {
+    "fact": "纯单元枚举的 fromMessagePack 委托给 fromJson。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:820"
+  },
+  {
+    "fact": "带标签枚举的生成类持有 tag 字段，记录当前变体。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:890"
+  },
+  {
+    "fact": "无字段变体生成无参工厂。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:866"
+  },
+  {
+    "fact": "带字段变体生成要求传入字段的工厂。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:883"
+  },
+  {
+    "fact": "非单元的普通枚举（Enum { unit_only: false }）在模型渲染中被跳过，不生成任何内容。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:118"
+  },
+  {
+    "fact": "GeneratedCoreProxyClients 类持有 OperitRuntimeBridge。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:202"
+  },
+  {
+    "fact": "render_dart_clients 生成 Dart 客户端文件。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:188"
+  },
+  {
+    "fact": "对象 getter 排除 FactoryMethodConstruct 构造的对象。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:208"
+  },
+  {
+    "fact": "dart_namespace_prefixes 收集每个 schema 键的全部带点前缀，作为 Dart 命名空间。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:257"
+  },
+  {
+    "fact": "每个 schema 命名空间生成一个 Dart 类。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:299"
+  },
+  {
+    "fact": "对象客户端类持有 bridge、objectId 与 objectArgs。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:356"
+  },
+  {
+    "fact": "对象客户端的工厂方法按 factory_protocol 分派到 render_dart_factory_method。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:362"
+  },
+  {
+    "fact": "对象客户端的调用方法与 watch 方法按 call_protocol 与 watch_protocol 分派。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:370"
+  },
+  {
+    "fact": "对象客户端的反向流方法按 reverse_stream_protocol 分派。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:376"
+  },
+  {
+    "fact": "application 对象额外生成 runCoreCommand，经 bridge.callApplication('runCoreCommand') 执行 CLI 风格的 Core 命令。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:386"
+  },
+  {
+    "fact": "反向流方法返回 Future<void>，经 bridge.push 发送 CorePushRequest。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:445"
+  },
+  {
+    "fact": "反向流方法逐项 sink.add，finally 中关闭 sink。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:460"
+  },
+  {
+    "fact": "调用方法返回 Future<返回类型>。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:481"
+  },
+  {
+    "fact": "调用方法经 bridge 发送 CoreCallRequest。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:494"
+  },
+  {
+    "fact": "登记表中的方法走 callControlBytes，其余走 callBytes。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:488"
+  },
+  {
+    "fact": "control_call_registry 只含一对（services.runtimeHostInteractionService，respondOwnerHostInteraction）。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:518"
+  },
+  {
+    "fact": "void 返回用 decodeNativeCoreVoidResult 解码，其余返回用 decodeNativeCoreResult 解码，并以 bridge.openEmbeddedCoreStream 作为嵌入流工厂。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:505"
+  },
+  {
+    "fact": "工厂方法由 render_dart_factory_method 生成。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:525"
+  },
+  {
+    "fact": "工厂参数以 __core_factory_arg_{index} 为键传入。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:550"
+  },
+  {
+    "fact": "工厂方法返回目标 schema 键的新代理实例，工厂目标对象必须已生成。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:565"
+  },
+  {
+    "fact": "watch 方法由 render_dart_watch_method 生成。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:576"
+  },
+  {
+    "fact": "watch 方法经 bridge.watchStream 发起请求，并过滤掉 Completed 事件。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:609"
+  },
+  {
+    "fact": "完整流（JsonStream/StringStream）用 CoreLinkStreamEventValueDecoder 解码。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:598"
+  },
+  {
+    "fact": "增量列表 watch 用 CoreLinkListEventDecoder；其余 watch 用 CoreLinkEventValueDecoder。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:604"
+  },
+  {
+    "fact": "dart_type 把 Vec<u8>、CoreBuffer 与 operit_link::CoreBuffer 映射为 Uint8List。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:1513"
+  },
+  {
+    "fact": "dart_type 把 Option<T> 映射为 T?。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:1516"
+  },
+  {
+    "fact": "dart_type 把 Vec 与 HashSet 映射为 List，把 HashMap 与 BTreeMap 映射为 Map。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:1530"
+  },
+  {
+    "fact": "dart_type 把 () 映射为 void、bool 映射为 bool、Rust 整数映射为 int、f32/f64 映射为 double。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:1546"
+  },
+  {
+    "fact": "String 与 &str 映射为 String，serde_json::Value 映射为 Object?。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:1552"
+  },
+  {
+    "fact": "未知类型映射为 Object?。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:1577"
+  },
+  {
+    "fact": "内嵌 Core 流在编码端只读，编码时抛 UnsupportedError。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:1740"
+  },
+  {
+    "fact": "生成的 Dart 文件以 // GENERATED CODE - DO NOT MODIFY BY HAND 开头。",
+    "ref": "core/crates/proxy/dart-codegen/src/lib.rs:2084"
+  }
+]

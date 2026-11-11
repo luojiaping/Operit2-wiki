@@ -1,0 +1,6 @@
+core/crates/proxy/README.md
+core/crates/proxy/scan/src/lib.rs
+core/crates/proxy/local/src/lib.rs
+core/crates/proxy/bridge/src/lib.rs
+core/crates/proxy/rust-codegen/src/lib.rs
+core/crates/proxy/dart-codegen/src/lib.rs

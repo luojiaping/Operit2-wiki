@@ -1,0 +1,6 @@
+core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs
+core/crates/runtime/application/src/data/preferences/AgreementPreferences.rs
+core/crates/runtime/application/src/plugins/PluginRegistry.rs
+core/crates/runtime/application/src/plugins/BuiltinPluginAssets.rs
+core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs
+core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs

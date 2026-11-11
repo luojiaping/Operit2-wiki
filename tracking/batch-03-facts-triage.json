@@ -1,0 +1,552 @@
+[
+ {
+  "page": "core-command",
+  "fact_idx": 21,
+  "ref": "core/crates/command/core/src/commands/chat.rs:158",
+  "symbol": "delete-message",
+  "fact": "`delete-message` 先取当前会话 id，无活动会话时报错 `core has no active chat`，再按时间戳删消息。",
+  "hits": {
+   "delete-message": [
+    43,
+    150,
+    705
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 39,
+  "ref": "core/crates/command/core/src/commands/chat.rs:623",
+  "symbol": "toolHandler.runtimeSupport().sendChatMessage",
+  "fact": "经 `toolHandler.runtimeSupport().sendChatMessage` 发送消息。",
+  "hits": {}
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 52,
+  "ref": "core/crates/command/core/src/commands/tool.rs:117",
+  "symbol": "params-json",
+  "fact": "`tool exec` 把 `params-json` 解析为 `ToolCall`，用 `ToolExecutionPolicy::Direct` 调 `executeToolInvocation` 执行。",
+  "hits": {
+   "params-json": [
+    34,
+    37,
+    150
+   ],
+   "params_json": [
+    35,
+    41,
+    110,
+    115
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 54,
+  "ref": "core/crates/command/core/src/commands/tool.rs:153",
+  "symbol": "tool execution failed without error message",
+  "fact": "`tool exec` 失败时返回工具自带的错误；无错误信息时返回 `tool execution failed without error message`。",
+  "hits": {
+   "tool execution failed without error message": [
+    140
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 56,
+  "ref": "core/crates/command/core/src/commands/model.rs:25",
+  "symbol": "ModelCommand::modelManager",
+  "fact": "`ModelCommand::modelManager` 返回 `ModelConfigManager::default()`。",
+  "hits": {}
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 57,
+  "ref": "core/crates/command/core/src/commands/model.rs:30",
+  "symbol": "ModelCommand::functionalManager",
+  "fact": "`ModelCommand::functionalManager` 返回 `FunctionalConfigManager::default()`。",
+  "hits": {}
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 62,
+  "ref": "core/crates/command/core/src/commands/model.rs:144",
+  "symbol": "provider-set-key",
+  "fact": "`provider-set-key` 把 `apiKey` 写入 Provider 档案后调 `updateProviderProfile` 保存。",
+  "hits": {
+   "provider-set-key": [
+    127,
+    131,
+    136,
+    979
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 63,
+  "ref": "core/crates/command/core/src/commands/model.rs:149",
+  "symbol": "provider-set-key",
+  "fact": "`provider-set-key` 只输出 API key 长度，不输出 key 本身。",
+  "hits": {
+   "provider-set-key": [
+    127,
+    131,
+    136,
+    979
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 64,
+  "ref": "core/crates/command/core/src/commands/model.rs:172",
+  "symbol": "provider-set-endpoint",
+  "fact": "`provider-set-endpoint` 改写 Provider 的 `endpoint` 后保存。",
+  "hits": {
+   "provider-set-endpoint": [
+    156,
+    160,
+    165,
+    980
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 65,
+  "ref": "core/crates/command/core/src/commands/model.rs:201",
+  "symbol": "provider-model-available-list",
+  "fact": "`provider-model-available-list` 默认只保留 `isFetched` 的模型，传 `all` 才含历史。",
+  "hits": {
+   "provider-model-available-list": [
+    184,
+    185,
+    981
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 66,
+  "ref": "core/crates/command/core/src/commands/model.rs:242",
+  "symbol": "provider-model-add",
+  "fact": "`provider-model-add` 要求模型已在可用列表里，否则报错并提示用 `provider-model-create` 按 id 添加。",
+  "hits": {
+   "provider-model-add": [
+    226,
+    230,
+    235,
+    982
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 68,
+  "ref": "core/crates/command/core/src/commands/model.rs:287",
+  "symbol": "catalog-status",
+  "fact": "`catalog-status` 与 `catalog-refresh` 共用同一分支，分别调 `getModelCatalogStatus` 与 `refreshModelCatalog`，查 `models.dev` 目录状态。",
+  "hits": {
+   "catalog-status": [
+    281,
+    984
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 73,
+  "ref": "core/crates/command/core/src/commands/model.rs:400",
+  "symbol": "Vec<ModelParameter>",
+  "fact": "`parameters` 把 JSON 解析为 `Vec<ModelParameter>` 后调 `updateParametersForModel` 更新。",
+  "hits": {
+   "Vec": [
+    83,
+    396,
+    426,
+    570,
+    586
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 74,
+  "ref": "core/crates/command/core/src/commands/model.rs:430",
+  "symbol": "builtin-tools",
+  "fact": "`builtin-tools` 把 JSON 解析为 `Vec<ModelBuiltinTool>` 后调 `updateBuiltinToolsForModel` 更新。",
+  "hits": {
+   "builtin-tools": [
+    410,
+    414,
+    419,
+    424,
+    991
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 75,
+  "ref": "core/crates/command/core/src/commands/model.rs:449",
+  "symbol": "context-show",
+  "fact": "`context-show` 取解析后配置的 `context` 打印。",
+  "hits": {
+   "context-show": [
+    440,
+    992
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 77,
+  "ref": "core/crates/command/core/src/commands/model.rs:500",
+  "symbol": "summary-show",
+  "fact": "`summary-show` 取解析后配置的 `summary` 打印。",
+  "hits": {
+   "summary-show": [
+    490,
+    994
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 79,
+  "ref": "core/crates/command/core/src/commands/model.rs:524",
+  "symbol": "summary-set",
+  "fact": "`summary-set` 调 `updateSummaryForModel` 更新摘要设置。",
+  "hits": {
+   "summary-set": [
+    510,
+    512,
+    514,
+    515,
+    516
+   ],
+   "summary_set": [
+    503,
+    527,
+    791,
+    842
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 82,
+  "ref": "core/crates/command/core/src/commands/model.rs:567",
+  "symbol": "function-list",
+  "fact": "`function-list` 遍历 `functionTypes()` 的 11 种功能类型，逐个读 `getModelBindingForFunction`。",
+  "hits": {
+   "function-list": [
+    561,
+    997
+   ]
+  }
+ },
+ {
+  "page": "core-command",
+  "fact_idx": 85,
+  "ref": "core/crates/command/core/src/commands/model.rs:652",
+  "symbol": "function-reset",
+  "fact": "`function-reset` 带功能类型时调 `resetFunctionConfig` 重置单个绑定，不带时调 `resetAllFunctionConfigs` 重置全部。",
+  "hits": {
+   "function-reset": [
+    642,
+    1000
+   ]
+  }
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 7,
+  "ref": "core/crates/node/peer-link/src/lib.rs:57",
+  "symbol": "PeerMessage::decode",
+  "fact": "`PeerMessage::decode` 先由 `MessageDirection::read` 一次判定方向，不做推测性请求解码。",
+  "hits": {
+   "PeerMessage::decode": [
+    257,
+    258,
+    260,
+    261
+   ]
+  }
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 9,
+  "ref": "core/crates/node/peer-link/src/lib.rs:83",
+  "symbol": "MessageDirection::read",
+  "fact": "`MessageDirection::read` 扫描 MessagePack 的 `body` 字段，再查 `result` 字段：存在为 Response，不存在为 Request。",
+  "hits": {
+   "MessageDirection::read": [
+    58,
+    68
+   ]
+  }
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 11,
+  "ref": "core/crates/node/peer-link/src/lib.rs:101",
+  "symbol": "PeerConnection::remoteAddress",
+  "fact": "`PeerConnection::remoteAddress` 默认返回 None，返回的是实际接入来源，不是客户端自报的身份或地址。",
+  "hits": {}
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 15,
+  "ref": "core/crates/node/peer-link/src/lib.rs:117",
+  "symbol": "PeerListener::localAddress",
+  "fact": "`PeerListener::localAddress` 返回实际绑定的 socket，含 Host 选定的端口；非网络传输没有 socket 地址。",
+  "hits": {}
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 18,
+  "ref": "core/crates/node/peer-link/src/lib.rs:129",
+  "symbol": "PeerLink::connect",
+  "fact": "`PeerLink::connect` 接收显式传入的 `HostManager`、`source`、`target` 与 `transport`。",
+  "hits": {}
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 67,
+  "ref": "core/crates/node/route-macros/src/lib.rs:107",
+  "symbol": "__operit_core_local_<方法名>",
+  "fact": "被注解方法的原实现改名为 `__operit_core_local_<方法名>`，包装器保留原方法签名。",
+  "hits": {
+   "__operit_core_local_": [
+    107
+   ]
+  }
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 71,
+  "ref": "core/crates/node/route-macros/src/lib.rs:163",
+  "symbol": "__operit_core_binding_<方法名>()",
+  "fact": "宏生成 `__operit_core_binding_<方法名>()`，返回 binding 名对应的静态字符串。",
+  "hits": {}
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 72,
+  "ref": "core/crates/node/route-macros/src/lib.rs:164",
+  "symbol": "__operit_core_permission_<方法名>()",
+  "fact": "宏生成 `__operit_core_permission_<方法名>()`，返回 permission 对应的静态字符串。",
+  "hits": {}
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 73,
+  "ref": "core/crates/node/route-macros/src/lib.rs:165",
+  "symbol": "__operit_core_route_call_<方法名>",
+  "fact": "宏生成 `__operit_core_route_call_<方法名>` 调用辅助函数。",
+  "hits": {
+   "__operit_core_route_call_": [
+    165
+   ]
+  }
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 74,
+  "ref": "core/crates/node/route-macros/src/lib.rs:167",
+  "symbol": "__operit_core_route_watch_snapshot_<方法名>",
+  "fact": "宏生成 `__operit_core_route_watch_snapshot_<方法名>` 与 `__operit_core_route_watch_<方法名>` 两个订阅辅助函数。",
+  "hits": {
+   "__operit_core_route_watch_snapshot_": [
+    167
+   ]
+  }
+ },
+ {
+  "page": "core-node-peer-link",
+  "fact_idx": 82,
+  "ref": "core/crates/node/route-macros/src/lib.rs:276",
+  "symbol": "__operit_core_route_push_<方法名>",
+  "fact": "反向流方法生成 `__operit_core_route_push_<方法名>` 推送辅助函数。",
+  "hits": {
+   "__operit_core_route_push_": [
+    276
+   ]
+  }
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 3,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:22",
+  "symbol": "HostJsExecutionProvider::new",
+  "fact": "`HostJsExecutionProvider::new` 通过 `defaultHostRuntimeTaskSchedulerHost()` 取得 Host 运行时任务调度器。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 4,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:25",
+  "symbol": "HostJsExecutionProvider::new",
+  "fact": "`HostJsExecutionProvider::new` 用 `PreparedEnginePool::new` 创建预备引擎池，工厂闭包每次调用 `PreparedJsEngine::new()` 创建一个引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 9,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:61",
+  "symbol": "HostJsExecutionEngineFactory::createExecutionEngine",
+  "fact": "`HostJsExecutionEngineFactory::createExecutionEngine` 用 `JsEngine::new(execution_host)` 创建不带包环境的引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 10,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:69",
+  "symbol": "HostJsExecutionEngineFactory::createToolPkgExecutionEngine",
+  "fact": "`HostJsExecutionEngineFactory::createToolPkgExecutionEngine` 用 `JsEngine::new_toolpkg_execution_engine` 创建绑定包环境的引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 11,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:79",
+  "symbol": "HostJsExecutionEngineFactory::acquireToolPkgExecutionEngine",
+  "fact": "`HostJsExecutionEngineFactory::acquireToolPkgExecutionEngine` 走 `acquirePreparedEngine` 异步获取预备引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 13,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:93",
+  "symbol": "JsExecutionProvider::create_execution_engine",
+  "fact": "`JsExecutionProvider::create_execution_engine` 用 `JsEngine::new(execution_host)` 创建引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 14,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:103",
+  "symbol": "JsExecutionProvider::create_toolpkg_execution_engine",
+  "fact": "`JsExecutionProvider::create_toolpkg_execution_engine` 用 `JsEngine::new_toolpkg_execution_engine(execution_host, context)` 创建引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 15,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:114",
+  "symbol": "JsExecutionProvider::acquire_toolpkg_execution_engine",
+  "fact": "`JsExecutionProvider::acquire_toolpkg_execution_engine` 用 `acquirePreparedEngine` 异步获取预备引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 16,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:123",
+  "symbol": "JsExecutionProvider::create_package_executor",
+  "fact": "`JsExecutionProvider::create_package_executor` 用 `JsToolManager::new(package_runtime, HostJsExecutionEngineFactory)` 创建包执行器。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 28,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:76",
+  "symbol": "\"Unsupported algorithm\"",
+  "fact": "`decompress` 只支持 `deflate` 算法，其他算法返回 `\"Unsupported algorithm\"`。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 31,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:113",
+  "symbol": "\"Unknown AES operation\"",
+  "fact": "AES 解密只接受 `decrypt` 操作，其他操作返回 `\"Unknown AES operation\"`。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 51,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:149",
+  "symbol": "JsIpcTiming::new",
+  "fact": "`JsIpcTiming::new` 以 Host 调度器的单调时钟记录提交时刻。",
+  "hits": {
+   "JsIpcTiming::new": [
+    472,
+    2241
+   ]
+  }
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 63,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:617",
+  "symbol": "JsEngineOwner::destroy",
+  "fact": "`JsEngineOwner::destroy` 先触发生命周期中断，再以 `alive` 交换保证只释放一次 Host 运行时状态。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 68,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:734",
+  "symbol": "ExecutionScope::enter",
+  "fact": "`ExecutionScope::enter` 把生命周期中断与请求中断装入 Host 中断控制器。",
+  "hits": {
+   "ExecutionScope::enter": [
+    772,
+    1545,
+    1577
+   ]
+  }
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 70,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:788",
+  "symbol": "PreparedJsEngine::new",
+  "fact": "`PreparedJsEngine::new` 用 `JsEngineWorker::new(None, None)` 初始化未绑定引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 73,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:841",
+  "symbol": "JsEngine::new",
+  "fact": "`JsEngine::new` 用 `JsEngineWorker::new(Some(executionHost), None)` 创建引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 74,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:852",
+  "symbol": "JsEngine::new_toolpkg_execution_engine",
+  "fact": "`JsEngine::new_toolpkg_execution_engine` 用 `JsEngineWorker::new(Some(executionHost), Some(context))` 创建引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 75,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:862",
+  "symbol": "JsEngine::new_toolpkg_registration_engine",
+  "fact": "`JsEngine::new_toolpkg_registration_engine` 用 `JsEngineWorker::new(None, None)` 创建仅用于注册的引擎。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 118,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2359",
+  "symbol": "{success, value}",
+  "fact": "包间 IPC 通过执行宿主的 `invoke_toolpkg_ipc_async` 提交，成功时以 `{success, value}` 结算 Promise，失败时以 `buildToolPkgIpcFailure` 生成失败信封。",
+  "hits": {}
+ },
+ {
+  "page": "core-plugin-js-bridge",
+  "fact_idx": 123,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2454",
+  "symbol": "\"ToolPkg execution runtime is invalid\"",
+  "fact": "运行时取值只接受 `main`、`ui`、`sandbox`、`provider`，其他值返回 `\"ToolPkg execution runtime is invalid\"`。",
+  "hits": {}
+ }
+]

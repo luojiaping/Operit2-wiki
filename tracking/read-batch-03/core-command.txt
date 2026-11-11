@@ -1,0 +1,6 @@
+core/crates/command/README.md
+core/crates/command/core/src/lib.rs
+core/crates/command/core/src/commands/chat.rs
+core/crates/command/core/src/commands/sync.rs
+core/crates/command/core/src/commands/tool.rs
+core/crates/command/core/src/commands/model.rs

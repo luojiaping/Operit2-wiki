@@ -1,0 +1,370 @@
+[
+  {
+    "fact": "命令层 crate 对应用表面（application surface）做面向用户的命令编排。",
+    "ref": "core/crates/command/README.md:3"
+  },
+  {
+    "fact": "README 声明命令层应消费门面句柄、本地客户端与显式访问句柄，不直接创建 `runtime`、`node`、`proxy`、`provider`、`tool` 或 `access` 内部构件。",
+    "ref": "core/crates/command/README.md:5"
+  },
+  {
+    "fact": "README 把 `core` 列为当前命令编排 crate，并列出 `chat`、`model`、`memory`、`tool`、`plugin`、`package`、`skill`、`MCP`、`storage`、`workspace`、`host`、`prefs`、`update`、`log` 共 14 组命令。",
+    "ref": "core/crates/command/README.md:9"
+  },
+  {
+    "fact": "`run_core_command_with_context` 从 `HostManager` context 创建应用并运行核心命令。",
+    "ref": "core/crates/command/core/src/lib.rs:9"
+  },
+  {
+    "fact": "`run_core_command_with_context` 用 `OperitApplication::newWithContext` 创建应用。",
+    "ref": "core/crates/command/core/src/lib.rs:14"
+  },
+  {
+    "fact": "创建应用后调 `onCreate` 初始化。",
+    "ref": "core/crates/command/core/src/lib.rs:13"
+  },
+  {
+    "fact": "`run_core_command` 接收已初始化的 `OperitApplication` 可变引用与 `args`。",
+    "ref": "core/crates/command/core/src/lib.rs:22"
+  },
+  {
+    "fact": "`run_core_command` 把 `args` 里的 `--json` 识别为 JSON 模式开关。",
+    "ref": "core/crates/command/core/src/lib.rs:26"
+  },
+  {
+    "fact": "`run_core_command` 从命令参数中滤除 `--json` 后再分发。",
+    "ref": "core/crates/command/core/src/lib.rs:29"
+  },
+  {
+    "fact": "`run_core_command` 新建 `CoreCommandOutput` 并按 `jsonMode` 调 `setJsonMode` 设 JSON 模式。",
+    "ref": "core/crates/command/core/src/lib.rs:33"
+  },
+  {
+    "fact": "`run_core_command` 把分发交给 `commands::run_core_command`。",
+    "ref": "core/crates/command/core/src/lib.rs:34"
+  },
+  {
+    "fact": "`run_core_command` 在分发后调 `output.finalizeJson` 收尾。",
+    "ref": "core/crates/command/core/src/lib.rs:35"
+  },
+  {
+    "fact": "`run_chat_command` 只操作宿主自有的聊天历史、消息、分支、中性统计与发送。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:28"
+  },
+  {
+    "fact": "`chat` 命令分发 `new`、`list`、`show`、`current`、`switch`、`delete` 六个子命令。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:39"
+  },
+  {
+    "fact": "`chat` 命令分发 `delete-message`、`clear`、`rollback`、`branch`、`branches`、`lock`、`pin`、`send`、`stats` 九个子命令。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:47"
+  },
+  {
+    "fact": "未知 `chat` 子命令返回包含 `unknown chat command` 的错误。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:52"
+  },
+  {
+    "fact": "`with_main_chat_core` 用 `try_lock` 取聊天运行时持有者，忙时返回 `Chat runtime holder is busy`。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:19"
+  },
+  {
+    "fact": "`list_chats` 从 `MAIN` 槽取 `chatHistoriesFlow().value()` 列出会话。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:62"
+  },
+  {
+    "fact": "先调 `switchChat` 切到目标会话。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:95"
+  },
+  {
+    "fact": "按 id 查找会话，找不到返回 `chat not found` 错误。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:106"
+  },
+  {
+    "fact": "调 `deleteChatHistory` 删除指定会话。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:130"
+  },
+  {
+    "fact": "`delete-message` 先取当前会话 id，无活动会话时报错 `core has no active chat`，再按时间戳删消息。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:155"
+  },
+  {
+    "fact": "`clear_current_chat` 经 `with_main_chat_core` 调 `clearCurrentChat` 清空当前会话。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:179"
+  },
+  {
+    "fact": "调 `rollbackToMessage` 回滚到指定用户消息时间戳。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:205"
+  },
+  {
+    "fact": "回滚未应用时输出提示：消息须存在且为用户消息、工作区快照须仍可用，只保留最新一次编辑轮次，更早的改动用 `Git`。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:216"
+  },
+  {
+    "fact": "建分支前把 `core.enhancedAiService` 设为新建的服务，再调 `createBranch`。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:242"
+  },
+  {
+    "fact": "调 `core.getBranches` 取指定父会话的分支。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:266"
+  },
+  {
+    "fact": "`lock` 子命令调 `updateChatLocked` 改会话锁定标志。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:291"
+  },
+  {
+    "fact": "`pin` 子命令调 `updateChatPinned` 改会话置顶标志。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:310"
+  },
+  {
+    "fact": "`current` 子命令读 `chatHistoryDelegate.currentChatIdFlow().value()` 输出当前会话 id。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:327"
+  },
+  {
+    "fact": "`switch` 子命令调 `switchChat` 切换当前会话。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:348"
+  },
+  {
+    "fact": "`stats` 子命令用 `ChatHistoryManager::default()` 读 `getTotalChatCount` 与 `getTotalMessageCount`，只输出中性汇总统计。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:364"
+  },
+  {
+    "fact": "调 `core.createNewChat` 创建会话，参数为 `setAsCurrentChat`、`sourceChatId`、`workspaceId`、`input`。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:402"
+  },
+  {
+    "fact": "`chat new` 的 `--set-current` 默认值为 `true`。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:419"
+  },
+  {
+    "fact": "`chat branch` 用 `--up-to` 指定分支截断的消息时间戳。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:481"
+  },
+  {
+    "fact": "布尔参数用 `parse_bool_arg` 解析，只接受 `true` 或 `false`，其他值报错。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:505"
+  },
+  {
+    "fact": "发送消息支持 `--chat`、`--attachment`（别名 `--attach`）、`--reply-to` 选项，其余位置参数拼成消息正文。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:537"
+  },
+  {
+    "fact": "有附件时经 `AttachmentTransferManager::getInstance` 取传输管理器，传入 `application.hostManager`。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:601"
+  },
+  {
+    "fact": "用 `importNativeAttachment` 把附件规范化路径导入指定会话。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:607"
+  },
+  {
+    "fact": "发送消息经 `toolHandler` 的 `runtimeSupport()` 调 `sendChatMessage`。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:622"
+  },
+  {
+    "fact": "未指定会话且无当前会话时报错 `Chat send has no selected conversation`。",
+    "ref": "core/crates/command/core/src/commands/chat.rs:594"
+  },
+  {
+    "fact": "`run_sync_command` 运行持久化同步恢复命令。",
+    "ref": "core/crates/command/core/src/commands/sync.rs:5"
+  },
+  {
+    "fact": "`sync` 只有 `reset-transactions` 一个子命令，且要求不带额外参数。",
+    "ref": "core/crates/command/core/src/commands/sync.rs:11"
+  },
+  {
+    "fact": "`sync` 其他输入一律打印用法。",
+    "ref": "core/crates/command/core/src/commands/sync.rs:13"
+  },
+  {
+    "fact": "`reset_transactions` 调 `application.syncResetTransactions()` 重建同步历史。",
+    "ref": "core/crates/command/core/src/commands/sync.rs:25"
+  },
+  {
+    "fact": "`reset_transactions` 从返回结果读 `owners` 与 `files` 计数并输出重建结果。",
+    "ref": "core/crates/command/core/src/commands/sync.rs:26"
+  },
+  {
+    "fact": "`reset_transactions` 的设计说明：用当前物化业务数据替换同步历史，用于卡住的不可变操作冲突恢复，已保留数据不移动。",
+    "ref": "core/crates/command/core/src/commands/sync.rs:19"
+  },
+  {
+    "fact": "`tool` 命令无参数时打印用法。",
+    "ref": "core/crates/command/core/src/commands/tool.rs:16"
+  },
+  {
+    "fact": "`tool` 命令分发 `list` 与 `show` 子命令。",
+    "ref": "core/crates/command/core/src/commands/tool.rs:22"
+  },
+  {
+    "fact": "`tool` 命令分发 `exec` 子命令。",
+    "ref": "core/crates/command/core/src/commands/tool.rs:31"
+  },
+  {
+    "fact": "`tool list` 的 `scope` 只接受 `public`、`internal`、`all`，分别调 `getPublicToolNames`、`getInternalToolNames`、`getAllToolNames`，其他值返回用法错误。",
+    "ref": "core/crates/command/core/src/commands/tool.rs:60"
+  },
+  {
+    "fact": "用 `hasToolExecutor` 查注册情况，用 `getToolVisibility` 查可见性。",
+    "ref": "core/crates/command/core/src/commands/tool.rs:84"
+  },
+  {
+    "fact": "tool exec 把 params-json 解析为 `ToolCall`，用 `ToolExecutionPolicy::Direct` 调 `executeToolInvocation` 执行。",
+    "ref": "core/crates/command/core/src/commands/tool.rs:117"
+  },
+  {
+    "fact": "`tool exec` 只取执行结果列表的最后一个结果输出。",
+    "ref": "core/crates/command/core/src/commands/tool.rs:118"
+  },
+  {
+    "fact": "`tool exec` 失败时返回工具自带的错误；无错误信息时返回 `tool execution failed without error message`。",
+    "ref": "core/crates/command/core/src/commands/tool.rs:140"
+  },
+  {
+    "fact": "`run_model_command` 的首个参数是 `_context: HostManager`，命令体不使用它。",
+    "ref": "core/crates/command/core/src/commands/model.rs:35"
+  },
+  {
+    "fact": "`ModelCommand` 的 `modelManager` 返回 `ModelConfigManager::default()`。",
+    "ref": "core/crates/command/core/src/commands/model.rs:25"
+  },
+  {
+    "fact": "`functionalManager` 返回 `FunctionalConfigManager::default()`。",
+    "ref": "core/crates/command/core/src/commands/model.rs:30"
+  },
+  {
+    "fact": "`provider-type-list` 调 `ModelCatalog::providers()` 并按 `providerTypeId` 排序输出。",
+    "ref": "core/crates/command/core/src/commands/model.rs:48"
+  },
+  {
+    "fact": "`provider-list` 调 `getProviderProfiles` 列出已配置的 Provider。",
+    "ref": "core/crates/command/core/src/commands/model.rs:65"
+  },
+  {
+    "fact": "`provider-show` 调 `getProviderProfile` 取指定 Provider 档案。",
+    "ref": "core/crates/command/core/src/commands/model.rs:91"
+  },
+  {
+    "fact": "`provider-create` 调 `createProvider` 创建 Provider，参数为名称、类型 id、`endpoint`。",
+    "ref": "core/crates/command/core/src/commands/model.rs:117"
+  },
+  {
+    "fact": "provider-set-key 把 `apiKey` 写入 Provider 档案后调 `updateProviderProfile` 保存。",
+    "ref": "core/crates/command/core/src/commands/model.rs:144"
+  },
+  {
+    "fact": "provider-set-key 只输出 API key 长度，不输出 key 本身。",
+    "ref": "core/crates/command/core/src/commands/model.rs:149"
+  },
+  {
+    "fact": "provider-set-endpoint 改写 Provider 的 `endpoint` 后保存。",
+    "ref": "core/crates/command/core/src/commands/model.rs:172"
+  },
+  {
+    "fact": "provider-model-available-list 默认只保留 `isFetched` 的模型，传 `all` 才含历史。",
+    "ref": "core/crates/command/core/src/commands/model.rs:201"
+  },
+  {
+    "fact": "provider-model-add 要求模型已在可用列表里，否则报错并提示用 `provider-model-create` 按 id 添加。",
+    "ref": "core/crates/command/core/src/commands/model.rs:242"
+  },
+  {
+    "fact": "`provider-model-create` 调 `createProviderModel` 按 id 创建 Provider 模型。",
+    "ref": "core/crates/command/core/src/commands/model.rs:272"
+  },
+  {
+    "fact": "catalog-status 与 `catalog-refresh` 共用同一分支，分别调 `getModelCatalogStatus` 与 `refreshModelCatalog`，查 `models.dev` 目录状态。",
+    "ref": "core/crates/command/core/src/commands/model.rs:287"
+  },
+  {
+    "fact": "`list` 调 `getAllModelSummaries`，按 `providerName` 再按 `modelId` 排序。",
+    "ref": "core/crates/command/core/src/commands/model.rs:301"
+  },
+  {
+    "fact": "`show` 无参数时默认取 `DEFAULT_PROVIDER_ID` 与 `DEFAULT_MODEL_ID` 的解析后配置。",
+    "ref": "core/crates/command/core/src/commands/model.rs:326"
+  },
+  {
+    "fact": "`use` 只把 `CHAT` 功能的模型绑定设为指定 provider 与 model。",
+    "ref": "core/crates/command/core/src/commands/model.rs:347"
+  },
+  {
+    "fact": "`params` 调 `getModelParametersForModel` 列出模型参数。",
+    "ref": "core/crates/command/core/src/commands/model.rs:368"
+  },
+  {
+    "fact": "`parameters` 把 JSON 解析为 `Vec<ModelParameter<serde_json::Value>>` 后调 `updateParametersForModel` 更新。",
+    "ref": "core/crates/command/core/src/commands/model.rs:400"
+  },
+  {
+    "fact": "builtin-tools 把 JSON 解析为 `Vec<ModelBuiltinTool>` 后调 `updateBuiltinToolsForModel` 更新。",
+    "ref": "core/crates/command/core/src/commands/model.rs:430"
+  },
+  {
+    "fact": "context-show 取解析后配置的 `context` 打印。",
+    "ref": "core/crates/command/core/src/commands/model.rs:449"
+  },
+  {
+    "fact": "`context-set` 用含 `maxContextLength` 的 `ModelContextSpec` 调 `updateContextForModel` 更新上下文上限。",
+    "ref": "core/crates/command/core/src/commands/model.rs:478"
+  },
+  {
+    "fact": "summary-show 取解析后配置的 `summary` 打印。",
+    "ref": "core/crates/command/core/src/commands/model.rs:500"
+  },
+  {
+    "fact": "`summary-set` 要求恰好 5 个参数。",
+    "ref": "core/crates/command/core/src/commands/model.rs:511"
+  },
+  {
+    "fact": "summary-set 调 `updateSummaryForModel` 更新摘要设置。",
+    "ref": "core/crates/command/core/src/commands/model.rs:524"
+  },
+  {
+    "fact": "`thinking` 无档位参数时读当前设置，有参数时用 `ThinkingLevel::fromName` 解析后调 `setThinkingLevelForModel` 设置。",
+    "ref": "core/crates/command/core/src/commands/model.rs:542"
+  },
+  {
+    "fact": "`thinking` 档位名限于 `off`、`enabled`、`minimal`、`low`、`medium`、`high`、`xhigh`、`max`。",
+    "ref": "core/crates/command/core/src/commands/model.rs:537"
+  },
+  {
+    "fact": "function-list 遍历 `functionTypes()` 的 11 种功能类型，逐个读 `getModelBindingForFunction`。",
+    "ref": "core/crates/command/core/src/commands/model.rs:567"
+  },
+  {
+    "fact": "`function-show` 先用 `parseFunctionType` 解析功能类型名。",
+    "ref": "core/crates/command/core/src/commands/model.rs:591"
+  },
+  {
+    "fact": "`function-set` 调 `setModelForFunction` 写指定功能的模型绑定。",
+    "ref": "core/crates/command/core/src/commands/model.rs:627"
+  },
+  {
+    "fact": "function-reset 带功能类型时调 `resetFunctionConfig` 重置单个绑定，不带时调 `resetAllFunctionConfigs` 重置全部。",
+    "ref": "core/crates/command/core/src/commands/model.rs:652"
+  },
+  {
+    "fact": "model 命令只接受 `CHAT`、`SUMMARY`、`TITLE_GENERATION`、`MEMORY`、`UI_CONTROLLER`、`TRANSLATION`、`GREP`、`ROLE_RESPONSE_PLANNER`、`IMAGE_RECOGNITION`、`AUDIO_RECOGNITION`、`VIDEO_RECOGNITION` 共 11 个功能类型名。",
+    "ref": "core/crates/command/core/src/commands/model.rs:684"
+  },
+  {
+    "fact": "`print_provider_profile` 只输出 API key 长度，不输出 key 本身。",
+    "ref": "core/crates/command/core/src/commands/model.rs:734"
+  },
+  {
+    "fact": "Provider JSON 只含 `apiKeyLength` 与密钥池元数据，不含 key 值。",
+    "ref": "core/crates/command/core/src/commands/model.rs:901"
+  },
+  {
+    "fact": "密钥池 JSON 每把 key 只输出 `id`、名称、启用状态、可用状态、使用次数、最后使用时间、错误次数与 `keyLength`。",
+    "ref": "core/crates/command/core/src/commands/model.rs:952"
+  },
+  {
+    "fact": "`print_model_usage` 的用法列表包含 `operit2 model codex-login <browser|device>`。",
+    "ref": "core/crates/command/core/src/commands/model.rs:974"
+  },
+  {
+    "fact": "未知 `model` 子命令落到 `print_model_usage`。",
+    "ref": "core/crates/command/core/src/commands/model.rs:663"
+  }
+]

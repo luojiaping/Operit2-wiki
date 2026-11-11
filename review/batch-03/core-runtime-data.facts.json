@@ -1,0 +1,514 @@
+[
+  {
+    "fact": "Operit1 快照格式版本 FORMAT_VERSION 为 1。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:75"
+  },
+  {
+    "fact": "快照清单条目 ENTRY_MANIFEST 为 manifest.json。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:76"
+  },
+  {
+    "fact": "模型配置条目 ENTRY_MODEL_CONFIGS 位于 payload/files/datastore/model_configs.preferences_pb。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:77"
+  },
+  {
+    "fact": "角色卡、角色组、提示词标签条目分别为 payload/files/datastore/character_cards.preferences_pb、character_groups.preferences_pb、prompt_tags.preferences_pb。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:79"
+  },
+  {
+    "fact": "语音服务条目 ENTRY_SPEECH_SERVICES 为 payload/files/datastore/speech_services_preferences.preferences_pb。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:82"
+  },
+  {
+    "fact": "用户偏好条目 ENTRY_USER_PREFERENCES 为 payload/files/datastore/user_preferences.preferences_pb。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:84"
+  },
+  {
+    "fact": "聊天数据库条目 ENTRY_DATABASE 为 payload/databases/app_database，WAL 与 SHM 边车为同名加 -wal 与 -shm。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:85"
+  },
+  {
+    "fact": "ObjectBox 默认数据条目 ENTRY_OBJECTBOX_DEFAULT_DATA 为 payload/files/objectbox/data.mdb。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:88"
+  },
+  {
+    "fact": "快照内路径前缀分四类：datastore 在 payload/files/datastore/，普通文件在 payload/files/，工作区文件在 payload/files/workspace/，外部文件在 payload/external_files/。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:89"
+  },
+  {
+    "fact": "OPERIT1_INTERNAL_FILES_PREFIXES 列出 4 条 Android 内部路径，包名 com.ai.assistance.operit 及其 .debug 变体。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:104"
+  },
+  {
+    "fact": "Operit1 外部下载前缀 OPERIT1_EXTERNAL_DOWNLOAD_PREFIX 为 /storage/emulated/0/Download/Operit/。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:110"
+  },
+  {
+    "fact": "Operit1 默认 AI 头像 OPERIT1_DEFAULT_AI_AVATAR_URI 为 file:///android_asset/operit.png。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:111"
+  },
+  {
+    "fact": "快照条目复制缓冲区 ARCHIVE_ENTRY_COPY_BUFFER_BYTES 为 256 * 1024 字节。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:102"
+  },
+  {
+    "fact": "导入进度节流间隔 OPERIT1_PROGRESS_REPORT_INTERVAL_MS 为 250 毫秒。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:103"
+  },
+  {
+    "fact": "Operit1 默认档案 id OPERIT1_DEFAULT_PROFILE_ID 为 default。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:98"
+  },
+  {
+    "fact": "旧源默认角色卡 id OPERIT1_SOURCE_DEFAULT_CHARACTER_CARD_ID 为 default_character，只属于保留的旧源解码器，不属于导入的聊天目标。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:100"
+  },
+  {
+    "fact": "共享记忆存储 id 前缀 OPERIT1_SHARED_MEMORY_STORE_ID_PREFIX 为 operit1-profile-。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:101"
+  },
+  {
+    "fact": "Operit1SnapshotPreview 含 formatVersion、packageName、createdAt、modelConfig、datastoreFiles、chatCount、messageCount。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:119"
+  },
+  {
+    "fact": "预览还含 importedFileCount、importedExternalFileCount、detectedDomains。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:124"
+  },
+  {
+    "fact": "Operit1SnapshotPreview.detectedDomains 报告源中实际检测到的域，包括恢复时永不采纳的旧域。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:127"
+  },
+  {
+    "fact": "Operit1DataStoreFilePreview 含 fileName 与 keyCount。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:133"
+  },
+  {
+    "fact": "Operit1SnapshotImportResult 含 importedChats、importedMessages、importedTokenUsageRecords、importedTokenStatsModels。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:146"
+  },
+  {
+    "fact": "导入结果还计数 importedFiles、importedExternalFiles、importedWorkspaces、importedWorkspaceFiles。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:154"
+  },
+  {
+    "fact": "Operit1SnapshotImportResult.importedMemories 计数角色插件实际采纳的记忆记录。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:150"
+  },
+  {
+    "fact": "Operit1SnapshotImportResult.importedMemoryLinks 计数采纳的记忆链接数，不是源快照中存在的链接数。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:152"
+  },
+  {
+    "fact": "Operit1SnapshotImportProgress 含 stage、title、detail、progress、active 五个字段。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:165"
+  },
+  {
+    "fact": "空闲导入进度 stage 为 idle，title 为 等待导入，progress 为 0.0，active 为 false。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:173"
+  },
+  {
+    "fact": "完成导入进度 stage 为 completed，progress 为 1.0，active 为 false。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:198"
+  },
+  {
+    "fact": "导入进度流 OPERIT1_SNAPSHOT_IMPORT_PROGRESS_FLOW 是 OnceLock 包裹的 MutableStateFlow<Operit1SnapshotImportProgress>。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:208"
+  },
+  {
+    "fact": "observeOperit1SnapshotImportProgress 返回导入进度的 StateFlow 供订阅。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:218"
+  },
+  {
+    "fact": "publishOperit1SnapshotImportProgress 写日志。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:224"
+  },
+  {
+    "fact": "导入进度经 operit1SnapshotImportProgressFlow().set_value 发布。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:235"
+  },
+  {
+    "fact": "进度节流在完成数达到总数、首次发布或距上次发布达到 OPERIT1_PROGRESS_REPORT_INTERVAL_MS 时才发布进度。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:274"
+  },
+  {
+    "fact": "Operit1ModelConfigSnapshotPreview 含 configs、chatConfigId、chatModelId、chatModelIndex。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:291"
+  },
+  {
+    "fact": "Operit1ModelConfigPreview 含 configId、name、providerTypeId、providerDisplayName、endpoint、modelIds、selectedModelId、selectedModelIndex。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:304"
+  },
+  {
+    "fact": "Operit1ModelConfigImportResult 含 providerId、providerTypeId、providerName、modelId、importedModelCount、chatBindingUpdated、skippedFields。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:318"
+  },
+  {
+    "fact": "Operit1SnapshotImportManager 持有 paths、storageHost、storageWriteHost、sqliteHost 四个成员。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:328"
+  },
+  {
+    "fact": "Operit1SnapshotImportManager::new 接收 RuntimeStorePaths 与三个存储宿主构造导入器。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:335"
+  },
+  {
+    "fact": "inspectSnapshotSource 从范围可读源解析快照并返回 Operit1SnapshotPreview，含数据库计数。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:351"
+  },
+  {
+    "fact": "importSnapshotSource 记录开始与完成日志并返回 Operit1SnapshotImportResult。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:382"
+  },
+  {
+    "fact": "importSnapshotSourceInner 首先发布 parse 阶段进度 0.08。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:415"
+  },
+  {
+    "fact": "model_config 阶段进度 0.22，调 importAllModelConfigsFromParsed 迁移全部模型配置。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:427"
+  },
+  {
+    "fact": "structured_preferences 阶段进度 0.36，调 importSpeechPreferences 迁移语音配置，角色卡、提示词、角色组和记忆写入插件存储。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:435"
+  },
+  {
+    "fact": "preferences 阶段进度 0.50，调 importDataStorePreferences 迁移偏好设置。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:440"
+  },
+  {
+    "fact": "files 阶段进度 0.60，调 importSnapshotFiles 迁移资源文件。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:450"
+  },
+  {
+    "fact": "chats 阶段进度 0.64，调 importChatDatabase 迁移聊天记录，随后调 importTokenStatistics。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:456"
+  },
+  {
+    "fact": "importSpeechPreferences 只采纳语音配置，旧角色卡、角色组、提示词标签与记忆记录仍留在源数据。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:482"
+  },
+  {
+    "fact": "inspectModelConfigSnapshotSource 只读模型配置预览。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:492"
+  },
+  {
+    "fact": "importModelConfigSnapshotSource 按 configId 与 modelId 导入单个模型配置。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:501"
+  },
+  {
+    "fact": "模型配置的 modelId 须在其 modelIds 内，否则报错。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:529"
+  },
+  {
+    "fact": "配置的 apiEndpoint 非空，否则报错缺少服务地址。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:535"
+  },
+  {
+    "fact": "单配置导入用 buildOperit1ProviderProfile 以 DEFAULT_PROVIDER_ID 构建供应商档案。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:538"
+  },
+  {
+    "fact": "单配置导入调用 ModelConfigManager::replaceDefaultProviderProfile 替换默认供应商档案。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:545"
+  },
+  {
+    "fact": "单配置导入调用 FunctionalConfigManager::setModelForFunction(FunctionType::CHAT, DEFAULT_PROVIDER_ID, modelId) 绑定聊天功能模型。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:551"
+  },
+  {
+    "fact": "只统计含非未采纳键的偏好文件，未采纳键由 isOperit1UnadoptedPreferenceKey 过滤。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:580"
+  },
+  {
+    "fact": "user_preferences 文件先跑 UserPreferencesManager::migratePreferences(1)，再经 UserPreferencesManager::store 写入。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:601"
+  },
+  {
+    "fact": "api_settings 文件跑 ApiPreferences::migratePreferences(1) 后经 ApiPreferences::store 写入。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:607"
+  },
+  {
+    "fact": "github_auth 文件先跑 migrateOperit1GitHubUserInfo，再跑 GitHubAuthPreferences::migratePreferences(1)。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:614"
+  },
+  {
+    "fact": "current_chat_id 文件写入 CoreNodeStateStore，路径为 CURRENT_CHAT_ID_PREFERENCES_PATH。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:618"
+  },
+  {
+    "fact": "其余偏好文件默认写入 PreferencesDataStore::new(filePath)。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:625"
+  },
+  {
+    "fact": "非字符串偏好值经 toTargetNativePreferenceEntry 转为目标原生条目。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:632"
+  },
+  {
+    "fact": "ENTRY_USER_PREFERENCES 在写入前还跑 migratePreferences(2) 与 migratePreferences(3)。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:638"
+  },
+  {
+    "fact": "导入时 active_theme_config_id 置为 Value::Null，因为导入的普通外观不属于目标已选保存主题。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:650"
+  },
+  {
+    "fact": "importChatDatabase 经 withStagedOperit1ChatDatabase 暂存聊天库后导入。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:684"
+  },
+  {
+    "fact": "聊天解析用 buildChatArchiveFromOperit1ToOperit2DatabaseBridge 从旧库构建归档。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:711"
+  },
+  {
+    "fact": "角色与记忆导入由 importCharactersAndMemory 完成。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:717"
+  },
+  {
+    "fact": "归档绑定由 resolveOperit1ArchiveBindings 解析。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:718"
+  },
+  {
+    "fact": "聊天归档经 ChatHistoryManager::importChatArchiveWithProgress 写入并带进度回调。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:743"
+  },
+  {
+    "fact": "归档绑定由 publishOperit1ArchiveBindings 发布。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:759"
+  },
+  {
+    "fact": "导入返回 (chatCount, messageCount, memoryCount, linkCount)。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:775"
+  },
+  {
+    "fact": "importTokenStatistics 仅当桥为 Operit1RoomV21ToOperit2SqliteV29 时导入，否则返回 (0, 0)。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:783"
+  },
+  {
+    "fact": "token 用量从 token_usage_records 表按 importKey、occurredAtMs、configId、provider、model、requestCount 与各 token 列读取。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:794"
+  },
+  {
+    "fact": "token 用量行经 UsageStatisticsStore::recordTokenUsage 写入。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:812"
+  },
+  {
+    "fact": "定价模型行经 statisticsStore.upsertTokenStatsModel 写入。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:827"
+  },
+  {
+    "fact": "importSnapshotFiles 按 buildSnapshotFileCopyPlan 逐条复制快照文件。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:870"
+  },
+  {
+    "fact": "文件复制经 copyEntriesTo 逐条回调，由 writeArchiveReaderToStorage 写入目标存储。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:886"
+  },
+  {
+    "fact": "文件导入结果 Operit1SnapshotFileImportResult 含 importedFiles、importedExternalFiles、importedWorkspaces、importedWorkspaceFiles。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:920"
+  },
+  {
+    "fact": "暂存条目经 writeArchiveEntryToStorage 写入暂存路径，操作完成后经 storageHost.delete 删除。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:939"
+  },
+  {
+    "fact": "SQLite 边车条目仅当快照中存在对应条目时才暂存。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:956"
+  },
+  {
+    "fact": "聊天数据库条目 ENTRY_DATABASE 暂存到 OPERIT1_SNAPSHOT_SQLITE_INSPECTION_PATH。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:973"
+  },
+  {
+    "fact": "暂存的聊天库经 sqliteHost.openSqliteDatabase 打开，再经 prepareOperit1RoomImport 规范化。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:990"
+  },
+  {
+    "fact": "databaseCounts 经暂存库统计聊天与消息行数。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:1001"
+  },
+  {
+    "fact": "Operit1SnapshotImportManager.rs 末尾用 include! 引入 6 个 operit1 子文件：ModelMigration、PreferenceMigration、CharacterCards、ChatMigration、MemoryStorage、Parsing。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:1010"
+  },
+  {
+    "fact": "Operit1SnapshotImportManager.rs 末尾还用 include! 引入 Operit1CharacterPluginMigration.rs。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:1019"
+  },
+  {
+    "fact": "测试模块 snapshot_import_tests 位于 operit1/Operit1SnapshotImportTests.rs。",
+    "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:1016"
+  },
+  {
+    "fact": "AgreementPreferences.rs 全文件只有一行 pub struct AgreementPreferences;，无字段、无方法。",
+    "ref": "core/crates/runtime/application/src/data/preferences/AgreementPreferences.rs:1"
+  },
+  {
+    "fact": "OperitPlugin trait 要求 Send 与 Sync，含 id() 与 register() 两个方法。",
+    "ref": "core/crates/runtime/application/src/plugins/PluginRegistry.rs:10"
+  },
+  {
+    "fact": "插件注册表用 PLUGINS、INSTALLED_PLUGIN_IDS、BUILTINS_INITIALIZED 三个 OnceLock 全局静态量保存状态。",
+    "ref": "core/crates/runtime/application/src/plugins/PluginRegistry.rs:19"
+  },
+  {
+    "fact": "PluginRegistry::register 按 id 去重替换：先 retain 掉同 id 的已注册插件再 push。",
+    "ref": "core/crates/runtime/application/src/plugins/PluginRegistry.rs:27"
+  },
+  {
+    "fact": "register 记录 plugin.registry.register 日志并带 pluginId。",
+    "ref": "core/crates/runtime/application/src/plugins/PluginRegistry.rs:34"
+  },
+  {
+    "fact": "initializeBuiltins 用 BUILTINS_INITIALIZED 布尔门控保证内置插件只初始化一次。",
+    "ref": "core/crates/runtime/application/src/plugins/PluginRegistry.rs:46"
+  },
+  {
+    "fact": "注册 ToolboxPlugin 与 ToolPkgCommonBridgePlugin::new(toolpkg_runtime)，随后调 installAll。",
+    "ref": "core/crates/runtime/application/src/plugins/PluginRegistry.rs:59"
+  },
+  {
+    "fact": "克隆插件列表并记录 plugin.registry.install.scan 日志，含 pluginCount。",
+    "ref": "core/crates/runtime/application/src/plugins/PluginRegistry.rs:75"
+  },
+  {
+    "fact": "每个插件只安装一次：已安装 id 集合 insert 成功才调 plugin.register()。",
+    "ref": "core/crates/runtime/application/src/plugins/PluginRegistry.rs:90"
+  },
+  {
+    "fact": "BuiltinPluginAssets.rs 全文件只有一行 include!，引入构建期生成的 builtin_plugin_assets.rs。",
+    "ref": "core/crates/runtime/application/src/plugins/BuiltinPluginAssets.rs:1"
+  },
+  {
+    "fact": "CHAT_LIFECYCLE_RUNTIME 是进程级 Mutex<Option<ToolPkgBridgeRuntime>>，OperitApplication 为进程级所有者，主、浮窗、分离聊天槽共享同一运行时。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:17"
+  },
+  {
+    "fact": "CHAT_LIFECYCLE_BEFORE_CREATE 为 before_create，是唯一支持的创建生命周期阶段。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:20"
+  },
+  {
+    "fact": "ToolPkgChatCreationKind 分 New 与 Branch 两类，序列化为小写。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:26"
+  },
+  {
+    "fact": "ToolPkgChatCreationChat 含 id、title、workspaceId、parentChatId，只携带通用已分配草稿身份。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:37"
+  },
+  {
+    "fact": "ToolPkgChatCreationDraft 含 creationKind、chat、sourceChatId、sourceMessageTimestamp、input，不含角色、群组、记忆或完整扩展映射字段。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:48"
+  },
+  {
+    "fact": "ToolPkgChatLifecycleDispatchContext 持有分离的已就绪运行时快照，await 期间不保留包管理器互斥锁。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:55"
+  },
+  {
+    "fact": "ToolPkgChatLifecycleHookBridge::register 覆盖当前运行时，应用重启后合法替换前任所有者。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:64"
+  },
+  {
+    "fact": "snapshot 返回 ToolPkgChatLifecycleDispatchContext。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:73"
+  },
+  {
+    "fact": "运行时未注册时报错 Chat lifecycle runtime is not registered。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:84"
+  },
+  {
+    "fact": "dispatchBeforeCreate 先调 validateCreationDraft 校验草稿，再按序执行各所有者钩子。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:95"
+  },
+  {
+    "fact": "无钩子时直接返回空 BTreeMap。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:102"
+  },
+  {
+    "fact": "钩子超时预算取自 ApiPreferences::getToolPkgPreHookTimeoutSeconds，经 ToolPkgPreHookTimeout::fromSeconds 换算。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:105"
+  },
+  {
+    "fact": "每个钩子经 ToolPkgPreHookTimeout::runHook 以 TOOLPKG_EVENT_CHAT_LIFECYCLE 与 CHAT_LIFECYCLE_BEFORE_CREATE 事件执行。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:112"
+  },
+  {
+    "fact": "同一包名重复出现时报错 Duplicate chat lifecycle hook owner。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:130"
+  },
+  {
+    "fact": "validateCreationDraft 要求草稿 id 非空。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:155"
+  },
+  {
+    "fact": "sourceChatId 与 parentChatId 须与草稿 id 不同。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:168"
+  },
+  {
+    "fact": "New 创建不得带 sourceMessageTimestamp。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:180"
+  },
+  {
+    "fact": "Branch 创建必须带 sourceChatId 与正数 sourceMessageTimestamp，且 parentChatId 等于 sourceChatId。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:192"
+  },
+  {
+    "fact": "collectLifecycleHooks 跳过无钩子的容器，空包名报错。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:208"
+  },
+  {
+    "fact": "每包多于 1 个聊天生命周期钩子即报 Duplicate chat lifecycle hook owner。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:213"
+  },
+  {
+    "fact": "钩子 id 或函数为空时报错。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:220"
+  },
+  {
+    "fact": "包名重复时报 Duplicate chat lifecycle hook owner。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:233"
+  },
+  {
+    "fact": "只把选中所有者自己的源扩展放进载荷，非对象源扩展报错。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:256"
+  },
+  {
+    "fact": "创建载荷含 eventName、creationKind、chat、sourceChatId、sourceMessageTimestamp、input、sourceExtension 七个键。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:268"
+  },
+  {
+    "fact": "钩子返回 undefined 时 parseCreationResult 报错 Lifecycle handler returned undefined。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:274"
+  },
+  {
+    "fact": "钩子须返回恰好含 extension 一个字段的 JSON 对象。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:283"
+  },
+  {
+    "fact": "extension 为对象时返回 Some，为 null 时返回 None，其他类型报错。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:291"
+  },
+  {
+    "fact": "ToolPkgChatLifecycleHookBridge.rs 末尾含 #[cfg(test)] 测试模块。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:293"
+  },
+  {
+    "fact": "测试 new_with_persisted_source_keeps_workspace_and_isolated_owner_event 用 v27 SQLite 夹具验证新建会话保留 workspace 且源扩展按所有者隔离。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:315"
+  },
+  {
+    "fact": "测试 source_extensions_are_strictly_isolated_by_real_owner 断言每个所有者只看到自己的命名空间。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:450"
+  },
+  {
+    "fact": "测试 duplicate_owner_handlers_are_errors_before_any_dispatch 断言同一所有者多个钩子在分发前即报错。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:526"
+  },
+  {
+    "fact": "ToolboxPlugin 实现 OperitPlugin，id 为 builtin.toolbox。",
+    "ref": "core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs:6"
+  },
+  {
+    "fact": "ToolboxPlugin::register() 为空实现。",
+    "ref": "core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs:10"
+  }
+]

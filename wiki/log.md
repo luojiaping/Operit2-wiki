@@ -51,3 +51,14 @@
 - 本轮 1 处小修：#16 第 39 行及 facts 第 165 条“唯一读取已退休文件式 ledger 的入口”收窄为“当前 Journal 的一次性迁移入口”（scanOperationLog 仍可读取遗留 JSONL 做诊断）。facts 总数不变，仍为 1498 条，lint 硬失败 0、警告 0。
 - 用户主聊 2026-11-11 17:20 指示“复审意见已经发布。改完这轮直接发布”，10 页状态同日翻为 approved（approved_by=luojiaping，approved_at 2026-11-11 09:21 UTC，水位线保留），不再走下一轮评审。
 - 首页统计随部署更新为 21 页知识页面、21 页已发布、2375 条原子事实。
+
+## 2026-11-11 · batch-03（第 3 章 Core 后 13 页，待评审）
+
+- 来源：AAswordman/Operit2 @ 364d1d594；大纲 v1（11 章 115 页）第 3 章后 13 页。
+- 页：core-plugin-sdk、core-plugin-js-bridge、core-plugin-theme、core-plugin-codegen、core-runtime、core-runtime-services、core-runtime-data、core-node-runtime、core-node-peer-link、core-proxy、core-rslink、core-application、core-command。
+- 事实：1979 条原子事实（facts.json），引用全部落在源文件行号范围内，坏引用 0；初版 1964 条，critic 修订 +15（core-runtime +2、core-plugin-codegen +1、core-node-runtime +12）；机械核验抓出 50 条符号越窗（core-command 19、core-node-peer-link 11、core-plugin-js-bridge 20）已全部修完。
+- Lint：`lint.py --dir review/batch-03` 硬失败 0、警告 0。
+- Critic：抽查 5 页（core-plugin-codegen、core-runtime-services、core-node-runtime、core-runtime、core-plugin-sdk），结论均为「需修改」小修，已按 critic 意见逐项修正并复验 lint 0/0；其中 core-node-runtime 抓出 1 条凭空捏造的字段名（changeGate/pendingStage）与 1 处函数归属错误，core-runtime-services 抓出 4 处事实错误，均已修正；其余 8 页 facts 引用机械核验 0 坏引用。
+- 质量走查（.quality.json）：9 页有记录，共 18 条——core-plugin-sdk（validateProtectedEntryPolicy 空壳、README Target Split 称新增 runtime crate 但磁盘无此目录）、core-plugin-js-bridge（文本回调非文本值 panic、AES 走 ECB 无 IV、Java 桥桩与三处未实现静态操作）、core-plugin-theme（两个校验器常量定义后全 crate 未使用）、core-runtime（newWithContext 多处 expect panic、onCreate 静默回退默认 Host）、core-runtime-data（暂存删除失败掩盖原始错误、互斥锁中毒三处 expect panic）、core-node-runtime（README 的 runtime/src/remote 目录不存在，文档滞后）、core-node-peer-link（订阅失败与解码失败 panic）、core-application（Drop 不调 clearCoreRouteRuntime 而 shutdownNow 会调）、core-command（用法文本承诺不存在的 codex-login 子命令、--runtime 被静默忽略、chat new 用法漏列 --workspace）。
+- 阅读登记：76 个源文件 complete（本批，66 个 seed + 补充阅读），见 tracking/read-status.json。
+- 评审 Issue：#22–#34，状态均为 review-pending。首页统计随部署更新为 34 页知识页面、21 页已发布、4354 条原子事实、4 个编译批次。
