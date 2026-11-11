@@ -1,0 +1,1 @@
+{"issue":30,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"节点——PeerLink 传输与路由宏：五载体传输契约与载体探测、mDNS 发现与重连、配对令牌桶节流、路由宏生成的包装器与路由元数据、peer-protocol 清单","updated":"2026-11-11"}

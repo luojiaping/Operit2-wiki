@@ -31,6 +31,19 @@
 - Provider——本地模型（`core-provider-local-model`）：已装模型与引擎注册表、清单结构、桌面 Sherpa STT/TTS 推理与 LocalModelRuntimeSupport。
 - 工具系统——执行与注册（`core-tool-execution`）：解析、批处理、注册表、权限与 hook 的完整链路。
 - 工具系统——包、技能与 MCP（`core-tool-packages-mcp`）：包工具执行、技能加载管理、MCP 接入调用与 JS 运行时。
+- 插件——Plugin SDK（`core-plugin-sdk`）：ToolPkg 包模型与加载流程、Hook 挂载点、Compose DSL UI 声明、JS SDK 宿主契约。
+- 插件——JS 桥（`core-plugin-js-bridge`）：JsEngine 实现 JsExecutionEngine，35 个同步与 12 个异步宿主绑定调宿主操作。
+- 插件——主题 v1 契约（`core-plugin-theme`）：纯契约 crate，只做内存内校验，校验通过不等于安装与渲染安全。
+- 插件——SDK 代码生成与 IPC（`core-plugin-codegen`）：SDK 声明树、JS 运行时、四语言客户端、注册契约与 sdk-ipc 通道及 36 行桥接器。
+- Runtime 总览与 OperitApplication（`core-runtime`）：进程级运行时组装、启动生命周期、CORE_VERSION 与聊天消息管理。
+- Runtime——业务服务（`core-runtime-services`）：ChatServiceCore 聊天管线、Provider/Tool 两座运行时支持桥、终端 PTY 服务。
+- Runtime——数据与插件宿主（`core-runtime-data`）：Operit1 快照导入迁移、偏好导入分流、插件注册表与 ToolPkg 会话创建钩子桥。
+- 节点——节点运行时（`core-node-runtime`）：CoreNodeRouter 本地/跨节点路由决策、SpaceRuntime 本地执行、持久化同步与 NodeSpaceService 准入。
+- 节点——PeerLink 传输与路由宏（`core-node-peer-link`）：五载体传输契约与载体探测、mDNS 发现与重连、配对令牌桶节流、路由宏生成的包装器与路由元数据。
+- 代理生成——扫描、发射器与本地代理运行时（`core-proxy`）：扫描从源码生成代理 IR，Rust 与 Dart 发射器分别生成分发代码与客户端，本地代理运行时分发调用与管理流。
+- RsLink——Rust 间 Link 协议层（`core-rslink`）：值转换、路由调用、流与 watch、反向流、内嵌流与 codegen 共享 IR/类型解析。
+- 应用组装——CoreApplication 门面（`core-application`）：runtime、proxy、node、access 四类 crate 组装成一棵 Core 树，Host 只拿公开句柄。
+- 命令层——CLI 命令编排（`core-command`）：core crate 的命令入口、chat/model/tool/sync 四组命令与 OperitApplication 门面的关系。
 
 ## Agent 回路
 

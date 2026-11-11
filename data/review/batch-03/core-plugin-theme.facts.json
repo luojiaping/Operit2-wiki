@@ -1,0 +1,366 @@
+[
+  {
+    "fact": "本 crate 不做 I/O、不调 Host、不启动运行时、不应用主题。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:3"
+  },
+  {
+    "fact": "渲染器证据只适用于已声明的模板资源，ToolPkg 加载、可执行保护与安装属于共享包系统的职责。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:5"
+  },
+  {
+    "fact": "crate 以 forbid(unsafe_code) 禁止 unsafe 代码。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:7"
+  },
+  {
+    "fact": "THEME_TEMPLATE_SCHEMA 与 THEME_SCHEMA_V1 两个常量分别内嵌 theme-template.schema.json 与 theme-v1.schema.json 的内容。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:42"
+  },
+  {
+    "fact": "theme_schema_v1 以 OnceLock 只加载一次 THEME_SCHEMA_V1。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:258"
+  },
+  {
+    "fact": "压缩包上限 MAX_ARCHIVE_BYTES 为 64 MiB，展开后总量上限 MAX_EXPANDED_BYTES 为 128 MiB。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:44"
+  },
+  {
+    "fact": "清单上限 MAX_MANIFEST_BYTES 为 64 KiB，theme.json 上限 MAX_THEME_BYTES 为 256 KiB。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:46"
+  },
+  {
+    "fact": "模板资源数上限 MAX_RESOURCES 为 24，字体数上限 MAX_FONTS 为 3。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:48"
+  },
+  {
+    "fact": "图片上限 MAX_IMAGE_BYTES 为 16 MiB，SVG 上限 MAX_SVG_BYTES 为 1 MiB，字体上限 MAX_FONT_BYTES 为 32 MiB，许可证上限 MAX_LICENSE_BYTES 为 128 KiB，预览图上限 MAX_PREVIEW_BYTES 为 4 MiB。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:50"
+  },
+  {
+    "fact": "图片边长上限 MAX_IMAGE_DIMENSION 为 4096，单图像素上限 MAX_IMAGE_PIXELS 为 16,777,216，总像素上限 MAX_TOTAL_IMAGE_PIXELS 为 64,000,000。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:55"
+  },
+  {
+    "fact": "预览尺寸 PREVIEW_WIDTH 为 1280，PREVIEW_HEIGHT 为 800。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:58"
+  },
+  {
+    "fact": "字体表上限 MAX_FONT_TABLES 为 64，字形上限 MAX_FONT_GLYPHS 为 65,535。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:60"
+  },
+  {
+    "fact": "校验器内存上限 MAX_VALIDATOR_MEMORY_BYTES 为 512 MiB，任务时限 MAX_VALIDATOR_TASK_MILLIS 为 15,000 毫秒。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:62"
+  },
+  {
+    "fact": "ThemeTemplateMetadata 含 theme_id、package_id、template_id、path、preview、version，并以 deny_unknown_fields 拒绝未知字段。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:70"
+  },
+  {
+    "fact": "模板元数据另含 display_name、author、license、files，description 为可选字段。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:76"
+  },
+  {
+    "fact": "Author 只有 name 一个字段。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:84"
+  },
+  {
+    "fact": "ManifestFile 只有 path 与 media_type 两个字段。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:90"
+  },
+  {
+    "fact": "ThemeSpecV1::as_json 返回校验过的视觉定义。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:102"
+  },
+  {
+    "fact": "canonical_bytes 是 v1 规范表示：对象键排序、紧凑 UTF-8 JSON，整数视觉 token 以整数表示（含 -0）。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:108"
+  },
+  {
+    "fact": "sha256 对规范字节做 SHA-256 摘要。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:116"
+  },
+  {
+    "fact": "asset_paths 收集 12 条 JSON 指针指向的资源引用。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:126"
+  },
+  {
+    "fact": "只有以 assets/ 开头的引用会被保留。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:138"
+  },
+  {
+    "fact": "ContractCheckedTheme 只检查契约与文件集合，不得用作媒体安全凭证、安装收据、官方徽章或 ZIP 校验证据。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:144"
+  },
+  {
+    "fact": "ValidatedThemeTemplate 含 archive_sha256、archive_bytes、expanded_bytes、manifest、theme、files、media、receipt。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:160"
+  },
+  {
+    "fact": "ThemeValidationReceipt 含 validator_version、theme_id、archive_sha256、archive_bytes、expanded_bytes、manifest_sha256、theme_sha256、files、media、trust。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:176"
+  },
+  {
+    "fact": "ThemeTemplateTrust 只有 Untrusted 一个变体，字节与结构校验不断言发布者身份与策展。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:188"
+  },
+  {
+    "fact": "ThemeFileValidation 含 path、bytes、sha256。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:194"
+  },
+  {
+    "fact": "file_bytes 只返回收据已覆盖路径的字节。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:231"
+  },
+  {
+    "fact": "sha256_hex 计算资源精确字节的小写 SHA-256 摘要。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:252"
+  },
+  {
+    "fact": "check_template_metadata 拒绝重复的模板资源路径。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:267"
+  },
+  {
+    "fact": "声明的 media_type 必须与路径推导出的媒体类型一致，否则报 contract 错误。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:275"
+  },
+  {
+    "fact": "资源超 24 或字体超 3 时报 template exceeds resource budget。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:286"
+  },
+  {
+    "fact": "模板必须包含 theme.json 与 preview.png，缺失即报 required template resource is missing。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:293"
+  },
+  {
+    "fact": "parse_theme 要求包内含完整展开的视觉状态，缺失 token 即拒绝，即使草稿编辑器对该 token 有 schema 默认值。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:301"
+  },
+  {
+    "fact": "parse_theme 以 MAX_THEME_BYTES 解析 theme.json，再做严格 schema 校验、规范化与视觉关系检查。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:303"
+  },
+  {
+    "fact": "validate_palette 用同一套完整颜色契约校验持久化调色板。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:312"
+  },
+  {
+    "fact": "normalize_draft 是唯一为省略的作者 token 补版本化默认值的地方，显式非法值、未知字段与坏资源路径仍是错误。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:318"
+  },
+  {
+    "fact": "气泡图 slice 的 end 必须至少比 start 大 0.01，否则报 contract 错误。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:382"
+  },
+  {
+    "fact": "声明的模板文件必须存在、非空且不超单文件上限，展开总量超 MAX_EXPANDED_BYTES 即报错。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:410"
+  },
+  {
+    "fact": "文本资源必须为 UTF-8。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:415"
+  },
+  {
+    "fact": "theme.json 引用的资源必须与模板声明的资源完全一致。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:426"
+  },
+  {
+    "fact": "ThemeValidationReceipt 的 validator_version 为 1。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:450"
+  },
+  {
+    "fact": "收据的 trust 恒为 ThemeTemplateTrust::Untrusted。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:468"
+  },
+  {
+    "fact": "validate_theme_resource_path 逐字拒绝路径，不做规范化、清理或磁盘解析，唯一例外是 .operit/market-install.seal。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:484"
+  },
+  {
+    "fact": "资源路径限 128 字符、最多 4 段，且须通过 is_ascii 检查，超限报 path exceeds v1 naming budget。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:488"
+  },
+  {
+    "fact": "路径组件不许为空、.、.. 或以点结尾，只允许小写字母、数字、_、-、.。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:495"
+  },
+  {
+    "fact": "Windows 保留名 con、prn、aux、nul、com1–com9、lpt1–lpt9 作路径首段即拒绝。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:506"
+  },
+  {
+    "fact": "路径拼写必须命中白名单正则，否则报 unregistered path spelling。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:520"
+  },
+  {
+    "fact": "metadata_for_path 按路径返回媒体类型与字节上限，theme.json 为 application/json 且上限 256 KiB。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:533"
+  },
+  {
+    "fact": "完整性错误码为 theme-package-integrity-invalid，阶段为 ValidationStage::Integrity。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:559"
+  },
+  {
+    "fact": "theme v1 schema 遵循 JSON Schema draft 2020-12，$id 为 urn:operit2:theme-visual:1。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1070"
+  },
+  {
+    "fact": "theme v1 schema 根对象 additionalProperties 为 false，拒绝未定义顶层字段。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:3"
+  },
+  {
+    "fact": "theme v1 schema 根对象必填 palette、background、surfaces、chat、input、typography 六节。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1063"
+  },
+  {
+    "fact": "light 调色板的 required 列表含 46 个颜色 token，首项为 primary。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:336"
+  },
+  {
+    "fact": "dark 调色板的 required 列表含 46 个颜色 token，与 light 逐项相同。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:713"
+  },
+  {
+    "fact": "颜色 token 为 9 字符大写十六进制字符串，格式为 ^#[0-9A-F]{8}$。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:17"
+  },
+  {
+    "fact": "palette 必填 light 与 dark。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:764"
+  },
+  {
+    "fact": "background.asset 只接受 assets/images 下的 png、jpg、jpeg、svg 或 null，默认 null。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:774"
+  },
+  {
+    "fact": "background.fit 只允许 cover，alignment 只允许 center。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:790"
+  },
+  {
+    "fact": "background.opacity 范围 0–1，默认 0.3。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:797"
+  },
+  {
+    "fact": "background.blur.enabled 默认 false，blur.radius 范围 0–40，默认 12。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:810"
+  },
+  {
+    "fact": "surfaces 只有 transparent 一个开关，默认 false。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:838"
+  },
+  {
+    "fact": "chat.style 只允许 cursor 或 bubble，默认 cursor。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:852"
+  },
+  {
+    "fact": "chat.showAvatar 默认 true。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:864"
+  },
+  {
+    "fact": "chat.avatarShape 只允许 circle 或 square，默认 circle；avatarCornerRadius 范围 0–32，默认 8。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:876"
+  },
+  {
+    "fact": "chat 必填 style、wideLayout、showAvatar、avatarShape、avatarCornerRadius、cursorUserColor、user、ai。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:901"
+  },
+  {
+    "fact": "input.style 只允许 classic 或 agent，默认 agent。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:916"
+  },
+  {
+    "fact": "input 只必填 style 与 floating。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1054"
+  },
+  {
+    "fact": "input.settingsAsset 只接受 assets/images 路径或 null。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:944"
+  },
+  {
+    "fact": "input.settingsAssetSize 范围 12–44，默认 18。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:953"
+  },
+  {
+    "fact": "input.micAssetSize 范围 12–48，默认 26。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:983"
+  },
+  {
+    "fact": "typography.global 默认 noto-sans-sc，只接受 noto-sans-sc、cascadia-mono 或 assets/fonts 下的 .ttf。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1028"
+  },
+  {
+    "fact": "typography 必填 global、user、ai。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1054"
+  },
+  {
+    "fact": "bubbleImage 的 asset 必填且须为 assets/images 路径，renderMode 只允许 tiled_nine_slice 或 nine_patch，默认 tiled_nine_slice。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1085"
+  },
+  {
+    "fact": "bubbleImage.crop 四边取值范围均为 0–0.45，默认 0。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1097"
+  },
+  {
+    "fact": "bubbleImage.slice 的 xStart 范围 0.05–0.9，默认 0.35；xEnd 范围 0.06–0.95，默认 0.65。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1140"
+  },
+  {
+    "fact": "bubbleImage.slice 的 yStart 范围 0.05–0.9，默认 0.35；yEnd 范围 0.06–0.95，默认 0.65。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1152"
+  },
+  {
+    "fact": "bubbleImage.scale 范围 0.25–3，默认 1。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1168"
+  },
+  {
+    "fact": "bubbleImage 必填 asset、renderMode、crop、slice、scale。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1176"
+  },
+  {
+    "fact": "bubble 必填 color、textColor、image、roundedCorners、padding。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1239"
+  },
+  {
+    "fact": "bubble.padding.left 范围 0–32，默认 12。",
+    "ref": "core/crates/plugin/theme/schema/theme-v1.schema.json:1219"
+  },
+  {
+    "fact": "theme-template schema 遵循 JSON Schema draft 2020-12，$id 为 urn:operit2:theme-template。",
+    "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:56"
+  },
+  {
+    "fact": "theme-template schema 根对象必填 id、path、preview、files。",
+    "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:50"
+  },
+  {
+    "fact": "theme-template schema 的 files 数组至少 2 项、至多 63 项。",
+    "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:7"
+  },
+  {
+    "fact": "theme-template schema 的 files 每项必填 path 与 mediaType。",
+    "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:31"
+  },
+  {
+    "fact": "theme-template schema 的 files 每项 mediaType 只允许 application/json、image/png、image/jpeg、image/svg+xml、font/ttf、text/plain 六种。",
+    "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:22"
+  },
+  {
+    "fact": "theme-template schema 的 files 路径只接受 theme.json、preview.png、licenses 下的 .txt、assets/images 下的图片或 assets/fonts 下的 .ttf。",
+    "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:13"
+  },
+  {
+    "fact": "lib.rs 的 use 列表只含 regex、serde、serde_json、sha2 与标准库集合、OnceLock，无文件系统与 Host 导入。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:37"
+  },
+  {
+    "fact": "lib.rs 的模块列表为 error、export、json、media、preview、schema、toolpkg，无 origin-policy 与 attestation 模块。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:12"
+  },
+  {
+    "fact": "收据的 files 逐项记录已校验清单中每个文件的路径、字节数与 SHA-256。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:461"
+  },
+  {
+    "fact": "代码注释说明，核实的信任由 origin-policy 与 attestation 层另行提供。",
+    "ref": "core/crates/plugin/theme/src/lib.rs:185"
+  }
+]

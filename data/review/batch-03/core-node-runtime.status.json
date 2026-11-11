@@ -1,0 +1,1 @@
+{"issue":29,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"节点运行时：CoreNodeRouter 的本地/跨节点路由决策、SpaceRuntime 本地执行、持久化同步与 NodeSpaceService 准入；核实 README 的 runtime/src/remote 为文档滞后","updated":"2026-11-11"}
