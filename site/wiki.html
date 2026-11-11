@@ -304,6 +304,12 @@ fetch("data/wiki/pages.json")
     buildTree();
     const want = new URLSearchParams(location.search).get("id");
     const exists = FLAT.some(f => f.id === want);
+    if (!FLAT.length) {
+      // 正文页尚未写入（只有大纲评审条目）是正常状态，不是数据缺失
+      document.getElementById("page-title").textContent = "暂无正文页";
+      document.getElementById("page-body").innerHTML = `<div class="empty">正文页尚未写入，请先在评审页查看大纲。</div>`;
+      return;
+    }
     select(exists ? want : FLAT[0].id, false);
   })
   .catch((err) => {
