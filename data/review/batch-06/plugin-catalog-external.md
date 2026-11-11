@@ -2,7 +2,7 @@
 title: 外置（官方可选）插件目录
 module: plugins
 platforms: [all]
-sources: [plugins/README.md, plugins/packages/external/subagents/manifest.json, plugins/packages/external/moss_atelier/manifest.json, plugins/packages/external/worldbook/manifest.json, plugins/packages/external/wechat/manifest.json, plugins/packages/external/subagents/README.md, plugins/packages/external/subagents/src/tools.ts, plugins/packages/external/waifu/manifest.json, plugins/packages/external/qqbot/manifest.json, plugins/packages/external/image_workbench/manifest.json, plugins/packages/external/custom_ai_provider/manifest.json, plugins/packages/external/desktop_widget_demo/manifest.json, plugins/packages/external/dino_runner/manifest.json, plugins/packages/external/floating_window_demo/manifest.json, plugins/packages/external/sidebar_bing_action/manifest.json, plugins/packages/external/template_try/manifest.json, plugins/packages/external/context_limiter/manifest.json, plugins/packages/external/debug_msg_dump/manifest.json, plugins/packages/external/deepseek_dafeiyu/manifest.json, plugins/packages/external/edge_pixel_pet/manifest.json, plugins/packages/external/message_insert/manifest.json, plugins/packages/external/openui/manifest.json, plugins/packages/external/sidebar_model_sites/manifest.json, plugins/packages/external/baidu_map.ts, plugins/packages/external/beeimg_image_uploader.ts, plugins/packages/external/douyin_download.ts, plugins/packages/external/duckduckgo.ts, plugins/packages/external/extended_chat.ts, plugins/packages/external/extended_http_tools.ts, plugins/packages/external/google_search.ts, plugins/packages/external/network_test.ts, plugins/packages/external/tavily.ts, plugins/packages/external/zhipu_search.ts, plugins/packages/external/tsconfig.json]
+sources: [plugins/README.md, plugins/packages/external/subagents/manifest.json, plugins/packages/external/moss_atelier/manifest.json, plugins/packages/external/worldbook/manifest.json, plugins/packages/external/wechat/manifest.json, plugins/packages/external/subagents/README.md, plugins/packages/external/subagents/src/tools.ts, plugins/packages/external/waifu/manifest.json, plugins/packages/external/qqbot/manifest.json, plugins/packages/external/image_workbench/manifest.json, plugins/packages/external/custom_ai_provider/manifest.json, plugins/packages/external/desktop_widget_demo/manifest.json, plugins/packages/external/dino_runner/manifest.json, plugins/packages/external/floating_window_demo/manifest.json, plugins/packages/external/sidebar_bing_action/manifest.json, plugins/packages/external/template_try/manifest.json, plugins/packages/external/context_limiter/manifest.json, plugins/packages/external/debug_msg_dump/manifest.json, plugins/packages/external/deepseek_dafeiyu/manifest.json, plugins/packages/external/edge_pixel_pet/manifest.json, plugins/packages/external/message_insert/manifest.json, plugins/packages/external/openui/manifest.json, plugins/packages/external/sidebar_model_sites/manifest.json, plugins/packages/external/baidu_map.ts, plugins/packages/external/beeimg_image_uploader.ts, plugins/packages/external/douyin_download.ts, plugins/packages/external/duckduckgo.ts, plugins/packages/external/extended_chat.ts, plugins/packages/external/extended_http_tools.ts, plugins/packages/external/google_search.ts, plugins/packages/external/network_test.ts, plugins/packages/external/tavily.ts, plugins/packages/external/zhipu_search.ts, plugins/packages/external/tsconfig.json, core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs]
 date: 2026-11-11
 ---
 
@@ -34,7 +34,8 @@ subagents 的 enabled_by_default 为 false，installation_scope 为 space（`plu
 moss_atelier 的 enabled_by_default 为 false（`plugins/packages/external/moss_atelier/manifest.json:17`）。
 worldbook 的 enabled_by_default 为 false（`plugins/packages/external/worldbook/manifest.json:21`）。
 wechat 的 enabled_by_default 为 false，installation_scope 为 device（`plugins/packages/external/wechat/manifest.json:12`）。
-message_insert 的 enabled_by_default 为 true（`plugins/packages/external/message_insert/manifest.json:15`）。
+message_insert 的 enabled_by_default 为 true（`plugins/packages/external/message_insert/manifest.json:15`）；显式声明为 true 的仅 message_insert，另有 debug_msg_dump 因省略该字段而缺省为 true。
+debug_msg_dump 的 manifest 省略 enabled_by_default，按宿主缺省规则实际默认启用（`plugins/packages/external/debug_msg_dump/manifest.json:1`；`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:668`）。
 context_limiter 的 ctx_limiter 子包 enabled_by_default 为 true（`plugins/packages/external/context_limiter/manifest.json:14`）。
 edge_pixel_pet 的 edge_pixel_pet 子包 enabled_by_default 为 true（`plugins/packages/external/edge_pixel_pet/manifest.json:14`）。
 subagents 工具子包的默认启用声明位于 src/tools.ts 的 METADATA 中，容器本身仍默认关闭（`plugins/packages/external/subagents/README.md:57`）。
@@ -132,7 +133,7 @@ send_input 的 interrupt 默认 false（`plugins/packages/external/subagents/src
 ### moss_atelier 与 worldbook
 
 moss_atelier 提供苔绿与暖砂两套外观模板，配有完整明暗配色、柔和背景与悬浮输入框（`plugins/packages/external/moss_atelier/manifest.json:11`）。
-moss_atelier 的 manifest 没有 main 字段，是纯主题包（`plugins/packages/external/moss_atelier/manifest.json:26`）。
+moss_atelier 的 manifest 未声明 main 入口，仅声明 themes，是无入口的主题包（`plugins/packages/external/moss_atelier/manifest.json:1`）。
 moss_atelier 的 themes 包含 id 为 moss 的主题，主题机制见 [[plugin-theme|主题即插件]]（`plugins/packages/external/moss_atelier/manifest.json:28`）。
 manifest 声明 id 为 dune 的主题（`plugins/packages/external/moss_atelier/manifest.json:47`）。
 moss_atelier 的 logo 资源 key 为 package_logo，路径为 resources/logo.svg（`plugins/packages/external/moss_atelier/manifest.json:18`）。
@@ -205,3 +206,4 @@ worldbook 依赖 com.operit.character_cards，最低版本 0.1.0（`plugins/pack
 - `plugins/packages/external/tavily.ts`
 - `plugins/packages/external/zhipu_search.ts`
 - `plugins/packages/external/tsconfig.json`
+- `core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs`

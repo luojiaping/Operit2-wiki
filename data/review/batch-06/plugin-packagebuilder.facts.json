@@ -121,11 +121,11 @@
 },
 {
 "fact": "为 Operit2 新建 ToolPkg 时，在 manifest 中显式声明 \"api_version\": \"2.0.0\"，并使用 PackageBuilder 随包携带的当前版本 types/；解析器接受旧版本号不等于完整实现旧接口；旧包需要逐项验证所用能力，不能仅凭导入成功宣称兼容；迁移旧包需要同步检查接口、路径和平台语义，不能只修改版本号。",
-"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:7"
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:9"
 },
 {
 "fact": "schema_version 表示清单格式版本，api_version 表示 ToolPkg API 契约，version 表示插件自身的发布版本，三者不能混用。",
-"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:9"
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:13"
 },
 {
 "fact": "包管理中的“快速创作你的插件”会安装 PackageBuilder、将它设为 AI 可见，并启用 operit_editor；准备完成后，需求会作为聊天草稿填入输入框，用户发送后才开始与 AI 协作开发；这个入口不自动生成源码、不自动配置编译器，也不自动安装或发布成品。",
@@ -221,31 +221,31 @@
 },
 {
 "fact": "当前 package import 拒绝重复的已注册包名，不提供覆盖安装或自动热更新；更新步骤是用户明确授权后的替换操作，不是失败后的自动处理。",
-"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:102"
-},
-{
-"fact": "同 ID 更新第一步是在删除已安装版本之前完成新版本构建，核验归档，并在开发目录保留源码及所需旧版本成品。",
 "ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:103"
 },
 {
-"fact": "同 ID 更新第二步是用 package list 和 package show 记录容器、子包的真实名称及启用状态；向用户说明删除与重新安装的影响并获得确认。",
-"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:104"
-},
-{
-"fact": "同 ID 更新第三步是调用 [\"package\", \"delete\", \"<package_id>\"]，确认删除成功；只对本次要更新的外部包执行该操作，不删除其他包。",
+"fact": "同 ID 更新第一步是在删除已安装版本之前完成新版本构建，核验归档，并在开发目录保留源码及所需旧版本成品。",
 "ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:105"
 },
 {
-"fact": "同 ID 更新第四步是调用 [\"package\", \"import\", \"<artifact_host_path>\"]，确认新版本导入成功；导入失败时保留错误并停止，不自动改变包 id 或执行其他安装路径。",
+"fact": "同 ID 更新第二步是用 package list 和 package show 记录容器、子包的真实名称及启用状态；向用户说明删除与重新安装的影响并获得确认。",
 "ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:106"
 },
 {
-"fact": "同 ID 更新第五步是按用户确认的配置逐项恢复容器及子包的启用状态，再读取列表核验，并重新测试工具、UI 与 hook。",
+"fact": "同 ID 更新第三步是调用 [\"package\", \"delete\", \"<package_id>\"]，确认删除成功；只对本次要更新的外部包执行该操作，不删除其他包。",
 "ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:107"
 },
 {
-"fact": "不要宣称包管理已经具有一键继续开发、合并开发或覆盖安装功能；创作入口目前接入的是新建需求草稿；继续开发需要明确定位原项目并按上述流程处理。",
+"fact": "同 ID 更新第四步是调用 [\"package\", \"import\", \"<artifact_host_path>\"]，确认新版本导入成功；导入失败时保留错误并停止，不自动改变包 id 或执行其他安装路径。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:108"
+},
+{
+"fact": "同 ID 更新第五步是按用户确认的配置逐项恢复容器及子包的启用状态，再读取列表核验，并重新测试工具、UI 与 hook。",
 "ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:109"
+},
+{
+"fact": "不要宣称包管理已经具有一键继续开发、合并开发或覆盖安装功能；创作入口目前接入的是新建需求草稿；继续开发需要明确定位原项目并按上述流程处理。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:111"
 },
 {
 "fact": "发布方式一是直接发布本地插件，页面处理当前成品，在当前 GitHub 账号的 OperitForge 仓库保存 Release 资产并登记市场条目。",
@@ -277,11 +277,11 @@
 },
 {
 "fact": "先阅读 PLUGIN_CREATION_WORKFLOW.md；通过 [\"skill\", \"show\", \"PackageBuilder\"] 读取真实 Skill 目录，检查终端 host 与可写文件位置，确定 <dev_root>；所有平台都使用现有 host API；不固定到某个平台的下载目录。",
-"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:51"
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:49"
 },
 {
 "fact": "独立插件项目放在 <dev_root>/<package_id>/，将 Skill 的 types/ 完整复制到 <dev_root>/types/；贡献 Operit 主项目时，脚本源码位于 plugins/packages/buildin/ 或 plugins/packages/external/；不要把 Skill 内的示例副本当作应用已经安装的包。",
-"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:53"
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:51"
 },
 {
 "fact": "package.json 示例声明开发依赖 typescript ^5.0.0，构建命令为 tsc -p tsconfig.json。",
@@ -421,11 +421,15 @@
 },
 {
 "fact": "示例按文本查找登录按钮：page.findByText(\"登录\")。",
-"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:574"
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:577"
 },
 {
-"fact": "示例按类名查找全部文本视图：page.findAllByClass('TextView')；按内容描述查找返回按钮：page.findByContentDesc(\"返回\")。",
+"fact": "示例按类名查找全部文本视图：`page.findAllByClass('TextView')`。",
 "ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:580"
+},
+{
+"fact": "示例按内容描述查找返回按钮：`page.findByContentDesc(\"返回\")`。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:583"
 },
 {
 "fact": "工具调用示例：await Tools.System.sleep(3000) 等待 3 秒；await Tools.UI.getPageInfo() 获取当前页面信息。",
@@ -816,11 +820,43 @@
 "ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1389"
 },
 {
-"fact": "更新日志 v1.0.0 (2024-02-14) 是初始版本：支持子包、UI 模块、资源文件，支持多语言，提供 Compose DSL UI 框架。",
+"fact": "格式指南更新日志 v1.0.0 (2024-02-14) 是初始版本：支持子包、UI 模块、资源文件，支持多语言，提供 Compose DSL UI 框架。此为指南文档的版本记录，与 api_version 无关。",
 "ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1396"
 },
 {
 "fact": "ToolPkg.registerDesktopWidget 是桌面小部件注册接口；桌宠和其他实时悬浮工具使用独立的 ToolPkg.ui.floatingWindows 窗口控制接口，内容复用已注册的 Compose UI 路由；方法、平台能力、权限与生命周期见 ../FLOATING_WINDOWS.md。",
 "ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1405"
+},
+{
+"fact": "本地安装、执行和界面测试完成后，用户可在 Artifact 市场的发布页面选择已安装的本地插件，填写资料和版本。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:115"
+},
+{
+"fact": "`ToolPkg.registerToolboxUiModule` 注册 Compose DSL 工具箱 UI 模块。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:344"
+},
+{
+"fact": "`ToolPkg.registerUiRoute` 注册 UI 路由。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:478"
+},
+{
+"fact": "`ToolPkg.registerAppLifecycleHook` 注册应用生命周期钩子。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:498"
+},
+{
+"fact": "`ToolPkg.registerMessageProcessingPlugin` 注册消息处理插件。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:501"
+},
+{
+"fact": "`ToolPkg.registerXmlRenderPlugin` 注册 XML 渲染插件。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:503"
+},
+{
+"fact": "`ToolPkg.registerInputMenuTogglePlugin` 注册输入菜单开关插件。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:506"
+},
+{
+"fact": "资源声明的字段为 `key`、`path` 与 `mime`，其中 `key` 是资源的唯一键，用于在代码中引用。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:658"
 }
 ]

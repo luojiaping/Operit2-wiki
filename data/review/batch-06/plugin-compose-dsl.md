@@ -75,7 +75,8 @@ Memo 与惰性条目执行保留其词法 hook 与订阅归属（`core/crates/pl
 `ComposeTheme` 的 `getCurrent` 返回当前已解析主题，在没有 UI 宿主提供主题时抛出错误（`plugins/types/compose-dsl.d.ts:4784`）。
 `ComposeTheme` 的 `subscribe` 观察后续主题变化，并返回取消订阅函数（`plugins/types/compose-dsl.d.ts:4788`）。
 被显式编辑隐藏的参数不在传输快照中保留已移除源地址（`core/crates/plugin/sdk/src/toolpkg/compose/README.md:27`）。
-`ComposeLazyViewport` 的 `contentRevision` 在插件内容变化时使已测量的占位尺寸失效（`plugins/types/compose-dsl.d.ts:3843`）（`plugins/types/compose-dsl.d.ts:3851`）。
+`ComposeLazyViewport` 是惰性视口接口（`plugins/types/compose-dsl.d.ts:3843`）。
+该接口的 `contentRevision` 在插件内容变化时使已测量的占位尺寸失效（`plugins/types/compose-dsl.d.ts:3851`）。
 `ComposeLazyViewport` 是所属 Flutter 列表的视口元数据（`plugins/types/compose-dsl.d.ts:3885`）。
 有限的 CLI 与桌面快照使用相同二进制格式显式物化其视图（`core/crates/plugin/sdk/src/toolpkg/compose/README.md:96`）。
 Flutter 从该缓冲投影索引容器，而不解码第二棵参数树（`core/crates/plugin/sdk/src/toolpkg/compose/README.md:95`）。
@@ -117,7 +118,8 @@ Flutter 对每个布局程序只安装与校验一次（`core/crates/plugin/sdk/
 - `useEffect` — 运行组合拥有的工作，并在依赖变化或处置时执行清理（`plugins/types/compose-dsl.d.ts:4834`）
 - `useMemo` — 按键复用计算值，直至依赖列表变化（`plugins/types/compose-dsl.d.ts:4830`）
 - `lazyItems` — 用稳定条目键与固定主轴尺寸构建指定范围（`plugins/types/compose-dsl.d.ts:4814`）
-- `ComposeLazyViewport` 的 `contentRevision` — 在插件内容变化时使已测量的占位尺寸失效（`plugins/types/compose-dsl.d.ts:3843`）（`plugins/types/compose-dsl.d.ts:3851`）
+- `ComposeLazyViewport` — 惰性视口接口（`plugins/types/compose-dsl.d.ts:3843`）
+- 该接口的 `contentRevision` — 在插件内容变化时使已测量的占位尺寸失效（`plugins/types/compose-dsl.d.ts:3851`）
 - `ComposeThemeSnapshot` — 包含 `brightness` 与 `colors` 的主题快照（`plugins/types/compose-dsl.d.ts:4765`）
 - `ComposeTheme` 的 `getCurrent` — 返回当前已解析主题，在没有 UI 宿主提供主题时抛出错误（`plugins/types/compose-dsl.d.ts:4784`）
 - `ComposeTheme` 的 `subscribe` — 观察后续主题变化，并返回取消订阅函数（`plugins/types/compose-dsl.d.ts:4788`）

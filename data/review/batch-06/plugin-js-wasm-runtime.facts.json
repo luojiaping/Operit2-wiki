@@ -157,7 +157,7 @@
   },
   {
     "fact": "模块 id 去空白并转小写后与包目标拼成键",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:75"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:74"
   },
   {
     "fact": "load 经 __operitNativeLoadToolPkgWasm 取回模块字节与元数据",
@@ -204,7 +204,7 @@
     "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:43"
   },
   {
-    "fact": "归档未声明安装范围时默认使用 ToolPkgConfigScope::Device",
+    "fact": "捆绑外部资源加载时，归档未声明安装范围默认使用 ToolPkgConfigScope::Device",
     "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:52"
   },
   {
@@ -224,7 +224,7 @@
     "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:106"
   },
   {
-    "fact": "归档要求的安装范围与传入范围不一致时返回错误",
+    "fact": "非内置加载时，归档要求的安装范围与传入范围不一致时返回错误",
     "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:133"
   },
   {
@@ -280,7 +280,7 @@
     "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:19"
   },
   {
-    "fact": "桥脚本把 ToolPkg.wasm 挂到 __operitCreateToolPkgWasmApi 的返回值上",
+    "fact": "ToolPkg.wasm 的值是 __operitCreateToolPkgWasmApi 的返回值",
     "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:617"
   },
   {
@@ -326,6 +326,10 @@
   {
     "fact": "导航 surface 清单包含 workspace 与 workspace_home",
     "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:86"
+  },
+  {
+    "fact": "导航 surface 清单还包含 chat_input_menu、chat_input_menu_sections、chat_message_after",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:84"
   },
   {
     "fact": "registerChatLifecycleHook 要求 definition 的 id 为非空字符串",

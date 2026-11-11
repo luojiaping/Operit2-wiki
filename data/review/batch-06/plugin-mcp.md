@@ -8,13 +8,15 @@ date: 2026-11-11
 
 ## 概述
 
-- MCP 是 Operit2 的 Core 工具运行时扩展类型，工具由 Core 直接执行，不经过 ToolPkg 插件运行时。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:424`
+- 转成的 `ToolPackage` 的 `category` 为 `MCP`。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:118`
+- 工具的 `script` 为 MCPJS 占位脚本，由 `generateScriptPlaceholder` 生成。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:103`
+- 占位脚本含服务器名、工具名与 endpoint，标记为 `MCPJS`。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:124`
 - MCP 服务器的工具经 `toToolPackage` 转成 `ToolPackage`，成为 Agent 可调用的工具。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:73`
 - `MCPToolExecutor` 实现 `AsyncToolExecutor`，承接 Agent 的工具调用。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:424`
 - MCP 服务器的本地配置由 `MCPLocalServer` 管理。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:12`
 - MCP 服务器的安装由 `MCPRepository` 负责。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:25`
 - MCP 服务器的运行期注册表与桥接客户端缓存由 `MCPManager` 持有。`core/crates/tool/services/src/tools/mcp/MCPManager.rs:9`
-- MCP 与 ToolPkg 是两条独立的扩展路径，ToolPkg 的总览见 [[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]]。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:424`
+- 执行路径独立：MCP 走 `MCPToolExecutor`，不走 ToolPkg 脚本执行，ToolPkg 的总览见 [[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]]。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:424`
 
 ## AI 速览
 
@@ -49,7 +51,7 @@ date: 2026-11-11
 - MCPLocalServer 的 `addOrUpdateMCPServerConfig` 先经 `sanitizeServerConfig` 校验再添加或替换完整服务器配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:214`
 - 在 `command` 为空且 `url` 缺失时判定配置无效。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:600`
 - MCPLocalServer 的 `mergeConfigFromJson` 从 JSON 配置导入服务器条目，`mcpServers` 为空时返回错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:251`
-- 返回 `addedCount` 作为成功插入的服务器数量。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:270`
+- 返回 `addedCount` 作为成功写入的服务器条目数（含覆盖同名已有条目）。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:270`
 - MCPLocalServer 的 `getConfigFilePath` 返回配置文件的绝对路径。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:276`
 - MCPLocalServer 的 `getConfigDirectory` 返回本地 MCP 插件运行文件目录。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:282`
 - MCPLocalServer 的 `removeMCPServer` 删除服务器配置、元数据与运行状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:226`
@@ -70,7 +72,7 @@ date: 2026-11-11
 - MCPRepository 的 `installMCPServerFromZip` 从本地 zip 与元数据对象安装 MCP 服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:100`
 - `installMCPServerWithObjectForFlutter` 供 Flutter 桥调用，从仓库 URL 安装 MCP 服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:121`
 - `installMCPServerFromZipForFlutter` 供 Flutter 桥调用，从本地 zip 安装 MCP 服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:143`
-- `extractOwnerAndRepo` 只接受 `github.com` 域名。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:501`
+- `extractOwnerAndRepo` 只接受 `github.com` 及其子域。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:501`
 - 仓库 zip 按默认分支从 GitHub 归档地址下载。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:325`
 - `getGithubDefaultBranch` 查询 `api.github.com` 的仓库接口取默认分支。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:550`
 - 仓库下载的 `CONNECT_TIMEOUT_SECONDS` 为 15 秒、`READ_TIMEOUT_SECONDS` 为 30 秒。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:20`
@@ -85,9 +87,9 @@ date: 2026-11-11
 - `InstallProgress` 含 `Finished` 进度事件。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:48`
 - MCPLocalServer 的 `readMCPConfig` 从 `ExtensionStore` 的 `mcp` 记录读取配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:681`
 - 同一服务器 id 出现在两处时报 MCP ownership conflict 错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:689`
-- `scope` 为 `space` 的记录只接受远程服务器，命令型本地服务器写入时返回错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:709`
+- `scope` 为 `space` 的记录只接受远程服务器：`url` 缺失或为空、或 `command` 非空时写入均被拒（同时声明 `url` 与 `command` 也会被拒），报错为 `Local MCP can only belong to this device:` 后接记录 id。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:709`
 - 导入的每台服务器恰好声明 `command` 与 `url` 其一，否则返回错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:762`
-- `scope` 为 `space` 时命令型本地服务器导入被拒绝。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:767`
+- `scope` 为 `space` 时命令型本地服务器导入被拒绝，报错为 `Local MCP can only belong to this device:` 后接服务器 id。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:767`
 - `scope` 为 `space` 的导入完成后调用 `moveScope` 迁移记录归属。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:779`
 - 已存在的服务器 id 重复导入时返回 MCP already exists 错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:755`
 - 缺失元数据的服务器会被补一份默认 `metadata`。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:661`
@@ -123,7 +125,7 @@ date: 2026-11-11
 - `decodeValidatedImage` 只接受 PNG、JPEG、GIF、WebP 四种图片格式。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:237`
 - `registerImageBytes` 把图片字节注册进 `ImagePoolManager` 并返回媒体链接。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:249`
 - `imageFileExtension` 按图片格式取文件扩展名，JPEG 取 `jpg`、GIF 取 `gif`、WebP 取 `webp`、其余取 `png`。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:257`
-- `save` 把图片写进调用方当前文件目录，文件名为 `mcp-{timestampMs}-{}.{extension}`。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:59`
+- `save` 把图片写进调用方当前文件目录，文件名为 mcp-{timestampMs}-{uuid}.{extension}。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:59`
 - `resolve` 在无 turn 快照时返回 `None`。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:46`
 - `resolve` 取 turn 快照的文件目录作为图片保存目标。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:46`
 - `truncateResult` 按 `ToolExecutionLimits` 的 `MAX_TEXT_RESULT_LENGTH` 截断过长结果。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:81`
@@ -151,7 +153,7 @@ date: 2026-11-11
 - MCPToolParameter 的 `smartConvert` — 按声明类型转换字符串参数。`core/crates/tool/services/src/tools/mcp/MCPToolParameter.rs:26`
 - `MCPToolExecutor` — MCP 工具的执行器。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:67`
 - MCPToolExecutor 的 `invoke` — 按 `server_name:tool_name` 分发调用。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:341`
-- MCPToolExecutor 的 `validateParameters` — 校验工具名格式与参数完整性。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:425`
+- MCPToolExecutor 的 `validateParameters` — 校验工具名格式与参数是否含 U+FFFD 替换字符。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:425`
 - MCPToolExecutor 的 `accessSpec` — 声明写效应与无边界。`core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:466`
 - `MCPLocalServer` — 配置、元数据与运行状态的本地存储。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:12`
 - `MCPConfig` — 本地 MCP 配置文档。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:18`
@@ -182,7 +184,7 @@ date: 2026-11-11
 
 1. 配置写入：MCPLocalServer 的 `addOrUpdateMCPServer` 添加或替换命令型服务器条目。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:170`
 2. 配置读取：`readMCPConfig` 从 `ExtensionStore` 的 `mcp` 记录读取配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:681`
-3. 配置写回时，`scope` 为 `space` 的记录只接受远程服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:709`
+3. 配置写回时，`scope` 为 `space` 的记录只接受远程服务器（`url` 缺失或为空、或 `command` 非空时均被拒）。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:709`
 4. 注册：MCPManager 的 `registerServer` 注册或替换服务器配置。`core/crates/tool/services/src/tools/mcp/MCPManager.rs:159`
 5. 发现：MCPPackage 的 `loadFromServer` 连接服务器并取工具元数据。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:29`
 6. 转换：MCPPackage 的 `toToolPackage` 把 MCP 工具转成 `ToolPackage`。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:73`

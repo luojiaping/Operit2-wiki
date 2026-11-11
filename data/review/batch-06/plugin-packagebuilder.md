@@ -11,7 +11,7 @@ date: 2026-11-11
 - `PackageBuilder` 是当前 Operit 随软件携带的插件开发 Skill。`plugins/skills/external/PackageBuilder/SKILL.md:8`
 - 文档声明：`PackageBuilder` 的类型和示例来自当前版本内置资源，不从云端拉取其他版本。`plugins/skills/external/PackageBuilder/SKILL.md:8`
 - 文档声明：`PackageBuilder` 的描述是使用当前 Operit 随软件携带的类型定义和示例开发、打包、安装与测试插件包，并通过现有 host API 核对环境与路径。`plugins/skills/external/PackageBuilder/SKILL.md:3`
-- 磁盘实况：PackageBuilder 磁盘目录只有 SKILL.md 与 skill.include.json 两个文件；SKILL.md 树状图里的 `references/`、types/、examples/ 由 skill.include.json 在打包时解析还原。`plugins/skills/external/PackageBuilder/skill.include.json:4`
+- 磁盘实况：PackageBuilder 磁盘目录只有 SKILL.md 与 skill.include.json 两个文件；SKILL.md 里的树状图是安装后呈现的逻辑树，其余内容由 skill.include.json 声明映射、随包还原。`plugins/skills/external/PackageBuilder/skill.include.json:4` `plugins/skills/external/PackageBuilder/SKILL.md:40`
 - 文档声明：安装 Skill 时从随软件携带的插件归档中还原示例已使用的资源，保留完整的相对路径和原始文件；示例源码不要求对应插件已安装或启用。`plugins/skills/external/PackageBuilder/SKILL.md:40`
 - 文档声明：CLI 和 App 使用同一套资源与安装逻辑。`plugins/skills/external/PackageBuilder/SKILL.md:40`
 - 文档声明：包管理创作入口只准备 Skill 和包，并把需求填入聊天草稿；用户发送后才开始开发；它不自动生成、构建、安装或发布插件。`plugins/skills/external/PackageBuilder/SKILL.md:53`
@@ -55,7 +55,7 @@ date: 2026-11-11
 - 文档声明：skill.include.json 把 `../../../types` 映射到 Skill 内的 `types` 目录。`plugins/skills/external/PackageBuilder/skill.include.json:16`
 - 文档声明：skill.include.json 把 `../../../packages/buildin` 映射到 `examples/packages/buildin`。`plugins/skills/external/PackageBuilder/skill.include.json:20`
 - 文档声明：skill.include.json 把 `../../../packages/external` 映射到 `examples/packages/external`。`plugins/skills/external/PackageBuilder/skill.include.json:33`
-- 文档声明：skill.include.json 的示例排除 `.sync_state.json`、`node_modules`、`dist`、`build`、`tests-dist`。`plugins/skills/external/PackageBuilder/skill.include.json:26`
+- 文档声明：skill.include.json 的示例排除 `.sync_state.json`、`.sync_hot_reload_state.json`、`node_modules`、`dist`、`build`、`tests-dist`。`plugins/skills/external/PackageBuilder/skill.include.json:26`
 - 文档声明：示例目录提供开发源码与构建配置，不携带 `dist/`、`build/`、`tests-dist/` 中的生成文件或成品包。`plugins/skills/external/PackageBuilder/SKILL.md:38`
 - 文档声明：Compose UI 按普通、可读的 CommonJS JavaScript 交付，保留界面声明和回调，运行时负责 Compose 编译与缓存；不要指导用户生成或修改 Compose 内部预编译产物。`plugins/skills/external/PackageBuilder/SKILL.md:38`
 
@@ -109,7 +109,7 @@ date: 2026-11-11
 - 文档声明：`Tools.UI.getPageInfo()` 返回的页面结构是一个 `UINode` 对象树；每个 `UINode` 代表屏幕上的一个 UI 元素。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:560`
 - 文档声明：`UINode` 查找子元素可用 `findById`、`findByText`、`findByClass`、`findAllBy...`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:561`
 - 文档声明：`UINode` 示例按资源 ID 查找搜索框：`page.findById('com.example:id/search_box')`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:574`
-- 文档声明：示例按文本查找登录按钮：`page.findByText("登录")`；按类名查找全部文本视图：`page.findAllByClass('TextView')`；按内容描述查找返回按钮：`page.findByContentDesc("返回")`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:580`
+- 文档声明：示例按文本查找登录按钮：`page.findByText("登录")`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:577`；按类名查找全部文本视图：`page.findAllByClass('TextView')`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:580`；按内容描述查找返回按钮：`page.findByContentDesc("返回")`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:583`
 - 文档声明：工具调用示例为 `await Tools.System.sleep(3000)` 等待 3 秒，`await Tools.UI.getPageInfo()` 获取当前页面信息。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:364`
 - 文档声明：工具调用示例为在屏幕上滑动用 `await Tools.UI.swipe(540, 1800, 540, 900)`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:370`
 
@@ -146,7 +146,7 @@ date: 2026-11-11
 - 文档声明：`ToolPkg.registerDesktopWidget` 的 `route` 与 `routeId` 是已注册路由 ID，为必填项；`render` 与 `renderRouteId` 默认等于 `route`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:491`
 - 文档声明：`ToolPkg.registerAppLifecycleHook` 的 `event` 与 `function` 为必填项。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:499`
 - 文档声明：`ToolPkg.registerAppLifecycleHook` 支持的 application 事件包括 `application_on_create`、`application_on_foreground`、`application_on_background`、`application_on_low_memory`、`application_on_trim_memory`、`application_on_terminate`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:511`
-- 文档声明：`ToolPkg.registerAppLifecycleHook` 支持的 activity 事件包括 `activity_on_create`、`activity_on_start`、`activity_on_resume`、`activity_on_pause`、`activity_on_stop`、`activity_on_destroy`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:511` `plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:517`
+- 文档声明：该函数支持的 activity 事件包括 `activity_on_create`、`activity_on_start`、`activity_on_resume`、`activity_on_pause`、`activity_on_stop`、`activity_on_destroy`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:517`
 - 文档声明：`main` 上下文是 `manifest.main` 指向的包入口脚本，承载包级逻辑：注册 hook、执行 hook、注册/处理包级 IPC、承载包级内存态；同一个 ToolPkg 容器共用一个包级 JS engine，内部 context key 形如 `toolpkg_main:<toolpkg_id>`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:536`
 - 文档声明：`ui` 上下文是 `*.ui.js` 的 Compose DSL screen/action handler，渲染界面、响应点击、读取 UI state；每个 UI route、widget、XML render 实例有自己的 JS engine。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:537`
 - 文档声明：`sandbox` 上下文是独立工具脚本、子包工具脚本、调试脚本，执行一次性工具逻辑；可以通过 IPC 调用所属 ToolPkg 的 `main`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:538`
@@ -179,7 +179,7 @@ date: 2026-11-11
 - 文档声明：UI 模块通过 ctx.resolveToolName({packageName, subpackageId, toolName, preferImported}) 解析工具名。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1137`
 - 文档声明：`ctx.navigate(route, args?)` 会触发真实路由跳转；`ctx.listRoutes()` 返回当前可导航路由列表，包含 `routeId`、`runtime` 等字段；`ctx.getHostRoutes()` 只返回宿主 Native 路由；Native 路由 ID 命名规则为 native.<Screen 对象名的 snake_case>，例如 `Screen.Toolbox` 对应 `native.toolbox`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1154`
 - 文档声明：`ctx.openFilePicker(options?)` 仅使用 `picker` 指定选择来源；未传入 `picker` 时打开文档选择器。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1161`
-- 文档声明：`ctx.openFilePicker` 通过 Flutter `file_selector` 在 Android、iOS、Linux、macOS、Windows、Web 和 OpenHarmony 使用各平台的文件选择器；不适用该 `picker` 的选项会直接报错；结果提供平台文件路径或浏览器对象 URL。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1161` `plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1173`
+- 文档声明：该 API 通过 Flutter `file_selector` 在 Android、iOS、Linux、macOS、Windows、Web 和 OpenHarmony 使用各平台的文件选择器；不适用该 `picker` 的选项会直接报错；结果提供平台文件路径或浏览器对象 URL。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1173`
 - 文档声明：`ctx.saveFile(options)` 将 UTF-8 文本交给宿主的跨平台文件保存服务，由用户在系统保存界面选择位置。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1177`
 - 文档声明：`ToolPkg.registerToolboxUiModule(...)` 仍然保留；宿主内部把它自动映射为注册一个 `compose_dsl` UI route 与自动挂载一个 `toolbox` 导航入口；旧接口不会自动创建主侧边栏插件入口，需要主侧边栏插件入口时额外调用 `ToolPkg.registerNavigationEntry(...)` 并使用 `surface` 为 `main_sidebar_plugins`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1193`
 - 文档声明：UI 模块可用 `getLang()` 取当前语言，返回 `zh` 或 `en`；可用 `ctx.getCurrentPackageName()`、`ctx.getCurrentToolPkgId()`、`ctx.getCurrentUiModuleId()`、`ctx.getModuleSpec()` 取当前包与模块信息。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1201`
@@ -205,13 +205,13 @@ date: 2026-11-11
 
 ### 同 ID 更新与发布
 
-- 文档声明：当前 `package import` 拒绝重复的已注册包名，不提供覆盖安装或自动热更新；更新步骤是用户明确授权后的替换操作，不是失败后的自动处理。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:102`
-- 文档声明：同 ID 更新第一步是在删除已安装版本之前完成新版本构建，核验归档，并在开发目录保留源码及所需旧版本成品。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:103`
-- 文档声明：同 ID 更新第二步是用 `package list` 和 `package show` 记录容器、子包的真实名称及启用状态；向用户说明删除与重新安装的影响并获得确认。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:104`
-- 文档声明：同 ID 更新第三步是调用 `["package", "delete", "<package_id>"]`，确认删除成功；只对本次要更新的外部包执行该操作，不删除其他包。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:105`
-- 文档声明：同 ID 更新第四步是调用 `["package", "import", "<artifact_host_path>"]`，确认新版本导入成功；导入失败时保留错误并停止，不自动改变包 id 或执行其他安装路径。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:106`
-- 文档声明：同 ID 更新第五步是按用户确认的配置逐项恢复容器及子包的启用状态，再读取列表核验，并重新测试工具、UI 与 hook。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:107`
-- 文档声明：不要宣称包管理已经具有一键继续开发、合并开发或覆盖安装功能；创作入口目前接入的是新建需求草稿；继续开发需要明确定位原项目并按上述流程处理。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:109`
+- 文档声明：当前 `package import` 拒绝重复的已注册包名，不提供覆盖安装或自动热更新；更新步骤是用户明确授权后的替换操作，不是失败后的自动处理。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:103`
+- 文档声明：同 ID 更新第一步是在删除已安装版本之前完成新版本构建，核验归档，并在开发目录保留源码及所需旧版本成品。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:105`
+- 文档声明：同 ID 更新第二步是用 `package list` 和 `package show` 记录容器、子包的真实名称及启用状态；向用户说明删除与重新安装的影响并获得确认。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:106`
+- 文档声明：同 ID 更新第三步是调用 `["package", "delete", "<package_id>"]`，确认删除成功；只对本次要更新的外部包执行该操作，不删除其他包。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:107`
+- 文档声明：同 ID 更新第四步是调用 `["package", "import", "<artifact_host_path>"]`，确认新版本导入成功；导入失败时保留错误并停止，不自动改变包 id 或执行其他安装路径。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:108`
+- 文档声明：同 ID 更新第五步是按用户确认的配置逐项恢复容器及子包的启用状态，再读取列表核验，并重新测试工具、UI 与 hook。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:109`
+- 文档声明：不要宣称包管理已经具有一键继续开发、合并开发或覆盖安装功能；创作入口目前接入的是新建需求草稿；继续开发需要明确定位原项目并按上述流程处理。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:111`
 - 文档声明：发布方式一是直接发布本地插件，页面处理当前成品，在当前 GitHub 账号的 `OperitForge` 仓库保存 Release 资产并登记市场条目。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:117`
 - 文档声明：发布方式二是引用 GitHub Release 资产，选择自己仓库的 Release 与资产；页面核对所选资产与当前本地成品，并提交登记。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:118`
 - 文档声明：引用 Release 时，Operit 会下载所选资产并与当前本地插件计算 SHA-256 比对；市场服务还会确认该 Release 的创建者就是当前 Operit 登录的 GitHub 账号。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:39`
@@ -240,7 +240,7 @@ date: 2026-11-11
 - 文档声明：`examples/packages/buildin/workflow/` 是较完整的 ToolPkg 项目，包含 UI、公共接口和构建说明。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:548`
 - 文档声明：PackageBuilder 的示例路径为 `examples/packages/`，不是旧版根目录 `examples/`；随软件携带的示例提供源码与构建配置，排除 `dist/`、`build/`、`tests-dist/` 生成目录；阅读 Skill 的示例不会自动将该包安装到当前 runtime。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1373`
 - 文档声明：贡献主项目时对应 Rust 源码为 `core/crates/command/core/src/commands/package.rs`（包命令）、`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs`（运行时包管理）、`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs`（ToolPkg 解析）、`core/crates/runtime/application/build.rs`（内置包与 Skill 附件的资源嵌入）。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1389`
-- 文档声明：更新日志 `v1.0.0`（2024-02-14）是初始版本：支持子包、UI 模块、资源文件，支持多语言，提供 Compose DSL UI 框架。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1396`
+- 文档声明：格式指南更新日志 `v1.0.0`（2024-02-14）是初始版本：支持子包、UI 模块、资源文件，支持多语言，提供 Compose DSL UI 框架。此为指南文档的版本记录，与 api_version 无关。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1396`
 - 文档声明：版本管理建议使用语义化版本号 `MAJOR.MINOR.PATCH`，如 `1.2.3`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1262`
 
 ### 调试与故障排查
@@ -295,7 +295,7 @@ date: 2026-11-11
 6. 调用 `operit_editor` 执行 `["package", "import", "<artifact_host_path>"]` 导入成品，再执行 `["package", "enable", "<package_id>"]` 启用。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:86`
 7. 用 ["package", "list"] 与 `["package", "show", "<runtime_package_name>"]` 核对真实工具名与 `enabled` 状态。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:94`
 8. 用 `["package", "exec", "<runtime_package_name>:<tool_name>", "{}"]` 执行导出工具，用 `["log", "package"]` 查看日志。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:90`
-9. 同 ID 更新时，先获用户确认，再依次执行删除、重新导入、按记录恢复启用状态、重新测试。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:102`
+9. 同 ID 更新时，先获用户确认，再依次执行删除、重新导入、按记录恢复启用状态、重新测试。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:106`
 10. 本地测试通过后，用户在 Artifact 市场发布页面选择直接发布本地插件或引用 GitHub Release 资产。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:115`
 
 ## 来源
