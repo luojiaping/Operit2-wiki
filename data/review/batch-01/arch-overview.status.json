@@ -2,8 +2,10 @@
   "issue": 6,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "整体架构总览：CoreNode、Space、Binding 三概念，两条数据路径，Core crate 依赖方向与父级 trait 注入。",
   "updated": "2026-11-11",
-  "approved_by_comment_id": 6789507121
+  "approved_by_comment_id": 6789507121,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 07:52 UTC"
 }

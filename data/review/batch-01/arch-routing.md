@@ -166,7 +166,8 @@ Watch 路由在生成的 Core 路由元数据中声明一个分发类：`Unicast
 取得本地执行 lease：目标节点打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatServiceCore.rs:805）
 交给续接：`resumeFromRouteContext` 把执行 lease 和交接上下文交给 `sendRoutedContinuation` 续接。（core/crates/runtime/application/src/services/ChatServiceCore.rs:825）
 续接使用上下文历史：目标节点续接时使用交接上下文中的 `runtimeChatHistory` 作为聊天历史发起下一轮。（core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:521）
-续接前校验配置身份：目标节点续接前校验配置的 `extensionOwner` 与 `participantId` 与交接上下文快照身份一致，不一致时返回错误。（core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:496）
+续接前校验配置身份：配置身份校验只在 `extensionOwner` 不是 `MODEL_CONFIGURATION_OWNER` 时执行，要求 `extensionOwner` 及 `profile.id` 与交接上下文身份一致，否则返回错误。（core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:496）
+`MODEL_CONFIGURATION_OWNER` 的值是 host.chat.model。（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:37）
 
 实际运输的上下文：`CoreRouteResumeContext` 包含 `runtimeChatHistory`、`workspacePath`、`promptFunctionType`、`participantId` 等字段，没有 `requiredClock` 或 execution generation 参数。（core/crates/tool/services/src/runtime_support.rs:22）
 
