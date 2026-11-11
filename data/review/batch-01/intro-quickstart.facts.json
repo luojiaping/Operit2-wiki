@@ -52,7 +52,7 @@
 "ref": "README.md:103"
 },
 {
-"fact": "API 密钥、设备私钥、配对密钥、会话与本地平台权限默认归属本地节点，加入 Space 不会自动复制",
+"fact": "README 称 API 密钥、设备私钥、配对密钥、会话与本地平台权限默认归属本地节点，加入 Space 不会自动复制",
 "ref": "README.md:128"
 },
 {
@@ -258,5 +258,97 @@
 {
 "fact": "RuntimePeerService 记录原始广播总数与本地、已配对、无效、可添加四类过滤总数",
 "ref": "docs/device-space-lan-discovery.md:51"
+},
+{
+"fact": "ModelConfigManager 的模型配置 store 由 preferenceStore 创建",
+"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:136"
+},
+{
+"fact": "preferenceStore 用 PreferencesDataStore::newWithStorage 打开偏好 store",
+"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:112"
+},
+{
+"fact": "writeProvider 把整个 ProviderProfile 以 provider_<id> 为键写入同步偏好",
+"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332"
+},
+{
+"fact": "ProviderProfile 包含 apiKey 与 apiKeyPool",
+"ref": "core/crates/foundation/model/src/ModelConfigData.rs:603"
+},
+{
+"fact": "PreferencesDataStore::newWithStorage 创建 Space 偏好 store",
+"ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2924"
+},
+{
+"fact": "newSpaceWithResolvedPath 构建一个同步偏好 store",
+"ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2947"
+},
+{
+"fact": "同步偏好 store 按存储路径生成 PreferencesSyncDescriptor",
+"ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2958"
+},
+{
+"fact": "print_connection_qr 打印二维码与连接码",
+"ref": "apps/cli/src/cli/link.rs:195"
+},
+{
+"fact": "link pair 收到 operit:// 连接码时用 startPairingFromCode 配对，成功后直接返回，不输入六位码",
+"ref": "apps/cli/src/cli/link.rs:122"
+},
+{
+"fact": "link pair 不带连接码时走手动配对分支，在接收设备上读六位码并用 finishPairing 完成",
+"ref": "apps/cli/src/cli/link.rs:127"
+},
+{
+"fact": "link space join 只提交加入申请并打印回执",
+"ref": "apps/cli/src/cli/link.rs:799"
+},
+{
+"fact": "加入申请回执打印申请人、状态、Space 名与审批人",
+"ref": "apps/cli/src/cli/link.rs:882"
+},
+{
+"fact": "link space requests incoming/outgoing 分别列出收到与发出的加入申请",
+"ref": "apps/cli/src/cli/link.rs:805"
+},
+{
+"fact": "link space approve/reject 由 Space 一侧对收到的加入申请做决定",
+"ref": "apps/cli/src/cli/link.rs:830"
+},
+{
+"fact": "link space refresh 对发出的加入申请调用 refreshDeviceSpaceJoin 并打印更新后的回执",
+"ref": "apps/cli/src/cli/link.rs:824"
+},
+{
+"fact": "加入审批与配对、同步成员关系是分开的步骤",
+"ref": "core/crates/node/runtime/src/NodeSpaceService.rs:304"
+},
+{
+"fact": "SpaceJoinStatus 包括 Pending、Approving、Approved、Rejected、Cancelled、Expired、Joined",
+"ref": "core/crates/node/runtime/src/NodeSpaceService.rs:307"
+},
+{
+"fact": "已批准的加入申请经 adoptApprovedMembership 落为 Joined",
+"ref": "core/crates/node/runtime/src/peer/space_join.rs:1318"
+},
+{
+"fact": "Flutter 扫码对话框的 Confirm join 按钮确认后返回扫到的连接码",
+"ref": "apps/flutter/app/lib/ui/common/PeerQrCodeDialog.dart:416"
+},
+{
+"fact": "Flutter 扫码确认后把连接码交给 _pair 配对",
+"ref": "apps/flutter/app/lib/ui/common/DeviceSpaceDiscoveryPanel.dart:365"
+},
+{
+"fact": "Flutter 用连接码配对后调用 showSpaceJoinRequest 提交加入请求",
+"ref": "apps/flutter/app/lib/ui/common/DeviceSpaceDiscoveryPanel.dart:321"
+},
+{
+"fact": "showSpaceJoinRequest 调用 requestDeviceSpaceJoin 提交加入申请",
+"ref": "apps/flutter/app/lib/ui/common/SpaceJoinWidgets.dart:110"
+},
+{
+"fact": "Flutter 扫码确认提示写明确认后直接连接并提交加入，无需输入配对码",
+"ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4565"
 }
 ]

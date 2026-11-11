@@ -2,7 +2,7 @@
 title: 预览版与破坏性变更
 module: intro
 platforms: [all]
-sources: [README.md, docs/release-versioning.md, docs/release-notes/2.0.0-preview.22-build28.md, docs/release-notes/2.0.0-preview.27-build33.md]
+sources: [README.md, docs/release-versioning.md, docs/release-notes/2.0.0-preview.22-build28.md, docs/release-notes/2.0.0-preview.27-build33.md, apps/cli/src/cli/mod.rs]
 date: 2026-11-11
 ---
 
@@ -18,20 +18,24 @@ Operit2 当前处于 `Preview Release` 阶段（`README.md:4`）。
 
 ## AI 速览
 
-- `2.0.0-preview.1` — 第一个公开 preview 的版本号
-- `v2.0.0-preview.1` — 对应的 Git tag
-- `cliVersion` — CLI 暴露的 Cargo package version
-- `coreVersion` — App 从 operit-runtime 暴露的版本
-- `buildNumber` — Flutter 平台包元数据，App/full 构建成功后加 1
-- `OPERIT_ARM64_WASM` — preview.27 新增的构建配置，默认 OFF
-- `GithubReleaseUtil.rs` — 更新器的实现文件
-- `build_release.py` — 构建发布脚本
-- `publish_dist.py` — 发布已 staged 文件的脚本
-- `tools/build_scripts/release_artifacts.py` — 共享的发布包命名实现
+- `2.0.0-preview.1` — 第一个公开 preview 的版本号（`docs/release-versioning.md:69`）
+- `v2.0.0-preview.1` — 对应的 Git tag（`docs/release-versioning.md:19`）
+- `cliVersion` — CLI 暴露的 Cargo package version（`docs/release-versioning.md:177`）
+- `coreVersion` — App 从 operit-runtime 暴露的版本（`docs/release-versioning.md:177`）
+- `buildNumber` — Flutter 平台包元数据，App/full 构建成功后加 1（`docs/release-versioning.md:193`）
+- `OPERIT_ARM64_WASM` — preview.27 新增的构建配置，默认 OFF（`docs/release-notes/2.0.0-preview.27-build33.md:4`）
+- `GithubReleaseUtil.rs` — 更新器的实现文件（`docs/release-versioning.md:397`）
+- `build_release.py` — 构建发布脚本（`docs/release-versioning.md:209`）
+- `publish_dist.py` — 发布已 staged 文件的脚本（`docs/release-versioning.md:239`）
+- `tools/build_scripts/release_artifacts.py` — 共享的发布包命名实现（`docs/release-versioning.md:90`）
 
-检查命令：`operit2 cli update check <version>`，检查是否有可用更新而不下载。
+检查命令：`operit2 cli update check`，无参数时自动用 `CARGO_PKG_VERSION` 作当前版本（`apps/cli/src/cli/mod.rs:531`）。
 
-数据流向：已装版本 → 派生更新通道 → 更新发现按通道选出更新版本 → 下载安装。
+带参形式：`operit2 cli update check <current-version>`，显式参数名为 `current_version`，覆盖版本比较基准（`apps/cli/src/cli/mod.rs:559`）。
+
+只检查不下载：`cli update check` 只检查是否有可用更新，不下载（`docs/release-versioning.md:419`）。
+
+数据流向：已装版本 → 派生更新通道 → 更新发现按通道选出更新版本 → 下载安装（`docs/release-versioning.md:47`）。
 
 ## 核心机制
 
@@ -162,3 +166,4 @@ release-versioning.md 没有写明版本的支持期限；它只定义了通道�
 - docs/release-versioning.md
 - docs/release-notes/2.0.0-preview.22-build28.md
 - docs/release-notes/2.0.0-preview.27-build33.md
+- apps/cli/src/cli/mod.rs

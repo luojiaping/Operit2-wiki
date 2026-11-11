@@ -1,1 +1,9 @@
-{"issue":3,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Operit2 不是什么：无固定主节点、加入 Space 不继承权限、不搬迁运行中状态、Binding 只决定下一步不移动数据、不是中心化 Server、不是全平台相同。","updated":"2026-11-11"}
+{
+  "issue": 3,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "Operit2 不是什么：无固定主节点、加入 Space 不继承权限、不搬迁运行中状态、Binding 只决定下一步不移动数据、不是中心化 Server、不是全平台相同。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6789482831
+}

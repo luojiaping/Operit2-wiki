@@ -2,7 +2,7 @@
 title: 整体架构（总览）
 module: arch
 platforms: [all]
-sources: [README.md, docs/core-node-space-binding-architecture.md, core/CRATE_BOUNDARIES.md, core/crates/node/peer-link/Cargo.toml, core/crates/node/runtime/Cargo.toml, core/crates/runtime/application/Cargo.toml, core/crates/application/core/Cargo.toml]
+sources: [README.md, docs/core-node-space-binding-architecture.md, core/CRATE_BOUNDARIES.md, core/crates/node/peer-link/Cargo.toml, core/crates/node/runtime/Cargo.toml, core/crates/runtime/application/Cargo.toml, core/crates/application/core/Cargo.toml, core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs, core/crates/foundation/model/src/ModelConfigData.rs, core/crates/persistence/store/src/PreferencesDataStore.rs, core/crates/node/runtime/src/SpacePersistenceSyncService.rs]
 date: 2026-11-11
 ---
 
@@ -82,7 +82,13 @@ Space 组织节点间的协作与持久化同步，Binding 记录哪个节点继
 
 内置 `admin`、`user`、`relay` 角色均具有 `storage.provide`；业务副本同步只在双方具备 storage.provide 且实际提供 Core 存储服务时运行（`docs/core-node-space-binding-architecture.md:185`）。
 
-每个同步周期对每个可达成员先发送一次常量大小的 `syncClockDigest` 探针（`docs/core-node-space-binding-architecture.md:218`）。
+具备存储复制授权、处于正常变更门控状态的可达成员在每个同步周期使用 `syncClockDigest` 探针判断是否需要完整交换（`docs/core-node-space-binding-architecture.md:218`）。
+
+同步门控先处理退避、待处理工作与失败重试，退避未到期时本轮跳过（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:716`）。
+
+未获存储复制授权的成员走 `authority_only` 分支，不调用 `probeRemoteClockSummary`，直接继续控制交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:731`）。
+
+只有正常存储复制门控分支才调用 `probeRemoteClockSummary`，经 `PeerSyncMethod::SyncClockDigest` 读取对端时钟摘要（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:778`）。
 
 同步页单侧一页最多 `DEFAULT_SYNC_PAGE_BYTES`（4 MiB）（`docs/core-node-space-binding-architecture.md:233`）。
 
@@ -148,7 +154,25 @@ AI Capability Limit（ReadOnly、WorkspaceWrite、Full）与 User Tool Approval�
 
 Space 成员资格不授予其他节点读取本机文件、使用本机终端或获得管理员/root 能力（`README.md:127`）。
 
-API 密钥、设备私钥、配对密钥、会话与本地平台权限默认属于节点本地，加入 Space 不自动复制（`README.md:128`）。
+README 声明 API 密钥、设备私钥、配对密钥、会话与本地平台权限默认属于节点本地，加入 Space 不自动复制（`README.md:128`）。
+
+实现与该原则存在冲突：`ModelConfigManager` 的 `preferenceStore` 经 `PreferencesDataStore::newWithStorage` 打开 Space 偏好存储（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:111`）。
+
+`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>` 键（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332`）。
+
+`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:603`）。
+
+Space 偏好存储构造时创建同步描述符 `PreferencesSyncDescriptor`（`core/crates/persistence/store/src/PreferencesDataStore.rs:2956`）。
+
+Space 偏好存储构造时创建同步日志 `SyncOperationStore`（`core/crates/persistence/store/src/PreferencesDataStore.rs:2962`）。
+
+`localStateSummary` 调用 `publishPreferenceOutboxes` 发布偏好同步 outbox（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:688`）。
+
+偏好（`preferences`）属于 Space 持久化同步的载荷类别（`docs/core-node-space-binding-architecture.md:205`）。
+
+因此 Provider 凭证存在随配置同步的路径，不能与设备身份、配对密钥及 OS 权限统称为“不复制”。
+
+本次修订未做真实双设备同步实验，结论只覆盖代码路径。
 
 `Full` 只表示放宽 AI 能力限制，不提升 Host 特权，也不创造操作系统没有的能力（`README.md:129`）。
 
@@ -244,3 +268,7 @@ API 密钥、设备私钥、配对密钥、会话与本地平台权限默认属�
 - core/crates/node/runtime/Cargo.toml（§8 名称核对用）
 - core/crates/runtime/application/Cargo.toml（§8 名称核对用）
 - core/crates/application/core/Cargo.toml（§8 名称核对用）
+- core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs（Provider 配置经 Space 偏好存储同步）
+- core/crates/foundation/model/src/ModelConfigData.rs（ProviderProfile 含 apiKey、apiKeyPool）
+- core/crates/persistence/store/src/PreferencesDataStore.rs（Space 偏好存储的同步日志与描述符）
+- core/crates/node/runtime/src/SpacePersistenceSyncService.rs（同步门控与偏好 outbox 发布）
