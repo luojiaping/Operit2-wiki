@@ -1,91 +1,53 @@
 #!/usr/bin/env python3
-"""为 Operit2-wiki 生成知识图谱。
+"""为 Operit2-wiki 生成知识图谱（2026-11-12 重写，替代一代残留版）。
 
-流程：
-  1. 读取 wiki-work/outline.yaml（24 个规划条目、8 章）与 dep-graph.json
+旧版问题（Issue #57「知识图谱无法渲染」根因）：脚本沿用 Operit 一代骨架，
+读 wiki-work/outline.yaml（24 条目、Kotlin 模块）与一代 CROSS_LINKS 白名单，
+但本仓库只有 outline/outline-v1.yaml（115 页、11 章），wiki-work/ 根本不存在，
+load_outline() 直接 FileNotFoundError，deploy 时只留一句 WARN，site/data/graph/
+从未生成过，graph.html 的 iframe 与 graph-meta.json 全部 404。
+
+新版流程（全部确定性，无 LLM）：
+  1. 读取 outline/outline-v1.yaml（115 个规划条目、11 章、13 个 module 值）
   2. 在 wiki-work/graph-kb/ 暂存一个 llm-wiki 兼容的知识库：
-     wiki/topics/<id>.md（条目） + wiki/entities/<module>.md（代码模块）
+     wiki/topics/<id>.md（条目） + wiki/entities/<stem>.md（章枢纽 + 模块实体）
      边全部由确定性规则生成：
-       - 同章条目互链            -> confidence: INFERRED
-       - 条目 -> 所属模块实体     -> confidence: EXTRACTED（来自 outline.yaml module 字段）
-       - 跨章语义关联（脚本内白名单）-> confidence: INFERRED
-       - 模块 -> 模块（dep-graph） -> confidence: EXTRACTED
+       - 条目 -> 所属章枢纽实体        -> confidence: EXTRACTED（大纲 chapter 字段）
+       - 条目 -> 所属模块实体          -> confidence: EXTRACTED（大纲 module 字段）
+       - 正文 [[id|标题]] 真实交叉引用 -> confidence: EXTRACTED（解析已写 review/*.md，
+         只保留大纲里真实存在的 id；未写页无正文、暂无此边）
+     注意：不做同章全互链——115 页按旧版做法会产生约 1500 条 INFERRED 边，
+     图谱成毛线团；章枢纽星形边已表达同章归属。
   3. 调用 vendor/llm-wiki-skill 的 build-graph-data.sh / build-graph-html.sh
      生成离线单文件图谱（数字山水前端）
-  4. 拷贝到 site/data/graph/knowledge-graph.html，供 site/graph.html 内嵌
+  4. 拷贝到 site/data/graph/knowledge-graph.html，供 site/graph.html 内嵌；
+     并写 site/data/graph/graph-meta.json（节点/边/孤立点/桥节点数）
 
 注意：vendor/llm-wiki-skill 为 MIT 协议第三方代码，仅作构建工具使用。
+状态口径：条目状态取 review/batch-*/<id>.status.json（approved=已发布、
+review-pending=待评审），无 .status.json 的为未写。
 """
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import subprocess
 import sys
-import urllib.parse
 from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+OUTLINE = ROOT / "outline" / "outline-v1.yaml"
 WORK = ROOT / "wiki-work"
-def _canonical_outline() -> Path:
-    v3 = ROOT / "outline" / "outline-v3.yaml"
-    return v3 if v3.exists() else (WORK / "outline.yaml")
-
-
-OUTLINE = _canonical_outline()
 KB = WORK / "graph-kb"
 SITE_GRAPH = ROOT / "site" / "data" / "graph"
 VENDOR = Path.home() / "workspace" / "vendor" / "llm-wiki-skill"
+REVIEW = ROOT / "review"
 
-# 模块统计：来自 wiki-work/modules.md（2026-09-30，repo_map.py 确定性统计）
-MODULES = {
-    "app": {"files": 1815, "kt": 1362, "symbols": 4961, "note": "主应用模块，占 Kotlin 代码约 97%"},
-    "dragonbones": {"files": 14, "kt": 3, "symbols": 11, "note": "Avatar 骨骼动画 native 模块"},
-    "mmd": {"files": 78, "kt": 4, "symbols": 8, "note": "Avatar MMD 渲染 native 模块"},
-    "fbx": {"files": 10, "kt": 4, "symbols": 12, "note": "Avatar FBX 渲染 native 模块"},
-    "mnn": {"files": 21, "kt": 10, "symbols": 10, "note": "端侧推理 native 模块"},
-    "llama": {"files": 9, "kt": 3, "symbols": 3, "note": "端侧推理 native 模块"},
-    "showerclient": {"files": 14, "kt": 6, "symbols": 11, "note": "Shower 客户端库"},
-    "quickjs": {"files": 10, "kt": 4, "symbols": 8, "note": "QuickJS 脚本引擎"},
-    "terminal": {"files": 0, "kt": 0, "symbols": 0, "note": "空模块（settings.gradle.kts 注册但无文件）"},
-}
+LINK_RE = re.compile(r"\[\[([a-z0-9-]+)(?:\|[^\]]*)?\]\]")
 
-# outline.yaml 的 module 字段 -> 实体标题
-MODULE_OF = {
-    "app": ["模块 app"],
-    "llm": ["模块 mnn", "模块 llama"],
-    "quickjs": ["模块 quickjs"],
-    "showerclient": ["模块 showerclient"],
-    "terminal": ["模块 terminal"],
-    "unassigned": [],
-}
-
-# 跨章语义关联（双向），依据大纲 questions/seed_files 人工整理，确定性白名单
-CROSS_LINKS: dict[str, list[str]] = {
-    "core-tools": ["data-mcp", "ext-plugins", "core-workflow", "ext-quickjs"],
-    "core-chat": ["api-chat", "api-voice", "ui-chat", "core-tools"],
-    "core-workflow": ["core-chat"],
-    "core-avatar": ["ui-chat"],
-    "core-config": ["ui-settings", "api-oauth"],
-    "api-chat": ["api-oauth", "mod-showerclient"],
-    "api-voice": ["ui-chat"],
-    "data-model": ["data-mcp", "data-backup"],
-    "data-mcp": ["ext-plugins"],
-    "ui-chat": ["ui-floating", "core-avatar"],
-    "ui-toolbox": ["ext-plugins", "core-tools"],
-    "ui-settings": ["core-config"],
-    "ui-floating": ["ui-chat"],
-    "ui-misc": ["ui-settings"],
-    "ext-quickjs": ["core-tools", "ext-plugins"],
-    "ext-plugins": ["data-mcp"],
-    "mod-showerclient": ["api-chat"],
-    "mod-webchat": ["api-chat", "ui-chat"],
-    "appendix-util": ["arch-overview"],
-}
-# 架构总览页作为各章枢纽
-CHAPTER_HUBS = ["core-tools", "api-chat", "data-model", "ui-chat",
-                "ext-quickjs", "mod-showerclient", "appendix-util"]
+STATUS_LABEL = {"approved": "已发布", "review-pending": "待评审"}
 
 
 def load_outline() -> dict:
@@ -93,13 +55,25 @@ def load_outline() -> dict:
     return yaml.safe_load(OUTLINE.read_text(encoding="utf-8"))
 
 
-def page_title(pages: dict[str, dict], pid: str) -> str:
-    return pages.get(pid, {}).get("title", pid)
+def page_status(pid: str) -> str:
+    for f in REVIEW.glob(f"batch-*/{pid}.status.json"):
+        try:
+            return STATUS_LABEL.get(json.loads(f.read_text(encoding="utf-8")).get("status", ""), "待评审")
+        except (json.JSONDecodeError, OSError):
+            return "待评审"
+    return "未写"
 
 
-def _known(pages: dict[str, dict], ids: list[str]) -> list[str]:
-    """只保留大纲中真实存在的 id（v2->v3 换页时旧关联自动失效）。"""
-    return [i for i in ids if i in pages]
+def real_cross_links() -> dict[str, set[str]]:
+    """解析已写正文里的 [[id|标题]]，只保留大纲 id。"""
+    links: dict[str, set[str]] = {}
+    for md in REVIEW.glob("batch-*/*.md"):
+        pid = md.stem
+        targets = {m.group(1) for m in LINK_RE.finditer(md.read_text(encoding="utf-8"))}
+        targets.discard(pid)
+        if targets:
+            links[pid] = targets
+    return links
 
 
 def link_line(target: str, display: str, conf: str) -> str:
@@ -108,34 +82,26 @@ def link_line(target: str, display: str, conf: str) -> str:
 
 
 def write_topic(path: Path, info: dict, pages: dict[str, dict],
-                chapter_pages: list[str]) -> None:
+                chapter_slug: str, chapter_name: str,
+                cross: dict[str, set[str]]) -> None:
     pid = info["id"]
     links: list[tuple[str, str, str]] = []
-    # 1. 同章互链（INFERRED）
-    for other in chapter_pages:
-        if other != pid:
-            links.append((other, page_title(pages, other), "INFERRED"))
-    # 2. 章节枢纽（INFERRED）
-    if pid == "arch-overview":
-        for hub in _known(pages, CHAPTER_HUBS):
-            links.append((hub, page_title(pages, hub), "INFERRED"))
-    # 3. 跨章语义关联（INFERRED）
-    for other in _known(pages, CROSS_LINKS.get(pid, [])):
-        links.append((other, page_title(pages, other), "INFERRED"))
-    # 4. 所属模块实体（EXTRACTED）
-    for ent in MODULE_OF.get(info["module"], []):
-        mod_name = ent.replace("模块 ", "")
-        links.append((mod_name, ent, "EXTRACTED"))
-    # core-avatar 额外关联三个 avator native 模块
-    if pid == "core-avatar":
-        for mod_name in ("dragonbones", "mmd", "fbx"):
-            links.append((mod_name, f"模块 {mod_name}", "EXTRACTED"))
+    # 1. 所属章枢纽（EXTRACTED）
+    links.append((chapter_slug, chapter_name, "EXTRACTED"))
+    # 2. 所属模块实体（EXTRACTED）
+    module = info.get("module", "")
+    if module:
+        links.append((f"module-{module}", f"模块 {module}", "EXTRACTED"))
+    # 3. 正文真实交叉引用（EXTRACTED）
+    for other in sorted(cross.get(pid, ())):
+        if other in pages:
+            links.append((other, pages[other]["title"], "EXTRACTED"))
 
     lines = [
         f"# {info['title']}",
         "",
-        f"> 状态：规划中｜章节：{info['chapter']}｜模块：{info['module']}"
-        f"｜大纲 v1（待人评审，{date.today().isoformat()}）",
+        f"> 状态：{page_status(pid)}｜章节：{chapter_name}｜模块：{module or '—'}"
+        f"｜大纲 v1（{date.today().isoformat()}）",
         "",
         "## 计划覆盖的问题",
         "",
@@ -152,36 +118,23 @@ def write_topic(path: Path, info: dict, pages: dict[str, dict],
         lines.append(link_line(target, display, conf))
     lines += [
         "",
-        "> 本页为大纲规划占位：正文尚未生成，内容仅来自 outline.yaml 的确定性字段，"
-        "未引入任何推测。",
+        "> 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml "
+        "的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
         "",
     ]
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
-def write_entity(path: Path, name: str, stat: dict, pages: dict[str, dict]) -> None:
-    title = f"模块 {name}"
-    lines = [
-        f"# {title}",
-        "",
-        "> 来自阶段 0 repo_map.py 确定性统计（wiki-work/modules.md）",
-        "",
-        f"- 文件数：{stat['files']}（其中 .kt {stat['kt']}）",
-        f"- 顶层符号数：{stat['symbols']}",
-        f"- 说明：{stat['note']}",
-        "",
-        "## 关联条目",
-        "",
-    ]
-    for pid, info in pages.items():
-        ents = [e.replace("模块 ", "") for e in MODULE_OF.get(info["module"], [])]
-        if pid == "core-avatar" and name in ("dragonbones", "mmd", "fbx"):
-            ents.append(name)
-        if name in ents:
-            lines.append(link_line(pid, info["title"], "EXTRACTED"))
-    # 模块间依赖：dep-graph 显示 Kotlin 层 import 全部以 app 为起点
-    if name != "app":
-        lines.append(link_line("app", "模块 app", "EXTRACTED"))
+def write_entity(path: Path, title: str, lines_body: list[str],
+                 member_links: list[tuple[str, str]]) -> None:
+    lines = [f"# {title}", "", "> 由 outline-v1.yaml 确定性生成", "", *lines_body,
+             "", "## 关联条目", ""]
+    seen = set()
+    for target, display in member_links:
+        if target in seen:
+            continue
+        seen.add(target)
+        lines.append(link_line(target, display, "EXTRACTED"))
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -194,33 +147,51 @@ def stage_kb(outline: dict) -> tuple[dict[str, dict], int, int]:
     entities.mkdir(parents=True)
 
     (KB / "purpose.md").write_text(
-        "# Operit2-wiki 知识图谱\n\n> 由 Operit2-wiki 大纲 v1 与阶段 0 repo-map "
-        "确定性数据生成；节点为规划条目与代码模块，边全部标注置信度。\n",
+        "# Operit2-wiki 知识图谱\n\n> 由 Operit2-wiki 大纲 v1（115 页、11 章）与已写正文的"
+        "真实交叉引用确定性生成；节点为规划条目、章枢纽与模块实体，边全部标注置信度。\n",
         encoding="utf-8",
     )
 
     pages: dict[str, dict] = {}
-    chapters: dict[str, list[str]] = {}
-    for ch in outline["chapters"]:
+    chapters: list[tuple[str, str, list[str]]] = []  # (slug, name, [ids])
+    modules: dict[str, list[str]] = {}
+    for idx, ch in enumerate(outline["chapters"], 1):
         cname = ch["chapter"]
-        chapters[cname] = []
+        slug = f"chapter-{idx:02d}"
+        ids: list[str] = []
         for p in ch["pages"]:
             info = dict(p)
             info["chapter"] = cname
+            info["chapter_slug"] = slug
             pages[p["id"]] = info
-            chapters[cname].append(p["id"])
+            ids.append(p["id"])
+            modules.setdefault(p.get("module", ""), []).append(p["id"])
+        chapters.append((slug, cname, ids))
 
+    cross = real_cross_links()
     for pid, info in pages.items():
-        cname = info["chapter"]
-        write_topic(topics / f"{pid}.md", info, pages, chapters[cname])
-    for name, stat in MODULES.items():
-        write_entity(entities / f"{name}.md", name, stat, pages)
+        write_topic(topics / f"{pid}.md", info, pages,
+                    info["chapter_slug"], info["chapter"], cross)
 
-    n_edges = sum(
-        1 for pid in pages
-        for _ in _known(pages, CROSS_LINKS.get(pid, []))
-    )
-    return pages, len(pages), len(MODULES)
+    for idx, (slug, cname, ids) in enumerate(chapters, 1):
+        write_entity(
+            entities / f"{slug}.md",
+            f"第 {idx} 章 {cname}",
+            [f"- 条目数：{len(ids)}", f"- 章节：{cname}"],
+            [(pid, pages[pid]["title"]) for pid in ids],
+        )
+    for mod, ids in sorted(modules.items()):
+        if not mod:
+            continue
+        write_entity(
+            entities / f"module-{mod}.md",
+            f"模块 {mod}",
+            [f"- 条目数：{len(ids)}"],
+            [(pid, pages[pid]["title"]) for pid in ids],
+        )
+
+    n_entities = len(chapters) + len([m for m in modules if m])
+    return pages, len(pages), n_entities
 
 
 def run_graph_pipeline() -> Path:
@@ -250,7 +221,7 @@ def run_graph_pipeline() -> Path:
 def main() -> int:
     outline = load_outline()
     pages, n_topics, n_entities = stage_kb(outline)
-    print(f"暂存知识库：{n_topics} 个条目 + {n_entities} 个模块实体 -> {KB}")
+    print(f"暂存知识库：{n_topics} 个条目 + {n_entities} 个实体 -> {KB}")
 
     try:
         html = run_graph_pipeline()
@@ -270,7 +241,7 @@ def main() -> int:
         "edges": len(data.get("edges", [])),
         "isolated_nodes": len(ins.get("isolated_nodes", [])),
         "bridge_nodes": len(ins.get("bridge_nodes", [])),
-        "source": "outline.yaml v1 + repo-map.json（确定性生成）",
+        "source": "outline-v1.yaml + 已写正文交叉引用（确定性生成）",
     }
     (SITE_GRAPH / "graph-meta.json").write_text(
         json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
