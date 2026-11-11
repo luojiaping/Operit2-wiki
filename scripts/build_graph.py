@@ -350,6 +350,38 @@ def write_chapter_pins(outline: dict) -> None:
     print(f"章枢纽已钉住：{len(pins)} 个")
 
 
+def recommit_warning_pair() -> None:
+    """用 vendor 自身的 commit-pair 把告警配对重新提交。
+
+    rewrite_communities_to_chapters 改写 graph-data.json 后，meta.warning_summary
+    里的旧 build_id 与重算值不符，build-graph-html.sh 的 warning-embed 会判
+    build_id_mismatch，iframe 里出现红色「告警详情暂不可用」。
+    commit-pair 用 vendor 自己的 assemble 逻辑重算 build_id 并同时写回
+    graph-data.json 与 graph-warnings.json（告警分组沿用现有的，一般为空）。
+    """
+    import tempfile
+    warnings_path = KB / "wiki" / "graph-warnings.json"
+    bundle = json.loads(warnings_path.read_text(encoding="utf-8"))
+    with tempfile.TemporaryDirectory() as tmp:
+        groups_path = Path(tmp) / "warning-groups.json"
+        sets_path = Path(tmp) / "candidate-sets.json"
+        groups_path.write_text(json.dumps(bundle.get("groups", []), ensure_ascii=False), encoding="utf-8")
+        sets_path.write_text(json.dumps(bundle.get("candidate_sets", []), ensure_ascii=False), encoding="utf-8")
+        r = subprocess.run(
+            ["node", str(VENDOR / "scripts" / "wiki-link-cli.js"), "commit-pair",
+             str(KB), str(KB / "wiki" / "graph-data.json"),
+             str(groups_path), str(sets_path), str(KB / "wiki" / "graph-data.json")],
+            capture_output=True, text=True, timeout=120,
+        )
+        if r.returncode != 0:
+            raise RuntimeError(f"commit-pair 失败：{r.stderr[-1000:]}")
+    data = json.loads((KB / "wiki" / "graph-data.json").read_text(encoding="utf-8"))
+    bundle = json.loads(warnings_path.read_text(encoding="utf-8"))
+    if data["meta"]["warning_summary"]["build_id"] != bundle["build_id"]:
+        raise RuntimeError("告警配对重提交后 build_id 仍不一致")
+    print(f"告警配对已重提交：build_id {bundle['build_id'][:12]}…（{len(bundle.get('groups', []))} 组告警）")
+
+
 def patch_community_look(html_path: Path) -> None:
     """在生成产物里替换两处引擎内联值（vendor 源码不动）：
     山水主题的 9 色 pastel 群落调色板 -> 11 色克制墨色；
@@ -411,6 +443,7 @@ def main() -> int:
     try:
         run_graph_data()
         rewrite_communities_to_chapters(outline)
+        recommit_warning_pair()
         write_chapter_pins(outline)
         html = run_graph_html()
         force_paper_theme(html)
