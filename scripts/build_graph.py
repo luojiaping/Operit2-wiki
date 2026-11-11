@@ -332,6 +332,9 @@ def rewrite_communities_to_chapters(outline: dict) -> None:
         b["connected_communities"] = sorted({
             chapter_of_node(by_id[c]) for c in b.get("connected_communities", []) if c in by_id
         })
+    # build_date：vendor 写的是 UTC 时间戳，本机 UTC 日期会比上海慢一天，
+    # 徽章取日期部分显示。改写为上海时间（带 +08:00 时区），与 graph-meta.json 的 built 一致。
+    data.setdefault("meta", {})["build_date"] = datetime.now(ZoneInfo("Asia/Shanghai")).isoformat(timespec="seconds")
     data_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"群落改写：{len(communities)} 章群落，节点 community 已全部指向章节")
 
