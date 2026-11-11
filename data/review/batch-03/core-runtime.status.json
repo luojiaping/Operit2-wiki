@@ -1,1 +1,9 @@
-{"status": "review-pending", "issue": 26, "source_repo": "operit2", "source_commit": "364d1d594", "summary": "Runtime 总览与 OperitApplication：进程级运行时组装、启动生命周期、CORE_VERSION 与聊天消息管理", "updated": "2026-11-11"}
+{
+  "status": "review-pending",
+  "issue": 26,
+  "source_repo": "operit2",
+  "source_commit": "364d1d594",
+  "summary": "Runtime 总览与 OperitApplication：进程级运行时组装、启动生命周期、CORE_VERSION 与聊天消息管理",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6795387419
+}

@@ -1,1 +1,9 @@
-{"issue":27,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Runtime 业务服务：ChatServiceCore 聊天管线、Provider/Tool 两座运行时支持桥、终端 PTY 服务","updated":"2026-11-11"}
+{
+  "issue": 27,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "Runtime 业务服务：ChatServiceCore 聊天管线、Provider/Tool 两座运行时支持桥、终端 PTY 服务",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6795387806
+}

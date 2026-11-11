@@ -62,3 +62,15 @@
 - 质量走查（.quality.json）：9 页有记录，共 18 条——core-plugin-sdk（validateProtectedEntryPolicy 空壳、README Target Split 称新增 runtime crate 但磁盘无此目录）、core-plugin-js-bridge（文本回调非文本值 panic、AES 走 ECB 无 IV、Java 桥桩与三处未实现静态操作）、core-plugin-theme（两个校验器常量定义后全 crate 未使用）、core-runtime（newWithContext 多处 expect panic、onCreate 静默回退默认 Host）、core-runtime-data（暂存删除失败掩盖原始错误、互斥锁中毒三处 expect panic）、core-node-runtime（README 的 runtime/src/remote 目录不存在，文档滞后）、core-node-peer-link（订阅失败与解码失败 panic）、core-application（Drop 不调 clearCoreRouteRuntime 而 shutdownNow 会调）、core-command（用法文本承诺不存在的 codex-login 子命令、--runtime 被静默忽略、chat new 用法漏列 --workspace）。
 - 阅读登记：76 个源文件 complete（本批，66 个 seed + 补充阅读），见 tracking/read-status.json。
 - 评审 Issue：#22–#34，状态均为 review-pending。首页统计随部署更新为 34 页知识页面、21 页已发布、4354 条原子事实、4 个编译批次。
+
+## 2026-11-11 · batch-04（第 4 章 Agent 回路 8 页，待评审）
+
+- 来源：AAswordman/Operit2 @ 364d1d594；大纲 v1（11 章 115 页）第 4 章 8 页。35 个 seed 开工时逐个核实全部存在。
+- 页：agent-loop-overview、agent-chat-branch、agent-compaction、agent-subagents、agent-memory、agent-character-cards、agent-hooks、agent-slash。
+- 事实：850 条原子事实（facts.json），引用全部落在源文件行号范围内，坏引用 0；初版 849 条，critic 修订 +1（agent-memory fact [103] 拆成两条）；机械核验抓出 23 条符号越窗（全在 agent-compaction，`Type::method` 全限定名形式问题）已全部修完，0 删事实；正文引用同口径复核另修 79 处越窗（agent-compaction）+ 20 处（agent-loop-overview）+ 16 处（agent-slash），均已清零。
+- Lint：`lint.py --dir review/batch-04` 硬失败 0、警告 0（注：lint 的引用正则不含 `.rs` 后缀，正文 Rust 引用的 ±5 检查由父级自写脚本另行复核）。
+- Critic：抽查 5 页（agent-loop-overview、agent-chat-branch、agent-compaction、agent-subagents、agent-memory），结论均为「需修改」小修，已按 critic 意见逐项修正并复验 lint 0/0；其中 agent-compaction 抓出 1 处锚点不能支撑断言（:786 只是日志行，重锚 :521）与 1 处丢 gating 条件，agent-memory 抓出 1 处事实错误（authorMissing 标记条件写错），agent-loop-overview 抓出 1 处事实错误（对话回顾超限保留前 30 + 后 70 条）与 4 处丢条件，agent-chat-branch 抓出 displayOrder 取值与透传变体分类两处错误，agent-subagents 抓出 1 处丢条件（spawn 拒绝只在父会话本身是子代理时触发）；其余 3 页 facts 引用机械核验 0 坏引用。
+- 重核结论：自动压缩存在且默认启用（阈值 0.85），推翻 2026-10-13 差距调查的 P0「自动 compaction 缺失」结论；上下文用量显示同样存在；subagents 旧结论（并发上限 8、无唤醒、重启标 interrupted）逐项复核全部成立；slash 命令实测 81 条、用户自定义 slash 加载机制不存在。
+- 质量走查（.quality.json）：7 页有记录，共 15 条——agent-loop-overview（runtimeToolHandler 与 createAndGetDefaultWorkspace 未初始化 expect panic、switch_core 成功结果先于实际移动、translate_text 空壳）、agent-chat-branch（导入 skipped 计数恒为 0、缺基础 parts 时整批加载失败）、agent-hooks（两座桥取互斥锁用 expect，锁中毒分别导致状态通知 panic、摘要流程中断）、agent-subagents（enabled_by_default 两处声明值相反、spawn 保存失败留无记录子会话、一条坏记录致全部操作永久失败）、agent-memory（待处理候选少于 5 条时自动提取饥饿）、agent-slash（updatedAt 解析 expect panic、print_shell_usage 漏列 /current）、agent-compaction（检查点提示词取用函数全仓无调用方）。agent-character-cards 无 quality 记录（读到的严格行为均为有意设计约束）。
+- 阅读登记：56 个源文件 complete（本批，35 个 seed + 补充阅读），见 tracking/read-status.json。
+- 评审 Issue：#35–#42，状态均为 review-pending。首页统计随部署更新为 42 页知识页面、21 页已发布、5204 条原子事实、5 个编译批次。

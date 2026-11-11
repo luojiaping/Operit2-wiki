@@ -47,7 +47,14 @@
 
 ## Agent 回路
 
-（待生成，大纲 v1 评审中）
+- Agent 回路总览（`agent-loop-overview`）：一轮发送链路、switch_core 切换边界、Binding 路由配合、切换不触发总结压缩。
+- 会话与分支（`agent-chat-branch`）：会话、消息、变体、分支的 SQLite 存法与插件发送契约：ChatHistoryManager 三表模型、变体提升与重编号、分支创建读取与整段删除语义。
+- 上下文压缩与摘要（`agent-compaction`）：手动入口 compactChat，自动压缩存在且默认启用（阈值 0.85），三处触发与三阶段摘要 hook。
+- Subagent 并行（`agent-subagents`）：5 个模型工具、并发上限 8、无唤醒轮询、重启标 interrupted。
+- 记忆（`agent-memory`）：按 owner 划分的同步记忆空间，候选入队后由 60 秒间隔任务批量提取并落库。
+- 角色卡（`agent-character-cards`）：角色卡与聊天绑定、生命周期、提示词组装与主题引用的机制。
+- Hooks（`agent-hooks`）：ToolPkg hook 注册类型、聊天运行时桥接、before-hook 超时与 SummaryHook 关系。
+- Slash 命令（`agent-slash`）：TUI 补全表 81 条、25 个顶层词；交互式 shell 分发 13 个命令词；/resume 切最新聊天；插件命令来自 Core，seed 内无用户自定义 slash 加载机制。
 
 ## 跨平台矩阵
 

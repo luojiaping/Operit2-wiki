@@ -1,0 +1,362 @@
+[
+  {
+    "fact": "`ToolPkgAppLifecycleHookRegistration` 是应用生命周期 hook 的注册结构，含 `containerPackageName`、`hookId`、`event`、`functionName` 与 `functionSource`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:9"
+  },
+  {
+    "fact": "`ToolPkgMessageProcessingHookRegistration` 是消息处理插件的注册结构，以 `pluginId` 而非 hookId 标识插件。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:20"
+  },
+  {
+    "fact": "`ToolPkgXmlRenderHookRegistration` 是 XML 渲染插件的注册结构，以 `pluginId` 加 `tag` 标识渲染目标。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:30"
+  },
+  {
+    "fact": "`ToolPkgInputMenuToggleHookRegistration` 是输入菜单开关插件的注册结构，以 `pluginId` 标识插件。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:41"
+  },
+  {
+    "fact": "`ToolPkgChatInputHookRegistration` 是聊天输入 hook 的注册结构，含 `hookId` 与 `functionName`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:51"
+  },
+  {
+    "fact": "`ToolPkgChatViewHookRegistration` 是聊天视图 hook 的注册结构，含 `hookId` 与 `functionName`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:61"
+  },
+  {
+    "fact": "`ToolPkgChatMessageHookRegistration` 是聊天消息持久化 hook 的注册结构，含 `hookId` 与 `functionName`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:71"
+  },
+  {
+    "fact": "`ToolPkgManifestExtensionRegistration` 是 manifest 扩展处理器的注册结构，以 `extensionKey` 标识扩展键。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:81"
+  },
+  {
+    "fact": "`ToolPkgChatMessageMenuItemRegistration` 是聊天消息上下文菜单项的注册结构，含 `itemId`、`title`、`icon`、`order`、`senders` 与可选 `dialog`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:103"
+  },
+  {
+    "fact": "`ToolPkgChatMessageMenuDialogRegistration` 是菜单项对话框的子结构，只含 `screen` 与 `title` 两字段。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:91"
+  },
+  {
+    "fact": "`ToolPkgChatRuntimeHookRegistration` 是聊天运行时状态 hook 的注册结构，含 `hookId` 与 `functionName`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:114"
+  },
+  {
+    "fact": "`ToolPkgToolLifecycleHookRegistration` 是工具生命周期 hook 的注册结构，含 `hookId` 与 `functionName`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:124"
+  },
+  {
+    "fact": "`ToolPkgPromptHookRegistration` 的文档写明它是 prompt hook 或 summary hook 的注册结构。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:134"
+  },
+  {
+    "fact": "`ToolPkgAiProviderRegistration` 是 ToolPkg 支撑的 AI Provider 注册结构，不是 hook 注册，含 `providerId` 与 `listModelsFunctionName`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:144"
+  },
+  {
+    "fact": "`ToolPkgChatLifecycleHookRegistration` 是创建初始化器的注册结构，文档写明 `containerPackageName` 标识真实注册包而非插件返回的 owner。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:162"
+  },
+  {
+    "fact": "`ToolPkgHostEventRegistration` 是宿主来源事件 hook 的注册结构，含 `source`、`trigger` 与 `enabled` 开关。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:178"
+  },
+  {
+    "fact": "`ToolPkgHostEventRegistration` 所在的 ToolPkgHooks.rs 共定义 16 个 Registration 结构体，其中 14 个是 hook 注册，另有菜单对话框子结构与 AI Provider 注册各 1 个。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:176"
+  },
+  {
+    "fact": "除菜单对话框子结构外，所有注册结构都有 `containerPackageName`、`functionName` 与可选的 `functionSource`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:12"
+  },
+  {
+    "fact": "`ToolPkgHookInvocation` 含 `containerPackageName`、`functionName`、`event`、`eventName`、`pluginId` 与 `eventPayload`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:192"
+  },
+  {
+    "fact": "ToolPkgHookInvocation 的 `timeoutMillis` 是可选的毫秒超时，`dispatchIntermediateOnMain` 控制是否在主线程分发中间结果。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:200"
+  },
+  {
+    "fact": "`timeoutMillis` 的文档写明它只约束显式定时的 before hook，普通 hook 等待完成。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:201"
+  },
+  {
+    "fact": "`ToolPkgHookDispatcher` 规定 `dispatchToolPkgHook` 按已启用包名集合调用一个 ToolPkg hook。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:211"
+  },
+  {
+    "fact": "`decodeToolPkgHookResult` 把 hook 输出为空或非 JSON 时原样返回字符串，合法 JSON 则解码为 JSON 值。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:226"
+  },
+  {
+    "fact": "`decodeToolPkgHookResult` 输入为 None 时返回 None。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:223"
+  },
+  {
+    "fact": "`ToolPkgXmlRenderHookObjectResult` 是 XML 渲染 hook 的对象结果，含 `handled`、`text`、`content` 与 `composeDsl`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs:22"
+  },
+  {
+    "fact": "`ToolPkgXmlRenderHookComposeDslResult` 是渲染 hook 的 Compose DSL 结果，含 `screen`、`state`、`memo` 与 `moduleSpec`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs:10"
+  },
+  {
+    "fact": "`ToolPkgToolLifecycleEventPayload` 是工具生命周期事件载荷，含 `toolName`、`parameters` 与 `granted`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs:34"
+  },
+  {
+    "fact": "工具生命周期事件载荷还含 `success`、`errorMessage`、`resultText` 与 `resultJson`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs:44"
+  },
+  {
+    "fact": "`ToolPkgPromptTurn` 是 prompt hook 的一轮对话，含 `kind`、`content`、可选 `toolName` 与 `metadata`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs:55"
+  },
+  {
+    "fact": "`ToolPkgPromptHookObjectResult` 是 prompt hook 的对象结果，含 `rawInput`、`processedInput`、`chatHistory` 与 `preparedHistory`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs:66"
+  },
+  {
+    "fact": "prompt hook 对象结果还含 `systemPrompt`、`toolPrompt`、`availableTools` 与 `metadata`。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs:74"
+  },
+  {
+    "fact": "`CHAT_RUNTIME_EVENT_STATE_CHANGED` 的值是 state_changed，即聊天运行时状态变更事件名。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:17"
+  },
+  {
+    "fact": "`ToolPkgChatRuntimeHookBridge` 的 `register` 把应用运行时存入 `CHAT_RUNTIME`，供后续分发取用。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:24"
+  },
+  {
+    "fact": "`syncToolPkgRegistrations` 从已启用容器的 `chatRuntimeHooks` 同步聊天运行时 hook 注册。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:32"
+  },
+  {
+    "fact": "同步时每个注册的 `containerPackageName` 取容器 `packageName`，`hookId` 取 `hook.id`，`functionName` 取 `hook.function`。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:39"
+  },
+  {
+    "fact": "`dispatchStateChanged` 接收 `chatId`、新状态、`activeChatIds` 与三组计数，通知经 `scheduleToolPkgNotification` 异步发出。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:58"
+  },
+  {
+    "fact": "异步任务先取已注册的运行时，未注册时直接返回。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:69"
+  },
+  {
+    "fact": "异步任务克隆当前注册列表，注册为空时直接返回，不执行任何 hook。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:74"
+  },
+  {
+    "fact": "每个 hook 经 `runToolPkgMainHook` 执行，事件为 `TOOLPKG_EVENT_CHAT_RUNTIME`，事件名是 `CHAT_RUNTIME_EVENT_STATE_CHANGED`。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:102"
+  },
+  {
+    "fact": "单个 hook 成功记 plugin.toolpkg.chat_runtime.run.done 日志。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:118"
+  },
+  {
+    "fact": "单个 hook 执行失败记 plugin.toolpkg.chat_runtime.run.error 日志，循环继续执行下一个 hook。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:128"
+  },
+  {
+    "fact": "载荷含 `chatId`，`slot` 固定为 main，`activeChatIds` 先排序。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:157"
+  },
+  {
+    "fact": "载荷含 `state`、`message`、`toolName`、`progress`、`isActive`、`activeChatIds` 与三组计数，`timestamp` 取当前毫秒时间。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:163"
+  },
+  {
+    "fact": "11 种 `InputProcessingState` 映射为线名，如 idle、processing、executing_tool、summarizing、completed、error。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:181"
+  },
+  {
+    "fact": "`stateMessage` 只对带 message 字段的状态返回展示文本，其余返回 None。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:197"
+  },
+  {
+    "fact": "`stateToolName` 只对 ExecutingTool、ToolProgress、ProcessingToolResult 三种状态返回工具名。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:209"
+  },
+  {
+    "fact": "`stateProgress` 只对 ToolProgress 返回进度值。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:218"
+  },
+  {
+    "fact": "`stateIsActive` 在 Idle、Completed、Error 时为 false，其余状态为 true。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:229"
+  },
+  {
+    "fact": "用 `INSTALLED` 原子标志保证各桥只注册一次。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:45"
+  },
+  {
+    "fact": "注册时订阅包目录变更监听，目录变化时重同步全部桥的注册。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:58"
+  },
+  {
+    "fact": "目录变更时聊天运行时桥随其他桥一起重同步注册。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:82"
+  },
+  {
+    "fact": "消息处理委托的 `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥。",
+    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1101"
+  },
+  {
+    "fact": "聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`。",
+    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1130"
+  },
+  {
+    "fact": "`TOOLPKG_EVENT_CHAT_RUNTIME` 的值是 toolpkg_chat_runtime。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgCommonPluginConstants.rs:24"
+  },
+  {
+    "fact": "`TOOLPKG_EVENT_SUMMARY_GENERATE` 的值是 toolpkg_summary_generate。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgCommonPluginConstants.rs:35"
+  },
+  {
+    "fact": "ToolPkgPreHookTimeout 的 `fromPreferences` 从持久化偏好读 before-hook 超时秒数。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:13"
+  },
+  {
+    "fact": "`fromSeconds` 把秒数钳制在 1 到 60 秒之间再换算为毫秒截止时间。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:20"
+  },
+  {
+    "fact": "`forStage` 对 before_process、before_prepare_history、before_finalize_prompt、before_send_to_model、before_prepare_summary_prompt 等 before 阶段创建截止时间。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:30"
+  },
+  {
+    "fact": "还覆盖 `before_compose_system_prompt`、`compose_system_prompt_sections`、`build_tool_prompt`、`before_compose_tool_prompt`、`filter_tool_prompt_items` 与 `filter_tool_call_tools`。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:38"
+  },
+  {
+    "fact": "不在名单内的阶段返回 None，不创建截止时间。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:41"
+  },
+  {
+    "fact": "有预算时先取 `remainingForHook` 的剩余时间，再调用 `runToolPkgMainHookWithTimeoutMillis`。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:61"
+  },
+  {
+    "fact": "无预算时调用不限时的 `runToolPkgMainHook`。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:79"
+  },
+  {
+    "fact": "有预算的 hook 跑完后若共享截止时间已过，返回 `reportToolPkgHookTimeout` 的超时错误。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:75"
+  },
+  {
+    "fact": "剩余时间为零时 `remainingForHook` 返回超时错误，链路不再启动下一个 hook。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:118"
+  },
+  {
+    "fact": "`hasExpired` 用当前毫秒时间与截止时间比较判断共享截止时间是否已过。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:126"
+  },
+  {
+    "fact": "`runToolPkgMainHook` 是不限时的主 hook 入口。",
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:4870"
+  },
+  {
+    "fact": "摘要桥用 `ToolPkgPreHookTimeout::forStage` 按当前阶段取预算，偏好读取失败时直接返回错误。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:77"
+  },
+  {
+    "fact": "`ToolPkgSummaryHookBridge` 的 `register` 把 `SummaryGenerateBridge` 注册进 `SummaryHookRegistry`。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:25"
+  },
+  {
+    "fact": "`SummaryGenerateBridge` 的 id 是 builtin.toolpkg.summary-generate-bridge。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:58"
+  },
+  {
+    "fact": "`syncToolPkgRegistrations` 从已启用容器的 `summaryGenerateHooks` 同步摘要 hook 注册。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:34"
+  },
+  {
+    "fact": "同步时摘要 hook 复用 `ToolPkgPromptHookRegistration` 结构登记。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:37"
+  },
+  {
+    "fact": "摘要 hook 的事件名是 `TOOLPKG_EVENT_SUMMARY_GENERATE`。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:95"
+  },
+  {
+    "fact": "摘要桥把 hook 返回值经 `decodeToolPkgHookResult` 解码，只处理对象结果。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:102"
+  },
+  {
+    "fact": "`apply_summary_object_result` 取对象结果的 `systemPrompt` 写回变更。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:155"
+  },
+  {
+    "fact": "对象结果的 `summaryPrompt` 也写回变更。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:159"
+  },
+  {
+    "fact": "对象结果的 `summaryResult` 与 `metadata` 也写回变更。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:162"
+  },
+  {
+    "fact": "任一摘要 hook 改了内容就返回 `Some(mutation)`，否则返回 None。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:131"
+  },
+  {
+    "fact": "`SummaryHookContext` 是摘要 hook 的上下文，含 `stage`、`chat_history`、`prepared_history`、`system_prompt`、`summary_prompt` 与 `summary_result`。",
+    "ref": "core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:14"
+  },
+  {
+    "fact": "`SummaryHookMutation` 是摘要 hook 返回的变更，含 `chat_history`、`system_prompt`、`summary_result` 与 `metadata`。",
+    "ref": "core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:27"
+  },
+  {
+    "fact": "`apply_mutation` 只把有值的字段写回上下文，未设置的字段保持原值。",
+    "ref": "core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:100"
+  },
+  {
+    "fact": "`SummaryGenerateHook` 是摘要生成 hook 的 trait，`on_event` 默认返回 None，异步版默认转调同步版。",
+    "ref": "core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:43"
+  },
+  {
+    "fact": "`registerSummaryGenerateHook` 先按 id 注销同名 hook 再注册，避免重复。",
+    "ref": "core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:58"
+  },
+  {
+    "fact": "`dispatchSummaryGenerateHooks` 先快照当前 hook 列表再按序执行。",
+    "ref": "core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:81"
+  },
+  {
+    "fact": "任一 hook 的 `on_event_async` 执行失败时直接返回错误，成功返回的变更经 `apply_mutation` 立即应用。",
+    "ref": "core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:89"
+  },
+  {
+    "fact": "摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook。",
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:466"
+  },
+  {
+    "fact": "摘要生成在 before_send_to_model 阶段派发摘要 hook。",
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:500"
+  },
+  {
+    "fact": "摘要生成在 after_generate_summary 阶段派发摘要 hook。",
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:571"
+  },
+  {
+    "fact": "同文件的测试把 after_generate_summary 列为不创建截止时间的阶段。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:150"
+  },
+  {
+    "fact": "`ToolPkgSummaryHookObjectResult` 是 JS 侧的摘要 hook 对象结果，含 `chatHistory`、`preparedHistory` 与 `systemPrompt`。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1047"
+  },
+  {
+    "fact": "JS 侧摘要 hook 对象结果还含 `summaryPrompt` 与 `summaryResult`。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1053"
+  }
+]

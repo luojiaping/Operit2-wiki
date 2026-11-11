@@ -1,1 +1,9 @@
-{"issue":28,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Runtime 数据与插件宿主：Operit1 快照导入迁移、偏好导入分流、插件注册表与 ToolPkg 会话创建钩子桥","updated":"2026-11-11"}
+{
+  "issue": 28,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "Runtime 数据与插件宿主：Operit1 快照导入迁移、偏好导入分流、插件注册表与 ToolPkg 会话创建钩子桥",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6795388168
+}
