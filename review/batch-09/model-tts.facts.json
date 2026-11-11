@@ -1,0 +1,290 @@
+[
+  {
+    "fact": "TtsCatalog 为无字段结构体",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:10"
+  },
+  {
+    "fact": "TtsCatalog 以 TTS_CATALOG_PROVIDER_ROWS 常量保存供应商目录，共 22 行供应商行",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:12"
+  },
+  {
+    "fact": "SYSTEM_TTS、HTTP_TTS、LOCAL_MODEL 三行没有默认 endpoint 与默认模型",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:13"
+  },
+  {
+    "fact": "TtsCatalog::providers 逐行解析供应商目录并返回供应商条目列表",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:53"
+  },
+  {
+    "fact": "TtsCatalog::provider 按 providerTypeId 忽略大小写查找，找不到返回 tts catalog provider not found 错误",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:46"
+  },
+  {
+    "fact": "parseProviderRow 要求供应商目录行切分为 11 个字段，否则返回 invalid tts provider catalog row 错误",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:84"
+  },
+  {
+    "fact": "TtsCatalog::voicesForProvider 返回指定供应商的预置音色列表",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:60"
+  },
+  {
+    "fact": "预置音色行按 providerType 忽略大小写过滤后返回",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:68"
+  },
+  {
+    "fact": "parseVoiceRow 要求预置音色行切分为 5 个字段",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:187"
+  },
+  {
+    "fact": "catalogModel 在音色行模型非空时用行内模型，否则用传入的 `providerModel` 参数",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:200"
+  },
+  {
+    "fact": "供应商操作行只接受 list_voices 操作类型，其他类型返回 invalid tts provider operation type 错误",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:133"
+  },
+  {
+    "fact": "parseOperation 要求供应商操作行切分为 12 个 ^ 分隔字段，否则返回 invalid tts provider operation row 错误",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:129"
+  },
+  {
+    "fact": "list_voices 操作的 handlerId 固定为 http_json",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:138"
+  },
+  {
+    "fact": "QWEN_TTS 默认模型为 qwen3-tts-flash，默认音频格式为 wav，默认 endpoint 为 https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:28"
+  },
+  {
+    "fact": "QWEN_TTS 鉴权头为 Authorization: Bearer {apiKey}",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:28"
+  },
+  {
+    "fact": "QWEN_TTS 默认响应管道为 parse_json → pick $.output.audio.url → http_get",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:28"
+  },
+  {
+    "fact": "QWEN_TTS 默认请求模板不含 {speed} 占位符",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:28"
+  },
+  {
+    "fact": "QWEN_TTS 预置音色为 Cherry、Serena、Ethan、Chelsie，共 4 行",
+    "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:118"
+  },
+  {
+    "fact": "CARTESIA_TTS 默认模型为 sonic-3.6，默认音频格式为 mp3，默认 endpoint 为 https://api.cartesia.ai/tts/bytes",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:29"
+  },
+  {
+    "fact": "CARTESIA_TTS 鉴权头为 Authorization: Bearer {apiKey}，另有固定头 Cartesia-Version: 2026-08-14",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:29"
+  },
+  {
+    "fact": "CARTESIA_TTS 默认请求模板在 generation_config.speed 写入 {speed}",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:29"
+  },
+  {
+    "fact": "CARTESIA_TTS 默认响应管道为空数组",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:29"
+  },
+  {
+    "fact": "CARTESIA_TTS 在线音色查询为 GET /voices?limit=100，每页取 100 条",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:29"
+  },
+  {
+    "fact": "CARTESIA_TTS 预置音色仅 Skylar 一行",
+    "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:122"
+  },
+  {
+    "fact": "SPEECHIFY_TTS 默认模型为 simba-3.0，默认音频格式为 mp3，默认 endpoint 为 https://api.speechify.ai/v1/audio/speech",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:30"
+  },
+  {
+    "fact": "SPEECHIFY_TTS 鉴权头为 Authorization: Bearer {apiKey}",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:30"
+  },
+  {
+    "fact": "SPEECHIFY_TTS 默认响应管道为 parse_json → pick $.audio_data → base64_decode",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:30"
+  },
+  {
+    "fact": "SPEECHIFY_TTS 默认请求模板不含 {speed} 占位符",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:30"
+  },
+  {
+    "fact": "SPEECHIFY_TTS 在线音色查询为 GET /v1/voices?limit=200，每页取 200 条",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:30"
+  },
+  {
+    "fact": "TTS_CATALOG_VOICE_ROWS 中无 SPEECHIFY_TTS 行（2026-11-12 于基线 364d1d594 对 collects/TtsCatalog.rs 执行 grep SPEECHIFY_TTS 零命中）",
+    "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:1"
+  },
+  {
+    "fact": "INWORLD_TTS 默认模型为 inworld-tts-2，默认音频格式为 mp3，默认 endpoint 为 https://api.inworld.ai/tts/v1/voice",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:31"
+  },
+  {
+    "fact": "INWORLD_TTS 鉴权头为 Authorization: Basic {apiKey}",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:31"
+  },
+  {
+    "fact": "INWORLD_TTS 默认响应管道为 parse_json → pick $.audioContent → base64_decode",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:31"
+  },
+  {
+    "fact": "INWORLD_TTS 默认请求模板在 audioConfig.speakingRate 写入 {speed}",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:31"
+  },
+  {
+    "fact": "INWORLD_TTS 在线音色查询为 GET /voices/v1/voices?pageSize=2000，每页取 2000 条",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:31"
+  },
+  {
+    "fact": "INWORLD_TTS 预置音色为 Ashley、Dennis、Alex，共 3 行",
+    "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:123"
+  },
+  {
+    "fact": "HUME_TTS 默认模型为 2，默认音频格式为 mp3，默认 endpoint 为 https://api.hume.ai/v0/tts/file",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:32"
+  },
+  {
+    "fact": "HUME_TTS 鉴权头为 X-Hume-Api-Key: {apiKey}",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:32"
+  },
+  {
+    "fact": "HUME_TTS 默认请求模板在 utterances 的 voice.provider 写入 HUME_AI，并在 speed 写入 {speed}",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:32"
+  },
+  {
+    "fact": "HUME_TTS 默认响应管道为空数组",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:32"
+  },
+  {
+    "fact": "HUME_TTS 在线音色查询为 GET /v0/tts/voices?provider=HUME_AI&page_size=100，每页取 100 条",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:32"
+  },
+  {
+    "fact": "TTS_CATALOG_VOICE_ROWS 中无 HUME_TTS 行（2026-11-12 于基线 364d1d594 对 collects/TtsCatalog.rs 执行 grep HUME_TTS 零命中）",
+    "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:1"
+  },
+  {
+    "fact": "RIME_TTS 默认模型为 coda，默认音频格式为 mp3，默认 endpoint 为 https://users.rime.ai/v1/rime-tts",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:33"
+  },
+  {
+    "fact": "RIME_TTS 鉴权头为 Authorization: Bearer {apiKey}，另有固定头 Accept: audio/mpeg",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:33"
+  },
+  {
+    "fact": "RIME_TTS 默认请求模板不含 {speed} 占位符",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:33"
+  },
+  {
+    "fact": "RIME_TTS 默认响应管道为空数组",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:33"
+  },
+  {
+    "fact": "RIME_TTS 没有 list_voices 操作，其供应商行第 11 字段为空",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:33"
+  },
+  {
+    "fact": "RIME_TTS 预置音色为 astra（模型 coda）与 cove（模型 mistv3），共 2 行",
+    "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:126"
+  },
+  {
+    "fact": "ELEVENLABS_TTS 默认模型为 eleven_multilingual_v2，默认音频格式为 mp3_44100_128，默认 endpoint 为 https://api.elevenlabs.io/v1/text-to-speech/{voice}?output_format={responseFormat}",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:20"
+  },
+  {
+    "fact": "ELEVENLABS_TTS 鉴权头为 xi-api-key: {apiKey}",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:20"
+  },
+  {
+    "fact": "ELEVENLABS_TTS 默认请求模板在 voice_settings.speed 写入 {speed}",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:20"
+  },
+  {
+    "fact": "ELEVENLABS_TTS 默认响应管道为空数组",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:20"
+  },
+  {
+    "fact": "ELEVENLABS_TTS 在线音色查询为 GET /v2/voices?page_size=100，每页取 100 条",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:20"
+  },
+  {
+    "fact": "ELEVENLABS_TTS 预置音色为 Rachel、Bella、Antoni、Elli、Josh、Arnold、Adam、Sam，共 8 行",
+    "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:40"
+  },
+  {
+    "fact": "KOKORO_TTS 默认模型为 kokoro，默认音频格式为 mp3，默认 endpoint 为 http://localhost:8880/v1/audio/speech",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:34"
+  },
+  {
+    "fact": "VoiceServiceFactory 为 SYSTEM_TTS 从上下文取 TtsSynthesisHost 与 FileSystemHost，缺失时返回错误",
+    "ref": "core/crates/provider/services/src/tts/VoiceServiceFactory.rs:22"
+  },
+  {
+    "fact": "VoiceServiceFactory 为 LOCAL_MODEL 返回错误，要求由 runtime local model service 创建",
+    "ref": "core/crates/provider/services/src/tts/VoiceServiceFactory.rs:28"
+  },
+  {
+    "fact": "VoiceServiceFactory 为其余供应商类型先经 TtsCatalog::provider 校验，再创建 HttpVoiceProvider",
+    "ref": "core/crates/provider/services/src/tts/VoiceServiceFactory.rs:32"
+  },
+  {
+    "fact": "文档称 TTS 设置界面从 Rust 的 TtsCatalog 读取供应商、请求模板、鉴权头、音频格式、响应管道和音色列表操作",
+    "ref": "docs/tts-providers.md:3"
+  },
+  {
+    "fact": "文档称新增目录项会出现在 Flutter 的“新建 TTS 供应商”选项中",
+    "ref": "docs/tts-providers.md:3"
+  },
+  {
+    "fact": "文档称合成请求和音色查询通过现有 Host HTTP 接口执行",
+    "ref": "docs/tts-providers.md:3"
+  },
+  {
+    "fact": "文档称通义千问默认连接北京地域，选择其他地域时 API Key 与 endpoint 必须对应",
+    "ref": "docs/tts-providers.md:9"
+  },
+  {
+    "fact": "文档称 Speechify 的 simba-3.0 支持英语、德语、西班牙语、法语、意大利语和葡萄牙语",
+    "ref": "docs/tts-providers.md:11"
+  },
+  {
+    "fact": "文档称 ElevenLabs 提供预置音色和在线音色查询",
+    "ref": "docs/tts-providers.md:16"
+  },
+  {
+    "fact": "文档称在线音色查询当前只读取一页，需要列表之外的音色时直接填写控制台中的 ID",
+    "ref": "docs/tts-providers.md:18"
+  },
+  {
+    "fact": "文档称通义千问下载音频的步骤不携带百炼鉴权头",
+    "ref": "docs/tts-providers.md:23"
+  },
+  {
+    "fact": "文档称供应商定义位于 core/crates/foundation/model/src/TtsCatalog.rs，预置音色位于 core/crates/foundation/model/collects/TtsCatalog.rs",
+    "ref": "docs/tts-providers.md:29"
+  },
+  {
+    "fact": "文档称 HttpVoiceProviderTests.rs 与 TtsVoiceListFetcherTests.rs 覆盖生产模板与在线音色查询测试",
+    "ref": "docs/tts-providers.md:31"
+  },
+  {
+    "fact": "QWEN_TTS 没有 list_voices 操作，其供应商行第 11 字段为空",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:28"
+  },
+  {
+    "fact": "文档称 Cartesia、Hume、Rime、ElevenLabs 直接返回音频字节",
+    "ref": "docs/tts-providers.md:21"
+  },
+  {
+    "fact": "文档称 Cartesia、Inworld、Hume 和 ElevenLabs 的模板包含服务端速度参数，通义千问、Speechify 和 Rime 的预设不声明此参数",
+    "ref": "docs/tts-providers.md:24"
+  },
+  {
+    "fact": "QWEN_TTS 供应商行只有一个 endpoint，没有地域字段",
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:28"
+  }
+]

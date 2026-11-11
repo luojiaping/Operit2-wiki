@@ -1,0 +1,4 @@
+docs/tts-providers.md
+core/crates/foundation/model/src/TtsCatalog.rs
+core/crates/foundation/model/collects/TtsCatalog.rs
+core/crates/provider/services/src/tts/VoiceServiceFactory.rs

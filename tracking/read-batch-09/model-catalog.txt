@@ -1,0 +1,3 @@
+docs/model-catalog.md
+core/crates/runtime/application/src/services/ModelCatalogService.rs
+core/crates/foundation/model/collects/ModelCatalog.rs

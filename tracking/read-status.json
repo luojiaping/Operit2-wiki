@@ -1,6 +1,6 @@
 {
  "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
- "updated": "2026-11-11 20:29 UTC",
+ "updated": "2026-11-11 20:49 UTC",
  "files": {
   "README.md": {
    "status": "complete",
@@ -1054,9 +1054,9 @@
   },
   "docs/chat-send-api.md": {
    "status": "complete",
-   "batch": "batch-04",
+   "batch": "batch-09",
    "date": "2026-11-11",
-   "evidence": "review/batch-04/agent-chat-branch.md",
+   "evidence": "review/batch-09/model-chat-send.md",
    "lines": 256
   },
   "plugins/packages/buildin/character_cards/README.md": {
@@ -3655,6 +3655,69 @@
    "date": "2026-11-11",
    "evidence": "review/batch-08/theme-sync.md",
    "lines": 932
+  },
+  "docs/model-catalog.md": {
+   "status": "complete",
+   "batch": "batch-09",
+   "date": "2026-11-11",
+   "evidence": "review/batch-09/model-catalog.md",
+   "lines": 106
+  },
+  "core/crates/runtime/application/src/services/ModelCatalogService.rs": {
+   "status": "complete",
+   "batch": "batch-09",
+   "date": "2026-11-11",
+   "evidence": "review/batch-09/model-catalog.md",
+   "lines": 298
+  },
+  "core/crates/foundation/model/collects/ModelCatalog.rs": {
+   "status": "complete",
+   "batch": "batch-09",
+   "date": "2026-11-11",
+   "evidence": "review/batch-09/model-catalog.md",
+   "lines": 24
+  },
+  "core/crates/plugin/sdk/src/js_sdk/chat.rs": {
+   "status": "complete",
+   "batch": "batch-09",
+   "date": "2026-11-11",
+   "evidence": "review/batch-09/model-chat-send.md",
+   "lines": 606
+  },
+  "plugins/types/chat.d.ts": {
+   "status": "complete",
+   "batch": "batch-09",
+   "date": "2026-11-11",
+   "evidence": "review/batch-09/model-chat-send.md",
+   "lines": 471
+  },
+  "docs/tts-providers.md": {
+   "status": "complete",
+   "batch": "batch-09",
+   "date": "2026-11-11",
+   "evidence": "review/batch-09/model-tts.md",
+   "lines": 41
+  },
+  "core/crates/foundation/model/src/TtsCatalog.rs": {
+   "status": "complete",
+   "batch": "batch-09",
+   "date": "2026-11-11",
+   "evidence": "review/batch-09/model-tts.md",
+   "lines": 207
+  },
+  "core/crates/foundation/model/collects/TtsCatalog.rs": {
+   "status": "complete",
+   "batch": "batch-09",
+   "date": "2026-11-11",
+   "evidence": "review/batch-09/model-tts.md",
+   "lines": 155
+  },
+  "core/crates/provider/services/src/tts/VoiceServiceFactory.rs": {
+   "status": "complete",
+   "batch": "batch-09",
+   "date": "2026-11-11",
+   "evidence": "review/batch-09/model-tts.md",
+   "lines": 37
   }
  }
 }

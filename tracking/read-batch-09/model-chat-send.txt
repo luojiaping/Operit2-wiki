@@ -1,0 +1,3 @@
+docs/chat-send-api.md
+core/crates/plugin/sdk/src/js_sdk/chat.rs
+plugins/types/chat.d.ts
