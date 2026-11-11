@@ -1,1 +1,9 @@
-{"issue":77,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Theme Studio 预览协议 v1：同源 MessagePort 固定握手、Rust/WASM 预览核内校验、themeSha256 与素材 SHA-256 一致性比对、真实帧回执、帧捕获与确定性 .toolpkg 导出。","updated":"2026-11-11"}
+{
+  "issue": 77,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "Theme Studio 预览协议 v1：同源 MessagePort 固定握手、Rust/WASM 预览核内校验、themeSha256 与素材 SHA-256 一致性比对、真实帧回执、帧捕获与确定性 .toolpkg 导出。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6806557245
+}

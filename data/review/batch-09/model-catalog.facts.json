@@ -1,0 +1,270 @@
+[
+  {
+    "fact": "模型目录从 models.dev 下载到本机节点本地运行时存储，首次使用时从本地读取",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:4"
+  },
+  {
+    "fact": "服务商目录的下载地址为 https://models.dev/api.json，常量为 PROVIDER_CATALOG_URL",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:24"
+  },
+  {
+    "fact": "厂商目录的下载地址为 https://models.dev/models.json，常量为 LAB_CATALOG_URL",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:25"
+  },
+  {
+    "fact": "服务商目录文件名为 api.json，常量为 PROVIDER_CATALOG_FILE",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:26"
+  },
+  {
+    "fact": "厂商目录文件名为 models.json，常量为 LAB_CATALOG_FILE",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:27"
+  },
+  {
+    "fact": "完成标记文件名为 downloaded.json，常量为 STAMP_FILE，最后写入",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:29"
+  },
+  {
+    "fact": "STALE_AFTER_MS 为 24 小时，目录超过该时长视为过期",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:31"
+  },
+  {
+    "fact": "RETRY_AFTER_MS 为 30 分钟，下载失败后该时长内不自动重试",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:33"
+  },
+  {
+    "fact": "CHECK_EVERY_MS 为 1 小时，进程运行期间按该间隔检查目录年龄",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:35"
+  },
+  {
+    "fact": "currentCatalog 首次调用时经 loadStoredCatalog 从本地存储读入目录",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:60"
+  },
+  {
+    "fact": "requireCatalog 等待首次完整目录，并发调用共用正在进行的下载",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:71"
+  },
+  {
+    "fact": "requireCatalog 的新调用可不受后台重试间隔限制重试首次下载失败",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:70"
+  },
+  {
+    "fact": "代码注释说明目录不可用时上报错误，而不是把缺失事实解释为能力关闭",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:91"
+  },
+  {
+    "fact": "requiredCatalogResult 在目录缺失时返回报错，提示目录未就绪、需先下载 models.dev",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:92"
+  },
+  {
+    "fact": "catalogStatus 返回 ModelCatalogStatus，含 updatedAt 与 lastError",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:103"
+  },
+  {
+    "fact": "refreshCatalog 立即下载目录并返回状态",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:113"
+  },
+  {
+    "fact": "refreshCatalogIfStale 仅在本地副本缺失或超过一天时下载",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:122"
+  },
+  {
+    "fact": "startKeepingFresh 调度名为 model-catalog-refresh 的任务启动定期检查",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:139"
+  },
+  {
+    "fact": "checkAndReschedule 执行 refreshCatalogIfStale 后按 CHECK_EVERY_MS 安排下一次检查",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:150"
+  },
+  {
+    "fact": "下载失败后 30 分钟内不自动重试：needsDownload 在 lastFailureAt 距今不足 RETRY_AFTER_MS 时返回 false",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:163"
+  },
+  {
+    "fact": "本地目录缺失下载时间，或下载时间距今超过 STALE_AFTER_MS 时，需要重新下载",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:171"
+  },
+  {
+    "fact": "下载失败时记录 lastError 与 lastFailureAt，在用目录保持不变",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:194"
+  },
+  {
+    "fact": "下载成功时在用目录被替换，updatedAt 更新，lastError 与 lastFailureAt 清空",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:186"
+  },
+  {
+    "fact": "fetchCatalog 分别下载 PROVIDER_CATALOG_URL 与 LAB_CATALOG_URL，再经 ModelsDevCatalog::parse 解析成目录",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:204"
+  },
+  {
+    "fact": "download 以 GET 请求拉取目录文件，请求头 User-Agent 为 Operit",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:214"
+  },
+  {
+    "fact": "download 的连接超时为 15 秒，读取超时为 60 秒",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:218"
+  },
+  {
+    "fact": "download 在 HTTP 状态码不在 200-299 时返回带状态码的错误",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:214"
+  },
+  {
+    "fact": "storeCatalog 先保存两个目录文件，再写入为目录标注下载时间的 stamp",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:233"
+  },
+  {
+    "fact": "时间戳文件内容为含 updatedAt 的 JSON",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:247"
+  },
+  {
+    "fact": "loadStoredCatalog 在时间戳文件不存在时不加载目录，返回空",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:259"
+  },
+  {
+    "fact": "loadStoredCatalog 从时间戳文件读取 updatedAt 作为目录下载时间",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:270"
+  },
+  {
+    "fact": "loadStoredCatalog 读回本地保存的两个目录文件，经 ModelsDevCatalog::parse 解析",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:279"
+  },
+  {
+    "fact": "本地目录读入失败时记录 lastError 并记一条警告日志",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:290"
+  },
+  {
+    "fact": "cachePath 把目录文件定位在 RUNTIME_MODELS_DEV_CACHE_DIR_PATH 之下",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:297"
+  },
+  {
+    "fact": "静态 DOWNLOAD 锁串行化下载，后台检查与拉取不会重复下载",
+    "ref": "core/crates/runtime/application/src/services/ModelCatalogService.rs:51"
+  },
+  {
+    "fact": "MODEL_CATALOG_MODEL_ROWS 的表头注释说明其为无模型列表接口的服务商的固定列表，列依次为 provider、model、billing、input、cached input、output、per request、currency、context K、image、audio、video、builtin web search、tool call、structured tools",
+    "ref": "core/crates/foundation/model/collects/ModelCatalog.rs:2"
+  },
+  {
+    "fact": "固定列表以 pub const MODEL_CATALOG_MODEL_ROWS 字符串常量手工维护",
+    "ref": "core/crates/foundation/model/collects/ModelCatalog.rs:3"
+  },
+  {
+    "fact": "固定列表共 20 行模型记录，全部属于 OPENAI_CODEX",
+    "ref": "core/crates/foundation/model/collects/ModelCatalog.rs:3"
+  },
+  {
+    "fact": "固定列表首行是 OPENAI_CODEX 的 gpt-5.3-codex-spark：TOKEN 计费，输入价 1.75、缓存输入价 0.175、输出价 14，上下文 128K，支持图片、内置联网搜索、工具调用与结构化工具，不支持音频与视频输入",
+    "ref": "core/crates/foundation/model/collects/ModelCatalog.rs:4"
+  },
+  {
+    "fact": "固定列表中 gpt-5.4 的输入价为 2.5、缓存输入价 0.25、输出价 15（USD，TOKEN 计费），上下文为 1050K，支持图片、内置联网搜索、工具调用与结构化工具，不支持音频与视频输入",
+    "ref": "core/crates/foundation/model/collects/ModelCatalog.rs:5"
+  },
+  {
+    "fact": "固定列表最后一行是 OPENAI_CODEX 的 gpt-6-sol-fast",
+    "ref": "core/crates/foundation/model/collects/ModelCatalog.rs:23"
+  },
+  {
+    "fact": "固定列表的列定义中没有思考档位相关列",
+    "ref": "core/crates/foundation/model/collects/ModelCatalog.rs:2"
+  },
+  {
+    "fact": "文档称价格、上下文长度、能力与思考档位来自运行时下载的 models.dev 目录，程序里不再编译模型数据快照（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:4"
+  },
+  {
+    "fact": "文档称 api.json 是各服务商的模型，models.json 是各厂商的模型，补充没有服务商列出、但账号可以调用的模型（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:8"
+  },
+  {
+    "fact": "文档称目录保存在设备本地 runtime/cache/models_dev/，不参与 Space 同步（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:10"
+  },
+  {
+    "fact": "文档称用户拉取模型时过期的目录先重新下载，进程运行期间每小时检查一次（文档说法；24 小时过期阈值与每小时检查已由代码验证）",
+    "ref": "docs/model-catalog.md:12"
+  },
+  {
+    "fact": "文档称下载失败原因通过 getModelCatalogStatus 提供给界面；该符号未出现在本页 seed 代码中（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:14"
+  },
+  {
+    "fact": "文档称用户可通过 refreshModelCatalog 手动重试；该符号未出现在本页 seed 代码中（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:15"
+  },
+  {
+    "fact": "文档称首次安装或目录缓存缺失时，远程模型的能力解析等待完整目录下载成功，再返回模型列表、添加模型或读取模型配置（文档说法；等待完整目录的机制已由代码验证）",
+    "ref": "docs/model-catalog.md:16"
+  },
+  {
+    "fact": "文档称用户再次操作会立即重试首次下载，不受后台 30 分钟重试间隔限制；并发操作共用正在进行的下载及其结果（文档说法；立即重试与共用下载已由代码验证）",
+    "ref": "docs/model-catalog.md:18"
+  },
+  {
+    "fact": "文档称本地运行的模型不依赖此目录（文档说法，本页 seed 代码未验证）",
+    "ref": "docs/model-catalog.md:19"
+  },
+  {
+    "fact": "文档称没有模型列表接口的服务商（ChatGPT Codex）使用 ModelCatalog.rs 里手工维护的固定列表（文档说法；固定列表面向无模型列表接口的服务商已由代码注释验证）",
+    "ref": "docs/model-catalog.md:20"
+  },
+  {
+    "fact": "文档称模型匹配在 ModelsDevCatalog.rs，按顺序查找，先找到的生效（文档说法；该文件不在本页 seed 清单中，未在代码验证）",
+    "ref": "docs/model-catalog.md:25"
+  },
+  {
+    "fact": "文档称服务商自己在 models.dev 里的条目优先：服务商按接口地址对应到 models.dev 的 api 字段；models.dev 没有记录地址的官方服务商按服务商类型对应，只限接口地址在该厂商自己的服务器上（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:27"
+  },
+  {
+    "fact": "文档称不分服务商按去掉 / 前缀的小写模型 ID 查找，上下文与能力取多数条目的说法，条目的 canonical_model_id 也算该模型的 ID（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:31"
+  },
+  {
+    "fact": "文档称 -pro-max 与 -pro、-mini、:batch、-2507 等变体不会被当成同一个模型；价格只取对应服务商自己的条目，不使用其他服务商的价格（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:39"
+  },
+  {
+    "fact": "文档称模型配置里的 *Override 字段只保存用户改过的值，按字段区分；没改过的字段在读取时按目录计算，目录更新后已添加模型里用户没改过的字段跟着更新（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:44"
+  },
+  {
+    "fact": "文档称保存时和目录值相同的字段不会记为用户设置；上下文按整千 token 比较，因为设置页按整千显示（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:46"
+  },
+  {
+    "fact": "文档称目录识别不了的模型使用添加时服务商列表自带的信息（目前只有 OpenRouter 提供），再使用默认值（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:47"
+  },
+  {
+    "fact": "文档称本机安装的本地模型不参与识别，按本地运行配置描述（文档说法，本页 seed 代码未验证）",
+    "ref": "docs/model-catalog.md:48"
+  },
+  {
+    "fact": "文档称模型能怎么思考取自 models.dev 条目的 reasoning 和 reasoning_options：一个开关、若干 effort 档位、一个 token 预算，或者都没有；厂商目录（models.json）不记录思考控制（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:52"
+  },
+  {
+    "fact": "文档称思考档位统一成 off、enabled、minimal、low、medium、high、xhigh、max，界面在各种语言下都显示这些写法（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:60"
+  },
+  {
+    "fact": "文档称档位按模型保存为 ModelProfile.thinkingLevel；没设置过的模型沿用最近一次在任意模型上设置的档位，换成该模型最接近的一档（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:63"
+  },
+  {
+    "fact": "文档称目录没有或说得不对的模型，用户可自己描述为 ModelProfile.thinkingOverride，描述整体替换目录的说法（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:66"
+  },
+  {
+    "fact": "文档称本机运行的本地模型由内置运行时处理，每个模型都可开关思考（文档说法，本页 seed 代码未验证）",
+    "ref": "docs/model-catalog.md:67"
+  },
+  {
+    "fact": "文档给出命令行 operit2 model catalog-status、operit2 model catalog-refresh 与 operit2 model thinking <provider-id> <model-id> [档位]（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:101"
+  },
+  {
+    "fact": "文档称 provider-model-available-list 的输出列出每个模型识别成的目录模型（文档说法，未在代码验证）",
+    "ref": "docs/model-catalog.md:106"
+  }
+]
