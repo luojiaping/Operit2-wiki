@@ -1,0 +1,1 @@
+{"issue":6,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"整体架构总览：CoreNode、Space、Binding 三概念，两条数据路径，Core crate 依赖方向与父级 trait 注入。","updated":"2026-11-11"}

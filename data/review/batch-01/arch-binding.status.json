@@ -1,0 +1,1 @@
+{"issue":9,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Binding：不透明 key 对应的下一次路由执行由哪个 CoreNode 完成；generation 比较写入单调递增，切换不移动数据与 Agent。","updated":"2026-11-11"}

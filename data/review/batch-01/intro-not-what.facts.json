@@ -1,0 +1,218 @@
+[
+  {
+    "fact": "Operit2 的定位是一个连接用户设备空间的 Agent 核心",
+    "ref": "README.md:3"
+  },
+  {
+    "fact": "预览阶段底层结构、数据格式、插件契约和跨设备流程仍可能发生破坏性变更",
+    "ref": "README.md:14"
+  },
+  {
+    "fact": "每个运行 Core 的实例称为 CoreNode",
+    "ref": "README.md:18"
+  },
+  {
+    "fact": "Space 组织节点之间的协作与持久化同步，Binding 记录任务下一步由哪个节点继续",
+    "ref": "README.md:18"
+  },
+  {
+    "fact": "Space 中的节点地位对等",
+    "ref": "README.md:20"
+  },
+  {
+    "fact": "Linux 云端设备承担更多任务也不会因此成为固定的主节点",
+    "ref": "README.md:20"
+  },
+  {
+    "fact": "加入 Space 不会自动授予节点其他设备的系统权限",
+    "ref": "README.md:20"
+  },
+  {
+    "fact": "任务交接以工具结果已持久化、下一轮模型请求尚未开始为边界",
+    "ref": "README.md:22"
+  },
+  {
+    "fact": "任务接续依赖保存的上下文和任务事实，不搬迁正在运行的模型请求、终端进程或浏览器会话",
+    "ref": "README.md:22"
+  },
+  {
+    "fact": "主对话保留发起设备的交互归属，子任务在执行节点推进，其他设备通过异步同步了解进展",
+    "ref": "README.md:24"
+  },
+  {
+    "fact": "手机发起、合适设备执行、桌面查看或批准、回手机接收结果的完整体验仍在完善中",
+    "ref": "README.md:24"
+  },
+  {
+    "fact": "单节点 Agent 的能力取决于平台 Host、模型 Provider 和本地配置",
+    "ref": "README.md:30"
+  },
+  {
+    "fact": "单节点 Agent 的能力并不在所有平台完全相同",
+    "ref": "README.md:39"
+  },
+  {
+    "fact": "打开 Web Access 页面不会自动让浏览器成为 Space 中的独立节点",
+    "ref": "README.md:72"
+  },
+  {
+    "fact": "活动中的进程和实时会话仍然属于原节点，备份不等于所有运行时状态已经能够无缝迁移",
+    "ref": "README.md:90"
+  },
+  {
+    "fact": "Web Access 不是自动加入 Space 的浏览器节点，也不是中心化 Agent Server",
+    "ref": "README.md:99"
+  },
+  {
+    "fact": "Linux 云端设备是 Space 中的普通 CoreNode，不因此拥有中心身份",
+    "ref": "README.md:101"
+  },
+  {
+    "fact": "ESP32 Edge Node 不保存完整业务副本",
+    "ref": "README.md:102"
+  },
+  {
+    "fact": "当前仓库还没有可以直接发布的完整 Server 产品",
+    "ref": "README.md:103"
+  },
+  {
+    "fact": "Space 成员资格不会授予其他节点读取本机文件、使用本机终端或获得管理员/root 能力",
+    "ref": "README.md:127"
+  },
+  {
+    "fact": "API key、设备私钥、配对密钥、session 和本地平台权限默认属于节点本地，不会因为加入 Space 自动复制",
+    "ref": "README.md:128"
+  },
+  {
+    "fact": "Full 只表示 AI 能力限制放宽，不表示 Host 提权，也不能创造操作系统没有的能力",
+    "ref": "README.md:129"
+  },
+  {
+    "fact": "当前以个人设备空间为主要场景，尚未验证数千节点调度，也不以企业组织治理为产品目标",
+    "ref": "README.md:148"
+  },
+  {
+    "fact": "Rust 本身不构成无资源泄漏的保证",
+    "ref": "README.md:148"
+  },
+  {
+    "fact": "架构文档中标注为目标、计划或演进方向的内容不代表所有平台已经实现，判断当前实际行为以源码、命令帮助输出、构建结果和目标平台运行结果为准",
+    "ref": "README.md:246"
+  },
+  {
+    "fact": "身份不进入设备空间同步，也不通过 Link 传播",
+    "ref": "docs/core-node-space-binding-architecture.md:17"
+  },
+  {
+    "fact": "执行模型只包含 CoreNode 和 Binding 两个概念",
+    "ref": "docs/core-node-space-binding-architecture.md:24"
+  },
+  {
+    "fact": "Space 是节点成员、路由和持久化同步的范围，不是执行容器，不拥有 Agent、聊天或运行时",
+    "ref": "docs/core-node-space-binding-architecture.md:28"
+  },
+  {
+    "fact": "架构中不引入 Chat Core、Agent Core、Env、Placement、Lease、Circuit、Capability 或远程数据放置 Ownership 模型",
+    "ref": "docs/core-node-space-binding-architecture.md:34"
+  },
+  {
+    "fact": "每个 CoreNode 只有一套 OperitApplication + LocalCoreProxy + HostManager",
+    "ref": "docs/core-node-space-binding-architecture.md:51"
+  },
+  {
+    "fact": "CoreNode 不持有环境注册表，需要另一台设备或另一套 Host 能力时 Agent 切换到另一个 CoreNode",
+    "ref": "docs/core-node-space-binding-architecture.md:54"
+  },
+  {
+    "fact": "服务监听方、连接发起方和请求执行方只是一次连接或调用中的角色，不形成主节点和从节点",
+    "ref": "docs/core-node-space-binding-architecture.md:58"
+  },
+  {
+    "fact": "Space 只负责三件事：确定协作范围、确定可承载 Space 流量的已配对连接、确定持久化数据同步范围",
+    "ref": "docs/core-node-space-binding-architecture.md:69"
+  },
+  {
+    "fact": "Space 不表达执行位置，也不表达数据归属",
+    "ref": "docs/core-node-space-binding-architecture.md:77"
+  },
+  {
+    "fact": "配对完成后不会自动加入设备空间",
+    "ref": "docs/core-node-space-binding-architecture.md:93"
+  },
+  {
+    "fact": "退出设备空间只重写本机成员记录，保留完整业务数据和直接配对记录，并创建新的单设备空间",
+    "ref": "docs/core-node-space-binding-architecture.md:111"
+  },
+  {
+    "fact": "Binding 只表达一句话：这个 key 对应的下一次路由执行由哪个 CoreNode 完成",
+    "ref": "docs/core-node-space-binding-architecture.md:141"
+  },
+  {
+    "fact": "Binding 不表示业务数据位于目标节点",
+    "ref": "docs/core-node-space-binding-architecture.md:146"
+  },
+  {
+    "fact": "同一个 Agent 的不同聊天可以绑定不同 CoreNode，切换 Binding 不会移动 Agent，也不会移动其对话",
+    "ref": "docs/core-node-space-binding-architecture.md:150"
+  },
+  {
+    "fact": "业务副本同步只在双方都具备 storage.provide 且实际提供 Core 存储服务时运行",
+    "ref": "docs/core-node-space-binding-architecture.md:187"
+  },
+  {
+    "fact": "CoreNode 身份私钥、两两配对密钥和 session、HostManager 平台状态、本机监听地址、应用界面缩放、本机平台能力和临时交互句柄保持节点本地，不进入 Space 持久化同步",
+    "ref": "docs/core-node-space-binding-architecture.md:258"
+  },
+  {
+    "fact": "实时传输不负责复制持久化业务数据",
+    "ref": "docs/core-node-space-binding-architecture.md:280"
+  },
+  {
+    "fact": "实时 continuation 的同步时钟只是交接屏障，不表示数据迁移",
+    "ref": "docs/core-node-space-binding-architecture.md:281"
+  },
+  {
+    "fact": "RoutedLink 外层不携带 chatId、Binding、envId、文件路径或 Host 配置",
+    "ref": "docs/core-node-space-binding-architecture.md:297"
+  },
+  {
+    "fact": "聊天历史读取、配置编辑和其他持久化数据操作在本地 Core 执行，由持续同步传播，只有模型执行、工具循环、取消当前执行和实时执行状态进入 Binding 路由",
+    "ref": "docs/core-node-space-binding-architecture.md:363"
+  },
+  {
+    "fact": "整段会话删除属于本地持久化操作，不要求存在 Binding，也不要求执行节点在线",
+    "ref": "docs/core-node-space-binding-architecture.md:365"
+  },
+  {
+    "fact": "切换 CoreNode 不触发会话总结或上下文压缩，上下文压缩仍由独立的自动阈值或用户手动操作触发",
+    "ref": "docs/core-node-space-binding-architecture.md:379"
+  },
+  {
+    "fact": "设备身份、配对 secret 和 Host 授权保持节点本地，Space 成员资格不授予其他节点直接读取本机文件或终端的能力",
+    "ref": "docs/core-node-space-binding-architecture.md:472"
+  },
+  {
+    "fact": "Binding 只决定 chat 的下一步执行节点",
+    "ref": "docs/core-node-space-binding-architecture.md:481"
+  },
+  {
+    "fact": "Binding 改变不移动数据",
+    "ref": "docs/core-node-space-binding-architecture.md:482"
+  },
+  {
+    "fact": "一个 chat 的同一执行轮次只有一个 CoreNode 可以推进",
+    "ref": "docs/core-node-space-binding-architecture.md:484"
+  },
+  {
+    "fact": "两两配对仍是所有直接网络信任的基础",
+    "ref": "docs/core-node-space-binding-architecture.md:486"
+  },
+  {
+    "fact": "Binding 目标不可达时由发起设备原子接管，显式设备调用仍返回明确错误",
+    "ref": "docs/core-node-space-binding-architecture.md:488"
+  },
+  {
+    "fact": "加入 Space 前先完成配对与连接：发现后经配对握手，再由用户明确选择加入",
+    "ref": "docs/core-node-space-binding-architecture.md:88"
+  }
+]

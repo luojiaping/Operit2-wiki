@@ -1,0 +1,1 @@
+{"issue":11,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"路由与转发：Binding 决定执行节点、RoutedLink 逐跳转发、加权路由与共享 Watch 树、工具边界切换与待清理项。","updated":"2026-11-11"}

@@ -1,0 +1,262 @@
+[
+{
+"fact": "Operit2 处于 Preview 阶段，底层结构、数据格式、插件契约与跨设备工作流仍会发生 breaking 变更",
+"ref": "README.md:14"
+},
+{
+"fact": "每个运行 Core 的实例称为 CoreNode，通过本地 Host 使用文件、终端、浏览器等能力",
+"ref": "README.md:18"
+},
+{
+"fact": "Space 组织节点间的协作与持久化同步，Binding 记录下一个由哪个节点继续任务",
+"ref": "README.md:18"
+},
+{
+"fact": "Space 内节点地位平等，加入 Space 不会自动授予其他设备的系统权限",
+"ref": "README.md:20"
+},
+{
+"fact": "任务交接以工具结果已持久化、下一轮模型请求尚未开始为界，不搬运进行中的模型请求、终端进程或浏览器会话",
+"ref": "README.md:22"
+},
+{
+"fact": "CLI 提供配对、发现、连接、会话、传输方式与 Space 成员管理的入口，节点通过 Link Access 建立认证连接，PeerLink 承载 Space 请求与同步流量",
+"ref": "README.md:43"
+},
+{
+"fact": "命令参数以 operit2 --help 与 operit2 cli 的实际输出为准，不得用默认开发 token 在公网监听",
+"ref": "README.md:53"
+},
+{
+"fact": "Web Access 让浏览器访问正在运行的 CoreNode，打开页面不会自动让浏览器成为 Space 中的独立节点",
+"ref": "README.md:72"
+},
+{
+"fact": "CLI 提供 identity、storage paths、快照导出与恢复、备份检查与 Operit v1 快照检查的入口",
+"ref": "README.md:80"
+},
+{
+"fact": "快照、配置与身份数据的确切范围由当前命令帮助与格式版本决定，活动进程与实时会话留在原节点",
+"ref": "README.md:90"
+},
+{
+"fact": "Rust CLI/TUI 的当前 CLI Host 主要覆盖 Windows、Linux 与 macOS",
+"ref": "README.md:97"
+},
+{
+"fact": "Web Access 不是自动加入 Space 的浏览器节点，也不是集中式 Agent Server",
+"ref": "README.md:99"
+},
+{
+"fact": "仓库当前不包含可直接发布的完整 Server 产品",
+"ref": "README.md:103"
+},
+{
+"fact": "API 密钥、设备私钥、配对密钥、会话与本地平台权限默认归属本地节点，加入 Space 不会自动复制",
+"ref": "README.md:128"
+},
+{
+"fact": "Full 只表示放宽 AI 能力限制，不提升 Host 权限，也不创造操作系统没有的能力",
+"ref": "README.md:129"
+},
+{
+"fact": "开发入口要求 Rust stable 与 rustup、Flutter SDK 与 FVM、Node.js、Python 3",
+"ref": "README.md:156"
+},
+{
+"fact": "不带参数运行 operit2 默认进入 TUI",
+"ref": "README.md:175"
+},
+{
+"fact": "Flutter App 从 apps/flutter/app 目录运行，fvm flutter run -d windows 中的 windows 只是示例设备名",
+"ref": "README.md:191"
+},
+{
+"fact": "README 的 Web Access 双终端步骤引用 node tools/dev_web_access_proxy.mjs，代理监听 4836 端口",
+"ref": "README.md:205"
+},
+{
+"fact": "README 的双终端步骤要求 Flutter 上游端口与代理的 --upstream-port 保持相同",
+"ref": "README.md:208"
+},
+{
+"fact": "operit2 cli link 的子命令清单是 discover、qr、pair、unpair、peers、prompts、listen、session、space、doctor、control、stream-probe、edge-call",
+"ref": "apps/cli/src/cli/link.rs:1299"
+},
+{
+"fact": "operit2 cli link listen 接受 http、ws、tcp、serial、bluetooth 五种传输方式，支持 --automatic-port、--fixed-port 与 --bind <host:port>",
+"ref": "apps/cli/src/cli/link.rs:1309"
+},
+{
+"fact": "operit2 cli link discover 接受 --timeout-ms 参数",
+"ref": "apps/cli/src/cli/link.rs:1304"
+},
+{
+"fact": "link discover 的默认超时是 2000 毫秒",
+"ref": "apps/cli/src/cli/link.rs:679"
+},
+{
+"fact": "operit2 cli link space show 显示 Space 名称与成员数量",
+"ref": "apps/cli/src/cli/link.rs:729"
+},
+{
+"fact": "operit2 cli link space join 接受设备名或编号作为选择器",
+"ref": "apps/cli/src/cli/link.rs:1310"
+},
+{
+"fact": "operit2 cli link qr 接受 http、ws、tcp 传输方式选择，支持 --bind <host:port> 与 --no-discovery",
+"ref": "apps/cli/src/cli/link.rs:1305"
+},
+{
+"fact": "operit2 cli identity list 列出本地身份与当前活动身份",
+"ref": "apps/cli/src/cli/mod.rs:205"
+},
+{
+"fact": "operit2 cli storage paths 由 storage 命令的 paths 子命令实现",
+"ref": "core/crates/command/core/src/commands/storage.rs:16"
+},
+{
+"fact": "operit2 cli export snapshot <path> 导出快照",
+"ref": "apps/cli/src/cli/transfer.rs:53"
+},
+{
+"fact": "operit2 cli backup create 等价于导出快照",
+"ref": "apps/cli/src/cli/transfer.rs:121"
+},
+{
+"fact": "operit2 cli backup restore 导入快照",
+"ref": "apps/cli/src/cli/transfer.rs:122"
+},
+{
+"fact": "operit2 cli backup inspect <snapshot-zip-path> 检查快照并打印格式版本、创建时间与文件清单",
+"ref": "apps/cli/src/cli/transfer.rs:123"
+},
+{
+"fact": "operit2 cli backup inspect-operit1-snapshot 检查 Operit v1 快照",
+"ref": "apps/cli/src/cli/transfer.rs:146"
+},
+{
+"fact": "不带参数运行 operit2 进入 TUI",
+"ref": "apps/cli/src/main.rs:57"
+},
+{
+"fact": "operit2 cli version 显示 CLI、Core 与 Link 版本",
+"ref": "apps/cli/src/cli/mod.rs:129"
+},
+{
+"fact": "operit2 cli web open 只打开 https://web.operit.app/，不启动本地服务器，不把凭证放进 URL",
+"ref": "apps/cli/src/cli/web.rs:6"
+},
+{
+"fact": "发现查询 _operit-link._tcp.local.，不枚举 IP 地址",
+"ref": "docs/device-space-lan-discovery.md:5"
+},
+{
+"fact": "设备仅在已配置的网络监听器运行且 discoveryEnabled 开启时才广播，默认监听器是 HTTP 与 WebSocket，OS 分配端口，绑定 0.0.0.0",
+"ref": "docs/device-space-lan-discovery.md:7"
+},
+{
+"fact": "TXT 元数据必须包含 nodeId、displayName 与 transports，不完整的广播会被拒绝并给出诊断",
+"ref": "docs/device-space-lan-discovery.md:9"
+},
+{
+"fact": "添加设备对话框执行 5 秒主动扫描，刷新重启共享查询并保留订阅句柄",
+"ref": "docs/device-space-lan-discovery.md:11"
+},
+{
+"fact": "本地设备与已配对设备有意从添加设备结果中排除，包括当前离线的已配对设备",
+"ref": "docs/device-space-lan-discovery.md:14"
+},
+{
+"fact": "离线的已配对网络设备按已发现地址排序重连，已保存地址作为后备，每个备选地址的连接与认证尝试有界",
+"ref": "docs/device-space-lan-discovery.md:19"
+},
+{
+"fact": "已发现的 nodeId 只是拨号提示，会话握手验证预期节点并证明持有现有配对密钥后，运行时把成功的地址与传输方式持久化到出站配对记录",
+"ref": "docs/device-space-lan-discovery.md:21"
+},
+{
+"fact": "认证失败不改变已保存的端点，并发的解除配对或凭证替换不会被进行中的连接撤销",
+"ref": "docs/device-space-lan-discovery.md:25"
+},
+{
+"fact": "Windows、Linux、Android 与 OHOS 使用共享原生 mDNS 提供方，守护进程与浏览器工作线程归 Host 所有",
+"ref": "docs/device-space-lan-discovery.md:32"
+},
+{
+"fact": "iOS 与 macOS 使用系统 Bonjour DNS-SD 守护进程，不使用应用自有的 UDP 组播套接字，macOS CLI 安装同样的 Apple 发现 Host",
+"ref": "docs/device-space-lan-discovery.md:37"
+},
+{
+"fact": "两端都必须放行本地组播 DNS 流量（UDP 5353 到 224.0.0.251 / ff02::fb）与到已广播监听器端口的入站连接",
+"ref": "docs/device-space-lan-discovery.md:55"
+},
+{
+"fact": "v2 连接码携带节点 ID、显示名、实时网络地址与 5 分钟有效的随机邀请密钥",
+"ref": "docs/device-space-lan-discovery.md:108"
+},
+{
+"fact": "扫码确认通过已有的 SPAKE2 配对交换认证并提交 Space 加入请求，该路径不显示手动配对码对话框",
+"ref": "docs/device-space-lan-discovery.md:110"
+},
+{
+"fact": "相机扫码在 Android、iOS、macOS 与 web 上可用，其他 Host 导入图片或粘贴连接码",
+"ref": "docs/device-space-lan-discovery.md:103"
+},
+{
+"fact": "operit2 cli link qr http --no-discovery 在没有守护进程或 TUI 属主运行时启动 HTTP 监听器并保持到 Ctrl-C",
+"ref": "docs/device-space-lan-discovery.md:130"
+},
+{
+"fact": "link qr 的 --json 以无终端转义序列的形式输出连接信息",
+"ref": "docs/device-space-lan-discovery.md:135"
+},
+{
+"fact": "交互式 link session 中 qr 显示同一连接码，pair <connection-code> 完成 QR 配对，space 命令提交或检查加入请求",
+"ref": "docs/device-space-lan-discovery.md:138"
+},
+{
+"fact": "部署服务器必须为每个应用资产发送 COOP same-origin、COEP require-corp、CORP same-origin 三个响应头，线程化 Sherpa ONNX WebAssembly 才能运行本地 STT 与 TTS",
+"ref": "apps/flutter/app/web/README.md:9"
+},
+{
+"fact": "CLI 暴露的 Link Access 服务器不提供 Web 前端",
+"ref": "apps/flutter/app/web/README.md:14"
+},
+{
+"fact": "FVM 固定的 Flutter SDK 从 Flutter 应用根目录读取 web_dev_config.yaml，内置开发服务器位于 http://127.0.0.1:4835 并发送三个跨域隔离头，不需要单独的 Node 进程或代理端口",
+"ref": "apps/flutter/app/web/README.md:20"
+},
+{
+"fact": "Web 开发用 fvm flutter run -d edge，Chrome 用 -d chrome，手动打开浏览器用 -d web-server 并访问 http://127.0.0.1:4835",
+"ref": "apps/flutter/app/web/README.md:26"
+},
+{
+"fact": "VS Code 选择 Operit2: Web (isolated) 后按 F5 启动 Edge，无需预启动代理任务",
+"ref": "apps/flutter/app/web/README.md:34"
+},
+{
+"fact": "跨域隔离头启用跨域隔离，不代表对远程 API 无限制的 CORS 访问，远程 API 服务器仍须通过自身 CORS 策略授权开发源",
+"ref": "apps/flutter/app/web/README.md:37"
+},
+{
+"fact": "runtime/src 存放 TypeScript 源码，runtime/generated 存放生成的 JavaScript/WASM 产物与 v86 客户机运行时，runtime/vendor 存放 MessagePack 等第三方静态文件",
+"ref": "apps/flutter/app/web/README.md:47"
+},
+{
+"fact": "原生应用与 CLI 不打包也不提供 web 目录，设置入口与 operit2 cli web open 打开 https://web.operit.app/，不启动本地服务器，不把凭证放进 URL",
+"ref": "apps/flutter/app/web/README.md:52"
+},
+{
+"fact": "连接另一台设备是独立的节点监听与配对操作，不是 Web Access 服务器生命周期",
+"ref": "apps/flutter/app/web/README.md:55"
+},
+{
+"fact": "ServiceDiscovery 日志记录选定的原生浏览接口、解析到的地址与端口、守护进程错误、广播与扫描总数",
+"ref": "docs/device-space-lan-discovery.md:46"
+},
+{
+"fact": "RuntimePeerService 记录原始广播总数与本地、已配对、无效、可添加四类过滤总数",
+"ref": "docs/device-space-lan-discovery.md:51"
+}
+]
