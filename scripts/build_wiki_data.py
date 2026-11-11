@@ -2,8 +2,9 @@
 """生成正式 Wiki 站的数据：site/data/wiki/pages.json。
 
 正式 wiki 不再有"预览/评审中/规划中"之分：每一页都直接嵌入正文。
-- 大纲 11 章 116 页：正文取自 review-queue.json 对应条目的 review/<id>.md（去 frontmatter）。
-- 附录章追加 8 个不在大纲里的附录页（batch-09 插件系列 6 页 + batch-10 扫尾 1 页 + batch-10 Room 字段规范 1 页）。
+- 大纲 11 章 115 页：正文取自 review-queue.json 对应条目的 review/<id>.md（去 frontmatter）。
+- 当前只有大纲条目（batch-00/outline）且不在大纲章节内，故 pages.json 现为空章节；
+  第一批正文页写完进评审后，本脚本会自动把已批准的页拼进来。
 """
 from __future__ import annotations
 
@@ -17,17 +18,9 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "site" / "data" / "wiki" / "pages.json"
 
-# 不在大纲里、需要并入附录章的条目（固定阅读顺序）
-APPENDIX_EXTRA = [
-    "batch-09/appendix-plugin-capabilities",
-    "batch-09/appendix-js-package-dev",
-    "batch-09/appendix-plugin-contract",
-    "batch-09/appendix-plugin-examples",
-    "batch-09/appendix-plugin-dev-guide",
-    "batch-09/appendix-toolpkg-contract",
-    "batch-10/appendix-uncovered-native",
-    "batch-10/appendix-room-field-spec",
-]
+# 不在大纲里、需要并入附录章的条目（固定阅读顺序）。
+# Operit2-wiki 目前没有此类条目；有附录页时再往这里加。
+APPENDIX_EXTRA = []
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n.*?\n---\s*\n", re.S)
 
@@ -53,8 +46,8 @@ def page_from_entry(entry: dict, pid: str, title: str, module: str) -> dict:
 
 
 def main() -> None:
-    v3 = ROOT / "outline" / "outline-v3.yaml"
-    op = v3 if v3.exists() else (ROOT / "wiki-work" / "outline.yaml")
+    v1 = ROOT / "outline" / "outline-v1.yaml"
+    op = v1 if v1.exists() else (ROOT / "wiki-work" / "outline.yaml")
     outline = yaml.safe_load(op.read_text(encoding="utf-8"))
     queue = json.loads((ROOT / "review-queue.json").read_text(encoding="utf-8"))
     entries = queue.get("entries", [])
