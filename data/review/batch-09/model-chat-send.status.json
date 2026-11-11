@@ -1,1 +1,9 @@
-{"issue":82,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"模型调用与聊天发送契约：SDK 恰好暴露 sendMessage、sendMessageStreaming、cancel 三个方法，Rust 权威实现与 TypeScript 导出分列 chat.rs 与 chat.d.ts，发送、取消、流式输出的执行控制按一次准入、原生租约、观察释放三分。","updated":"2026-11-11"}
+{
+  "issue": 82,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "模型调用与聊天发送契约：SDK 恰好暴露 sendMessage、sendMessageStreaming、cancel 三个方法，Rust 权威实现与 TypeScript 导出分列 chat.rs 与 chat.d.ts，发送、取消、流式输出的执行控制按一次准入、原生租约、观察释放三分。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6807303530
+}

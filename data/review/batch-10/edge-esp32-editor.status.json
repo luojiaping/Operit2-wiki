@@ -1,0 +1,1 @@
+{"issue":95,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"ESP32 编辑器提供共享 C/Wasm UI 预览、Rust Edge 模拟器、固件构建与真机调试四项能力，模拟器直接编译固件模块并经真实 TCP 与桌面 Core 配对连通。","updated":"2026-11-11"}

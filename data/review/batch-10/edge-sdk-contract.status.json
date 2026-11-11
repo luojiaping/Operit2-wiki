@@ -1,0 +1,1 @@
+{"issue":86,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Edge 契约 crate：只含稳定的 Edge 对象与属性标识符及展示、预览数据结构，不实现 Host 能力、Link 分发、传输载体或应用行为；Node 与 Proxy 各自依赖它而不互相依赖。","updated":"2026-11-11"}

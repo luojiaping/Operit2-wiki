@@ -1,0 +1,318 @@
+[
+  {
+    "fact": "operit-node-edge 是设备侧 Edge Services 与 Link 适配器",
+    "ref": "edge/sdk/node/README.md:3"
+  },
+  {
+    "fact": "本 crate 拥有类型化设备服务、原生应用端点 hook 与 EdgePeerRouter",
+    "ref": "edge/sdk/node/README.md:6"
+  },
+  {
+    "fact": "本 crate 不组装 OperitApplication、Agent 运行时、providers、ToolPkg 引擎或完整业务副本",
+    "ref": "edge/sdk/node/README.md:7"
+  },
+  {
+    "fact": "设备应用在组合根注入共享节点身份、配对、Space 控制与存储服务，这些服务不在本 crate 内重复实现",
+    "ref": "edge/sdk/node/README.md:9"
+  },
+  {
+    "fact": "peer::createPeerService 使用共享的确认码配对与加密会话引擎",
+    "ref": "edge/sdk/node/README.md:12"
+  },
+  {
+    "fact": "配对与 Space 准入是两个独立步骤",
+    "ref": "edge/sdk/node/README.md:13"
+  },
+  {
+    "fact": "EdgePeerRouter 只接受本地 Target 路由与已定义的共享 Space 控制调用",
+    "ref": "edge/sdk/node/README.md:13"
+  },
+  {
+    "fact": "EdgePeerRouter 不是完整 Core Binding 路由器，也不是中继实现",
+    "ref": "edge/sdk/node/README.md:14"
+  },
+  {
+    "fact": "应用用 withCallHandler 注册原生调用，用 withStreamHandlers 注册可选输出与输入端点",
+    "ref": "edge/sdk/node/README.md:17"
+  },
+  {
+    "fact": "原生端点使用 Call、Watch / Stream 与 Push / ReverseStream，缺失端点返回标准方法错误",
+    "ref": "edge/sdk/node/README.md:18"
+  },
+  {
+    "fact": "Host API traits 提供硬件、I/O 与存储，设备应用拥有行为",
+    "ref": "edge/sdk/node/README.md:20"
+  },
+  {
+    "fact": "Edge 不用 storage.provide 也能持久化自身配置与资源",
+    "ref": "edge/sdk/node/README.md:22"
+  },
+  {
+    "fact": "有界设备偏好在共享 Space 控制通道上交换，带成员与撤销检查",
+    "ref": "edge/sdk/node/README.md:23"
+  },
+  {
+    "fact": "完整业务副本要求两端都具备存储能力与真实 Core 存储服务",
+    "ref": "edge/sdk/node/README.md:24"
+  },
+  {
+    "fact": "当前 ESP32 应用支持原生设备服务、有界独立 HTTP 聊天与可选远程 Core 聊天",
+    "ref": "edge/sdk/node/README.md:27"
+  },
+  {
+    "fact": "配置 ToolPkg 在有能力的宿主上运行，设备配置保存后不必保持安装或运行",
+    "ref": "edge/sdk/node/README.md:29"
+  },
+  {
+    "fact": "EdgeNode 拥有一个 Edge 节点的轻量设备侧 Core 服务",
+    "ref": "edge/sdk/node/src/lib.rs:69"
+  },
+  {
+    "fact": "ScreenService 定义 getScreenSnapshot 与 sendScreenInput 两个最小显示操作",
+    "ref": "edge/sdk/node/src/lib.rs:33"
+  },
+  {
+    "fact": "EdgeNode 的 new 以 Arc<dyn DeviceIoService> 创建节点",
+    "ref": "edge/sdk/node/src/lib.rs:82"
+  },
+  {
+    "fact": "headless 创建无 GPIO 与显示的节点，仍可加入 Space",
+    "ref": "edge/sdk/node/src/lib.rs:87"
+  },
+  {
+    "fact": "withNodeServices 注入同一个外层 NodeServices 接口，Edge 不自行实现配对或鉴权",
+    "ref": "edge/sdk/node/src/lib.rs:100"
+  },
+  {
+    "fact": "fromHostManager 用一个 HostManager 的设备服务创建节点",
+    "ref": "edge/sdk/node/src/lib.rs:112"
+  },
+  {
+    "fact": "withRobotFaceService 注册类型化机器人表情服务",
+    "ref": "edge/sdk/node/src/lib.rs:117"
+  },
+  {
+    "fact": "withScreenService 注册可选通用显示能力",
+    "ref": "edge/sdk/node/src/lib.rs:123"
+  },
+  {
+    "fact": "withCallHandler 安装设备应用拥有的原生请求分发",
+    "ref": "edge/sdk/node/src/lib.rs:129"
+  },
+  {
+    "fact": "withStreamHandlers 安装设备应用的通用 Stream 与 ReverseStream 端点",
+    "ref": "edge/sdk/node/src/lib.rs:135"
+  },
+  {
+    "fact": "EdgeCallHandler 返回 None 时内置服务接管节点，没有插件注册表或清单",
+    "ref": "edge/sdk/node/src/lib.rs:42"
+  },
+  {
+    "fact": "dispatchCall 把 setDigitalOutput 与 getDigitalOutput 分发到设备 I/O 服务",
+    "ref": "edge/sdk/node/src/lib.rs:150"
+  },
+  {
+    "fact": "setExpression 与 getExpression 分发到机器人表情服务",
+    "ref": "edge/sdk/node/src/lib.rs:155"
+  },
+  {
+    "fact": "getScreenSnapshot 与 sendScreenInput 分发到显示服务",
+    "ref": "edge/sdk/node/src/lib.rs:160"
+  },
+  {
+    "fact": "未知目标或方法返回 methodNotFound 方法错误",
+    "ref": "edge/sdk/node/src/lib.rs:165"
+  },
+  {
+    "fact": "屏幕目标的 watch 快照返回 watchNotFound",
+    "ref": "edge/sdk/node/src/lib.rs:210"
+  },
+  {
+    "fact": "dispatchAsyncCall 先问 callHandler，无应答时回落到 dispatchCall",
+    "ref": "edge/sdk/node/src/lib.rs:367"
+  },
+  {
+    "fact": "watch 只把 device-io、robot-face、screen 之外目标的请求交给 watchHandler",
+    "ref": "edge/sdk/node/src/lib.rs:397"
+  },
+  {
+    "fact": "openPush 无 pushHandler 时返回 methodNotFound",
+    "ref": "edge/sdk/node/src/lib.rs:413"
+  },
+  {
+    "fact": "EdgeNode 实现 CoreLinkSharedClient 接口",
+    "ref": "edge/sdk/node/src/lib.rs:385"
+  },
+  {
+    "fact": "EdgeNode 实现 operit_link::CoreLinkClient 接口",
+    "ref": "edge/sdk/node/src/lib.rs:427"
+  },
+  {
+    "fact": "板级能力由服务经 HostManager 选择，不由传输决定",
+    "ref": "edge/sdk/node/src/lib.rs:425"
+  },
+  {
+    "fact": "DeviceIoService 定义 setDigitalOutput 与 getDigitalOutput",
+    "ref": "edge/sdk/node/src/service.rs:207"
+  },
+  {
+    "fact": "watchDigitalOutput 打开一个数字输出的类型化状态流",
+    "ref": "edge/sdk/node/src/service.rs:213"
+  },
+  {
+    "fact": "RobotFaceService 定义 setExpression 与 getExpression",
+    "ref": "edge/sdk/node/src/service.rs:222"
+  },
+  {
+    "fact": "watchExpression 打开一个机器人表情的类型化状态流",
+    "ref": "edge/sdk/node/src/service.rs:228"
+  },
+  {
+    "fact": "HostDeviceIoService 在 Host API 上实现类型化设备 I/O 操作",
+    "ref": "edge/sdk/node/src/service.rs:232"
+  },
+  {
+    "fact": "setDigitalOutput 写入后向活跃订阅者发布已提交状态",
+    "ref": "edge/sdk/node/src/service.rs:287"
+  },
+  {
+    "fact": "未安装 device I/O Host API 时 setDigitalOutput 返回 device I/O Host API is not installed 错误",
+    "ref": "edge/sdk/node/src/service.rs:287"
+  },
+  {
+    "fact": "watchDigitalOutput 先读当前状态作初始快照再注册订阅",
+    "ref": "edge/sdk/node/src/service.rs:306"
+  },
+  {
+    "fact": "createDeviceIoService 从 HostManager 构建设备 I/O 服务",
+    "ref": "edge/sdk/node/src/service.rs:329"
+  },
+  {
+    "fact": "HostRobotFaceService 在 Host API 上实现类型化机器人表情操作",
+    "ref": "edge/sdk/node/src/service.rs:334"
+  },
+  {
+    "fact": "createRobotFaceService 从 HostManager 构建机器人表情服务",
+    "ref": "edge/sdk/node/src/service.rs:417"
+  },
+  {
+    "fact": "DeviceIoStateStream 释放时取消服务订阅",
+    "ref": "edge/sdk/node/src/service.rs:108"
+  },
+  {
+    "fact": "RobotFaceStateStream 释放时取消服务订阅",
+    "ref": "edge/sdk/node/src/service.rs:194"
+  },
+  {
+    "fact": "EdgeServiceError 携带一条类型化 Edge 服务操作失败的消息",
+    "ref": "edge/sdk/node/src/service.rs:16"
+  },
+  {
+    "fact": "createPeerService 用 HostRuntimePeerService::newWithLimits 创建 Edge 接收端",
+    "ref": "edge/sdk/node/src/peer.rs:17"
+  },
+  {
+    "fact": "createPeerService 复用已有配对与会话引擎，Core 与 Edge 共享确认码、加密与授权",
+    "ref": "edge/sdk/node/src/peer.rs:9"
+  },
+  {
+    "fact": "Edge 启动使用共享确认码配对引擎，会话加密与 Space 授权留在共享运行时",
+    "ref": "edge/sdk/node/src/peer.rs:1"
+  },
+  {
+    "fact": "EdgePeerRouter 只提供本地设备服务执行，没有第二套配对协议",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:18"
+  },
+  {
+    "fact": "EdgePeerRouter 的 new 以 nodeId 创建路由",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:25"
+  },
+  {
+    "fact": "install 第二次安装 EdgeNode 返回 Edge node already installed 错误",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:32"
+  },
+  {
+    "fact": "installSpace 第二次安装 NodeSpaceService 返回 Edge Space services already installed 错误",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:37"
+  },
+  {
+    "fact": "check 要求 targetNodeId 等于本节点 id，否则返回 EDGE_ROUTE_TARGET_MISMATCH",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:48"
+  },
+  {
+    "fact": "check 只接受 RoutedCoreRequestKind::Target 路由，其他路由返回 EDGE_ROUTE_UNSUPPORTED",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:53"
+  },
+  {
+    "fact": "checkSpaceOrigin 要求 Space 调用直连来源、不可中继，NODE_SPACE_TARGET 调用 ttl 必须为 0",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:63"
+  },
+  {
+    "fact": "准入前调用只允许零跳，同 Space 控制与评审调用在直连上可带正 TTL",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:90"
+  },
+  {
+    "fact": "NODE_SPACE_TARGET、NODE_SPACE_APPROVAL_TARGET 与 NODE_SPACE_CONTROL_TARGET 三个目标交给 Space 服务处理",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:85"
+  },
+  {
+    "fact": "准入与控制目标的请求 spaceId 必须等于当前 Space 的 spaceId，否则返回 SPACE_ID_MISMATCH",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:113"
+  },
+  {
+    "fact": "未安装 Space 服务时 Space 调用返回 EDGE_SPACE_UNAVAILABLE",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:99"
+  },
+  {
+    "fact": "prepareRoutedCall 只处理 NODE_SPACE_TARGET 的 snapshot 方法",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:141"
+  },
+  {
+    "fact": "prepareEncodedCall 只处理控制通道的 exchange 与 exchangeBounded、申请侧的 requestJoin、cancelJoin 与 joinStatus，以及 observeSpaceSnapshot",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:159"
+  },
+  {
+    "fact": "routedWatchSnapshot 先执行 check 再分发",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:184"
+  },
+  {
+    "fact": "routedWatch 先执行 check 再分发",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:192"
+  },
+  {
+    "fact": "routedOpenPush 先执行 check 再分发",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:200"
+  },
+  {
+    "fact": "spaceChannelScope 未安装 Space 服务时返回 Ok(None)",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:208"
+  },
+  {
+    "fact": "DeviceIoStateStream 携带一个 Edge 服务 watch 的类型化数字输出状态",
+    "ref": "edge/sdk/node/src/service.rs:30"
+  },
+  {
+    "fact": "RobotFaceStateStream 携带一个 Edge 服务 watch 的类型化机器人表情状态",
+    "ref": "edge/sdk/node/src/service.rs:116"
+  },
+  {
+    "fact": "EdgeWatchHandler 是设备应用提供的原生输出流类型",
+    "ref": "edge/sdk/node/src/lib.rs:50"
+  },
+  {
+    "fact": "EdgePushHandler 是设备应用提供的原生输入流类型",
+    "ref": "edge/sdk/node/src/lib.rs:57"
+  },
+  {
+    "fact": "installSpace 安装 NodeSpaceService",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:37"
+  },
+  {
+    "fact": "routedCall 先执行 check 再分发",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:80"
+  },
+  {
+    "fact": "NODE_SPACE_TARGET 调用交给 Space 服务的 acceptPeerSpaceCall",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:121"
+  }
+]
