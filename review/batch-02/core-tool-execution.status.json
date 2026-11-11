@@ -1,1 +1,9 @@
-{"issue":20,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"工具系统执行与注册：解析、批处理、注册表、权限与 hook 的完整链路。","updated":"2026-11-11"}
+{
+  "issue": 20,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "工具系统执行与注册：解析、批处理、注册表、权限与 hook 的完整链路。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6791246847
+}

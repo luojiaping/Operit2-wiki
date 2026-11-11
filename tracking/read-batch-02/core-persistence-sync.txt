@@ -1,8 +1,9 @@
-core/crates/persistence/store/src/SyncOperationStore.rs
-core/crates/persistence/store/src/SyncBlobIo.rs
-core/crates/persistence/store/src/SyncAppliedChanges.rs
+core/crates/persistence/store/src/FileSyncPolicy.rs
 core/crates/persistence/store/src/MergeRules.rs
 core/crates/persistence/store/src/PreferenceMerge.rs
-core/crates/persistence/store/src/WorkspaceFileSyncStore.rs
 core/crates/persistence/store/src/RuntimeFileSyncStore.rs
-core/crates/persistence/store/src/FileSyncPolicy.rs
+core/crates/persistence/store/src/SyncAppliedChanges.rs
+core/crates/persistence/store/src/SyncBlobIo.rs
+core/crates/persistence/store/src/SyncOperationStore.rs
+core/crates/persistence/store/src/WorkspaceFileSyncStore.rs
+core/crates/persistence/store/src/transaction/Journal.rs

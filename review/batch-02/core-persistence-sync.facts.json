@@ -16,7 +16,7 @@
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:262"
   },
   {
-    "fact": "DEFAULT_SYNC_PAGE_BYTES 是 4 MiB，单个同步交换页不超过该字节数。",
+    "fact": "DEFAULT_SYNC_PAGE_BYTES 是 4 MiB，是单个同步交换页的序列化字节预算。",
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:41"
   },
   {
@@ -72,11 +72,11 @@
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1432"
   },
   {
-    "fact": "每个来源设备的操作日志存在 {root}/operations/{safeId}.jsonl 文件中，safeId 把非字母数字字符（除连字符与下划线）替换为下划线。",
-    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1439"
+    "fact": "当前操作日志存在 {root}/transactions.sqlite 中，Journal::open 打开该库并建立 originals 等表。",
+    "ref": "core/crates/persistence/store/src/transaction/Journal.rs:20"
   },
   {
-    "fact": "隔离边车路径是 {root}/operations/{safeId}.jsonl.quarantine。",
+    "fact": "遗留 JSONL 日志的隔离边车路径是 {root}/operations/{safeId}.jsonl.quarantine。",
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1449"
   },
   {
@@ -144,15 +144,15 @@
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:356"
   },
   {
-    "fact": "scanOperationLog 逐行把操作日志分类为可解码或损坏，损坏内容只记入 findings，不导致扫描失败。",
-    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1285"
+    "fact": "scanOperationLog 逐行把遗留 JSONL 操作日志分类为可解码或损坏，损坏内容只记入 findings，不导致扫描失败。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1290"
   },
   {
-    "fact": "quarantineOperationLines 把损坏行移入隔离边车，不删除任何内容，每行保留原始偏移、哈希与隔离时间戳。",
-    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1464"
+    "fact": "quarantineOperationLines 只处理遗留 JSONL 日志，把损坏行移入隔离边车，不删除任何内容，每行保留原始偏移、哈希与隔离时间戳。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1467"
   },
   {
-    "fact": "storageSafeId 把设备标识中非字母数字且非连字符、下划线的字符替换为下划线。",
+    "fact": "遗留 JSONL 路径用的 storageSafeId 把设备标识中非字母数字且非连字符、下划线的字符替换为下划线。",
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1581"
   },
   {
@@ -180,7 +180,7 @@
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1696"
   },
   {
-    "fact": "receiveOperations 把接收到的操作以 pending 状态存入日志。",
+    "fact": "receiveOperations 经 storeOriginals 把接收到的操作以 pending 状态存入当前 Journal。",
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1874"
   },
   {
@@ -650,5 +650,21 @@
   {
     "fact": "PreferenceMergeStore 由 path、encrypted、open 与 merge 四个字段组成。",
     "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:31"
+  },
+  {
+    "fact": "withJournal 是当前 Journal 的打开入口，首次打开时经 importLegacyJournal 把已退休文件式 ledger 做一次原子导入。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1705"
+  },
+  {
+    "fact": "importLegacyJournal 是唯一读取已退休文件式 ledger 的入口，只做一次原子导入。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1743"
+  },
+  {
+    "fact": "已退休的文件式 ledger 按来源设备存在 {root}/operations/{safeId}.jsonl，safeId 把非字母数字字符（除连字符与下划线）替换为下划线。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1439"
+  },
+  {
+    "fact": "appendLocalOperation 经 withJournal 把新操作写入当前 Journal。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1816"
   }
 ]

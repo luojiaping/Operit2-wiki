@@ -1,1 +1,9 @@
-{"issue":14,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"基础层通用工具库 operit-util：日志器、文件分类与流框架，48 个公开模块清点与 3 个 full feature 门。","updated":"2026-11-11"}
+{
+  "issue": 14,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "基础层通用工具库 operit-util：日志器、文件分类与流框架，48 个公开模块清点与 3 个 full feature 门。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6791244303
+}

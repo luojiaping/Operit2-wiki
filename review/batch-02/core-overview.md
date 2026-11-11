@@ -66,7 +66,7 @@ Operit2 的 Core 是 Rust 实现主体，由 `core/Cargo.toml` 的 workspace 组
 ### 依赖方向
 
 - `CRATE_BOUNDARIES.md` 规定的依赖方向是 `plugin-sdk/host-api` → `util` → `model` → `store` → `tools/local-models/providers/js-bridge` → `runtime` → `core-proxy/command-core`，箭头表示左侧定义可被右侧依赖（`core/CRATE_BOUNDARIES.md:63`）
-- `CRATE_BOUNDARIES.md` 规定 runtime 可以依赖全部子 crate，子 crate 不得依赖 `operit-runtime`（`core/CRATE_BOUNDARIES.md:66`）
+- `CRATE_BOUNDARIES.md` 规定 runtime 可以依赖其下层的子 crate，子 crate 不得依赖 `operit-runtime`；“全部子 crate”指方向链中 runtime 左侧的下层 crate，不是 workspace 的全部其他成员（`core/CRATE_BOUNDARIES.md:66`）
 - `operit-util` 依赖 `operit-host-api`（`core/crates/foundation/util/Cargo.toml:17`）
 - `operit-model` 依赖 `operit-util`、`operit-host-api` 与 `operit-link`（`core/crates/foundation/model/Cargo.toml:15`）
 - `operit-store` 依赖 `operit-model`（可选）、`operit-util` 与 `operit-host-api`（`core/crates/persistence/store/Cargo.toml:24`）
@@ -89,10 +89,9 @@ Operit2 的 Core 是 Rust 实现主体，由 `core/Cargo.toml` 的 workspace 组
 - `operit-plugin-theme` 的 `[dependencies]` 只有公开生态 crate，文档该句与实现一致（`core/crates/plugin/theme/Cargo.toml:20`）
 - `operit-proxy-local` 在非 wasm32 目标上还依赖 `operit-command-core`（`core/crates/proxy/local/Cargo.toml:48`）
 
-### 文档与实现的六处不一致（以 Cargo.toml 为准）
+### 文档与实现的五处不一致（以 Cargo.toml 为准）
 
 - `core/CRATE_BOUNDARIES.md:74` 称 `operit-plugin-sdk` 只依赖公开生态 crate，但其 `Cargo.toml` 的 `[dependencies]` 列出 `operit-plugin-sdk-macros`、`operit-plugin-theme`、`operit-host-api`、`operit-util` 四个内部 crate（`core/crates/plugin/sdk/Cargo.toml:14`）
-- `core/CRATE_BOUNDARIES.md:88` 称 `operit-runtime` 依赖全部子 crate，但其 `Cargo.toml` 的 `[dependencies]` 中没有 `operit-node-runtime`、`operit-peer-link`、`operit-proxy-scan`、`operit-proxy-rust-codegen`、`operit-proxy-dart-codegen`、`operit-proxy-bridge`、`operit-proxy-local`、`operit-rslink-codegen`、`operit-plugin-sdk-ipc`、`operit-plugin-sdk-ipc-bridge`、`operit-plugin-sdk-codegen`、`operit-plugin-sdk-macros`、`operit-data-rescue`、`operit-core-application`、`operit-command-core`（`core/crates/runtime/application/Cargo.toml:36`）
 - `operit-node-runtime` 以可选依赖引用 `operit-runtime`，features 为 javascript，这与 `core/CRATE_BOUNDARIES.md:66` 的子 crate 不得依赖 `operit-runtime` 规则冲突（`core/crates/node/runtime/Cargo.toml:35`）
 - `core/CRATE_BOUNDARIES.md:90–91` 列出的 `operit-node-edge` 依赖是 `operit-edge-contract`、Host API、Link 与小型序列化/任务原语，未列出 `operit-node-runtime`，但 `edge/sdk/node/Cargo.toml:10` 明确依赖 `operit-node-runtime`（`edge/sdk/node/Cargo.toml:10`）
 - `core/CRATE_BOUNDARIES.md:92` 称 `operit-proxy-edge` 依赖 `operit-edge-contract` 与 Link，但 `edge/sdk/proxy/Cargo.toml:12` 还列出 `operit-host-api`（`edge/sdk/proxy/Cargo.toml:12`）

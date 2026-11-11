@@ -2,7 +2,7 @@
 title: 工具系统——包、技能与 MCP
 module: core
 platforms: [all]
-sources: 6
+sources: 9
 date: 2026-11-11
 ---
 
@@ -12,7 +12,11 @@ date: 2026-11-11
 
 包格式与加载器不在本页，在 [[core-plugin-sdk|插件——Plugin SDK]]；JS 桥的完整机制在 [[core-plugin-js-bridge|插件——JS 桥]]；工具注册与执行器选择见 [[core-tool-execution|工具系统——执行与注册]]。
 
-三类入口的命名都以冒号分段：包工具是 `packageName:toolName`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:35），MCP 工具是 `server_name:tool_name`（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:339）。
+包工具和 MCP 工具以冒号分隔命名空间：包工具是 `packageName:toolName`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:35），MCP 工具是 `server_name:tool_name`（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:339）。
+
+技能不走冒号命名：调用方用 `use_package` 工具传 `package_name` 参数激活（core/crates/tool/services/src/tools/ToolRegistration.rs:83）。
+
+命中技能时，激活返回 `getSkillSystemPrompt` 生成的指令提示词（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:971）。
 
 JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_execution_provider()` 创建（core/crates/tool/services/src/tools/PackageToolExecutor.rs:81），具体 JS 引擎随 Host 而异；Core 侧的适配与调度逻辑本身是平台无关的 Rust 代码。
 
@@ -163,7 +167,8 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - 未给目标上下文键且运行时为 `main` 时，默认上下文键为 `toolpkg_main:{目标}`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:307）
 - 请求的运行时与上下文键推断的运行时不一致时报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:324）
 - `main` 目标的上下文键必须等于 `toolpkg_main:{目标}`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:331）
-- 依赖调用方必须是与提供方不同的前置 `main` 运行时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:345）
+- 依赖调用要求被调用的提供方目标为 `main` 运行时，且提供方包不同于调用方包（core/crates/tool/services/src/tools/ToolJsRuntime.rs:348）
+- 依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 `main`（core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2068）
 - IPC 目标的 ToolPkg 容器不存在时报错 `ToolPkg container not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:343）
 - IPC 目标包被禁用时报错 `ToolPkg package is disabled`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:350）
 - 非 `main` 目标取不到已激活的执行引擎时报错 `ToolPkg runtime is not active`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:388）
@@ -205,7 +210,10 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 
 1. `SkillManager::refreshAvailableSkills` 扫描 `device` 与 `space` 两个位置（core/crates/tool/services/src/tools/skill/SkillManager.rs:58）
 2. 扫描按 `SKILL.md` 优先、`skill.md` 兜底解析元数据，冲突与缺失记入错误集合（core/crates/tool/services/src/tools/skill/SkillManager.rs:156）
-3. `getSkillSystemPrompt` 生成含目录树与 `SKILL.md` 全文的激活提示词（core/crates/tool/services/src/tools/skill/SkillManager.rs:405）
+3. 模型调用 `use_package` 工具，`package_name` 参数指定技能名（core/crates/tool/services/src/tools/ToolRegistration.rs:83）
+4. `executeUsePackageTool` 调 `usePackage` 执行激活（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1034）
+5. 命中技能时返回 `getSkillSystemPrompt` 生成的提示词（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:971）
+6. `getSkillSystemPrompt` 生成含目录树与 `SKILL.md` 全文的激活提示词（core/crates/tool/services/src/tools/skill/SkillManager.rs:405）
 
 ### MCP 工具调用
 
@@ -232,3 +240,6 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - core/crates/tool/services/src/tools/mcp/MCPManager.rs
 - core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs
 - core/crates/tool/services/src/tools/ToolJsRuntime.rs
+- core/crates/tool/services/src/tools/ToolRegistration.rs
+- core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs
+- core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs

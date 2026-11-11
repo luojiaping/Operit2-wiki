@@ -428,8 +428,8 @@
     "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:331"
   },
   {
-    "fact": "依赖调用方必须是与提供方不同的前置 main 运行时。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:345"
+    "fact": "依赖调用要求被调用的提供方目标为 main 运行时，且提供方包不同于调用方包。",
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:348"
   },
   {
     "fact": "IPC 目标的 ToolPkg 容器不存在时报错 ToolPkg container not found。",
@@ -486,5 +486,21 @@
   {
     "fact": "MCPManager 使用 mcp_runtime::plugins 的 MCPBridgeClient 与 MCP 服务器通信。",
     "ref": "core/crates/tool/services/src/tools/mcp/MCPManager.rs:5"
+  },
+  {
+    "fact": "依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 main。",
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2068"
+  },
+  {
+    "fact": "`package_name` 参数指定要激活的包。",
+    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:83"
+  },
+  {
+    "fact": "命中技能时，激活返回 `getSkillSystemPrompt` 生成的指令提示词。",
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:971"
+  },
+  {
+    "fact": "激活经 `usePackage` 执行。",
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1034"
   }
 ]

@@ -1,6 +1,6 @@
 {
  "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
- "updated": "2026-11-11 08:27 UTC",
+ "updated": "2026-11-11 09:10 UTC",
  "files": {
   "README.md": {
    "status": "complete",
@@ -512,6 +512,13 @@
    "date": "2026-11-11",
    "evidence": "review/batch-02/core-persistence-store.md",
    "lines": 3972
+  },
+  "core/crates/persistence/store/src/transaction/Journal.rs": {
+   "status": "complete",
+   "batch": "batch-02",
+   "date": "2026-11-11",
+   "evidence": "review/batch-02/core-persistence-sync.md",
+   "lines": 364
   }
  }
 }
