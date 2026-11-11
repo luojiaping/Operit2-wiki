@@ -1,0 +1,2 @@
+core/crates/persistence/store/src/repository/ChatHistoryManager.rs
+docs/chat-send-api.md

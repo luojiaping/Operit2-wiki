@@ -1,0 +1,12 @@
+core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs
+core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs
+core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs
+core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs
+core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs
+core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs
+core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs
+core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs
+core/crates/provider/services/src/chat/enhance/ConversationService.rs
+core/crates/plugin/sdk/src/toolpkg/ToolPkgCommonPluginConstants.rs
+core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs
+core/crates/plugin/sdk/src/js_sdk/toolpkg.rs

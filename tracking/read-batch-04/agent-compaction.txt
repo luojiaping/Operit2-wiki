@@ -1,0 +1,3 @@
+core/crates/runtime/application/src/services/ChatServiceCore.rs
+core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs
+core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs

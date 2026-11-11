@@ -1,0 +1,16 @@
+plugins/packages/buildin/character_cards/README.md
+plugins/packages/buildin/character_cards/src/chat-lifecycle.ts
+plugins/packages/buildin/character_cards/src/chat-storage.ts
+plugins/packages/buildin/character_cards/src/chat-bindings.ts
+plugins/packages/buildin/character_cards/src/character-prompt.ts
+plugins/packages/buildin/character_cards/src/model.ts
+plugins/packages/buildin/character_cards/src/chat-markers.ts
+plugins/packages/buildin/character_cards/src/storage/chats.ts
+plugins/packages/buildin/character_cards/src/domain.ts
+plugins/packages/buildin/character_cards/src/operations.ts
+plugins/packages/buildin/character_cards/src/group-execution/prompts.ts
+plugins/packages/buildin/character_cards/src/selection-application.ts
+plugins/packages/buildin/character_cards/src/service-runtime.ts
+plugins/packages/buildin/character_cards/src/chat-view-theme.ts
+plugins/packages/buildin/character_cards/src/public-api.ts
+plugins/packages/buildin/character_cards/src/main.ts

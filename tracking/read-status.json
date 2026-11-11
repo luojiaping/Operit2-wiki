@@ -1,6 +1,6 @@
 {
  "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
- "updated": "2026-11-11 11:48 UTC",
+ "updated": "2026-11-11 12:46 UTC",
  "files": {
   "README.md": {
    "status": "complete",
@@ -571,9 +571,9 @@
   },
   "core/crates/runtime/application/src/services/ChatServiceCore.rs": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-04",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-runtime-services.md",
+   "evidence": "review/batch-04/agent-compaction.md",
    "lines": 3796
   },
   "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs": {
@@ -732,9 +732,9 @@
   },
   "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-04",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-plugin-sdk.md",
+   "evidence": "review/batch-04/agent-hooks.md",
    "lines": 232
   },
   "core/crates/plugin/sdk/src/js_sdk/core.rs": {
@@ -1044,6 +1044,384 @@
    "date": "2026-11-11",
    "evidence": "review/batch-03/core-node-runtime.md",
    "lines": 181
+  },
+  "core/crates/persistence/store/src/repository/ChatHistoryManager.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-chat-branch.md",
+   "lines": 1982
+  },
+  "docs/chat-send-api.md": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-chat-branch.md",
+   "lines": 256
+  },
+  "plugins/packages/buildin/character_cards/README.md": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 437
+  },
+  "plugins/packages/buildin/character_cards/src/chat-lifecycle.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 133
+  },
+  "plugins/packages/buildin/character_cards/src/chat-storage.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 41
+  },
+  "plugins/packages/buildin/character_cards/src/chat-bindings.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 50
+  },
+  "plugins/packages/buildin/character_cards/src/character-prompt.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 30
+  },
+  "plugins/packages/buildin/character_cards/src/model.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 533
+  },
+  "plugins/packages/buildin/character_cards/src/chat-markers.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 134
+  },
+  "plugins/packages/buildin/character_cards/src/storage/chats.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 127
+  },
+  "plugins/packages/buildin/character_cards/src/domain.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 439
+  },
+  "plugins/packages/buildin/character_cards/src/operations.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 1158
+  },
+  "plugins/packages/buildin/character_cards/src/group-execution/prompts.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 20
+  },
+  "plugins/packages/buildin/character_cards/src/selection-application.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 246
+  },
+  "plugins/packages/buildin/character_cards/src/service-runtime.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 269
+  },
+  "plugins/packages/buildin/character_cards/src/chat-view-theme.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 14
+  },
+  "plugins/packages/buildin/character_cards/src/public-api.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 551
+  },
+  "plugins/packages/buildin/character_cards/src/main.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-character-cards.md",
+   "lines": 64
+  },
+  "core/crates/runtime/application/src/services/ChatServiceCore.rs (3796 行，全文通读)": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-loop-overview.md",
+   "lines": 0
+  },
+  "core/crates/runtime/application/src/core/chat/AIMessageManager.rs (1929 行，全文通读)": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-loop-overview.md",
+   "lines": 0
+  },
+  "core/crates/provider/services/src/chat/enhance/ConversationService.rs (1120 行，全文通读)": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-loop-overview.md",
+   "lines": 0
+  },
+  "补充（正文来源，注明读过的行范围）：": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-loop-overview.md",
+   "lines": 0
+  },
+  "core/crates/tool/services/src/tools/ToolRegistration.rs (switch_core 工具注册与 resolveSwitchCoreTarget 相关区段)": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-loop-overview.md",
+   "lines": 0
+  },
+  "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs (sendRoutedContinuation 区段 486-560 与总结检查区段 780-910)": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-loop-overview.md",
+   "lines": 0
+  },
+  "core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 119
+  },
+  "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 172
+  },
+  "plugins/packages/external/subagents/src/main.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-subagents.md",
+   "lines": 27
+  },
+  "plugins/packages/external/subagents/src/manager.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-subagents.md",
+   "lines": 382
+  },
+  "plugins/packages/external/subagents/src/tools.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-subagents.md",
+   "lines": 84
+  },
+  "plugins/packages/external/subagents/src/model.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-subagents.md",
+   "lines": 115
+  },
+  "plugins/packages/external/subagents/src/service.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-subagents.md",
+   "lines": 76
+  },
+  "plugins/packages/external/subagents/src/storage.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-subagents.md",
+   "lines": 88
+  },
+  "plugins/packages/external/subagents/src/client.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-subagents.md",
+   "lines": 43
+  },
+  "plugins/packages/external/subagents/manifest.json": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-subagents.md",
+   "lines": 17
+  },
+  "plugins/packages/external/subagents/README.md": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-subagents.md",
+   "lines": 98
+  },
+  "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-memory.md",
+   "lines": 396
+  },
+  "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-memory.md",
+   "lines": 296
+  },
+  "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-memory.md",
+   "lines": 213
+  },
+  "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-memory.md",
+   "lines": 77
+  },
+  "plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-memory.md",
+   "lines": 26
+  },
+  "plugins/packages/buildin/character_cards/src/memory-jobs/producer.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-memory.md",
+   "lines": 8
+  },
+  "plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-memory.md",
+   "lines": 2
+  },
+  "core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 79
+  },
+  "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 234
+  },
+  "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 167
+  },
+  "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 87
+  },
+  "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 3542
+  },
+  "core/crates/provider/services/src/chat/enhance/ConversationService.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 1120
+  },
+  "core/crates/plugin/sdk/src/toolpkg/ToolPkgCommonPluginConstants.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 137
+  },
+  "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 6359
+  },
+  "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-hooks.md",
+   "lines": 3281
+  },
+  "apps/cli/src/tui/input/commands.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-slash.md",
+   "lines": 925
+  },
+  "apps/cli/src/cli/mod.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-slash.md",
+   "lines": 2354
+  },
+  "apps/cli/src/chat_runtime.rs": {
+   "status": "complete",
+   "batch": "batch-04",
+   "date": "2026-11-11",
+   "evidence": "review/batch-04/agent-slash.md",
+   "lines": 842
   }
  }
 }

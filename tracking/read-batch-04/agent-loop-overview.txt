@@ -1,0 +1,6 @@
+core/crates/runtime/application/src/services/ChatServiceCore.rs (3796 行，全文通读)
+core/crates/runtime/application/src/core/chat/AIMessageManager.rs (1929 行，全文通读)
+core/crates/provider/services/src/chat/enhance/ConversationService.rs (1120 行，全文通读)
+补充（正文来源，注明读过的行范围）：
+core/crates/tool/services/src/tools/ToolRegistration.rs (switch_core 工具注册与 resolveSwitchCoreTarget 相关区段)
+core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs (sendRoutedContinuation 区段 486-560 与总结检查区段 780-910)

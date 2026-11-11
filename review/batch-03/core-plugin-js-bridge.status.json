@@ -1,1 +1,9 @@
-{"issue":23,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"插件——JS 桥：JsEngine 实现 JsExecutionEngine，HostJsExecutionProvider 实现 JsExecutionProvider，JS 经 35 个同步与 12 个异步宿主绑定调宿主操作。","updated":"2026-11-11"}
+{
+  "issue": 23,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "插件——JS 桥：JsEngine 实现 JsExecutionEngine，HostJsExecutionProvider 实现 JsExecutionProvider，JS 经 35 个同步与 12 个异步宿主绑定调宿主操作。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6795386258
+}

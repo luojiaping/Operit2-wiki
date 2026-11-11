@@ -1,0 +1,9 @@
+plugins/packages/external/subagents/src/main.ts
+plugins/packages/external/subagents/src/manager.ts
+plugins/packages/external/subagents/src/tools.ts
+plugins/packages/external/subagents/src/model.ts
+plugins/packages/external/subagents/src/service.ts
+plugins/packages/external/subagents/src/storage.ts
+plugins/packages/external/subagents/src/client.ts
+plugins/packages/external/subagents/manifest.json
+plugins/packages/external/subagents/README.md

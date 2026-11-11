@@ -1,0 +1,470 @@
+[
+  {
+    "fact": "ChatHistoryManager 是会话、消息、变体、分支与同步记录的仓库",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:208"
+  },
+  {
+    "fact": "getInstance 返回共享的 ChatHistoryManager 单例，INSTANCE 互斥锁内只创建一次",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:242"
+  },
+  {
+    "fact": "ChatHistoryManagerError 的透传变体为 Database、Store、Preferences 与 Sync 四个",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:82"
+  },
+  {
+    "fact": "ChatHistoryManagerError 的 `IllegalArgument` 与 `IllegalState` 均为携带消息字符串的变体（`#[error(\"{0}\")]`），前者表示非法参数、后者表示非法状态",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:88"
+  },
+  {
+    "fact": "当前会话 id 存在偏好键 current_chat_id，由 PreferencesKeys::CURRENT_CHAT_ID 返回",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:228"
+  },
+  {
+    "fact": "消息定位预览截断长度 LOCATOR_PREVIEW_CHAR_COUNT 为 48 字符",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:37"
+  },
+  {
+    "fact": "messagePartEntities 把一条消息修订的全部 part 转成 MessagePartEntity 行",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:40"
+  },
+  {
+    "fact": "loadChatMessages 按 timestamp 升序读出一个会话的全部消息",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1597"
+  },
+  {
+    "fact": "loadMessagesSnapshot 在一次一致的 SQLite 快照上执行查询并拼装消息",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:394"
+  },
+  {
+    "fact": "消息的 variantCount 等于变体行数加 1，基础修订计为第 1 个变体",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:362"
+  },
+  {
+    "fact": "selectedVariantIndex 为 0 时消息用基础 parts 拼装",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:364"
+  },
+  {
+    "fact": "selectedVariantIndex 非 0 时经选中变体的 applyTo 把变体字段与变体 parts 合成消息",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:387"
+  },
+  {
+    "fact": "消息缺少基础 parts 时加载报 IllegalState，错误文本含 Missing base parts for message",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:354"
+  },
+  {
+    "fact": "删除变体修订只接受 AI 消息，非 AI 消息返回 Only AI messages can delete variants",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:103"
+  },
+  {
+    "fact": "删除变体时 variantIndex 为 0 表示删除第一个变体",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:112"
+  },
+  {
+    "fact": "删除变体后 selectedVariantIndex 重算：删 0 号变体后选 0，删中间变体后选被删序号（由后位递补），删末位变体后选前一位",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:125"
+  },
+  {
+    "fact": "删除 0 号变体时把被提升变体的 roleName、provider、modelName 与 token 计数写回 messages 主行",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:148"
+  },
+  {
+    "fact": "删除 0 号变体时先删旧基础 parts，再把被提升变体的 parts 重编号为 0",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:166"
+  },
+  {
+    "fact": "删除变体后，后位变体按升序逐个减 1 重编号，message_variants 与 message_parts 同步改",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:189"
+  },
+  {
+    "fact": "persistMessageLocked 拒绝负的变体序号，错误为 Variant index must be nonnegative",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:848"
+  },
+  {
+    "fact": "写变体修订（variantIndex 大于 0）时先查 message_variants，不存在则报错",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:862"
+  },
+  {
+    "fact": "写变体修订时把 messages 行的 selectedVariantIndex 同步改成该变体序号",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:870"
+  },
+  {
+    "fact": "新用户消息把会话顶到列表最前：`displayOrder` 取 -updatedAt 与全库最小值减 1 的较小者（通常为 -updatedAt）",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:887"
+  },
+  {
+    "fact": "新建的非用户消息只更新会话的 updatedAt，不改 displayOrder",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:891"
+  },
+  {
+    "fact": "已完成的 AI 消息写入时只更新会话的 updatedAt",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:891"
+  },
+  {
+    "fact": "持久化消息时给 Markdown 与 Thinking part 补 file_base_path 与 file_node_id 属性",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:833"
+  },
+  {
+    "fact": "addMessageVariant 为一条 AI 消息新增变体",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1194"
+  },
+  {
+    "fact": "只有 AI 消息能新增变体，否则返回 Only AI messages can have regenerated variants",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1207"
+  },
+  {
+    "fact": "新变体序号取 message_variants 表内计数加 1（COUNT(*) + 1）",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1210"
+  },
+  {
+    "fact": "新增变体后 messages 行的 selectedVariantIndex 立即指向新变体",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1219"
+  },
+  {
+    "fact": "selectMessageVariant 切换一条消息的选中变体",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1228"
+  },
+  {
+    "fact": "选中变体序号为负时报错 Variant index must be nonnegative",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1236"
+  },
+  {
+    "fact": "选中非 0 变体时先查 message_variants，不存在则报错",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1242"
+  },
+  {
+    "fact": "deleteMessage 只向同步层记一条消息删除记录（recordMessageDeletion），不直接删行",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1091"
+  },
+  {
+    "fact": "deleteMessagesFrom 删除从指定时间戳起的全部消息（recordMessagesFromDeletion）",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1259"
+  },
+  {
+    "fact": "clearChatMessages 删除会话内全部消息与变体（recordAllMessagesForChatDeletion）",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1269"
+  },
+  {
+    "fact": "commitAssistantMessageSegment 原子提交一段助手消息、用量增量、可选上下文窗口与同步状态",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1131"
+  },
+  {
+    "fact": "助手段要求 sender 为 ai，否则返回 assistant segment requires an ai message",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1139"
+  },
+  {
+    "fact": "助手段要求基于 base revision，即 selectedVariantIndex 为 0",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1144"
+  },
+  {
+    "fact": "助手段要求占位消息已存在，否则报 IllegalState（Assistant placeholder 不存在）",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1152"
+  },
+  {
+    "fact": "addSummaryMessageBetweenSliceNeighbors 在两条相邻消息之间插入一条摘要消息",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:985"
+  },
+  {
+    "fact": "任一相邻消息的 sender 为 summary 时不插入摘要，返回 None",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1022"
+  },
+  {
+    "fact": "摘要消息时间戳取两条相邻消息时间戳的中点",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:964"
+  },
+  {
+    "fact": "两条相邻消息时间戳相差不超过 1 时无法插入摘要，返回 None",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:959"
+  },
+  {
+    "fact": "只有前邻居时摘要时间戳为前邻居时间戳加 1",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:971"
+  },
+  {
+    "fact": "只有后邻居时摘要时间戳为后邻居时间戳减 1",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:977"
+  },
+  {
+    "fact": "loadChatMessagesWithOptions 的 order 只有 desc 走倒序，其他值一律按 ASC",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1609"
+  },
+  {
+    "fact": "loadChatMessagesWithOptions 的 limit 小于 1 时按 1 处理（limit.max(1)）",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1618"
+  },
+  {
+    "fact": "loadChatMessagesRange 要求 0 <= start <= end，否则报 range requires 0 <= start <= end",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1629"
+  },
+  {
+    "fact": "loadChatMessagesRange 返回条数为 end - start + 1（checked_sub 后 checked_add(1)）",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1637"
+  },
+  {
+    "fact": "loadRuntimeChatMessages 从最新一条 summary 消息起（含该摘要）加载消息，供模型上下文",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1744"
+  },
+  {
+    "fact": "loadMessagesAfterLatestSummaryInRange 只取最新摘要之后的消息，不含摘要本身",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1722"
+  },
+  {
+    "fact": "getLatestSummaryTimestamp 返回一个会话里最新摘要消息的时间戳",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1697"
+  },
+  {
+    "fact": "loadChatMessageLocatorPreviews 在查询非空时按查询搜定位预览",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1754"
+  },
+  {
+    "fact": "searchChatIdsByContent 的空查询返回空集",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1659"
+  },
+  {
+    "fact": "getBranches 按 parentChatId 取一个父会话的分支会话列表",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1679"
+  },
+  {
+    "fact": "getBranchesFlow 与 getBranches 返回相同结果",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1689"
+  },
+  {
+    "fact": "promoteChatToRoot 把会话从父会话脱离为根会话",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:809"
+  },
+  {
+    "fact": "ensureOutputDirectory 沿父会话链上溯找输出目录",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:522"
+  },
+  {
+    "fact": "父会话链成环时 ensureOutputDirectory 报 IllegalState，错误含 Cyclic parent conversations",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:528"
+  },
+  {
+    "fact": "fileDirectoryForChat：会话绑定了 workspace 时返回 workspace 主目录，否则走输出目录",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:542"
+  },
+  {
+    "fact": "saveChatHistory 保存会话后记一次同步快照",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:626"
+  },
+  {
+    "fact": "新会话保存后创建本地 Binding",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:632"
+  },
+  {
+    "fact": "newChatDraft 接受 title、插件扩展、workspaceId 与 parentChatId，建一个未持久化的会话草稿",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1368"
+  },
+  {
+    "fact": "建草稿前插件扩展须通过 validatePluginExtensions 校验",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1375"
+  },
+  {
+    "fact": "建草稿时指定的 workspace 不存在则报错 Workspace does not exist",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1379"
+  },
+  {
+    "fact": "commitChatDraft 把草稿与初始消息提交入库，或按 source 提交为源会话的分支",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1391"
+  },
+  {
+    "fact": "提交草稿时输出目录从 parentChatId 或 source 指定的父会话继承",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1396"
+  },
+  {
+    "fact": "deleteChatHistory 删除整段会话，返回是否成功",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1352"
+  },
+  {
+    "fact": "删除会话前先冻结全部子会话的输出目录绑定（子会话从父行继承目录）",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1353"
+  },
+  {
+    "fact": "同步层 deleteChat 返回 false 时整个删除返回 false，不再删 Binding",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1356"
+  },
+  {
+    "fact": "删除成功后删 Binding；若被删会话是当前会话，清除当前会话 id",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1359"
+  },
+  {
+    "fact": "canDeleteChatHistory：已锁定会话返回 false；不存在的会话返回同步层记录的删除状态",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1344"
+  },
+  {
+    "fact": "chatIsDeleted 通过同步层索引的生命周期键查一个会话的已提交删除事实",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1339"
+  },
+  {
+    "fact": "exportChatHistoriesToJson 把全部会话与消息导出为 Operit 归档 JSON",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:639"
+  },
+  {
+    "fact": "导入归档时 archiveType 不符拒绝，错误含 invalid archiveType",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:700"
+  },
+  {
+    "fact": "导入归档时 formatVersion 不符拒绝，错误含 unsupported formatVersion",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:706"
+  },
+  {
+    "fact": "导入时已存在 id 的会话计为 updated，新 id 计为 new",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:731"
+  },
+  {
+    "fact": "setCurrentChatId 把当前会话 id 写入偏好存储",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1318"
+  },
+  {
+    "fact": "clearCurrentChatId 从偏好存储移除当前会话 id",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1326"
+  },
+  {
+    "fact": "getTotalChatCount 与 getTotalMessageCount 分别计数会话总数与消息总数",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:561"
+  },
+  {
+    "fact": "getMessageCountsByChatId 按会话分组计数消息",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:571"
+  },
+  {
+    "fact": "updateChatLocked 改锁定态后记同步元数据",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:793"
+  },
+  {
+    "fact": "updateChatPinned 改置顶态后记同步元数据",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:801"
+  },
+  {
+    "fact": "ensureRoutedChat 先校验 Binding 已存在",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1410"
+  },
+  {
+    "fact": "路由会话缺失时以 Edge Chat 为标题创建",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1415"
+  },
+  {
+    "fact": "renameRoleNameInMessages 批量改名消息行里的 roleName",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1875"
+  },
+  {
+    "fact": "updateMessage 经 persistMessageLocked 更新消息内容与选中变体元数据",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1121"
+  },
+  {
+    "fact": "setMessageFavorite 只在收藏态变化时才写库并记快照",
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1176"
+  },
+  {
+    "fact": "插件 SDK 的发送与取消入口只有 sendMessage、sendMessageStreaming、cancel 三个方法",
+    "ref": "docs/chat-send-api.md:8"
+  },
+  {
+    "fact": "startTurn、waitTurn、cancelTurn、finishSequence 与回调式流不在当前作者契约内",
+    "ref": "docs/chat-send-api.md:14"
+  },
+  {
+    "fact": "发送契约的 Rust 权威实现在 core/crates/plugin/sdk/src/js_sdk/chat.rs，TypeScript 导出在 plugins/types/chat.d.ts",
+    "ref": "docs/chat-send-api.md:18"
+  },
+  {
+    "fact": "kind: \"submit\" 保留原文、全部附件与显式可空的回复目标",
+    "ref": "docs/chat-send-api.md:24"
+  },
+  {
+    "fact": "submit 的 turn 在执行与仅做真实用户持久化之间二选一",
+    "ref": "docs/chat-send-api.md:25"
+  },
+  {
+    "fact": "kind: \"continue\" 指向已提交的用户时间戳与显式参与者，不能重发文本、附件或回复目标",
+    "ref": "docs/chat-send-api.md:42"
+  },
+  {
+    "fact": "每次 continue 必须带 summaryPolicy，取值为 \"defer\" 或 \"after_reply\"",
+    "ref": "docs/chat-send-api.md:45"
+  },
+  {
+    "fact": "两种 summaryPolicy 都抑制回复前与回复中的自动摘要",
+    "ref": "docs/chat-send-api.md:46"
+  },
+  {
+    "fact": "submit 与 continue 共用一次准入与既有 startUserMessage 管线",
+    "ref": "docs/chat-send-api.md:52"
+  },
+  {
+    "fact": "被接受的发送不依赖插件代码事后调用单独的 finish 方法",
+    "ref": "docs/chat-send-api.md:54"
+  },
+  {
+    "fact": "Flutter「引导当前会话」走内部 steerMessage(chatId, messageText) Core 路由",
+    "ref": "docs/chat-send-api.md:61"
+  },
+  {
+    "fact": "「打断并发送」是唯一把 cancelMessage 与一次新普通发送组合起来的 composer 动作",
+    "ref": "docs/chat-send-api.md:62"
+  },
+  {
+    "fact": "引导不是第二次普通发送，不再拿执行租约；活动回合共享一个 FIFO 收件箱",
+    "ref": "docs/chat-send-api.md:66"
+  },
+  {
+    "fact": "最终收件箱为空时原子关闭，之后的引导请求会报错而不是挂住",
+    "ref": "docs/chat-send-api.md:82"
+  },
+  {
+    "fact": "part 事件是该消息完整有序 part 列表的原子替换，不是文本增量",
+    "ref": "docs/chat-send-api.md:115"
+  },
+  {
+    "fact": "每次发送的快照内容与元数据计费上限为 8 MiB，超限显式拒绝观察",
+    "ref": "docs/chat-send-api.md:128"
+  },
+  {
+    "fact": "JavaScript 迭代器上同时只能有一个待处理的 next()",
+    "ref": "docs/chat-send-api.md:131"
+  },
+  {
+    "fact": "cancel(chatId) 先捕获调用引擎的已启用已认证包及其在该会话的精确活动执行",
+    "ref": "docs/chat-send-api.md:149"
+  },
+  {
+    "fact": "排队的请求不能取消其他包或更新的执行",
+    "ref": "docs/chat-send-api.md:151"
+  },
+  {
+    "fact": "NativeGroupTurnTransport 只用 sendMessage 与 cancel",
+    "ref": "docs/chat-send-api.md:158"
+  },
+  {
+    "fact": "群组原始用户输入先以 record_only 持久化一次，再调用响应规划器",
+    "ref": "docs/chat-send-api.md:164"
+  },
+  {
+    "fact": "群组中间回复用 summaryPolicy: \"defer\"，最后一条规划回复用 \"after_reply\"，只有它可触发完成通知",
+    "ref": "docs/chat-send-api.md:166"
+  },
+  {
+    "fact": "续发完成不重复递增原始用户提交计数",
+    "ref": "docs/chat-send-api.md:170"
+  },
+  {
+    "fact": "对话级上下文刷新取各绑定参与者估计值中的最大值作为存储窗口",
+    "ref": "docs/chat-send-api.md:209"
+  },
+  {
+    "fact": "配置执行结果要求完整的 historyPolicy 对象，含 isolateParticipants 与 labelUserMessages；普通模型对话两者都为 false",
+    "ref": "docs/chat-send-api.md:228"
+  },
+  {
+    "fact": "其他参与者的有序 Markdown 发言以前缀 [From role: name] 作为用户参考上下文",
+    "ref": "docs/chat-send-api.md:236"
+  },
+  {
+    "fact": "群组用户输入加前缀 [From user]",
+    "ref": "docs/chat-send-api.md:238"
+  },
+  {
+    "fact": "发送契约的可重复校验入口包括 chat-send-contracts.test.mjs 的 node 测试",
+    "ref": "docs/chat-send-api.md:190"
+  }
+]

@@ -1,0 +1,574 @@
+[
+ {
+  "fact": "`MemorySpace` 的 `memories`、`links`、`chunks`、`candidates` 四个集合与 `ownerKey` 同属一个按 owner 划分的记忆空间。",
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:405"
+ },
+ {
+  "fact": "`MemorySpace` 还包含 `settings`、`searchConfig`、`userDocumentPath`、`rebuildProgress`、`rebuildTask`。",
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:408"
+ },
+ {
+  "fact": "记忆空间的 `embeddings` 字段保存记忆向量。",
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:414"
+ },
+ {
+  "fact": "`MemoryJobState` 是 `MemorySpace` 去掉 `memories`、`links`、`chunks`、`embeddings` 后的调度状态类型。",
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:417"
+ },
+ {
+  "fact": "`CharacterState` 的注释写明它只拥有本插件的文件模式，不施加全运行时范围的存储模式。",
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:419"
+ },
+ {
+  "fact": "角色卡状态的 `owners` 字段是 `MemorySpace` 数组。",
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:429"
+ },
+ {
+  "fact": "`CharacterMemoryDatabase` 的注释写明它保存同步化的记忆记录并执行有界数据库查询。",
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory.ts:11"
+ },
+ {
+  "fact": "记忆数据库文件是 Space 数据目录下的 `memory.sqlite`，目录由 `ToolPkg.getSpaceDataDir()` 定位。",
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory.ts:20"
+ },
+ {
+  "fact": "源记录与向量在一次同步化事务里一起发布。",
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory.ts:76"
+ },
+ {
+  "fact": "`DatabaseMemoryRepository` 在同步化的数据库记录上实现记忆操作，检索索引是 owner 本地的派生索引。",
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:41"
+ },
+ {
+  "fact": "`readMemoryJobState` 按 `ownerKey` 读出该记忆空间的任务状态。",
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:310"
+ },
+ {
+  "fact": "`writeMemoryJobState` 按 `ownerKey` 写回该记忆空间的任务状态。",
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:320"
+ },
+ {
+  "fact": "`CandidateSource` 只有 `reply_finalized_auto` 与 `selected_user_message` 两种取值。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:8"
+ },
+ {
+  "fact": "`CandidateRequest` 包含 `chatId`、`timestamp`、`variantIndex`、`sourceType`、`ownerKey` 五个字段。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:9"
+ },
+ {
+  "fact": "`enqueueCandidate` 在 `sourceType` 为 `reply_finalized_auto` 且全局记忆偏好 `autoUpdateEnabled` 关闭时直接返回空结果，不入队。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:54"
+ },
+ {
+  "fact": "`enqueueCandidate` 在 `variantIndex` 超过 2147483647 时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:56"
+ },
+ {
+  "fact": "候选必须恰好定位到一条源消息，否则抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:61"
+ },
+ {
+  "fact": "`reply_finalized_auto` 的候选要求源消息发送者是 `ai` 或 `assistant`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:64"
+ },
+ {
+  "fact": "`selected_user_message` 的候选要求源消息发送者是 `user`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:65"
+ },
+ {
+  "fact": "候选源消息内容为空白时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:68"
+ },
+ {
+  "fact": "自动候选在当前消息作者缺失（`authorMissing`）时直接返回空结果，不入队。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:72"
+ },
+ {
+  "fact": "自动候选在 `ownerKey` 为空时取当前消息的 `primaryOwnerKey` 作为记忆 owner。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:73"
+ },
+ {
+  "fact": "自动候选在当前消息作者对目标 owner 不可写时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:77"
+ },
+ {
+  "fact": "选定用户消息的候选在显式给出 `ownerKey` 时用 `requireChatOwner` 校验该聊天对该 owner 可写。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:81"
+ },
+ {
+  "fact": "群聊的选定用户消息候选在参与者不是恰好一人时要求显式给出 owner，否则抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:84"
+ },
+ {
+  "fact": "入队时会删掉没有记忆 owner 记录的候选 owner。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:87"
+ },
+ {
+  "fact": "同一 owner 下已存在相同 `chatId`、`timestamp`、`variantIndex`、`sourceType` 的候选时，返回已有候选 id，不再重复入队。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:94"
+ },
+ {
+  "fact": "新候选的状态为 `pending`、`attemptCount` 为 0，并携带产生它的 `producerNodeId`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:102"
+ },
+ {
+  "fact": "入队时若 `autoSaveIntervalMinutes` 大于 0 且 `nextAutoSaveRunAtMs` 为 0，则按间隔设置下一次自动保存时间。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:103"
+ },
+ {
+  "fact": "已有重建处于 `preparing` 或 `running` 时，新建重建抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:116"
+ },
+ {
+  "fact": "重建聊天 id 出现重复时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:119"
+ },
+ {
+  "fact": "新建重建用 `planWindows` 把选定聊天切成窗口。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:121"
+ },
+ {
+  "fact": "选定历史没有任何窗口时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:125"
+ },
+ {
+  "fact": "新重建任务建立后进度状态为 `preparing`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:128"
+ },
+ {
+  "fact": "`advanceRebuildWindow` 把 `completedWindows` 加 1，并把当前窗口的 `sourceMessageCount` 累加到 `processedSourceMessages`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:137"
+ },
+ {
+  "fact": "没有下一个窗口时把进度状态置为 `completed`，否则置为 `running`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:141"
+ },
+ {
+  "fact": "重建窗口执行前用 `sameMessageRevision` 逐条复核计划源消息的版本，版本变化或删除时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:161"
+ },
+ {
+  "fact": "重建窗口用 `extractMessages` 对窗口消息做提取。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:164"
+ },
+ {
+  "fact": "重建窗口失败时 `failedWindows` 加 1 并记录 `lastError`，窗口照常推进，不发布部分记忆修改。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:180"
+ },
+ {
+  "fact": "`CANDIDATE_PROCESSING_LEASE_MS` 为 30 分钟，即一条处理中候选可被认领的最长占用时间。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:190"
+ },
+ {
+  "fact": "`failCandidate` 把候选状态置为 `failed` 并记录 `lastError` 与更新时间。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:193"
+ },
+ {
+  "fact": "候选源消息已删除或版本已变化时跳过该候选并记为 failed、记录原因。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:212"
+ },
+ {
+  "fact": "候选源消息的发送者已变化时跳过该候选并记为 failed。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:215"
+ },
+ {
+  "fact": "`selected_user_message` 批次只提取通过校验的选定用户消息。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:230"
+ },
+ {
+  "fact": "自动回复来源的批次只取截至最后一条候选时间戳的消息，且至多取最后 48 条。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:237"
+ },
+ {
+  "fact": "提取提交后从 `space.candidates` 里删除已完成的候选。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:248"
+ },
+ {
+  "fact": "`MemoryJobStatusError` 同时保留执行错误与状态发布错误，不用成功掩盖任一失败。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:19"
+ },
+ {
+  "fact": "`MemoryJobPassError` 保留每个失败 owner 的原始错误与本轮报告。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:28"
+ },
+ {
+  "fact": "`MemoryJobReport` 统计 `owners`、`rebuildWindows`、`candidateBatches` 三个数。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:272"
+ },
+ {
+  "fact": "`tick()` 在已有一次正在跑的 pass 时共享它，不另起一轮。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:286"
+ },
+ {
+  "fact": "`runTick` 通过 `listMemoryOwnerKeys` 列出全部记忆 owner 并逐个推进。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:296"
+ },
+ {
+  "fact": "本轮在任一 owner 失败时抛出 `MemoryJobPassError`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:306"
+ },
+ {
+  "fact": "没有 `producerNodeId` 且未失败的历史候选会被标为失败，提示在应处理它的设备上重试。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:319"
+ },
+ {
+  "fact": "处理中超过 30 分钟租约的本设备候选会被打回 `pending`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:320"
+ },
+ {
+  "fact": "没有 `producerNodeId` 且仍在活动的历史重建任务会被标为失败。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:326"
+ },
+ {
+  "fact": "一个 owner 只有在本设备的重建仍在活动、或本设备有待处理候选时才会被推进。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:331"
+ },
+ {
+  "fact": "候选批次只有在全局记忆偏好 `autoUpdateEnabled` 开启时才会产生。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:347"
+ },
+ {
+  "fact": "`autoSaveIntervalMinutes` 为 0 或未到 `nextAutoSaveRunAtMs` 时不产生候选批次。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:349"
+ },
+ {
+  "fact": "候选批次只有在待处理候选达到 5 条时才开始组织。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:355"
+ },
+ {
+  "fact": "待处理候选按聊天分组，按触发时间戳最旧优先排序，每聊天至多取 20 条。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:361"
+ },
+ {
+  "fact": "候选批次按 `selected_user_message` 与 `reply_finalized_auto` 两种来源分别成批。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:366"
+ },
+ {
+  "fact": "认领批次时候选若已不是本设备的待处理状态则抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:385"
+ },
+ {
+  "fact": "认领批次时候选状态改为 `processing`，`attemptCount` 加 1。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:386"
+ },
+ {
+  "fact": "`parseModelJson` 去掉模型输出里的思考块与代码围栏后解析 JSON，失败时回退到首尾花括号切片。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:16"
+ },
+ {
+  "fact": "解析失败时的回退用 `JSON.parse` 解析首尾花括号之间的切片。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:21"
+ },
+ {
+  "fact": "`Analysis` 包含 `main`、`new`、`update`、`merge`、`links`、`profile_markdown`、`skipped`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:12"
+ },
+ {
+  "fact": "`entity` 校验要求标题、内容、标签数组与 `folder_path` 齐全。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:29"
+ },
+ {
+  "fact": "`merge` 校验要求 `source_titles` 非空。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:45"
+ },
+ {
+  "fact": "`objectArray` 跳过校验失败的条目并计入跳过数，不丢弃其余条目。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:59"
+ },
+ {
+  "fact": "模型返回空对象 `{}` 时分析结果为 null，表示没有可复用的事实。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:66"
+ },
+ {
+  "fact": "`new` 超过 5 条时提取抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:72"
+ },
+ {
+  "fact": "`normalizeCandidateSearchText` 去掉思考块、工具块、记忆块与链接后截断文本。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:82"
+ },
+ {
+  "fact": "检索查询取最后一条用户提问（至多 500 字符）、最后一条助手回答（至多 180 字符）、最近 12 条消息（至多 1200 字符）。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:103"
+ },
+ {
+  "fact": "`cleanMessage` 去掉思考块与工具结果块，用户消息还去掉记忆块，工具结果替换为占位文本。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:118"
+ },
+ {
+  "fact": "`memoryByTitle` 要求标题恰好对应一条已存记忆，否则抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:124"
+ },
+ {
+  "fact": "发现标题完全相同的记忆时，提取提示要求强烈优先使用 `merge`，不要再为同一事实创建平行 `new` 记忆。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:148"
+ },
+ {
+  "fact": "资料更新提示只在 `profileAutoUpdateEnabled` 开启且 `profileAutoUpdateLocked` 未锁定时才启用。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:153"
+ },
+ {
+  "fact": "模型引用了无法解析的标题时只跳过该条，不丢弃整轮提取。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:198"
+ },
+ {
+  "fact": "`applyAnalysis` 的报告统计 `created`、`updated`、`merged`、`links`、`profileUpdated`、`skipped`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:176"
+ },
+ {
+  "fact": "模型返回了 owner 设置禁止的资料更新时，`applyAnalysis` 抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:179"
+ },
+ {
+  "fact": "`merge` 先于更新处理。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:198"
+ },
+ {
+  "fact": "处理 `update` 时用 `saveMemory` 保存改写后的记忆。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:205"
+ },
+ {
+  "fact": "`main` 新建记忆时 `source` 为 `memory_analysis`、`credibility` 为 1、`importance` 为 0.8。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:215"
+ },
+ {
+  "fact": "`new` 新建记忆时 `credibility` 与 `importance` 均为 0.5。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:222"
+ },
+ {
+  "fact": "处理 `links` 时用 `createLink` 按解析出的两端记忆 id 建边。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:229"
+ },
+ {
+  "fact": "资料更新通过 `writeUser` 写回，并把 `profileUpdated` 置为真。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:233"
+ },
+ {
+  "fact": "`extractMessages` 要求消息里有真实用户上下文，否则抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:242"
+ },
+ {
+  "fact": "提取用 `MEMORY_SEARCH_THRESHOLD` 作为相关度阈值检索已有记忆。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:252"
+ },
+ {
+  "fact": "提取提示最多只带前 15 条检索到的候选记忆。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:253"
+ },
+ {
+  "fact": "提取调用 `Tools.Chat.call` 时 `functionType` 为 `MEMORY`，`enableThinking` 为 false，`recordTokenUsage` 为 true。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254"
+ },
+ {
+  "fact": "`extractMessages` 的输入是调用方传入的原始消息数组，输入中不含聊天摘要。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:242"
+ },
+ {
+  "fact": "`updateChatMemory` 取最后一条非空助手回复作为手动更新的锚点。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:262"
+ },
+ {
+  "fact": "手动更新只分析锚点回复及之前的消息，且至多取最后 10 条（`slice(-10)`）。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:272"
+ },
+ {
+  "fact": "`autoCategorizeMemory` 只处理放在根文件夹的记忆（`folderPath` 为空或空字符串）。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:278"
+ },
+ {
+  "fact": "分类调用要求模型恰好为每条记忆返回一个文件夹，否则抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:287"
+ },
+ {
+  "fact": "分类结果用 `moveMemories` 按标题把记忆移入指定文件夹。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:292"
+ },
+ {
+  "fact": "`assertChat` 要求聊天摘要含 `messageCount`、`inputTokens`、`outputTokens` 等字段。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:11"
+ },
+ {
+  "fact": "`requireChat` 用 `Tools.Chat.findChat` 精确匹配聊天 id，且匹配数必须为 1。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:19"
+ },
+ {
+  "fact": "`chatParticipants` 从持久化的聊天选择中解析参与者，模型选择对应零个参与者。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:31"
+ },
+ {
+  "fact": "群聊参与者按 `orderIndex` 排序后逐个取角色卡。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:37"
+ },
+ {
+  "fact": "`primaryOwner` 在 `CHARACTER` 模式返回 `character:` 加角色卡 id，在 `SHARED` 模式返回 `shared:` 加共享库 id。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:45"
+ },
+ {
+  "fact": "`requireChatOwner` 接受参与者主 owner 匹配，或参与者挂载的可写共享库。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:57"
+ },
+ {
+  "fact": "`currentMessageMemoryAccess` 通过 `readMessageAuthor` 解析消息作者，作者缺失时标记 `authorMissing`，入队直接返回空结果。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:70"
+ },
+ {
+  "fact": "作者为模型聊天时 `primaryOwnerKey` 为空、`resources` 为空（`authorMissing` 为 false），入队时因 `ownerKey` 为空返回空结果。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:73"
+ },
+ {
+  "fact": "`requireMessageOwner` 在作者缺失时回退到聊天级的 `requireChatOwner` 校验。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:88"
+ },
+ {
+  "fact": "`requireMessagesOwner` 在任一助手回复对该 owner 可写时即通过。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:102"
+ },
+ {
+  "fact": "`listMemoryChats` 每批读 200 个聊天，并把 Core 侧已消失的聊天 id 列入 `missingChatIds`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:119"
+ },
+ {
+  "fact": "`pruneMissingMemoryChats` 删除已消失聊天的绑定与孤儿候选。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:138"
+ },
+ {
+  "fact": "`readMessages` 用 `Tools.Chat.getMessagesRange` 按升序读 0 到消息总数减 1 的完整范围。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:174"
+ },
+ {
+  "fact": "`readMessages` 在返回范围与请求不符时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:175"
+ },
+ {
+  "fact": "读消息时用 `timestamps` 集合发现同一时间戳的重复版本即抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:181"
+ },
+ {
+  "fact": "读完后重读聊天，发现 `messageCount` 或更新时间变化时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:184"
+ },
+ {
+  "fact": "按 `fromInclusive` / `toInclusive` 时间范围与空白内容过滤消息。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:202"
+ },
+ {
+  "fact": "助手回复前面没有用户消息时跳过该回复。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:208"
+ },
+ {
+  "fact": "窗口满时先落盘当前窗口，并把最近一条用户消息作为下一窗口的携带上下文。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:209"
+ },
+ {
+  "fact": "`planWindows` 把窗口大小限制在 8 到 48 条消息之间。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:194"
+ },
+ {
+  "fact": "`SourceEmbedding` 包含 `space`、`text`、`vector` 三个字段。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:6"
+ },
+ {
+  "fact": "`assertEmbedding` 要求向量非空且范数有限非零。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:13"
+ },
+ {
+  "fact": "`embeddingSpace` 要求开启云端嵌入且端点为绝对 HTTP 地址，空间标识为端点、模型与 `unit-v1` 的组合。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:22"
+ },
+ {
+  "fact": "`embedTexts` 在设置了云端嵌入密钥时用 `Bearer` 方式携带。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:42"
+ },
+ {
+  "fact": "每批从 `next` 起取 64 条文本。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:47"
+ },
+ {
+  "fact": "向端点加 `/embeddings` 后缀发 POST，请求体为 `input`、模型与 `encoding_format` 为 `float`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:51"
+ },
+ {
+  "fact": "嵌入请求返回非 2xx 状态码时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:54"
+ },
+ {
+  "fact": "用 `Promise.allSettled` 并行跑最多 4 个 worker。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:67"
+ },
+ {
+  "fact": "嵌入批次内向量维度不一致时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:69"
+ },
+ {
+  "fact": "`normalize` 把提供方返回的向量归一化为单位长度。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:35"
+ },
+ {
+  "fact": "`rebuildMemoryEmbeddings` 把重建工作交给仓库的 `rebuildMemoryEmbeddings`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:75"
+ },
+ {
+  "fact": "`onMemoryMessagePersisted` 只处理 `ai` 或 `assistant` 发送者。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:8"
+ },
+ {
+  "fact": "内容（`content`）空白的消息会被忽略。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:11"
+ },
+ {
+  "fact": "派发 `memory.candidate.enqueue`，来源类型为 `reply_finalized_auto`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:14"
+ },
+ {
+  "fact": "`onMemoryInterval` 调用 `runMemoryJobs()` 推进实际的持久化计划与待处理队列。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:18"
+ },
+ {
+  "fact": "`registerMemoryJobHooks` 注册聊天消息钩子 `memory-candidate-enqueue` 与每 60000 毫秒的间隔钩子 `memory-jobs-interval`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:24"
+ },
+ {
+  "fact": "`memoryJobProducer` 通过 `toolCall(\"list_core_nodes\", {})` 读当前 CoreNode id。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/producer.ts:5"
+ },
+ {
+  "fact": "`extractionTemplate` 只记录用户特异且可复用的信息，不记录常识与公开定义。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts:2"
+ },
+ {
+  "fact": "`extractionTemplate` 不记录未来推测项，没有长期价值信号时返回 `{}`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts:2"
+ },
+ {
+  "fact": "`extractionTemplate` 优先 `update` 与 `merge`，`new` 仅在确实新增概念时使用且最多 5 条。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts:2"
+ },
+ {
+  "fact": "`extractionTemplate` 要求 `main` 标题优先写事件，`update`、`merge`、`links`、`alias_for` 引用的标题必须从已有记忆标题中逐字复制。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts:2"
+ },
+ {
+  "fact": "`extractionTemplate` 要求输出严格 JSON，含 `main`、`new`、`update`、`merge`、`links`，可信度、重要性与权重为 0.0 到 1.0 的数字。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts:2"
+ },
+ {
+  "fact": "`extractionTemplate` 只在对话里有明确证据时建边，关系类型含 `FOLLOWS`、`CORRECTS`、`UPDATES`、`INVOLVES`、`HAPPENS_AT`、`PART_OF`、`ALLIED_WITH`、`OPPOSES`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts:2"
+ },
+ {
+  "fact": "`registerMemoryJobHooks()` 在包注册时调用。",
+  "ref": "plugins/packages/buildin/character_cards/src/main.ts:55"
+ },
+ {
+  "fact": "服务运行时构造一个 `MemoryJobRunner`，由它执行记忆任务。",
+  "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:49"
+ },
+ {
+  "fact": "服务运行时的 `runMemoryJobs` 调用 `jobs.tick()`。",
+  "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:115"
+ },
+ {
+  "fact": "导出的 `runMemoryJobs()` 把调用转给服务实例。",
+  "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:267"
+ }
+]

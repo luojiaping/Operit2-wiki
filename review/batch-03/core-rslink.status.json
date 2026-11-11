@@ -1,1 +1,9 @@
-{"status": "review-pending", "issue": 32, "source_repo": "operit2", "source_commit": "364d1d594", "summary": "RsLink——Rust 间 Link 协议层：值转换、路由调用、流与 watch、反向流、内嵌流与 codegen 共享 IR/类型解析", "updated": "2026-11-11"}
+{
+  "status": "review-pending",
+  "issue": 32,
+  "source_repo": "operit2",
+  "source_commit": "364d1d594",
+  "summary": "RsLink——Rust 间 Link 协议层：值转换、路由调用、流与 watch、反向流、内嵌流与 codegen 共享 IR/类型解析",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6795389650
+}

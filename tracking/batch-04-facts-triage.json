@@ -1,0 +1,185 @@
+[
+  {
+    "index": 0,
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1527",
+    "fact": "`ChatServiceCore::compactChat` 是手动压缩入口，未传 chatId 时取当前聊天",
+    "bad_symbol": "ChatServiceCore::compactChat",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 6,
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1407",
+    "fact": "`ChatServiceCore::insertSummary` 只在用户或 AI 消息处插入总结，其他发送者直接失败",
+    "bad_symbol": "ChatServiceCore::insertSummary",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 18,
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3125",
+    "fact": "`ChatServiceCore::currentWindowSizeFlow` 暴露当前上下文窗口大小的状态流",
+    "bad_symbol": "ChatServiceCore::currentWindowSizeFlow",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 19,
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3133",
+    "fact": "`ChatServiceCore::inputTokenCountFlow` 暴露累计输入 token 数的状态流",
+    "bad_symbol": "ChatServiceCore::inputTokenCountFlow",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 20,
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3141",
+    "fact": "`ChatServiceCore::outputTokenCountFlow` 暴露累计输出 token 数的状态流",
+    "bad_symbol": "ChatServiceCore::outputTokenCountFlow",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 22,
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1931",
+    "fact": "`ChatServiceCore::resetTokenStatistics` 清空 `UsageStatisticsStore` 的全部 token 用量记录",
+    "bad_symbol": "ChatServiceCore::resetTokenStatistics",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 23,
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1948",
+    "fact": "`ChatServiceCore::updateCumulativeStatistics` 为当前聊天重算累计 token 统计",
+    "bad_symbol": "ChatServiceCore::updateCumulativeStatistics",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 26,
+    "ref": "core/crates/foundation/model/src/ModelConfigData.rs:337",
+    "fact": "`ModelSummarySettings::tokenThresholdRatio` 把大于 1 的旧百分比阈值除以 100，并钳制到 0 到 1",
+    "bad_symbol": "ModelSummarySettings::tokenThresholdRatio",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 29,
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:784",
+    "fact": "`MessageCoordinationDelegate::prepareSummaryForSend` 在发送前做摘要检查",
+    "bad_symbol": "MessageCoordinationDelegate::prepareSummaryForSend",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 46,
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1110",
+    "fact": "`MessageCoordinationDelegate::manuallySummarizeConversation` 对当前聊天调用 `manuallySummarizeConversationForChat`",
+    "bad_symbol": "MessageCoordinationDelegate::manuallySummarizeConversation",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 51,
+    "ref": "core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2538",
+    "fact": "`ChatHistoryDelegate::addSummaryMessage` 把摘要消息持久化到相邻消息时间戳之间",
+    "bad_symbol": "ChatHistoryDelegate::addSummaryMessage",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 52,
+    "ref": "core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2569",
+    "fact": "`ChatHistoryDelegate::findProperSummaryPosition` 返回最新 AI 消息之后的位置",
+    "bad_symbol": "ChatHistoryDelegate::findProperSummaryPosition",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 58,
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:660",
+    "fact": "`AIMessageManager::getMemoryFromMessages` 只取上一次摘要消息起的后续消息作提示记忆",
+    "bad_symbol": "AIMessageManager::getMemoryFromMessages",
+    "symbol_hits_in_file": [
+      1512,
+      1528,
+      1539,
+      1542,
+      1550,
+      1553,
+      1691
+    ]
+  },
+  {
+    "index": 59,
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:646",
+    "fact": "`AIMessageManager::shouldGenerateSummary` 的文档注明自动摘要只取决于配置的上下文 token 阈值",
+    "bad_symbol": "AIMessageManager::shouldGenerateSummary",
+    "symbol_hits_in_file": [
+      1474,
+      1475,
+      1476,
+      1477,
+      1478,
+      1479
+    ]
+  },
+  {
+    "index": 60,
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:650",
+    "fact": "`AIMessageManager::shouldGenerateSummary` 在启用、`maxTokens` 大于 0 且当前 token 数占比达到 `tokenUsageThreshold` 时返回真",
+    "bad_symbol": "AIMessageManager::shouldGenerateSummary",
+    "symbol_hits_in_file": [
+      1474,
+      1475,
+      1476,
+      1477,
+      1478,
+      1479
+    ]
+  },
+  {
+    "index": 61,
+    "ref": "core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:159",
+    "fact": "`FunctionalPrompts::buildSummarySystemPrompt` 把上一次摘要拼进系统提示，要求新摘要融合旧摘要信息",
+    "bad_symbol": "FunctionalPrompts::buildSummarySystemPrompt",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 63,
+    "ref": "core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:182",
+    "fact": "`FunctionalPrompts::boundaryWrapper` 按语言取检查点包装语",
+    "bad_symbol": "FunctionalPrompts::boundaryWrapper",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 64,
+    "ref": "core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:192",
+    "fact": "`FunctionalPrompts::boundaryPreservedNote` 标注检查点之后保留的最近原文",
+    "bad_symbol": "FunctionalPrompts::boundaryPreservedNote",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 65,
+    "ref": "core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:202",
+    "fact": "`FunctionalPrompts::boundaryContinue` 提供自动或交接触发压缩的续跑指令",
+    "bad_symbol": "FunctionalPrompts::boundaryContinue",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 69,
+    "ref": "core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:47",
+    "fact": "`SummaryGenerateHook::on_event_async` 把同步 `on_event` 适配为异步分发",
+    "bad_symbol": "SummaryGenerateHook::on_event_async",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 70,
+    "ref": "core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:58",
+    "fact": "`SummaryHookRegistry::registerSummaryGenerateHook` 按 id 先注销再注册，避免同一 hook 重复挂载",
+    "bad_symbol": "SummaryHookRegistry::registerSummaryGenerateHook",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 80,
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:24",
+    "fact": "`ToolPkgSummaryHookBridge::register` 把摘要桥注册进 `SummaryHookRegistry`",
+    "bad_symbol": "ToolPkgSummaryHookBridge::register",
+    "symbol_hits_in_file": []
+  },
+  {
+    "index": 81,
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:32",
+    "fact": "`ToolPkgSummaryHookBridge::syncToolPkgRegistrations` 从已提交的活跃包目录收集 `summaryGenerateHooks`",
+    "bad_symbol": "ToolPkgSummaryHookBridge::syncToolPkgRegistrations",
+    "symbol_hits_in_file": []
+  }
+]

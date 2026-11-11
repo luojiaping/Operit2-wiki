@@ -1,0 +1,7 @@
+plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts
+plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts
+plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts
+plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts
+plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts
+plugins/packages/buildin/character_cards/src/memory-jobs/producer.ts
+plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts

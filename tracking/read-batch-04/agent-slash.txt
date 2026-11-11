@@ -1,0 +1,3 @@
+apps/cli/src/tui/input/commands.rs
+apps/cli/src/cli/mod.rs
+apps/cli/src/chat_runtime.rs
