@@ -9,7 +9,7 @@ date: 2026-11-11
 ## 概述
 
 Plugin SDK 是 Operit2 插件体系的公开契约层，定义 ToolPkg 包模型、包管理器、hook 注册与 JavaScript SDK 类型（`core/crates/plugin/sdk/src/lib.rs:5`）。
-宿主通过注入执行引擎工厂、资源源、文件系统宿主与包状态解析器四组接口使用它（`core/crates/plugin/sdk/src/PackageManager.rs:34`）。时效标注：以上为截至基线 364d1d594 的描述，第三组输入为 `fileSystemHost: Arc<dyn FileSystemHost>`（`core/crates/plugin/sdk/src/PackageManager.rs:37`）；上游 053c6686 已改为 filesystem: Arc<VisualFileSystem>（同文件 :37），并将同一 VFS 实例传给 ToolPkgManager（ToolPkgManager.rs:95、103），四组输入为执行引擎工厂、资源源、Arc<VisualFileSystem>、包状态解析器，第三组是 VFS 实例而非平台文件系统 Host；直接传入旧 Arc<dyn FileSystemHost> 与当前签名不匹配。
+宿主通过注入执行引擎工厂、资源源、文件系统宿主与包状态解析器四组接口使用它（`core/crates/plugin/sdk/src/PackageManager.rs:34`）。时效标注：以上为截至基线 364d1d594 的描述，第三组输入为 `fileSystemHost: Arc<dyn FileSystemHost>`（`core/crates/plugin/sdk/src/PackageManager.rs:37`）；上游 053c6686 已改为 `filesystem: Arc<VisualFileSystem>`（同文件 :37），并将同一 VFS 实例传给 ToolPkgManager（ToolPkgManager.rs:95、103），四组输入为执行引擎工厂、资源源、`Arc<VisualFileSystem>`、包状态解析器，第三组是 VFS 实例而非平台文件系统 Host；直接传入旧 `Arc<dyn FileSystemHost>` 与当前签名不匹配。
 包有两种形态：普通 JavaScript 包（`ToolPackage`）与 ToolPkg 容器（.toolpkg 归档或目录，含 manifest、main 脚本与子包）（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:629`）。
 ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-packages-mcp|工具系统——包、技能与 MCP]]。
 本页不展开 `JsExecutionHost` 与 `JsExecutionProvider` 两个 trait 的分工：两者定义于 `core/crates/plugin/sdk/src/javascript.rs`，不在本页 seed 文件内。
@@ -217,7 +217,7 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 
 ## 调用链
 
-1. 宿主创建 `PluginPackageManager`，注入执行引擎工厂、资源源、文件系统宿主与包状态解析器（`core/crates/plugin/sdk/src/PackageManager.rs:34`）。时效标注：以上为截至基线 364d1d594 的描述，第三组输入为 `fileSystemHost: Arc<dyn FileSystemHost>`（`core/crates/plugin/sdk/src/PackageManager.rs:37`）；上游 053c6686 已改为 filesystem: Arc<VisualFileSystem>（同文件 :37），并将同一 VFS 实例传给 ToolPkgManager（ToolPkgManager.rs:95、103），四组输入为执行引擎工厂、资源源、Arc<VisualFileSystem>、包状态解析器，第三组是 VFS 实例而非平台文件系统 Host；直接传入旧 Arc<dyn FileSystemHost> 与当前签名不匹配。
+1. 宿主创建 `PluginPackageManager`，注入执行引擎工厂、资源源、文件系统宿主与包状态解析器（`core/crates/plugin/sdk/src/PackageManager.rs:34`）。时效标注：以上为截至基线 364d1d594 的描述，第三组输入为 `fileSystemHost: Arc<dyn FileSystemHost>`（`core/crates/plugin/sdk/src/PackageManager.rs:37`）；上游 053c6686 已改为 `filesystem: Arc<VisualFileSystem>`（同文件 :37），并将同一 VFS 实例传给 ToolPkgManager（ToolPkgManager.rs:95、103），四组输入为执行引擎工厂、资源源、`Arc<VisualFileSystem>`、包状态解析器，第三组是 VFS 实例而非平台文件系统 Host；直接传入旧 `Arc<dyn FileSystemHost>` 与当前签名不匹配。
 2. 解析 ToolPkg：ToolPkgArchiveParser 的 `parseToolPkgFromIndexedEntries` 建条目索引、找 manifest、校验 api_version 与清单字段、解析子包与 main 注册，产出 ToolPkgLoadResult（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:825`）。
 3. 注册：PluginPackageManager 的 `registerToolPkg` 先经 `canRegisterToolPkg` 校验名字冲突，再由 ToolPkgManager 的 `registerToolPkg` 登记容器与子包两张运行时表（`core/crates/plugin/sdk/src/PackageManager.rs:85`）。
 4. 启用与依赖排序：setEnabledPackageNames 替换启用集合，`resolveToolPkgDependencies` 做拓扑排序并标注问题码，getEnabledToolPkgContainerRuntimes 取可执行容器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:373`）。
