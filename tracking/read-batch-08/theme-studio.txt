@@ -1,0 +1,6 @@
+theme-studio seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+docs/theme-studio-protocol-v1.md — 93 行
+tools/theme/studio_message_port.ts — 449 行
+core/crates/plugin/theme/src/preview.rs — 162 行
+core/crates/plugin/theme/src/wasm.rs — 60 行
+合计 764 行，全部读完

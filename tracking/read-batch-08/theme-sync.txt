@@ -1,0 +1,7 @@
+theme-sync seed 阅读记录（Operit2 @ 364d1d594，2026-11-12）
+docs/theme-v1-contract.md — 55 行
+docs/plugin-storage.md — 80 行
+core/crates/persistence/store/src/PreferenceMerge.rs — 828 行
+core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs — 189 行
+core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs — 932 行（migrate 相关行重点读完：:643 migrateLegacyThemePreferences、:656 migrateLegacyThemeSnapshot）
+合计 2084 行，全部读完

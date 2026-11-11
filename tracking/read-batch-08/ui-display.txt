@@ -1,0 +1,21 @@
+ui-display 阅读清单（基线 AAswordman/Operit2 @ 364d1d594，2026-11-12 核验 HEAD=364d1d594）
+相对 ~/workspace/Operit2 的路径；全文=整文件逐行读完，部分=注明行范围。
+
+seed（大纲指定）：
+- docs/tool-display-semantics.md 全文 1-58 行
+- docs/webview-rendering.md 全文 1-82 行
+
+补定位的 tool_display 宏（大纲备注要求在 core/crates/plugin/sdk 内定位）：
+- core/crates/plugin/sdk/src/js_sdk/tool_display.rs 全文 1-136 行
+- core/crates/plugin/sdk/src/js_sdk/tool_types.rs 全文 1-326 行
+- core/crates/plugin/sdk/src/js_sdk/tool_display_labels.json 全文 1-118 行
+- core/crates/plugin/sdk/src/package.rs 全文 1-143 行
+- core/crates/plugin/sdk-macros/src/lib.rs 全文 1-124 行（宏本体实际位于此文件，不在 sdk 目录内，见报告）
+
+WebView 渲染实现核验（文档符号逐个 grep 定位后读行）：
+- apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart 全文 1-55 行
+- apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart 部分：第 20-69 行、第 130-189 行
+- apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart 部分：第 345-369 行
+- apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart 部分：第 120-194 行
+- apps/flutter/thirdparty/webview_all_ohos/lib/src/ohos_webview_controller.dart grep 核验：第 1097-1103 行
+- apps/flutter/thirdparty/webview_flutter_wkwebview/darwin/webview_flutter_wkwebview/Sources/OperitWebViewSafety/include/OperitSafeWebView.h grep 核验：第 11 行

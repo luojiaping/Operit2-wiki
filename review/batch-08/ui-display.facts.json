@@ -1,0 +1,334 @@
+[
+  {
+    "fact": "工具的展示信息由工具所有者声明，Core 在消息展示投影中传递，Flutter 负责渲染。",
+    "ref": "docs/tool-display-semantics.md:3"
+  },
+  {
+    "fact": "工具名称、参数名称、运行平台和结果的自然语言文案都不用于推断展示语义。",
+    "ref": "docs/tool-display-semantics.md:3"
+  },
+  {
+    "fact": "`ToolResultMap` 中展示声明与工具名和结果类型放在一起，`list_files` 的声明为 `action = \"list\"`、`icon = \"folder\"`、`target = \"path\"`、`result = \"directory\"`。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_types.rs:10"
+  },
+  {
+    "fact": "`tool_display` 是 `operit_plugin_sdk_macros` 的过程宏属性，标注在 `ToolResultMap` 上。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_types.rs:8"
+  },
+  {
+    "fact": "`tool_display` 宏的定义在 `sdk-macros` 中，解析每个字段的 `display` 属性。",
+    "ref": "core/crates/plugin/sdk-macros/src/lib.rs:58"
+  },
+  {
+    "fact": "宏生成的 `BuiltinToolName` 的 `display` 方法按工具名字符串精确匹配，未声明展示的工具返回 `None`。",
+    "ref": "core/crates/plugin/sdk-macros/src/lib.rs:118"
+  },
+  {
+    "fact": "`ToolDisplayDeclaration` 的 `builtin` 方法从 `tool_display_labels.json` 加载本地化资源，`action` 是该文件的键。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_display.rs:34"
+  },
+  {
+    "fact": "`tool_display_labels.json` 缺少 `action` 对应的资源时触发 panic。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_display.rs:44"
+  },
+  {
+    "fact": "`tool_display_labels.json` 为 `list` 提供英文 `List` 与中文 `列出`。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_display_labels.json:19"
+  },
+  {
+    "fact": "`ToolResultRenderer` 的取值为 `Directory`、`FileDiff` 与默认的 `Text`。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_display.rs:9"
+  },
+  {
+    "fact": "Rust 侧 `ToolResultRenderer` 用 `#[serde(other)]` 把未知值反序列化为 `Text`。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_display.rs:12"
+  },
+  {
+    "fact": "`tool_display` 宏遇到未知的 `result` 取值时返回编译错误 `unknown result renderer`。",
+    "ref": "core/crates/plugin/sdk-macros/src/lib.rs:106"
+  },
+  {
+    "fact": "插件工具的 `display` 是 `PackageTool` 的可选字段，类型为 `Option<ToolDisplayDeclaration>`。",
+    "ref": "core/crates/plugin/sdk/src/package.rs:106"
+  },
+  {
+    "fact": "条件状态 `ToolPackageState` 的工具列表是 `Vec<PackageTool>`。",
+    "ref": "core/crates/plugin/sdk/src/package.rs:99"
+  },
+  {
+    "fact": "条件状态工具与普通工具共用同一 `display` 声明格式。",
+    "ref": "core/crates/plugin/sdk/src/package.rs:104"
+  },
+  {
+    "fact": "客户端解析 `label` 时依次选择完整语言标签、语言代码、`default`、`en`、首个声明文本。",
+    "ref": "apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:160"
+  },
+  {
+    "fact": "没有声明文本时显示原始工具名。",
+    "ref": "docs/tool-display-semantics.md:40"
+  },
+  {
+    "fact": "`resultRenderer` 缺省或未知值时，Flutter 侧回退为通用文本视图 `ToolResultRenderer.text`。",
+    "ref": "apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:148"
+  },
+  {
+    "fact": "Flutter 不根据工具名、返回值的 `__type` 或对象是否含有某些字段自动选择结果视图。",
+    "ref": "docs/tool-display-semantics.md:42"
+  },
+  {
+    "fact": "目录视图读取含 `path` 与 `entries` 数组的结构，条目含 `name`、`isDirectory`、`size`。",
+    "ref": "docs/tool-display-semantics.md:44"
+  },
+  {
+    "fact": "文件差异视图读取含 `operation` 与 `diffContent` 的结构，`operation` 含 `path` 与 `details`。",
+    "ref": "docs/tool-display-semantics.md:44"
+  },
+  {
+    "fact": "`icon` 支持 `file`、`folder`、`edit`、`delete`、`search`、`terminal`、`web`、`download`、`package`、`time`、`notification`、`clipboard`、`audio`。",
+    "ref": "docs/tool-display-semantics.md:46"
+  },
+  {
+    "fact": "`icon` 缺省时 Flutter 侧解析为通用工具图标 `tool`。",
+    "ref": "apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:143"
+  },
+  {
+    "fact": "`icon` 不改变执行行为或权限。",
+    "ref": "docs/tool-display-semantics.md:46"
+  },
+  {
+    "fact": "没有 `display` 的工具使用通用展示。",
+    "ref": "docs/tool-display-semantics.md:48"
+  },
+  {
+    "fact": "非法的 `display` 声明使元数据加载返回错误，不会静默丢弃对应工具。",
+    "ref": "docs/tool-display-semantics.md:48"
+  },
+  {
+    "fact": "Core 从当前运行时的有效插件声明读取展示信息，不向其他身份、节点或 Host 查询展示信息。",
+    "ref": "docs/tool-display-semantics.md:48"
+  },
+  {
+    "fact": "Core 保留原生 `ToolResultData`，Flutter 只按工具声明的 `resultRenderer` 选择结果视图，然后校验数据结构。",
+    "ref": "docs/tool-display-semantics.md:52"
+  },
+  {
+    "fact": "目录数据来自执行 Host 返回的数据，不扫描 Flutter 所在设备。",
+    "ref": "docs/tool-display-semantics.md:52"
+  },
+  {
+    "fact": "声明为 `fileDiff` 的工具还可以使用显式 `<file-diff>` 协议。",
+    "ref": "docs/tool-display-semantics.md:52"
+  },
+  {
+    "fact": "实时工具调用的展示声明附加在 Markdown XML 事件的 `display` 属性中。",
+    "ref": "docs/tool-display-semantics.md:54"
+  },
+  {
+    "fact": "`proxy` / `package_proxy` 只按其明确的 `tool_name`、`params` 协议解析目标。",
+    "ref": "docs/tool-display-semantics.md:54"
+  },
+  {
+    "fact": "`proxy` / `package_proxy` 的目标尚未完整到达时使用通用展示。",
+    "ref": "docs/tool-display-semantics.md:54"
+  },
+  {
+    "fact": "展示声明和结果载荷分别保存在已有 `MessagePart.attributes` 的 `display`、`result_data` 属性中。",
+    "ref": "docs/tool-display-semantics.md:56"
+  },
+  {
+    "fact": "通用文本视图不额外附加重复的结构化结果。",
+    "ref": "docs/tool-display-semantics.md:56"
+  },
+  {
+    "fact": "完整结构化结果仅在现有单条工具结果预算内附加，超过预算时仍保留原有的有界文本结果。",
+    "ref": "docs/tool-display-semantics.md:56"
+  },
+  {
+    "fact": "提供给模型的工具结果及历史序列化排除 `display` 和 `result_data`。",
+    "ref": "docs/tool-display-semantics.md:58"
+  },
+  {
+    "fact": "工具分组继续使用既有 `ThinkToolsXmlNodeGrouper` / `ToolCallResultMergeRender` 机制。",
+    "ref": "docs/tool-display-semantics.md:58"
+  },
+  {
+    "fact": "测试断言 `ReadFile` 的 `display()` 结果 `target_parameter` 为 `path`、`icon` 为 `file`、`result_renderer` 为 `Text`。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_display.rs:69"
+  },
+  {
+    "fact": "`ListFiles` 的 `display` 的 `result_renderer` 为 `Directory`。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_display.rs:75"
+  },
+  {
+    "fact": "`ApplyFile` 的 `display` 的 `result_renderer` 为 `FileDiff`。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_display.rs:82"
+  },
+  {
+    "fact": "Flutter 应用支持 Android、iOS、macOS、Windows、Linux、OHOS 与 Web。",
+    "ref": "docs/webview-rendering.md:3"
+  },
+  {
+    "fact": "应用缩放与各浏览器的页面缩放相互独立。",
+    "ref": "docs/webview-rendering.md:4"
+  },
+  {
+    "fact": "视觉上内容按应用缩放与页面缩放的乘积缩放。",
+    "ref": "docs/webview-rendering.md:5"
+  },
+  {
+    "fact": "应用缩放回到 1x 时不重置浏览器已选的页面缩放。",
+    "ref": "docs/webview-rendering.md:6"
+  },
+  {
+    "fact": "`WebViewScaleScope` 提供应用缩放且不改变 host DPR。",
+    "ref": "docs/webview-rendering.md:10"
+  },
+  {
+    "fact": "`WebViewScaleScope` 是 `InheritedWidget`，其 `scale` 必须是祖先总缩放而非屏幕 DPR。",
+    "ref": "apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:24"
+  },
+  {
+    "fact": "`PlatformWebViewController` 的 `requiresNativeApplicationZoom` 按后端能力选择策略，不由共享 widget 的 macOS-only 分支决定。",
+    "ref": "docs/webview-rendering.md:11"
+  },
+  {
+    "fact": "`requiresNativeApplicationZoom` 的默认值为 `false`。",
+    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:360"
+  },
+  {
+    "fact": "需要原生内容缩放的后端返回 `true` 并实现 `setApplicationZoomFactor`，复合平台视图保持默认。",
+    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:357"
+  },
+  {
+    "fact": "`build` 在 `requiresNativeApplicationZoom` 为真时包一层 `_NativeZoomWebViewViewport`，否则直接返回原生视图。",
+    "ref": "apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:151"
+  },
+  {
+    "fact": "`NativeWebViewZoom` 组合页面缩放与应用缩放，用于无原生绘制缩放的视图。",
+    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:6"
+  },
+  {
+    "fact": "`_apply` 把页面缩放因子与应用缩放因子相乘后交给 `_applyZoom` 发给原生。",
+    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:39"
+  },
+  {
+    "fact": "`_queue` 把原生缩放更新串行化。",
+    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:40"
+  },
+  {
+    "fact": "`_validate` 拒绝非有限或小于等于 0 的缩放因子，抛 `ArgumentError`。",
+    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:45"
+  },
+  {
+    "fact": "macOS 的 WKWebView 后端使用未缩放原生视口加原生内容缩放，页面缩放走 WKWebView `pageZoom`。",
+    "ref": "docs/webview-rendering.md:16"
+  },
+  {
+    "fact": "Linux 的 WebKitGTK 后端使用未缩放原生视口加原生内容缩放，页面缩放走 WebKitGTK zoom level。",
+    "ref": "docs/webview-rendering.md:17"
+  },
+  {
+    "fact": "iOS 的 WKWebView 后端使用 Flutter/UIKit 复合，页面缩放走 WKWebView `pageZoom`。",
+    "ref": "docs/webview-rendering.md:18"
+  },
+  {
+    "fact": "Android 的 WebView 后端使用 Flutter 平台视图复合，页面缩放走既有 WebView zoom API。",
+    "ref": "docs/webview-rendering.md:19"
+  },
+  {
+    "fact": "Windows 的 WebView2 后端使用 Flutter/原生复合，页面缩放走 WebView2 zoom factor，指针转发使用 Flutter 本地坐标。",
+    "ref": "docs/webview-rendering.md:20"
+  },
+  {
+    "fact": "OHOS 的 ArkWeb 后端使用 Flutter/OHOS 平台视图复合，页面缩放走主帧 CSS zoom 的每引擎桥接。",
+    "ref": "docs/webview-rendering.md:21"
+  },
+  {
+    "fact": "Web 的 iframe 后端使用 Flutter/DOM 复合，页面缩放走裁剪、反向尺寸与缩放的 iframe。",
+    "ref": "docs/webview-rendering.md:22"
+  },
+  {
+    "fact": "原生覆盖后端在视口周围取消应用绘制缩放、按显示尺寸布局视口，并把 `applicationZoom * pageZoom` 发给原生页面 API。",
+    "ref": "docs/webview-rendering.md:26"
+  },
+  {
+    "fact": "同一 widget 结构在所有缩放级别下保持不变，避免重建 platform view。",
+    "ref": "docs/webview-rendering.md:28"
+  },
+  {
+    "fact": "复合后端保留应用绘制缩放，把应用因子再发给页面 API 会使内容缩放两次，因此其 capability flag 保持 `false`。",
+    "ref": "docs/webview-rendering.md:31"
+  },
+  {
+    "fact": "iframe 页面缩放实现不检查嵌入文档，支持跨域内容与禁用 JavaScript。",
+    "ref": "docs/webview-rendering.md:32"
+  },
+  {
+    "fact": "旧版 ArkWeb SDK 缺乏绝对原生浏览器缩放 API。",
+    "ref": "docs/webview-rendering.md:35"
+  },
+  {
+    "fact": "OHOS 页面缩放桥接使用页面级 CSS zoom，运行在应用的 JavaScript 已启用浏览器上。",
+    "ref": "docs/webview-rendering.md:36"
+  },
+  {
+    "fact": "OHOS 桥接在重置时恢复先前已有的内联根缩放。",
+    "ref": "docs/webview-rendering.md:38"
+  },
+  {
+    "fact": "应用缩放本身不需要页面 JavaScript。",
+    "ref": "docs/webview-rendering.md:39"
+  },
+  {
+    "fact": "OHOS 控制器用 `NativeWebViewZoom` 只发页面缩放，因为平台视图已复合应用绘制缩放，再乘应用缩放会翻倍。",
+    "ref": "apps/flutter/thirdparty/webview_all_ohos/lib/src/ohos_webview_controller.dart:1099"
+  },
+  {
+    "fact": "Windows 上 WebView2 直接向 Windows 引擎提供 composition visual，原生浏览器显示使用 composition visual，不用 Flutter Texture 或连续截屏。",
+    "ref": "docs/webview-rendering.md:45"
+  },
+  {
+    "fact": "Windows 后端存储使用预乘 alpha 的 DXGI swapchain。",
+    "ref": "docs/webview-rendering.md:44"
+  },
+  {
+    "fact": "DirectComposition 用 `AddVisual(visual, FALSE, nullptr)` 按 Flutter 由后向前的绘制顺序追加图层。",
+    "ref": "docs/webview-rendering.md:48"
+  },
+  {
+    "fact": "Flutter 对话框与模态屏障必须覆盖浏览器并拦截指针输入。",
+    "ref": "docs/webview-rendering.md:49"
+  },
+  {
+    "fact": "SDK 版本钉在 `apps/flutter/app/.fvmrc`。",
+    "ref": "docs/webview-rendering.md:51"
+  },
+  {
+    "fact": "iOS 后端用 `OperitSafeWebView` 在 UIKit 布局前校验有限的 frame 与 bounds 值。",
+    "ref": "docs/webview-rendering.md:63"
+  },
+  {
+    "fact": "`OperitSafeWebView` 是 `WKWebView` 的子类。",
+    "ref": "apps/flutter/thirdparty/webview_flutter_wkwebview/darwin/webview_flutter_wkwebview/Sources/OperitWebViewSafety/include/OperitSafeWebView.h:11"
+  },
+  {
+    "fact": "非法几何停用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，布局调用结束后经现有导航错误通道上报一次。",
+    "ref": "docs/webview-rendering.md:65"
+  },
+  {
+    "fact": "失败的视图不再布局或复用。",
+    "ref": "docs/webview-rendering.md:67"
+  },
+  {
+    "fact": "维护检查从 `apps/flutter/app` 运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。",
+    "ref": "docs/webview-rendering.md:74"
+  },
+  {
+    "fact": "`windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。",
+    "ref": "docs/webview-rendering.md:78"
+  },
+  {
+    "fact": "`webview_zoom.test.mjs` 检查脚本与通道契约。",
+    "ref": "docs/webview-rendering.md:80"
+  }
+]

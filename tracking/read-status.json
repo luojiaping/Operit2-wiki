@@ -1,6 +1,6 @@
 {
  "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
- "updated": "2026-11-11 19:57 UTC",
+ "updated": "2026-11-11 20:29 UTC",
  "files": {
   "README.md": {
    "status": "complete",
@@ -242,9 +242,9 @@
   },
   "core/crates/persistence/store/src/PreferenceMerge.rs": {
    "status": "complete",
-   "batch": "batch-02",
+   "batch": "batch-08",
    "date": "2026-11-11",
-   "evidence": "review/batch-02/core-persistence-sync.md",
+   "evidence": "review/batch-08/theme-sync.md",
    "lines": 828
   },
   "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs": {
@@ -746,9 +746,9 @@
   },
   "core/crates/plugin/theme/src/lib.rs": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-08",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-plugin-theme.md",
+   "evidence": "review/batch-08/theme-render.md",
    "lines": 564
   },
   "core/crates/plugin/theme/schema/theme-v1.schema.json": {
@@ -907,9 +907,9 @@
   },
   "core/crates/plugin/sdk-macros/src/lib.rs": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-08",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-plugin-codegen.md",
+   "evidence": "review/batch-08/ui-display.md",
    "lines": 124
   },
   "core/crates/plugin/sdk-ipc/src/lib.rs": {
@@ -3427,16 +3427,16 @@
   },
   "docs/theme-studio-protocol-v1.md": {
    "status": "complete",
-   "batch": "batch-06",
+   "batch": "batch-08",
    "date": "2026-11-11",
-   "evidence": "review/batch-06/plugin-theme.md",
+   "evidence": "review/batch-08/theme-render.md",
    "lines": 93
   },
   "docs/theme-v1-contract.md": {
    "status": "complete",
-   "batch": "batch-06",
+   "batch": "batch-08",
    "date": "2026-11-11",
-   "evidence": "review/batch-06/plugin-theme.md",
+   "evidence": "review/batch-08/theme-sync.md",
    "lines": 55
   },
   "core/crates/persistence/store/src/Transaction.rs": {
@@ -3515,6 +3515,146 @@
    "date": "2026-11-11",
    "evidence": "review/batch-07/sync-protocol-version.md",
    "lines": 261
+  },
+  "tools/theme/studio_message_port.ts": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/theme-studio.md",
+   "lines": 449
+  },
+  "core/crates/plugin/theme/src/preview.rs": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/theme-studio.md",
+   "lines": 162
+  },
+  "core/crates/plugin/theme/src/wasm.rs": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/theme-studio.md",
+   "lines": 60
+  },
+  "core/crates/plugin/theme/src/media.rs": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/theme-render.md",
+   "lines": 950
+  },
+  "core/crates/plugin/theme/src/export.rs": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/theme-render.md",
+   "lines": 288
+  },
+  "core/crates/plugin/theme/src/json.rs": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/theme-render.md",
+   "lines": 74
+  },
+  "docs/plugin-storage.md": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/theme-sync.md",
+   "lines": 80
+  },
+  "apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart": {
+   "status": "partial",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 231
+  },
+  "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart": {
+   "status": "partial",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 486
+  },
+  "apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart": {
+   "status": "partial",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 930
+  },
+  "apps/flutter/thirdparty/webview_all_ohos/lib/src/ohos_webview_controller.dart": {
+   "status": "partial",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 2388
+  },
+  "docs/tool-display-semantics.md": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 58
+  },
+  "docs/webview-rendering.md": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 82
+  },
+  "core/crates/plugin/sdk/src/js_sdk/tool_display.rs": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 136
+  },
+  "core/crates/plugin/sdk/src/js_sdk/tool_types.rs": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 326
+  },
+  "core/crates/plugin/sdk/src/js_sdk/tool_display_labels.json": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 118
+  },
+  "core/crates/plugin/sdk/src/package.rs": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 143
+  },
+  "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/ui-display.md",
+   "lines": 49
+  },
+  "core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/theme-sync.md",
+   "lines": 189
+  },
+  "core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs": {
+   "status": "complete",
+   "batch": "batch-08",
+   "date": "2026-11-11",
+   "evidence": "review/batch-08/theme-sync.md",
+   "lines": 932
   }
  }
 }
