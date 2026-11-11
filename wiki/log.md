@@ -102,3 +102,14 @@
 
 - 用户主聊 2026-11-11 22:15 指示「9 页没问题的先发布」。9 页翻为 approved（approved_by=luojiaping，approved_at 2026-11-11 14:16 UTC，水位线保留）：batch-03 的 core-plugin-theme（#24）、core-runtime（#26）、core-runtime-services（#27）、core-runtime-data（#28）、core-node-peer-link（#30）、core-rslink（#32）；batch-04 的 agent-chat-branch（#36）、agent-character-cards（#40）、agent-hooks（#41）。提交 aef98da＋生成数据同步 f6f9cac，部署 gh-pages aca2df2；首页 42/40/5210/5，队列 42 条 40 已批准＋2 待评审（#22、#31 待第 3 轮复核）。
 - 覆盖：大纲 115 页，已发布 40 页，待评审 2 页，未写 74 页。
+
+## 2026-11-11 · batch-05（第 5 章应用与 Host 14 页，待评审）
+
+- 来源：AAswordman/Operit2 @ 364d1d594；大纲 v1（11 章 115 页）第 5 章 14 页。
+- 页：app-android-module、app-cli、app-flutter、app-server、host-android、host-apple、host-ios、host-ios-linux-runtime、host-linux、host-windows、host-web、host-ohos、host-common、app-host-capability-matrix。
+- 事实：2169 条原子事实（facts.json），引用全部落在源文件行号范围内，坏引用 0；初版 2168 条，critic 修订 +1（host-windows #178 拆条）；机械核验 0 坏；正文引用同口径复核 0 坏。
+- Lint：`lint.py --dir review/batch-05` 硬失败 0、警告 0。
+- Critic：抽查 5 页（app-flutter、app-cli、host-windows、host-common、app-host-capability-matrix），结论均为「需修改」小修，已按 critic 意见逐项修正并复验；其中 app-flutter 抓出 6 处行号错位与 ThemePreferenceSnapshot 字段数 103→104、app-cli 抓出 3 处实质错（Core 启动语义、TUI 能力枚举无源、数据流向）、矩阵页抓出 16 格复合构造器参数行 ref 系统性错位（根因是生成脚本 `arg.split("(")[0]` 对 `Arc::new(...)` 恒得 "Arc"，已修并归档 tracking/batch-05-matrix/，重跑核对恰好只变 16 格、238 格 0 偏差）。
+- 特殊页：app-flutter 只做总览（23 万行不通读）；app-server 只有 .gitkeep 占位，只写一段 stub（facts 3 条）；host-ios-linux-runtime 以 docs/ 为主、不通读 C++；能力矩阵页库里无统一清单数据文件，权威清单是 host-api trait 定义 + 各平台注册，hosts/README.md 已过时、引用时标注过时项。
+- 阅读登记：394 个源文件 complete（本批），见 tracking/read-status.json。
+- 评审 Issue：#43–#56，状态均为 review-pending。首页统计随部署更新为 56 页知识页面、40 页已发布、7379 条原子事实、6 个编译批次。

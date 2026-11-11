@@ -1,0 +1,17 @@
+host-android seed 已读清单（Operit2 @ 364d1d594，2026-11-11，16 个文件全部读完）
+hosts/README.md
+hosts/android/Cargo.toml
+hosts/android/src/lib.rs
+hosts/android/src/terminal.rs
+hosts/android/src/terminal_privilege.rs
+hosts/android/src/managed_runtime.rs
+hosts/android/src/filesystem.rs
+hosts/android/src/document_filesystem.rs
+hosts/android/src/local_inference.rs
+hosts/android/src/secret_store.rs
+hosts/android/src/service_discovery.rs
+hosts/android/src/system_operation.rs
+hosts/android/src/tts_playback.rs
+hosts/android/src/tts_synthesis.rs
+hosts/android/src/web_visit.rs
+hosts/android/src/bluetooth.rs

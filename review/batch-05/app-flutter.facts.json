@@ -1,0 +1,302 @@
+[
+  {
+    "fact": "Flutter 应用的包名是 operit2",
+    "ref": "apps/flutter/app/pubspec.yaml:1"
+  },
+  {
+    "fact": "Flutter 应用的 version 是 2.0.0+38",
+    "ref": "apps/flutter/app/pubspec.yaml:19"
+  },
+  {
+    "fact": "Flutter 应用的 environment 要求 sdk ^3.10.8",
+    "ref": "apps/flutter/app/pubspec.yaml:22"
+  },
+  {
+    "fact": "Flutter 应用依赖本地路径包 operit_ui",
+    "ref": "apps/flutter/app/pubspec.yaml:31"
+  },
+  {
+    "fact": "README 声明全部平台使用 AAswordman/flutter-ohos",
+    "ref": "apps/flutter/app/README.md:3"
+  },
+  {
+    "fact": "README 写明的 fork 版本是 3.41.10-ohos-0.0.2-beta.operit.1",
+    "ref": "apps/flutter/app/README.md:4"
+  },
+  {
+    "fact": ".fvmrc 钉住的 Flutter 版本是 3.41.10-ohos-0.0.2-beta.operit.9",
+    "ref": "apps/flutter/app/.fvmrc:2"
+  },
+  {
+    "fact": ".fvmrc 的 flutterUrl 是 https://github.com/AAswordman/flutter-ohos.git",
+    "ref": "apps/flutter/app/.fvmrc:3"
+  },
+  {
+    "fact": "FVM 把 fork 安装在 .fvm/flutter_sdk",
+    "ref": "apps/flutter/app/README.md:5"
+  },
+  {
+    "fact": "构建脚本对全部平台使用同一份 SDK，包含 OpenHarmony",
+    "ref": "apps/flutter/app/README.md:18"
+  },
+  {
+    "fact": "README 要求执行 fvm flutter precache --web --ohos",
+    "ref": "apps/flutter/app/README.md:11"
+  },
+  {
+    "fact": "Web 调试用 web_dev_config.yaml 给 Flutter 原生 Web 开发服务器配置跨域隔离头，用于本地多线程 STT/TTS",
+    "ref": "apps/flutter/app/README.md:22"
+  },
+  {
+    "fact": "Web 开发源地址是 http://127.0.0.1:4835，不需要单独的代理进程",
+    "ref": "apps/flutter/app/README.md:26"
+  },
+  {
+    "fact": "pubspec 声明 path_provider_ohos，来自 openharmony-sig/flutter_packages 的 git 仓库",
+    "ref": "apps/flutter/app/pubspec.yaml:61"
+  },
+  {
+    "fact": "pubspec 声明 url_launcher_ohos，来自 openharmony-sig/flutter_packages 的 git 仓库",
+    "ref": "apps/flutter/app/pubspec.yaml:78"
+  },
+  {
+    "fact": "pubspec 声明 record_ohos，来自本地 thirdparty 路径",
+    "ref": "apps/flutter/app/pubspec.yaml:69"
+  },
+  {
+    "fact": "pubspec 声明 image_picker_ohos，来自本地 thirdparty 路径",
+    "ref": "apps/flutter/app/pubspec.yaml:93"
+  },
+  {
+    "fact": "pubspec 在 dependency_overrides 中把 webview_all_ohos 指向本地 thirdparty 路径",
+    "ref": "apps/flutter/app/pubspec.yaml:157"
+  },
+  {
+    "fact": "ffi ^2.2.0 声明在 pubspec 的 dev_dependencies 段",
+    "ref": "apps/flutter/app/pubspec.yaml:131"
+  },
+  {
+    "fact": "Android 平台壳的清单文件是 AndroidManifest.xml，首行声明 manifest 元素",
+    "ref": "apps/flutter/app/android/app/src/main/AndroidManifest.xml:1"
+  },
+  {
+    "fact": "iOS 平台壳包含 Runner/Info.plist，其 DOCTYPE 声明 plist 格式",
+    "ref": "apps/flutter/app/ios/Runner/Info.plist:2"
+  },
+  {
+    "fact": "macOS 平台壳包含 Runner/Info.plist，其 DOCTYPE 声明 plist 格式",
+    "ref": "apps/flutter/app/macos/Runner/Info.plist:2"
+  },
+  {
+    "fact": "Windows 平台壳入口 windows/runner/main.cpp 引用 flutter/dart_project.h",
+    "ref": "apps/flutter/app/windows/runner/main.cpp:1"
+  },
+  {
+    "fact": "Linux 平台壳由 linux/CMakeLists.txt 定义 runner 工程",
+    "ref": "apps/flutter/app/linux/CMakeLists.txt:3"
+  },
+  {
+    "fact": "Web 平台壳包含 web/index.html，首行是 html 文档声明",
+    "ref": "apps/flutter/app/web/index.html:1"
+  },
+  {
+    "fact": "OpenHarmony 平台壳包含 ohos/build-profile.json5，其 app 配置块以 app 开头",
+    "ref": "apps/flutter/app/ohos/build-profile.json5:3"
+  },
+  {
+    "fact": "桥接 crate 名为 operit-flutter-bridge",
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:2"
+  },
+  {
+    "fact": "桥接 crate 的 version 是 0.1.0",
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:3"
+  },
+  {
+    "fact": "桥接 crate 的 crate-type 是 cdylib 与 rlib",
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:9"
+  },
+  {
+    "fact": "operit-flutter-bridge 是 Flutter 到平台无关 Core runtime 的传输边界",
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/lib.rs:2"
+  },
+  {
+    "fact": "PlatformRuntimeFactory 选择 host 构造，PlatformRuntimeAbi 选择 ABI 模块",
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/lib.rs:3"
+  },
+  {
+    "fact": "platform_runtime 用 cfg 门控为 android、ios、linux、macos 各设一个模块",
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/platform_runtime/mod.rs:13"
+  },
+  {
+    "fact": "platform_runtime 用 cfg 门控为 ohos、web、windows 各设一个模块",
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/platform_runtime/mod.rs:21"
+  },
+  {
+    "fact": "桥接在 Android 上依赖 operit-host-android-native，路径指向 hosts/android",
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:51"
+  },
+  {
+    "fact": "桥接在 Windows 上依赖 operit-host-windows-native，路径指向 hosts/windows",
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:54"
+  },
+  {
+    "fact": "桥接在 Linux 上依赖 operit-host-linux-native，路径指向 hosts/linux",
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:57"
+  },
+  {
+    "fact": "桥接在 OpenHarmony 上依赖 operit-host-ohos-native，路径指向 hosts/ohos",
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:60"
+  },
+  {
+    "fact": "桥接在 iOS 上依赖 operit-host-ios-native，路径指向 hosts/ios",
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:63"
+  },
+  {
+    "fact": "桥接在 macOS 上依赖 operit-host-macos-native，带 arm64-runtime 特性",
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:66"
+  },
+  {
+    "fact": "桥接在 wasm32 上依赖 operit-host-web，路径指向 hosts/web",
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:71"
+  },
+  {
+    "fact": "在非 Android、非 OpenHarmony 平台上，BridgeExports 导出 operit_flutter_bridge_create 创建引用计数的 runtime",
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:26"
+  },
+  {
+    "fact": "OpenHarmony 用独立的 operit_flutter_bridge_create_ohos 入口，参数含 runtime_root、workspace_root、system_language_code、device_model",
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:95"
+  },
+  {
+    "fact": "operit_flutter_bridge_ffi_connect 是 FFI 连接入口，位于 FfiTransport.rs",
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:288"
+  },
+  {
+    "fact": "Flutter Core 调用与流只用 ABI 版本 3，ABI v1 与 v2 已移除",
+    "ref": "apps/flutter/native/operit-flutter-bridge/FFI.md:3"
+  },
+  {
+    "fact": "Dart 拒绝 version 不是 3 的描述符",
+    "ref": "apps/flutter/native/operit-flutter-bridge/FFI.md:5"
+  },
+  {
+    "fact": "每个 Flutter isolate 在 operit/runtime 平台通道上惰性调用 connectCoreFfi",
+    "ref": "apps/flutter/native/operit-flutter-bridge/FFI.md:10"
+  },
+  {
+    "fact": "FFI 描述符的 version 字段是整数 3",
+    "ref": "apps/flutter/native/operit-flutter-bridge/FFI.md:16"
+  },
+  {
+    "fact": "Web 用 WebWasmCoreProxy、JS interop、Runtime Worker 与 Rust WASM",
+    "ref": "apps/flutter/native/operit-flutter-bridge/FFI.md:153"
+  },
+  {
+    "fact": "FfiCoreTransport 实现 CoreByteTransport",
+    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:41"
+  },
+  {
+    "fact": "FfiCoreTransport 的 _connect 在 MethodChannel operit/runtime 上调用 connectCoreFfi",
+    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:69"
+  },
+  {
+    "fact": "FfiCoreTransport 校验描述符 version 等于 3 且 NativeApi.majorVersion 等于 2，否则抛错",
+    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:99"
+  },
+  {
+    "fact": "PlatformCoreProxy 按 dart.library.html 条件导出原生或 Web 实现",
+    "ref": "apps/flutter/app/lib/core/bridge/PlatformCoreProxy.dart:3"
+  },
+  {
+    "fact": "原生平台的 platformCoreProxy 是 FfiCoreProxy",
+    "ref": "apps/flutter/app/lib/core/bridge/PlatformCoreProxyNative.dart:6"
+  },
+  {
+    "fact": "Web 平台的 platformCoreProxy 是 WebWasmCoreProxy",
+    "ref": "apps/flutter/app/lib/core/bridge/PlatformCoreProxyWeb.dart:6"
+  },
+  {
+    "fact": "PlatformRuntimeHost 声明 dataRescue，CoreProxy 实现该接口",
+    "ref": "apps/flutter/app/lib/core/bridge/CoreProxy.dart:10"
+  },
+  {
+    "fact": "应用入口是 lib/main.dart 的 main 函数",
+    "ref": "apps/flutter/app/lib/main.dart:32"
+  },
+  {
+    "fact": "main 在 runZonedGuarded 内执行启动序列",
+    "ref": "apps/flutter/app/lib/main.dart:35"
+  },
+  {
+    "fact": "启动时先向 platformCoreProxy.dataRescue 查询 launchMode",
+    "ref": "apps/flutter/app/lib/main.dart:42"
+  },
+  {
+    "fact": "启动流程调用 RuntimeBootstrapManager.instance.initialize",
+    "ref": "apps/flutter/app/lib/main.dart:105"
+  },
+  {
+    "fact": "主窗口启动 CoreApplicationService.instance.initialize，ownsRuntime 取 clientOnly 的反值",
+    "ref": "apps/flutter/app/lib/main.dart:162"
+  },
+  {
+    "fact": "主窗口根组件是 OperitDesignCaptureScope 包裹的 OperitApp",
+    "ref": "apps/flutter/app/lib/main.dart:236"
+  },
+  {
+    "fact": "启动流程调用 prepareLiquidGlass 初始化液态玻璃",
+    "ref": "apps/flutter/app/lib/main.dart:113"
+  },
+  {
+    "fact": "main.dart 从 operit_ui 导入 prepareLiquidGlass 与 OperitDesignCaptureScope",
+    "ref": "apps/flutter/app/lib/main.dart:11"
+  },
+  {
+    "fact": "main.dart 从 core/bridge 导入 PlatformCoreProxy",
+    "ref": "apps/flutter/app/lib/main.dart:14"
+  },
+  {
+    "fact": "main.dart 从 core/application 导入 CoreApplicationService",
+    "ref": "apps/flutter/app/lib/main.dart:13"
+  },
+  {
+    "fact": "main.dart 从 core/runtime 导入 RuntimeBootstrapManager",
+    "ref": "apps/flutter/app/lib/main.dart:20"
+  },
+  {
+    "fact": "main.dart 从 ui/main 导入 OperitApp",
+    "ref": "apps/flutter/app/lib/main.dart:22"
+  },
+  {
+    "fact": "main.dart 从 ui/rescue 导入 DataRescueApp",
+    "ref": "apps/flutter/app/lib/main.dart:15"
+  },
+  {
+    "fact": "OperitApp 是 StatefulWidget，位于 lib/ui/main/OperitApp.dart",
+    "ref": "apps/flutter/app/lib/ui/main/OperitApp.dart:19"
+  },
+  {
+    "fact": "operit_ui 包名为 operit_ui，版本 0.1.0",
+    "ref": "apps/flutter/packages/operit_ui/pubspec.yaml:1"
+  },
+  {
+    "fact": "operit_ui 的描述是共享 Operit Flutter UI 组件、外观模型与渲染资源",
+    "ref": "apps/flutter/packages/operit_ui/pubspec.yaml:2"
+  },
+  {
+    "fact": "operit_ui 不依赖 Core、Host、文件系统、HTTP、operit2 或原生构建钩子",
+    "ref": "apps/flutter/packages/operit_ui/README.md:3"
+  },
+  {
+    "fact": "operit_ui 的 ThemePreferenceSnapshot 有 104 个字段",
+    "ref": "apps/flutter/packages/operit_ui/lib/src/model/theme_preference_snapshot.dart:3"
+  },
+  {
+    "fact": "operit_ui 的入口 operit_ui.dart 导出 theme_asset_resolver 等模块",
+    "ref": "apps/flutter/packages/operit_ui/lib/operit_ui.dart:4"
+  },
+  {
+    "fact": "operit_ui 要求在应用或预览启动时调用 prepareLiquidGlass 预载光学着色器",
+    "ref": "apps/flutter/packages/operit_ui/README.md:21"
+  }
+]

@@ -1,0 +1,49 @@
+app-host-capability-matrix seed 已读清单（Operit2 @ 364d1d594，2026-11-11）
+本页不以单个源码文件为 seed：能力全集由脚本枚举 host-api 全部 trait 定义，
+矩阵由脚本解析 HostManager 槽位与七平台 createRuntimeHostManager 注册生成。
+下列为脚本实际读到的文件与生成脚本路径。
+
+能力全集（host-api trait 定义，51 个 pub trait，34 个有 HostManager 槽位）：
+core/crates/foundation/host-api/src/lib.rs
+core/crates/foundation/host-api/src/HostManager.rs
+core/crates/foundation/host-api/src/AtomicCounter.rs
+core/crates/foundation/host-api/src/FileSystemResource.rs
+core/crates/foundation/host-api/src/HttpServer.rs
+core/crates/foundation/host-api/src/JavaScriptBootstrap.rs
+core/crates/foundation/host-api/src/JavaScriptCodeCache.rs
+core/crates/foundation/host-api/src/JavaScriptExecutionInterrupt.rs
+core/crates/foundation/host-api/src/PluginSdkIpc.rs
+core/crates/foundation/host-api/src/PluginStorage.rs
+core/crates/foundation/host-api/src/SerialPort.rs
+core/crates/foundation/host-api/src/ServiceDiscovery.rs
+core/crates/foundation/host-api/src/Tcp.rs
+core/crates/foundation/host-api/src/TerminalWorkingDirectory.rs
+core/crates/foundation/host-api/src/TimeUtils.rs
+core/crates/foundation/host-api/README.md
+
+平台注册（各平台 createRuntimeHostManager，hosts/apple 无该函数，只作共用实现库）：
+hosts/android/src/lib.rs
+hosts/apple/src/lib.rs
+hosts/ios/src/lib.rs
+hosts/ios/src/serial.rs
+hosts/linux/src/lib.rs
+hosts/macos/src/lib.rs
+hosts/ohos/src/lib.rs
+hosts/web/src/lib.rs
+hosts/windows/src/lib.rs
+
+README 与 docs（与矩阵互相核对）：
+hosts/README.md
+hosts/ohos/README.md
+hosts/web/README.md
+hosts/ios/README.md
+docs/permission-access-architecture.md
+docs/filesystem-access-boundary.md
+docs/core-node-space-binding-architecture.md
+
+生成脚本（/tmp，不进仓库）：
+/tmp/gen_host_matrix.py
+/tmp/host_matrix.json
+/tmp/host_matrix_table.md
+/tmp/host_matrix_facts.json
+/tmp/check_refs.py

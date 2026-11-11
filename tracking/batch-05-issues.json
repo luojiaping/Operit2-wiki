@@ -1,0 +1,16 @@
+{
+  "app-android-module": 43,
+  "app-cli": 44,
+  "app-flutter": 45,
+  "app-server": 46,
+  "host-android": 47,
+  "host-apple": 48,
+  "host-ios": 49,
+  "host-ios-linux-runtime": 50,
+  "host-linux": 51,
+  "host-windows": 52,
+  "host-web": 53,
+  "host-ohos": 54,
+  "host-common": 55,
+  "app-host-capability-matrix": 56
+}

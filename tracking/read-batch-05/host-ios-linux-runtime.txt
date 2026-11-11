@@ -1,0 +1,23 @@
+host-ios-linux-runtime seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+
+基线说明：outline 的本页 seed 为 5 个文件，全部通读；任务书中提到的“80,271 行 C++”在 seed 文档中无出处，未写入正文（src/ + include/ 实测约 47,373 行，含头文件；未把该数写成事实）。
+
+已读 seed（5 个，全部读完）：
+hosts/ios/linux-runtime/README.md（76 行）
+hosts/ios/linux-runtime/docs/README.md（26 行）
+hosts/ios/linux-runtime/docs/completeness.md（98 行）
+hosts/ios/linux-runtime/docs/delivery-status.md（350 行）
+hosts/ios/linux-runtime/include/operit/arm64_runtime.h（91 行）
+
+C++ 抽查范围（只列模块目录与入口文件名，未通读实现）：
+src/api/：c_api.cpp
+src/runtime/：machine.cpp、machine.h、parallel.cpp；console/（console.cpp、session.cpp）；process/（controller.h、image_loader.cpp、lifecycle.cpp、signals.cpp、timers.cpp、wait.cpp、accounting.cpp、observability.cpp、ptrace.cpp）；tasks/（executor.cpp、scheduler.cpp、task.h）
+src/cpu/aarch64/：decoder.cpp、semantics.cpp、simd.cpp、vector_indexed.cpp、vector_integer.cpp、vector_fp_fixed.cpp、vector_fp_indexed.cpp、execution_engine.cpp、static_executor.S 等（仅列名）
+src/memory/：address_space.h、access_sync.h、page_mutex.h 等（仅列名）
+src/elf/：loader.cpp、loader.h、initial_stack.cpp
+src/fs/：descriptor_table.cpp、filesystem.cpp；mount/（operations.cpp、source.cpp、storage.cpp）；virtual/（procfs.cpp、devfs.cpp、node.cpp）
+src/linux/：syscalls.cpp、syscall_*.cpp 各分域文件；network/（socket.cpp、message_batch.cpp、unix_namespace.cpp、resolver.cpp）；terminal/（manager.cpp、termios.cpp、software_pty.cpp）；signals/、process/（pidfd.cpp、resource_limits.cpp、limit_enforcement.cpp）、threads/（futex_pi.cpp、rseq.cpp、scheduling.h）、timers/、files/、events/（inotify.cpp、epoll.cpp）
+src/acceleration/：fixed_components.cpp、fixed_manifest.h、musl/
+src/base/：host_io.cpp、random.cpp、sha256.cpp
+
+未读：docs/architecture.md、docs/syscall-gaps.md、docs/network.md、docs/ios-sandbox.md、docs/virtual-filesystems.md、docs/performance/* 等专题文档不在 outline seed 清单内，未作为本页事实来源；C++ 实现代码未通读。

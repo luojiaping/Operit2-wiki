@@ -1,0 +1,15 @@
+host-ohos seed 已读清单（Operit2 @ 364d1d594，2026-11-11，14 个文件全部读完，共 3,183 行）
+hosts/ohos/README.md
+hosts/ohos/Cargo.toml
+hosts/ohos/src/lib.rs
+hosts/ohos/src/terminal.rs
+hosts/ohos/src/managed_runtime.rs
+hosts/ohos/src/filesystem.rs
+hosts/ohos/src/documents.rs
+hosts/ohos/src/storage.rs
+hosts/ohos/src/http.rs
+hosts/ohos/src/local_inference.rs
+hosts/ohos/src/system_operation.rs
+hosts/ohos/src/tts_playback.rs
+hosts/ohos/src/audio_playback.rs
+hosts/ohos/src/bluetooth.rs

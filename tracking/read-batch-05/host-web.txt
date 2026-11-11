@@ -1,0 +1,16 @@
+host-web seed 已读清单（Operit2 @ 364d1d594，2026-11-11，15 个文件全部读完，实测 4097 行，大纲估算 5461 行为高估）
+hosts/web/README.md
+hosts/web/Cargo.toml
+hosts/web/src/lib.rs
+hosts/web/src/common.rs
+hosts/web/src/javascript_runtime.rs
+hosts/web/src/javascript_promises.js
+hosts/web/src/tools/fs/mod.rs
+hosts/web/src/tools/browser/mod.rs
+hosts/web/src/tools/browser_session/mod.rs
+hosts/web/src/tools/runtime/mod.rs
+hosts/web/src/tools/storage/mod.rs
+hosts/web/src/tools/system/mod.rs
+hosts/web/src/tools/terminal/mod.rs
+hosts/web/src/tools/archive/mod.rs
+hosts/web/src/tools/websocket.rs

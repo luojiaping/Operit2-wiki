@@ -1,0 +1,10 @@
+apps/android-module/README.md
+apps/android-module/src/Runtime.rs
+apps/android-module/android/src/main/kotlin/app/operit/ModuleMain.kt
+apps/android-module/build.py
+apps/android-module/package/module.prop
+apps/android-module/package/customize.sh
+apps/android-module/package/service.sh
+apps/android-module/package/action.sh
+apps/android-module/package/uninstall.sh
+apps/android-module/package/operit-host-ctl

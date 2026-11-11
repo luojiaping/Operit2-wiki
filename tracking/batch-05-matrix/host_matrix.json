@@ -1,0 +1,1767 @@
+{
+  "capabilities": [
+    "ArchiveStagingHost",
+    "AudioPlaybackHost",
+    "BluetoothHost",
+    "BrowserAutomationHost",
+    "BrowserSessionHost",
+    "ClipboardHost",
+    "ComposeDslWebViewHost",
+    "DeviceIoHost",
+    "FileSystemHost",
+    "FloatingWindowHost",
+    "HostJavaScriptRuntimeHost",
+    "HostRuntimeEventHost",
+    "HostRuntimeEventSchedulerHost",
+    "HostRuntimeTaskSchedulerHost",
+    "HostSecretStore",
+    "HttpHost",
+    "HttpServerHost",
+    "LocalInferenceHost",
+    "ManagedRuntimeHost",
+    "PluginSdkIpcHost",
+    "RobotFaceHost",
+    "RuntimeSqliteHost",
+    "RuntimeStorageHost",
+    "RuntimeStorageWriteHost",
+    "SerialPortHost",
+    "ServiceDiscoveryHost",
+    "SystemOperationHost",
+    "TcpHost",
+    "TerminalHost",
+    "ToastHost",
+    "TtsPlaybackHost",
+    "TtsSynthesisHost",
+    "WebSocketHost",
+    "WebVisitHost"
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "linux",
+    "macos",
+    "ohos",
+    "web",
+    "windows"
+  ],
+  "counts": {
+    "支持": 133,
+    "未查到": 89,
+    "部分支持": 15,
+    "不支持": 1
+  },
+  "trait_info": {
+    "ArchiveStagingHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 2091,
+      "method_count": 8,
+      "methods": [
+        "createArchive",
+        "createExportArchive",
+        "writeExportArchive",
+        "archiveFileReference",
+        "appendArchive",
+        "sealArchive",
+        "readArchive",
+        "removeArchive"
+      ]
+    },
+    "AudioPlaybackHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 2737,
+      "method_count": 8,
+      "methods": [
+        "playAudio",
+        "playMusic",
+        "pauseMusic",
+        "resumeMusic",
+        "stopMusic",
+        "seekMusic",
+        "setMusicVolume",
+        "musicStatus"
+      ]
+    },
+    "BluetoothHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 2919,
+      "method_count": 20,
+      "methods": [
+        "supportsClassicListening",
+        "requestBluetoothPermission",
+        "bluetoothState",
+        "requestEnableBluetooth",
+        "listBluetoothBondedDevices",
+        "scanBluetoothDevices",
+        "bluetoothConnect",
+        "bluetoothListen",
+        "bluetoothAccept",
+        "bluetoothSend",
+        "bluetoothRead",
+        "bluetoothSendAndRead",
+        "bluetoothClose",
+        "bluetoothBleConnect",
+        "bluetoothBleDiscoverServices",
+        "bluetoothBleReadCharacteristic",
+        "bluetoothBleWriteCharacteristic",
+        "bluetoothBleWriteAndReadCharacteristic",
+        "bluetoothBleSubscribeCharacteristic",
+        "bluetoothBleReadNotifications"
+      ]
+    },
+    "BrowserAutomationHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 1108,
+      "method_count": 1,
+      "methods": [
+        "executeBrowserTool"
+      ]
+    },
+    "BrowserSessionHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 1161,
+      "method_count": 6,
+      "methods": [
+        "listBrowserSessions",
+        "createBrowserSession",
+        "updateBrowserSession",
+        "submitBrowserCommand",
+        "getBrowserSessionSnapshot",
+        "closeBrowserSession"
+      ]
+    },
+    "ClipboardHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 3172,
+      "method_count": 1,
+      "methods": [
+        "setClipboardText"
+      ]
+    },
+    "ComposeDslWebViewHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 1332,
+      "method_count": 3,
+      "methods": [
+        "handleControllerCommand",
+        "openFilePicker",
+        "saveFile"
+      ]
+    },
+    "DeviceIoHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 3002,
+      "method_count": 2,
+      "methods": [
+        "setDigitalOutput",
+        "getDigitalOutput"
+      ]
+    },
+    "FileSystemHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 3301,
+      "method_count": 24,
+      "methods": [
+        "envLabel",
+        "environmentDescriptor",
+        "validatePath",
+        "listFiles",
+        "readFile",
+        "readFileWithLimit",
+        "readFileBytes",
+        "readFileBytesRange",
+        "writeFile",
+        "writeFileBytes",
+        "openAppendFile",
+        "appendFileBytes",
+        "deleteFile",
+        "fileExists",
+        "moveFile",
+        "copyFile",
+        "makeDirectory",
+        "findFiles",
+        "fileInfo",
+        "grepCode",
+        "zipFiles",
+        "unzipFiles",
+        "openFile",
+        "shareFile"
+      ]
+    },
+    "FloatingWindowHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 3198,
+      "method_count": 1,
+      "methods": [
+        "command"
+      ]
+    },
+    "HostJavaScriptRuntimeHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 2461,
+      "method_count": 6,
+      "methods": [
+        "createHostJavaScriptRuntime",
+        "createHostJavaScriptRuntimeState",
+        "executeHostJavaScriptRuntimeStateTask",
+        "enqueueHostJavaScriptRuntimeStateTask",
+        "executeHostJavaScriptRuntimeStateAsyncTask",
+        "destroyHostJavaScriptRuntimeState"
+      ]
+    },
+    "HostRuntimeEventHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 2243,
+      "method_count": 1,
+      "methods": [
+        "startHostRuntimeEventStream"
+      ]
+    },
+    "HostRuntimeEventSchedulerHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 2275,
+      "method_count": 1,
+      "methods": [
+        "replaceHostRuntimeEventSchedules"
+      ]
+    },
+    "HostRuntimeTaskSchedulerHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 2504,
+      "method_count": 8,
+      "methods": [
+        "monotonicTimeMillis",
+        "scheduleHostRuntimeTask",
+        "scheduleHostRuntimeAsyncTask",
+        "scheduleHostRuntimeBlockingAsyncTask",
+        "scheduleHostRuntimeCooperativeAsyncTask",
+        "scheduleDelayedHostRuntimeTask",
+        "waitForHostRuntimeTaskTurn",
+        "waitForHostRuntimeDelay"
+      ]
+    },
+    "HostSecretStore": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 2117,
+      "method_count": 3,
+      "methods": [
+        "readSecret",
+        "writeSecret",
+        "deleteSecret"
+      ]
+    },
+    "HttpHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 1605,
+      "method_count": 4,
+      "methods": [
+        "imageDelivery",
+        "executeHttpRequest",
+        "downloadToFile",
+        "downloadFiles"
+      ]
+    },
+    "HttpServerHost": {
+      "file": "core/crates/foundation/host-api/src/HttpServer.rs",
+      "line": 57,
+      "method_count": 4,
+      "methods": [
+        "supportsWebSocketUpgrade",
+        "bind",
+        "supportsAcceptedConnections",
+        "serveConnection"
+      ]
+    },
+    "LocalInferenceHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 3137,
+      "method_count": 2,
+      "methods": [
+        "transcribeLocalSpeech",
+        "synthesizeLocalSpeech"
+      ]
+    },
+    "ManagedRuntimeHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 1710,
+      "method_count": 5,
+      "methods": [
+        "openPath",
+        "runtimeWorkspaceDir",
+        "resolveRuntimeExecutable",
+        "startRuntimeProcess",
+        "runRuntimeCommand"
+      ]
+    },
+    "PluginSdkIpcHost": {
+      "file": "core/crates/foundation/host-api/src/PluginSdkIpc.rs",
+      "line": 58,
+      "method_count": 6,
+      "methods": [
+        "activate",
+        "startListener",
+        "connect",
+        "send",
+        "closeSession",
+        "stopListener"
+      ]
+    },
+    "RobotFaceHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 3026,
+      "method_count": 2,
+      "methods": [
+        "setExpression",
+        "getExpression"
+      ]
+    },
+    "RuntimeSqliteHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 2235,
+      "method_count": 2,
+      "methods": [
+        "runtimeStorage",
+        "openSqliteDatabase"
+      ]
+    },
+    "RuntimeStorageHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 1934,
+      "method_count": 17,
+      "methods": [
+        "openWriteSession",
+        "openTransactionDatabase",
+        "retainPreferencesCache",
+        "nodeLocalApplicationHistoryLimit",
+        "runtimeRootDir",
+        "workspaceRootDir",
+        "readBytes",
+        "readBytesRange",
+        "writeBytes",
+        "modifiedAt",
+        "setModifiedAt",
+        "writeBytesAtomically",
+        "appendBytes",
+        "flushFile",
+        "delete",
+        "exists",
+        "list"
+      ]
+    },
+    "RuntimeStorageWriteHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 2085,
+      "method_count": 1,
+      "methods": [
+        "createWriteSession"
+      ]
+    },
+    "SerialPortHost": {
+      "file": "core/crates/foundation/host-api/src/SerialPort.rs",
+      "line": 19,
+      "method_count": 2,
+      "methods": [
+        "listenerPort",
+        "open"
+      ]
+    },
+    "ServiceDiscoveryHost": {
+      "file": "core/crates/foundation/host-api/src/ServiceDiscovery.rs",
+      "line": 31,
+      "method_count": 5,
+      "methods": [
+        "localAddresses",
+        "supportsAdvertisement",
+        "advertise",
+        "discover",
+        "subscribe"
+      ]
+    },
+    "SystemOperationHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 3243,
+      "method_count": 17,
+      "methods": [
+        "applicationUpdateTarget",
+        "getSystemLanguageCode",
+        "sendNotification",
+        "modifySystemSetting",
+        "getSystemSetting",
+        "installApp",
+        "uninstallApp",
+        "listInstalledApps",
+        "startApp",
+        "startAppWithActivity",
+        "stopApp",
+        "getNotifications",
+        "getAppUsageTime",
+        "getDeviceLocation",
+        "getDeviceInfo",
+        "captureScreenshot",
+        "recognizeText"
+      ]
+    },
+    "TcpHost": {
+      "file": "core/crates/foundation/host-api/src/Tcp.rs",
+      "line": 26,
+      "method_count": 2,
+      "methods": [
+        "connect",
+        "bind"
+      ]
+    },
+    "TerminalHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 1831,
+      "method_count": 19,
+      "methods": [
+        "resolveNativeWorkingDirectory",
+        "resolveWorkingDirectory",
+        "terminalInfo",
+        "startPtySession",
+        "readPtySession",
+        "writePtySession",
+        "resizePtySession",
+        "pollPtyExitCode",
+        "closePtySession",
+        "listSessions",
+        "createOrGetSession",
+        "createOrGetTypedSession",
+        "executeInSession",
+        "executeInSessionStreaming",
+        "scheduleInSessionStreaming",
+        "executeHiddenCommand",
+        "inputInSession",
+        "closeSession",
+        "getSessionScreen"
+      ]
+    },
+    "ToastHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 3167,
+      "method_count": 1,
+      "methods": [
+        "toast"
+      ]
+    },
+    "TtsPlaybackHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 3076,
+      "method_count": 7,
+      "methods": [
+        "supportsSystemSpeech",
+        "playAudio",
+        "speakText",
+        "pauseSpeech",
+        "resumeSpeech",
+        "stopSpeech",
+        "speechState"
+      ]
+    },
+    "TtsSynthesisHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 3052,
+      "method_count": 1,
+      "methods": [
+        "synthesizeSpeech"
+      ]
+    },
+    "WebSocketHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 1573,
+      "method_count": 4,
+      "methods": [
+        "openWebSocket",
+        "sendWebSocketMessage",
+        "sendWebSocketText",
+        "closeWebSocket"
+      ]
+    },
+    "WebVisitHost": {
+      "file": "core/crates/foundation/host-api/src/lib.rs",
+      "line": 1092,
+      "method_count": 1,
+      "methods": [
+        "visitWeb"
+      ]
+    }
+  },
+  "aux_traits_no_slot": [
+    "DiscoveryAdvertisement",
+    "DiscoverySubscription",
+    "FileAppendHandle",
+    "FileSource",
+    "HostJavaScriptInterruptController",
+    "HostJavaScriptRuntime",
+    "HostRuntimeEventRegistration",
+    "HttpServerListener",
+    "HttpStreamHost",
+    "ManagedRuntimeProcess",
+    "RuntimeSqliteConnection",
+    "RuntimeSqliteTransaction",
+    "RuntimeStorageWriteSession",
+    "SerialPortConnection",
+    "ServerWebSocket",
+    "TcpConnection",
+    "TcpListener"
+  ],
+  "matrix": {
+    "ArchiveStagingHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/android/src/lib.rs:164"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/ios/src/lib.rs:71"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/linux/src/lib.rs:77"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/macos/src/lib.rs:69"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/ohos/src/lib.rs:86"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/web/src/lib.rs:56"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/windows/src/lib.rs:60"
+      }
+    },
+    "AudioPlaybackHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2737"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2737"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:79"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2737"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2737"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:60"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:62"
+      }
+    },
+    "BluetoothHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2919"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2919"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:80"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2919"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2919"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:61"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:63"
+      }
+    },
+    "BrowserAutomationHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1108"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1108"
+      },
+      "linux": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1108"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1108"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1108"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1108"
+      },
+      "windows": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1108"
+      }
+    },
+    "BrowserSessionHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1161"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1161"
+      },
+      "linux": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1161"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1161"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1161"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:57"
+      },
+      "windows": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1161"
+      }
+    },
+    "ClipboardHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3172"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3172"
+      },
+      "linux": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3172"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3172"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3172"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "与 SystemOperationHost 共用同一实现",
+        "ref": "hosts/web/src/lib.rs:53"
+      },
+      "windows": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3172"
+      }
+    },
+    "ComposeDslWebViewHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1332"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1332"
+      },
+      "linux": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1332"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1332"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1332"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1332"
+      },
+      "windows": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1332"
+      }
+    },
+    "DeviceIoHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3002"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3002"
+      },
+      "linux": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3002"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3002"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3002"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3002"
+      },
+      "windows": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3002"
+      }
+    },
+    "FileSystemHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/android/src/lib.rs:152"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:58"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:64"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:56"
+      },
+      "ohos": {
+        "verdict": "部分支持",
+        "note": "依赖调用方回调",
+        "ref": "hosts/ohos/src/lib.rs:72"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:44"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:47"
+      }
+    },
+    "FloatingWindowHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3198"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3198"
+      },
+      "linux": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3198"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3198"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3198"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3198"
+      },
+      "windows": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3198"
+      }
+    },
+    "HostJavaScriptRuntimeHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/android/src/lib.rs:166"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:76"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:85"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:73"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ohos/src/lib.rs:91"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:68"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:69"
+      }
+    },
+    "HostRuntimeEventHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2243"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2243"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:83"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:71"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2243"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:69"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:66"
+      }
+    },
+    "HostRuntimeEventSchedulerHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/android/src/lib.rs:95"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:74"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:84"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:72"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ohos/src/lib.rs:90"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:65"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:67"
+      }
+    },
+    "HostRuntimeTaskSchedulerHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/android/src/lib.rs:167"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:78"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:87"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:75"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ohos/src/lib.rs:94"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:67"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:71"
+      }
+    },
+    "HostSecretStore": {
+      "android": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/android/src/lib.rs:93"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/ios/src/lib.rs:70"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/linux/src/lib.rs:72"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/macos/src/lib.rs:64"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:2117"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/web/src/lib.rs:54"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/windows/src/lib.rs:55"
+      }
+    },
+    "HttpHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/android/src/lib.rs:154"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:62"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:66"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:58"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ohos/src/lib.rs:78"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:46"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:49"
+      }
+    },
+    "HttpServerHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/android/src/lib.rs:161"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:63"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:74"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:66"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ohos/src/lib.rs:79"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/HttpServer.rs:57"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:57"
+      }
+    },
+    "LocalInferenceHost": {
+      "android": {
+        "verdict": "部分支持",
+        "note": "仅标准版注册，特权版无此注册",
+        "ref": "hosts/android/src/lib.rs:94"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3137"
+      },
+      "linux": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3137"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3137"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ohos/src/lib.rs:88"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:62"
+      },
+      "windows": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3137"
+      }
+    },
+    "ManagedRuntimeHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/android/src/lib.rs:156"
+      },
+      "ios": {
+        "verdict": "部分支持",
+        "note": "调用方提供",
+        "ref": "hosts/ios/src/lib.rs:45"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:68"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:60"
+      },
+      "ohos": {
+        "verdict": "部分支持",
+        "note": "调用方提供",
+        "ref": "hosts/ohos/src/lib.rs:53"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:48"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:51"
+      }
+    },
+    "PluginSdkIpcHost": {
+      "android": {
+        "verdict": "部分支持",
+        "note": "仅标准版注册，特权版无此注册",
+        "ref": "hosts/android/src/lib.rs:101"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:79"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:88"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:76"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/PluginSdkIpc.rs:58"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/PluginSdkIpc.rs:58"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:68"
+      }
+    },
+    "RobotFaceHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3026"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3026"
+      },
+      "linux": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3026"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3026"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3026"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3026"
+      },
+      "windows": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3026"
+      }
+    },
+    "RuntimeSqliteHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/android/src/lib.rs:158"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/ios/src/lib.rs:69"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/linux/src/lib.rs:70"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/macos/src/lib.rs:62"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/ohos/src/lib.rs:85"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/web/src/lib.rs:50"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/windows/src/lib.rs:53"
+      }
+    },
+    "RuntimeStorageHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/android/src/lib.rs:143"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/ios/src/lib.rs:48"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/linux/src/lib.rs:59"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/macos/src/lib.rs:51"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/ohos/src/lib.rs:63"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/web/src/lib.rs:37"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/windows/src/lib.rs:42"
+      }
+    },
+    "RuntimeStorageWriteHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/android/src/lib.rs:165"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/ios/src/lib.rs:72"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/linux/src/lib.rs:78"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/macos/src/lib.rs:70"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/ohos/src/lib.rs:87"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/web/src/lib.rs:55"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "注册",
+        "ref": "hosts/windows/src/lib.rs:61"
+      }
+    },
+    "SerialPortHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/android/src/lib.rs:163"
+      },
+      "ios": {
+        "verdict": "部分支持",
+        "note": "已注册，open 一律报错、无原生配件提供方",
+        "ref": "hosts/ios/src/serial.rs:11"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:76"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:68"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ohos/src/lib.rs:81"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/SerialPort.rs:19"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:59"
+      }
+    },
+    "ServiceDiscoveryHost": {
+      "android": {
+        "verdict": "部分支持",
+        "note": "仅标准版注册，特权版无此注册",
+        "ref": "hosts/android/src/lib.rs:96"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:77"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:86"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:74"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ohos/src/lib.rs:93"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/ServiceDiscovery.rs:31"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:70"
+      }
+    },
+    "SystemOperationHost": {
+      "android": {
+        "verdict": "部分支持",
+        "note": "调用方提供",
+        "ref": "hosts/android/src/lib.rs:135"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:60"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:67"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:59"
+      },
+      "ohos": {
+        "verdict": "部分支持",
+        "note": "依赖调用方回调",
+        "ref": "hosts/ohos/src/lib.rs:65"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "与 SystemOperationHost 共用同一实现",
+        "ref": "hosts/web/src/lib.rs:47"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:50"
+      }
+    },
+    "TcpHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/android/src/lib.rs:162"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:64"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:75"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:67"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ohos/src/lib.rs:80"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/Tcp.rs:26"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:58"
+      }
+    },
+    "TerminalHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1831"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1831"
+      },
+      "linux": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1831"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1831"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1831"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:59"
+      },
+      "windows": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:1831"
+      }
+    },
+    "ToastHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3167"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3167"
+      },
+      "linux": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3167"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3167"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3167"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "与 SystemOperationHost 共用同一实现",
+        "ref": "hosts/web/src/lib.rs:52"
+      },
+      "windows": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3167"
+      }
+    },
+    "TtsPlaybackHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3076"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3076"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:82"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3076"
+      },
+      "ohos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3076"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:63"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:65"
+      }
+    },
+    "TtsSynthesisHost": {
+      "android": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3052"
+      },
+      "ios": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3052"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:81"
+      },
+      "macos": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3052"
+      },
+      "ohos": {
+        "verdict": "不支持",
+        "note": "API 18 SDK 无公开系统语音合成接口，不提供 SYSTEM_TTS",
+        "ref": "hosts/ohos/README.md:29"
+      },
+      "web": {
+        "verdict": "未查到",
+        "note": "取数范围内无注册",
+        "ref": "core/crates/foundation/host-api/src/lib.rs:3052"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:64"
+      }
+    },
+    "WebSocketHost": {
+      "android": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/android/src/lib.rs:160"
+      },
+      "ios": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ios/src/lib.rs:66"
+      },
+      "linux": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/linux/src/lib.rs:73"
+      },
+      "macos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/macos/src/lib.rs:65"
+      },
+      "ohos": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/ohos/src/lib.rs:82"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:58"
+      },
+      "windows": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/windows/src/lib.rs:56"
+      }
+    },
+    "WebVisitHost": {
+      "android": {
+        "verdict": "部分支持",
+        "note": "调用方提供",
+        "ref": "hosts/android/src/lib.rs:134"
+      },
+      "ios": {
+        "verdict": "部分支持",
+        "note": "调用方提供",
+        "ref": "hosts/ios/src/lib.rs:44"
+      },
+      "linux": {
+        "verdict": "部分支持",
+        "note": "调用方提供",
+        "ref": "hosts/linux/src/lib.rs:54"
+      },
+      "macos": {
+        "verdict": "部分支持",
+        "note": "调用方提供",
+        "ref": "hosts/macos/src/lib.rs:46"
+      },
+      "ohos": {
+        "verdict": "部分支持",
+        "note": "调用方提供",
+        "ref": "hosts/ohos/src/lib.rs:46"
+      },
+      "web": {
+        "verdict": "支持",
+        "note": "平台实现注册",
+        "ref": "hosts/web/src/lib.rs:45"
+      },
+      "windows": {
+        "verdict": "部分支持",
+        "note": "调用方提供",
+        "ref": "hosts/windows/src/lib.rs:37"
+      }
+    }
+  }
+}

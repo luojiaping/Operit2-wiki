@@ -1,0 +1,750 @@
+[
+ {
+  "fact": "hosts 目录存放 `operit-host-api` trait 的具体实现，运行时代码通过 `HostManager` 消费这些实现",
+  "ref": "hosts/README.md:3"
+ },
+ {
+  "fact": "hosts/android 是 Android 原生 Host 实现目录",
+  "ref": "hosts/README.md:13"
+ },
+ {
+  "fact": "Host crate 不拥有 Access 配对、会话、签名与设备信任",
+  "ref": "hosts/README.md:46"
+ },
+ {
+  "fact": "Host crate 不拥有 operit-link 信封语义",
+  "ref": "hosts/README.md:48"
+ },
+ {
+  "fact": "Host crate 不拥有 Flutter UI 状态与 WebView 控件",
+  "ref": "hosts/README.md:49"
+ },
+ {
+  "fact": "Android Host crate 名为 operit-host-android-native",
+  "ref": "hosts/android/Cargo.toml:2"
+ },
+ {
+  "fact": "operit-host-android-native 声明 publish = false，不对外发布",
+  "ref": "hosts/android/Cargo.toml:6"
+ },
+ {
+  "fact": "Android Host crate 依赖 operit-host-api",
+  "ref": "hosts/android/Cargo.toml:11"
+ },
+ {
+  "fact": "Android Host crate 依赖 operit-host-native-common，并启用 tcp、serial、fs、http、scheduler、storage 特性",
+  "ref": "hosts/android/Cargo.toml:12"
+ },
+ {
+  "fact": "jni 0.21 只在 target_os 为 android 时作为依赖引入",
+  "ref": "hosts/android/Cargo.toml:19"
+ },
+ {
+  "fact": "createRuntimeHostManager 组装 Android 自有的运行时 HostManager",
+  "ref": "hosts/android/src/lib.rs:75"
+ },
+ {
+  "fact": "createRuntimeHostManager 以 AndroidRuntimeStorageHost 作 Host 密钥库",
+  "ref": "hosts/android/src/lib.rs:79"
+ },
+ {
+  "fact": "运行时组合注册 AndroidLocalInferenceHost",
+  "ref": "hosts/android/src/lib.rs:94"
+ },
+ {
+  "fact": "运行时组合以 acquireMulticastLease 作 ServiceDiscovery 的网络租约来源",
+  "ref": "hosts/android/src/lib.rs:98"
+ },
+ {
+  "fact": "运行时组合注册 AndroidPluginSdkIpcHost",
+  "ref": "hosts/android/src/lib.rs:101"
+ },
+ {
+  "fact": "createPrivilegedRuntimeHostManager 组装不含应用自有 JNI 注册的特权 Android Host",
+  "ref": "hosts/android/src/lib.rs:106"
+ },
+ {
+  "fact": "特权组合以 NativeFileSecretStore(secretRoot) 作 Host 密钥库",
+  "ref": "hosts/android/src/lib.rs:120"
+ },
+ {
+  "fact": "特权组合使用 NativeHostRuntimeEventSchedulerHost 作运行时事件调度 Host",
+  "ref": "hosts/android/src/lib.rs:123"
+ },
+ {
+  "fact": "createBaseRuntimeHostManager 组装应用与独立模块所有者共享的 Android 能力",
+  "ref": "hosts/android/src/lib.rs:130"
+ },
+ {
+  "fact": "基础组合以 AndroidFileSystemHost、AndroidHttpHost 与 AndroidManagedRuntimeHost 装配 HostManager",
+  "ref": "hosts/android/src/lib.rs:151"
+ },
+ {
+  "fact": "基础组合注册 NativeHttpServerHost、NativeTcpHost 与 NativeSerialPortHost",
+  "ref": "hosts/android/src/lib.rs:162"
+ },
+ {
+  "fact": "基础组合注册 AndroidHostJavaScriptRuntimeHost 与 AndroidHostRuntimeTaskSchedulerHost",
+  "ref": "hosts/android/src/lib.rs:166"
+ },
+ {
+  "fact": "归档暂存 Host 使用 archiveRuntimeRoot，因为 Android 共享存储以 ENOSYS 拒绝 flock，模块运行时根目录是私有的",
+  "ref": "hosts/android/src/lib.rs:145"
+ },
+ {
+  "fact": "createBaseRuntimeHostManager 的 webVisitHost 由调用方传入",
+  "ref": "hosts/android/src/lib.rs:133"
+ },
+ {
+  "fact": "lib.rs 导出 androidPrivilegedPtyOperation",
+  "ref": "hosts/android/src/lib.rs:36"
+ },
+ {
+  "fact": "terminalInfo 把 PROOT_TERMINAL 列为默认终端、PRIMARY_TERMINAL_TYPE 列为默认终端类型",
+  "ref": "hosts/android/src/terminal.rs:267"
+ },
+ {
+  "fact": "ANDROID_SYSTEM_TERMINAL 与 shell 列为可用终端类型",
+  "ref": "hosts/android/src/terminal.rs:277"
+ },
+ {
+  "fact": "Android Host 只接受 PROOT_TERMINAL 与 bash、ANDROID_SYSTEM_TERMINAL 与 shell 两组实现与类型配对",
+  "ref": "hosts/android/src/terminal.rs:1536"
+ },
+ {
+  "fact": "normalizeAndroidTerminalType 只接受 bash 与 shell 两种终端类型",
+  "ref": "hosts/android/src/terminal.rs:1524"
+ },
+ {
+  "fact": "bash 会话的初始工作目录是 /root",
+  "ref": "hosts/android/src/terminal.rs:1557"
+ },
+ {
+  "fact": "shell 会话的初始工作目录取自 OPERIT_ANDROID_INTERNAL_ROOT",
+  "ref": "hosts/android/src/terminal.rs:1558"
+ },
+ {
+  "fact": "bash 会话执行 source $HOME/common.sh && start_shell",
+  "ref": "hosts/android/src/terminal.rs:1655"
+ },
+ {
+  "fact": "bash 会话设置 PROOT_LOADER、TERM 为 xterm-256color、LANG 为 en_US.UTF-8",
+  "ref": "hosts/android/src/terminal.rs:1671"
+ },
+ {
+  "fact": "shell 会话执行 exec /system/bin/sh -i",
+  "ref": "hosts/android/src/terminal.rs:1756"
+ },
+ {
+  "fact": "Root 传输的系统 shell 脚本先校验 id -u 为 0，否则 exit 126",
+  "ref": "hosts/android/src/terminal.rs:1782"
+ },
+ {
+  "fact": "shell 会话的启动输入内嵌 system_shell_init.sh 的内容",
+  "ref": "hosts/android/src/terminal.rs:1828"
+ },
+ {
+  "fact": "PTY 提示标记前缀是 `\\x1b]133;OperitPrompt=`",
+  "ref": "hosts/android/src/terminal.rs:27"
+ },
+ {
+  "fact": "androidPtyPromptCommand 在每次提示时输出 base64 编码的 $PWD 与退出码",
+  "ref": "hosts/android/src/terminal.rs:1838"
+ },
+ {
+  "fact": "PTY 输出缓冲上限 PTY_OUTPUT_LIMIT 为 16 MiB",
+  "ref": "hosts/android/src/terminal.rs:26"
+ },
+ {
+  "fact": "PTY 输出缓冲超过 PTY_OUTPUT_LIMIT 时从队首丢弃旧字节",
+  "ref": "hosts/android/src/terminal.rs:759"
+ },
+ {
+  "fact": "新建 PTY 会话时 waitForInitialAndroidPtyPrompt 等待初始提示最长 10000 毫秒",
+  "ref": "hosts/android/src/terminal.rs:691"
+ },
+ {
+  "fact": "PTY 命令执行以 quietPeriod 150 毫秒静默期确认提示标记后的命令完成",
+  "ref": "hosts/android/src/terminal.rs:929"
+ },
+ {
+  "fact": "会话已有命令在运行时，再次执行返回 Terminal session already has a command in progress 错误",
+  "ref": "hosts/android/src/terminal.rs:433"
+ },
+ {
+  "fact": "超时命令取消时先向 PTY 写 b\"\\x03\"，再以 COMMAND_CANCEL_SETTLE_TIMEOUT_MS 为限等待 shell 就绪",
+  "ref": "hosts/android/src/terminal.rs:977"
+ },
+ {
+  "fact": "超时命令中断失败时会话关闭并移除，错误文本含 could not be interrupted",
+  "ref": "hosts/android/src/terminal.rs:469"
+ },
+ {
+  "fact": "隐藏命令固定使用 PRIMARY_TERMINAL_TYPE（bash），空 executorKey 记为 default",
+  "ref": "hosts/android/src/terminal.rs:502"
+ },
+ {
+  "fact": "同名会话仍存在时直接复用，返回结果的 isNewSession 为 false",
+  "ref": "hosts/android/src/terminal.rs:377"
+ },
+ {
+  "fact": "createOrGetSession 在默认 PRIMARY_TERMINAL_TYPE 上创建或复用会话",
+  "ref": "hosts/android/src/terminal.rs:354"
+ },
+ {
+  "fact": "会话列表只包含未退出的会话，条目 sessionKind 为 pty",
+  "ref": "hosts/android/src/terminal.rs:344"
+ },
+ {
+  "fact": "会话屏幕输出的 rows 取自内容行数，cols 取自最长行的字符数",
+  "ref": "hosts/android/src/terminal.rs:582"
+ },
+ {
+  "fact": "Shizuku PTY 以 operation start 请求创建，响应给出 pid、readFd 与 writeFd",
+  "ref": "hosts/android/src/terminal.rs:1913"
+ },
+ {
+  "fact": "本地 PTY 子进程在 Android 上以 forkpty 创建",
+  "ref": "hosts/android/src/terminal.rs:2020"
+ },
+ {
+  "fact": "非 Android 目标上返回 Android PTY is only available on Android target 错误",
+  "ref": "hosts/android/src/terminal.rs:2005"
+ },
+ {
+  "fact": "Shizuku 进程退出码经 terminal_privilege 的 call 发 operation poll 查询",
+  "ref": "hosts/android/src/terminal.rs:2187"
+ },
+ {
+  "fact": "本地 PTY 进程退出码用 waitpid 加 WNOHANG 轮询",
+  "ref": "hosts/android/src/terminal.rs:2213"
+ },
+ {
+  "fact": "终止本地 PTY 进程时先发 SIGHUP 再发 SIGKILL",
+  "ref": "hosts/android/src/terminal.rs:1966"
+ },
+ {
+  "fact": "终止 Shizuku 会话经 terminal_privilege 的 call 发 operation close",
+  "ref": "hosts/android/src/terminal.rs:1952"
+ },
+ {
+  "fact": "调整 Shizuku 会话窗口大小经 terminal_privilege 的 call 发 operation resize",
+  "ref": "hosts/android/src/terminal.rs:1989"
+ },
+ {
+  "fact": "androidPrivilegedPtyOperation 为特权 Binder 服务提供 PTY 原语，不调用应用运行时",
+  "ref": "hosts/android/src/terminal.rs:2231"
+ },
+ {
+  "fact": "特权 PTY 支持 start 操作",
+  "ref": "hosts/android/src/terminal.rs:2243"
+ },
+ {
+  "fact": "特权 PTY 的 poll 操作调用 pollPidExitCode 返回 exitCode",
+  "ref": "hosts/android/src/terminal.rs:2282"
+ },
+ {
+  "fact": "特权 PTY 的 close 操作调用 terminateAndroidPtyProcess 终止本地进程",
+  "ref": "hosts/android/src/terminal.rs:2285"
+ },
+ {
+  "fact": "特权 PTY 调整窗口时调用 setPtyWindowSize",
+  "ref": "hosts/android/src/terminal.rs:2297"
+ },
+ {
+  "fact": "特权 PTY 启动以 forkPtyExecve 创建进程，响应含 pid 与 fd",
+  "ref": "hosts/android/src/terminal.rs:2279"
+ },
+ {
+  "fact": "PTY 读取器收到 `\\x1b[6n` 光标位置查询时回写当前行列",
+  "ref": "hosts/android/src/terminal.rs:779"
+ },
+ {
+  "fact": "PTY 读取器先经 stripAndroidPtyDeviceStatusReports 得命令块，再经 stripAndroidPtyPromptMarkers 得可见块",
+  "ref": "hosts/android/src/terminal.rs:739"
+ },
+ {
+  "fact": "bash 工作目录用 TerminalWorkingDirectory 的 resolveLinuxGuestDirectory 解析",
+  "ref": "hosts/android/src/terminal.rs:244"
+ },
+ {
+  "fact": "shell 工作目录解析先调用 terminal_privilege 的 privileges，再经 androidSystemShellWorkingDirectory 映射",
+  "ref": "hosts/android/src/terminal.rs:251"
+ },
+ {
+  "fact": "Shizuku 系统 shell 把应用私有目录下的工作目录映射到 /sdcard",
+  "ref": "hosts/android/src/terminal.rs:1725"
+ },
+ {
+  "fact": "android_documents 资源的工作目录经文档提供方的 resolveNativeDirectory 解析为原生目录",
+  "ref": "hosts/android/src/terminal.rs:46"
+ },
+ {
+  "fact": "非 android_documents 后端的终端文件系统后端被拒绝",
+  "ref": "hosts/android/src/terminal.rs:42"
+ },
+ {
+  "fact": "hosts/android/src/terminal.rs 拥有 PTY 执行，Flutter 拥有 xterm 视图与附加逻辑",
+  "ref": "hosts/README.md:125"
+ },
+ {
+  "fact": "ShellPrivileges 只描述已批准的特权，不发起授权请求",
+  "ref": "hosts/android/src/terminal_privilege.rs:5"
+ },
+ {
+  "fact": "ShellPrivileges 含 root_su_arguments 与 shizuku_authorized 两个字段",
+  "ref": "hosts/android/src/terminal_privilege.rs:8"
+ },
+ {
+  "fact": "ShellPrivileges 的 select 按 Root、Shizuku、App 顺序选择传输",
+  "ref": "hosts/android/src/terminal_privilege.rs:24"
+ },
+ {
+  "fact": "Root 的 su 参数为空或首项为空时 select 返回 Android Root terminal has no su executable 错误",
+  "ref": "hosts/android/src/terminal_privilege.rs:25"
+ },
+ {
+  "fact": "进程 euid 为 0 时 privileges 直接返回 root_su_arguments 为空、shizuku_authorized 为 false 的 ShellPrivileges",
+  "ref": "hosts/android/src/terminal_privilege.rs:38"
+ },
+ {
+  "fact": "模块已拥有 Root 进程时不需要应用 JVM 或 su 子进程",
+  "ref": "hosts/android/src/terminal_privilege.rs:37"
+ },
+ {
+  "fact": "特权查询经 JNI 方法 terminalPrivilegeOperation 发给 Java 侧桥接对象",
+  "ref": "hosts/android/src/terminal_privilege.rs:60"
+ },
+ {
+  "fact": "非 Android 目标上特权调用返回 Android terminal privileges require Android 错误",
+  "ref": "hosts/android/src/terminal_privilege.rs:90"
+ },
+ {
+  "fact": "AndroidManagedRuntimeHost 的 runtimeWorkspaceDir 位于 OPERIT_ANDROID_INTERNAL_ROOT 下的 managed_runtime",
+  "ref": "hosts/android/src/managed_runtime.rs:113"
+ },
+ {
+  "fact": "resolveRuntimeExecutable 在 executablePath 非空时使用该路径，否则按程序取默认值",
+  "ref": "hosts/android/src/managed_runtime.rs:126"
+ },
+ {
+  "fact": "默认可执行文件为 Node 的 /usr/bin/node、Python 的 /usr/bin/python3、Uv 的 /usr/bin/uv、Pnpm 的 /usr/bin/pnpm",
+  "ref": "hosts/android/src/managed_runtime.rs:129"
+ },
+ {
+  "fact": "ManagedRuntimeProgram::Command 按名字原样作可执行文件",
+  "ref": "hosts/android/src/managed_runtime.rs:132"
+ },
+ {
+  "fact": "解析出的可执行文件经 validateRootfsExecutable 校验",
+  "ref": "hosts/android/src/managed_runtime.rs:137"
+ },
+ {
+  "fact": "托管运行时进程经 buildAndroidProotCommand 构建并设置 PROOT_NO_SECCOMP 为 1",
+  "ref": "hosts/android/src/managed_runtime.rs:150"
+ },
+ {
+  "fact": "托管运行时 stderr 缓冲超过 400 行时丢弃最旧行",
+  "ref": "hosts/android/src/managed_runtime.rs:188"
+ },
+ {
+  "fact": "两个管道读取任务经 scheduleServiceTasks 以 managed-runtime-pipes 调度，调度失败时杀死子进程并返回错误",
+  "ref": "hosts/android/src/managed_runtime.rs:196"
+ },
+ {
+  "fact": "一次性运行时命令以 PROOT_NO_SECCOMP 为 1 执行并返回 RuntimeCommandOutput",
+  "ref": "hosts/android/src/managed_runtime.rs:220"
+ },
+ {
+  "fact": "readStdoutLine 用 recv_timeout 等待一行，超时或断开时返回 None",
+  "ref": "hosts/android/src/managed_runtime.rs:62"
+ },
+ {
+  "fact": "kill 在 try_wait 显示进程仍在运行时调用 child.kill",
+  "ref": "hosts/android/src/managed_runtime.rs:99"
+ },
+ {
+  "fact": "writeManagedRuntimeLine 按 MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES 分发大小帧写入",
+  "ref": "hosts/android/src/managed_runtime.rs:234"
+ },
+ {
+  "fact": "MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES 为 4 KiB",
+  "ref": "hosts/android/src/managed_runtime.rs:15"
+ },
+ {
+  "fact": "AndroidFileSystemHost 内部包装 PosixFileSystemHost",
+  "ref": "hosts/android/src/filesystem.rs:14"
+ },
+ {
+  "fact": "AndroidFileSystemHost 的 envLabel 返回 android",
+  "ref": "hosts/android/src/filesystem.rs:36"
+ },
+ {
+  "fact": "Root 进程的环境描述把 privilege 标为 AndroidRoot、isolation 标为 None",
+  "ref": "hosts/android/src/filesystem.rs:45"
+ },
+ {
+  "fact": "Root 进程的 android.fileManagement、android.root、android.shizuku、android.batteryOptimization 四项入职要求标记为已满足",
+  "ref": "hosts/android/src/filesystem.rs:48"
+ },
+ {
+  "fact": "validatePath 要求路径参数非空",
+  "ref": "hosts/android/src/filesystem.rs:58"
+ },
+ {
+  "fact": "非资源路径不是绝对路径时返回 Path must be an absolute Android path 错误",
+  "ref": "hosts/android/src/filesystem.rs:67"
+ },
+ {
+  "fact": "listFiles 对资源路径调用 document_filesystem 的 call，对非资源路径调用 inner 的 listFiles",
+  "ref": "hosts/android/src/filesystem.rs:73"
+ },
+ {
+  "fact": "文档写入时内容以 base64 编码传输",
+  "ref": "hosts/android/src/filesystem.rs:115"
+ },
+ {
+  "fact": "文档字节响应经 decodeBytes 做 base64 解码",
+  "ref": "hosts/android/src/filesystem.rs:245"
+ },
+ {
+  "fact": "appendFileBytes 直接调用 inner 的 appendFileBytes，不经过文档资源分支",
+  "ref": "hosts/android/src/filesystem.rs:129"
+ },
+ {
+  "fact": "openFile 先校验路径，无 presentation 回调时走文档调用",
+  "ref": "hosts/android/src/filesystem.rs:217"
+ },
+ {
+  "fact": "shareFile 先校验路径，有 presentation 回调时转交给回调",
+  "ref": "hosts/android/src/filesystem.rs:232"
+ },
+ {
+  "fact": "文档文件系统调用经 JNI fileSystemResourceOperation 发给 Java 侧已拥有的运行时 Host",
+  "ref": "hosts/android/src/document_filesystem.rs:13"
+ },
+ {
+  "fact": "响应 ok 不为 true 或缺少 value 时 decode_response 返回错误",
+  "ref": "hosts/android/src/document_filesystem.rs:34"
+ },
+ {
+  "fact": "非 Android 目标上文档文件系统调用返回 Android document filesystem is unavailable on this platform 错误",
+  "ref": "hosts/android/src/document_filesystem.rs:29"
+ },
+ {
+  "fact": "transcribeLocalSpeech 与 synthesizeLocalSpeech 经 Android Sherpa ONNX Host 处理",
+  "ref": "hosts/android/src/local_inference.rs:27"
+ },
+ {
+  "fact": "callLocalInferenceHost 按 methodName 调用方法",
+  "ref": "hosts/android/src/local_inference.rs:41"
+ },
+ {
+  "fact": "本地推理经 call_method 按 methodName 调用桥接方法",
+  "ref": "hosts/android/src/local_inference.rs:67"
+ },
+ {
+  "fact": "本地推理请求以 serde_json 序列化",
+  "ref": "hosts/android/src/local_inference.rs:47"
+ },
+ {
+  "fact": "AndroidHostSecretStoreBridge 以 OnceLock 加 Mutex 保存全局唯一的 JavaVM 与 GlobalRef",
+  "ref": "hosts/android/src/secret_store.rs:13"
+ },
+ {
+  "fact": "setAndroidHostSecretStoreBridge 注册 JavaVM 与 host 引用",
+  "ref": "hosts/android/src/secret_store.rs:39"
+ },
+ {
+  "fact": "桥接未注册时 androidHostSecretStoreBridge 返回 Android host secret store bridge is not registered 错误",
+  "ref": "hosts/android/src/secret_store.rs:63"
+ },
+ {
+  "fact": "clearAndroidHostSecretStoreBridge 清空桥接并清除运行时事件调度接收端",
+  "ref": "hosts/android/src/secret_store.rs:48"
+ },
+ {
+  "fact": "readSecret 经 Java 的 readHostSecret 读取密钥字节",
+  "ref": "hosts/android/src/secret_store.rs:105"
+ },
+ {
+  "fact": "readHostSecret 返回 null 时读取结果为 None",
+  "ref": "hosts/android/src/secret_store.rs:112"
+ },
+ {
+  "fact": "密钥写入经 Java 的 writeHostSecret 方法",
+  "ref": "hosts/android/src/secret_store.rs:141"
+ },
+ {
+  "fact": "密钥删除经 Java 的 deleteHostSecret 方法",
+  "ref": "hosts/android/src/secret_store.rs:159"
+ },
+ {
+  "fact": "systemLanguageCode 经 Java 的 systemLanguageCode 方法读取系统语言代码",
+  "ref": "hosts/android/src/secret_store.rs:80"
+ },
+ {
+  "fact": "replaceHostRuntimeEventSchedules 以 JSON 把 AlarmManager 调度交给应用 Host 对账",
+  "ref": "hosts/android/src/secret_store.rs:168"
+ },
+ {
+  "fact": "组播租约获取调用 Java 的 acquireDiscoveryMulticastLock，得到 WifiManager MulticastLock",
+  "ref": "hosts/android/src/service_discovery.rs:21"
+ },
+ {
+  "fact": "MulticastLock 为空时租约的锁为 None，对应 Ethernet-only Android Host",
+  "ref": "hosts/android/src/service_discovery.rs:27"
+ },
+ {
+  "fact": "组播租约释放时调用同一把锁的 release",
+  "ref": "hosts/android/src/service_discovery.rs:58"
+ },
+ {
+  "fact": "组播锁释放失败时以 tryLogHostConsole 记录 ServiceDiscovery 错误",
+  "ref": "hosts/android/src/service_discovery.rs:64"
+ },
+ {
+  "fact": "系统操作 Host 的 new 接受 settingReader、settingWriter 与 packageOperation 三个所有者回调",
+  "ref": "hosts/android/src/system_operation.rs:28"
+ },
+ {
+  "fact": "forPrivilegedRuntime 以显式启动时语言构造独立 Host",
+  "ref": "hosts/android/src/system_operation.rs:40"
+ },
+ {
+  "fact": "应用更新目标按架构选 APK：aarch64 取 arm64-v8a，arm 取 armeabi-v7a，安装时机为 Immediate",
+  "ref": "hosts/android/src/system_operation.rs:72"
+ },
+ {
+  "fact": "getSystemLanguageCode 优先返回构造时给定的 language，否则调用 androidHostSystemLanguageCode",
+  "ref": "hosts/android/src/system_operation.rs:85"
+ },
+ {
+  "fact": "sendNotification 返回错误，要求 Android UI host bridge",
+  "ref": "hosts/android/src/system_operation.rs:97"
+ },
+ {
+  "fact": "getNotifications 返回错误，要求 Android notification host bridge",
+  "ref": "hosts/android/src/system_operation.rs:161"
+ },
+ {
+  "fact": "getDeviceLocation 返回错误，要求 Android location host bridge",
+  "ref": "hosts/android/src/system_operation.rs:179"
+ },
+ {
+  "fact": "getDeviceInfo 返回错误，要求 Android device info host bridge",
+  "ref": "hosts/android/src/system_operation.rs:189"
+ },
+ {
+  "fact": "captureScreenshot 返回错误，要求 Android screen capture host bridge",
+  "ref": "hosts/android/src/system_operation.rs:195"
+ },
+ {
+  "fact": "recognizeText 返回错误，要求 Android OCR host bridge",
+  "ref": "hosts/android/src/system_operation.rs:203"
+ },
+ {
+  "fact": "installApp 要求 Immediate 时机，再以 install_app 请求包操作",
+  "ref": "hosts/android/src/system_operation.rs:121"
+ },
+ {
+  "fact": "startApp 转交给 startAppWithActivity 且 activity 为 None",
+  "ref": "hosts/android/src/system_operation.rs:144"
+ },
+ {
+  "fact": "listInstalledApps 以 list_installed_apps 请求包操作",
+  "ref": "hosts/android/src/system_operation.rs:133"
+ },
+ {
+  "fact": "uninstallApp 以 uninstall_app 请求包操作",
+  "ref": "hosts/android/src/system_operation.rs:126"
+ },
+ {
+  "fact": "stopApp 以 stop_app 请求包操作",
+  "ref": "hosts/android/src/system_operation.rs:155"
+ },
+ {
+  "fact": "应用使用时长查询以 get_app_usage_time 请求包操作",
+  "ref": "hosts/android/src/system_operation.rs:172"
+ },
+ {
+  "fact": "AndroidTtsPlaybackHost 由所有者应用的控制器驱动",
+  "ref": "hosts/android/src/tts_playback.rs:22"
+ },
+ {
+  "fact": "supportsSystemSpeech 返回 true",
+  "ref": "hosts/android/src/tts_playback.rs:43"
+ },
+ {
+  "fact": "playAudio 以 play 命令发送音频路径",
+  "ref": "hosts/android/src/tts_playback.rs:48"
+ },
+ {
+  "fact": "speakText 以 speak 命令发送语音请求",
+  "ref": "hosts/android/src/tts_playback.rs:53"
+ },
+ {
+  "fact": "pauseSpeech 以 pause 命令暂停当前语音会话",
+  "ref": "hosts/android/src/tts_playback.rs:58"
+ },
+ {
+  "fact": "resumeSpeech 以 resume 命令恢复当前语音会话",
+  "ref": "hosts/android/src/tts_playback.rs:63"
+ },
+ {
+  "fact": "stopSpeech 以 stop 命令停止当前语音会话",
+  "ref": "hosts/android/src/tts_playback.rs:68"
+ },
+ {
+  "fact": "speechState 以 state 命令查询当前语音会话状态",
+  "ref": "hosts/android/src/tts_playback.rs:73"
+ },
+ {
+  "fact": "synthesizeSpeech 把请求转交给所有者提供的合成器回调",
+  "ref": "hosts/android/src/tts_synthesis.rs:20"
+ },
+ {
+  "fact": "AndroidWebVisitHost 的 visitWeb 返回错误，要求 Android WebView host bridge",
+  "ref": "hosts/android/src/web_visit.rs:11"
+ },
+ {
+  "fact": "execute 把命令与参数交给 controller 回调并解码响应",
+  "ref": "hosts/android/src/bluetooth.rs:30"
+ },
+ {
+  "fact": "supportsClassicListening 返回 true",
+  "ref": "hosts/android/src/bluetooth.rs:45"
+ },
+ {
+  "fact": "requestBluetoothPermission 以 request_permission 命令请求蓝牙权限",
+  "ref": "hosts/android/src/bluetooth.rs:48"
+ },
+ {
+  "fact": "bluetoothState 以 state 命令查询蓝牙状态",
+  "ref": "hosts/android/src/bluetooth.rs:52"
+ },
+ {
+  "fact": "requestEnableBluetooth 以 request_enable 命令请求启用蓝牙",
+  "ref": "hosts/android/src/bluetooth.rs:56"
+ },
+ {
+  "fact": "listBluetoothBondedDevices 以 bonded_devices 命令列出已配对设备",
+  "ref": "hosts/android/src/bluetooth.rs:60"
+ },
+ {
+  "fact": "scanBluetoothDevices 以 scan 命令扫描蓝牙设备",
+  "ref": "hosts/android/src/bluetooth.rs:67"
+ },
+ {
+  "fact": "bluetoothConnect 以 classic_connect 命令连接经典蓝牙",
+  "ref": "hosts/android/src/bluetooth.rs:74"
+ },
+ {
+  "fact": "bluetoothListen 以 classic_listen 命令监听经典蓝牙",
+  "ref": "hosts/android/src/bluetooth.rs:81"
+ },
+ {
+  "fact": "bluetoothAccept 以 classic_accept 命令接受经典蓝牙连接",
+  "ref": "hosts/android/src/bluetooth.rs:88"
+ },
+ {
+  "fact": "bluetoothSend 以 classic_send 命令发送经典蓝牙数据",
+  "ref": "hosts/android/src/bluetooth.rs:94"
+ },
+ {
+  "fact": "bluetoothRead 以 classic_read 命令读取经典蓝牙数据",
+  "ref": "hosts/android/src/bluetooth.rs:107"
+ },
+ {
+  "fact": "bluetoothSendAndRead 发送后读取经典蓝牙数据",
+  "ref": "hosts/android/src/bluetooth.rs:110"
+ },
+ {
+  "fact": "bluetoothClose 以 close 命令关闭蓝牙会话",
+  "ref": "hosts/android/src/bluetooth.rs:129"
+ },
+ {
+  "fact": "bluetoothBleConnect 以 ble_connect 命令连接 BLE 设备",
+  "ref": "hosts/android/src/bluetooth.rs:136"
+ },
+ {
+  "fact": "bluetoothBleDiscoverServices 以 ble_discover_services 命令发现 BLE 服务",
+  "ref": "hosts/android/src/bluetooth.rs:142"
+ },
+ {
+  "fact": "bluetoothBleReadCharacteristic 以 ble_read_characteristic 命令读取 BLE 特征值",
+  "ref": "hosts/android/src/bluetooth.rs:157"
+ },
+ {
+  "fact": "bluetoothBleWriteCharacteristic 以 ble_write_characteristic 命令写入 BLE 特征值",
+  "ref": "hosts/android/src/bluetooth.rs:164"
+ },
+ {
+  "fact": "bluetoothBleWriteAndReadCharacteristic 以 ble_write_and_read_characteristic 命令写入并读取 BLE 特征值",
+  "ref": "hosts/android/src/bluetooth.rs:172"
+ },
+ {
+  "fact": "bluetoothBleSubscribeCharacteristic 以 ble_subscribe_characteristic 命令订阅 BLE 特征值",
+  "ref": "hosts/android/src/bluetooth.rs:182"
+ },
+ {
+  "fact": "bluetoothBleReadNotifications 以 ble_read_notifications 命令读取 BLE 通知",
+  "ref": "hosts/android/src/bluetooth.rs:190"
+ },
+ {
+  "fact": "AndroidTerminalHost 是 Android PTY 终端 Host",
+  "ref": "hosts/android/src/terminal.rs:69"
+ },
+ {
+  "fact": "AndroidFileSystemHost 是 Android 文件系统 Host",
+  "ref": "hosts/android/src/filesystem.rs:12"
+ },
+ {
+  "fact": "AndroidManagedRuntimeHost 是 Android 托管运行时 Host",
+  "ref": "hosts/android/src/managed_runtime.rs:20"
+ },
+ {
+  "fact": "AndroidSystemOperationHost 是 Android 系统操作 Host",
+  "ref": "hosts/android/src/system_operation.rs:21"
+ },
+ {
+  "fact": "AndroidLocalInferenceHost 是 Android 本地推理 Host",
+  "ref": "hosts/android/src/local_inference.rs:14"
+ },
+ {
+  "fact": "AndroidBluetoothHost 是 Android 蓝牙 Host",
+  "ref": "hosts/android/src/bluetooth.rs:25"
+ },
+ {
+  "fact": "AndroidTtsPlaybackHost 是 Android TTS 播放 Host",
+  "ref": "hosts/android/src/tts_playback.rs:17"
+ },
+ {
+  "fact": "AndroidTtsSynthesisHost 是 Android TTS 合成 Host",
+  "ref": "hosts/android/src/tts_synthesis.rs:11"
+ },
+ {
+  "fact": "AndroidWebVisitHost 是 Android 网页访问 Host",
+  "ref": "hosts/android/src/web_visit.rs:7"
+ },
+ {
+  "fact": "AndroidHostSecretStoreBridge 保存 JavaVM 与 host 引用",
+  "ref": "hosts/android/src/secret_store.rs:8"
+ },
+ {
+  "fact": "ShellTransport 为一次系统 shell 会话选择一种传输",
+  "ref": "hosts/android/src/terminal_privilege.rs:11"
+ },
+ {
+  "fact": "AndroidPtyProcess 区分本地子进程与 Shizuku 远程进程",
+  "ref": "hosts/android/src/terminal.rs:99"
+ },
+ {
+  "fact": "acquireMulticastLease 在共享守护进程建 socket 前获取 Wi-Fi 组播访问",
+  "ref": "hosts/android/src/service_discovery.rs:14"
+ },
+ {
+  "fact": "无 Root 参数且 Shizuku 未授权时选择 ShellTransport::App",
+  "ref": "hosts/android/src/terminal_privilege.rs:29"
+ }
+]

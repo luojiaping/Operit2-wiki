@@ -1,0 +1,34 @@
+app-cli seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+基线说明：outline est_lines 39429 与实测不符；15 个 seed 文件实测 9002 行（wc -l），tests/ 另 3255 行。
+
+已读 seed（15 个，全部读完）：
+apps/cli/Cargo.toml（66 行）
+apps/cli/src/main.rs（88 行）
+apps/cli/src/bootstrap.rs（778 行）
+apps/cli/src/cli/mod.rs（2354 行）
+apps/cli/src/cli/link.rs（1356 行）
+apps/cli/src/cli/host_ops.rs（608 行）
+apps/cli/src/cli/network_control_ui.rs（212 行）
+apps/cli/src/cli/transfer.rs（451 行）
+apps/cli/src/cli/web.rs（17 行）
+apps/cli/src/daemon.rs（1237 行）
+apps/cli/src/mdns.rs（175 行）
+apps/cli/src/rescue.rs（164 行）
+apps/cli/src/chat_runtime.rs（842 行）
+apps/cli/src/core_proxy.rs（86 行）
+apps/cli/src/tui/mod.rs（568 行）
+
+已读 tests/：
+apps/cli/tests/mcp_http_streaming.rs（114 行，通读）
+apps/cli/tests/mcp_remote_smoke.rs（167 行，通读）
+apps/cli/tests/space-stress.md（310 行，通读）
+apps/cli/tests/space_stress_session.py（1063 行，通读头部、Session/Run 类与关键场景断言，余下场景函数抽查）
+apps/cli/tests/network_control_session.py（308 行，通读 Terminal/pair/join/exercise 关键段）
+apps/cli/tests/preference_sync_session.py（726 行，通读结构与 exercise 入口、抽查用例）
+apps/cli/tests/character_sync_session.py（316 行，通读结构与入口）
+apps/cli/tests/storage_sync_session.py（136 行，通读）
+apps/cli/tests/workspace_sync_session.py（115 行，通读）
+
+注意：
+- seed 清单里没有 commands.rs；命令清单以 cli/mod.rs 的 CLI_COMMANDS 表（31 个固有命令族，单元测试断言 31）加 read_cli_plugin_commands 的插件命令目录为准。
+- tests/ 验收口径：真实 CLI 进程 + 真实 TCP/HTTP/WebSocket，link session 交互命令驱动配对/入会/同步；配对不等于入会，space leave 不清除其他节点成员记录、不删除配对。

@@ -1,6 +1,6 @@
 {
  "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
- "updated": "2026-11-11 12:46 UTC",
+ "updated": "2026-11-11 14:54 UTC",
  "files": {
   "README.md": {
    "status": "complete",
@@ -18,9 +18,9 @@
   },
   "docs/core-node-space-binding-architecture.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-05",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-routing.md",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
    "lines": 494
   },
   "docs/release-versioning.md": {
@@ -389,16 +389,16 @@
   },
   "core/crates/foundation/host-api/src/lib.rs": {
    "status": "complete",
-   "batch": "batch-02",
+   "batch": "batch-05",
    "date": "2026-11-11",
-   "evidence": "review/batch-02/core-foundation.md",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
    "lines": 3577
   },
   "core/crates/foundation/host-api/src/HostManager.rs": {
    "status": "complete",
-   "batch": "batch-02",
+   "batch": "batch-05",
    "date": "2026-11-11",
-   "evidence": "review/batch-02/core-foundation.md",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
    "lines": 662
   },
   "core/crates/foundation/model/src/ChatMessage.rs": {
@@ -1411,17 +1411,1578 @@
   },
   "apps/cli/src/cli/mod.rs": {
    "status": "complete",
-   "batch": "batch-04",
+   "batch": "batch-05",
    "date": "2026-11-11",
-   "evidence": "review/batch-04/agent-slash.md",
+   "evidence": "review/batch-05/app-cli.md",
    "lines": 2354
   },
   "apps/cli/src/chat_runtime.rs": {
    "status": "complete",
-   "batch": "batch-04",
+   "batch": "batch-05",
    "date": "2026-11-11",
-   "evidence": "review/batch-04/agent-slash.md",
+   "evidence": "review/batch-05/app-cli.md",
    "lines": 842
+  },
+  "apps/android-module/README.md": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-android-module.md",
+   "lines": 58
+  },
+  "apps/android-module/src/Runtime.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-android-module.md",
+   "lines": 481
+  },
+  "apps/android-module/android/src/main/kotlin/app/operit/ModuleMain.kt": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-android-module.md",
+   "lines": 31
+  },
+  "apps/android-module/build.py": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-android-module.md",
+   "lines": 177
+  },
+  "apps/android-module/package/module.prop": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-android-module.md",
+   "lines": 6
+  },
+  "apps/android-module/package/customize.sh": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-android-module.md",
+   "lines": 39
+  },
+  "apps/android-module/package/service.sh": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-android-module.md",
+   "lines": 6
+  },
+  "apps/android-module/package/action.sh": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-android-module.md",
+   "lines": 4
+  },
+  "apps/android-module/package/uninstall.sh": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-android-module.md",
+   "lines": 4
+  },
+  "apps/android-module/package/operit-host-ctl": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-android-module.md",
+   "lines": 110
+  },
+  "apps/cli/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 66
+  },
+  "apps/cli/src/main.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 88
+  },
+  "apps/cli/src/bootstrap.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 778
+  },
+  "apps/cli/src/cli/link.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 1356
+  },
+  "apps/cli/src/cli/host_ops.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 608
+  },
+  "apps/cli/src/cli/network_control_ui.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 212
+  },
+  "apps/cli/src/cli/transfer.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 451
+  },
+  "apps/cli/src/cli/web.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 17
+  },
+  "apps/cli/src/daemon.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 1237
+  },
+  "apps/cli/src/mdns.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 175
+  },
+  "apps/cli/src/rescue.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 164
+  },
+  "apps/cli/src/core_proxy.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 86
+  },
+  "apps/cli/src/tui/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 568
+  },
+  "apps/cli/tests/mcp_http_streaming.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 114
+  },
+  "apps/cli/tests/mcp_remote_smoke.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 167
+  },
+  "apps/cli/tests/space-stress.md": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 310
+  },
+  "apps/cli/tests/space_stress_session.py": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 1063
+  },
+  "apps/cli/tests/network_control_session.py": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 308
+  },
+  "apps/cli/tests/preference_sync_session.py": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 726
+  },
+  "apps/cli/tests/character_sync_session.py": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 316
+  },
+  "apps/cli/tests/storage_sync_session.py": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 136
+  },
+  "apps/cli/tests/workspace_sync_session.py": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-cli.md",
+   "lines": 115
+  },
+  "apps/flutter/app/README.md": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 27
+  },
+  "apps/flutter/app/pubspec.yaml": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 232
+  },
+  "apps/flutter/app/lib/main.dart": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 292
+  },
+  "apps/flutter/app/.fvmrc": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 5
+  },
+  "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 440
+  },
+  "apps/flutter/app/lib/core/bridge/PlatformCoreProxy.dart": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 4
+  },
+  "apps/flutter/app/lib/core/bridge/PlatformCoreProxyNative.dart": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 6
+  },
+  "apps/flutter/app/lib/core/bridge/PlatformCoreProxyWeb.dart": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 6
+  },
+  "apps/flutter/app/lib/core/bridge/CoreProxy.dart": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 60
+  },
+  "apps/flutter/app/lib/ui/main/OperitApp.dart": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 194
+  },
+  "apps/flutter/native/operit-flutter-bridge/Cargo.toml": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 110
+  },
+  "apps/flutter/native/operit-flutter-bridge/FFI.md": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 238
+  },
+  "apps/flutter/native/operit-flutter-bridge/src/lib.rs": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 19
+  },
+  "apps/flutter/native/operit-flutter-bridge/src/platform_runtime/mod.rs": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 78
+  },
+  "apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 502
+  },
+  "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 373
+  },
+  "apps/flutter/packages/operit_ui/README.md": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 25
+  },
+  "apps/flutter/packages/operit_ui/pubspec.yaml": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 33
+  },
+  "apps/flutter/packages/operit_ui/lib/operit_ui.dart": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 38
+  },
+  "apps/flutter/app/lib/": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 0
+  },
+  "apps/flutter/app/lib/core/": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 0
+  },
+  "apps/flutter/app/lib/core/bridge/": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 0
+  },
+  "apps/flutter/app/lib/ui/": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 0
+  },
+  "apps/flutter/native/operit-flutter-bridge/src/": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 0
+  },
+  "apps/flutter/packages/operit_ui/lib/src/": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 0
+  },
+  "apps/flutter/app/": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 0
+  },
+  "apps/flutter/thirdparty/": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-flutter.md",
+   "lines": 0
+  },
+  "apps/server/.gitkeep": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-server.md",
+   "lines": 1
+  },
+  "hosts/README.md": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 128
+  },
+  "hosts/android/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 19
+  },
+  "hosts/android/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 168
+  },
+  "hosts/android/src/terminal.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 2525
+  },
+  "hosts/android/src/terminal_privilege.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 144
+  },
+  "hosts/android/src/managed_runtime.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 272
+  },
+  "hosts/android/src/filesystem.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 271
+  },
+  "hosts/android/src/document_filesystem.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 52
+  },
+  "hosts/android/src/local_inference.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 103
+  },
+  "hosts/android/src/secret_store.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 189
+  },
+  "hosts/android/src/service_discovery.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 68
+  },
+  "hosts/android/src/system_operation.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 277
+  },
+  "hosts/android/src/tts_playback.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 76
+  },
+  "hosts/android/src/tts_synthesis.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 23
+  },
+  "hosts/android/src/web_visit.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 18
+  },
+  "hosts/android/src/bluetooth.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-android.md",
+   "lines": 200
+  },
+  "hosts/apple/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 35
+  },
+  "hosts/apple/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 43
+  },
+  "hosts/apple/src/tools/fs/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 920
+  },
+  "hosts/apple/src/tools/terminal/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 265
+  },
+  "hosts/apple/src/tools/terminal/terminal_macos.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 432
+  },
+  "hosts/apple/src/tools/browser/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 84
+  },
+  "hosts/apple/src/tools/runtime/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 346
+  },
+  "hosts/apple/src/tools/storage/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 105
+  },
+  "hosts/apple/src/tools/system/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 569
+  },
+  "hosts/apple/src/tools/system/battery.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 122
+  },
+  "hosts/apple/src/tools/system/packages.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 185
+  },
+  "hosts/apple/src/tools/local_inference/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 73
+  },
+  "hosts/apple/src/tools/tts/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 99
+  },
+  "hosts/apple/src/tools/http/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 124
+  },
+  "hosts/apple/src/tools/audio/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 68
+  },
+  "hosts/apple/src/tools/bluetooth/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 193
+  },
+  "hosts/apple/src/sandbox.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 111
+  },
+  "hosts/apple/src/service_discovery.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-apple.md",
+   "lines": 843
+  },
+  "hosts/macos/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 77
+  },
+  "hosts/ios/README.md": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 35
+  },
+  "hosts/ios/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ios.md",
+   "lines": 14
+  },
+  "hosts/ios/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 80
+  },
+  "hosts/ios/src/terminal.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 852
+  },
+  "hosts/ios/src/bridge.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ios.md",
+   "lines": 142
+  },
+  "hosts/ios/src/managed_runtime.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ios.md",
+   "lines": 168
+  },
+  "hosts/ios/src/serial.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 16
+  },
+  "hosts/ios/linux-runtime/README.md": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ios-linux-runtime.md",
+   "lines": 76
+  },
+  "hosts/ios/linux-runtime/docs/README.md": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ios-linux-runtime.md",
+   "lines": 26
+  },
+  "hosts/ios/linux-runtime/docs/completeness.md": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ios-linux-runtime.md",
+   "lines": 98
+  },
+  "hosts/ios/linux-runtime/docs/delivery-status.md": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ios-linux-runtime.md",
+   "lines": 350
+  },
+  "hosts/ios/linux-runtime/include/operit/arm64_runtime.h": {
+   "status": "partial",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ios-linux-runtime.md",
+   "lines": 91
+  },
+  "hosts/linux/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 34
+  },
+  "hosts/linux/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 89
+  },
+  "hosts/linux/src/tools/terminal/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 1536
+  },
+  "hosts/linux/src/tools/fs/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 634
+  },
+  "hosts/linux/src/tools/runtime/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 346
+  },
+  "hosts/linux/src/tools/storage/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 200
+  },
+  "hosts/linux/src/tools/system/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 837
+  },
+  "hosts/linux/src/tools/system/packages.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 341
+  },
+  "hosts/linux/src/tools/browser/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 90
+  },
+  "hosts/linux/src/tools/http/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 124
+  },
+  "hosts/linux/src/tools/audio/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 317
+  },
+  "hosts/linux/src/tools/bluetooth/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 1170
+  },
+  "hosts/linux/src/tools/tts/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 418
+  },
+  "hosts/linux/src/plugin_sdk_ipc.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-linux.md",
+   "lines": 276
+  },
+  "hosts/windows/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 35
+  },
+  "hosts/windows/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 76
+  },
+  "hosts/windows/src/daemon.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 278
+  },
+  "hosts/windows/src/process.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 12
+  },
+  "hosts/windows/src/tools/terminal/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 2128
+  },
+  "hosts/windows/src/tools/fs/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 695
+  },
+  "hosts/windows/src/tools/runtime/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 365
+  },
+  "hosts/windows/src/tools/storage/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 149
+  },
+  "hosts/windows/src/tools/system/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 1137
+  },
+  "hosts/windows/src/tools/system/application_update.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 124
+  },
+  "hosts/windows/src/tools/system/application_update.ps1": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 184
+  },
+  "hosts/windows/src/tools/system/packages.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 134
+  },
+  "hosts/windows/src/tools/browser/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 80
+  },
+  "hosts/windows/src/tools/http/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 124
+  },
+  "hosts/windows/src/tools/audio/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 292
+  },
+  "hosts/windows/src/tools/bluetooth/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 1075
+  },
+  "hosts/windows/src/tools/tts/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 471
+  },
+  "hosts/windows/src/tools/mci.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 137
+  },
+  "hosts/windows/src/plugin_sdk_ipc.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 441
+  },
+  "hosts/windows/src/plugin_sdk_pipe.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-windows.md",
+   "lines": 147
+  },
+  "hosts/web/README.md": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 115
+  },
+  "hosts/web/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 26
+  },
+  "hosts/web/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 71
+  },
+  "hosts/web/src/common.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 1003
+  },
+  "hosts/web/src/javascript_runtime.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 617
+  },
+  "hosts/web/src/javascript_promises.js": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 158
+  },
+  "hosts/web/src/tools/fs/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 287
+  },
+  "hosts/web/src/tools/browser/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 42
+  },
+  "hosts/web/src/tools/browser_session/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 301
+  },
+  "hosts/web/src/tools/runtime/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 131
+  },
+  "hosts/web/src/tools/storage/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 315
+  },
+  "hosts/web/src/tools/system/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 285
+  },
+  "hosts/web/src/tools/terminal/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 498
+  },
+  "hosts/web/src/tools/archive/mod.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 107
+  },
+  "hosts/web/src/tools/websocket.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-web.md",
+   "lines": 141
+  },
+  "hosts/ohos/README.md": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 41
+  },
+  "hosts/ohos/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 19
+  },
+  "hosts/ohos/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 96
+  },
+  "hosts/ohos/src/terminal.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 703
+  },
+  "hosts/ohos/src/managed_runtime.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 164
+  },
+  "hosts/ohos/src/filesystem.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 194
+  },
+  "hosts/ohos/src/documents.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 113
+  },
+  "hosts/ohos/src/storage.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 20
+  },
+  "hosts/ohos/src/http.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 124
+  },
+  "hosts/ohos/src/local_inference.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 948
+  },
+  "hosts/ohos/src/system_operation.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 381
+  },
+  "hosts/ohos/src/tts_playback.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 77
+  },
+  "hosts/ohos/src/audio_playback.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 77
+  },
+  "hosts/ohos/src/bluetooth.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-ohos.md",
+   "lines": 226
+  },
+  "hosts/common/operit-host-native-common/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 60
+  },
+  "hosts/common/operit-host-native-common/src/DaemonHost.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 10
+  },
+  "hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 337
+  },
+  "hosts/common/operit-host-native-common/src/SerialPort.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 326
+  },
+  "hosts/common/operit-host-native-common/src/ServiceDiscovery.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 633
+  },
+  "hosts/common/operit-host-native-common/src/SharedBuffer.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 83
+  },
+  "hosts/common/operit-host-native-common/src/Tcp.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 175
+  },
+  "hosts/common/operit-host-native-filesystem/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 700
+  },
+  "hosts/common/operit-host-native-http/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 1688
+  },
+  "hosts/common/operit-host-native-storage/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 1657
+  },
+  "hosts/common/operit-host-native-terminal/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 1964
+  },
+  "hosts/common/operit-host-native-scheduler/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 33
+  },
+  "hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 45
+  },
+  "hosts/common/operit-host-data-rescue/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 1108
+  },
+  "hosts/common/chromium_browser.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 2257
+  },
+  "hosts/common/terminal_command.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 30
+  },
+  "hosts/unix/daemon.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 87
+  },
+  "hosts/plugin-sdk-client/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 44
+  },
+  "hosts/tests/daemon.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 100
+  },
+  "docs/data-rescue.md": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 40
+  },
+  "hosts/common/operit-host-native-common/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 45
+  },
+  "hosts/common/operit-host-native-filesystem/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 14
+  },
+  "hosts/common/operit-host-native-http/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 21
+  },
+  "hosts/common/operit-host-native-storage/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 16
+  },
+  "hosts/common/operit-host-native-terminal/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 13
+  },
+  "hosts/common/operit-host-native-scheduler/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 38
+  },
+  "hosts/common/operit-host-native-plugin-sdk-ipc/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 11
+  },
+  "hosts/common/operit-host-data-rescue/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 22
+  },
+  "hosts/android/src/http.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 123
+  },
+  "hosts/common/operit-host-native-common/src/AppInstaller.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 429
+  },
+  "hosts/common/operit-host-native-common/src/DartPort.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 163
+  },
+  "hosts/common/operit-host-native-common/src/PosixSerialStream.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 95
+  },
+  "hosts/common/operit-host-native-http/src/server.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 326
+  },
+  "hosts/common/operit-host-native-http/src/stream.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 113
+  },
+  "hosts/common/operit-host-native-http/src/connector.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 135
+  },
+  "hosts/common/operit-host-native-storage/src/secrets.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 114
+  },
+  "hosts/common/operit-host-data-rescue/src/tests.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/host-common.md",
+   "lines": 896
+  },
+  "core/crates/foundation/host-api/src/AtomicCounter.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 59
+  },
+  "core/crates/foundation/host-api/src/FileSystemResource.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 63
+  },
+  "core/crates/foundation/host-api/src/HttpServer.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 79
+  },
+  "core/crates/foundation/host-api/src/JavaScriptBootstrap.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 26
+  },
+  "core/crates/foundation/host-api/src/JavaScriptCodeCache.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 211
+  },
+  "core/crates/foundation/host-api/src/JavaScriptExecutionInterrupt.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 193
+  },
+  "core/crates/foundation/host-api/src/PluginSdkIpc.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 89
+  },
+  "core/crates/foundation/host-api/src/PluginStorage.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 548
+  },
+  "core/crates/foundation/host-api/src/SerialPort.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 25
+  },
+  "core/crates/foundation/host-api/src/ServiceDiscovery.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 52
+  },
+  "core/crates/foundation/host-api/src/Tcp.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 29
+  },
+  "core/crates/foundation/host-api/src/TerminalWorkingDirectory.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 150
+  },
+  "core/crates/foundation/host-api/src/TimeUtils.rs": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 70
+  },
+  "core/crates/foundation/host-api/README.md": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 58
+  },
+  "docs/permission-access-architecture.md": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 103
+  },
+  "docs/filesystem-access-boundary.md": {
+   "status": "complete",
+   "batch": "batch-05",
+   "date": "2026-11-11",
+   "evidence": "review/batch-05/app-host-capability-matrix.md",
+   "lines": 20
   }
  }
 }

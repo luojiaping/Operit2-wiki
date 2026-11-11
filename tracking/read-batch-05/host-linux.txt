@@ -1,0 +1,15 @@
+host-linux seed 已读清单（Operit2 @ 364d1d594，2026-11-11，14 个文件全部读完）
+hosts/linux/Cargo.toml
+hosts/linux/src/lib.rs
+hosts/linux/src/tools/terminal/mod.rs
+hosts/linux/src/tools/fs/mod.rs
+hosts/linux/src/tools/runtime/mod.rs
+hosts/linux/src/tools/storage/mod.rs
+hosts/linux/src/tools/system/mod.rs
+hosts/linux/src/tools/system/packages.rs
+hosts/linux/src/tools/browser/mod.rs
+hosts/linux/src/tools/http/mod.rs
+hosts/linux/src/tools/audio/mod.rs
+hosts/linux/src/tools/bluetooth/mod.rs
+hosts/linux/src/tools/tts/mod.rs
+hosts/linux/src/plugin_sdk_ipc.rs

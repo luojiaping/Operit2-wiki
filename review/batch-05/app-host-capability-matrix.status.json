@@ -1,0 +1,1 @@
+{"issue":56,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"能力 × 平台矩阵：34 个 HostManager 槽位能力 × 7 个平台共 238 格，由脚本按 host-api trait 定义与各平台 createRuntimeHostManager 注册生成","updated":"2026-11-11"}

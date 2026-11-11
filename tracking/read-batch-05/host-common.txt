@@ -1,0 +1,52 @@
+host-common seed 阅读记录（2026-11-11，基线 Operit2 @ 364d1d594）
+seed 文件（19 个，实测 12,024 行；大纲 est_lines 19,273 与实测不符，以 wc 为准）：
+hosts/common/operit-host-native-common/src/lib.rs
+hosts/common/operit-host-native-common/src/DaemonHost.rs
+hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs
+hosts/common/operit-host-native-common/src/SerialPort.rs
+hosts/common/operit-host-native-common/src/ServiceDiscovery.rs
+hosts/common/operit-host-native-common/src/SharedBuffer.rs
+hosts/common/operit-host-native-common/src/Tcp.rs
+hosts/common/operit-host-native-filesystem/src/lib.rs
+hosts/common/operit-host-native-http/src/lib.rs
+hosts/common/operit-host-native-storage/src/lib.rs
+hosts/common/operit-host-native-terminal/src/lib.rs
+hosts/common/operit-host-native-scheduler/src/lib.rs
+hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs
+hosts/common/operit-host-data-rescue/src/lib.rs
+hosts/common/chromium_browser.rs
+hosts/common/terminal_command.rs
+hosts/unix/daemon.rs
+hosts/plugin-sdk-client/src/lib.rs
+hosts/tests/daemon.rs
+补充阅读：
+docs/data-rescue.md（数据救援文档，回答第 4 问引用）
+apps/cli/src/rescue.rs（CLI rescue 接线，回答第 4 问引用）
+apps/cli/src/bootstrap.rs（仅 grep 核对 rescue_* 函数行，未全文引用）
+hosts/common/operit-host-native-common/Cargo.toml
+hosts/common/operit-host-native-filesystem/Cargo.toml
+hosts/common/operit-host-native-http/Cargo.toml
+hosts/common/operit-host-native-storage/Cargo.toml
+hosts/common/operit-host-native-terminal/Cargo.toml
+hosts/common/operit-host-native-scheduler/Cargo.toml
+hosts/common/operit-host-native-plugin-sdk-ipc/Cargo.toml
+hosts/common/operit-host-data-rescue/Cargo.toml
+hosts/apple/src/lib.rs（仅 chromium_browser #[path] 行）
+hosts/linux/src/lib.rs（仅 chromium_browser #[path] 行）
+hosts/windows/src/lib.rs（仅 chromium_browser #[path] 行）
+hosts/android/src/lib.rs（仅 terminal_command #[path] 行）
+hosts/windows/src/tools/terminal/mod.rs（仅 terminal_command #[path] 行）
+hosts/android/src/http.rs（仅 NativeHttpHost 持有行）
+hosts/android/src/filesystem.rs（仅 PosixFileSystemHost 持有行）
+hosts/ios/src/terminal.rs（仅 NativePtyTerminalHost 引用行）
+未读（有意排除，不在正文中断言其细节）：
+hosts/common/operit-host-native-common/src/AppInstaller.rs（仅 lib.rs 的 feature 门控行被引用）
+hosts/common/operit-host-native-common/src/DartPort.rs（仅 lib.rs 的模块行被引用）
+hosts/common/operit-host-native-common/src/PosixSerialStream.rs（未引用）
+hosts/common/operit-host-native-http/src/server.rs（仅 lib.rs 的重导出行被引用）
+hosts/common/operit-host-native-http/src/stream.rs（未引用）
+hosts/common/operit-host-native-http/src/connector.rs（未引用）
+hosts/common/operit-host-native-storage/src/secrets.rs（仅 lib.rs 的重导出行被引用）
+hosts/common/operit-host-native-scheduler/src/*.rs（仅 lib.rs 的重导出行被引用）
+hosts/common/operit-host-native-plugin-sdk-ipc/src/framing.rs、memory.rs、pipes.rs、stream.rs（仅 lib.rs 的重导出行被引用）
+hosts/common/operit-host-data-rescue/src/tests.rs（未引用）

@@ -1,0 +1,41 @@
+batch-05 app-flutter seed 清单（基线 AAswordman/Operit2 @ 364d1d594，只读抽查）
+
+通读全文：
+- apps/flutter/app/README.md
+- apps/flutter/app/pubspec.yaml
+
+通读全文：
+- apps/flutter/app/lib/main.dart（292 行）
+
+读关键行：
+- apps/flutter/app/.fvmrc（全文 5 行）
+- apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart（第 41、55-110 行附近）
+- apps/flutter/app/lib/core/bridge/PlatformCoreProxy.dart（全文 4 行）
+- apps/flutter/app/lib/core/bridge/PlatformCoreProxyNative.dart（前 40 行）
+- apps/flutter/app/lib/core/bridge/PlatformCoreProxyWeb.dart（前 12 行）
+- apps/flutter/app/lib/core/bridge/CoreProxy.dart（dataRescue 声明行附近）
+- apps/flutter/app/lib/ui/main/OperitApp.dart（类声明行附近）
+- apps/flutter/native/operit-flutter-bridge/Cargo.toml（全文）
+- apps/flutter/native/operit-flutter-bridge/FFI.md（全文）
+- apps/flutter/native/operit-flutter-bridge/src/lib.rs（前 30 行）
+- apps/flutter/native/operit-flutter-bridge/src/platform_runtime/mod.rs（前 40 行）
+- apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs（导出入口行附近）
+- apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs（ffi_connect 行附近）
+- apps/flutter/packages/operit_ui/README.md（全文）
+- apps/flutter/packages/operit_ui/pubspec.yaml（前 40 行）
+- apps/flutter/packages/operit_ui/lib/operit_ui.dart（全文）
+
+目录结构抽查（ls / find，未通读文件内容）：
+- apps/flutter/app/lib/（485 个 .dart 文件；lib/core 67 个、lib/ui 412 个、lib/data 1 个、lib/util 1 个、lib/l10n 3 个）
+- apps/flutter/app/lib/core/（application、bridge、browser、compose、errors、host、link、logging、notifications、runtime、snapshot、theme、update、web_visit）
+- apps/flutter/app/lib/core/bridge/（13 个 Dart 文件清单）
+- apps/flutter/app/lib/ui/（common、features、main、rescue、theme、window；features 下有 announcement、chat、onboarding、packages、settings、startup、update）
+- apps/flutter/native/operit-flutter-bridge/src/（17 个 .rs 文件清单）与 src/platform_runtime/（android、ios、linux、macos、mod、ohos、web、windows）
+- apps/flutter/packages/operit_ui/lib/src/（assets、design、fixtures、fonts、model、preview、render）
+- apps/flutter/app/ 下七个平台壳目录（android、ios、macos、windows、linux、web、ohos），各抽查一个入口文件的前 3 行
+
+未读：
+- lib/core/ 除 bridge 外子目录的内部实现；lib/ui/ 除 main.dart 与 OperitApp 类声明行外的实现；lib/data、lib/l10n、lib/util 的文件内容
+- bridge src 内除 lib.rs、mod.rs、BridgeExports 导出入口、FfiTransport 连接入口外的实现文件
+- apps/flutter/thirdparty/ 全部内容
+- 各平台壳除入口文件前 3 行外的原生代码
