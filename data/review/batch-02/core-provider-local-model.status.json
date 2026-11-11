@@ -2,8 +2,10 @@
   "issue": 19,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "本地模型：已装模型与引擎注册表、清单结构、桌面 Sherpa STT/TTS 推理与 LocalModelRuntimeSupport。",
   "updated": "2026-11-11",
-  "approved_by_comment_id": 6791246416
+  "approved_by_comment_id": 6791246416,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 09:21 UTC"
 }

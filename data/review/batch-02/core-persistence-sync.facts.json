@@ -656,7 +656,7 @@
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1705"
   },
   {
-    "fact": "importLegacyJournal 是唯一读取已退休文件式 ledger 的入口，只做一次原子导入。",
+    "fact": "importLegacyJournal 是当前 Journal 的一次性迁移入口，只做一次原子导入。",
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1743"
   },
   {
