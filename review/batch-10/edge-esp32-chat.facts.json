@@ -1,0 +1,450 @@
+[
+{
+"fact": "独立聊天是设备自有的有界聊天，不需要 Core、SQL、ToolPkg 或 peer 连接",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:1"
+},
+{
+"fact": "独立聊天的 MAX_MESSAGES 是 8",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:8"
+},
+{
+"fact": "独立聊天的 MAX_TEXT 是 2048",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:9"
+},
+{
+"fact": "独立聊天的 MAX_CONTEXT 是 6144",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:10"
+},
+{
+"fact": "独立聊天的 MAX_EVENT 是 8192",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:11"
+},
+{
+"fact": "独立聊天配置的 endpoint 上限是 1024 字节且必填",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:32"
+},
+{
+"fact": "独立聊天配置的 model 上限是 128 字节且必填",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:33"
+},
+{
+"fact": "独立聊天配置的 apiKey 上限是 512 字节且选填",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:34"
+},
+{
+"fact": "独立聊天配置的 systemPrompt 上限是 1024 字节且选填",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:35"
+},
+{
+"fact": "独立聊天配置的 endpoint 必须以 http:// 或 https:// 开头",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:38"
+},
+{
+"fact": "独立聊天配置的 apiKey 不得包含回车或换行",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:38"
+},
+{
+"fact": "bound 在消息数超过 MAX_MESSAGES，或（消息数多于 2 条且）文本总量超过 MAX_CONTEXT 时成对丢弃旧消息",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:80"
+},
+{
+"fact": "丢失 peer 不会重置独立聊天，切换 Space 会重置独立聊天",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:89"
+},
+{
+"fact": "Space 切换时旧会话在解析新配置之前被退役",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:107"
+},
+{
+"fact": "迟到的旧工作线程保留自己的 Arc，不能向新会话写入",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:106"
+},
+{
+"fact": "配置与当前配置相同时返回 Ok 且不重建会话",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:121"
+},
+{
+"fact": "发送进行中的请求按原配置完成，不被新配置替换",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:124"
+},
+{
+"fact": "独立聊天快照的 mode 是 direct",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:161"
+},
+{
+"fact": "独立聊天快照只有一条标题为本机对话的会话，且 hasOlder 与 hasNewer 均为 false",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:163"
+},
+{
+"fact": "独立聊天在发送中时 status 返回生成中",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:170"
+},
+{
+"fact": "独立聊天在有错误且未发送时返回错误",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:172"
+},
+{
+"fact": "newChat 在发送进行中时拒绝新建会话",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:185"
+},
+{
+"fact": "新建会话时生成新的会话 id",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:188"
+},
+{
+"fact": "新建会话时清空已有消息",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:189"
+},
+{
+"fact": "独立聊天按行解析 data: 开头的 SSE 事件",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:218"
+},
+{
+"fact": "data: [DONE] 标记流结束",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:222"
+},
+{
+"fact": "无法解析为 JSON 的事件使流记录错误",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:229"
+},
+{
+"fact": "服务端返回 error 字段时流记录 Chat service returned an error",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:234"
+},
+{
+"fact": "finish_reason 出现时流标记完成",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:237"
+},
+{
+"fact": "delta 的 content 增量文本追加到最后一条消息",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:240"
+},
+{
+"fact": "追加的回复文本用 tail 截断到 MAX_TEXT",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:245"
+},
+{
+"fact": "单个事件超过 MAX_EVENT 字节时流报错",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:251"
+},
+{
+"fact": "独立聊天的 send 拒绝空消息",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:262"
+},
+{
+"fact": "独立聊天的 send 拒绝超过 MAX_TEXT 的消息",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:264"
+},
+{
+"fact": "独立聊天的 send 在上一条仍在发送时拒绝新消息",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:270"
+},
+{
+"fact": "systemPrompt 非空时，独立聊天的 send 把它作为第一条 system 角色消息发出",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:280"
+},
+{
+"fact": "独立聊天的 send 在本地追加一条空文本 ai 消息作为流式回复占位",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:285"
+},
+{
+"fact": "每次发送使用 device-chat- 加 UUID 的流标识",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:290"
+},
+{
+"fact": "apiKey 非空时以 Bearer 方式放在 Authorization 请求头",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:298"
+},
+{
+"fact": "请求体固定 stream 为 true 且 max_tokens 为 256",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:306"
+},
+{
+"fact": "独立聊天请求的连接超时是 10 秒",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:311"
+},
+{
+"fact": "独立聊天请求的读取超时是 45 秒",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:312"
+},
+{
+"fact": "非 2xx 状态码时发送结果报错 Chat HTTP 加状态码",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:343"
+},
+{
+"fact": "流未收到完成标记就关闭时发送结果报错聊天连接提前中断",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:349"
+},
+{
+"fact": "active 在已配置独立聊天时返回 true",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:151"
+},
+{
+"fact": "测试用例确认迟到回复到达旧会话后新会话的消息列表仍为空",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:525"
+},
+{
+"fact": "Config 有 endpoint、model、apiKey、systemPrompt 四个字段",
+"ref": "edge/boards/esp32/src/standalone_chat.rs:17"
+},
+{
+"fact": "设备聊天 UI 原生直接执行，可选远端 Core 会话",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1"
+},
+{
+"fact": "远端聊天显示的 MAX_CHAT_MESSAGES 是 12",
+"ref": "edge/boards/esp32/src/edge_chat.rs:509"
+},
+{
+"fact": "远端聊天显示的 MAX_CONVERSATIONS 是 24",
+"ref": "edge/boards/esp32/src/edge_chat.rs:510"
+},
+{
+"fact": "远端聊天显示的 MAX_CHAT_STRING_BYTES 是 640",
+"ref": "edge/boards/esp32/src/edge_chat.rs:512"
+},
+{
+"fact": "远端聊天显示的 MAX_CHAT_LINES 是 15",
+"ref": "edge/boards/esp32/src/edge_chat.rs:513"
+},
+{
+"fact": "远端聊天显示的 MAX_CORE_BYTES 是 1024",
+"ref": "edge/boards/esp32/src/edge_chat.rs:514"
+},
+{
+"fact": "远端聊天显示的 MAX_CORE_VALUE_DEPTH 是 16",
+"ref": "edge/boards/esp32/src/edge_chat.rs:515"
+},
+{
+"fact": "消息流扫描的 MAX_STREAM_DESCRIPTORS 是 8",
+"ref": "edge/boards/esp32/src/edge_chat.rs:339"
+},
+{
+"fact": "消息流扫描的 MAX_STREAM_SCAN_DEPTH 是 8",
+"ref": "edge/boards/esp32/src/edge_chat.rs:340"
+},
+{
+"fact": "消息流扫描的 MAX_STREAM_SCAN_ITEMS 是 32",
+"ref": "edge/boards/esp32/src/edge_chat.rs:341"
+},
+{
+"fact": "SpaceChatRoute 在同一 Space 内只保留选中的 chatId，不保存会话记录副本",
+"ref": "edge/boards/esp32/src/edge_chat.rs:208"
+},
+{
+"fact": "Space 变化时生成新的 chatId",
+"ref": "edge/boards/esp32/src/edge_chat.rs:238"
+},
+{
+"fact": "会话结束且距上次尝试至少 3 秒时重试安装",
+"ref": "edge/boards/esp32/src/edge_chat.rs:243"
+},
+{
+"fact": "通过 edge-ui-messages 订阅 chatMessagesWindowFlow",
+"ref": "edge/boards/esp32/src/edge_chat.rs:281"
+},
+{
+"fact": "windowArgs 把显示页的 textBytes 与 textLines 预算发给 Core",
+"ref": "edge/boards/esp32/src/edge_chat.rs:307"
+},
+{
+"fact": "Chunk 事件把增量文本追加到显示尾部并受 MAX_CHAT_STRING_BYTES 限制",
+"ref": "edge/boards/esp32/src/edge_chat.rs:328"
+},
+{
+"fact": "Replace 事件先清空再追加",
+"ref": "edge/boards/esp32/src/edge_chat.rs:329"
+},
+{
+"fact": "流式回复文本只保留最后 MAX_CHAT_LINES 行",
+"ref": "edge/boards/esp32/src/edge_chat.rs:332"
+},
+{
+"fact": "超过 MAX_CHAT_STRING_BYTES 的字符串被截断",
+"ref": "edge/boards/esp32/src/edge_chat.rs:566"
+},
+{
+"fact": "install 在 chatId 为空时把会话标记为需要创建",
+"ref": "edge/boards/esp32/src/edge_chat.rs:610"
+},
+{
+"fact": "install 为空 chatId 生成新的 UUID",
+"ref": "edge/boards/esp32/src/edge_chat.rs:611"
+},
+{
+"fact": "新会话通过 ensureRoutedChat 在 Core 显式创建",
+"ref": "edge/boards/esp32/src/edge_chat.rs:655"
+},
+{
+"fact": "消息窗口超过 MAX_CHAT_MESSAGES 行时返回行数超限错误",
+"ref": "edge/boards/esp32/src/edge_chat.rs:708"
+},
+{
+"fact": "chatStateFlow 订阅提供远端聊天状态",
+"ref": "edge/boards/esp32/src/edge_chat.rs:747"
+},
+{
+"fact": "executionStatus 从 isLoading 读出是否正在生成",
+"ref": "edge/boards/esp32/src/edge_chat.rs:793"
+},
+{
+"fact": "executionStatus 从 inputProcessingState 的 Error message 读出执行错误",
+"ref": "edge/boards/esp32/src/edge_chat.rs:794"
+},
+{
+"fact": "远端模式下只保留执行摘要，模型执行留在 Core",
+"ref": "edge/boards/esp32/src/edge_chat.rs:790"
+},
+{
+"fact": "recordSubscriptionEnd 只在未取消时把订阅标记为已关闭",
+"ref": "edge/boards/esp32/src/edge_chat.rs:806"
+},
+{
+"fact": "needsReconnect 在会话要求重连或订阅已关闭时返回 true",
+"ref": "edge/boards/esp32/src/edge_chat.rs:809"
+},
+{
+"fact": "isConnected 在独立聊天激活时返回 true",
+"ref": "edge/boards/esp32/src/edge_chat.rs:817"
+},
+{
+"fact": "clear 丢弃本地聊天路由与显示状态，配对凭据由 Edge 配对方另外清除",
+"ref": "edge/boards/esp32/src/edge_chat.rs:830"
+},
+{
+"fact": "远端聊天的 snapshot 在独立聊天激活时直接返回独立聊天的快照",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1152"
+},
+{
+"fact": "远端快照的 hasOlder 由 older 游标是否存在决定",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1173"
+},
+{
+"fact": "selectChat 只改变本设备的视图，完整 Core 继续拥有聊天",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1272"
+},
+{
+"fact": "历史游标只保留 32 个",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1315"
+},
+{
+"fact": "创建新对话通过 createRoutedChat 在 Core 发起",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1356"
+},
+{
+"fact": "创建新对话的回复只有当前会话仍是活动会话时才安装",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1366"
+},
+{
+"fact": "远端模式的 send 在独立聊天激活时转交给独立聊天",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1600"
+},
+{
+"fact": "远端模式的 send 拒绝超过 16384 字节的消息",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1604"
+},
+{
+"fact": "以 promptFunctionType CHAT 调用远端",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1645"
+},
+{
+"fact": "persistTurn 固定为 true",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1650"
+},
+{
+"fact": "超过 2048 字节的消息用 sendUserMessageStream 分块上传",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1658"
+},
+{
+"fact": "2048 字节以内的消息用 sendUserMessage 一次调用发送",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1677"
+},
+{
+"fact": "仅在非 espidf 目标（编辑器模拟器）上提供时，sendImage 先调用 registerChatImage 向 Core 注册图片",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1574"
+},
+{
+"fact": "sendImage 仅在非 espidf 目标（编辑器模拟器）上提供，ESP32 固件无此函数；它只接受不超过 512 KiB 的 PNG 或 JPEG 图片",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1538"
+},
+{
+"fact": "仅在非 espidf 目标（编辑器模拟器）上提供时，独立聊天激活时 sendImage 返回本机直连聊天暂不支持图片的错误",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1536"
+},
+{
+"fact": "插件列表通过 chatAvailablePlugins 从 Core 读取",
+"ref": "edge/boards/esp32/src/edge_chat.rs:939"
+},
+{
+"fact": "pluginCallDeadline 给插件调用设置 8 秒期限",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1022"
+},
+{
+"fact": "插件测试调用 chatPluginStatus",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1043"
+},
+{
+"fact": "renderMessages 让快照与直播流共用一个总显示预算",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1480"
+},
+{
+"fact": "通过 routedChatListFlow 订阅对话列表",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1221"
+},
+{
+"fact": "installSession 先调用 clear 退役旧会话",
+"ref": "edge/boards/esp32/src/edge_chat.rs:619"
+},
+{
+"fact": "远端对话创建结果只有当前会话仍是活动会话时才生效",
+"ref": "edge/boards/esp32/src/edge_chat.rs:657"
+},
+{
+"fact": "openUiSubscription 用互斥锁串行化 watch 打开",
+"ref": "edge/boards/esp32/src/edge_chat.rs:58"
+},
+{
+"fact": "取消进行中的 watch 打开会污染共享通道，因此让它完成后再释放返回的流",
+"ref": "edge/boards/esp32/src/edge_chat.rs:34"
+},
+{
+"fact": "UiValue 以编码形式缓存列表，增量更新只解码被寻址的元素",
+"ref": "edge/boards/esp32/src/edge_chat.rs:97"
+},
+{
+"fact": "taskStatus 为 320x240 任务栏提供紧凑状态标签",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1385"
+},
+{
+"fact": "插件调用结果只有当前会话仍是活动会话时才写入状态",
+"ref": "edge/boards/esp32/src/edge_chat.rs:941"
+},
+{
+"fact": "插件详情回复只有当前会话仍是活动会话时才写入状态",
+"ref": "edge/boards/esp32/src/edge_chat.rs:988"
+},
+{
+"fact": "ChatSession 的 histories 是 UiValue 显示缓存",
+"ref": "edge/boards/esp32/src/edge_chat.rs:174"
+},
+{
+"fact": "messages 字段是 UiValue 显示缓存",
+"ref": "edge/boards/esp32/src/edge_chat.rs:184"
+},
+{
+"fact": "640 字节与 15 行的预算对应约三个 320x240 聊天视口",
+"ref": "edge/boards/esp32/src/edge_chat.rs:511"
+},
+{
+"fact": "projectMessages 只取最近 MAX_CHAT_MESSAGES 条消息",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1452"
+},
+{
+"fact": "消息投影保留 sender 与 streamId 字段",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1471"
+},
+{
+"fact": "消息投影的 text 字段经 boundedText 截断",
+"ref": "edge/boards/esp32/src/edge_chat.rs:1458"
+}
+]

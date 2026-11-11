@@ -1,0 +1,4 @@
+edge/sdk/scene/README.md
+edge/sdk/scene/src/lib.rs
+edge/sdk/scene/src/protocol.rs
+plugins/docs/edge-scene.md

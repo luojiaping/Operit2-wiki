@@ -1,0 +1,2 @@
+edge/boards/esp32/src/edge_chat.rs
+edge/boards/esp32/src/standalone_chat.rs

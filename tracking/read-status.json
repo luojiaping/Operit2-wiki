@@ -1,6 +1,6 @@
 {
  "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
- "updated": "2026-11-11 20:49 UTC",
+ "updated": "2026-11-11 22:11 UTC",
  "files": {
   "README.md": {
    "status": "complete",
@@ -3718,6 +3718,398 @@
    "date": "2026-11-11",
    "evidence": "review/batch-09/model-tts.md",
    "lines": 37
+  },
+  "edge/docs/acceptance.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-acceptance-v1.md",
+   "lines": 81
+  },
+  "edge/docs/v1-closeout.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-acceptance-v1.md",
+   "lines": 207
+  },
+  "edge/docs/architecture.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-architecture.md",
+   "lines": 128
+  },
+  "edge/docs/core-entry-protocol.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-core-entry-protocol.md",
+   "lines": 99
+  },
+  "edge/boards/esp32/src/edge_chat.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-chat.md",
+   "lines": 1972
+  },
+  "edge/boards/esp32/src/standalone_chat.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-chat.md",
+   "lines": 544
+  },
+  "edge/boards/esp32/editor/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-editor.md",
+   "lines": 240
+  },
+  "edge/boards/esp32/editor/FRONTEND.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-editor.md",
+   "lines": 77
+  },
+  "edge/boards/esp32/editor/AGENT_API.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-editor.md",
+   "lines": 82
+  },
+  "edge/boards/esp32/editor/package.json": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-editor.md",
+   "lines": 38
+  },
+  "edge/boards/esp32/editor/src/server.mts": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-editor.md",
+   "lines": 259
+  },
+  "edge/boards/esp32/editor/simulator/src/main.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-editor.md",
+   "lines": 848
+  },
+  "edge/boards/esp32/ui_port/operit_mini_ui.c": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-editor.md",
+   "lines": 1071
+  },
+  "edge/boards/esp32/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-firmware.md",
+   "lines": 685
+  },
+  "edge/boards/esp32/src/main.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-firmware.md",
+   "lines": 745
+  },
+  "edge/boards/esp32/src/runtime_host.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-firmware.md",
+   "lines": 208
+  },
+  "edge/boards/esp32/src/wifi.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-firmware.md",
+   "lines": 167
+  },
+  "edge/boards/esp32/src/device_services.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-firmware.md",
+   "lines": 74
+  },
+  "edge/boards/esp32/src/device_preferences.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-firmware.md",
+   "lines": 67
+  },
+  "edge/boards/esp32/src/device_http.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-firmware.md",
+   "lines": 200
+  },
+  "edge/boards/esp32/src/device_speech.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-firmware.md",
+   "lines": 656
+  },
+  "edge/boards/esp32/src/space_work.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-firmware.md",
+   "lines": 17
+  },
+  "edge/docs/esp32-memory-profile-2026-10-27.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-esp32-resources.md",
+   "lines": 107
+  },
+  "edge/boards/headless_sensor/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-headless-sensor.md",
+   "lines": 32
+  },
+  "edge/boards/headless_sensor/src/main.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-headless-sensor.md",
+   "lines": 160
+  },
+  "edge/docs/manufacturer-guide.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-manufacturer-guide.md",
+   "lines": 54
+  },
+  "edge/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-overview.md",
+   "lines": 57
+  },
+  "edge/boards/pb_sbc01_h3/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-pb-sbc01-h3.md",
+   "lines": 41
+  },
+  "edge/boards/pb_sbc01_h3/board/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-pb-sbc01-h3.md",
+   "lines": 10
+  },
+  "edge/boards/pb_sbc01_h3/src/main.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-pb-sbc01-h3.md",
+   "lines": 29
+  },
+  "edge/boards/pb_sbc01_h3/src/app.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-pb-sbc01-h3.md",
+   "lines": 78
+  },
+  "edge/boards/pb_sbc01_h3/src/config.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-pb-sbc01-h3.md",
+   "lines": 83
+  },
+  "edge/boards/pb_sbc01_h3/src/face_console.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-pb-sbc01-h3.md",
+   "lines": 123
+  },
+  "edge/boards/pb_sbc01_h3/board/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-pb-sbc01-h3.md",
+   "lines": 246
+  },
+  "edge/sdk/contract/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-contract.md",
+   "lines": 9
+  },
+  "edge/sdk/contract/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-contract.md",
+   "lines": 49
+  },
+  "edge/sdk/contract/src/chat_display.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-contract.md",
+   "lines": 36
+  },
+  "edge/sdk/contract/src/image_preview.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-contract.md",
+   "lines": 67
+  },
+  "edge/sdk/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-entry.md",
+   "lines": 56
+  },
+  "edge/sdk/Cargo.toml": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-entry.md",
+   "lines": 46
+  },
+  "edge/sdk/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-entry.md",
+   "lines": 43
+  },
+  "edge/sdk/src/agent.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-entry.md",
+   "lines": 172
+  },
+  "edge/sdk/src/http_agent.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-entry.md",
+   "lines": 199
+  },
+  "edge/sdk/src/space_device.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-entry.md",
+   "lines": 83
+  },
+  "edge/tools/check-sdk-dependencies.py": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-entry.md",
+   "lines": 26
+  },
+  "edge/sdk/node/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-node.md",
+   "lines": 30
+  },
+  "edge/sdk/node/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-node.md",
+   "lines": 1040
+  },
+  "edge/sdk/node/src/PeerRouter.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-node.md",
+   "lines": 214
+  },
+  "edge/sdk/node/src/peer.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-node.md",
+   "lines": 20
+  },
+  "edge/sdk/node/src/service.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-node.md",
+   "lines": 521
+  },
+  "edge/sdk/proxy/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-proxy.md",
+   "lines": 10
+  },
+  "edge/sdk/proxy/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-proxy.md",
+   "lines": 545
+  },
+  "edge/sdk/scene/README.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-scene.md",
+   "lines": 17
+  },
+  "edge/sdk/scene/src/lib.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-scene.md",
+   "lines": 663
+  },
+  "edge/sdk/scene/src/protocol.rs": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-scene.md",
+   "lines": 15
+  },
+  "plugins/docs/edge-scene.md": {
+   "status": "complete",
+   "batch": "batch-10",
+   "date": "2026-11-11",
+   "evidence": "review/batch-10/edge-sdk-scene.md",
+   "lines": 97
   }
  }
 }

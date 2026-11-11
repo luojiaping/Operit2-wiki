@@ -1,0 +1,2 @@
+edge/docs/acceptance.md
+edge/docs/v1-closeout.md

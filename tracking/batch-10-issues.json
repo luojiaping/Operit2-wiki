@@ -1,0 +1,18 @@
+{
+  "edge-overview": 84,
+  "edge-sdk-entry": 85,
+  "edge-sdk-contract": 86,
+  "edge-sdk-node": 87,
+  "edge-sdk-proxy": 88,
+  "edge-sdk-scene": 89,
+  "edge-manufacturer-guide": 90,
+  "edge-architecture": 91,
+  "edge-core-entry-protocol": 92,
+  "edge-esp32-firmware": 93,
+  "edge-esp32-chat": 94,
+  "edge-esp32-editor": 95,
+  "edge-esp32-resources": 96,
+  "edge-acceptance-v1": 97,
+  "edge-headless-sensor": 98,
+  "edge-pb-sbc01-h3": 99
+}

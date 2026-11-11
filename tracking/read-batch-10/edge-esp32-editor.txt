@@ -1,0 +1,7 @@
+edge/boards/esp32/editor/README.md
+edge/boards/esp32/editor/FRONTEND.md
+edge/boards/esp32/editor/AGENT_API.md
+edge/boards/esp32/editor/package.json
+edge/boards/esp32/editor/src/server.mts
+edge/boards/esp32/editor/simulator/src/main.rs
+edge/boards/esp32/ui_port/operit_mini_ui.c

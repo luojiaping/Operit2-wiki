@@ -1,0 +1,626 @@
+[
+  {
+    "fact": "原生 edge.scene 服务管有界索引资源、持久显示配置、条带绘制与本地触摸命中测试",
+    "ref": "edge/sdk/scene/README.md:3"
+  },
+  {
+    "fact": "edge.scene 服务没有 JS 运行时",
+    "ref": "edge/sdk/scene/README.md:4"
+  },
+  {
+    "fact": "设备应用构造 SceneService，挂接带原子写入的 RuntimeStorageHost，路由原生调用，本地处理返回的触摸目标",
+    "ref": "edge/sdk/scene/README.md:5"
+  },
+  {
+    "fact": "配置与引用的资源保存为一次原子设备快照",
+    "ref": "edge/sdk/scene/README.md:8"
+  },
+  {
+    "fact": "设备重启后恢复配置",
+    "ref": "edge/sdk/scene/README.md:9"
+  },
+  {
+    "fact": "禁用宿主编辑器对设备运行没有影响",
+    "ref": "edge/sdk/scene/README.md:9"
+  },
+  {
+    "fact": "系统退出停止当前场景，config.clear 同时清除保存的显示配置",
+    "ref": "edge/sdk/scene/README.md:10"
+  },
+  {
+    "fact": "线路与资产格式见 plugins/docs/edge-scene.md",
+    "ref": "edge/sdk/scene/README.md:13"
+  },
+  {
+    "fact": "单元测试命令为 cargo test --manifest-path edge/sdk/scene/Cargo.toml --lib",
+    "ref": "edge/sdk/scene/README.md:16"
+  },
+  {
+    "fact": "服务目标 SERVICE_TARGET 为 \"edge.scene\"",
+    "ref": "edge/sdk/scene/src/protocol.rs:2"
+  },
+  {
+    "fact": "协议版本 VERSION 为 1",
+    "ref": "edge/sdk/scene/src/protocol.rs:3"
+  },
+  {
+    "fact": "ACTIONS 包含 capabilities、config.read、config.apply、config.clear、state、pack.begin、pack.chunk、pack.commit、pack.abort、pack.remove 共 10 个动作",
+    "ref": "edge/sdk/scene/src/protocol.rs:4"
+  },
+  {
+    "fact": "MAX_REQUEST 为 1024 字节",
+    "ref": "edge/sdk/scene/src/protocol.rs:8"
+  },
+  {
+    "fact": "MAX_REPLY 为 4096 字节",
+    "ref": "edge/sdk/scene/src/protocol.rs:9"
+  },
+  {
+    "fact": "MAX_PACK 为 4096 字节",
+    "ref": "edge/sdk/scene/src/protocol.rs:10"
+  },
+  {
+    "fact": "MAX_CACHE 为 8192 字节",
+    "ref": "edge/sdk/scene/src/protocol.rs:11"
+  },
+  {
+    "fact": "MAX_PACKS 为 2",
+    "ref": "edge/sdk/scene/src/protocol.rs:12"
+  },
+  {
+    "fact": "MAX_ASSETS 为 4",
+    "ref": "edge/sdk/scene/src/protocol.rs:13"
+  },
+  {
+    "fact": "MAX_LAYERS 为 4",
+    "ref": "edge/sdk/scene/src/protocol.rs:14"
+  },
+  {
+    "fact": "MAX_CHUNK 为 256 字节",
+    "ref": "edge/sdk/scene/src/protocol.rs:15"
+  },
+  {
+    "fact": "Rect 含 x、y、w、h 四个 u16 字段",
+    "ref": "edge/sdk/scene/src/lib.rs:28"
+  },
+  {
+    "fact": "Layer 含 asset、x、y、scale 字段",
+    "ref": "edge/sdk/scene/src/lib.rs:36"
+  },
+  {
+    "fact": "图层含 anchor、frame、play、loop、target 字段",
+    "ref": "edge/sdk/scene/src/lib.rs:47"
+  },
+  {
+    "fact": "target 字段为 Option<String> 类型",
+    "ref": "edge/sdk/scene/src/lib.rs:51"
+  },
+  {
+    "fact": "SceneConfiguration 含 enabled、background、layers 三个字段",
+    "ref": "edge/sdk/scene/src/lib.rs:89"
+  },
+  {
+    "fact": "SceneConfiguration 默认关闭、背景 0、空图层",
+    "ref": "edge/sdk/scene/src/lib.rs:95"
+  },
+  {
+    "fact": "快照文件路径 CONFIG_PATH 为 runtime/device/display_scene.json",
+    "ref": "edge/sdk/scene/src/lib.rs:84"
+  },
+  {
+    "fact": "MAX_STORED_BYTES 等于 ((MAX_CACHE + 2) / 3) * 4 + MAX_REQUEST + 1024",
+    "ref": "edge/sdk/scene/src/lib.rs:85"
+  },
+  {
+    "fact": "StoredConfiguration 含 v、config、packs 三个字段",
+    "ref": "edge/sdk/scene/src/lib.rs:99"
+  },
+  {
+    "fact": "in_use 检查已应用配置的图层是否引用该包",
+    "ref": "edge/sdk/scene/src/lib.rs:121"
+  },
+  {
+    "fact": "validate 在图层数超过 MAX_LAYERS 时返回 SCENE_LIMIT",
+    "ref": "edge/sdk/scene/src/lib.rs:125"
+  },
+  {
+    "fact": "validate 要求 scale 在 1..=8、anchor 为 tl、center、bc 之一、frame 小于素材帧数、target 符合 id 规则",
+    "ref": "edge/sdk/scene/src/lib.rs:128"
+  },
+  {
+    "fact": "apply 把 active 置为 config.enabled，并同步 layers、background、config 与 started",
+    "ref": "edge/sdk/scene/src/lib.rs:135"
+  },
+  {
+    "fact": "taps 清零，revision 加一",
+    "ref": "edge/sdk/scene/src/lib.rs:141"
+  },
+  {
+    "fact": "SceneService 含 state、storage、clock、width、height、reserved_top、touch 七个字段",
+    "ref": "edge/sdk/scene/src/lib.rs:150"
+  },
+  {
+    "fact": "SceneService::new 要求 width 大于 0 且 height 大于 reserved_top",
+    "ref": "edge/sdk/scene/src/lib.rs:158"
+  },
+  {
+    "fact": "with_storage 在快照文件存在时读回并校验版本等于 VERSION 且包数不超过 MAX_PACKS",
+    "ref": "edge/sdk/scene/src/lib.rs:173"
+  },
+  {
+    "fact": "恢复时对每包做 STANDARD 解码，单包超过 MAX_PACK 或总量超过 MAX_CACHE 时拒绝，并用 parse_pack 解析",
+    "ref": "edge/sdk/scene/src/lib.rs:179"
+  },
+  {
+    "fact": "恢复后经 validate 校验配置并经 apply 应用",
+    "ref": "edge/sdk/scene/src/lib.rs:184"
+  },
+  {
+    "fact": "persist 只保存配置图层引用的包，未被引用的包不进快照",
+    "ref": "edge/sdk/scene/src/lib.rs:192"
+  },
+  {
+    "fact": "persist 经 writeBytesAtomically 写快照，失败返回 SCENE_STORAGE",
+    "ref": "edge/sdk/scene/src/lib.rs:198"
+  },
+  {
+    "fact": "persist 在未挂接存储时直接返回成功，不做持久化",
+    "ref": "edge/sdk/scene/src/lib.rs:191"
+  },
+  {
+    "fact": "render_state 返回 active 与 revision",
+    "ref": "edge/sdk/scene/src/lib.rs:203"
+  },
+  {
+    "fact": "summary 返回 active、revision、taps 的 JSON",
+    "ref": "edge/sdk/scene/src/lib.rs:207"
+  },
+  {
+    "fact": "visual_snapshot 返回本地编辑器镜像，含 active、revision、rect、background、elapsed、layers 与各包经 STANDARD 编码的数据",
+    "ref": "edge/sdk/scene/src/lib.rs:212"
+  },
+  {
+    "fact": "system_exit 把 active 置 false 并把 revision 加一",
+    "ref": "edge/sdk/scene/src/lib.rs:219"
+  },
+  {
+    "fact": "touch 在未启用触摸时返回 None",
+    "ref": "edge/sdk/scene/src/lib.rs:225"
+  },
+  {
+    "fact": "touch 只在场景激活且坐标落在 rect 内才做命中测试",
+    "ref": "edge/sdk/scene/src/lib.rs:229"
+  },
+  {
+    "fact": "命中测试按 layers 从前到后进行，alpha 为 0 的像素不响应",
+    "ref": "edge/sdk/scene/src/lib.rs:231"
+  },
+  {
+    "fact": "命中目标时 taps 加一",
+    "ref": "edge/sdk/scene/src/lib.rs:237"
+  },
+  {
+    "fact": "advance_target_frame 在未激活时直接返回",
+    "ref": "edge/sdk/scene/src/lib.rs:242"
+  },
+  {
+    "fact": "把指定 target 的图层帧加一对帧数取模，并把 play 置 false",
+    "ref": "edge/sdk/scene/src/lib.rs:246"
+  },
+  {
+    "fact": "paint_strip 接收 tick 参数并以 tick 减 started 计算 elapsed",
+    "ref": "edge/sdk/scene/src/lib.rs:251"
+  },
+  {
+    "fact": "paint_strip 在未激活或缓冲区长度不符时直接返回",
+    "ref": "edge/sdk/scene/src/lib.rs:253"
+  },
+  {
+    "fact": "按行绘制，像素从 background 起步再按图层顺序经 blend 叠加",
+    "ref": "edge/sdk/scene/src/lib.rs:260"
+  },
+  {
+    "fact": "像素以 to_le_bytes 小端写入缓冲区",
+    "ref": "edge/sdk/scene/src/lib.rs:269"
+  },
+  {
+    "fact": "tick 返回 now() 的毫秒值并截断为 u32",
+    "ref": "edge/sdk/scene/src/lib.rs:273"
+  },
+  {
+    "fact": "dispatch 校验请求为对象且序列化后不超过 MAX_REQUEST",
+    "ref": "edge/sdk/scene/src/lib.rs:275"
+  },
+  {
+    "fact": "dispatch 要求参数 v 等于 VERSION，否则返回 SCENE_VERSION",
+    "ref": "edge/sdk/scene/src/lib.rs:276"
+  },
+  {
+    "fact": "按动作限定允许字段，多余字段返回 invalid 错误",
+    "ref": "edge/sdk/scene/src/lib.rs:286"
+  },
+  {
+    "fact": "未知动作返回 invalid 错误",
+    "ref": "edge/sdk/scene/src/lib.rs:284"
+  },
+  {
+    "fact": "invalid() 返回的错误码为 SCENE_ARGS",
+    "ref": "edge/sdk/scene/src/lib.rs:18"
+  },
+  {
+    "fact": "capabilities 返回屏幕尺寸与格式 RGB565_LE、本地输入、保留区、持久化与动画能力、格式与容量上限",
+    "ref": "edge/sdk/scene/src/lib.rs:290"
+  },
+  {
+    "fact": "config.read 返回当前 SceneConfiguration",
+    "ref": "edge/sdk/scene/src/lib.rs:298"
+  },
+  {
+    "fact": "state 返回 active、taps、revision",
+    "ref": "edge/sdk/scene/src/lib.rs:299"
+  },
+  {
+    "fact": "config.apply 先 validate 再 persist，成功后才 apply 并返回 configured、persistent、revision",
+    "ref": "edge/sdk/scene/src/lib.rs:305"
+  },
+  {
+    "fact": "config.clear 用默认配置走同一保存路径",
+    "ref": "edge/sdk/scene/src/lib.rs:301"
+  },
+  {
+    "fact": "config.clear 分支取默认配置后走 validate、persist、apply",
+    "ref": "edge/sdk/scene/src/lib.rs:301"
+  },
+  {
+    "fact": "pack.begin 在已有未完成上传时返回 SCENE_BUSY",
+    "ref": "edge/sdk/scene/src/lib.rs:312"
+  },
+  {
+    "fact": "pack.begin 校验 packId 符合 id 规则",
+    "ref": "edge/sdk/scene/src/lib.rs:314"
+  },
+  {
+    "fact": "要求 sha256 为 64 位小写十六进制字符串",
+    "ref": "edge/sdk/scene/src/lib.rs:320"
+  },
+  {
+    "fact": "要求包大小在 5..=MAX_PACK 字节，否则返回 SCENE_LIMIT",
+    "ref": "edge/sdk/scene/src/lib.rs:325"
+  },
+  {
+    "fact": "拒绝已被应用配置引用的包，返回 SCENE_IN_USE",
+    "ref": "edge/sdk/scene/src/lib.rs:328"
+  },
+  {
+    "fact": "在缓存空间不足或包数已满时返回 SCENE_LIMIT",
+    "ref": "edge/sdk/scene/src/lib.rs:337"
+  },
+  {
+    "fact": "上传句柄由 Uuid::new_v4 生成",
+    "ref": "edge/sdk/scene/src/lib.rs:345"
+  },
+  {
+    "fact": "pack.begin 返回上传句柄 upload 与 chunkBytes MAX_CHUNK",
+    "ref": "edge/sdk/scene/src/lib.rs:353"
+  },
+  {
+    "fact": "pack.chunk、pack.commit、pack.abort 共用入口，先校验存在未完成上传且句柄匹配",
+    "ref": "edge/sdk/scene/src/lib.rs:359"
+  },
+  {
+    "fact": "pack.abort 放弃未完成上传并返回空对象",
+    "ref": "edge/sdk/scene/src/lib.rs:363"
+  },
+  {
+    "fact": "要求 data 经 STANDARD 解码后为 1..256 字节，文本超过 344 字符时拒绝",
+    "ref": "edge/sdk/scene/src/lib.rs:369"
+  },
+  {
+    "fact": "pack.chunk 要求 offset 等于已收字节数，否则返回 SCENE_OFFSET",
+    "ref": "edge/sdk/scene/src/lib.rs:387"
+  },
+  {
+    "fact": "对已收过的相同数据返回当前 offset，不重复写入",
+    "ref": "edge/sdk/scene/src/lib.rs:379"
+  },
+  {
+    "fact": "在已收长度不等于声明长度时返回 SCENE_OFFSET",
+    "ref": "edge/sdk/scene/src/lib.rs:393"
+  },
+  {
+    "fact": "比对 SHA-256，不符返回 SCENE_HASH",
+    "ref": "edge/sdk/scene/src/lib.rs:403"
+  },
+  {
+    "fact": "用 parse_pack 校验格式后把包发布进缓存",
+    "ref": "edge/sdk/scene/src/lib.rs:409"
+  },
+  {
+    "fact": "成功后把 revision 加一",
+    "ref": "edge/sdk/scene/src/lib.rs:419"
+  },
+  {
+    "fact": "pack.remove 拒绝删除正被保存配置引用的包，返回 SCENE_IN_USE",
+    "ref": "edge/sdk/scene/src/lib.rs:424"
+  },
+  {
+    "fact": "pack.remove 删除不存在的包时返回 SCENE_RESOURCE",
+    "ref": "edge/sdk/scene/src/lib.rs:427"
+  },
+  {
+    "fact": "call 把 CoreValue 转 Value、经 dispatch 处理后包成含 v、ok 与 result 或 error 的回复",
+    "ref": "edge/sdk/scene/src/lib.rs:436"
+  },
+  {
+    "fact": "在回复序列化后超过 MAX_REPLY 时返回错误",
+    "ref": "edge/sdk/scene/src/lib.rs:442"
+  },
+  {
+    "fact": "要求包以 ESP1 魔数开头",
+    "ref": "edge/sdk/scene/src/lib.rs:458"
+  },
+  {
+    "fact": "要求素材数在 1..=MAX_ASSETS",
+    "ref": "edge/sdk/scene/src/lib.rs:461"
+  },
+  {
+    "fact": "要求包内素材名符合 id 规则且不重名",
+    "ref": "edge/sdk/scene/src/lib.rs:470"
+  },
+  {
+    "fact": "要求素材以 ESI1 魔数开头且长度至少 10 字节",
+    "ref": "edge/sdk/scene/src/lib.rs:477"
+  },
+  {
+    "fact": "要求素材宽高在 1..96、帧数在 1..8、调色板数在 1..16、帧间隔 ms 在 50..2000",
+    "ref": "edge/sdk/scene/src/lib.rs:486"
+  },
+  {
+    "fact": "要求素材长度精确等于头加调色板加像素数，且每个像素索引小于调色板总数 p",
+    "ref": "edge/sdk/scene/src/lib.rs:496"
+  },
+  {
+    "fact": "在解析结束位置不等于包长时拒绝尾随垃圾",
+    "ref": "edge/sdk/scene/src/lib.rs:515"
+  },
+  {
+    "fact": "sample 按 anchor 计算图层左上角：center 减半宽高的一半，bc 减半宽、高全减，默认取 x、y",
+    "ref": "edge/sdk/scene/src/lib.rs:523"
+  },
+  {
+    "fact": "在播放时按 elapsed 除以 a.ms 推进帧，循环取模，不循环停在最后一帧",
+    "ref": "edge/sdk/scene/src/lib.rs:535"
+  },
+  {
+    "fact": "按最近邻取像素：坐标除以 scale 后查调色板",
+    "ref": "edge/sdk/scene/src/lib.rs:542"
+  },
+  {
+    "fact": "blend 用 mix 闭包按 (f*a + b*(255-a) + 127)/255 混合各通道",
+    "ref": "edge/sdk/scene/src/lib.rs:548"
+  },
+  {
+    "fact": "测试断言恢复后 touch(4,6) 返回 pet",
+    "ref": "edge/sdk/scene/src/lib.rs:626"
+  },
+  {
+    "fact": "测试断言 system_exit 后 active 为 false 且 revision 加一",
+    "ref": "edge/sdk/scene/src/lib.rs:629"
+  },
+  {
+    "fact": "测试断言保存失败时返回 SCENE_STORAGE 且存储内容与当前配置不变",
+    "ref": "edge/sdk/scene/src/lib.rs:641"
+  },
+  {
+    "fact": "测试断言错误的哈希返回 SCENE_HASH",
+    "ref": "edge/sdk/scene/src/lib.rs:654"
+  },
+  {
+    "fact": "SceneService 是设备原生显示服务，ToolPkg 查询能力、上传资源并保存配置，设备独立渲染和处理点击",
+    "ref": "plugins/docs/edge-scene.md:3"
+  },
+  {
+    "fact": "经 Tools.device(nodeId).Edge.execute 调用 edge.scene，参数带 v:1，失败时抛错",
+    "ref": "plugins/docs/edge-scene.md:10"
+  },
+  {
+    "fact": "capabilities 返回屏幕、区域、输入、格式、容量、缓存和持久化能力",
+    "ref": "plugins/docs/edge-scene.md:20"
+  },
+  {
+    "fact": "config.read 返回 enabled、background、layers",
+    "ref": "plugins/docs/edge-scene.md:21"
+  },
+  {
+    "fact": "config.apply 返回 configured、persistent、revision",
+    "ref": "plugins/docs/edge-scene.md:22"
+  },
+  {
+    "fact": "config.clear 保存默认关闭配置并恢复系统 UI",
+    "ref": "plugins/docs/edge-scene.md:23"
+  },
+  {
+    "fact": "state 返回本地 active、taps、revision 诊断状态",
+    "ref": "plugins/docs/edge-scene.md:24"
+  },
+  {
+    "fact": "pack.begin 返回 upload、chunkBytes",
+    "ref": "plugins/docs/edge-scene.md:25"
+  },
+  {
+    "fact": "pack.chunk 返回当前 offset，data 为标准 base64",
+    "ref": "plugins/docs/edge-scene.md:26"
+  },
+  {
+    "fact": "pack.commit 校验长度、SHA-256 和格式后发布缓存资源",
+    "ref": "plugins/docs/edge-scene.md:27"
+  },
+  {
+    "fact": "pack.abort 放弃未完成上传",
+    "ref": "plugins/docs/edge-scene.md:28"
+  },
+  {
+    "fact": "pack.remove 删除未被保存配置引用的资源",
+    "ref": "plugins/docs/edge-scene.md:29"
+  },
+  {
+    "fact": "显示配置和引用的原始资源作为单个快照原子保存",
+    "ref": "plugins/docs/edge-scene.md:31"
+  },
+  {
+    "fact": "保存失败不改变当前配置",
+    "ref": "plugins/docs/edge-scene.md:31"
+  },
+  {
+    "fact": "设备重启恢复配置及资源",
+    "ref": "plugins/docs/edge-scene.md:31"
+  },
+  {
+    "fact": "动画帧和点击计数属于本次设备运行",
+    "ref": "plugins/docs/edge-scene.md:31"
+  },
+  {
+    "fact": "配置包在保存完成后可以关闭或卸载",
+    "ref": "plugins/docs/edge-scene.md:31"
+  },
+  {
+    "fact": "系统退出只停止当前显示，保存配置仍保留",
+    "ref": "plugins/docs/edge-scene.md:31"
+  },
+  {
+    "fact": "config.clear 清除保存配置",
+    "ref": "plugins/docs/edge-scene.md:31"
+  },
+  {
+    "fact": "设备的可用持久化空间不足时保存失败返回 SCENE_STORAGE",
+    "ref": "plugins/docs/edge-scene.md:33"
+  },
+  {
+    "fact": "rect 使用屏幕绝对逻辑坐标，原点左上，x 向右、y 向下，宽高为像素数",
+    "ref": "plugins/docs/edge-scene.md:37"
+  },
+  {
+    "fact": "rect 必须完整位于屏幕内，y>=24 且宽高非零",
+    "ref": "plugins/docs/edge-scene.md:38"
+  },
+  {
+    "fact": "每层 x、y 是区域局部坐标、有符号 16 位整数，可部分位于区域外，显示时裁剪",
+    "ref": "plugins/docs/edge-scene.md:39"
+  },
+  {
+    "fact": "anchor 默认 tl，center 为中心锚点，bc 为底边中心锚点",
+    "ref": "plugins/docs/edge-scene.md:40"
+  },
+  {
+    "fact": "anchor 换算：tl 左上为 (x,y)，center 左上为 (x-floor(W/2),y-floor(H/2))，bc 左上为 (x-floor(W/2),y-H)",
+    "ref": "plugins/docs/edge-scene.md:42"
+  },
+  {
+    "fact": "scale 默认 1，最近邻整数缩放，asset 为 packId:assetId",
+    "ref": "plugins/docs/edge-scene.md:45"
+  },
+  {
+    "fact": "background 是 0–65535 的 RGB565 整数，默认黑色，填满租赁区域",
+    "ref": "plugins/docs/edge-scene.md:46"
+  },
+  {
+    "fact": "图片背景放在 layers 首层，后续宠物、道具按数组顺序从后到前叠加",
+    "ref": "plugins/docs/edge-scene.md:47"
+  },
+  {
+    "fact": "alpha 为 straight alpha，0 完全透明、255 不透明",
+    "ref": "plugins/docs/edge-scene.md:48"
+  },
+  {
+    "fact": "各 RGB565 通道按 floor((foreground*alpha + background*(255-alpha) + 127)/255) 混合",
+    "ref": "plugins/docs/edge-scene.md:49"
+  },
+  {
+    "fact": "frame 默认 0 且须为素材内有效帧，play 默认 false，loop 默认 true",
+    "ref": "plugins/docs/edge-scene.md:50"
+  },
+  {
+    "fact": "播放从 frame 开始，按素材 frameMs 推进，循环时取模，不循环时停在最后一帧",
+    "ref": "plugins/docs/edge-scene.md:51"
+  },
+  {
+    "fact": "每次 config.apply 从保存配置重新开始当前动画",
+    "ref": "plugins/docs/edge-scene.md:52"
+  },
+  {
+    "fact": "绘制条带在整帧开始冻结时间戳，避免同一帧不同条带使用不同动画帧",
+    "ref": "plugins/docs/edge-scene.md:53"
+  },
+  {
+    "fact": "本地动画不依赖 Core 每帧 RPC",
+    "ref": "plugins/docs/edge-scene.md:54"
+  },
+  {
+    "fact": "图层变更仍可能在正在绘制的帧结束前生效",
+    "ref": "plugins/docs/edge-scene.md:54"
+  },
+  {
+    "fact": "包里没有 ZIP、外部图片解码器、路径、脚本、下载 URL 或可执行代码",
+    "ref": "plugins/docs/edge-scene.md:58"
+  },
+  {
+    "fact": "包里只存索引色素材，多字节整数均小端，禁止尾随垃圾／截断",
+    "ref": "plugins/docs/edge-scene.md:59"
+  },
+  {
+    "fact": "ESP1 包以魔数 ESP1 开头，assetCount 为 1..4",
+    "ref": "plugins/docs/edge-scene.md:64"
+  },
+  {
+    "fact": "ESP1 包每素材含 idLength 1..24、ASCII assetId、u16 LE assetLength 与精确长度的 ESI1 素材",
+    "ref": "plugins/docs/edge-scene.md:67"
+  },
+  {
+    "fact": "ESP1 包内 assetId 不能重名",
+    "ref": "plugins/docs/edge-scene.md:68"
+  },
+  {
+    "fact": "ESI1 素材以魔数 ESI1 开头，宽高 1..96、帧数 1..8、调色板数 1..16、frameMs 50..2000",
+    "ref": "plugins/docs/edge-scene.md:76"
+  },
+  {
+    "fact": "ESI1 调色板每项为 u16 LE RGB565 颜色加 u8 straight alpha，像素为 frameCount*width*height 个 u8 调色板索引",
+    "ref": "plugins/docs/edge-scene.md:81"
+  },
+  {
+    "fact": "每帧按行存放，先上后下、先左后右，每个索引必须小于 paletteCount",
+    "ref": "plugins/docs/edge-scene.md:88"
+  },
+  {
+    "fact": "所有帧共用同一调色板、尺寸和帧间隔",
+    "ref": "plugins/docs/edge-scene.md:89"
+  },
+  {
+    "fact": "SHA-256 覆盖整个 ESP1 包，包括头与 ID",
+    "ref": "plugins/docs/edge-scene.md:89"
+  },
+  {
+    "fact": "有 target 的图层按从前到后进行命中测试，透明像素不响应",
+    "ref": "plugins/docs/edge-scene.md:93"
+  },
+  {
+    "fact": "SceneService.touch 返回本地 target，系统退出拥有本地优先级",
+    "ref": "plugins/docs/edge-scene.md:93"
+  },
+  {
+    "fact": "设备应用使用 SceneService::new(width, height, reserved_top, touch).with_storage(storage)，把原生 edge.scene Call 接到 SceneService.call，把显示条带接到 paint_strip",
+    "ref": "plugins/docs/edge-scene.md:95"
+  },
+  {
+    "fact": "当前 ESP32 和模拟器使用 320×240 屏幕与 24 像素系统栏",
+    "ref": "plugins/docs/edge-scene.md:95"
+  },
+  {
+    "fact": "其他设备可以采用自己的显示协议",
+    "ref": "plugins/docs/edge-scene.md:95"
+  },
+  {
+    "fact": "com.operit.edge_pixel_pet 提供 inspect、apply_configuration、clear_configuration，用于配置这个原生服务",
+    "ref": "plugins/docs/edge-scene.md:97"
+  }
+]

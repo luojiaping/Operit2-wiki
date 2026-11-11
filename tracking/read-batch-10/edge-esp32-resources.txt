@@ -1,0 +1,1 @@
+edge/docs/esp32-memory-profile-2026-10-27.md

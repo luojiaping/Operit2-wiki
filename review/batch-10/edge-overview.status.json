@@ -1,0 +1,1 @@
+{"issue":84,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Edge 总览：edge/ 收纳厂商 SDK、接入文档与完整产品三类东西，产品形态由厂商决定，统一验收入口为 npm run test:device-budget。","updated":"2026-11-11"}

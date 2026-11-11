@@ -1,0 +1,9 @@
+edge/boards/esp32/README.md
+edge/boards/esp32/src/main.rs
+edge/boards/esp32/src/runtime_host.rs
+edge/boards/esp32/src/wifi.rs
+edge/boards/esp32/src/device_services.rs
+edge/boards/esp32/src/device_preferences.rs
+edge/boards/esp32/src/device_http.rs
+edge/boards/esp32/src/device_speech.rs
+edge/boards/esp32/src/space_work.rs
