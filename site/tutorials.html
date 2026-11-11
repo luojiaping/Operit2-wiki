@@ -26,7 +26,7 @@
   <div class="hero">
     <h1>教程分享</h1>
     <div class="rule"><span>教程</span></div>
-    <p>社群用户自己写的 Operit 教程：排障手记、玩法分享、配置心得。这里只收录经过筛选的投稿，与 wiki 条目评审相互独立。</p>
+    <p>社群用户自己写的 Operit2 教程：排障手记、玩法分享、配置心得。这里只收录经过筛选的投稿，与 wiki 条目评审相互独立。</p>
     <p><a class="btn" href="https://github.com/luojiaping/Operit2-wiki/issues/new?template=tutorial.yml" target="_blank">✍️ 投稿一篇教程</a></p>
   </div>
 
@@ -50,7 +50,7 @@ async function load() {
       <div class="d">${t.summary || ""}</div>
       <div class="meta"><span>✍️ ${t.author || "佚名"}</span><span>📅 ${t.date || ""}</span></div>
     </a>`).join("") ||
-    `<div class="empty">还没有收录教程。<br>写过 Operit 的排障、玩法、配置心得？<a href="https://github.com/luojiaping/Operit2-wiki/issues/new?template=tutorial.yml" target="_blank">来投一篇</a>吧。</div>`;
+    `<div class="empty">还没有收录教程。<br>写过 Operit2 的排障、玩法、配置心得？<a href="https://github.com/luojiaping/Operit2-wiki/issues/new?template=tutorial.yml" target="_blank">来投一篇</a>吧。</div>`;
   document.getElementById("updated").textContent = data.updated ? ("数据更新：" + data.updated) : "";
 }
 load();
