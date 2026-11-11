@@ -2,8 +2,10 @@
   "issue": 12,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "Core 总览与 crate 边界：11 个领域分组、29 个真 crate、依赖方向、父级行为 trait 机制与 peer-protocol.json",
   "updated": "2026-11-11",
-  "approved_by_comment_id": 6791243343
+  "approved_by_comment_id": 6791243343,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 09:21 UTC"
 }

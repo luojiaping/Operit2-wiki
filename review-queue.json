@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11 08:36 UTC",
+  "updated": "2026-11-11 09:11 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -211,7 +211,7 @@
       "facts": "review/batch-02/core-foundation-util.facts.json",
       "lint": "review/batch-02/core-foundation-util.lint.md",
       "seed_files": [],
-      "facts_count": 151,
+      "facts_count": 153,
       "refs_valid": "",
       "critic": "",
       "summary": "基础层通用工具库 operit-util：日志器、文件分类与流框架，48 个公开模块清点与 3 个 full feature 门。",
@@ -247,7 +247,7 @@
       "facts": "review/batch-02/core-overview.facts.json",
       "lint": "review/batch-02/core-overview.lint.md",
       "seed_files": [],
-      "facts_count": 102,
+      "facts_count": 101,
       "refs_valid": "",
       "critic": "",
       "summary": "Core 总览与 crate 边界：11 个领域分组、29 个真 crate、依赖方向、父级行为 trait 机制与 peer-protocol.json",
@@ -301,7 +301,7 @@
       "facts": "review/batch-02/core-persistence-sync.facts.json",
       "lint": "review/batch-02/core-persistence-sync.lint.md",
       "seed_files": [],
-      "facts_count": 163,
+      "facts_count": 167,
       "refs_valid": "",
       "critic": "",
       "summary": "持久化同步存储：操作日志、时钟、实体版本、blob、工作区清单、文件策略与偏好合并声明的存法。",
@@ -373,7 +373,7 @@
       "facts": "review/batch-02/core-tool-packages-mcp.facts.json",
       "lint": "review/batch-02/core-tool-packages-mcp.lint.md",
       "seed_files": [],
-      "facts_count": 122,
+      "facts_count": 126,
       "refs_valid": "",
       "critic": "",
       "summary": "工具系统——包、技能与 MCP：包工具执行、技能加载管理、MCP 接入调用与 JS 运行时",

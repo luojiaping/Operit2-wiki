@@ -36,7 +36,7 @@ date: 2026-11-11
 - `verifySyncOperation` 用操作摘要比对同一 `opId` 的已有操作与传入操作，不一致即报错（`core/crates/persistence/store/src/SyncOperationStore.rs:262`）。
 - 当前操作日志存在 `{root}/transactions.sqlite` 中，`Journal::open` 打开该库并建立 `originals` 等表（`core/crates/persistence/store/src/transaction/Journal.rs:20`）。
 - `withJournal` 是当前 Journal 的打开入口，首次打开时经 `importLegacyJournal` 把已退休文件式 ledger 做一次原子导入（`core/crates/persistence/store/src/SyncOperationStore.rs:1705`）。
-- `importLegacyJournal` 是唯一读取已退休文件式 ledger 的入口，只做一次原子导入（`core/crates/persistence/store/src/SyncOperationStore.rs:1743`）。
+- `importLegacyJournal` 是当前 Journal 的一次性迁移入口，只做一次原子导入（`core/crates/persistence/store/src/SyncOperationStore.rs:1743`）。
 - 已退休的文件式 ledger 按来源设备存在 `{root}/operations/{safeId}.jsonl`（`core/crates/persistence/store/src/SyncOperationStore.rs:1439`）。
 - 遗留 JSONL 路径用的 `storageSafeId` 把设备标识中非字母数字且非连字符、下划线的字符替换为下划线（`core/crates/persistence/store/src/SyncOperationStore.rs:1581`）。
 - `appendLocalOperation` 经 `withJournal` 把新操作写入当前 Journal（`core/crates/persistence/store/src/SyncOperationStore.rs:1816`）。

@@ -2,8 +2,10 @@
   "issue": 16,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "持久化同步存储：操作日志、时钟、实体版本、blob、工作区清单、文件策略与偏好合并声明的存法。",
   "updated": "2026-11-11",
-  "approved_by_comment_id": 6791245098
+  "approved_by_comment_id": 6791245098,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 09:21 UTC"
 }
