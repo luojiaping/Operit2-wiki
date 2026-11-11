@@ -1,0 +1,1 @@
+{"issue":71,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"工作区文件同步与 .operit/sync.json：三类受管目录、默认同步策略、跳过规则与产出目录绑定继承","updated":"2026-11-11"}

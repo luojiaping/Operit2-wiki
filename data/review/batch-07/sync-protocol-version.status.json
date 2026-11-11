@@ -1,0 +1,1 @@
+{"issue":75,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Core 与 Edge 共用整数协议版本，构建指纹由 peer-protocol.json 记录，版本不匹配返回 PEER_PROTOCOL_MISMATCH。","updated":"2026-11-11"}

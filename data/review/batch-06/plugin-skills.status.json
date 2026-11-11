@@ -1,1 +1,9 @@
-{"issue":63,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Skills 机制：SKILL.md 目录包、device/space 双位置扫描、随包/zip/GitHub/直接输入四种导入、激活时 SKILL.md 全文拼进系统提示，PackageBuilder 为随包 Skill。","updated":"2026-11-11"}
+{
+  "issue": 63,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "Skills 机制：SKILL.md 目录包、device/space 双位置扫描、随包/zip/GitHub/直接输入四种导入、激活时 SKILL.md 全文拼进系统提示，PackageBuilder 为随包 Skill。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6802931620
+}
