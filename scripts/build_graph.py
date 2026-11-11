@@ -194,6 +194,40 @@ def stage_kb(outline: dict) -> tuple[dict[str, dict], int, int]:
     return pages, len(pages), n_entities
 
 
+def force_paper_theme(html_path: Path) -> None:
+    """强制纸墨浅色主题（2026-11-12）：图谱页默认山水主题本就是浅色，但页面
+    右上角有个「墨夜」切换按钮，一点就变成深色星空且 localStorage 会记住，
+    用户觉得丑。整站是纸墨设计，图谱只留浅色：无视已存的 mo-ye 值，并隐藏
+    切换按钮。vendor 脚本不动，只改生成产物；找不到待替换的原文时直接报错，
+    不静默出一个未修的版本。"""
+    text = html_path.read_text(encoding="utf-8")
+    old_fn = (
+        '      function readStoredTheme() {\n'
+        '        try {\n'
+        '          var value = window.localStorage && window.localStorage.getItem(themeKey);\n'
+        '          return value === "mo-ye" ? "mo-ye" : "shan-shui";\n'
+        '        } catch (_) {\n'
+        '          storageAvailable = false;\n'
+        '          return "shan-shui";\n'
+        '        }\n'
+        '      }'
+    )
+    new_fn = (
+        '      function readStoredTheme() {\n'
+        '        // 本站强制纸墨浅色主题：忽略已存的 mo-ye 值。\n'
+        '        return "shan-shui";\n'
+        '      }'
+    )
+    if old_fn not in text:
+        raise RuntimeError("强制纸墨主题失败：生成产物里找不到 readStoredTheme 原文")
+    text = text.replace(old_fn, new_fn, 1)
+    hide = "<style>.offline-theme-toggle{display:none!important}</style>"
+    if "</head>" not in text:
+        raise RuntimeError("强制纸墨主题失败：生成产物里找不到 </head>")
+    text = text.replace("</head>", hide + "</head>", 1)
+    html_path.write_text(text, encoding="utf-8")
+
+
 def run_graph_pipeline() -> Path:
     engine = VENDOR / "packages" / "graph-engine" / "dist" / "engine.iife.js"
     if not engine.exists():
@@ -225,6 +259,7 @@ def main() -> int:
 
     try:
         html = run_graph_pipeline()
+        force_paper_theme(html)
     except RuntimeError as e:
         print(f"WARN: {e}\n跳过图谱构建（保留旧版）。", file=sys.stderr)
         return 2
