@@ -1,1 +1,11 @@
-{"issue":39,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"记忆：按 owner 划分的同步记忆空间，候选入队后由 60 秒间隔任务批量提取并落库","updated":"2026-11-11"}
+{
+  "issue": 39,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "approved",
+  "summary": "记忆：按 owner 划分的同步记忆空间，候选入队后由 60 秒间隔任务批量提取并落库",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6796549178,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 13:21 UTC"
+}

@@ -74,3 +74,10 @@
 - 质量走查（.quality.json）：7 页有记录，共 15 条——agent-loop-overview（runtimeToolHandler 与 createAndGetDefaultWorkspace 未初始化 expect panic、switch_core 成功结果先于实际移动、translate_text 空壳）、agent-chat-branch（导入 skipped 计数恒为 0、缺基础 parts 时整批加载失败）、agent-hooks（两座桥取互斥锁用 expect，锁中毒分别导致状态通知 panic、摘要流程中断）、agent-subagents（enabled_by_default 两处声明值相反、spawn 保存失败留无记录子会话、一条坏记录致全部操作永久失败）、agent-memory（待处理候选少于 5 条时自动提取饥饿）、agent-slash（updatedAt 解析 expect panic、print_shell_usage 漏列 /current）、agent-compaction（检查点提示词取用函数全仓无调用方）。agent-character-cards 无 quality 记录（读到的严格行为均为有意设计约束）。
 - 阅读登记：56 个源文件 complete（本批，35 个 seed + 补充阅读），见 tracking/read-status.json。
 - 评审 Issue：#35–#42，状态均为 review-pending。首页统计随部署更新为 42 页知识页面、21 页已发布、5204 条原子事实、5 个编译批次。
+
+## 2026-11-11 · batch-03/04 首轮评审后部分发布（10 页已批准）
+
+- 用户于 2026-11-11 21:02–21:11（CST）在 Issue #22–#42 各留一条静态审查意见（审查对象 wiki cd042091/66baaf0，对照上游最新 main 053c6686；审查意见原文存 tracking/reviews-batch-03/issue-22.md～issue-34.md、tracking/reviews-batch-04/issue-35.md～issue-42.md），评审把「原有事实偏差」与「上游后续变化」分开说明。
+- 结论：batch-03 需修改 8 页（#22、#24、#26、#27、#28、#30、#31、#32），本轮未发现阻断问题 5 页（#23、#25、#29、#33、#34）；batch-04 需修改 3 页（#36、#40、#41），本轮未发现阻断问题 5 页（#35、#37、#38、#39、#42）。
+- 用户主聊 2026-11-11 21:21 指示「10 页没阻断问题的先发布，11 页改完再审」，10 页状态同日翻为 approved（approved_by=luojiaping，approved_at 2026-11-11 13:21 UTC，水位线保留）：batch-03 的 core-plugin-js-bridge、core-plugin-codegen、core-node-runtime、core-application、core-command；batch-04 的 agent-loop-overview、agent-compaction、agent-subagents、agent-memory、agent-slash。11 页修订中，基线是否前移至 053c6686 待定。
+- 首页统计随部署更新为 42 页知识页面、31 页已发布、5204 条原子事实、5 个编译批次。
