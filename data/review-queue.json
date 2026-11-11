@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-11 00:46 UTC",
+  "updated": "2026-11-11 06:00 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
       "batch": "batch-00",
       "title": "Operit2-wiki 大纲 v1",
       "module": "meta",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 1,
       "issue_title": "[评审] Operit2-wiki 大纲 v1",
       "md": "review/batch-00/outline.md",
@@ -15,8 +15,8 @@
       "seed_files": [],
       "facts_count": 0,
       "refs_valid": "115/115 页 seed 已核实存在（清点时逐个 ls）",
-      "critic": "待用户评审（Issue #1）",
-      "summary": "大纲 v1：11 章 115 页，基线 AAswordman/Operit2 @ 364d1d594（2026-11-11）。六路只读清点，seed 逐个核实存在，est_lines 合计约 580,324 行（含跨页重复引用）。",
+      "critic": "用户已批准（主聊 2026-11-11 13:59）",
+      "summary": "大纲 v1 已批准：11 章 115 页，基线 AAswordman/Operit2 @ 364d1d594（2026-11-11）。六路只读清点，seed 逐个核实存在，est_lines 合计约 580,324 行（含跨页重复引用）。",
       "updated": "2026-11-11"
     }
   ]
