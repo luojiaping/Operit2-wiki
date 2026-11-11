@@ -1,0 +1,1 @@
+{"critic":"待用户评审（Issue #1）","issue":1,"refs_valid":"115/115 页 seed 已核实存在（清点时逐个 ls）","source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"大纲 v1：11 章 115 页，基线 AAswordman/Operit2 @ 364d1d594（2026-11-11）。六路只读清点，seed 逐个核实存在，est_lines 合计约 580,324 行（含跨页重复引用）。","updated":"2026-11-11"}

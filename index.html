@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operit2-wiki</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css?v=dfb91df">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home">
+<div class="grain" aria-hidden="true"></div>
+<div class="ambient" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+
+<div class="topbar">
+  <div class="inner">
+    <div class="brand"><img class="logo-mark" src="logo.svg" alt="Operit"><span>Operit2-wiki</span></div>
+    <nav>
+      <a href="index.html" class="active">首页</a>
+      <a href="wiki.html">Wiki</a>
+      <a href="graph.html">知识图谱</a>
+      <a href="quality.html">代码走查</a>
+      <a href="tutorials.html">教程分享</a>
+      <a href="https://github.com/luojiaping/Operit2-wiki" target="_blank">GitHub ↗</a>
+    </nav>
+  </div>
+</div>
+
+<section class="hero2" id="top">
+  <canvas id="langLayer" aria-hidden="true"></canvas>
+  <div class="kicker mono rv in">§.01 — AI-NATIVE KNOWLEDGE BASE · 知识编译库</div>
+  <h1 class="vh">Operit2 wiki —— AI 原生知识库</h1>
+  <canvas id="dotTitle" aria-hidden="true"></canvas>
+  <p class="hero-sub rv">把 Operit2 全仓库编译成 AI 可读的知识库。<br>人类读得懂，AI 检得准。</p>
+  <div class="hero-ctas rv">
+    <a class="btn-primary" href="wiki.html">开始探索 <span>→</span></a>
+    <a class="btn-ghost" href="#prompt">接入 AI</a>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><span></span></div>
+</section>
+
+<section class="prompt-sec" id="prompt">
+  <div class="wrap">
+    <div class="sec-label mono rv">§.02 — SYSTEM PROMPT · 接入协议</div>
+    <h2 class="sec-giant rv">一贴即接入<span class="accent">.</span></h2>
+    <div class="prompt-block glass rv">
+      <div class="prompt-head">
+        <span class="prompt-filename"><span class="tag">SYSTEM PROMPT</span>operit2-wiki.md</span>
+        <button class="copy-btn" id="copyPrompt" type="button">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copyLabel">复制提示词</span>
+        </button>
+      </div>
+      <pre class="prompt-body" id="promptText">你是 Operit2（跨平台 Agent Core）问题的回答者。先把知识库拉到本地：git clone https://github.com/luojiaping/Operit2-wiki.git，然后按以下协议使用，禁止凭记忆回答。
+① 读 review-queue.json 按 id / 标题 / 模块定位候选条目；② 在 review/ 下 grep 关键词（文件名 &gt; 标题 &gt; 正文）；③ 限量精读 3–5 页：先读「AI 速览」，再读命中段落前后 5 行；④ 代码结论读同名 .facts.json，引用其「文件:行号」。
+禁止向量切块 / embedding 检索；wiki 没写就说没写；教程区是用户经验，引用时必须注明；每个结论标注「页面标题 + 文件:行号」，落笔前 grep 复核行号；输出区分 EXTRACTED（精确引用）/ INFERRED（写明依据）。
+完整协议见仓库内 wiki/AI_USAGE.md。</pre>
+      <div class="prompt-foot">
+<div class="agent-logos" aria-label="可直接粘贴使用的 AI">
+          <span class="agent" title="ChatGPT">
+            <svg viewBox="0 0 24 24" role="img" aria-label="ChatGPT"><rect width="24" height="24" rx="6" fill="#111111"/><g transform="translate(4.56,4.56) scale(0.62)"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z" fill="#fff"/></g></svg>
+          </span>
+          <span class="agent" title="Claude">
+            <svg viewBox="0 0 24 24" role="img" aria-label="Claude"><rect width="24" height="24" rx="6" fill="#d97757"/><g transform="translate(4.56,4.56) scale(0.62)"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z" fill="#fff"/></g></svg>
+          </span>
+          <span class="agent" title="Gemini">
+            <svg viewBox="0 0 24 24" role="img" aria-label="Gemini"><defs><linearGradient id="ag-g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4b90ff"/><stop offset=".55" stop-color="#9177c7"/><stop offset="1" stop-color="#d86a92"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#ag-g2)"/><g transform="translate(4.56,4.56) scale(0.62)"><path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" fill="#fff"/></g></svg>
+          </span>
+          <span class="agent" title="Grok">
+            <svg viewBox="0 0 24 24" role="img" aria-label="Grok"><rect width="24" height="24" rx="6" fill="#000000"/><g transform="translate(4.56,4.56) scale(0.62)"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z" fill="#fff"/></g></svg>
+          </span>
+          <span class="agent" title="Cursor">
+            <svg viewBox="0 0 24 24" role="img" aria-label="Cursor"><rect width="24" height="24" rx="6" fill="#000000"/><g transform="translate(4.56,4.56) scale(0.62)"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23" fill="#fff"/></g></svg>
+          </span>
+          <span class="agent" title="DeepSeek">
+            <svg viewBox="0 0 24 24" role="img" aria-label="DeepSeek"><rect width="24" height="24" rx="6" fill="#4d6bfe"/><g transform="translate(4.56,4.56) scale(0.62)"><path d="M23.748 4.651c-.254-.124-.364.113-.512.233-.051.04-.094.09-.137.137-.372.397-.806.657-1.373.626-.829-.046-1.537.214-2.163.848-.133-.782-.575-1.248-1.247-1.548-.352-.155-.708-.311-.955-.65-.172-.24-.219-.509-.305-.774-.055-.16-.11-.323-.293-.35-.2-.031-.278.136-.356.276-.313.572-.434 1.202-.422 1.84.027 1.436.633 2.58 1.838 3.393.137.094.172.187.129.323-.082.28-.18.553-.266.833-.055.179-.137.218-.328.14a5.5 5.5 0 0 1-1.737-1.179c-.857-.828-1.631-1.743-2.597-2.46a12 12 0 0 0-.689-.47c-.985-.957.13-1.743.387-1.836.27-.098.094-.433-.778-.428-.872.003-1.67.295-2.687.685a3 3 0 0 1-.465.136 9.6 9.6 0 0 0-2.883-.101c-1.885.21-3.39 1.1-4.497 2.622C.082 8.776-.231 10.854.152 13.02c.403 2.284 1.568 4.175 3.36 5.653 1.857 1.533 3.997 2.284 6.438 2.14 1.482-.085 3.132-.284 4.994-1.86.47.234.962.328 1.78.398.629.058 1.235-.031 1.705-.129.735-.155.684-.836.418-.961-2.155-1.004-1.682-.595-2.112-.926 1.095-1.295 2.768-3.598 3.284-6.733.05-.346.115-.834.108-1.114-.004-.171.035-.238.23-.257a4.2 4.2 0 0 0 1.545-.475c1.397-.763 1.96-2.016 2.093-3.517.02-.23-.004-.467-.247-.588M11.58 18.168c-2.088-1.642-3.101-2.183-3.52-2.16-.39.024-.32.472-.234.763.09.288.207.487.371.74.114.167.192.416-.113.603-.673.416-1.842-.14-1.897-.168-1.361-.801-2.5-1.86-3.301-3.306-.775-1.393-1.225-2.888-1.299-4.482-.02-.385.094-.522.477-.592a4.7 4.7 0 0 1 1.53-.038c2.131.311 3.946 1.264 5.467 2.774.868.86 1.525 1.887 2.202 2.89.72 1.066 1.494 2.082 2.48 2.915.348.291.626.513.892.677-.802.09-2.14.109-3.055-.615zm1.001-6.44a.306.306 0 0 1 .415-.287.3.3 0 0 1 .113.074.3.3 0 0 1 .086.214c0 .17-.136.307-.308.307a.303.303 0 0 1-.306-.307m3.11 1.596c-.2.081-.4.151-.591.16a1.25 1.25 0 0 1-.798-.254c-.274-.23-.47-.358-.551-.758a1.7 1.7 0 0 1 .015-.588c.07-.327-.007-.537-.238-.727-.188-.156-.426-.199-.689-.199a.6.6 0 0 1-.254-.078.253.253 0 0 1-.114-.358 1 1 0 0 1 .192-.21c.356-.202.767-.136 1.146.016.352.144.618.408 1.001.782.392.451.462.576.685.915.176.264.336.536.446.848.066.194-.02.353-.25.45" fill="#fff"/></g></svg>
+          </span>
+        </div>
+        <span class="prompt-hint">复制后粘贴给 <b>任意 AI</b> 即可接入 Operit2-wiki</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="milestones" id="milestones">
+  <div class="wrap">
+    <div class="ms-top">
+      <div>
+        <div class="sec-label mono rv">§.03 — MILESTONES · 里程碑</div>
+        <h2 class="sec-giant rv">编译之路<span class="accent">.</span></h2>
+        <p class="sec-sub rv">从大纲到全仓库覆盖 · 源码版本钉住、可复核</p>
+      </div>
+      <div class="tl-nav rv">
+        <button id="tlPrev" type="button" aria-label="向左滚动">‹</button>
+        <button id="tlNext" type="button" aria-label="向右滚动">›</button>
+      </div>
+    </div>
+
+    <div class="repo-grid">
+      <div class="tl-item rv" data-ghost="01">
+        <div class="tl-badges">
+          <span class="tl-batch">主源码</span>
+          <span class="tl-status pub">119 页钉住</span>
+        </div>
+        <h4>AAswordman / Operit</h4>
+        <p>wiki 全部内容均编译自该源码版本；源码变更触发复核，过期页面自动打回待评审。</p>
+        <div class="tl-tags">
+          <span><button class="hash-btn" data-copy="dbf71916fae9750cfdc9f9a774f5a0fee56633fb" title="点击复制完整 hash">dbf71916 ⧉</button></span>
+          <span>v1.12.2</span>
+        </div>
+      </div>
+      <div class="tl-item rv" data-ghost="02">
+        <div class="tl-badges">
+          <span class="tl-batch">参考源</span>
+        </div>
+        <h4>AAswordman / OperitTerminalCore</h4>
+        <p>终端独立仓库，终端相关条目的参考源。</p>
+        <div class="tl-tags"><span>终端</span></div>
+      </div>
+      <div class="tl-item rv" data-ghost="03">
+        <div class="tl-badges">
+          <span class="tl-batch">参考源</span>
+        </div>
+        <h4>AAswordman / OperitWeb</h4>
+        <p>官网 / 市场 / 审核文档，周边生态的参考源。</p>
+        <div class="tl-tags"><span>官网</span><span>文档</span></div>
+      </div>
+    </div>
+
+    <div class="ms-stats rv">
+      <div class="ms-stat"><b data-count="123">0</b><span>知识页面</span></div>
+      <div class="ms-stat"><b data-count="125">0</b><span>已发布</span></div>
+      <div class="ms-stat"><b data-count="14556" data-comma="1">0</b><span>原子事实</span></div>
+      <div class="ms-stat"><b data-count="10">0</b><span>编译批次</span></div>
+    </div>
+
+    <div class="timeline rv">
+<div class="tl-track">
+      <div class="tl-item">
+        <div class="tl-dot ok"></div>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-batch">batch-00</span><span class="tl-state ok">已发布</span></div>
+          <h3>大纲定稿</h3>
+          <p>Wiki 宪法与双受众结构确立，大纲 v3 定稿。</p>
+          <div class="tl-tags"><span>大纲</span><span>SCHEMA</span><span>双受众设计</span></div>
+          <div class="tl-meta">2 页</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ok"></div>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-batch">batch-02</span><span class="tl-state ok">已发布</span></div>
+          <h3>架构总览与工具框架</h3>
+          <p>整体架构、聊天与消息处理、工具注册与执行框架、数据模型总览。</p>
+          <div class="tl-tags"><span>整体架构</span><span>聊天管线</span><span>工具注册</span><span>数据模型</span></div>
+          <div class="tl-meta">6 页 · 589 原子事实</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ok"></div>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-batch">batch-03</span><span class="tl-state ok">已发布</span></div>
+          <h3>工具系统深挖</h3>
+          <p>工具执行模式、JS 引擎与 Java 互操作、标准工具库、网页会话与用户脚本。</p>
+          <div class="tl-tags"><span>执行模式</span><span>JS 引擎</span><span>标准工具</span><span>网页会话</span></div>
+          <div class="tl-meta">8 页 · 741 原子事实</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ok"></div>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-batch">batch-04</span><span class="tl-state ok">已发布</span></div>
+          <h3>AI 供应商矩阵</h3>
+          <p>26 家云端 / 端侧供应商全覆盖，外加语音识别与合成、数据层与聊天运行时。</p>
+          <div class="tl-tags"><span>26 家供应商</span><span>语音</span><span>数据层</span><span>对话增强</span></div>
+          <div class="tl-meta">39 页 · 3,137 原子事实</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ok"></div>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-batch">batch-05</span><span class="tl-state ok">已发布</span></div>
+          <h3>应用核心</h3>
+          <p>应用生命周期、虚拟形象、系统提示词、MCP 桥接、备份恢复、偏好配置。</p>
+          <div class="tl-tags"><span>生命周期</span><span>MCP</span><span>备份</span><span>偏好配置</span></div>
+          <div class="tl-meta">16 页 · 2,747 原子事实</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ok"></div>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-batch">batch-06</span><span class="tl-state ok">已发布</span></div>
+          <h3>集成与界面</h3>
+          <p>外部聊天入口、WebChat 服务、插件机制、聊天界面组件与文本渲染。</p>
+          <div class="tl-tags"><span>外部集成</span><span>插件机制</span><span>聊天 UI</span><span>本地检索</span></div>
+          <div class="tl-meta">16 页 · 2,071 原子事实</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ok"></div>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-batch">batch-07</span><span class="tl-state ok">已发布</span></div>
+          <h3>设置界面</h3>
+          <p>内置代码编辑器、聊天列表懒加载、工作区，以及模型 / 主题 / 聊天三套设置界面。</p>
+          <div class="tl-tags"><span>设置</span><span>代码编辑器</span><span>工作区</span></div>
+          <div class="tl-meta">7 页 · 1,134 原子事实</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ok"></div>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-batch">batch-08</span><span class="tl-state ok">已发布</span></div>
+          <h3>通用 UI 与工具箱</h3>
+          <p>主界面骨架、Markdown 渲染、扩展市场与管理、系统工具箱界面。</p>
+          <div class="tl-tags"><span>主界面</span><span>扩展市场</span><span>工具箱</span><span>DSL 渲染</span></div>
+          <div class="tl-meta">10 页 · 1,602 原子事实</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ok"></div>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-batch">batch-09</span><span class="tl-state ok">已发布</span></div>
+          <h3>附录与插件开发</h3>
+          <p>插件能力目录与开发指南（Top50 实证）、单元测试附录、悬浮窗 / 记忆 / 工作流等界面。</p>
+          <div class="tl-tags"><span>插件开发指南</span><span>单元测试</span><span>悬浮窗</span><span>工作流</span></div>
+          <div class="tl-meta">17 页 · 2,351 原子事实</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot ok"></div>
+        <div class="tl-card">
+          <div class="tl-top"><span class="tl-batch">batch-10</span><span class="tl-state ok">已发布</span></div>
+          <h3>扫尾</h3>
+          <p>未覆盖 kt 文件扫尾：原生绑定、模板与示例。</p>
+          <div class="tl-tags"><span>扫尾</span><span>原生绑定</span></div>
+          <div class="tl-meta">1 页 · 138 原子事实</div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="cine">
+  <div class="cine-word" aria-hidden="true">OPERIT-WIKI</div>
+  <div class="credit">Operit2-wiki · 知识编译方法参考 <a href="https://github.com/sdyckjq-lab/llm-wiki-skill" target="_blank">sdyckjq-lab/llm-wiki-skill</a>（MIT） · <button class="refresh-btn" id="forceRefresh" type="button" title="清除本地缓存并加载最新版本">⟳ 强制刷新</button></div>
+</footer>
+
+<script>
+/* ---- 点阵艺术字 ---- */
+/* ---- 点阵艺术字 v2：笔画补偿 / 分界渐变 / 光点质感 / 入场聚合 / 移动端自适应 ---- */
+(function () {
+  var canvas = document.getElementById('dotTitle');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dots = [], W = 0, H = 0, dpr = 1, running = false, raf = 0, t0 = 0;
+  var mouse = { x: -9999, y: -9999 };
+  var INK = [191, 242, 255], CINNABAR = [255, 122, 47];
+  var WORD_A = 'Operit', WORD_B = 'wiki', GAP = 4;
+  var ENTR_DUR = 850, STAGGER = 550;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 径向渐变光点 sprite：5 档（纯白→3 档混合→纯橙），drawImage 比逐点 arc 快且有光泽 */
+  function mix(a, b, t) {
+    return [Math.round(a[0] + (b[0] - a[0]) * t), Math.round(a[1] + (b[1] - a[1]) * t), Math.round(a[2] + (b[2] - a[2]) * t)];
+  }
+  function makeSprite(rgb) {
+    var s = 48, c = document.createElement('canvas');
+    c.width = c.height = s;
+    var g = c.getContext('2d');
+    var grad = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+    var k = rgb.join(',');
+    grad.addColorStop(0, 'rgba(' + k + ',1)');
+    grad.addColorStop(0.35, 'rgba(' + k + ',0.95)');
+    grad.addColorStop(0.7, 'rgba(' + k + ',0.45)');
+    grad.addColorStop(1, 'rgba(' + k + ',0)');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, s, s);
+    return c;
+  }
+  var sprites = [];
+  for (var si = 0; si <= 4; si++) sprites.push(makeSprite(mix(INK, CINNABAR, si / 4)));
+
+  function build() {
+    var mobile = window.innerWidth <= 640;
+    GAP = mobile ? 5 : 4;
+    dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
+    var r = canvas.getBoundingClientRect();
+    W = Math.max(50, r.width); H = Math.max(50, r.height);
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var off = document.createElement('canvas');
+    var fs = 100, octx = off.getContext('2d');
+    octx.font = '900 ' + fs + 'px system-ui, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif';
+    var wFull = octx.measureText(WORD_A + ' ' + WORD_B).width;
+    fs = Math.floor(fs * Math.min((W * 0.96) / wFull, (H * 0.92) / (fs * 1.05)));
+    off.width = Math.ceil(wFull * fs / 100) + 20; off.height = Math.ceil(fs * 1.3) + 20;
+    octx = off.getContext('2d');
+    octx.font = '900 ' + fs + 'px system-ui, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif';
+    octx.textBaseline = 'middle';
+    octx.fillStyle = '#000';
+    octx.fillText(WORD_A + ' ' + WORD_B, 10, off.height / 2);
+    var splitX = 10 + octx.measureText(WORD_A + ' ').width;
+    var data = octx.getImageData(0, 0, off.width, off.height).data;
+    dots = [];
+    var ox = (W - off.width) / 2, oy = (H - off.height) / 2;
+    var bw = GAP * 3; /* 分界渐变半宽：3 列点白→橙过渡，不再一刀切 */
+    for (var y = GAP / 2; y < off.height; y += GAP) {
+      for (var x = GAP / 2; x < off.width; x += GAP) {
+        var a = data[((y | 0) * off.width + (x | 0)) * 4 + 3];
+        if (a > 60) { /* 阈值 110→60：细笔画不断线 */
+          var k = a / 255;
+          var dx = ox + x, dy = oy + y, qi;
+          if (x < splitX - bw) qi = 0;
+          else if (x > splitX + bw) qi = 4;
+          else qi = Math.round(((x - (splitX - bw)) / (bw * 2)) * 4);
+          dots.push({
+            x: dx, y: dy,
+            sy: dy + 110 + Math.random() * 70,
+            delay: (dx / W) * STAGGER,
+            r: GAP * 0.44 * (0.72 + 0.28 * k), /* 半径下限提高：细笔画不再缩成针尖 */
+            a: 0.55 + 0.45 * k,
+            sp: sprites[qi],
+            ph: Math.random() * 6.28
+          });
+        }
+      }
+    }
+    t0 = 0; /* 重建后入场重播 */
+  }
+
+  function drawDot(d, px, py, pr, alpha) {
+    ctx.globalAlpha = alpha > 1 ? 1 : alpha;
+    var s = pr * 2;
+    ctx.drawImage(d.sp, px - pr, py - pr, s, s);
+  }
+
+  function frame(t) {
+    if (!t0) t0 = t;
+    ctx.clearRect(0, 0, W, H);
+    var time = t * 0.0012;
+    var elapsed = t - t0;
+    var allIn = elapsed > STAGGER + ENTR_DUR;
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var px = d.x, py = d.y, alpha = d.a;
+      if (!allIn) {
+        var et = (elapsed - d.delay) / ENTR_DUR;
+        if (et <= 0) continue;
+        if (et < 1) {
+          var e = 1 - Math.pow(1 - et, 3);
+          py = d.sy + (d.y - d.sy) * e;
+          alpha = d.a * e;
+        }
+      }
+      var wave = Math.sin(d.x * 0.02 + time * 2 + d.ph) * 1.6;
+      var mdx = d.x - mouse.x, mdy = (d.y + wave) - mouse.y;
+      var dist = Math.sqrt(mdx * mdx + mdy * mdy);
+      var ox2 = 0, oy2 = 0, boost = 0;
+      if (dist < 150 && dist > 0.1) {
+        var heat = 1 - dist / 150;
+        if (dist < 110) { /* 排斥保留 */
+          var push = (110 - dist) / 110 * 12;
+          ox2 = mdx / dist * push; oy2 = mdy / dist * push;
+        }
+        boost = heat; /* 新增：聚光灯点亮 */
+      }
+      var pr = d.r * (1 + boost * 0.45) * (1 + 0.08 * Math.sin(time * 2 + d.ph));
+      drawDot(d, px + ox2, py + wave + oy2, pr, alpha * (1 + boost * 0.7));
+    }
+    ctx.globalAlpha = 1;
+    if (running) raf = requestAnimationFrame(frame);
+  }
+
+  function renderStatic() { /* prefers-reduced-motion：只渲染一帧静态字 */
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      drawDot(d, d.x, d.y, d.r, d.a);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function start() { if (!running && dots.length && !reduced) { running = true; raf = requestAnimationFrame(frame); } }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+
+  if (!reduced) {
+    canvas.addEventListener('mousemove', function (e) {
+      var r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    });
+    canvas.addEventListener('mouseleave', function () { mouse.x = -9999; mouse.y = -9999; });
+  }
+
+  var hero = canvas.closest('.hero2');
+  if ('IntersectionObserver' in window && hero) {
+    new IntersectionObserver(function (es) { es[0].isIntersecting ? start() : stop(); }).observe(hero);
+  }
+  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { build(); reduced ? renderStatic() : start(); }, 200); });
+
+  function init() { build(); reduced ? renderStatic() : start(); }
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(init); }
+  init();
+})();
+
+
+/* ---- Hero 第二层：多语言"知识库"底纹，鼠标聚光灯揭示 ---- */
+(function () {
+  var hero = document.querySelector('.hero2');
+  var canvas = document.getElementById('langLayer');
+  if (!hero || !canvas) return;
+  var lctx = canvas.getContext('2d');
+  var WORDS = [
+    'Knowledge Base', '知识库', '知識庫', '知識ベース', '지식 베이스',
+    'Base de conocimientos', 'Base de connaissances', 'Wissensdatenbank',
+    'Base de conhecimento', 'Base di conoscenza', 'Kennisbank', 'Bilgi tabanı',
+    'Baza wiedzy', 'Kunskapsbas', 'Kunnskapsbase', 'Vidensbase', 'Tietämyskanta',
+    'Znalostní báze', 'Bază de cunoștințe', 'Tudásbázis', 'Msingi wa maarifa',
+    'Basis pengetahuan', 'Pangkalan pengetahuan', 'Cơ sở tri thức',
+    'База знаний', 'База знань', 'Βάση γνώσεων', 'قاعدة المعرفة', 'پایگاه دانش',
+    'בסיס ידע', 'ज्ञानकोश', 'জ্ঞানভাণ্ডার', 'ฐานความรู้', 'அறிவுத் தளம்'
+  ];
+  var BRAND = 'operit wiki';
+  var R = 200;
+  var langOff = null, spotWork = null, spotCtx = null, spotMask = null;
+  var lW = 0, lH = 0;
+  var tx = -9999, ty = -9999, sx = -9999, sy = -9999;
+  var spotA = 0, spotTarget = 0, inside = false;
+  var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  var running = false, raf = 0;
+
+  function build() {
+    var r = hero.getBoundingClientRect();
+    lW = Math.max(50, Math.round(r.width)); lH = Math.max(50, Math.round(r.height));
+    canvas.width = lW; canvas.height = lH;
+    langOff = document.createElement('canvas');
+    langOff.width = lW; langOff.height = lH;
+    spotWork = document.createElement('canvas');
+    spotWork.width = lW; spotWork.height = lH;
+    spotCtx = spotWork.getContext('2d');
+    spotMask = document.createElement('canvas');
+    spotMask.width = spotMask.height = R * 2;
+    var m = spotMask.getContext('2d');
+    var g = m.createRadialGradient(R, R, 0, R, R, R);
+    g.addColorStop(0, 'rgba(255,255,255,1)');
+    g.addColorStop(0.55, 'rgba(255,255,255,.5)');
+    g.addColorStop(1, 'rgba(255,255,255,0)');
+    m.fillStyle = g; m.fillRect(0, 0, R * 2, R * 2);
+
+    var c = langOff.getContext('2d');
+    var dot = document.getElementById('dotTitle');
+    var tr = dot.getBoundingClientRect();
+    var x0 = tr.left - r.left - 40, x1 = tr.right - r.left + 40;
+    var y0 = tr.top - r.top - 40, y1 = tr.bottom - r.top + 40;
+    var cellW = 235, cellH = 100, n = 0;
+    c.textAlign = 'center'; c.textBaseline = 'middle';
+    for (var y = cellH * 0.5; y < lH; y += cellH) {
+      for (var x = cellW * 0.5; x < lW; x += cellW) {
+        var jx = x + (Math.random() - 0.5) * 80;
+        var jy = y + (Math.random() - 0.5) * 48;
+        if (jx > x0 && jx < x1 && jy > y0 && jy < y1) continue;
+        var isBrand = (n % 7 === 6);
+        var w = isBrand ? BRAND : WORDS[(Math.random() * WORDS.length) | 0];
+        var fs = Math.round(13 + Math.random() * 7);
+        c.font = '500 ' + fs + 'px "JetBrains Mono", system-ui, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif';
+        c.fillStyle = isBrand ? '#ff7a2f' : '#dfe7f2';
+        c.fillText(w, jx, jy);
+        n++;
+      }
+    }
+    sx = tx = lW / 2; sy = ty = lH / 2;
+  }
+
+  function frame(t) {
+    lctx.clearRect(0, 0, lW, lH);
+    lctx.globalAlpha = 0.06;
+    lctx.drawImage(langOff, 0, 0);
+    if (isTouch) {
+      var tt = t * 0.00016;
+      tx = lW * (0.5 + 0.36 * Math.cos(tt * 1.7));
+      ty = lH * (0.5 + 0.34 * Math.sin(tt * 2.3));
+      spotTarget = 0.85;
+    }
+    sx += (tx - sx) * 0.1; sy += (ty - sy) * 0.1;
+    spotA += (spotTarget - spotA) * 0.08;
+    if (spotA > 0.02 && sx > -50) {
+      spotCtx.clearRect(0, 0, lW, lH);
+      spotCtx.globalCompositeOperation = 'source-over';
+      spotCtx.drawImage(langOff, 0, 0);
+      spotCtx.globalCompositeOperation = 'destination-in';
+      spotCtx.drawImage(spotMask, sx - R, sy - R);
+      spotCtx.globalCompositeOperation = 'source-over';
+      lctx.globalAlpha = Math.min(1, 0.62 * spotA);
+      lctx.drawImage(spotWork, 0, 0);
+    }
+    lctx.globalAlpha = 1;
+    if (running) raf = requestAnimationFrame(frame);
+  }
+
+  function start() { if (!running) { running = true; raf = requestAnimationFrame(frame); } }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+
+  hero.addEventListener('mousemove', function (e) {
+    if (isTouch) return;
+    var r = hero.getBoundingClientRect();
+    tx = e.clientX - r.left; ty = e.clientY - r.top;
+    if (!inside) { inside = true; sx = tx; sy = ty; }
+    spotTarget = 1;
+  });
+  hero.addEventListener('mouseleave', function () { inside = false; spotTarget = 0; });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { es[0].isIntersecting ? start() : stop(); }).observe(hero);
+  }
+  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+  var rt;
+  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(build, 250); });
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(build); }
+
+  build(); start();
+})();
+
+/* ---- 滚动显现 ---- */
+(function () {
+  var els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(function (e) { io.observe(e); });
+})();
+
+/* ---- 数字递增 ---- */
+(function () {
+  var els = document.querySelectorAll('[data-count]');
+  if (!els.length) return;
+  function fmt(el, v) {
+    var s = String(Math.round(v));
+    if (el.getAttribute('data-comma')) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    el.textContent = s;
+  }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      var el = e.target, target = parseFloat(el.getAttribute('data-count')), t0 = null;
+      function tick(t) {
+        if (!t0) t0 = t;
+        var p = Math.min(1, (t - t0) / 1400), ease = 1 - Math.pow(1 - p, 3);
+        fmt(el, target * ease);
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.4 });
+  els.forEach(function (e) { io.observe(e); });
+})();
+
+/* ---- 点击复制 commit hash ---- */
+document.querySelectorAll('[data-copy]').forEach(function (el) {
+  el.addEventListener('click', function () {
+    var t = el.getAttribute('data-copy');
+    function done() {
+      var old = el.textContent;
+      el.textContent = '已复制';
+      setTimeout(function () { el.textContent = old; }, 1200);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).then(done, done);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = t; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta); done();
+    }
+  });
+});
+
+/* ---- 里程碑：连续无缝自动播放（无等待、无滚动条） ---- */
+(function () {
+  var viewport = document.querySelector('.timeline');
+  if (!viewport) return;
+  var track = viewport.querySelector('.tl-track');
+  if (!track) return;
+  track.innerHTML += track.innerHTML; /* 克隆一份，无缝循环 */
+  var GAP = 14, SPEED = 60, x = 0, last = 0, paused = false, raf = 0, running = false;
+  var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+  function perView() { return window.innerWidth <= 640 ? 1 : 3; }
+  function halfWidth() {
+    var n = track.children.length / 2;
+    var w = (viewport.clientWidth - GAP * (perView() - 1)) / perView();
+    return n * (w + GAP);
+  }
+  function frame(t) {
+    if (!last) last = t;
+    var dt = (t - last) / 1000;
+    last = t;
+    if (!paused) {
+      x -= SPEED * dt;
+      var h = halfWidth();
+      if (h > 0 && -x >= h) x += h;
+      track.style.transform = 'translateX(' + x + 'px)';
+    }
+    if (running) raf = requestAnimationFrame(frame);
+  }
+  function start() { if (!running) { running = true; last = 0; raf = requestAnimationFrame(frame); } }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+  function nudge(d) {
+    var w = (viewport.clientWidth - GAP * (perView() - 1)) / perView();
+    x -= d * (w + GAP);
+    var h = halfWidth();
+    while (x > 0) x -= h;
+    while (-x >= h) x += h;
+    track.style.transform = 'translateX(' + x + 'px)';
+  }
+  var prev = document.getElementById('tlPrev'), next = document.getElementById('tlNext');
+  if (prev) prev.addEventListener('click', function () { nudge(-1); });
+  if (next) next.addEventListener('click', function () { nudge(1); });
+  if (!isTouch) {
+    viewport.addEventListener('pointerenter', function () { paused = true; });
+    viewport.addEventListener('pointerleave', function () { paused = false; });
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting) start(); else stop();
+    }, { threshold: 0.05 }).observe(viewport);
+  }
+  start();
+})();
+
+/* ---- 强制刷新 ---- */
+(function () {
+  var btn = document.getElementById('forceRefresh');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    btn.textContent = '刷新中…';
+    btn.disabled = true;
+    var go = function () {
+      var u = location.href.split('#')[0].split('?')[0];
+      location.href = u + '?v=' + Date.now();
+    };
+    if ('caches' in window) {
+      caches.keys().then(function (ks) {
+        return Promise.all(ks.map(function (k) { return caches.delete(k); }));
+      }).then(go, go);
+    } else { go(); }
+  });
+})();
+</script>
+</body>
+</html>
