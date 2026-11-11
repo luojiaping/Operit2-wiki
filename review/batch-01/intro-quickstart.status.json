@@ -2,8 +2,10 @@
   "issue": 5,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "第一次运行：环境、CLI 入口（以 apps/cli 源码核对）、发现与配对、Web Access、备份与迁移、安全边界",
   "updated": "2026-11-11",
-  "approved_by_comment_id": 6789408164
+  "approved_by_comment_id": 6789408164,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 07:52 UTC"
 }

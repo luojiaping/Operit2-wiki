@@ -147,7 +147,7 @@ Operit2 采用从外到内逐层收紧的能力模型（README.md:109）：
 必须保持的原则：
 
 - Space 成员资格不会授予其他节点读取本机文件、使用本机终端或获得管理员/root 能力（README.md:127）
-- API key、设备私钥、配对密钥、session 和本地平台权限默认属于节点本地，不会因为加入 Space 自动复制（README.md:128）
+- README 声明 API key、设备私钥、配对密钥、session 和本地平台权限默认属于节点本地，不会因为加入 Space 自动复制（README.md:128）
 - `ModelConfigManager::new` 用 `preferenceStore` 创建模型配置存储（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:136）
 - `preferenceStore` 调用 `PreferencesDataStore::newWithStorage`（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:108）
 - `newWithStorage` 创建 Space 偏好存储（core/crates/persistence/store/src/PreferencesDataStore.rs:2924）

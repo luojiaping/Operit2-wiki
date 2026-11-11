@@ -2,8 +2,10 @@
   "issue": 4,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "预览版与破坏性变更：Preview 阶段未冻结的四类内容、SemVer 版本号规则与更新通道、仅有的两份 release notes 及其覆盖缺口。",
   "updated": "2026-11-11",
-  "approved_by_comment_id": 6789484272
+  "approved_by_comment_id": 6789484272,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 07:52 UTC"
 }

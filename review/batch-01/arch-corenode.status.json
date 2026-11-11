@@ -2,8 +2,10 @@
   "issue": 7,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "CoreNode 是运行 Operit Core 的应用实例：Space 划定协作范围，Binding 决定聊天的下一步在哪个 CoreNode 执行，持久化同步与实时传输是两条独立路径。",
   "updated": "2026-11-11",
-  "approved_by_comment_id": 6789508624
+  "approved_by_comment_id": 6789508624,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-11 07:52 UTC"
 }

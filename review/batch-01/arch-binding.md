@@ -67,8 +67,6 @@ Binding 不表示业务数据位于目标节点；Agent、聊天、消息、记�
 
 存储层印证这一规则：初始 Binding 的 `generation` 为 1。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:157`
 
-比较写入成功时新记录的 `generation` 为 `current.generation + 1`。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:209`
-
 校验规则要求 Binding 的 `generation` 必须为正数。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:461`
 
 架构文档要求目标节点按 `(chatId, executionGeneration)` 识别 `continuation`；已完成相同或更高 `generation` 时直接返回，不重复调用模型或工具。`docs/core-node-space-binding-architecture.md:420`
