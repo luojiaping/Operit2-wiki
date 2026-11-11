@@ -1,0 +1,7 @@
+plugin-js-wasm-runtime seed 清单（2026-11-11，全部读完，Operit2 @ 364d1d594）
+- core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs（241 行）
+- core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js（124 行）
+- core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs（228 行）
+- core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs（732 行）
+- plugins/types/quickjs-runtime.d.ts（46 行）
+合计 1371 行

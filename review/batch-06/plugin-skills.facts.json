@@ -1,0 +1,298 @@
+[
+  {
+    "fact": "Skill 是以目录为单位的扩展包，一个 Skill 目录以 SKILL.md 为入口文件",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:156"
+  },
+  {
+    "fact": "Skill 目录的入口文件也可以是小写 skill.md",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:157"
+  },
+  {
+    "fact": "SkillPackage 只有 name、description、directory、skillFile 四个字段",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillPackage.rs:6"
+  },
+  {
+    "fact": "SkillPackage 的 name 字段保存 Skill 名",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillPackage.rs:7"
+  },
+  {
+    "fact": "SkillPackage 的 description 字段保存 Skill 描述",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillPackage.rs:8"
+  },
+  {
+    "fact": "SkillPackage 的 directory 字段保存 Skill 所在的目录路径",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillPackage.rs:9"
+  },
+  {
+    "fact": "SkillPackage 的 skillFile 字段保存 SKILL.md 文件路径",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillPackage.rs:10"
+  },
+  {
+    "fact": "SkillManager 持有 RuntimeStorePaths 与 FileSystemHost",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:17"
+  },
+  {
+    "fact": "SkillManager 的 fromDefaultPaths 用默认运行时存储路径创建管理器",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:31"
+  },
+  {
+    "fact": "SkillManager 的 getSkillsRootDir 返回 RuntimeStorePaths 的 skills_dir",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:587"
+  },
+  {
+    "fact": "SkillManager 的 getSkillsDirectoryPath 返回用户已安装 Skill 的存放目录",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:45"
+  },
+  {
+    "fact": "SkillManager 的 refreshAvailableSkills 扫描 device 与 space 两个位置",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:60"
+  },
+  {
+    "fact": "同名 Skill 同时存在于 device 与 space 时 refreshAvailableSkills 报 Skill ownership conflict 且该 Skill 不可用",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:70"
+  },
+  {
+    "fact": "device 位置的 Skill 扫描后调用 ExtensionStore 的 registerDevice 登记",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:81"
+  },
+  {
+    "fact": "扫描后用 ExtensionStore 的 record 校验 Skill 记录的位置与来源名",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:88"
+  },
+  {
+    "fact": "space 位置的扫描按 sharedSources 过滤，未登记的目录被跳过",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:154"
+  },
+  {
+    "fact": "扫描只处理 isDirectory 为真的子项",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:150"
+  },
+  {
+    "fact": "缺少 SKILL.md 的目录记入 Missing SKILL.md 加载错误",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:181"
+  },
+  {
+    "fact": "SKILL.md 元数据的 name 为空时 Skill 名回退为目录名",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:188"
+  },
+  {
+    "fact": "同一位置内出现重名 Skill 时记入 Duplicate scanned skill name 加载错误",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:204"
+  },
+  {
+    "fact": "SkillManager 的 getAvailableSkills 返回当前已安装的全部有效 Skill 包",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:232"
+  },
+  {
+    "fact": "SkillManager 的 getAvailableSkillsSnapshot 同时返回有效 Skill 包与加载错误",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:238"
+  },
+  {
+    "fact": "SkillManager 的 getSkillLoadErrors 返回扫描 Skill 目录的加载错误",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:246"
+  },
+  {
+    "fact": "SkillManager 的 getBundledExternalSkillCandidates 列出尚未安装的随包外部 Skill",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:252"
+  },
+  {
+    "fact": "随包 Skill 候选的描述取自其 SKILL.md 的元数据",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:279"
+  },
+  {
+    "fact": "importBundledExternalSkill 在同名 Skill 已安装时拒绝导入",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:305"
+  },
+  {
+    "fact": "importBundledExternalSkill 写入随包资产前调用 clearBundledSkillFiles 清空目标目录",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:339"
+  },
+  {
+    "fact": "importBundledExternalSkill 用 writeFileBytes 把随包资产写入 Skill 目录",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:344"
+  },
+  {
+    "fact": "importBundledExternalSkill 导入后重新扫描，Skill 未加载则报错",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:363"
+  },
+  {
+    "fact": "PackageBuilder 是随包 Skill 的名称",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:14"
+  },
+  {
+    "fact": "ensureQuickPluginCreatorBundledSkill 在 QUICK_PLUGIN_CREATOR_SKILL_NAME 已安装时直接返回已安装的 Skill",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:372"
+  },
+  {
+    "fact": "ensureQuickPluginCreatorBundledSkill 在该 Skill 未安装时调用 importBundledExternalSkill 导入",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:380"
+  },
+  {
+    "fact": "SkillManager 的 readSkillContent 读取一个已安装 Skill 的 SKILL.md 内容",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:387"
+  },
+  {
+    "fact": "SkillManager 的 getSkillSystemPrompt 生成 Skill 激活时用的系统提示片段",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:397"
+  },
+  {
+    "fact": "getSkillSystemPrompt 的提示以 Using package (Skill): 加 Skill 名开头",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:405"
+  },
+  {
+    "fact": "getSkillSystemPrompt 的执行策略要求优先使用 Skill 提供的指令与随包脚本并用终端相关工具完成任务",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:408"
+  },
+  {
+    "fact": "getSkillSystemPrompt 的提示包含 SKILL.md 路径",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:413"
+  },
+  {
+    "fact": "getSkillSystemPrompt 的提示包含 Skill 目录结构文本",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:421"
+  },
+  {
+    "fact": "getSkillSystemPrompt 的提示末尾附上 SKILL.md 全文",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:425"
+  },
+  {
+    "fact": "SkillManager 的 deleteSkill 调用 ExtensionStore 的 delete 注销 Skill 并返回布尔结果",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:433"
+  },
+  {
+    "fact": "importSkillArchiveBytes 把 zip 字节解到以 .import_tmp_ 开头的临时目录",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:457"
+  },
+  {
+    "fact": "importSkillArchiveBytes 在导入完成后删除临时目录",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:473"
+  },
+  {
+    "fact": "importSkillArchiveBytesInner 调用 unzipBytesToDirectory 解压 zip",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:486"
+  },
+  {
+    "fact": "zip 只有唯一子目录时 singleChildDirectory 返回该子目录作为解压根目录",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:495"
+  },
+  {
+    "fact": "导入时调用 findSkillFiles 在包内递归查找 SKILL.md，最多找 10 个候选",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:514"
+  },
+  {
+    "fact": "zip 内找不到 SKILL.md 时导入返回 No SKILL.md found in the imported zip",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:520"
+  },
+  {
+    "fact": "importSkillArchiveBytesInner 调用 parseSkillMetadata 解析导入 Skill 的元数据",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:530"
+  },
+  {
+    "fact": "导入的 Skill 名优先取 SKILL.md 元数据的 name",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:535"
+  },
+  {
+    "fact": "元数据无 name 且解压根目录就是临时目录时导入的 Skill 名取 zip 文件名主干",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:538"
+  },
+  {
+    "fact": "同名 Skill 已安装时 zip 导入返回 Skill already exists in an installation location",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:560"
+  },
+  {
+    "fact": "内容首行是 --- 时按行调用 parseMetadataLine 解析 frontmatter",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:614"
+  },
+  {
+    "fact": "frontmatter 缺 name 或 description 时 parseSkillMetadataContent 回退扫描前 40 行",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:622"
+  },
+  {
+    "fact": "parseMetadataLine 解析一行元数据并写入 name 或 description",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:631"
+  },
+  {
+    "fact": "unzipBytesToDirectory 用 enclosed_name 校验 zip 条目，指向目标目录外的条目被拒绝",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:749"
+  },
+  {
+    "fact": "normalizeAssetRelativePath 拒绝含非普通路径段的随包资产路径",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:660"
+  },
+  {
+    "fact": "skill 的 mod.rs 导出 SkillManager 模块",
+    "ref": "core/crates/tool/services/src/tools/skill/mod.rs:2"
+  },
+  {
+    "fact": "skill 的 mod.rs 导出 SkillPackage 模块",
+    "ref": "core/crates/tool/services/src/tools/skill/mod.rs:5"
+  },
+  {
+    "fact": "skill_runtime 的 mod.rs 导出 SkillRepository 模块",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/mod.rs:2"
+  },
+  {
+    "fact": "SkillRepository 的 getInstance 要求 HostManager 提供 FileSystemHost",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:31"
+  },
+  {
+    "fact": "SkillRepository 的 getAiVisibleSkillPackages 只返回对 AI 包激活可见的 Skill",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:86"
+  },
+  {
+    "fact": "SkillRepository 的 isSkillVisibleToAi 查询一个 Skill 是否对 AI 包激活可见",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:108"
+  },
+  {
+    "fact": "SkillRepository 的 setSkillVisibleToAi 设置一个 Skill 对 AI 包激活的可见性",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:114"
+  },
+  {
+    "fact": "ensureQuickPluginCreatorSkillVisible 在安装快速插件创建 Skill 后调用 setSkillVisibleToAi 将其设为可见",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:120"
+  },
+  {
+    "fact": "zip 导入对非 .zip 文件返回 Only .zip files are supported",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:152"
+  },
+  {
+    "fact": "importSkillFromGitHubRepo 从 GitHub 仓库下载 zip 导入 Skill",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:159"
+  },
+  {
+    "fact": "importSkillFromGitHubRepo 未指定分支时调用 getGithubDefaultBranch 查询默认分支",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:166"
+  },
+  {
+    "fact": "importSkillFromGitHubRepo 从 codeload.github.com 下载仓库 zip",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:178"
+  },
+  {
+    "fact": "parseGitHubSkillTarget 解析 GitHub Skill 目标地址",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:388"
+  },
+  {
+    "fact": "parseGitHubSkillTarget 接受 raw.githubusercontent.com 地址",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:447"
+  },
+  {
+    "fact": "importSkillFromDirectInput 要求 Skill id 非空",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:211"
+  },
+  {
+    "fact": "isValidSkillId 只接受字母、数字、点、下划线与连字符组成的 Skill id",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:336"
+  },
+  {
+    "fact": "importSkillFromDirectInput 通过 buildDirectSkillMarkdown 生成带 name 与 description frontmatter 的 SKILL.md",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:315"
+  },
+  {
+    "fact": "importSkillFromDirectInput 把附件复制到 Skill 目录下的 assets 子目录",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:288"
+  },
+  {
+    "fact": "importSkillFromDirectInput 写入失败时删除已创建的 Skill 目录",
+    "ref": "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs:259"
+  }
+]

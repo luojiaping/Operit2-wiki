@@ -1,0 +1,16 @@
+Operit2-wiki batch-06 / plugin-toolpkg-overview seed 阅读清单
+基线：AAswordman/Operit2 @ 364d1d594（2026-11-11）
+阅读日期：2026-11-11
+
+已读完的 seed 文件（100%）：
+- plugins/README.md（44 行）
+- plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md（1405 行）
+- plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md（120 行）
+- docs/toolpkg-runtime.md（152 行）
+
+合计：1721 行，与 outline-v1.yaml 中本页 est_lines 1721 一致。
+
+对照核验（grep，全仓，基线 364d1d594）：
+- plugin.json：零命中
+- mcp.json：零命中
+- "Agent Plugins 1.0" 在 plugins/ 与 docs/ 中：零提及

@@ -1,0 +1,10 @@
+Operit2-wiki batch-06 / plugin-quick-plugin-creator seed 阅读清单
+基线：AAswordman/Operit2 @ 364d1d594（2026-11-11）
+阅读日期：2026-11-11
+
+已读完的 seed 文件（100%）：
+- apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart（151 行）
+- apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart（53 行）
+- plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md（120 行）
+
+合计：324 行，与 outline-v1.yaml 中本页 est_lines 324 一致。

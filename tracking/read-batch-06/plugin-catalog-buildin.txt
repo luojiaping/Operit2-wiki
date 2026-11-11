@@ -1,0 +1,32 @@
+plugin-catalog-buildin 阅读记录（Operit2 @ 364d1d594，2026-11-12）
+基线：AAswordman/Operit2 @ 364d1d594。Seed 文件 100% 读完，其余文件按需读过（见下）。
+
+Seed 文件（实际读完）：
+- plugins/packages/buildin/README.md — 3 行，全文读完
+- plugins/packages/buildin/character_cards/manifest.json — 66 行，全文读完
+- plugins/packages/buildin/workflow/manifest.json — 38 行，全文读完
+
+目录核对时读过的文件：
+- 7 个目录包的 manifest.json 全文：change_review、character_cards、daily_life、goal_mode、message_translation、plan_mode、workflow
+  （toolpkg_id / version / api_version / main / display_name / description / enabled_by_default / subpackages / resources / wasm_modules 逐项核对）
+- 9 个单文件 .ts 的 METADATA 块：12306.ts（1022 行，全块读完）、ai_chat.ts（458 行，METADATA 块 1–33 行全读）、browser.ts（547 行，块读完）、crossref.ts（618 行，块读完）、extended_file_tools.ts（148 行，块读完）、operit_editor.ts（76 行，块读完）、super_admin.ts（727 行，METADATA 块 42–~150 行读完）、system_tools.ts（440 行，块读完）、time.ts（89 行，块读完）
+- plugins/packages/buildin/tsconfig.json — 37 行，全文读完
+- plugins/packages/buildin/change_review/tsconfig.json — 全文读完（include 为 src/**/*.ts）
+- core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs — defaultEnabledByDefault 相关行（668、2593–2595）及 ToolPkgManifest 结构（640–675 行）
+- core/crates/plugin/sdk/src/JsPackageLoader.rs — parse_metadata（58–110 行）、parse_metadata_object（111 行起）、bool_field（155–167 行）
+- character_cards 体量核对用文件首行：src/main.ts、src/memory-recall.ts、src/storage/database.ts、src/group-execution/executor.ts、src/search/usearch.ts、web/app.ts、vendor/usearch/index.cpp；workflow/src/main.ts 首行
+
+目录清点结果（ls plugins/packages/buildin，2026-11-12 实测）：
+- 共 19 项：12306.ts、ai_chat.ts、browser.ts、crossref.ts、extended_file_tools.ts、operit_editor.ts、super_admin.ts、system_tools.ts、time.ts（9 个单文件 .ts）、change_review/、character_cards/、daily_life/、goal_mode/、message_translation/、plan_mode/、workflow/（7 个目录包）、README.md、tsconfig.json、resources/（仅含 character-memory.html 一个文件，171146 字节）
+- 16 个插件 = 9 单文件 + 7 目录；7 个目录包各有 manifest.json、src/、dist/main.js、自有 tsconfig.json；其中 change_review、character_cards、workflow 有 package.json，daily_life、goal_mode、message_translation、plan_mode 无 package.json
+- 默认启用统计：声明 true 共 13 个（目录包 6 个：change_review、character_cards、daily_life、goal_mode、message_translation、plan_mode；单文件 7 个：12306、browser、crossref、extended_file_tools、super_admin、system_tools、time）；声明 false 共 2 个（workflow、operit_editor）；未声明 1 个（ai_chat）
+- ai_chat 未声明核查：grep -n "enabledByDefault" ai_chat.ts 全文件无命中；METADATA 块（1–33 行）通读确认无该字段；grep -n "enabled" ai_chat.ts 全文件无命中
+- 单文件包无 manifest.json：buildin 根目录下除 tsconfig.json 外无其他 .json；各单文件包的元数据只在文件顶部 METADATA 注释块内
+- character_cards 体量（find + wc -l 实测）：src/ 97 个文件（.ts 94 个，合计 15212 行）；web/ 54 个文件（.ts 51 个，合计 2718 行）；vendor/ 5 个文件；resources/ 4 个文件；tests/ 93 个文件；docs/ 3 个文件；src 子目录：group-execution（9 个 .ts，1030 行）、memory-jobs（7 个 .ts，1018 行）、runtime-tools（4 个 .ts，1174 行）、search（4 个 .ts，420 行）、storage（9 个 .ts，1900 行，另含 3 个 .json）、ui（9 个 .ts，65 行）
+- 对照 workflow 体量：src/ 14 个文件（.ts 14 个，合计 2966 行）；web/ 14 个文件
+- buildin/resources/character-memory.html 无任何 manifest 引用（grep 全 buildin 仅 character_cards/manifest.json 引用自家 resources/character-memory.html）；正文未断言其用途
+
+计数类 facts 的引用说明：
+- 19 项 / 16 插件 / 9+7 拆分 / 13-2-1 默认启用统计 / src 与 web 的文件数与行数，均来自上述磁盘清点命令（ls / find / wc -l），critic 可按本文件复算。2026-11-12 critic 修订后，聚合清点类 facts（原第 2–5 条）已从 facts.json 删除（聚合数不宜挂单行引用），正文保留“磁盘清点”表述；README.md:3 只支撑“打包进内置插件资产”这一条有据断言。
+
+未写 .quality.json：本次阅读未发现可落地的实质代码问题；ai_chat 缺失 enabledByDefault 按 JsPackageLoader 解析规则得 false，属解析器既定行为，未证实为缺陷，故不凑数。

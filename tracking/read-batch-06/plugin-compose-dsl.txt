@@ -1,0 +1,7 @@
+plugin-compose-dsl seed 阅读记录（2026-11-11，基线 operit2 @ 364d1d594）
+- core/crates/plugin/sdk/src/toolpkg/compose/README.md：111 行，全文读完
+- core/crates/plugin/sdk/src/toolpkg/ToolPkgComposeDslBridge.rs：28 行，全文读完
+- core/crates/plugin/sdk/src/toolpkg/ToolPkgComposeDslRuntimeScript.rs：8 行，全文读完
+- plugins/types/compose-dsl.d.ts：4977 行，生成文件；头部、全部导出符号索引（grep）、ComposeNode（4187-4210）、Lazy/视口（3803-3890）、UI 工厂注册表（4381-4500 段）、ComposeDslContext/Theme/Screen（4735-4977）逐行读完，其余类型定义按符号索引扫读、只引用不展开
+- plugins/tools/compile_compose_module.mjs：25 行，全文读完
+合计 5149 行。

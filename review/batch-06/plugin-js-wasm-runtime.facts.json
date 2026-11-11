@@ -1,0 +1,398 @@
+[
+  {
+    "fact": "非 wasm32 目标上 ToolPkgWasmRuntime.rs 引入 wasmi 的 Engine、Linker、Module、Store、Val 与 ValType",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:7"
+  },
+  {
+    "fact": "callWasmExport 是公开入口，接受模块字节、导出名与 JsToolPkgWasmArg 切片，返回 Result<JsToolPkgWasmResult, String>",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:10"
+  },
+  {
+    "fact": "导出名去空白后为空时返回 ToolPkg WASM export name is required 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:17"
+  },
+  {
+    "fact": "模块字节为空时返回 ToolPkg WASM module bytes are empty 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:20"
+  },
+  {
+    "fact": "非 wasm32 目标的 callWasmExportForTarget 用 Engine::default() 创建 wasmi 引擎",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:32"
+  },
+  {
+    "fact": "模块字节经 Module::new 编译为模块",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:33"
+  },
+  {
+    "fact": "Linker 的 instantiate_and_start 实例化并启动模块",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:37"
+  },
+  {
+    "fact": "get_func 按导出名取函数，未找到时返回 ToolPkg WASM export not found 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:40"
+  },
+  {
+    "fact": "导出返回值超过一个时返回 ToolPkg WASM export must return at most one value 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:50"
+  },
+  {
+    "fact": "SDK 自身编译为 wasm32 目标时 callWasmExportForTarget 返回 ToolPkg WASM host execution is unavailable on wasm32 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:71"
+  },
+  {
+    "fact": "parseWasmArg 只接受 i32、i64、f32、f64 四种标量类型",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:79"
+  },
+  {
+    "fact": "四种标量类型之外的 value_type 返回 unsupported type 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:84"
+  },
+  {
+    "fact": "parseI32Value 在值超出 i32 范围时返回 exceeds i32 range 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:95"
+  },
+  {
+    "fact": "i64 值接受 JSON 数字或十进制字符串形式",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:106"
+  },
+  {
+    "fact": "浮点参数非有限时返回 must be finite 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:137"
+  },
+  {
+    "fact": "encodeWasmResult 把 Val::I32 结果编码为 value_type 为 i32 的 JSON 数字",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:148"
+  },
+  {
+    "fact": "Val::I64 结果编码为 value_type 为 i64 的十进制字符串",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:153"
+  },
+  {
+    "fact": "Val::F32 与 Val::F64 结果经 numberResult 编码",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:155"
+  },
+  {
+    "fact": "非标量返回值返回 result type is unsupported 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:158"
+  },
+  {
+    "fact": "导出无返回值时返回 value_type 为空、值为 null 的结果",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:161"
+  },
+  {
+    "fact": "numberResult 在 f64 结果非有限时返回 not finite 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:170"
+  },
+  {
+    "fact": "ValType::V128、ValType::FuncRef、ValType::ExternRef 分别映射为 v128、funcref、externref",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:187"
+  },
+  {
+    "fact": "tests 模块内置 PRIME_WASM 字节数组作为演示 Wasm 模块",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:197"
+  },
+  {
+    "fact": "tests 模块的 callsPrimeDemoExports 用内置 PRIME_WASM 演示模块验证 isPrime 与 nthPrime 导出",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:234"
+  },
+  {
+    "fact": "ToolPkgWasmApi.js 在 __operitCreateToolPkgWasmApi 已定义时直接返回，不重复安装",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:3"
+  },
+  {
+    "fact": "ToolPkgWasmApi.js 用 modules 与 defaults 两个 Map 按包身份隔离模块与默认实例",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:5"
+  },
+  {
+    "fact": "scalarArguments 在参数为 undefined 或 null 时返回空数组",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:8"
+  },
+  {
+    "fact": "i32 参数为整数且在 -2147483648 至 2147483647 范围内",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:15"
+  },
+  {
+    "fact": "i64 参数转为 BigInt 并校验 64 位有符号范围",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:19"
+  },
+  {
+    "fact": "f32 与 f64 参数有限，数字或数字字符串均转为 Number",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:24"
+  },
+  {
+    "fact": "range 在偏移或长度越界时抛 RangeError",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:30"
+  },
+  {
+    "fact": "内存导出默认名为 memory，要求其为 WebAssembly.Memory",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:41"
+  },
+  {
+    "fact": "call 只调用 allowed 清单内声明的导出，否则抛错",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:46"
+  },
+  {
+    "fact": "fn.apply 调用导出函数并先经 scalarArguments 校验参数",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:49"
+  },
+  {
+    "fact": "标量结果为有限数字，bigint 结果转为十进制字符串",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:52"
+  },
+  {
+    "fact": "readMemory 按偏移与长度返回内存切片",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:56"
+  },
+  {
+    "fact": "writeMemory 只接受 Uint8Array 写入",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:60"
+  },
+  {
+    "fact": "close 把实例置为 null",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:64"
+  },
+  {
+    "fact": "identity 在 registrationOnly 为真时抛错，注册期间 ToolPkg.wasm 操作不可用",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:69"
+  },
+  {
+    "fact": "模块 id 去空白并转小写后与包目标拼成键",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:74"
+  },
+  {
+    "fact": "load 经 __operitNativeLoadToolPkgWasm 取回模块字节与元数据",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:79"
+  },
+  {
+    "fact": "load 校验返回的 bytes 为 Uint8Array 且 metadata.exports 为数组，否则抛 Invalid WASM module response 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:80"
+  },
+  {
+    "fact": "open 只在首次编译时用 new WebAssembly.Module 编译模块字节，编译结果缓存复用",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:88"
+  },
+  {
+    "fact": "open 用 new WebAssembly.Instance 以调用方传入的 imports 实例化已编译模块",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:91"
+  },
+  {
+    "fact": "ToolPkg.wasm 的 read 返回模块字节的副本",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:97"
+  },
+  {
+    "fact": "首次调用时创建默认实例并缓存到 defaults，创建失败时删除缓存并重新抛错",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:110"
+  },
+  {
+    "fact": "unload 删除 defaults 与 modules 中的条目，并关闭待创建的默认实例",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:119"
+  },
+  {
+    "fact": "ToolPkgLoader 的 loadToolPkgFromExternalFile 是外部文件加载入口",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:17"
+  },
+  {
+    "fact": "外部文件加载经 fileSystemHost 的 readFileBytes 读入归档字节",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:28"
+  },
+  {
+    "fact": "外部文件加载以 ToolPkgSourceType::EXTERNAL 标记来源",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:32"
+  },
+  {
+    "fact": "ToolPkgLoader 的 loadToolPkgFromBundledExternalAsset 是捆绑外部资源加载入口",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:43"
+  },
+  {
+    "fact": "捆绑外部资源加载时，归档未声明安装范围默认使用 ToolPkgConfigScope::Device",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:52"
+  },
+  {
+    "fact": "ToolPkgLoader 的 loadToolPkgFromBuiltInAsset 是内置资源加载入口",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:69"
+  },
+  {
+    "fact": "内置资源加载以 ToolPkgSourceType::ASSET 标记来源",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:80"
+  },
+  {
+    "fact": "ToolPkgLoader 的 loadToolPkgFromMarketFile 是市场文件加载入口",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:91"
+  },
+  {
+    "fact": "市场文件加载以 ToolPkgSourceType::MARKET 标记来源",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:106"
+  },
+  {
+    "fact": "非内置加载时，归档要求的安装范围与传入范围不一致时返回错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:133"
+  },
+  {
+    "fact": "归档加载调用 readThemeTemplates 校验主题模板",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:137"
+  },
+  {
+    "fact": "归档字节用 ZipArchive 打开",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:139"
+  },
+  {
+    "fact": "归档加载调用 readToolPkgTextResources 预读归档文本资源",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:141"
+  },
+  {
+    "fact": "主脚本交给 parseMainRegistration 解析注册声明",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:165"
+  },
+  {
+    "fact": "主注册解析委托给 ToolPkgMainRegistrationScriptParser 的 parseWithTextResources",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:192"
+  },
+  {
+    "fact": "readToolPkgTextResources 以小写条目名作键缓存文本资源",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:211"
+  },
+  {
+    "fact": "readIndexedTextResource 经 entryIndex 的 resolveEntryName 解析资源路径",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:226"
+  },
+  {
+    "fact": "buildToolPkgRegistrationBridgeScript 接受 restrictHostCapabilities 参数生成注册桥脚本",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:3"
+  },
+  {
+    "fact": "buildToolPkgRegistrationBridgeScript 在 restrictHostCapabilities 为真时把 registrationOnly 置为 true 字符串",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:4"
+  },
+  {
+    "fact": "桥脚本模板把 ToolPkgWasmApi.js 内联进来",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:628"
+  },
+  {
+    "fact": "桥脚本模板把 registrationOnly 占位符替换为 true 或 false 字符串",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:629"
+  },
+  {
+    "fact": "桥脚本把 capture 对象挂到 __operitToolPkgRegistrationCapture 上",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:51"
+  },
+  {
+    "fact": "capture 收集 publicApis、toolboxUiModules、uiRoutes 等注册桶",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:19"
+  },
+  {
+    "fact": "ToolPkg.wasm 的值是 __operitCreateToolPkgWasmApi 的返回值",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:617"
+  },
+  {
+    "fact": "桥脚本经 installGlobal 把 ToolPkg 对象安装为全局",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:624"
+  },
+  {
+    "fact": "registerApi 要求 definition 的 name 为非空字符串",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:508"
+  },
+  {
+    "fact": "registerApi 用 normalizeFunctionField 处理 definition 的 function",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:510"
+  },
+  {
+    "fact": "规范化后的公开 API 定义写入 capture.publicApis",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:513"
+  },
+  {
+    "fact": "normalizeFunctionField 要求 definition 的目标字段为函数引用，否则抛错",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:232"
+  },
+  {
+    "fact": "函数字段经 resolveDurableFunctionRef 转为 durable 引用",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:236"
+  },
+  {
+    "fact": "resolveDurableFunctionRef 先用 OperitToolPkgExports 的 nameOf 取已导出函数名",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:211"
+  },
+  {
+    "fact": "registrationOnly 为真时 ToolPkg.readResource 抛错不可用",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:407"
+  },
+  {
+    "fact": "registrationOnly 为真时浮动窗口命令抛错不可用",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:486"
+  },
+  {
+    "fact": "导航 surface 清单包含 toolbox、main_sidebar_plugins、app_bar、chat_attachments、chat_sidebar_tabs",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:77"
+  },
+  {
+    "fact": "导航 surface 清单包含 workspace 与 workspace_home",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:86"
+  },
+  {
+    "fact": "导航 surface 清单还包含 chat_input_menu、chat_input_menu_sections、chat_message_after",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:84"
+  },
+  {
+    "fact": "registerChatLifecycleHook 要求 definition 的 id 为非空字符串",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:574"
+  },
+  {
+    "fact": "同一包重复注册聊天生命周期钩子时抛 Duplicate chat lifecycle hook owner 错误",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:577"
+  },
+  {
+    "fact": "captureMarketOrigin 在非注册期调用时直接返回，不改动注册捕获状态",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:331"
+  },
+  {
+    "fact": "插件配置目录经 __operitNativeGetScopedPluginConfigDir 取回",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:454"
+  },
+  {
+    "fact": "插件配置目录为绝对 VFS 路径，否则抛错",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:458"
+  },
+  {
+    "fact": "插件 JS 运行时类型声明文件 quickjs-runtime.d.ts 声明 QuickJsTimerHandler 类型",
+    "ref": "plugins/types/quickjs-runtime.d.ts:20"
+  },
+  {
+    "fact": "quickjs-runtime.d.ts 把 global 声明为 globalThis 的别名",
+    "ref": "plugins/types/quickjs-runtime.d.ts:2"
+  },
+  {
+    "fact": "quickjs-runtime.d.ts 声明 VerboseLogLevel 为 1 至 6 的数字",
+    "ref": "plugins/types/quickjs-runtime.d.ts:6"
+  },
+  {
+    "fact": "Console 的 verbose 接受 VerboseLogLevel 与任意数据",
+    "ref": "plugins/types/quickjs-runtime.d.ts:10"
+  },
+  {
+    "fact": "quickjs-runtime.d.ts 声明 setTimeout，返回 number 计时器 id",
+    "ref": "plugins/types/quickjs-runtime.d.ts:22"
+  },
+  {
+    "fact": "quickjs-runtime.d.ts 声明 clearTimeout 取消计时器",
+    "ref": "plugins/types/quickjs-runtime.d.ts:23"
+  },
+  {
+    "fact": "quickjs-runtime.d.ts 声明 setInterval",
+    "ref": "plugins/types/quickjs-runtime.d.ts:24"
+  },
+  {
+    "fact": "quickjs-runtime.d.ts 声明 clearInterval",
+    "ref": "plugins/types/quickjs-runtime.d.ts:25"
+  },
+  {
+    "fact": "quickjs-runtime.d.ts 声明 queueMicrotask",
+    "ref": "plugins/types/quickjs-runtime.d.ts:26"
+  },
+  {
+    "fact": "Storage 声明 getItem、setItem、removeItem、clear、key 与只读 length",
+    "ref": "plugins/types/quickjs-runtime.d.ts:33"
+  },
+  {
+    "fact": "quickjs-runtime.d.ts 声明 localStorage、sessionStorage 与 performance 全局",
+    "ref": "plugins/types/quickjs-runtime.d.ts:41"
+  }
+]

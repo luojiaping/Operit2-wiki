@@ -1,0 +1,7 @@
+plugin-skills seed 清单（batch-06，基线 AAswordman/Operit2 @ 364d1d594，2026-11-11 全部读完）
+- core/crates/tool/services/src/tools/skill/SkillManager.rs：849 行
+- core/crates/tool/services/src/tools/skill/SkillPackage.rs：11 行
+- core/crates/tool/services/src/tools/skill/mod.rs：5 行
+- core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs：558 行
+- core/crates/tool/services/src/tools/skill_runtime/mod.rs：2 行
+合计：1425 行

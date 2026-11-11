@@ -1,0 +1,7 @@
+plugin-packagebuilder seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+- plugins/skills/external/PackageBuilder/SKILL.md：53 行，全部读完
+- plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md：120 行，全部读完
+- plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md：619 行，全部读完
+- plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md：1405 行，全部读完
+合计：2197 行，全部读完。
+备注：为核对 SKILL.md 自述的 references/、types/、examples/ 目录的磁盘实况，另查阅了同目录的 plugins/skills/external/PackageBuilder/skill.include.json（46 行，全部读完）与目录清单（ls）：磁盘上该目录只有 SKILL.md 与 skill.include.json 两个文件，三个目录由 skill.include.json 的 includes 映射在打包时解析还原；正文按磁盘实况表述，skill.include.json 已列入正文来源。

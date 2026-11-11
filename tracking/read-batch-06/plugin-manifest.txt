@@ -1,0 +1,10 @@
+plugin-manifest seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+- core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs：3175 行，全部读完
+- core/crates/plugin/sdk/src/toolpkg/ToolPkgPackageModels.rs：187 行，全部读完
+- core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs：136 行，全部读完
+- plugins/docs/V1_COMPATIBILITY.md：418 行，全部读完
+- plugins/packages/buildin/character_cards/manifest.json：66 行，全部读完
+- plugins/packages/buildin/workflow/manifest.json：38 行，全部读完
+- plugins/packages/external/moss_atelier/manifest.json：66 行，全部读完
+合计：4086 行，全部读完。
+备注：为核对 installation_scope 的语义，另查阅了 core/crates/plugin/sdk/src/javascript.rs 中 ToolPkgConfigScope 的定义（第 181-185 行），该文件不在 seed 清单内，正文未引用它，device/space 的区别只按 seed 证据表述。

@@ -1,0 +1,7 @@
+plugin-theme seed 阅读记录（Operit2 仓库，基线 364d1d594，全部 100% 读完）
+- core/crates/plugin/theme/schema/theme-v1.schema.json：1247 行
+- core/crates/plugin/theme/schema/theme-template.schema.json：58 行
+- docs/theme-v1-contract.md：55 行
+- docs/theme-studio-protocol-v1.md：93 行
+- plugins/packages/external/moss_atelier/manifest.json：66 行
+合计 1519 行，与 outline est_lines 1519 一致。

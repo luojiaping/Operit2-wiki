@@ -1,0 +1,72 @@
+# plugin-catalog-external — seed 阅读记录（batch-06，Issue #67）
+
+基线：AAswordman/Operit2 @ 364d1d594。只读，未做 git 操作，未改任何源文件。
+
+## Seed 文件（大纲指定，100% 读完）
+
+- plugins/packages/external/subagents/manifest.json — 17 行，全部读完
+- plugins/packages/external/moss_atelier/manifest.json — 66 行，全部读完
+- plugins/packages/external/worldbook/manifest.json — 43 行，全部读完
+- plugins/packages/external/wechat/manifest.json — 20 行，全部读完
+
+## 为回答大纲问题额外查阅的文件（只读）
+
+完整读完：
+- plugins/packages/external/subagents/README.md — 98 行
+- plugins/packages/external/waifu/manifest.json — 296 行
+- plugins/packages/external/qqbot/manifest.json — 34 行
+- plugins/packages/external/image_workbench/manifest.json — 33 行
+- plugins/packages/external/custom_ai_provider/manifest.json — 17 行
+- plugins/packages/external/desktop_widget_demo/manifest.json — 23 行
+- plugins/packages/external/dino_runner/manifest.json — 43 行
+- plugins/packages/external/floating_window_demo/manifest.json — 12 行
+- plugins/packages/external/sidebar_bing_action/manifest.json — 20 行
+- plugins/packages/external/template_try/manifest.json — 71 行
+- plugins/packages/external/tsconfig.json — 37 行
+- plugins/README.md — 44 行
+
+按需查阅（头段 / 关键行 / grep）：
+- plugins/packages/external/subagents/src/tools.ts — 第 1–50 行（METADATA，五个工具定义）+ grep
+- plugins/packages/external/context_limiter/manifest.json — 前 20 行
+- plugins/packages/external/debug_msg_dump/manifest.json — 前 20 行
+- plugins/packages/external/deepseek_dafeiyu/manifest.json — 前 20 行
+- plugins/packages/external/edge_pixel_pet/manifest.json — 前 20 行
+- plugins/packages/external/message_insert/manifest.json — 前 20 行
+- plugins/packages/external/openui/manifest.json — 前 20 行
+- plugins/packages/external/sidebar_model_sites/manifest.json — 前 20 行
+- plugins/packages/buildin/README.md — 3 行（内置打包口径对照）
+- plugins/packages/buildin/character_cards/manifest.json — 前 40 行（内置对照）
+- plugins/packages/buildin/ai_chat.ts — 前 30 行（松散单文件 METADATA 形态对照）
+- 10 个松散 .ts 插件 — 各前 4–8 行（METADATA 头与 name 行）
+- plugins/packages/external/waifu/README.md — 前 20 行（仅作背景，未入 facts）
+- plugins/packages/external/wechat/README.md — 前 15 行（仅作背景，未入 facts）
+
+## 目录清点结果（ls plugins/packages/external，2026-11-12）
+
+共 31 项 = 30 个插件 + tsconfig.json。
+
+20 个目录插件（各带 manifest.json）：
+context_limiter、custom_ai_provider、debug_msg_dump、deepseek_dafeiyu、desktop_widget_demo、dino_runner、edge_pixel_pet、floating_window_demo、image_workbench、message_insert、moss_atelier、openui、qqbot、sidebar_bing_action、sidebar_model_sites、subagents、template_try、waifu、wechat、worldbook
+
+10 个松散单文件插件（.ts，文件头 METADATA 声明）：
+baidu_map.ts、beeimg_image_uploader.ts、douyin_download.ts、duckduckgo.ts、extended_chat.ts、extended_http_tools.ts、google_search.ts、network_test.ts、tavily.ts、zhipu_search.ts
+
+1 个编译配置：tsconfig.json（outDir ../../.out/external，include *.ts）
+
+## 演示性质判定依据（grep 全目录 manifest 的 演示/示例/Demo）
+
+命中 6 个，判定只以 manifest 原话为准：
+- custom_ai_provider（演示如何通过 ToolPkg.registerAiProvider 注册自定义 AI 供应商）
+- desktop_widget_demo（演示如何通过 ToolPkg 注册可配置的桌面小组件）
+- dino_runner（WebView 示例，全屏小游戏）
+- floating_window_demo（演示透明实时悬浮窗）
+- sidebar_bing_action（演示侧边栏插件项通过 action 函数直接执行逻辑）
+- template_try（演示工作流模板与工作区模板的注册、展示与导入）
+
+其余 14 个目录插件的 manifest 描述无演示/示例字样，未定性为演示。
+
+## 备注
+
+- moss_atelier 全文 66 行无 main 字段，纯主题包（themes: moss、dune），已全文核实。
+- message_insert 是目录插件中唯一容器级 enabled_by_default 为 true 的；context_limiter、edge_pixel_pet 只在子包级为 true。
+- 未写 .quality.json：读到的 manifest/README/代码头段未发现实质代码问题，不凑数。

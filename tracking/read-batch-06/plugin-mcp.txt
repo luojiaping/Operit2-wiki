@@ -1,0 +1,12 @@
+plugin-mcp seed 阅读记录（Operit2 @ 364d1d594，2026-11-11）
+core/crates/tool/services/src/tools/mcp/MCPManager.rs — 207 行
+core/crates/tool/services/src/tools/mcp/MCPPackage.rs — 192 行
+core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs — 808 行
+core/crates/tool/services/src/tools/mcp/MCPToolParameter.rs — 196 行
+core/crates/tool/services/src/tools/mcp/MCPServerConfig.rs — 12 行
+core/crates/tool/services/src/tools/mcp/MCPTool.rs — 8 行
+core/crates/tool/services/src/tools/mcp/mod.rs — 17 行
+core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs — 886 行
+core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs — 674 行
+core/crates/tool/services/src/tools/mcp_runtime/mod.rs — 7 行
+合计 3007 行，全部读完
