@@ -40,7 +40,8 @@ import re
 import shutil
 import subprocess
 import sys
-from datetime import date
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -107,7 +108,7 @@ def write_topic(path: Path, info: dict, pages: dict[str, dict],
         f"# {info['title']}",
         "",
         f"> 状态：{page_status(pid)}｜章节：{chapter_name}｜模块：{module or '—'}"
-        f"｜大纲 v1（{date.today().isoformat()}）",
+        f"｜大纲 v1（{datetime.now(ZoneInfo('Asia/Shanghai')).date().isoformat()}）",
         "",
         "## 计划覆盖的问题",
         "",
@@ -344,7 +345,7 @@ def write_chapter_pins(outline: dict) -> None:
         f"wiki/entities/{c['slug']}.md": {"x": x, "y": y}
         for c, (x, y) in zip(chapters, CHAPTER_CENTERS)
     }
-    layout = {"version": 1, "pins": pins, "updatedAt": date.today().isoformat()}
+    layout = {"version": 1, "pins": pins, "updatedAt": datetime.now(ZoneInfo("Asia/Shanghai")).date().isoformat()}
     (KB / ".wiki-graph-layout.json").write_text(
         json.dumps(layout, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"章枢纽已钉住：{len(pins)} 个")
@@ -459,7 +460,7 @@ def main() -> int:
     data = json.loads((KB / "wiki" / "graph-data.json").read_text(encoding="utf-8"))
     ins = data.get("insights", {})
     meta = {
-        "built": date.today().isoformat(),
+        "built": datetime.now(ZoneInfo("Asia/Shanghai")).date().isoformat(),
         "nodes": len(data.get("nodes", [])),
         "edges": len(data.get("edges", [])),
         "isolated_nodes": len(ins.get("isolated_nodes", [])),
