@@ -4,9 +4,9 @@
  "files": {
   "README.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/arch-overview.md",
+   "evidence": "review/batch-06/plugin-catalog-buildin.md",
    "lines": 262
   },
   "README-zh.md": {
@@ -165,16 +165,16 @@
   },
   "core/crates/tool/services/src/tools/skill/SkillManager.rs": {
    "status": "complete",
-   "batch": "batch-02",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-02/core-tool-packages-mcp.md",
+   "evidence": "review/batch-06/plugin-skills.md",
    "lines": 849
   },
   "core/crates/tool/services/src/tools/skill/SkillPackage.rs": {
    "status": "complete",
-   "batch": "batch-02",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-02/core-tool-packages-mcp.md",
+   "evidence": "review/batch-06/plugin-skills.md",
    "lines": 11
   },
   "core/crates/tool/services/src/tools/mcp/MCPManager.rs": {
@@ -725,9 +725,9 @@
   },
   "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-plugin-sdk.md",
+   "evidence": "review/batch-06/plugin-catalog-buildin.md",
    "lines": 3175
   },
   "core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs": {
@@ -753,16 +753,16 @@
   },
   "core/crates/plugin/theme/schema/theme-v1.schema.json": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-plugin-theme.md",
+   "evidence": "review/batch-06/plugin-theme.md",
    "lines": 1247
   },
   "core/crates/plugin/theme/schema/theme-template.schema.json": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-plugin-theme.md",
+   "evidence": "review/batch-06/plugin-theme.md",
    "lines": 58
   },
   "core/crates/command/README.md": {
@@ -1243,9 +1243,9 @@
   },
   "plugins/packages/external/subagents/src/tools.ts": {
    "status": "complete",
-   "batch": "batch-04",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-04/agent-subagents.md",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
    "lines": 84
   },
   "plugins/packages/external/subagents/src/model.ts": {
@@ -1278,16 +1278,16 @@
   },
   "plugins/packages/external/subagents/manifest.json": {
    "status": "complete",
-   "batch": "batch-04",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-04/agent-subagents.md",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
    "lines": 17
   },
   "plugins/packages/external/subagents/README.md": {
    "status": "complete",
-   "batch": "batch-04",
+   "batch": "batch-06",
    "date": "2026-11-11",
-   "evidence": "review/batch-04/agent-subagents.md",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
    "lines": 98
   },
   "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts": {
@@ -3039,6 +3039,405 @@
    "date": "2026-11-11",
    "evidence": "review/batch-06/plugin-mcp.md",
    "lines": 7
+  },
+  "docs/toolpkg-runtime.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-toolpkg-overview.md",
+   "lines": 152
+  },
+  "plugins/README.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 44
+  },
+  "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-quick-plugin-creator.md",
+   "lines": 120
+  },
+  "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-packagebuilder.md",
+   "lines": 1405
+  },
+  "core/crates/plugin/sdk/src/javascript.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-manifest.md",
+   "lines": 727
+  },
+  "core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-manifest.md",
+   "lines": 136
+  },
+  "core/crates/plugin/sdk/src/toolpkg/ToolPkgPackageModels.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-manifest.md",
+   "lines": 187
+  },
+  "plugins/docs/V1_COMPATIBILITY.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-manifest.md",
+   "lines": 418
+  },
+  "plugins/packages/buildin/character_cards/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 66
+  },
+  "plugins/packages/buildin/workflow/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-buildin.md",
+   "lines": 38
+  },
+  "plugins/packages/external/moss_atelier/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-theme.md",
+   "lines": 66
+  },
+  "core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-js-wasm-runtime.md",
+   "lines": 228
+  },
+  "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-js-wasm-runtime.md",
+   "lines": 732
+  },
+  "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-js-wasm-runtime.md",
+   "lines": 124
+  },
+  "core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-js-wasm-runtime.md",
+   "lines": 241
+  },
+  "plugins/types/quickjs-runtime.d.ts": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-js-wasm-runtime.md",
+   "lines": 46
+  },
+  "core/crates/plugin/sdk/src/toolpkg/ToolPkgComposeDslBridge.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-compose-dsl.md",
+   "lines": 28
+  },
+  "core/crates/plugin/sdk/src/toolpkg/ToolPkgComposeDslRuntimeScript.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-compose-dsl.md",
+   "lines": 8
+  },
+  "core/crates/plugin/sdk/src/toolpkg/compose/README.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-compose-dsl.md",
+   "lines": 111
+  },
+  "plugins/tools/compile_compose_module.mjs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-compose-dsl.md",
+   "lines": 25
+  },
+  "plugins/types/compose-dsl.d.ts": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-compose-dsl.md",
+   "lines": 4977
+  },
+  "core/crates/tool/services/src/tools/skill/mod.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-skills.md",
+   "lines": 5
+  },
+  "core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-skills.md",
+   "lines": 558
+  },
+  "core/crates/tool/services/src/tools/skill_runtime/mod.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-skills.md",
+   "lines": 2
+  },
+  "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-packagebuilder.md",
+   "lines": 619
+  },
+  "plugins/skills/external/PackageBuilder/SKILL.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-packagebuilder.md",
+   "lines": 53
+  },
+  "plugins/skills/external/PackageBuilder/skill.include.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-packagebuilder.md",
+   "lines": 46
+  },
+  "apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-quick-plugin-creator.md",
+   "lines": 151
+  },
+  "apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-quick-plugin-creator.md",
+   "lines": 53
+  },
+  "core/crates/plugin/sdk/src/JsPackageLoader.rs": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-buildin.md",
+   "lines": 517
+  },
+  "plugins/packages/buildin/README.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 3
+  },
+  "plugins/packages/buildin/change_review/tsconfig.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-buildin.md",
+   "lines": 13
+  },
+  "plugins/packages/buildin/tsconfig.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-buildin.md",
+   "lines": 37
+  },
+  "plugins/packages/buildin/ai_chat.ts": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 458
+  },
+  "plugins/packages/external/context_limiter/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 19
+  },
+  "plugins/packages/external/custom_ai_provider/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 18
+  },
+  "plugins/packages/external/debug_msg_dump/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 16
+  },
+  "plugins/packages/external/deepseek_dafeiyu/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 49
+  },
+  "plugins/packages/external/desktop_widget_demo/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 23
+  },
+  "plugins/packages/external/dino_runner/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 43
+  },
+  "plugins/packages/external/edge_pixel_pet/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 19
+  },
+  "plugins/packages/external/floating_window_demo/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 12
+  },
+  "plugins/packages/external/image_workbench/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 33
+  },
+  "plugins/packages/external/message_insert/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 17
+  },
+  "plugins/packages/external/openui/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 39
+  },
+  "plugins/packages/external/qqbot/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 34
+  },
+  "plugins/packages/external/sidebar_bing_action/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 21
+  },
+  "plugins/packages/external/sidebar_model_sites/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 23
+  },
+  "plugins/packages/external/template_try/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 71
+  },
+  "plugins/packages/external/tsconfig.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 37
+  },
+  "plugins/packages/external/waifu/README.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 97
+  },
+  "plugins/packages/external/waifu/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 296
+  },
+  "plugins/packages/external/wechat/README.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 96
+  },
+  "plugins/packages/external/wechat/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 20
+  },
+  "plugins/packages/external/worldbook/manifest.json": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-catalog-external.md",
+   "lines": 43
+  },
+  "docs/theme-studio-protocol-v1.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-theme.md",
+   "lines": 93
+  },
+  "docs/theme-v1-contract.md": {
+   "status": "complete",
+   "batch": "batch-06",
+   "date": "2026-11-11",
+   "evidence": "review/batch-06/plugin-theme.md",
+   "lines": 55
   }
  }
 }
