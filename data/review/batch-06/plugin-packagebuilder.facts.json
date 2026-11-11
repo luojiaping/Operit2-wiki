@@ -1,0 +1,826 @@
+[
+{
+"fact": "PackageBuilder 是当前 Operit 随软件携带的插件开发 Skill。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:8"
+},
+{
+"fact": "PackageBuilder 的类型和示例来自当前版本内置资源，不从云端拉取其他版本。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:8"
+},
+{
+"fact": "PackageBuilder 的描述是使用当前 Operit 随软件携带的类型定义和示例开发、打包、安装与测试插件包，并通过现有 host API 核对环境与路径。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:3"
+},
+{
+"fact": "Operit2 的 ToolPkg API 支持版本为 2.0.0；对 1.0.0 和 1.0.1 的加载支持并不完整；Operit1 完整支持 1.0.0 和 1.0.1，这两个版本主要面向 Android，是旧版 API 形式。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:12"
+},
+{
+"fact": "为 Operit2 新建 ToolPkg 要显式声明 \"api_version\": \"2.0.0\"，使用本 Skill 的当前版本类型；不能把旧版兼容加载当作完整支持，也不能只修改旧包版本号就宣称完成迁移。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:14"
+},
+{
+"fact": "遇到平台特异接口时，作者要明确其适用范围，考虑并验证其他平台的安装、界面与核心功能；不能把某个平台的专用能力当作所有平台都具备的接口。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:16"
+},
+{
+"fact": "SKILL.md 自述的随包资料树列出 references/ 目录，含 PLUGIN_CREATION_WORKFLOW.md、SCRIPT_DEV_GUIDE.md、TOOLPKG_FORMAT_GUIDE.md。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:23"
+},
+{
+"fact": "SKILL.md 自述的随包资料树列出 types/ 目录，含 index.d.ts、core.d.ts、toolpkg.d.ts。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:27"
+},
+{
+"fact": "随包资料树列出 examples/ 目录，含 packages/buildin/ 与 packages/external/。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:32"
+},
+{
+"fact": "把 ../../../docs/package_builder/PLUGIN_CREATION_WORKFLOW.md 映射到 references/PLUGIN_CREATION_WORKFLOW.md。",
+"ref": "plugins/skills/external/PackageBuilder/skill.include.json:4"
+},
+{
+"fact": "把 ../../../docs/package_builder/SCRIPT_DEV_GUIDE.md 映射到 references/SCRIPT_DEV_GUIDE.md。",
+"ref": "plugins/skills/external/PackageBuilder/skill.include.json:8"
+},
+{
+"fact": "把 ../../../docs/package_builder/TOOLPKG_FORMAT_GUIDE.md 映射到 references/TOOLPKG_FORMAT_GUIDE.md。",
+"ref": "plugins/skills/external/PackageBuilder/skill.include.json:12"
+},
+{
+"fact": "把 ../../../types 映射到 types 目录。",
+"ref": "plugins/skills/external/PackageBuilder/skill.include.json:16"
+},
+{
+"fact": "把 ../../../packages/buildin 映射到 examples/packages/buildin，packageExamples 为 true。",
+"ref": "plugins/skills/external/PackageBuilder/skill.include.json:20"
+},
+{
+"fact": "把 ../../../packages/external 映射到 examples/packages/external，packageExamples 为 true。",
+"ref": "plugins/skills/external/PackageBuilder/skill.include.json:33"
+},
+{
+"fact": "示例排除 .sync_state.json、.sync_hot_reload_state.json、node_modules、dist、build、tests-dist。",
+"ref": "plugins/skills/external/PackageBuilder/skill.include.json:26"
+},
+{
+"fact": "示例目录提供开发源码与构建配置，不携带 dist/、build/、tests-dist/ 中的生成文件或成品包。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:38"
+},
+{
+"fact": "Compose UI 按普通、可读的 CommonJS JavaScript 交付，保留界面声明和回调，运行时负责 Compose 编译与缓存；不要指导用户生成或修改 Compose 内部预编译产物。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:38"
+},
+{
+"fact": "安装 Skill 时从随软件携带的插件归档中还原示例已使用的资源，保留完整的相对路径和原始文件；示例源码不要求对应插件已安装或启用。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:40"
+},
+{
+"fact": "CLI 和 App 使用同一套资源与安装逻辑。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:40"
+},
+{
+"fact": "包管理创作入口只准备 Skill 和包，并把需求填入聊天草稿；用户发送后才开始开发；它不自动生成、构建、安装或发布插件。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:53"
+},
+{
+"fact": "创作步骤第一步是阅读 references/PLUGIN_CREATION_WORKFLOW.md，通过 operit_editor 工具的 args: [\"skill\", \"show\", \"PackageBuilder\"] 或系统工具 execute_cli_command 读取真实 Skill 目录，通过终端 host 信息和实际文件访问确定用户同意使用的 <dev_root>；不要写死平台目录，也不要把 VFS 地址直接当作终端或导入路径。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:44"
+},
+{
+"fact": "创作步骤第二步是确定稳定的 package id，在 <dev_root>/<package_id>/ 保存项目，把本 Skill 的 types/ 完整复制到 <dev_root>/types/；继续开发时先核验原项目与源码，不根据已安装包名声称源码已找到。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:45"
+},
+{
+"fact": "创作步骤第三步是使用当前类型定义和 examples/packages/buildin/、examples/packages/external/ 中实际存在的示例；脚本开发看 references/SCRIPT_DEV_GUIDE.md，ToolPkg 清单、资源和 UI 注册看 references/TOOLPKG_FORMAT_GUIDE.md。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:46"
+},
+{
+"fact": "创作步骤第四步是使用 TypeScript 编写源码并输出 CommonJS JavaScript，保留 .ts、tsconfig.json 和最终产物；项目按 ../types 引用声明；在 src/ 内直接引用声明时使用 ../../types/index.d.ts。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:47"
+},
+{
+"fact": "创作步骤第五步是通过统一文件、网络与终端 host API 开发和打包，确认工具与路径可用；ToolPkg 归档根目录包含 manifest，成品放在源码目录之外，并包含二次开发源码。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:48"
+},
+{
+"fact": "创作步骤第六步是调用 operit_editor 包的 operit_editor 工具，通过 args 字符串数组实际执行 package import/enable/list/show/exec 与 log package；args: [] 读取命令帮助；该工具接入 Tools.SoftwareSettings.exec(args)，原样返回实际执行结果与错误，不接受自然语言 query 或任意脚本片段；变更前取得用户确认，逐项核验导入结果、真实启用状态及工具或界面测试结果。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:49"
+},
+{
+"fact": "创作步骤第七步是同 ID 更新采用明确授权的删除、重新导入、按记录恢复启用状态和重新测试流程；package import 不覆盖已注册包；遇到错误停止并定位，不改 id、不宣称成功。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:50"
+},
+{
+"fact": "创作步骤第八步是交付源码、成品、安装与测试结果；市场发布是用户确认后的独立操作，不能把本地测试等同于发布成功。",
+"ref": "plugins/skills/external/PackageBuilder/SKILL.md:51"
+},
+{
+"fact": "教程中的 <dev_root>、<artifact_host_path>、<package_id>、<runtime_package_name> 和 <tool_name> 是需要用真实值替换的占位符。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:3"
+},
+{
+"fact": "为 Operit2 新建 ToolPkg 时，在 manifest 中显式声明 \"api_version\": \"2.0.0\"，并使用 PackageBuilder 随包携带的当前版本 types/；解析器接受旧版本号不等于完整实现旧接口；旧包需要逐项验证所用能力，不能仅凭导入成功宣称兼容；迁移旧包需要同步检查接口、路径和平台语义，不能只修改版本号。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:7"
+},
+{
+"fact": "schema_version 表示清单格式版本，api_version 表示 ToolPkg API 契约，version 表示插件自身的发布版本，三者不能混用。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:9"
+},
+{
+"fact": "包管理中的“快速创作你的插件”会安装 PackageBuilder、将它设为 AI 可见，并启用 operit_editor；准备完成后，需求会作为聊天草稿填入输入框，用户发送后才开始与 AI 协作开发；这个入口不自动生成源码、不自动配置编译器，也不自动安装或发布成品。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:17"
+},
+{
+"fact": "operit_editor 的 operit_editor 工具实际调用 Tools.SoftwareSettings.exec(args)，与系统工具 execute_cli_command 使用同一 core command 执行入口，返回真实命令结果并传播执行错误；传入 args CLI 字符串数组（也接受数组的 JSON 字符串），不含 operit2 可执行文件名；自然语言 query 已移除，不会被转换成编辑动作。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:19"
+},
+{
+"fact": "当前创作准备流程会复用已经安装的 PackageBuilder，不会自动覆盖它的附件；更新应用资源不会同步改写用户已安装的 Skill。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:34"
+},
+{
+"fact": "要使用当前版本的内置资料，先核对 [\"skill\", \"show\", \"PackageBuilder\"] 返回的目录并备份用户修改；获得用户确认后执行 skill delete、skill load、skill visible true、skill show 四步。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:36"
+},
+{
+"fact": "确定开发目录第一步是调用 execute_cli_command，参数数组为 [\"skill\", \"show\", \"PackageBuilder\"]，读取 Skill 的真实目录与附件位置。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:49"
+},
+{
+"fact": "查看系统工具 get_terminal_info；脚本内对应 Tools.System.terminal.info()；根据 host 返回的 terminalType 和可用终端信息使用正确的 shell 语法；该接口不返回下载目录或开发目录。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:50"
+},
+{
+"fact": "在已选定的终端会话中查询实际工作目录及工具版本，确定用户同意使用的可写目录，记为 <dev_root>；路径或工具不可用时，报告具体原因并停止，不猜目录、不改用另一套执行入口。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:51"
+},
+{
+"fact": "不要把某个平台的下载目录、应用私有目录或开发者电脑目录写成所有用户固定使用的路径；[\"package\", \"dir\"] 返回的是安装存储目录，不是源码开发目录；host paths 和 host capabilities 当前并未通过 core command 暴露。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:54"
+},
+{
+"fact": "完整复制 Skill 的 types/，不从旧仓库或云端下载另一版声明；项目通过 ../types 引用声明；位于 src/ 的三斜线引用是 ../../types/index.d.ts。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:74"
+},
+{
+"fact": "TypeScript 输出可读的 CommonJS JavaScript；Compose UI 保留 ctx.UI.* 界面声明和回调，由运行时完成 Compose 编译与缓存；交付文件供用户直接编辑，不生成 Compose 内部预编译产物；按实际 shell 执行项目已声明的构建命令，检查退出码、超时状态和真实输出文件；没有可用编译器时说明环境未准备完成。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:75"
+},
+{
+"fact": "网络、文件与终端操作使用 Tools.Network、Tools.Files、Tools.System.terminal 及其 host API；不要用平台分支实现另一套插件运行链路；声明文件的存在不代表当前 host 实现了所有能力。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:76"
+},
+{
+"fact": "单文件脚本包保留 METADATA 与导出函数；ToolPkg 在归档根目录放置 manifest，并按清单路径包含编译后的入口、子包、UI、资源与二次开发源码。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:77"
+},
+{
+"fact": "用文件工具 Tools.Files.zip(sourceVfsPath, artifactVfsPath, false) 可创建不含外层目录的归档；成品扩展名为 .toolpkg，manifest 必须位于 ZIP 根目录；核验成品存在、内容完整，以及 runtime host 可读的 <artifact_host_path>。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:78"
+},
+{
+"fact": "首次安装命令包括 [\"package\", \"import\", \"<artifact_host_path>\"]。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:86"
+},
+{
+"fact": "首次安装命令包括 [\"package\", \"enable\", \"<package_id>\"]。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:87"
+},
+{
+"fact": "首次安装后用 [\"package\", \"exec\", \"<runtime_package_name>:<tool_name>\", \"{}\"] 执行导出工具。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:90"
+},
+{
+"fact": "首次安装后用 [\"log\", \"package\"] 查看包日志。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:91"
+},
+{
+"fact": "导入结果给出 packageName、packageFormat 和 storedPath；以实际解析结果确认身份，不根据文件名猜包 id。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:94"
+},
+{
+"fact": "ToolPkg 容器 id 与可执行子包名不同；从 package list 和 package show 读取实际工具名；只注册 UI、hook 或 provider 的包不一定有可执行工具。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:95"
+},
+{
+"fact": "启用后重新读取 package list 的真实 enabled 状态；不能把启用命令自身的文字或请求参数当作状态证明。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:96"
+},
+{
+"fact": "package exec 会激活对应工具包并执行导出工具；根据该工具声明填写 JSON 参数，检查返回内容；UI、hook、provider 必须在对应应用场景验证。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:97"
+},
+{
+"fact": "调试小片段时，将它写成有 METADATA 和导出函数的独立测试包，按导入、启用、执行、查看日志的流程测试；operit_editor 不提供脚本直跑工具。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:98"
+},
+{
+"fact": "每一步出现错误即停止并定位原因；不要根据“命令已调用”宣称安装、启用或测试成功。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:99"
+},
+{
+"fact": "当前 package import 拒绝重复的已注册包名，不提供覆盖安装或自动热更新；更新步骤是用户明确授权后的替换操作，不是失败后的自动处理。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:102"
+},
+{
+"fact": "同 ID 更新第一步是在删除已安装版本之前完成新版本构建，核验归档，并在开发目录保留源码及所需旧版本成品。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:103"
+},
+{
+"fact": "同 ID 更新第二步是用 package list 和 package show 记录容器、子包的真实名称及启用状态；向用户说明删除与重新安装的影响并获得确认。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:104"
+},
+{
+"fact": "同 ID 更新第三步是调用 [\"package\", \"delete\", \"<package_id>\"]，确认删除成功；只对本次要更新的外部包执行该操作，不删除其他包。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:105"
+},
+{
+"fact": "同 ID 更新第四步是调用 [\"package\", \"import\", \"<artifact_host_path>\"]，确认新版本导入成功；导入失败时保留错误并停止，不自动改变包 id 或执行其他安装路径。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:106"
+},
+{
+"fact": "同 ID 更新第五步是按用户确认的配置逐项恢复容器及子包的启用状态，再读取列表核验，并重新测试工具、UI 与 hook。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:107"
+},
+{
+"fact": "不要宣称包管理已经具有一键继续开发、合并开发或覆盖安装功能；创作入口目前接入的是新建需求草稿；继续开发需要明确定位原项目并按上述流程处理。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:109"
+},
+{
+"fact": "发布方式一是直接发布本地插件，页面处理当前成品，在当前 GitHub 账号的 OperitForge 仓库保存 Release 资产并登记市场条目。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:117"
+},
+{
+"fact": "发布方式二是引用 GitHub Release 资产，选择自己仓库的 Release 与资产；页面核对所选资产与当前本地成品，并提交登记。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:118"
+},
+{
+"fact": "发布需要登录、用户确认及真实服务响应，不是创作入口自动完成的动作；交付时分别列出源码目录、成品路径、包 id、安装与启用状态、已执行的测试和结果，以及发布状态；未测试或未发布的环节要明确标注。",
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:120"
+},
+{
+"fact": "脚本主要使用 TypeScript 编写，以利用其强大的类型系统，但也可以使用原生 JavaScript (ES6+)。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:7"
+},
+{
+"fact": "在 Operit2 创建 ToolPkg 时显式填写 \"api_version\": \"2.0.0\"，接口以随 PackageBuilder 携带的当前版本类型为准；不能通过仅改 manifest 版本号把旧 Android 插件视为已完成迁移；需要检查实际接口与平台行为；api_version 是 ToolPkg 清单字段，不是单文件脚本的元数据字段。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:13"
+},
+{
+"fact": "引用 Release 时，Operit 会下载所选资产并与当前本地插件计算 SHA-256 比对；市场服务还会确认该 Release 的创建者就是当前 Operit 登录的 GitHub 账号。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:39"
+},
+{
+"fact": "从包管理的“快速创作你的插件”开始时，应用准备 PackageBuilder 与 operit_editor，并把需求填入聊天草稿；用户发送草稿后，由 AI 与用户协作开发；不是按钮自动生成或安装成品。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:47"
+},
+{
+"fact": "先阅读 PLUGIN_CREATION_WORKFLOW.md；通过 [\"skill\", \"show\", \"PackageBuilder\"] 读取真实 Skill 目录，检查终端 host 与可写文件位置，确定 <dev_root>；所有平台都使用现有 host API；不固定到某个平台的下载目录。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:51"
+},
+{
+"fact": "独立插件项目放在 <dev_root>/<package_id>/，将 Skill 的 types/ 完整复制到 <dev_root>/types/；贡献 Operit 主项目时，脚本源码位于 plugins/packages/buildin/ 或 plugins/packages/external/；不要把 Skill 内的示例副本当作应用已经安装的包。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:53"
+},
+{
+"fact": "package.json 示例声明开发依赖 typescript ^5.0.0，构建命令为 tsc -p tsconfig.json。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:64"
+},
+{
+"fact": "tsconfig.json 示例的 target 为 es2020，module 为 commonjs，lib 为 es2020，rootDir 为 src，outDir 为 dist。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:74"
+},
+{
+"fact": "CommonJS 对应当前运行时模块加载方式；不能把构建时使用的 Node.js 当作脚本执行宿主。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:90"
+},
+{
+"fact": "确认真实编译器可用后执行项目声明的构建命令，例如 npm run build；检查退出码与 dist/ 文件，不根据命令已提交宣称构建成功。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:93"
+},
+{
+"fact": "在 <dev_root>/<package_id>/src/my_new_script.ts 按第 4 章写入 METADATA 和导出函数，构建得到 dist/my_new_script.js；单文件 JS 包直接导入编译成品；ToolPkg 按格式指南打包后导入。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:97"
+},
+{
+"fact": "名称与导出函数来自第 4 章示例；实际项目使用导入结果与 package show 返回的名称；核对 package list 的真实启用状态与执行返回内容；同名包重新安装会被拒绝，更新需要按创作流程第 5 节完成明确授权的替换操作。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:110"
+},
+{
+"fact": "每个脚本文件的开头都必须包含一个 /* METADATA ... */ 注释块；这块元数据是 Operit AI 理解并调用所编写功能的唯一途径；AI 会解析 METADATA 中的信息，将其作为可用的“工具”呈现给大语言模型。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:118"
+},
+{
+"fact": "category 为可选字段；未填写或为空时，系统会自动归类为 Other。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:159"
+},
+{
+"fact": "tools 元素可用 advice 字段标记“仅提示/说明”的工具；advice: true 时，该工具不要求在脚本中有同名函数实现；运行时会跳过“工具不存在”的校验。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:165"
+},
+{
+"fact": "states 为一个数组，每个元素是一个“状态”（State）；系统会根据运行时能力（capabilities）按顺序评估每个 state 的 condition，选择第一个为 true 的 state 并激活。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:173"
+},
+{
+"fact": "states 为空时使用顶层 tools；states 非空时从上到下找第一个满足 condition 的 state，找不到任何匹配时回退到顶层 tools。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:185"
+},
+{
+"fact": "当 inheritTools=true 时以顶层 tools 为基底；先应用 excludeTools 删除指定工具；再将 state 的 tools 合并进来，同名覆盖，不同名新增。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:191"
+},
+{
+"fact": "条件可用的 capability key 包括 platform.name，表示当前运行平台名称，如 windows、linux、android、macos。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:206"
+},
+{
+"fact": "android.permission_level 表示权限等级，以字符串形式参与比较。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:213"
+},
+{
+"fact": "运行时会向脚本环境提供全局函数 getState(): string，返回当前激活的 state 的 id。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:219"
+},
+{
+"fact": "运行时会向脚本环境提供全局函数 getLang(): string，返回当前使用的语言代码，如 zh、en；语言不可用时返回 en。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:223"
+},
+{
+"fact": "METADATA 中的 display_name、description、tools[].description 与参数 description 支持单语字符串或多语对象两种写法。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:227"
+},
+{
+"fact": "category 建议直接复用 examples/packages/ 中已使用的分类，避免创建语义重复的新分类。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:319"
+},
+{
+"fact": "category 缺失、为空字符串或仅包含空白字符时，解析阶段会自动归类为 Other。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:325"
+},
+{
+"fact": "全局 Tools 对象分命名空间提供 API：Tools.System 提供 sleep、startApp、stopApp 等系统级操作；Tools.UI 提供 getPageInfo、pressKey、swipe、setText 等 UI 自动化操作。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:353"
+},
+{
+"fact": "Tools.Files 提供 read、write、list 等文件操作；Tools.Network 提供 httpGet、httpPost 等网络请求；另有 UINode 类表示 UI 元素。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:355"
+},
+{
+"fact": "所有工具函数都是异步的，调用时必须使用 await。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:359"
+},
+{
+"fact": "Java/Kotlin Bridge 是需要对应 host 实现支持的专用能力，类型声明不代表每个平台都能调用 Java 或 Android 类；全平台插件的文件、网络和终端操作应使用统一 Tools 与 host API，不要用 Java Bridge 替代这些抽象。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:375"
+},
+{
+"fact": "Java 类获取的兼容写法是 Java.type(\"java.lang.StringBuilder\")；别名是 Java.use(...) 与 Java.importClass(...)。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:394"
+},
+{
+"fact": "Java.callSuspend(className, methodName, ...args) 是异步挂起调用，返回 Promise。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:398"
+},
+{
+"fact": "callSuspend 用于调用 Kotlin suspend 方法，始终返回 Promise。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:465"
+},
+{
+"fact": "导出名称与 METADATA.tools[].name 保持一致；直接返回真实工具结果，执行错误由当前运行时记录；不要把失败转换成成功返回。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:517"
+},
+{
+"fact": "examples/packages/buildin/time.ts 是单文件工具包示例，含 METADATA、参数与导出函数。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:545"
+},
+{
+"fact": "examples/packages/buildin/operit_editor.ts 是实际执行平台编辑命令的包；operit_editor 工具将 args 字符串数组传给 Tools.SoftwareSettings.exec(args)，与 execute_cli_command 使用同一执行入口，返回真实结果与错误，不接受自然语言 query。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:546"
+},
+{
+"fact": "examples/packages/external/template_try/ 演示 ToolPkg 清单、工作流模板、工作区模板和资源注册。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:547"
+},
+{
+"fact": "examples/packages/buildin/workflow/ 是较完整的 ToolPkg 项目，包含 UI、公共接口和构建说明。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:548"
+},
+{
+"fact": "Tools.UI.getPageInfo() 返回的页面结构是一个 UINode 对象树；每个 UINode 代表屏幕上的一个 UI 元素。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:560"
+},
+{
+"fact": "UINode 查找子元素可用 findById、findByText、findByClass、findAllBy...。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:561"
+},
+{
+"fact": "UINode 示例按资源 ID 查找搜索框：page.findById('com.example:id/search_box')。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:574"
+},
+{
+"fact": "示例按文本查找登录按钮：page.findByText(\"登录\")。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:574"
+},
+{
+"fact": "示例按类名查找全部文本视图：page.findAllByClass('TextView')；按内容描述查找返回按钮：page.findByContentDesc(\"返回\")。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:580"
+},
+{
+"fact": "工具调用示例：await Tools.System.sleep(3000) 等待 3 秒；await Tools.UI.getPageInfo() 获取当前页面信息。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:364"
+},
+{
+"fact": "工具调用示例：在屏幕上滑动用 await Tools.UI.swipe(540, 1800, 540, 900)。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:370"
+},
+{
+"fact": "调试时把不确定的逻辑缩为有 METADATA 和导出函数的独立测试包，通过 package import/enable/list/show/exec 验证真实行为。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:599"
+},
+{
+"fact": "operit_editor 的 operit_editor 工具实际执行 args 指定的 core command，args: [] 读取实际命令帮助；它不提供任意脚本片段直跑功能。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:600"
+},
+{
+"fact": "查看 [\"log\", \"package\"]、[\"log\", \"show\"] 的实际日志，保存原始失败信息；工具调用失败后停止并定位，不切换另一套执行链路。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:601"
+},
+{
+"fact": "Tools.Files.zip(sourceVfsPath, artifactVfsPath, false) 可以生成不含外层目录的 ToolPkg 归档；成品放在源码目录之外，扩展名为 .toolpkg，manifest 位于归档根目录。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:609"
+},
+{
+"fact": "Core command 参数数组不含 operit2；脚本可调用 Tools.SoftwareSettings.exec(args)，AI 可直接调用系统工具 execute_cli_command。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:613"
+},
+{
+"fact": "package import 接收成品文件，不接收源码目录，并拒绝重复的已注册包名。",
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:615"
+},
+{
+"fact": "ToolPkg 是 Operit 项目中用于打包和分发工具包的标准格式；它把多个相关的工具脚本、资源文件和 UI 模块打包成一个单一的、易于分发和管理的文件。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:7"
+},
+{
+"fact": ".toolpkg 文件本质上是一个标准的 ZIP 压缩包。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:11"
+},
+{
+"fact": "传统 JS 脚本是单个 .js 文件，ToolPkg 是 ZIP 压缩包 (.toolpkg)。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:21"
+},
+{
+"fact": "Operit2 对 1.0.0、1.0.1 的旧版兼容加载支持并不完整，需要逐项验证。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:33"
+},
+{
+"fact": "Operit1 对 1.0.0、1.0.1 完整支持，主要面向 Android 的旧版 API 形式。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:34"
+},
+{
+"fact": "Operit2 的 ToolPkg API 支持版本为 2.0.0；对 1.0.0 和 1.0.1 的加载支持并不完整。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:36"
+},
+{
+"fact": "Operit2 新建 ToolPkg 显式声明 \"api_version\": \"2.0.0\"；接受某个版本号、成功导入包和完整支持该版本的接口是不同的事情；旧包迁移不能只改版本号，还需检查接口、路径与平台行为。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:38"
+},
+{
+"fact": "ToolPkg API 2.0.0 面向多平台开发，基本所有公共接口都通过统一 host 能力提供跨平台兼容；常规功能直接使用当前版本接口，不必为每个平台重复实现。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:40"
+},
+{
+"fact": "典型 .toolpkg 内部结构以 manifest.json 清单文件为必需文件。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:48"
+},
+{
+"fact": "典型 .toolpkg 内部结构以 main.js 主入口脚本为必需文件。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:49"
+},
+{
+"fact": "典型 .toolpkg 内部结构中 main.ts 主入口 TypeScript 源码为建议文件。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:50"
+},
+{
+"fact": "必需文件是 manifest.json 或 manifest.hjson，清单文件定义包的元数据和结构。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:68"
+},
+{
+"fact": "可选目录包括 packages/（子包脚本）、ui/（UI 模块）、modules/（WASM 模块）、resources/（资源文件）、i18n/（国际化文件）。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:72"
+},
+{
+"fact": "清单支持 manifest.json（标准 JSON 格式）与 manifest.hjson（HJSON 格式，支持注释和更宽松的语法）两种格式。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:83"
+},
+{
+"fact": "完整示例中 schema_version 为 1，api_version 为 \"2.0.0\"，toolpkg_id 为 com.operit.windows_bundle。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:90"
+},
+{
+"fact": "资源声明示例的 key 为 pc_agent_zip，path 为 resources/pc_agent/operit-pc-agent.zip，mime 为 application/zip。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:121"
+},
+{
+"fact": "schema_version 是清单格式版本，当前为 1；不是 ToolPkg API 版本。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:172"
+},
+{
+"fact": "api_version 是 ToolPkg API 契约版本；Operit2 新建包显式填写 2.0.0；省略时按旧版 1.0.0 契约加载，启用对应适配和运行依赖；1.0.0、1.0.1 的兼容加载支持并不完整。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:173"
+},
+{
+"fact": "toolpkg_id 是包的唯一标识符，建议使用反向域名格式，如 com.operit.windows_bundle。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:174"
+},
+{
+"fact": "version 是插件自身的发布版本，建议使用语义化版本，如 0.2.0；与 api_version、schema_version 分别声明。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:175"
+},
+{
+"fact": "main 是 ToolPkg 主入口脚本路径，相对于 ZIP 根目录，用于执行注册函数；main 为必填字段。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:177"
+},
+{
+"fact": "display_name 与 description 均为 LocalizedText，支持多语言。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:178"
+},
+{
+"fact": "workflow_templates 是注册到宿主“工作流”入口的工作流模板列表；workspace_templates 是注册到宿主“工作区创建”入口的工作区模板列表。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:183"
+},
+{
+"fact": "LocalizedText 支持简单字符串与多语言对象两种格式。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:188"
+},
+{
+"fact": "子包的 enabled_by_default 表示是否默认启用，默认为 false。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:236"
+},
+{
+"fact": "子包脚本必须是标准的 JavaScript 文件；必须包含 METADATA 注释块；脚本中定义的工具会被注册为 <subpackage_id>:<tool_name> 格式。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:242"
+},
+{
+"fact": "WASM 模块的 source_language 是源语言标记，AssemblyScript 模块写 assemblyscript；abi 是调用约定标记，当前写 scalar。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:264"
+},
+{
+"fact": "WASM 模块示例的 exports 为 [\"isPrime\", \"nthPrime\"]。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:129"
+},
+{
+"fact": "ToolPkg.wasm.call(moduleId, exportName, args) 已接入 native WASM runtime；当前 ABI 支持 i32、i64、f32、f64 标量参数和返回值。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309"
+},
+{
+"fact": "i64 结果以字符串返回；JS 传入 i64 时建议使用字符串，避免超过 JS safe integer 后丢精度。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:310"
+},
+{
+"fact": "main.js 示例中 registerToolPkg() 调用 ToolPkg.registerToolboxUiModule 注册 UI 模块。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:343"
+},
+{
+"fact": "registerToolPkg 由 exports 导出。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:460"
+},
+{
+"fact": "每个 ToolPkg 的 registerToolPkg() 会在独立的临时 JavaScript engine 中执行，注册状态不会跨包共享；主脚本注册必须在 60 秒内完成；同步死循环和超过时限的异步注册都会被终止，并将加载错误归属到当前包，扫描随后继续处理其他包。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467"
+},
+{
+"fact": "注册期间禁止调用 ToolPkg.readResource(...) 和 ToolPkg.wasm.call(...)，调用会立即抛出异常；模块加载仍可使用 require/import。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467"
+},
+{
+"fact": "registerToolboxUiModule 的 runtime 运行时类型默认 compose_dsl。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:474"
+},
+{
+"fact": "registerUiRoute 的 route/routeId 不填时，宿主按 toolpkg:<toolpkg_id>:ui:<id> 自动生成稳定路由 ID。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:479"
+},
+{
+"fact": "registerNavigationEntry 的 surface 挂载面当前支持 toolbox、main_sidebar_plugins、app_bar。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:486"
+},
+{
+"fact": "registerDesktopWidget 的 route/routeId 是已注册路由 ID，为必填项；render/renderRouteId 默认等于 route。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:491"
+},
+{
+"fact": "registerAppLifecycleHook 的 event 与 function 为必填项。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:499"
+},
+{
+"fact": "registerAppLifecycleHook 支持的 application 事件包括 application_on_create、application_on_foreground、application_on_background、application_on_low_memory、application_on_trim_memory、application_on_terminate。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:511"
+},
+{
+"fact": "支持的 activity 事件包括 activity_on_create、activity_on_start、activity_on_resume、activity_on_pause、activity_on_stop、activity_on_destroy。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:517"
+},
+{
+"fact": "main 上下文是 manifest.main 指向的包入口脚本，承载包级逻辑：注册 hook、执行 hook、注册/处理包级 IPC、承载包级内存态；同一个 ToolPkg 容器共用一个包级 JS engine，内部 context key 形如 toolpkg_main:<toolpkg_id>。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:536"
+},
+{
+"fact": "ui 上下文是 *.ui.js 的 Compose DSL screen/action handler，渲染界面、响应点击、读取 UI state；每个 UI route、widget、XML render 实例有自己的 JS engine。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:537"
+},
+{
+"fact": "sandbox 上下文是独立工具脚本、子包工具脚本、调试脚本，执行一次性工具逻辑；可以通过 IPC 调用所属 ToolPkg 的 main。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:538"
+},
+{
+"fact": "provider 上下文是 ToolPkg.registerAiProvider(...) 注册的 AI provider handler，处理自定义 AI provider 的模型列表、连接测试、发消息、token 估算；每个 ToolPkg provider 使用独立 JS engine，内部 context key 形如 toolpkg_provider:<toolpkg_id>:<provider_id>。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:539"
+},
+{
+"fact": "ToolPkg.ipc 的 meta.currentRuntime 使用 main、ui、sandbox、provider 四种字面量。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:543"
+},
+{
+"fact": "跨上下文共享状态或调用能力时，显式使用 ToolPkg.ipc。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:574"
+},
+{
+"fact": "ToolPkg.ipc.on(channel, handler) 在当前上下文注册通道处理函数；ToolPkg.ipc.call(channel, payload) 的语义是非 main 上下文调用同包 ToolPkg main，main 上下文调用本地 handler；ToolPkg.ipc.call(channel, payload, options) 可指定 targetRuntime/targetContextKey 调用目标 runtime 实例。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:620"
+},
+{
+"fact": "ToolPkg.ipc 的 payload 和返回值应使用 JSON 可序列化数据：字符串、数字、布尔值、数组、普通对象和 null；对象按数据复制传输，不保留引用身份、原型、方法闭包或类实例。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:623"
+},
+{
+"fact": "指定 ui、provider、sandbox 目标时需要提供明确的 targetContextKey；目标不存在会直接报错。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:626"
+},
+{
+"fact": "UI state 只服务当前界面展示时，放在 ctx.useState/ctx.useMemo。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:632"
+},
+{
+"fact": "资源访问在子包脚本中通过 PackageManager API，在 UI 模块中通过 ToolPkg.readResource(key)。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:664"
+},
+{
+"fact": "当 mime 是目录类型（如 inode/directory、vnd.android.document/directory）时，ToolPkg.readResource(key) 会先将该目录压缩成 zip，再返回这个 zip 的临时文件路径；如果没有显式传 outputFileName，目录资源默认会自动补上 .zip 后缀。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:667"
+},
+{
+"fact": "工作流模板的 resource_key 指向 resources 中某个文件资源。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:702"
+},
+{
+"fact": "工作流模板的 resource_key 必须引用一个文件资源，不能是目录资源。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:705"
+},
+{
+"fact": "工作流模板导入时，宿主重新生成工作流 id；执行统计字段会被重置；导入成功后会落库成正式 Workflow。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:710"
+},
+{
+"fact": "工作区模板的 resource_key 指向 resources 中某个目录资源。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:754"
+},
+{
+"fact": "工作区模板的 resource_key 必须引用一个目录资源，常见 mime 可写 inode/directory 或 application/x-directory；目录内容里必须包含 .operit/config.json；宿主导入时会把整个目录复制到当前 chat 的 workspace 目录。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:758"
+},
+{
+"fact": "template_try 示例同时演示 workflow_templates、workspace_templates、目录资源和最小 main.ts。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:777"
+},
+{
+"fact": "手动创建 ToolPkg 归档时用 Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)；第三个参数 false 表示不保留源码目录自身作为顶层目录，保证 manifest.json 或 manifest.hjson 位于归档根目录。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:811"
+},
+{
+"fact": "资源同步脚本仅适用于贡献 Operit 主仓库，不是安装后的 Skill 自带命令；源码位于 plugins/packages/buildin/ 和 plugins/packages/external/；资源同步脚本为 plugins/tools/sync_plugin_packages.py。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:818"
+},
+{
+"fact": "同步脚本查看计划的命令是 python plugins/tools/sync_plugin_packages.py --source runtime --dry-run --no-hot-reload，不写入资源。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:824"
+},
+{
+"fact": "同步脚本构建并同步内置与 external 资源的命令是 python plugins/tools/sync_plugin_packages.py --source runtime --no-hot-reload。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:827"
+},
+{
+"fact": "同步脚本会生成当前 SDK 类型、按包的构建契约处理源码，并更新 core/crates/runtime/application/assets/plugins/buildin/ 与 external/；此步骤服务于应用资源构建，不等于向正在运行的应用安装插件。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:830"
+},
+{
+"fact": "Compose DSL 是一种基于 JavaScript 的声明式 UI 框架，灵感来自 Jetpack Compose。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:987"
+},
+{
+"fact": "Compose DSL 的特点包括声明式语法、组件化设计、状态管理、事件处理。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:992"
+},
+{
+"fact": "UI 示例用 ctx.useState 管理 url 与 token 状态，用 ctx.callTool('windows_control:windows_test_connection', {...}) 调用工具。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1009"
+},
+{
+"fact": "布局组件包括 Column（垂直布局）、Row（水平布局）、Box（容器）、Spacer（间距）。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1055"
+},
+{
+"fact": "基础组件包括 Text、TextField、Button、IconButton、Switch、Checkbox、Card、Icon。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1065"
+},
+{
+"fact": "UI 模块通过 ctx.getEnv('API_KEY') 读环境变量，通过 ctx.setEnv 与 ctx.setEnvs 写环境变量。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1116"
+},
+{
+"fact": "UI 模块通过 ctx.isPackageImported、ctx.importPackage、ctx.removePackage、ctx.usePackage、ctx.listImportedPackages 管理包。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1128"
+},
+{
+"fact": "UI 模块通过 ctx.resolveToolName({packageName, subpackageId, toolName, preferImported}) 解析工具名。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1137"
+},
+{
+"fact": "ctx.navigate(route, args?) 会触发真实路由跳转；ctx.listRoutes() 返回当前可导航路由列表，包含 routeId、runtime 等字段；ctx.getHostRoutes() 只返回宿主 Native 路由；Native 路由 ID 命名规则为 native.<Screen 对象名的 snake_case>，例如 Screen.Toolbox 对应 native.toolbox。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1154"
+},
+{
+"fact": "ctx.openFilePicker(options?) 仅使用 picker 指定选择来源；未传入 picker 时打开文档选择器。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1161"
+},
+{
+"fact": "ctx.openFilePicker 通过 Flutter file_selector 在 Android、iOS、Linux、macOS、Windows、Web 和 OpenHarmony 使用各平台的文件选择器；不适用该 picker 的选项会直接报错；结果提供平台文件路径或浏览器对象 URL。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1173"
+},
+{
+"fact": "ctx.saveFile(options) 将 UTF-8 文本交给宿主的跨平台文件保存服务，由用户在系统保存界面选择位置。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1177"
+},
+{
+"fact": "ToolPkg.registerToolboxUiModule(...) 仍然保留；宿主内部把它自动映射为注册一个 compose_dsl UI route 与自动挂载一个 toolbox 导航入口；旧接口不会自动创建主侧边栏插件入口，需要主侧边栏插件入口时额外调用 ToolPkg.registerNavigationEntry(...) 并使用 surface \"main_sidebar_plugins\"。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1193"
+},
+{
+"fact": "UI 模块可用 getLang() 取当前语言，返回 'zh' 或 'en'；可用 ctx.getCurrentPackageName()、ctx.getCurrentToolPkgId()、ctx.getCurrentUiModuleId()、ctx.getModuleSpec() 取当前包与模块信息。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1201"
+},
+{
+"fact": "贡献主项目时，通过第 4.2 节的同步脚本生成 core/crates/runtime/application/assets/plugins/buildin/ 和 external/ 中的资源；应用构建会嵌入这些资源；内置资源同步不是运行时安装命令。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1246"
+},
+{
+"fact": "版本管理建议使用语义化版本号 MAJOR.MINOR.PATCH，如 1.2.3。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1262"
+},
+{
+"fact": "命名规范：toolpkg_id 使用反向域名格式，如 com.operit.windows_bundle；subpackage id 使用小写字母和下划线，如 windows_control；resource key 使用小写字母和下划线，如 pc_agent_zip；ui_module id 使用小写字母和下划线，如 windows_setup。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1272"
+},
+{
+"fact": "子包环境变量声明示例中，TIMEOUT 为可选环境变量，defaultValue 为 \"30000\"。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:930"
+},
+{
+"fact": "故障排查：包无法导入时检查 manifest.json 格式是否正确、确认 toolpkg_id 是否唯一、验证 ZIP 文件结构是否正确。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1329"
+},
+{
+"fact": "故障排查：子包无法加载时检查 entry 路径是否正确、确认脚本文件包含有效的 METADATA、查看应用日志获取详细错误信息。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1334"
+},
+{
+"fact": "故障排查：资源无法访问时检查资源 key 是否正确、确认资源 path 在 ZIP 中存在、验证资源文件没有损坏。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1339"
+},
+{
+"fact": "故障排查：UI 模块不显示时检查 main.js 是否导出 registerToolPkg、是否调用了 ToolPkg.registerToolboxUiModule(...)、确认 runtime 类型正确、确认 screen 传的是已导入的模块函数、验证 UI 脚本语法正确。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1344"
+},
+{
+"fact": "调试用 [\"log\", \"package\"]、[\"log\", \"show\"] 和 [\"log\", \"path\"] 查看当前 runtime 日志；不要依赖某个平台的日志命令。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1355"
+},
+{
+"fact": "PackageBuilder 的示例路径为 examples/packages/，不是旧版根目录 examples/；随软件携带的示例提供源码与构建配置，排除 dist/、build/、tests-dist/ 生成目录；阅读 Skill 的示例不会自动将该包安装到当前 runtime。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1373"
+},
+{
+"fact": "贡献主项目时对应 Rust 源码：core/crates/command/core/src/commands/package.rs 是包命令；core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs 是运行时包管理；core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs 是 ToolPkg 解析；core/crates/runtime/application/build.rs 是内置包与 Skill 附件的资源嵌入。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1389"
+},
+{
+"fact": "更新日志 v1.0.0 (2024-02-14) 是初始版本：支持子包、UI 模块、资源文件，支持多语言，提供 Compose DSL UI 框架。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1396"
+},
+{
+"fact": "ToolPkg.registerDesktopWidget 是桌面小部件注册接口；桌宠和其他实时悬浮工具使用独立的 ToolPkg.ui.floatingWindows 窗口控制接口，内容复用已注册的 Compose UI 路由；方法、平台能力、权限与生命周期见 ../FLOATING_WINDOWS.md。",
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1405"
+}
+]
