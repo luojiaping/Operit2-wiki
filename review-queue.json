@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11 20:33 UTC",
+  "updated": "2026-11-11 21:19 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -1423,6 +1423,60 @@
       "refs_valid": "",
       "critic": "",
       "summary": "工具展示语义与 WebView 渲染：展示声明由工具所有者写、Core 传递、Flutter 按声明渲染；应用缩放与页面缩放相互独立，乘积送入原生页面 API。",
+      "updated": "2026-11-11"
+    },
+    {
+      "id": "batch-09/model-catalog",
+      "batch": "batch-09",
+      "title": "模型目录与模型识别",
+      "module": "model",
+      "status": "review-pending",
+      "issue": 81,
+      "issue_title": "[评审] 模型目录与模型识别",
+      "md": "review/batch-09/model-catalog.md",
+      "facts": "review/batch-09/model-catalog.facts.json",
+      "lint": "review/batch-09/model-catalog.lint.md",
+      "seed_files": [],
+      "facts_count": 67,
+      "refs_valid": "",
+      "critic": "",
+      "summary": "模型目录与模型识别：models.dev 双文件目录的下载、缓存与过期刷新，及无列表接口服务商的固定列表",
+      "updated": "2026-11-11"
+    },
+    {
+      "id": "batch-09/model-chat-send",
+      "batch": "batch-09",
+      "title": "模型调用与聊天发送契约",
+      "module": "model",
+      "status": "review-pending",
+      "issue": 82,
+      "issue_title": "[评审] 模型调用与聊天发送契约",
+      "md": "review/batch-09/model-chat-send.md",
+      "facts": "review/batch-09/model-chat-send.facts.json",
+      "lint": "review/batch-09/model-chat-send.lint.md",
+      "seed_files": [],
+      "facts_count": 126,
+      "refs_valid": "",
+      "critic": "",
+      "summary": "模型调用与聊天发送契约：SDK 恰好暴露 sendMessage、sendMessageStreaming、cancel 三个方法，Rust 权威实现与 TypeScript 导出分列 chat.rs 与 chat.d.ts，发送、取消、流式输出的执行控制按一次准入、原生租约、观察释放三分。",
+      "updated": "2026-11-11"
+    },
+    {
+      "id": "batch-09/model-tts",
+      "batch": "batch-09",
+      "title": "TTS 供应商目录",
+      "module": "model",
+      "status": "review-pending",
+      "issue": 83,
+      "issue_title": "[评审] TTS 供应商目录",
+      "md": "review/batch-09/model-tts.md",
+      "facts": "review/batch-09/model-tts.facts.json",
+      "lint": "review/batch-09/model-tts.lint.md",
+      "seed_files": [],
+      "facts_count": 72,
+      "refs_valid": "",
+      "critic": "",
+      "summary": "TTS 供应商目录：Rust TtsCatalog 内 22 行供应商定义，文档七家供应商的默认模型、音频格式、鉴权头、响应管道、预置音色与在线查询页数均经代码逐行核验",
       "updated": "2026-11-11"
     }
   ]
