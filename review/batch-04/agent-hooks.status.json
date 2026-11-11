@@ -1,9 +1,11 @@
 {
+  "approved_at": "2026-11-11 14:16 UTC",
+  "approved_by": "luojiaping",
+  "approved_by_comment_id": 6796550239,
   "issue": 41,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "ToolPkg hook 注册类型、聊天运行时桥接、before-hook 超时与 SummaryHook 关系",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6796550239
+  "updated": "2026-11-11"
 }

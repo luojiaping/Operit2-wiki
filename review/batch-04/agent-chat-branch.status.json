@@ -1,9 +1,11 @@
 {
+  "approved_at": "2026-11-11 14:16 UTC",
+  "approved_by": "luojiaping",
+  "approved_by_comment_id": 6796547561,
   "issue": 36,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "会话、消息、变体、分支的 SQLite 存法与插件发送契约：ChatHistoryManager 三表模型、变体提升与重编号、分支创建读取与整段删除语义、chat-send-api 三个发送入口",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6796547561
+  "updated": "2026-11-11"
 }
