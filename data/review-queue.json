@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12 15:27 UTC",
+  "updated": "2026-11-12 22:19 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -1016,7 +1016,7 @@
       "batch": "batch-06",
       "title": "内置插件目录",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 66,
       "issue_title": "[评审] 内置插件目录",
       "md": "review/batch-06/plugin-catalog-buildin.md",
@@ -1027,7 +1027,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "内置插件目录：16 个内置插件（9 个单文件 .ts 包＋7 个目录包）、默认启用情况、单文件包与目录包的区别、character_cards 体量（src/ 统计按上游 0f08fd43 更新为 102 文件/99 个 .ts/15830 行）",
-      "updated": "2026-11-11"
+      "updated": "2026-11-12"
     },
     {
       "id": "batch-06/plugin-catalog-external",
@@ -1484,7 +1484,7 @@
       "batch": "batch-10",
       "title": "Edge 验收记录与 V1 收尾",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 97,
       "issue_title": "[评审] Edge 验收记录与 V1 收尾",
       "md": "review/batch-10/edge-acceptance-v1.md",
@@ -1646,7 +1646,7 @@
       "batch": "batch-10",
       "title": "Edge 总览与产品形态",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 84,
       "issue_title": "[评审] Edge 总览与产品形态",
       "md": "review/batch-10/edge-overview.md",
@@ -1657,7 +1657,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 总览：edge/ 收纳厂商 SDK、接入文档与完整产品三类东西，产品形态由厂商决定，新增旧安卓手机 Edge APK（上游 0f08fd43），ESP32 完整模拟器验收入口为 npm run test:device-budget。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-12"
     },
     {
       "id": "batch-10/edge-pb-sbc01-h3",
@@ -1988,7 +1988,7 @@
       "batch": "batch-11",
       "title": "跨边界测试集",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 106,
       "issue_title": "[评审] 跨边界测试集",
       "md": "review/batch-11/tools-tests.md",
