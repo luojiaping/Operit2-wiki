@@ -1,1 +1,9 @@
-{"issue":92,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"受限设备的空间与展示链路：控制状态按版本快照发布与校验，审批证据经 ConsentProjection 投影展示且投影不能代替授权，聊天内容由 Core 投影后经窗口订阅进入设备展示。","updated":"2026-11-11"}
+{
+  "issue": 92,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "受限设备的空间与展示链路：控制状态按版本快照发布与校验，审批证据经 ConsentProjection 投影展示且投影不能代替授权，聊天内容由 Core 投影后经窗口订阅进入设备展示。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6808996831
+}

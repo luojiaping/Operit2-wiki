@@ -1,1 +1,9 @@
-{"issue":97,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界。","updated":"2026-11-11"}
+{
+  "issue": 97,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6808998425
+}
