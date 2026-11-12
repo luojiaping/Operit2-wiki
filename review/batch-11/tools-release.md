@@ -8,13 +8,13 @@ date: 2026-11-11
 
 ## 概述
 
-Operit2 的发布流程由文档与脚本组成，覆盖版本定义、资产构建、云端收集与 GitHub 发布四个环节。`tools/release/RELEASE_SPEC.md:5`
+Operit2 的发布流程由文档与脚本组成，覆盖版本定义、资产构建、云端收集与 GitHub 发布四个环节。`tools/release/RELEASE_SPEC.md:3`
 
-版本、GitHub tag、更新通道与包资产规则由 `docs/release-versioning.md` 定义。`tools/release/RELEASE_SPEC.md:5`
+版本、GitHub tag、更新通道与包资产规则由 `docs/release-versioning.md` 定义。`tools/release/RELEASE_SPEC.md:3`
 
 `docs/release-versioning.md` 是 Operit2 app 与 CLI 发布版本的事实来源。`docs/release-versioning.md:3`
 
-`tools/release/build_release.py` 必须遵循 `docs/release-versioning.md`。`tools/release/RELEASE_SPEC.md:7`
+`tools/release/build_release.py` 必须遵循 `docs/release-versioning.md`。`tools/release/RELEASE_SPEC.md:9`
 
 构建发布脚本是 `tools/release/build_release.py`。`docs/release-versioning.md:209`
 
@@ -250,7 +250,9 @@ ESP32 固件包写入 `tools/release/dist/operit2-firmware-esp32-2432s028-<relea
 
 `ensure_android_signing()` 要求 `tools/release/secrets/android-signing.properties` 存在。`tools/release/build_release.py:481`
 
-`ensure_android_signing()` 把 `RELEASE_STORE_FILE` 与签名口令、别名写入 `android/local.properties`。`tools/release/build_release.py:486`
+ensure_android_signing() 把 `RELEASE_STORE_FILE` 与签名口令、别名装入本地属性。`tools/release/build_release.py:488`
+
+随后把本地属性写回 android/local.properties。`tools/release/build_release.py:497`
 
 `android_release_store_file()` 对相对路径相对 signing properties 所在目录解析，keystore 文件不存在时报错。`tools/release/build_release.py:506`
 
@@ -438,11 +440,11 @@ main() 设置环境变量 `RUSTFLAGS` 为 `-Awarnings`。`tools/release/build_re
 
 ## 来源
 
-- `tools/release/RELEASE_SPEC.md`（9 行）：版本、tag、通道与包资产规则的定义指向与 `build_release.py` 的遵循要求。`tools/release/RELEASE_SPEC.md:5`
+- `tools/release/RELEASE_SPEC.md`（9 行）：版本、tag、通道与包资产规则的定义指向与 `build_release.py` 的遵循要求。`tools/release/RELEASE_SPEC.md:3`
 - `docs/release-versioning.md`（446 行）：版本格式、通道、包资产、版本来源、构建与发布规则、云端构建、更新测试。`docs/release-versioning.md:3`
 - `tools/release/build_release.py`（1371 行）：构建发布资产的主脚本，分段读完。`tools/release/build_release.py:1302`
 - `tools/release/publish_dist.py`（92 行）：上传已暂存资产的发布脚本。`tools/release/publish_dist.py:60`
 - `tools/release/release_interactive.py`（122 行）：交互式发布入口。`tools/release/release_interactive.py:95`
-- `tools/release/download_action_artifacts.py`（121 行）：大纲第三问点名、与本页流程直接相关的同目录文件，已全读；它不在大纲 seed_files 列表中。`tools/release/download_action_artifacts.py:35`
+- `tools/release/download_action_artifacts.py`（103 行）：大纲第三问点名、与本页流程直接相关的同目录文件，已全读；它不在大纲 seed_files 列表中。`tools/release/download_action_artifacts.py:35`
 
 本页关于 `tools/build_scripts/release_artifacts.py` 与 `core/crates/foundation/util/src/GithubReleaseUtil.rs` 的断言来自 `docs/release-versioning.md` 的陈述，未逐项核验其实现。`docs/release-versioning.md:90`
