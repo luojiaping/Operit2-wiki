@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12 07:25 UTC",
+  "updated": "2026-11-12 09:34 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -1610,7 +1610,7 @@
       "batch": "batch-10",
       "title": "无屏传感器产品",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 98,
       "issue_title": "[评审] 无屏传感器产品",
       "md": "review/batch-10/edge-headless-sensor.md",
@@ -1682,7 +1682,7 @@
       "batch": "batch-10",
       "title": "Edge 契约 crate",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 86,
       "issue_title": "[评审] Edge 契约 crate",
       "md": "review/batch-10/edge-sdk-contract.md",
@@ -1693,7 +1693,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 契约 crate：稳定的 Edge 对象与属性标识符及序列化数据契约，不实现 Host 能力、Link 分发、传输载体或应用行为；Node 与 Proxy 各自依赖它而不互相依赖。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-12"
     },
     {
       "id": "batch-10/edge-sdk-entry",
@@ -1844,7 +1844,7 @@
       "batch": "batch-11",
       "title": "构建脚本入口",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 101,
       "issue_title": "[评审] 构建脚本入口",
       "md": "review/batch-11/tools-build-scripts.md",
@@ -1855,14 +1855,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "构建脚本入口：按产品/平台/操作命名，Flutter、CLI、ESP32 三类入口脚本与发布包文件名规则 operit2-<product>-<platform>-<arch>-<version>.<ext>，仅覆盖 10 个代表性入口。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-12"
     },
     {
       "id": "batch-11/tools-docs-whitepaper",
       "batch": "batch-11",
       "title": "白皮书 PDF 构建",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 110,
       "issue_title": "[评审] 白皮书 PDF 构建",
       "md": "review/batch-11/tools-docs-whitepaper.md",
@@ -1873,7 +1873,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "白皮书 PDF 构建：原稿路径未在基线核实到，构建器、排版规范与字体嵌入均按脚本与 README 写实。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-12"
     },
     {
       "id": "batch-11/tools-figma",
@@ -1916,7 +1916,7 @@
       "batch": "batch-11",
       "title": "协议版本检查脚本",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 109,
       "issue_title": "[评审] 协议版本检查脚本",
       "md": "review/batch-11/tools-peer-protocol-check.md",
@@ -1927,7 +1927,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "协议版本检查脚本：校验 peer-protocol.json 修订记录不可变、变更须递增版本，与 node-runtime 构建时 SHA-256 指纹校验分工配合。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-12"
     },
     {
       "id": "batch-11/tools-perf-benchmarks",
