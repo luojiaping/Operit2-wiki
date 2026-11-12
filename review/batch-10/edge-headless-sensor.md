@@ -63,6 +63,7 @@ date: 2026-11-11
 - `refresh <request-id>` 对账审批并持久化加入结果。`edge/boards/headless_sensor/README.md:25`
 - `refresh` 调用 `device.space.refreshDeviceSpaceJoin`，参数为 id。`edge/boards/headless_sensor/src/main.rs:153`
 - Core 也可使用打印出的地址主动发起配对，`status` 显示本地确认码。`edge/boards/headless_sensor/README.md:28`
+- 打印出的地址为 loopback 地址，监听绑定 `127.0.0.1:0` 且端口自动分配，仅同机 Core 可用该地址主动发起配对；跨设备 Core 无法用该地址连接。`edge/boards/headless_sensor/src/main.rs:108`
 - `status` 打印 Space ID、已配对 peers 与本地显示的配对码。`edge/boards/headless_sensor/README.md:21`
 - `agent` 通过 agent 工具循环读取本地传感器。`edge/boards/headless_sensor/README.md:20`
 - `quit` 停止监听器与连接。`edge/boards/headless_sensor/README.md:26`

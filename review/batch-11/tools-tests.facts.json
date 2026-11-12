@@ -1,1 +1,170 @@
-[{"fact": "tools/tests/ 共 152 个文件，顶层 124 个文件，另有 fixtures、kotlin、support、web_local_inference_smoke 共 4 个子目录。", "ref": "tools/tests/android_runtime_contracts.test.mjs:3"}, {"fact": "顶层 124 个文件中 .mjs 文件 81 个、.kt 文件 1 个，合计 82 个 test 文件。", "ref": "tools/tests/android_runtime_contracts.test.mjs:3"}, {"fact": "顶层其余 42 个文件是 37 个 .py test 脚本、2 个 .ts 文件、2 个 .rb 文件与 1 个 .dart 文件。", "ref": "tools/tests/android_runtime_contracts.test.mjs:3"}, {"fact": "4 个子目录共 28 个文件：fixtures/ 19 个、kotlin/ 3 个、support/ 2 个、web_local_inference_smoke/ 4 个。", "ref": "tools/tests/android_runtime_contracts.test.mjs:3"}, {"fact": "android 前缀的顶层文件共 8 个。", "ref": "tools/tests/android_runtime_contracts.test.mjs:6"}, {"fact": "compose_dsl 前缀的顶层文件共 9 个。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:5"}, {"fact": "builtin_tool_catalog.test.mjs 校验 SystemToolPrompts.rs 与 SystemToolPromptsInternal.rs 组成的内置工具目录。", "ref": "tools/tests/builtin_tool_catalog.test.mjs:6"}, {"fact": "android_runtime_contracts.test.mjs 用 node:test 定义 24 个 test 用例。", "ref": "tools/tests/android_runtime_contracts.test.mjs:3"}, {"fact": "android_runtime_contracts.test.mjs 用 source() 读取生产文件做跨语言宿主契约检查。", "ref": "tools/tests/android_runtime_contracts.test.mjs:9"}, {"fact": "Android 设备信息由 Flutter owner 实现。", "ref": "tools/tests/android_runtime_contracts.test.mjs:37"}, {"fact": "hosts/android 的 getDeviceInfo 要求 Android get_device_info 走 owner 通道。", "ref": "tools/tests/android_runtime_contracts.test.mjs:42"}, {"fact": "OwnerSystemCapabilityChannel.kt 把 get_device_info 映射到 AndroidHostDeviceInfo.read。", "ref": "tools/tests/android_runtime_contracts.test.mjs:47"}, {"fact": "Android 系统设置在宿主组装时绑定 settingReader 与 settingWriter。", "ref": "tools/tests/android_runtime_contracts.test.mjs:66"}, {"fact": "共享 owner 设置适配器用 get_system_setting 与 modify_system_setting 平台无关协议读写设置。", "ref": "tools/tests/android_runtime_contracts.test.mjs:83"}, {"fact": "Owner 端设置读取按 system、secure、global 三命名空间分别走 Settings.System、Settings.Secure、Settings.Global 的 getString。", "ref": "tools/tests/android_runtime_contracts.test.mjs:99"}, {"fact": "NativeCrashActivity 以 :crash 进程运行。", "ref": "tools/tests/android_runtime_contracts.test.mjs:227"}, {"fact": "Android 崩溃进程跳过重启动作与全部 Core 生命周期事件。", "ref": "tools/tests/android_runtime_contracts.test.mjs:225"}, {"fact": "Android 运行时创建用独立的 runtimeCreationLock，与 runtimeLock 分离。", "ref": "tools/tests/android_runtime_contracts.test.mjs:254"}, {"fact": "runtimeLock 只保护状态，不含 prepareAndroidRuntimePaths、AndroidRuntimeAssets.prepare、OperitRuntimeNative.create 与 destroy 等昂贵工作。", "ref": "tools/tests/android_runtime_contracts.test.mjs:197"}, {"fact": "Android 宿主广播经 HostEventBridge 走非阻塞运行时事件槽。", "ref": "tools/tests/android_runtime_contracts.test.mjs:319"}, {"fact": "该测试断言 AndroidRuntimeHost.kt 内 OperitRuntimeNative.emitRuntimeEvent 只出现一次调用。", "ref": "tools/tests/android_runtime_contracts.test.mjs:352"}, {"fact": "Android 发布先校验 APK 的运行时资产再复制到 dist：verify_android_runtime_assets 在 publish_android_apk 之前执行。", "ref": "tools/tests/android_runtime_contracts.test.mjs:310"}, {"fact": "Android Rust profile 跟随构建变体：debug 对应 debug，profile 与 release 对应 release。", "ref": "tools/tests/android_runtime_contracts.test.mjs:365"}, {"fact": "ProGuard 保留 AndroidRuntimeHost 的 JNI 方法。", "ref": "tools/tests/android_runtime_contracts.test.mjs:290"}, {"fact": "内置工具目录由 SystemToolPrompts.rs 的公开提示与 SystemToolPromptsInternal.rs 的内部提示共同组成。", "ref": "tools/tests/builtin_tool_catalog.test.mjs:6"}, {"fact": "公开目录分 basic_tools、file_system_tools、http_tools 三类。", "ref": "tools/tests/builtin_tool_catalog.test.mjs:25"}, {"fact": "内部目录由 internalToolCategoriesEnSource 与 internalToolCategoriesCnSource 提供。", "ref": "tools/tests/builtin_tool_catalog.test.mjs:27"}, {"fact": "英文与中文两套目录各自断言每个内置工具恰好出现一次。", "ref": "tools/tests/builtin_tool_catalog.test.mjs:24"}, {"fact": "write_file 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数。", "ref": "tools/tests/builtin_tool_catalog.test.mjs:43"}, {"fact": "write_file 不在内部目录中，内部目录对应项是 write_file_binary。", "ref": "tools/tests/builtin_tool_catalog.test.mjs:47"}, {"fact": "compose_dsl_artifact.test.mjs 用 compileComposeModule 构建 Compose 产物。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:22"}, {"fact": "Compose 产物头为 // @operit-compose-artifact 4，产物包含 OperitComposeReactive.frame。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:23"}, {"fact": "Compose 产物确定且幂等：同一源码两次编译结果相等，编译产物再编译结果不变。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:25"}, {"fact": "构建期编译不执行顶层插件代码。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:33"}, {"fact": "运行时加载产物不走 parser 与 lowering：OperitComposeCompiler.compile 被替换为抛错后 prepare 仍返回产物。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:30"}, {"fact": "版本 999 与版本 1 的产物在 prepare、compile、artifact 三方法下均抛 Unsupported Compose artifact version。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:37"}, {"fact": "旧产物版本 1、2、3 须用程序 ABI 重建。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:124"}, {"fact": "预编译页面不初始化解析器，parserInitializations 保持为 0。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:79"}, {"fact": "旧源码首次 prepare 后 parserInitializations 为 1，语法错误不使已初始化的解析器失效。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:85"}, {"fact": "解析器初始化失败保留原错误，不重试，不留部分全局变量。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:95"}, {"fact": "运行时从 wrapComposeScript 注册，__operit_render_compose_dsl 为函数。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:118"}, {"fact": "产物正文与同一 SDK 编译器的运行时 lowering 完全一致。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:59"}, {"fact": "运行时用 vm 加载 SDK 的 compose/Artifact.js 与 compose/Compiler.js。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:12"}, {"fact": "测试源码示例用 ctx.useState 管理 count 状态并用 ctx.UI.Button 渲染。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:18"}, {"fact": "builtin_tool_catalog.test.mjs 用 declaration() 抽取 Rust 提示声明。", "ref": "tools/tests/builtin_tool_catalog.test.mjs:10"}, {"fact": "builtin_tool_catalog.test.mjs 用 toolNames() 从提示声明中读出工具名。", "ref": "tools/tests/builtin_tool_catalog.test.mjs:18"}, {"fact": "builtin_tool_catalog.test.mjs 定义 2 个 test，在 En 与 Cn 双语下各跑一次，共 4 个用例。", "ref": "tools/tests/builtin_tool_catalog.test.mjs:22"}, {"fact": "compose_dsl_artifact.test.mjs 定义 8 个 test 用例。", "ref": "tools/tests/compose_dsl_artifact.test.mjs:21"}]
+[
+ {
+  "fact": "builtin_tool_catalog.test.mjs 校验 SystemToolPrompts.rs 与 SystemToolPromptsInternal.rs 组成的内置工具目录。",
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:6"
+ },
+ {
+  "fact": "android_runtime_contracts.test.mjs 用 node:test 定义 24 个 test 用例。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:37"
+ },
+ {
+  "fact": "android_runtime_contracts.test.mjs 用 source() 读取生产文件做跨语言宿主契约检查。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:9"
+ },
+ {
+  "fact": "Android 设备信息由 Flutter owner 实现。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:37"
+ },
+ {
+  "fact": "hosts/android 的 getDeviceInfo 要求 Android get_device_info 走 owner 通道。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:42"
+ },
+ {
+  "fact": "OwnerSystemCapabilityChannel.kt 把 get_device_info 映射到 AndroidHostDeviceInfo.read。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:47"
+ },
+ {
+  "fact": "Android 系统设置在宿主组装时绑定 settingReader 与 settingWriter。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:66"
+ },
+ {
+  "fact": "共享 owner 设置适配器用 get_system_setting 与 modify_system_setting 平台无关协议读写设置。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:83"
+ },
+ {
+  "fact": "Owner 端设置读取按 system、secure、global 三命名空间分别走 Settings.System、Settings.Secure、Settings.Global 的 getString。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:99"
+ },
+ {
+  "fact": "NativeCrashActivity 以 :crash 进程运行。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:227"
+ },
+ {
+  "fact": "Android 崩溃进程跳过重启动作与全部 Core 生命周期事件。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:225"
+ },
+ {
+  "fact": "Android 运行时创建用独立的 runtimeCreationLock，与 runtimeLock 分离。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:254"
+ },
+ {
+  "fact": "runtimeLock 只保护状态，不含 prepareAndroidRuntimePaths、AndroidRuntimeAssets.prepare、OperitRuntimeNative.create 与 destroy 等昂贵工作。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:197"
+ },
+ {
+  "fact": "Android 宿主广播经 HostEventBridge 走非阻塞运行时事件槽。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:319"
+ },
+ {
+  "fact": "该测试断言 AndroidRuntimeHost.kt 内 OperitRuntimeNative.emitRuntimeEvent 只出现一次调用。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:352"
+ },
+ {
+  "fact": "Android 发布先校验 APK 的运行时资产再复制到 dist：verify_android_runtime_assets 在 publish_android_apk 之前执行。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:310"
+ },
+ {
+  "fact": "Android Rust profile 跟随构建变体：debug 对应 debug，profile 与 release 对应 release。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:365"
+ },
+ {
+  "fact": "ProGuard 保留 AndroidRuntimeHost 的 JNI 方法。",
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:290"
+ },
+ {
+  "fact": "内置工具目录由 SystemToolPrompts.rs 的公开提示与 SystemToolPromptsInternal.rs 的内部提示共同组成。",
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:6"
+ },
+ {
+  "fact": "公开目录分 basic_tools、file_system_tools、http_tools 三类。",
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:25"
+ },
+ {
+  "fact": "内部目录由 internalToolCategoriesEnSource 与 internalToolCategoriesCnSource 提供。",
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:27"
+ },
+ {
+  "fact": "英文与中文两套目录各自断言每个内置工具恰好出现一次。",
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:24"
+ },
+ {
+  "fact": "write_file 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数。",
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:43"
+ },
+ {
+  "fact": "write_file 不在内部目录中，内部目录对应项是 write_file_binary。",
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:47"
+ },
+ {
+  "fact": "compose_dsl_artifact.test.mjs 用 compileComposeModule 构建 Compose 产物。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:22"
+ },
+ {
+  "fact": "Compose 产物头为 // @operit-compose-artifact 4，产物包含 OperitComposeReactive.frame。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:23"
+ },
+ {
+  "fact": "Compose 产物确定且幂等：同一源码两次编译结果相等，编译产物再编译结果不变。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:25"
+ },
+ {
+  "fact": "构建期编译不执行顶层插件代码。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:33"
+ },
+ {
+  "fact": "运行时加载产物不走 parser 与 lowering：OperitComposeCompiler.compile 被替换为抛错后 prepare 仍返回产物。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:30"
+ },
+ {
+  "fact": "版本 999 与版本 1 的产物在 prepare、compile、artifact 三方法下均抛 Unsupported Compose artifact version。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:37"
+ },
+ {
+  "fact": "旧产物版本 1、2、3 须用程序 ABI 重建。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:124"
+ },
+ {
+  "fact": "预编译页面不初始化解析器，parserInitializations 保持为 0。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:79"
+ },
+ {
+  "fact": "旧源码首次 prepare 后 parserInitializations 为 1，语法错误不使已初始化的解析器失效。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:85"
+ },
+ {
+  "fact": "解析器初始化失败保留原错误，不重试，不留部分全局变量。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:95"
+ },
+ {
+  "fact": "运行时从 wrapComposeScript 注册，__operit_render_compose_dsl 为函数。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:118"
+ },
+ {
+  "fact": "产物正文与同一 SDK 编译器的运行时 lowering 完全一致。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:59"
+ },
+ {
+  "fact": "运行时用 vm 加载 SDK 的 compose/Artifact.js 与 compose/Compiler.js。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:12"
+ },
+ {
+  "fact": "测试源码示例用 ctx.useState 管理 count 状态并用 ctx.UI.Button 渲染。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:18"
+ },
+ {
+  "fact": "builtin_tool_catalog.test.mjs 用 declaration() 抽取 Rust 提示声明。",
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:10"
+ },
+ {
+  "fact": "builtin_tool_catalog.test.mjs 用 toolNames() 从提示声明中读出工具名。",
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:18"
+ },
+ {
+  "fact": "builtin_tool_catalog.test.mjs 定义 2 个 test，在 En 与 Cn 双语下各跑一次，共 4 个用例。",
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:22"
+ },
+ {
+  "fact": "compose_dsl_artifact.test.mjs 定义 8 个 test 用例。",
+  "ref": "tools/tests/compose_dsl_artifact.test.mjs:21"
+ }
+]

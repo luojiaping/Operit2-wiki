@@ -12,6 +12,10 @@
     "ref": "tools/build_scripts/README.md:4"
   },
   {
+    "fact": "截至基线 364d1d594，`tools/build_scripts/` 共 38 个文件。",
+    "ref": "tools/build_scripts/README.md:47"
+  },
+  {
     "fact": "`build_flutter_<platform>.py` 覆盖 Android、iOS、Linux、macOS、OpenHarmony、Windows 六个平台的 Flutter 构建。",
     "ref": "tools/build_scripts/README.md:23"
   },

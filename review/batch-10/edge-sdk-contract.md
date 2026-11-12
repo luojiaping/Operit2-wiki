@@ -9,7 +9,8 @@ date: 2026-11-11
 ## 概述
 
 - `operit-edge-contract` 是 Edge Services 的共享地址契约 crate。`edge/sdk/contract/README.md:3`
-- 它只包含稳定的 Edge 对象与属性标识符。`edge/sdk/contract/README.md:5`
+- 它包含稳定的 Edge 对象与属性标识符。`edge/sdk/contract/src/lib.rs:7`
+- 它还导出可序列化的数据契约。`edge/sdk/contract/src/lib.rs:26`
 - 它不实现 Host capabilities。`edge/sdk/contract/README.md:6`
 - 它不实现 Link dispatch。`edge/sdk/contract/README.md:6`
 - 它不实现 transport carriers。`edge/sdk/contract/README.md:6`
@@ -36,9 +37,11 @@ date: 2026-11-11
 
 ## 核心机制
 
-### 只含标识符，不含实现
+### 标识符与序列化数据契约，不含实现
 
-- 本 crate 只含稳定的 Edge 对象与属性标识符，不实现 Host 能力、Link 分发、传输载体或应用行为。`edge/sdk/contract/README.md:5`
+- 本 crate 包含稳定的 Edge 对象与属性标识符。`edge/sdk/contract/src/lib.rs:7`
+- 它还导出可序列化的数据契约。`edge/sdk/contract/src/lib.rs:26`
+- 它不实现 Host 能力、Link 分发、传输载体或应用行为。`edge/sdk/contract/README.md:6`
 - Edge Node 与类型化的 Edge Proxy 各自依赖它时，两者之间不产生依赖。`edge/sdk/contract/README.md:7`
 - 相关实现页：[[edge-sdk-node|Edge 节点 crate]]、[[edge-sdk-proxy|Edge 代理 crate]]。
 
@@ -115,5 +118,6 @@ date: 2026-11-11
 - `edge/sdk/contract/src/image_preview.rs`
 - 本页 4 个 seed 文件已全部读完（共 161 行，与大纲 est_lines: 161 一致），源码基线为 AAswordman/Operit2 @ 364d1d594。
 - 本页的否定性断言（不实现 Host 能力、Link 分发、传输载体、应用行为）直接引自 README 原文，不是全仓 grep 的零命中结论。`edge/sdk/contract/README.md:6`
+- README 第 5 行写 crate“只含标识符”，与 lib.rs 当前导出的可序列化数据结构不符；本页范围按 lib.rs 实际导出写。`edge/sdk/contract/src/lib.rs:26`
 - 模块内测试 `bounds_are_checked_before_allocation` 覆盖分块边界用例。`edge/sdk/contract/src/image_preview.rs:59`
 - 四份 seed 文件中无平台分支表述，`platforms: [all]` 指本 crate 本身不区分 Host。
