@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12 06:34 UTC",
+  "updated": "2026-11-12 06:52 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -1610,7 +1610,7 @@
       "batch": "batch-10",
       "title": "无屏传感器产品",
       "module": "edge",
-      "status": "approved",
+      "status": "review-pending",
       "issue": 98,
       "issue_title": "[评审] 无屏传感器产品",
       "md": "review/batch-10/edge-headless-sensor.md",
