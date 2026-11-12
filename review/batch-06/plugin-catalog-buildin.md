@@ -81,9 +81,10 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 
 ### character_cards 为什么这么大
 
-角色卡的 src/ 共 97 个文件，其中 .ts 文件 94 个、合计 15212 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
+角色卡的 src/ 共 102 个文件，其中 .ts 文件 99 个、合计 15830 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
 对照：工作流的 src/ 共 14 个 .ts 文件、合计 2966 行（`plugins/packages/buildin/workflow/src/main.ts:1`）。
 角色卡另有 web/ 前端 54 个文件，其中 .ts 文件 51 个、合计 2718 行（`plugins/packages/buildin/character_cards/web/app.ts:1`）。
+注：角色卡 src/ 的统计按上游 0f08fd43 清点，行数只计 .ts 文件（src/ 另有 3 个 .json 文件不计）；页内其余内容仍按基线 364d1d594。
 角色卡的记忆查询结果类型是 `MemoryQueryResult`（`plugins/packages/buildin/character_cards/src/api.ts:222`）。
 角色卡的聊天存储类 `CharacterChatStore` 定义在存储层（`plugins/packages/buildin/character_cards/src/storage/chats.ts:10`）。
 角色卡有群聊执行代码，executor.ts 引用 `ToolPkg` 类型（`plugins/packages/buildin/character_cards/src/group-execution/executor.ts:1`）。

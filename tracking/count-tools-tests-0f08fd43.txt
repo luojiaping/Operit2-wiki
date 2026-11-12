@@ -1,0 +1,233 @@
+tools/tests 清点证据（上游 AAswordman/Operit2 @ 0f08fd43，2026-11-12）
+用途：tools-tests 条目聚合计数（文件总数、扩展名、子目录、前缀、用例数）第 3 轮修订的复核依据；对应 wiki 页 review/batch-11/tools-tests.md 的来源节。wiki 基线仍为 364d1d594，本文件只记录上游 0f08fd43 的清点结果；单文件用例定义数见旧记录 tracking/count-tools-tests-364d1d594.txt。
+
+== 总数 ==
+$ git ls-tree -r --name-only 0f08fd43 tools/tests/ | wc -l
+159
+$ git ls-tree --name-only 0f08fd43 tools/tests/ | wc -l
+132
+132 条含 4 个子目录条目（fixtures、kotlin、support、web_local_inference_smoke），顶层文件 128 个。
+128 + 31 = 159（顶层 + 4 个子目录）
+
+== 顶层扩展名 ==
+$ git ls-tree --name-only 0f08fd43 tools/tests/ | sed "s/.*\.//" | sort | uniq -c
+      1 dart
+      1 kt
+     83 mjs
+     39 py
+      2 rb
+      1 tools/tests/fixtures
+      1 tools/tests/kotlin
+      1 tools/tests/support
+      1 tools/tests/web_local_inference_smoke
+      2 ts
+（无扩展名的 4 条为子目录条目）
+83 .mjs + 1 .kt = 84 个 test 文件；39 .py + 2 .ts + 2 .rb + 1 .dart = 44 个其他文件；84 + 44 = 128
+
+== 子目录 ==
+$ git ls-tree -r --name-only 0f08fd43 tools/tests/fixtures/ | wc -l
+22
+$ git ls-tree -r --name-only 0f08fd43 tools/tests/kotlin/ | wc -l
+3
+$ git ls-tree -r --name-only 0f08fd43 tools/tests/support/ | wc -l
+2
+$ git ls-tree -r --name-only 0f08fd43 tools/tests/web_local_inference_smoke/ | wc -l
+4
+22 + 3 + 2 + 4 = 31
+
+== 文件名前缀（顶层） ==
+$ git ls-tree --name-only 0f08fd43 tools/tests/ | grep -c 'tools/tests/android'
+8
+$ git ls-tree --name-only 0f08fd43 tools/tests/ | grep -c 'tools/tests/compose_dsl'
+9
+与基线 364d1d594 相同，未变。
+
+== 用例数 ==
+$ git show 0f08fd43:tools/tests/android_runtime_contracts.test.mjs | grep -c '^test('
+24
+$ git show 0f08fd43:tools/tests/compose_dsl_artifact.test.mjs | grep -c '^test('
+8
+builtin_tool_catalog.test.mjs 的 test( 调用缩进在 for 循环内（:22 for En/Cn 循环），故 grep -c "^test(" 得 0；实际定义 2 个 test（:24、:39），循环跑 En、Cn 两轮，共 4 个用例：
+$ git show 0f08fd43:tools/tests/builtin_tool_catalog.test.mjs | grep -c '  test('
+2
+与基线 364d1d594 相同，未变。
+
+== 三个种子文件行数 ==
+  395 tools/tests/android_runtime_contracts.test.mjs
+   50 tools/tests/builtin_tool_catalog.test.mjs
+  129 tools/tests/compose_dsl_artifact.test.mjs
+  574 total
+与基线 364d1d594 相同，未变。
+
+== 相对基线 364d1d594 的变化 ==
+$ git diff --name-status 364d1d594 0f08fd43 -- tools/tests/
+新增 7 个文件，无删除；13 个文件有修改，其中种子文件仅 android_runtime_contracts.test.mjs 有改动，但行数（395）与用例数（24）不变。
+新增：
+tools/tests/fixtures/windows_window_lifetime/CMakeLists.txt
+tools/tests/fixtures/windows_window_lifetime/flutter/flutter_view_controller.h
+tools/tests/fixtures/windows_window_lifetime/window_lifetime_test.cpp
+tools/tests/test_models_dev_bundle.py
+tools/tests/test_windows_window_lifetime.py
+tools/tests/vfs_dependency_boundary.test.mjs
+tools/tests/windows_vfs_cli_acceptance.mjs
+
+== 完整文件清单（159 个，git ls-tree -r --name-only 0f08fd43 tools/tests/ | sort） ==
+tools/tests/android_owner_capability_wiring.test.mjs
+tools/tests/android_photo_picker.test.mjs
+tools/tests/android_root_commands.test.mjs
+tools/tests/android_runtime_contracts.test.mjs
+tools/tests/android_saf_filesystem_test.kt
+tools/tests/android_saf_mount_contracts.test.mjs
+tools/tests/android_terminal_lifecycle.test.mjs
+tools/tests/android_terminal_privileges.test.mjs
+tools/tests/anthropic_model_catalog.test.mjs
+tools/tests/browser_file_open.test.mjs
+tools/tests/browser_http_stream.test.mjs
+tools/tests/browser_system_capabilities.test.mjs
+tools/tests/builtin_tool_catalog.test.mjs
+tools/tests/call_continuation_context.test.mjs
+tools/tests/character_cards_cli_smoke.py
+tools/tests/character_cards_upgrade_smoke.py
+tools/tests/character_migration_acceptance.py
+tools/tests/chat_host_plugin_boundary.test.mjs
+tools/tests/chat_scoped_promise.test.mjs
+tools/tests/clean_on_exit_output.test.mjs
+tools/tests/compose_dsl_artifact.test.mjs
+tools/tests/compose_dsl_document_start_hosts.test.mjs
+tools/tests/compose_dsl_file_picker_contract.test.mjs
+tools/tests/compose_dsl_lazy_items.test.mjs
+tools/tests/compose_dsl_navigation.test.mjs
+tools/tests/compose_dsl_programs.test.mjs
+tools/tests/compose_dsl_session_state.test.mjs
+tools/tests/compose_dsl_templates.test.mjs
+tools/tests/compose_dsl_webview_bridge.test.mjs
+tools/tests/cursor_message_layout.test.mjs
+tools/tests/daily_life_plugin.test.mjs
+tools/tests/data_rescue_preferences.test.mjs
+tools/tests/data_rescue_progress.test.mjs
+tools/tests/data_rescue_streaming.test.mjs
+tools/tests/deepseek_dafeiyu.test.mjs
+tools/tests/device_tools.test.mjs
+tools/tests/domain_host_context.test.mjs
+tools/tests/extended_chat_sdk_boundary.test.mjs
+tools/tests/file_selector_streaming.test.mjs
+tools/tests/fixtures/arm64_macos_intel_stub.cpp
+tools/tests/fixtures/arm64_macos_smoke.mm
+tools/tests/fixtures/arm64_simulator_smoke.mm
+tools/tests/fixtures/compiled/toolpkg_route.js
+tools/tests/fixtures/host-task-executor/AndroidLog.kt
+tools/tests/fixtures/host-task-executor/HostTaskExecutorFixture.kt
+tools/tests/fixtures/ios_file_selector_access/main.swift
+tools/tests/fixtures/ios_wasm_engine_smoke.js
+tools/tests/fixtures/ios_wasm_engine_smoke.mm
+tools/tests/fixtures/ios_wasm_engine_smoke.rs
+tools/tests/fixtures/ish_root_boot_harness.c
+tools/tests/fixtures/ish_runtime_mount_harness.c
+tools/tests/fixtures/mcp_http_streaming_server.py
+tools/tests/fixtures/production_bootstrap.mjs
+tools/tests/fixtures/scoped_host_runtime.mjs
+tools/tests/fixtures/toolpkg_route.ts
+tools/tests/fixtures/wasm/memory.c
+tools/tests/fixtures/wasm/memory.wasm
+tools/tests/fixtures/wasm_engine_modules.rs
+tools/tests/fixtures/windows_window_lifetime/CMakeLists.txt
+tools/tests/fixtures/windows_window_lifetime/flutter/flutter_view_controller.h
+tools/tests/fixtures/windows_window_lifetime/window_lifetime_test.cpp
+tools/tests/floating_windows_bridge.test.mjs
+tools/tests/flutter_bridge_architecture.test.mjs
+tools/tests/goal_mode_lifecycle.test.mjs
+tools/tests/google_model_catalog.test.mjs
+tools/tests/host_capability_dispatch.test.mjs
+tools/tests/ios_file_selector_access.test.mjs
+tools/tests/ios_runtime_channel_contract.test.mjs
+tools/tests/javascript_bootstrap_lazy_libraries.test.mjs
+tools/tests/javascript_bridge_hosts.test.mjs
+tools/tests/javascript_bridge_operations.test.mjs
+tools/tests/javascript_bridge_structured.test.mjs
+tools/tests/kotlin/AndroidRootCommandsTest.kt
+tools/tests/kotlin/AndroidTerminalRootTest.kt
+tools/tests/kotlin/HostTaskScheduler.kt
+tools/tests/mcp_argument_integrity_contracts.test.mjs
+tools/tests/mcp_startup_contracts.test.mjs
+tools/tests/message_insert_battery.test.mjs
+tools/tests/message_workspace_plugin_surfaces.test.mjs
+tools/tests/ohos_plugin_staging_test.py
+tools/tests/ohos_terminal_packaging_test.py
+tools/tests/okhttp3_structured_request.test.mjs
+tools/tests/open_file_contracts.test.mjs
+tools/tests/openai_model_endpoint.test.mjs
+tools/tests/package_builder_creation_contracts.test.mjs
+tools/tests/plan_mode_implementation.test.mjs
+tools/tests/plugin_bridge_contracts.test.mjs
+tools/tests/plugin_creation_intent_check.dart
+tools/tests/plugin_storage_sdk.test.mjs
+tools/tests/plugin_storage_types.ts
+tools/tests/qqbot_cli_smoke.py
+tools/tests/run_arm64_macos_smoke.py
+tools/tests/run_arm64_simulator_smoke.py
+tools/tests/run_ios_ocr_tests.rb
+tools/tests/run_ios_wasm_engine_smoke.py
+tools/tests/run_ios_webview_geometry_tests.rb
+tools/tests/service_discovery_logging.test.mjs
+tools/tests/snapshot_export_streaming.test.mjs
+tools/tests/subagents_goal_cli_smoke.py
+tools/tests/super_admin_terminal_routing.test.mjs
+tools/tests/support/compose_buffer_fixture.mjs
+tools/tests/support/compose_stream_fixture.mjs
+tools/tests/terminal_streaming.test.mjs
+tools/tests/terminal_working_directory_contracts.test.mjs
+tools/tests/test_android_module_package.py
+tools/tests/test_android_native_toolchain.py
+tools/tests/test_android_root_commands.py
+tools/tests/test_android_runtime_assets.py
+tools/tests/test_android_v8_build.py
+tools/tests/test_apple_plugin_build.py
+tools/tests/test_arm64_rootfs.py
+tools/tests/test_cargo_build.py
+tools/tests/test_cli_macos_signing.py
+tools/tests/test_compose_application_benchmark.py
+tools/tests/test_compose_load_analysis.py
+tools/tests/test_debian12_cli_build.py
+tools/tests/test_ios_v8_build.py
+tools/tests/test_ios_video_frameworks.py
+tools/tests/test_macos_arm64_intel_stub.py
+tools/tests/test_macos_distribution.py
+tools/tests/test_models_dev_bundle.py
+tools/tests/test_peer_protocol.py
+tools/tests/test_performance_sampler.py
+tools/tests/test_plugin_package_sync.py
+tools/tests/test_release_artifacts.py
+tools/tests/test_verify_alpine_node24.py
+tools/tests/test_windows_application_update.py
+tools/tests/test_windows_bash.py
+tools/tests/test_windows_bash_build.py
+tools/tests/test_windows_msi.py
+tools/tests/test_windows_runtime_packaging.py
+tools/tests/test_windows_window_lifetime.py
+tools/tests/tool_result_continuation.test.mjs
+tools/tests/toolpkg_api_compatibility.test.mjs
+tools/tests/toolpkg_core_route.test.mjs
+tools/tests/toolpkg_public_api.test.mjs
+tools/tests/toolpkg_registration_types.ts
+tools/tests/toolpkg_v1_adapters.test.mjs
+tools/tests/toolpkg_v1_runtime.test.mjs
+tools/tests/tools_builtin_pipeline.test.mjs
+tools/tests/tui_compose_plugin_screens.test.mjs
+tools/tests/vfs_dependency_boundary.test.mjs
+tools/tests/waifu_cli_smoke.py
+tools/tests/web_experience.browser.mjs
+tools/tests/web_javascript_runtime.test.mjs
+tools/tests/web_local_inference_smoke/index.html
+tools/tests/web_local_inference_smoke/run.mjs
+tools/tests/web_local_inference_smoke/server.mjs
+tools/tests/web_local_inference_smoke/smoke.js
+tools/tests/web_runtime_events.test.mjs
+tools/tests/web_terminal_lifecycle.test.mjs
+tools/tests/webview_zoom.test.mjs
+tools/tests/windows_terminal_cli_smoke.mjs
+tools/tests/windows_vfs_cli_acceptance.mjs
+tools/tests/workflow_ui.test.mjs
+tools/tests/workspace_home_material.test.mjs
+tools/tests/workspace_mount_contracts.test.mjs
+tools/tests/worldbook_lifecycle.test.mjs
+tools/tests/worldbook_plugin_boundary.test.mjs

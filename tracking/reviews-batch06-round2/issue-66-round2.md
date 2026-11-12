@@ -1,0 +1,1 @@
+复核上游 main 从 `2d384ea3` 前进到 `0f08fd43` 后，角色卡 `src/` 清点已变化。相对上次审核所用 `2d384` 树，当前比较结果显示 6 个 `.ts` 文件新增、`avatar-resources.ts` 删除、另 2 个文件修改，净增 5 个文件、618 行。因此原统计 97 个文件 / 94 个 TS 文件 / 15,212 行应更新为 102 个文件 / 99 个 TS 文件 / 15,830 行，或明确标成 `2d384ea3` 的历史快照并在页面注明 SHA。变更涉及 `ui-controls.ts`、`ui-management.ts`、`ui-memory-{attachment,graph,settings,workspace}.ts` 等；本次只核了统计差异，未重审这些新增实现功能。

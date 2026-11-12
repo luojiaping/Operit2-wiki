@@ -3,7 +3,7 @@
   "source_commit": "364d1d594",
   "source_repo": "operit2",
   "status": "review-pending",
-  "summary": "tools/tests/ 跨边界测试集索引页：152 个文件按顶层平铺与 4 子目录组织，示例覆盖 Android 运行时契约、内置工具目录与 Compose DSL 产物。",
-  "updated": "2026-11-11",
+  "summary": "tools/tests/ 跨边界测试集索引页：159 个文件按顶层平铺与 4 子目录组织（上游 0f08fd43 清点），示例覆盖 Android 运行时契约、内置工具目录与 Compose DSL 产物。",
+  "updated": "2026-11-12",
   "approved_by_comment_id": 6810820499
 }
