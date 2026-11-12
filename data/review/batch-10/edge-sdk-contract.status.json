@@ -2,8 +2,10 @@
   "issue": 86,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "Edge 契约 crate：稳定的 Edge 对象与属性标识符及序列化数据契约，不实现 Host 能力、Link 分发、传输载体或应用行为；Node 与 Proxy 各自依赖它而不互相依赖。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6808994910
+  "updated": "2026-11-12",
+  "approved_by_comment_id": 6819829045,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-12 09:34 UTC"
 }

@@ -2,8 +2,10 @@
   "issue": 101,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "构建脚本入口：按产品/平台/操作命名，Flutter、CLI、ESP32 三类入口脚本与发布包文件名规则 operit2-<product>-<platform>-<arch>-<version>.<ext>，仅覆盖 10 个代表性入口。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6810818871
+  "updated": "2026-11-12",
+  "approved_by_comment_id": 6819830193,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-12 09:34 UTC"
 }
