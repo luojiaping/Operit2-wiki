@@ -10,16 +10,16 @@ date: 2026-11-11
 
 - 本页是索引型页面：三个种子文件仅作示例，其余 149 个文件未逐个列出、未读内容。
 - tools/tests/ 收纳跨语言、跨宿主契约检查：android_runtime_contracts.test.mjs 用 `source()` 读取生产文件做校验 `tools/tests/android_runtime_contracts.test.mjs:9`
-- tools/tests/ 共 152 个文件，顶层 124 个文件，另有 fixtures、kotlin、support、web_local_inference_smoke 共 4 个子目录 `tools/tests/android_runtime_contracts.test.mjs:3`
-- 顶层 124 个文件中 .mjs 文件 81 个、.kt 文件 1 个，合计 82 个 `test` 文件 `tools/tests/android_runtime_contracts.test.mjs:3`
-- 顶层其余 42 个文件是 37 个 .py `test` 脚本、2 个 .ts 文件、2 个 .rb 文件与 1 个 .dart 文件 `tools/tests/android_runtime_contracts.test.mjs:3`
-- 4 个子目录共 28 个文件：fixtures/ 19 个、kotlin/ 3 个、support/ 2 个、web_local_inference_smoke/ 4 个 `tools/tests/android_runtime_contracts.test.mjs:3`
+- tools/tests/ 共 152 个文件，顶层 124 个文件，另有 fixtures、kotlin、support、web_local_inference_smoke 共 4 个子目录（清点证据：wiki 仓库 tracking/count-tools-tests-364d1d594.txt）
+- 顶层 124 个文件中 .mjs 文件 81 个、.kt 文件 1 个，合计 82 个 `test` 文件（清点证据：wiki 仓库 tracking/count-tools-tests-364d1d594.txt）
+- 顶层其余 42 个文件是 37 个 .py `test` 脚本、2 个 .ts 文件、2 个 .rb 文件与 1 个 .dart 文件（清点证据：wiki 仓库 tracking/count-tools-tests-364d1d594.txt）
+- 4 个子目录共 28 个文件：fixtures/ 19 个、kotlin/ 3 个、support/ 2 个、web_local_inference_smoke/ 4 个（清点证据：wiki 仓库 tracking/count-tools-tests-364d1d594.txt）
 - 相关页：[[tools-overview|tools 总览]]收纳 tools/ 下各类工具，[[tools-build-scripts|构建脚本入口]]覆盖 Android 发布脚本。
 
 ## AI 速览
 
 - `source()` — 读取生产文件做跨语言宿主契约检查 `tools/tests/android_runtime_contracts.test.mjs:9`
-- `test()` — node:test 用例定义，android_runtime_contracts.test.mjs 定义 24 个用例 `tools/tests/android_runtime_contracts.test.mjs:3`
+- `test()` — node:test 用例定义，android_runtime_contracts.test.mjs 定义 24 个用例 `tools/tests/android_runtime_contracts.test.mjs:37`
 - `declaration()` — 抽取 Rust 提示声明 `tools/tests/builtin_tool_catalog.test.mjs:10`
 - `toolNames()` — 从提示声明中读出工具名 `tools/tests/builtin_tool_catalog.test.mjs:18`
 - `compileComposeModule()` — 构建 Compose 产物 `tools/tests/compose_dsl_artifact.test.mjs:22`
@@ -30,13 +30,13 @@ date: 2026-11-11
 
 ### 组织维度
 
-- android 前缀的顶层文件共 8 个 `tools/tests/android_runtime_contracts.test.mjs:6`
-- compose_dsl 前缀的顶层文件共 9 个 `tools/tests/compose_dsl_artifact.test.mjs:5`
+- android 前缀的顶层文件共 8 个（清点证据：wiki 仓库 tracking/count-tools-tests-364d1d594.txt）
+- compose_dsl 前缀的顶层文件共 9 个（清点证据：wiki 仓库 tracking/count-tools-tests-364d1d594.txt）
 - builtin_tool_catalog.test.mjs 校验 `SystemToolPrompts` 与 `SystemToolPromptsInternal` 组成的内置工具目录 `tools/tests/builtin_tool_catalog.test.mjs:6`
 
 ### Android 运行时契约（Android 平台）
 
-- android_runtime_contracts.test.mjs 用 node:test 定义 24 个 `test` 用例 `tools/tests/android_runtime_contracts.test.mjs:3`
+- android_runtime_contracts.test.mjs 用 node:test 定义 24 个 `test` 用例 `tools/tests/android_runtime_contracts.test.mjs:37`
 - Android 设备信息由 Flutter owner 实现 `tools/tests/android_runtime_contracts.test.mjs:37`
 - hosts/android 的 `getDeviceInfo` 要求 Android get_device_info 走 owner 通道 `tools/tests/android_runtime_contracts.test.mjs:42`
 - OwnerSystemCapabilityChannel.kt 把 get_device_info 映射到 `AndroidHostDeviceInfo.read` `tools/tests/android_runtime_contracts.test.mjs:47`
@@ -84,7 +84,7 @@ date: 2026-11-11
 ## 关键符号
 
 - `source()` — 读取生产文件做跨语言宿主契约检查 `tools/tests/android_runtime_contracts.test.mjs:9`
-- `test()` — node:test 用例定义 `tools/tests/android_runtime_contracts.test.mjs:3`
+- `test()` — node:test 用例定义 `tools/tests/android_runtime_contracts.test.mjs:37`
 - `settingReader` / `settingWriter` — Android 系统设置在宿主组装时绑定的读写回调 `tools/tests/android_runtime_contracts.test.mjs:66`
 - get_system_setting / modify_system_setting — 共享 owner 设置适配器的平台无关协议 `tools/tests/android_runtime_contracts.test.mjs:83`
 - `HostEventBridge` — Android 宿主广播的非阻塞运行时事件槽入口 `tools/tests/android_runtime_contracts.test.mjs:319`
@@ -130,5 +130,5 @@ date: 2026-11-11
   - tools/tests/android_runtime_contracts.test.mjs（395 行，24 个 test 用例）
   - tools/tests/builtin_tool_catalog.test.mjs（50 行，2 个 test 定义 × En/Cn 双语 = 4 个用例）
   - tools/tests/compose_dsl_artifact.test.mjs（129 行，8 个 test 用例）
-- 文件总数与分类核验方法：2026-11-12 对基线 AAswordman/Operit2 @ 364d1d594，用 `find tools/tests -type f | wc -l` 得 152，`find tools/tests -maxdepth 1 -type f | wc -l` 得 124，顶层扩展名与文件名前缀用 `ls` 清点，子目录文件数用 `find <子目录> -type f | wc -l` 清点，用例数用 `grep -c '^test('` 计数。
+- 文件总数与分类核验方法：2026-11-12 对基线 AAswordman/Operit2 @ 364d1d594，用 `find tools/tests -type f | wc -l` 得 152，`find tools/tests -maxdepth 1 -type f | wc -l` 得 124，顶层扩展名与文件名前缀用 `ls` 清点，子目录文件数用 `find <子目录> -type f | wc -l` 清点，用例数用 `grep -c '^test('` 计数。清点记录与完整文件清单见 wiki 仓库 tracking/count-tools-tests-364d1d594.txt；聚合总数只保留在正文，不再以无依据的引用出现在 facts.json 里。
 - 范围限定：本页三个种子文件仅作示例，其余 149 个文件未逐个列出、未读内容；android 前缀 8 个文件、compose_dsl 前缀 9 个文件按文件名前缀归类，内容只核对了三个种子文件。

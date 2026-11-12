@@ -2,13 +2,13 @@
 title: Edge 验收记录与 V1 收尾
 module: edge
 platforms: [all]
-sources: 2
+sources: 3
 date: 2026-11-11
 ---
 
 ## 概述
 
-本页记录 Edge 统一验收与 V1 收尾，验收范围限于实际运行的 CLI、受资源约束的产品模拟器与 SDK 及共享模块回归。`edge/docs/acceptance.md:81`
+本页记录 Edge 验收与 V1 收尾，验收范围限于实际运行的 CLI、受资源约束的产品模拟器与 SDK 及共享模块回归。`edge/docs/acceptance.md:81`
 验收记录的验收基线是 `upstream/main` 的 3c5fcc81653999613328209bd0beafb415949c82。`edge/docs/acceptance.md:3`
 V1 收尾记录的首次验收基线是 3d6238a4（main），本轮在 Windows 上收尾 SDK 接入和验收入口。`edge/docs/v1-closeout.md:3`
 V1 收尾的 PR 已 rebase 到 06784b03，旧基线结果仅作历史记录。`edge/docs/v1-closeout.md:4`
@@ -18,7 +18,7 @@ V1 收尾的 PR 已 rebase 到 06784b03，旧基线结果仅作历史记录。`e
 
 ## AI 速览
 
-- 统一验收入口命令是 `EMSDK=/path/to/emsdk npm run test:device-budget --prefix edge/boards/esp32/editor`，在仓库根目录执行。`edge/docs/acceptance.md:11`
+- ESP32 完整模拟器验收入口命令是 `EMSDK=/path/to/emsdk npm run test:device-budget --prefix edge/boards/esp32/editor`，在仓库根目录执行。`edge/docs/acceptance.md:11`
 - 该入口重建预览、模拟器、插件资产和当前 CLI，清理环境变量，避免压力场景被跳过。`edge/docs/acceptance.md:15`
 - 该入口任意阶段失败都会终止并返回非零退出码。`edge/docs/acceptance.md:15`
 - 验收记录的验收基线是 3c5fcc81653999613328209bd0beafb415949c82。`edge/docs/acceptance.md:3`
@@ -36,14 +36,15 @@ V1 收尾的 PR 已 rebase 到 06784b03，旧基线结果仅作历史记录。`e
 - CLI 修复：`space sync` 同步 future 独立装箱，修复 Windows 调试版主线程栈溢出。`edge/docs/v1-closeout.md:33`
 - 通过范围是实际运行的 macOS CLI 与受资源约束的产品模拟器，以及 SDK 和共享模块回归。`edge/docs/acceptance.md:81`
 - 最新基线复验本轮未连接交付板，未执行烧录或真机验收。`edge/docs/v1-closeout.md:92`
-- 主入口：统一验收入口 `npm run test:device-budget`，固件构建可并入验收（加 `-- --firmware`）。`edge/docs/v1-closeout.md:91`
-- 数据流向：统一验收入口重建 CLI 与模拟器 → 执行配对、聊天、语音、插件场景 → 采样 Rust 堆峰值与分配失败 → 固件链接检查 .flash.text 容量。`edge/docs/acceptance.md:15`
+- 主入口：ESP32 完整模拟器验收入口 `npm run test:device-budget`，固件构建可并入验收（加 `-- --firmware`）。`edge/docs/v1-closeout.md:91`
+- 固件验收加 `-- --firmware` 并检查应用分区及 `.flash.text` 映射区余量；该命令不执行烧录，真机音频、网络与持续运行另行验收。`edge/README.md:53`
+- 数据流向：ESP32 完整模拟器验收入口重建 CLI 与模拟器 → 执行配对、聊天、语音、插件场景 → 采样 Rust 堆峰值与分配失败 → 固件链接检查 .flash.text 容量。`edge/docs/acceptance.md:15`
 
 ## 核心机制
 
-### 统一验收入口覆盖的场景与结果
+### ESP32 完整模拟器验收入口覆盖的场景与结果
 
-统一验收入口命令是 `EMSDK=/path/to/emsdk npm run test:device-budget --prefix edge/boards/esp32/editor`，在仓库根目录执行。`edge/docs/acceptance.md:11`
+ESP32 完整模拟器验收入口命令是 `EMSDK=/path/to/emsdk npm run test:device-budget --prefix edge/boards/esp32/editor`，在仓库根目录执行。`edge/docs/acceptance.md:11`
 该入口重建预览、模拟器、插件资产和当前 CLI，清理环境变量，避免压力场景被跳过。`edge/docs/acceptance.md:15`
 该入口任意阶段失败都会终止并返回非零退出码。`edge/docs/acceptance.md:15`
 C/Wasm 预览构建与 TypeScript 检查通过。`edge/docs/acceptance.md:21`
@@ -132,8 +133,8 @@ Windows 调试版 CLI `space sync` 在未继承代理时也复现过主线程栈
 
 ## 关键符号
 
-- `npm run test:device-budget` —— 统一验收入口，执行全部场景。`edge/docs/acceptance.md:11`
-- `EMSDK` —— 统一验收入口所需的 Emscripten 环境变量。`edge/docs/acceptance.md:11`
+- `npm run test:device-budget` —— ESP32 完整模拟器验收入口，执行全部场景。`edge/docs/acceptance.md:11`
+- `EMSDK` —— ESP32 完整模拟器验收入口所需的 Emscripten 环境变量。`edge/docs/acceptance.md:11`
 - `operit-edge-sdk` —— 厂商接入 Edge V1 的 SDK。`edge/docs/v1-closeout.md:15`
 - `space` —— SDK 功能，依赖包数 108。`edge/docs/acceptance.md:57`
 - `http-agent` —— SDK 功能，依赖包数 25。`edge/docs/acceptance.md:58`
@@ -150,7 +151,7 @@ Windows 调试版 CLI `space sync` 在未继承代理时也复现过主线程栈
 
 ## 调用链
 
-1. 执行统一验收入口 `npm run test:device-budget`，重建预览、模拟器、插件资产和当前 CLI。`edge/docs/acceptance.md:15`
+1. 执行 ESP32 完整模拟器验收入口 `npm run test:device-budget`，重建预览、模拟器、插件资产和当前 CLI。`edge/docs/acceptance.md:15`
 2. 执行 C/Wasm 预览构建与 TypeScript 检查。`edge/docs/acceptance.md:21`
 3. 执行产品共用 Rust 模块测试，62 项通过。`edge/docs/acceptance.md:22`
 4. 执行编辑器与实际堆/栈边界探针，116 项通过。`edge/docs/acceptance.md:23`
@@ -171,5 +172,6 @@ Windows 调试版 CLI `space sync` 在未继承代理时也复现过主线程栈
 
 - `edge/docs/acceptance.md`：Edge 验收记录（2026-10-29），验收基线 3c5fcc81653999613328209bd0beafb415949c82，macOS 上实际运行的 CLI 与 ESP32 产品模拟器验收。
 - `edge/docs/v1-closeout.md`：Edge V1 收尾记录（更新于 2026-10-30），首次验收基线 3d6238a4，PR rebase 到 06784b03，Windows 上收尾 SDK 接入和验收入口。
+- `edge/README.md`：Edge 总览，完整模拟器验收的入口说明与固件验收限定（加 `-- --firmware`、检查应用分区及 `.flash.text` 映射区余量、不执行烧录、真机音频/网络/持续运行另行验收）。
 - 本页引用的验收基线号（3c5fcc81653999613328209bd0beafb415949c82、3d6238a4、06784b03、1ced7f40、ec9702ae）均取自上述两份验收记录，与大纲基线 364d1d594 不同，不得把验收基线写成大纲基线。
 - 否定性结论核验方法：本页“未执行”类断言（未执行 ESP-IDF 目标固件构建、真实 ESP32 烧录、整板 Wi-Fi/TLS/C 内存和闪存测量、未调用外部付费模型、未连接交付板、未执行烧录或真机验收、真机烧录/音频/持续运行未执行）均直接取自两份验收记录的原文表述；2026-11-12 在基线 364d1d594 的本地 checkout 上用 grep -n "没有执行|未执行|未连接|没有调用" edge/docs/acceptance.md edge/docs/v1-closeout.md 核对，上述否定表述在两份记录中均有原文对应，无额外推断。

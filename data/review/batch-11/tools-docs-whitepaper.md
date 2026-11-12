@@ -86,8 +86,8 @@ date: 2026-11-11
 - `h3` — Hei 12 pt、行距 20 的二级标题样式。`tools/docs/build_whitepaper.py:86`
 - `title` — Hei 22 pt、行距 31、居中的标题样式。`tools/docs/build_whitepaper.py:88`
 - `abstract` — Song 10.5 pt、行距 15 的摘要样式。`tools/docs/build_whitepaper.py:98`
-- `NumberedCanvas` — 在页脚写 Operit开发团队。`tools/docs/build_whitepaper.py:119`
-- `NumberedCanvas` — 在页脚右端写当前页码 / 总页数。`tools/docs/build_whitepaper.py:119`
+- NumberedCanvas — 在页脚写 Operit开发团队。`tools/docs/build_whitepaper.py:142`
+- NumberedCanvas — 在页脚右端写当前页码 / 总页数。`tools/docs/build_whitepaper.py:144`
 - `header` — 在每页顶部左端写 Operit2 技术白皮书。`tools/docs/build_whitepaper.py:152`
 - `header` — 在每页顶部右端写架构、路由机制与工程实践。`tools/docs/build_whitepaper.py:153`
 - `Diagram` — 支持 architecture、migration、routing、handoff、engineering 五种图。`tools/docs/build_whitepaper.py:162`
@@ -103,8 +103,8 @@ date: 2026-11-11
 
 1. `main` 创建 OUTPUT 的父目录与 QA 目录。`tools/docs/build_whitepaper.py:446`
 2. `main` 调用 `register_fonts` 嵌入字体。`tools/docs/build_whitepaper.py:448`
-3. `main` 构建的 PDF 标题元数据是 Operit2：面向个人设备空间的跨端智能体系统——架构、路由机制与工程实践。`tools/docs/build_whitepaper.py:444`
-4. `main` 构建的 PDF 作者元数据是 Operit开发团队。`tools/docs/build_whitepaper.py:444`
+3. main 构建的 PDF 标题元数据是 Operit2：面向个人设备空间的跨端智能体系统——架构、路由机制与工程实践。`tools/docs/build_whitepaper.py:451`
+4. main 构建的 PDF 作者元数据是 Operit开发团队。`tools/docs/build_whitepaper.py:452`
 5. `main` 用 NumberedCanvas 作为画布构建文档。`tools/docs/build_whitepaper.py:457`
 6. `main` 构建后把 OUTPUT 复制为 docs/Operit2技术白皮书.pdf。`tools/docs/build_whitepaper.py:458`
 7. `main` 最后调用 render_qa。`tools/docs/build_whitepaper.py:459`

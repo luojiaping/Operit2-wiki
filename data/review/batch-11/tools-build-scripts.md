@@ -12,7 +12,8 @@ date: 2026-11-11
 - 脚本按 product、platform 或 operation 命名，不设 `_action.py` / `_local.py` 平台包装。`tools/build_scripts/README.md:3`
 - 构建输出与临时日志位于 `tools/release/work` 与 `tools/release/dist`。`tools/build_scripts/README.md:7`
 - 私有凭证位于 `tools/release/secrets`。`tools/build_scripts/README.md:8`
-- 本页只依据 10 个 seed 文件；`build_scripts/` 共 38 个文件，其余 28 个不在本页覆盖范围内。`tools/build_scripts/README.md:47`
+- 本页只依据 10 个 seed 文件；截至基线 364d1d594，`build_scripts/` 共 38 个文件，其余 28 个不在本页覆盖范围内。`tools/build_scripts/README.md:47`
+- 时效标注：上游 fa999a948（fix: bundle model catalog and integrate workspace updates）新增 `tools/build_scripts/models_dev_bundle.py`，`build_scripts/` 变为 39 个文件。该脚本从 `https://models.dev/api.json` 与 `https://models.dev/models.json` 下载模型目录（`download_catalog`，上游同文件 :17–24）并打包进 `core/crates/runtime/application/assets/models_dev/catalog.json.gz`（`refresh_bundle`，上游同文件 :28–47）；`common.py`（上游 :42）、`cargo_build.py`（上游 :78）与 `tools/release/build_release.py`（上游 :148）在 Cargo 构建前调用 `prepare_build_catalog`，带 `--release` 的 Cargo 构建必刷新、开发构建仅在本地尚无该文件时刷新。以上为上游新变化，基线 364d1d594 下不存在。
 
 ## AI 速览
 
