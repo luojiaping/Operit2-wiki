@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12 09:36 UTC",
+  "updated": "2026-11-12 15:27 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -1026,7 +1026,7 @@
       "facts_count": 96,
       "refs_valid": "",
       "critic": "",
-      "summary": "内置插件目录：16 个内置插件（9 个单文件 .ts 包＋7 个目录包）、默认启用情况、单文件包与目录包的区别、character_cards 体量来源",
+      "summary": "内置插件目录：16 个内置插件（9 个单文件 .ts 包＋7 个目录包）、默认启用情况、单文件包与目录包的区别、character_cards 体量（src/ 统计按上游 0f08fd43 更新为 102 文件/99 个 .ts/15830 行）",
       "updated": "2026-11-11"
     },
     {
@@ -1494,8 +1494,8 @@
       "facts_count": 79,
       "refs_valid": "",
       "critic": "",
-      "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界。",
-      "updated": "2026-11-11"
+      "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界；README 引用按上游 0f08fd43 核验（:53→:57），其余内容仍按基线 364d1d594。",
+      "updated": "2026-11-12"
     },
     {
       "id": "batch-10/edge-architecture",
@@ -1653,10 +1653,10 @@
       "facts": "review/batch-10/edge-overview.facts.json",
       "lint": "review/batch-10/edge-overview.lint.md",
       "seed_files": [],
-      "facts_count": 39,
+      "facts_count": 42,
       "refs_valid": "",
       "critic": "",
-      "summary": "Edge 总览：edge/ 收纳厂商 SDK、接入文档与完整产品三类东西，产品形态由厂商决定，ESP32 完整模拟器验收入口为 npm run test:device-budget。",
+      "summary": "Edge 总览：edge/ 收纳厂商 SDK、接入文档与完整产品三类东西，产品形态由厂商决定，新增旧安卓手机 Edge APK（上游 0f08fd43），ESP32 完整模拟器验收入口为 npm run test:device-budget。",
       "updated": "2026-11-11"
     },
     {
@@ -1998,8 +1998,8 @@
       "facts_count": 39,
       "refs_valid": "",
       "critic": "",
-      "summary": "tools/tests/ 跨边界测试集索引页：152 个文件按顶层平铺与 4 子目录组织，示例覆盖 Android 运行时契约、内置工具目录与 Compose DSL 产物。",
-      "updated": "2026-11-11"
+      "summary": "tools/tests/ 跨边界测试集索引页：159 个文件按顶层平铺与 4 子目录组织（上游 0f08fd43 清点），示例覆盖 Android 运行时契约、内置工具目录与 Compose DSL 产物。",
+      "updated": "2026-11-12"
     },
     {
       "id": "batch-11/tools-theme-studio",

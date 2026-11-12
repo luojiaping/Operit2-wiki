@@ -37,7 +37,7 @@ V1 收尾的 PR 已 rebase 到 06784b03，旧基线结果仅作历史记录。`e
 - 通过范围是实际运行的 macOS CLI 与受资源约束的产品模拟器，以及 SDK 和共享模块回归。`edge/docs/acceptance.md:81`
 - 最新基线复验本轮未连接交付板，未执行烧录或真机验收。`edge/docs/v1-closeout.md:92`
 - 主入口：ESP32 完整模拟器验收入口 `npm run test:device-budget`，固件构建可并入验收（加 `-- --firmware`）。`edge/docs/v1-closeout.md:91`
-- 固件验收加 `-- --firmware` 并检查应用分区及 `.flash.text` 映射区余量；该命令不执行烧录，真机音频、网络与持续运行另行验收。`edge/README.md:53`
+- 固件验收加 `-- --firmware` 并检查应用分区及 `.flash.text` 映射区余量；该命令不执行烧录，真机音频、网络与持续运行另行验收。`edge/README.md:57`
 - 数据流向：ESP32 完整模拟器验收入口重建 CLI 与模拟器 → 执行配对、聊天、语音、插件场景 → 采样 Rust 堆峰值与分配失败 → 固件链接检查 .flash.text 容量。`edge/docs/acceptance.md:15`
 
 ## 核心机制
@@ -173,5 +173,6 @@ Windows 调试版 CLI `space sync` 在未继承代理时也复现过主线程栈
 - `edge/docs/acceptance.md`：Edge 验收记录（2026-10-29），验收基线 3c5fcc81653999613328209bd0beafb415949c82，macOS 上实际运行的 CLI 与 ESP32 产品模拟器验收。
 - `edge/docs/v1-closeout.md`：Edge V1 收尾记录（更新于 2026-10-30），首次验收基线 3d6238a4，PR rebase 到 06784b03，Windows 上收尾 SDK 接入和验收入口。
 - `edge/README.md`：Edge 总览，完整模拟器验收的入口说明与固件验收限定（加 `-- --firmware`、检查应用分区及 `.flash.text` 映射区余量、不执行烧录、真机音频/网络/持续运行另行验收）。
+- 本页 `edge/README.md` 的引用按上游 0f08fd43 核验（固件验收限定句在 0f08fd43 为 :57，基线 364d1d594 为 :53）；页内其余内容仍按基线 364d1d594。
 - 本页引用的验收基线号（3c5fcc81653999613328209bd0beafb415949c82、3d6238a4、06784b03、1ced7f40、ec9702ae）均取自上述两份验收记录，与大纲基线 364d1d594 不同，不得把验收基线写成大纲基线。
 - 否定性结论核验方法：本页“未执行”类断言（未执行 ESP-IDF 目标固件构建、真实 ESP32 烧录、整板 Wi-Fi/TLS/C 内存和闪存测量、未调用外部付费模型、未连接交付板、未执行烧录或真机验收、真机烧录/音频/持续运行未执行）均直接取自两份验收记录的原文表述；2026-11-12 在基线 364d1d594 的本地 checkout 上用 grep -n "没有执行|未执行|未连接|没有调用" edge/docs/acceptance.md edge/docs/v1-closeout.md 核对，上述否定表述在两份记录中均有原文对应，无额外推断。
