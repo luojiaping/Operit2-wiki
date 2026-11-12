@@ -1,1 +1,9 @@
-{"issue":85,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"operit-edge-sdk 入口与功能开关：稳定厂商入口、agent/space/http-agent/scene 四功能、SpaceDevice::assemble 与 EdgeNode::headless 两种装配方式、依赖审计脚本的 8 种功能组合检查","updated":"2026-11-11"}
+{
+  "issue": 85,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "operit-edge-sdk 入口与功能开关：稳定厂商入口、agent/space/http-agent/scene 四功能、SpaceDevice::assemble 与 EdgeNode::headless 两种装配方式、依赖审计脚本的 8 种功能组合检查",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6808994602
+}

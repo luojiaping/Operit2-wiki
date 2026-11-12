@@ -1,1 +1,9 @@
-{"issue":87,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Edge 节点 crate：类型化设备服务与 EdgePeerRouter 只接受本地 Target 路由，配对与 Space 准入分开，无 storage.provide 时只能持久化自身配置与有界偏好。","updated":"2026-11-11"}
+{
+  "issue": 87,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "Edge 节点 crate：类型化设备服务与 EdgePeerRouter 只接受本地 Target 路由，配对与 Space 准入分开，无 storage.provide 时只能持久化自身配置与有界偏好。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6808995217
+}

@@ -1,1 +1,9 @@
-{"issue":89,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Scene 服务与资源格式：原生 edge.scene 服务管有界索引资源、持久显示配置、条带绘制与本地触摸命中测试，配置与资源以一次原子快照保存恢复，线路与 ESP1/ESI1 资产格式见 plugins/docs/edge-scene.md。","updated":"2026-11-11"}
+{
+  "issue": 89,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "Scene 服务与资源格式：原生 edge.scene 服务管有界索引资源、持久显示配置、条带绘制与本地触摸命中测试，配置与资源以一次原子快照保存恢复，线路与 ESP1/ESI1 资产格式见 plugins/docs/edge-scene.md。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6808995876
+}

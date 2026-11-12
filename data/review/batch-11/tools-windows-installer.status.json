@@ -1,0 +1,1 @@
+{"issue":102,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"Windows MSI 安装器与卸载数据清理：MSI 默认保留数据、完整卸载界面勾选清理，压缩包版用独立清理工具，六处清理范围不可回滚，附 MSI 契约测试与打包流程。","updated":"2026-11-11"}

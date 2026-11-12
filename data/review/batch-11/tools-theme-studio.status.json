@@ -1,0 +1,1 @@
+{"issue":105,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"主题工具与 Web Studio：ToolPkg 主题包格式、build_preview.py 不可变预览内核构建、Studio 与 Rust/WASM 校验器的 MessagePort/Web Worker 协议摘要、prepare_builtin_fonts.py 内置字体子集化配方。","updated":"2026-11-11"}

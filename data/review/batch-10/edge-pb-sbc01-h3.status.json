@@ -1,1 +1,9 @@
-{"issue":99,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"PB_SBC01_H3 机器人：完整 Core 控制器与本地脸部控制台渲染器，共用机器人脸部状态文件。","updated":"2026-11-11"}
+{
+  "issue": 99,
+  "source_commit": "364d1d594",
+  "source_repo": "operit2",
+  "status": "review-pending",
+  "summary": "PB_SBC01_H3 机器人：完整 Core 控制器与本地脸部控制台渲染器，共用机器人脸部状态文件。",
+  "updated": "2026-11-11",
+  "approved_by_comment_id": 6808999109
+}
