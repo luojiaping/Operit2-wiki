@@ -11,6 +11,11 @@
 批准判定（owner 评论正文）：
   - 含"通过"/"批准"/"LGTM"（不区分大小写）=> 批准
   - 但"不通过/没通过/未批准" => 不算；含"需修改"/"打回" => 不算（等 agent 跟进）
+  - 只认短评论为批准：去空白后长度 ≤50 字。2026-11-12 #98 事故：评审 agent 以
+    owner 身份发的长篇审查意见首版含"通过"（后改以"需修改"开头），15 分钟窗口内被
+    误判为批准、条目被翻为 approved 且 Issue 被关闭。用户本人的批准从来是短句，
+    评审意见都是长篇；长度上限是 fail-safe 设计——过长的批准会被漏掉（可手动翻），
+    长篇审查不会误翻。
 """
 import json
 import re
@@ -27,6 +32,7 @@ QUEUE = ROOT / "review-queue.json"
 APPROVE_RE = re.compile(r"通过|批准|LGTM", re.IGNORECASE)
 NEG_RE = re.compile(r"(不|没|未)\s*(通过|批准)")
 REJECT_RE = re.compile(r"需修改|打回")
+MAX_APPROVAL_LEN = 50  # 去空白后的最大字数，见上（#98 事故）
 # 流水线自己的留言也是用 owner 身份发的，必须排除，否则 watcher 会把
 # "critic 独立复验结论通过""v3 重写版已完成并上评审站"等自家留言误判为用户批准。
 # 判定：凡带评审页链接（entry.html?id=）或命中流水线前缀的，一律不是用户批准。
@@ -53,6 +59,9 @@ def is_approval(body: str) -> bool:
     if NEG_RE.search(body):
         return False
     if REJECT_RE.search(body):
+        return False
+    # #98 事故：长篇审查意见含"通过"会被误判；只认短评论为批准。
+    if len(re.sub(r"\s+", "", body)) > MAX_APPROVAL_LEN:
         return False
     return bool(APPROVE_RE.search(body))
 
