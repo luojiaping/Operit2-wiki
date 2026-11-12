@@ -1,0 +1,6 @@
+tools/link-perf/README.md
+tools/link-perf/run_link_perf.ps1
+tools/benchmarks/macos_idle.py
+tools/benchmarks/markdown_pipeline.md
+tools/benchmarks/macos_trace_summary.py
+tools/benchmarks/ios_cpu_flamegraph.py

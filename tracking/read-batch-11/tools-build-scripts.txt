@@ -1,0 +1,10 @@
+tools/build_scripts/README.md
+tools/build_scripts/build_flutter_android.py
+tools/build_scripts/build_flutter_windows.py
+tools/build_scripts/build_cli_windows.py
+tools/build_scripts/build_windows_msi.py
+tools/build_scripts/build_esp32.py
+tools/build_scripts/build_local.py
+tools/build_scripts/cargo_build.py
+tools/build_scripts/common.py
+tools/build_scripts/release_artifacts.py

@@ -1,0 +1,16 @@
+README.md
+docs/data-rescue.md
+apps/cli/src/cli/transfer.rs
+apps/cli/src/cli/mod.rs
+apps/cli/src/rescue.rs
+core/crates/runtime/application/src/services/SnapshotImportManager.rs
+core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs
+core/crates/runtime/application/src/data/backup/operit1/Operit1SnapshotArchive.rs
+core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs
+core/crates/runtime/application/src/data/backup/operit1/Operit1ChatMigration.rs
+core/crates/runtime/application/src/data/backup/operit1/Operit1PreferenceMigration.rs
+core/crates/runtime/application/src/data/backup/operit1/Operit1DataStorePreferences.rs
+core/crates/runtime/application/src/data/backup/operit1/Operit1CharacterCards.rs
+core/crates/runtime/application/src/data/backup/operit1/Operit1ModelMigration.rs
+core/crates/runtime/application/src/data/backup/operit1/Operit1MemoryStorage.rs
+core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs

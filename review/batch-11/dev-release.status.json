@@ -1,0 +1,1 @@
+{"issue":113,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"版本与发布：SemVer 命名与通道规则由 docs/release-versioning.md 定义，release notes 现有两份、最高覆盖到 2.0.0-preview.27，云端构建由六个 workflow 负责（以版本文档记载为准，本轮未读 workflow 文件）。","updated":"2026-11-11"}

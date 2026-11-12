@@ -1,0 +1,3 @@
+tools/tests/android_runtime_contracts.test.mjs
+tools/tests/builtin_tool_catalog.test.mjs
+tools/tests/compose_dsl_artifact.test.mjs

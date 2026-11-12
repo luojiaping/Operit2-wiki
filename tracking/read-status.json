@@ -1,12 +1,12 @@
 {
  "repo_commit": "364d1d594a0b7610e68fd804fc86fa342f18e14d",
- "updated": "2026-11-11 22:11 UTC",
+ "updated": "2026-11-11 23:41 UTC",
  "files": {
   "README.md": {
    "status": "complete",
-   "batch": "batch-06",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-06/plugin-catalog-buildin.md",
+   "evidence": "review/batch-11/migrate-operit1.md",
    "lines": 262
   },
   "README-zh.md": {
@@ -25,23 +25,23 @@
   },
   "docs/release-versioning.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/intro-preview.md",
+   "evidence": "review/batch-11/dev-release.md",
    "lines": 446
   },
   "docs/release-notes/2.0.0-preview.22-build28.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/intro-preview.md",
+   "evidence": "review/batch-11/dev-release.md",
    "lines": 96
   },
   "docs/release-notes/2.0.0-preview.27-build33.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/intro-preview.md",
+   "evidence": "review/batch-11/dev-release.md",
    "lines": 15
   },
   "docs/device-space-lan-discovery.md": {
@@ -53,9 +53,9 @@
   },
   "apps/flutter/app/web/README.md": {
    "status": "complete",
-   "batch": "batch-01",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-01/intro-quickstart.md",
+   "evidence": "review/batch-11/troubleshoot-web.md",
    "lines": 55
   },
   "core/CRATE_BOUNDARIES.md": {
@@ -207,9 +207,9 @@
   },
   "core/peer-protocol.json": {
    "status": "complete",
-   "batch": "batch-07",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-07/sync-protocol-version.md",
+   "evidence": "review/batch-11/tools-peer-protocol-check.md",
    "lines": 113
   },
   "core/crates/persistence/store/src/SyncOperationStore.rs": {
@@ -599,9 +599,9 @@
   },
   "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs": {
    "status": "complete",
-   "batch": "batch-03",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-03/core-runtime-data.md",
+   "evidence": "review/batch-11/migrate-operit1.md",
    "lines": 1019
   },
   "core/crates/runtime/application/src/data/preferences/AgreementPreferences.rs": {
@@ -1411,9 +1411,9 @@
   },
   "apps/cli/src/cli/mod.rs": {
    "status": "complete",
-   "batch": "batch-05",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-05/app-cli.md",
+   "evidence": "review/batch-11/migrate-operit1.md",
    "lines": 2354
   },
   "apps/cli/src/chat_runtime.rs": {
@@ -1537,9 +1537,9 @@
   },
   "apps/cli/src/cli/transfer.rs": {
    "status": "complete",
-   "batch": "batch-05",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-05/app-cli.md",
+   "evidence": "review/batch-11/migrate-operit1.md",
    "lines": 451
   },
   "apps/cli/src/cli/web.rs": {
@@ -1565,9 +1565,9 @@
   },
   "apps/cli/src/rescue.rs": {
    "status": "complete",
-   "batch": "batch-05",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-05/host-common.md",
+   "evidence": "review/batch-11/migrate-operit1.md",
    "lines": 164
   },
   "apps/cli/src/core_proxy.rs": {
@@ -2748,9 +2748,9 @@
   },
   "docs/data-rescue.md": {
    "status": "complete",
-   "batch": "batch-05",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-05/host-common.md",
+   "evidence": "review/batch-11/migrate-operit1.md",
    "lines": 40
   },
   "hosts/common/operit-host-native-common/Cargo.toml": {
@@ -3077,9 +3077,9 @@
   },
   "core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs": {
    "status": "complete",
-   "batch": "batch-06",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-06/plugin-manifest.md",
+   "evidence": "review/batch-11/migrate-operit1.md",
    "lines": 136
   },
   "core/crates/plugin/sdk/src/toolpkg/ToolPkgPackageModels.rs": {
@@ -3504,9 +3504,9 @@
   },
   "docs/peer-protocol-versioning.md": {
    "status": "complete",
-   "batch": "batch-07",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-07/sync-protocol-version.md",
+   "evidence": "review/batch-11/tools-peer-protocol-check.md",
    "lines": 59
   },
   "core/crates/node/runtime/src/SyncConsistency.rs": {
@@ -3518,9 +3518,9 @@
   },
   "tools/theme/studio_message_port.ts": {
    "status": "complete",
-   "batch": "batch-08",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-08/theme-studio.md",
+   "evidence": "review/batch-11/tools-theme-studio.md",
    "lines": 449
   },
   "core/crates/plugin/theme/src/preview.rs": {
@@ -3602,9 +3602,9 @@
   },
   "docs/webview-rendering.md": {
    "status": "complete",
-   "batch": "batch-08",
+   "batch": "batch-11",
    "date": "2026-11-11",
-   "evidence": "review/batch-08/ui-display.md",
+   "evidence": "review/batch-11/troubleshoot-web.md",
    "lines": 82
   },
   "core/crates/plugin/sdk/src/js_sdk/tool_display.rs": {
@@ -4110,6 +4110,503 @@
    "date": "2026-11-11",
    "evidence": "review/batch-10/edge-sdk-scene.md",
    "lines": 97
+  },
+  "app/src/main/java/com/ai/assistance/operit/data/backup/RawSnapshotBackupManager.kt": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 655
+  },
+  "app/src/main/java/com/ai/assistance/operit/ui/features/settings/screens/ChatBackupSettingsScreen.kt": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 1649
+  },
+  "tools/build_scripts/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-build-scripts.md",
+   "lines": 374
+  },
+  "tools/build_scripts/build_flutter_android.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-build-scripts.md",
+   "lines": 165
+  },
+  "tools/build_scripts/build_flutter_windows.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-build-scripts.md",
+   "lines": 53
+  },
+  "tools/build_scripts/build_cli_windows.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-build-scripts.md",
+   "lines": 30
+  },
+  "tools/build_scripts/build_windows_msi.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-windows-installer.md",
+   "lines": 156
+  },
+  "tools/build_scripts/build_esp32.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-build-scripts.md",
+   "lines": 159
+  },
+  "tools/build_scripts/build_local.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-build-scripts.md",
+   "lines": 126
+  },
+  "tools/build_scripts/cargo_build.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-build-scripts.md",
+   "lines": 80
+  },
+  "tools/build_scripts/common.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-build-scripts.md",
+   "lines": 372
+  },
+  "tools/build_scripts/release_artifacts.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-build-scripts.md",
+   "lines": 91
+  },
+  "tools/windows-installer/README-Windows.txt": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-windows-installer.md",
+   "lines": 40
+  },
+  "tools/windows-installer/Package.wxs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-windows-installer.md",
+   "lines": 64
+  },
+  "tools/windows-installer/cleanup/Program.cs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-windows-installer.md",
+   "lines": 109
+  },
+  "tools/windows-installer/shared/UserDataCleanup.cs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-windows-installer.md",
+   "lines": 365
+  },
+  "tools/windows-installer/ui/SetupWindow.xaml.cs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-windows-installer.md",
+   "lines": 206
+  },
+  "tools/windows-installer/tests/MsiContractTests.cs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-windows-installer.md",
+   "lines": 118
+  },
+  "tools/release/RELEASE_SPEC.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-release.md",
+   "lines": 9
+  },
+  "tools/release/build_release.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-release.md",
+   "lines": 1371
+  },
+  "tools/release/publish_dist.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-release.md",
+   "lines": 92
+  },
+  "tools/release/release_interactive.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-release.md",
+   "lines": 122
+  },
+  "tools/release/download_action_artifacts.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-release.md",
+   "lines": 103
+  },
+  "tools/android-runtime/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-runtime-kits.md",
+   "lines": 49
+  },
+  "tools/ios-runtime/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-runtime-kits.md",
+   "lines": 23
+  },
+  "tools/ios-runtime/arm64/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-runtime-kits.md",
+   "lines": 127
+  },
+  "tools/ohos-runtime/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-runtime-kits.md",
+   "lines": 51
+  },
+  "tools/web-runtime/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-runtime-kits.md",
+   "lines": 64
+  },
+  "tools/theme/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-theme-studio.md",
+   "lines": 45
+  },
+  "tools/theme/studio/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-theme-studio.md",
+   "lines": 60
+  },
+  "tools/theme/build_preview.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-theme-studio.md",
+   "lines": 107
+  },
+  "tools/theme/prepare_builtin_fonts.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-theme-studio.md",
+   "lines": 158
+  },
+  "tools/theme/studio_contract_bridge.ts": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-theme-studio.md",
+   "lines": 55
+  },
+  "tools/tests/android_runtime_contracts.test.mjs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-tests.md",
+   "lines": 395
+  },
+  "tools/tests/builtin_tool_catalog.test.mjs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-tests.md",
+   "lines": 50
+  },
+  "tools/tests/compose_dsl_artifact.test.mjs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-tests.md",
+   "lines": 129
+  },
+  "tools/figma/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-figma.md",
+   "lines": 168
+  },
+  "tools/figma/INTERACTIVE_APP.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-figma.md",
+   "lines": 108
+  },
+  "tools/figma/LIVE.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-figma.md",
+   "lines": 73
+  },
+  "tools/link-perf/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-perf-benchmarks.md",
+   "lines": 26
+  },
+  "tools/link-perf/run_link_perf.ps1": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-perf-benchmarks.md",
+   "lines": 60
+  },
+  "tools/benchmarks/macos_idle.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-perf-benchmarks.md",
+   "lines": 73
+  },
+  "tools/benchmarks/markdown_pipeline.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-perf-benchmarks.md",
+   "lines": 52
+  },
+  "tools/benchmarks/macos_trace_summary.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-perf-benchmarks.md",
+   "lines": 98
+  },
+  "tools/benchmarks/ios_cpu_flamegraph.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-perf-benchmarks.md",
+   "lines": 170
+  },
+  "tools/check_peer_protocol.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-peer-protocol-check.md",
+   "lines": 58
+  },
+  "core/crates/node/runtime/build.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-peer-protocol-check.md",
+   "lines": 468
+  },
+  "core/crates/node/runtime/build_support/peer_protocol.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-peer-protocol-check.md",
+   "lines": 156
+  },
+  "core/crates/node/runtime/src/PeerProtocol.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-peer-protocol-check.md",
+   "lines": 85
+  },
+  ".github/workflows/peer-protocol.yml": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-peer-protocol-check.md",
+   "lines": 31
+  },
+  "tools/tests/test_peer_protocol.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-peer-protocol-check.md",
+   "lines": 54
+  },
+  "tools/docs/README.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-docs-whitepaper.md",
+   "lines": 38
+  },
+  "tools/docs/build_whitepaper.py": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/tools-docs-whitepaper.md",
+   "lines": 463
+  },
+  "BUILDING.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/dev-building.md",
+   "lines": 883
+  },
+  "CONTRIBUTING.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/dev-contributing.md",
+   "lines": 93
+  },
+  ".github/pull_request_template.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/dev-contributing.md",
+   "lines": 39
+  },
+  "LICENSE": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/dev-contributing.md",
+   "lines": 661
+  },
+  "docs/android-root-shell.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/troubleshoot-mobile.md",
+   "lines": 96
+  },
+  "docs/performance-ios-2026-10-27.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/troubleshoot-mobile.md",
+   "lines": 117
+  },
+  "docs/testflight-feedback-investigation-2026-11-09.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/troubleshoot-mobile.md",
+   "lines": 119
+  },
+  "docs/flutter-impeller-render-target-failure.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/troubleshoot-desktop.md",
+   "lines": 87
+  },
+  "docs/browser-session-lifecycle.md": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/troubleshoot-web.md",
+   "lines": 46
+  },
+  "core/crates/runtime/application/src/services/SnapshotImportManager.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 202
+  },
+  "core/crates/runtime/application/src/data/backup/operit1/Operit1SnapshotArchive.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 414
+  },
+  "core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 340
+  },
+  "core/crates/runtime/application/src/data/backup/operit1/Operit1ChatMigration.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 858
+  },
+  "core/crates/runtime/application/src/data/backup/operit1/Operit1PreferenceMigration.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 366
+  },
+  "core/crates/runtime/application/src/data/backup/operit1/Operit1DataStorePreferences.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 363
+  },
+  "core/crates/runtime/application/src/data/backup/operit1/Operit1CharacterCards.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 939
+  },
+  "core/crates/runtime/application/src/data/backup/operit1/Operit1ModelMigration.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 755
+  },
+  "core/crates/runtime/application/src/data/backup/operit1/Operit1MemoryStorage.rs": {
+   "status": "complete",
+   "batch": "batch-11",
+   "date": "2026-11-11",
+   "evidence": "review/batch-11/migrate-operit1.md",
+   "lines": 603
   }
  }
 }

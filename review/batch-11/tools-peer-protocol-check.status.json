@@ -1,0 +1,1 @@
+{"issue":109,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"协议版本检查脚本：校验 peer-protocol.json 修订记录不可变、变更须递增版本，与 node-runtime 构建时 SHA-256 指纹校验分工配合。","updated":"2026-11-11"}

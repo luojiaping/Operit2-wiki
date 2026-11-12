@@ -1,0 +1,2 @@
+tools/docs/README.md
+tools/docs/build_whitepaper.py

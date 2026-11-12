@@ -1,0 +1,7 @@
+tools/windows-installer/README-Windows.txt
+tools/windows-installer/Package.wxs
+tools/windows-installer/cleanup/Program.cs
+tools/windows-installer/shared/UserDataCleanup.cs
+tools/windows-installer/ui/SetupWindow.xaml.cs
+tools/windows-installer/tests/MsiContractTests.cs
+tools/build_scripts/build_windows_msi.py

@@ -1,0 +1,1 @@
+{"issue":103,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"发布流程：版本、tag、通道与包资产规则由 docs/release-versioning.md 定义，build_release.py 构建资产，download_action_artifacts.py 收集云端产物，publish_dist.py 发布，release_interactive.py 提供交互入口。","updated":"2026-11-11"}

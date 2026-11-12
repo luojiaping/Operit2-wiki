@@ -1,0 +1,1 @@
+{"issue":104,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"四个运行时工具包（Android、iOS、OpenHarmony、Web）各准备的内容、iOS 独立 AArch64 Linux 运行时与 V86 的区分，以及各工具包构建说明的位置。","updated":"2026-11-11"}

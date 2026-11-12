@@ -1,0 +1,6 @@
+tools/theme/README.md
+tools/theme/studio/README.md
+tools/theme/build_preview.py
+tools/theme/studio_message_port.ts
+tools/theme/prepare_builtin_fonts.py
+tools/theme/studio_contract_bridge.ts

@@ -1,0 +1,6 @@
+tools/release/RELEASE_SPEC.md
+tools/release/build_release.py
+tools/release/publish_dist.py
+tools/release/release_interactive.py
+docs/release-versioning.md
+tools/release/download_action_artifacts.py

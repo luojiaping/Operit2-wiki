@@ -1,0 +1,1 @@
+{"issue":111,"source_commit":"364d1d594","source_repo":"operit2","status":"review-pending","summary":"构建指南：仓库布局、通用与各平台前置要求、钉死的构建输入与来源规则、iOS/插件资产/工作流插件钉死值、发布脚本与云端构建、Flutter/Android/OpenHarmony/Web 构建链、Windows GNU 工具链排障与清理。","updated":"2026-11-11"}
