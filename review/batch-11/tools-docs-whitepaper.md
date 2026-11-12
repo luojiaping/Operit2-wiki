@@ -31,7 +31,7 @@ date: 2026-11-11
 - `Diagram` — 在 PDF 内直接绘制五种矢量图。`tools/docs/build_whitepaper.py:162`
 - `equation` — 把 LaTeX 公式渲染为高分辨率 PNG。`tools/docs/build_whitepaper.py:301`
 - `make_table` — 排布三线表并记录表格审计。`tools/docs/build_whitepaper.py:325`
-- `NumberedCanvas` — 在页脚写入作者与页码 / 总页数。`tools/docs/build_whitepaper.py:119`
+- NumberedCanvas — 在页脚写入作者与页码 / 总页数。`tools/docs/build_whitepaper.py:142`、`tools/docs/build_whitepaper.py:144`
 - `header` — 在每页顶部绘制运行标题。`tools/docs/build_whitepaper.py:149`
 - `render_qa` — 渲染逐页图、联系表并写 verification.json。`tools/docs/build_whitepaper.py:416`
 - `main` — 构建 PDF、刷新仓库副本、调用 `render_qa` 的主入口。`tools/docs/build_whitepaper.py:459`
