@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12 06:52 UTC",
+  "updated": "2026-11-12 06:59 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -1491,7 +1491,7 @@
       "facts": "review/batch-10/edge-acceptance-v1.facts.json",
       "lint": "review/batch-10/edge-acceptance-v1.lint.md",
       "seed_files": [],
-      "facts_count": 78,
+      "facts_count": 79,
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界。",
@@ -1617,7 +1617,7 @@
       "facts": "review/batch-10/edge-headless-sensor.facts.json",
       "lint": "review/batch-10/edge-headless-sensor.lint.md",
       "seed_files": [],
-      "facts_count": 53,
+      "facts_count": 54,
       "refs_valid": "",
       "critic": "",
       "summary": "无屏传感器产品：暴露 manufacturer.sensor/read 与 manufacturer.agent/run，控制台 pair→confirm→join→refresh 配对加入，演示后端可换真实 HAL 或 HttpBackend",
@@ -1689,10 +1689,10 @@
       "facts": "review/batch-10/edge-sdk-contract.facts.json",
       "lint": "review/batch-10/edge-sdk-contract.lint.md",
       "seed_files": [],
-      "facts_count": 43,
+      "facts_count": 44,
       "refs_valid": "",
       "critic": "",
-      "summary": "Edge 契约 crate：只含稳定的 Edge 对象与属性标识符及展示、预览数据结构，不实现 Host 能力、Link 分发、传输载体或应用行为；Node 与 Proxy 各自依赖它而不互相依赖。",
+      "summary": "Edge 契约 crate：稳定的 Edge 对象与属性标识符及序列化数据契约，不实现 Host 能力、Link 分发、传输载体或应用行为；Node 与 Proxy 各自依赖它而不互相依赖。",
       "updated": "2026-11-11"
     },
     {
@@ -1851,7 +1851,7 @@
       "facts": "review/batch-11/tools-build-scripts.facts.json",
       "lint": "review/batch-11/tools-build-scripts.lint.md",
       "seed_files": [],
-      "facts_count": 113,
+      "facts_count": 114,
       "refs_valid": "",
       "critic": "",
       "summary": "构建脚本入口：按产品/平台/操作命名，Flutter、CLI、ESP32 三类入口脚本与发布包文件名规则 operit2-<product>-<platform>-<arch>-<version>.<ext>，仅覆盖 10 个代表性入口。",
@@ -1995,7 +1995,7 @@
       "facts": "review/batch-11/tools-tests.facts.json",
       "lint": "review/batch-11/tools-tests.lint.md",
       "seed_files": [],
-      "facts_count": 48,
+      "facts_count": 42,
       "refs_valid": "",
       "critic": "",
       "summary": "tools/tests/ 跨边界测试集索引页：152 个文件按顶层平铺与 4 子目录组织，示例覆盖 Android 运行时契约、内置工具目录与 Compose DSL 产物。",
