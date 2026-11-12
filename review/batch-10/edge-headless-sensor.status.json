@@ -2,8 +2,10 @@
   "issue": 98,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "无屏传感器产品：暴露 manufacturer.sensor/read 与 manufacturer.agent/run，控制台 pair→confirm→join→refresh 配对加入，演示后端可换真实 HAL 或 HttpBackend",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6808998779
+  "updated": "2026-11-12",
+  "approved_by_comment_id": 6816552552,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-12 06:33 UTC"
 }
