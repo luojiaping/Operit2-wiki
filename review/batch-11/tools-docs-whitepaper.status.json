@@ -2,8 +2,10 @@
   "issue": 110,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "白皮书 PDF 构建：原稿路径未在基线核实到，构建器、排版规范与字体嵌入均按脚本与 README 写实。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6810821882
+  "updated": "2026-11-12",
+  "approved_by_comment_id": 6819831598,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-12 09:34 UTC"
 }
