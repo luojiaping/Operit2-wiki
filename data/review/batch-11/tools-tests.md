@@ -19,7 +19,7 @@ date: 2026-11-11
 ## AI 速览
 
 - `source()` — 读取生产文件做跨语言宿主契约检查 `tools/tests/android_runtime_contracts.test.mjs:9`
-- `test()` — node:test 用例定义，android_runtime_contracts.test.mjs 定义 24 个用例 `tools/tests/android_runtime_contracts.test.mjs:37`
+- `test()` — node:test 用例定义 `tools/tests/android_runtime_contracts.test.mjs:37`
 - `declaration()` — 抽取 Rust 提示声明 `tools/tests/builtin_tool_catalog.test.mjs:10`
 - `toolNames()` — 从提示声明中读出工具名 `tools/tests/builtin_tool_catalog.test.mjs:18`
 - `compileComposeModule()` — 构建 Compose 产物 `tools/tests/compose_dsl_artifact.test.mjs:22`
@@ -36,7 +36,7 @@ date: 2026-11-11
 
 ### Android 运行时契约（Android 平台）
 
-- android_runtime_contracts.test.mjs 用 node:test 定义 24 个 `test` 用例 `tools/tests/android_runtime_contracts.test.mjs:37`
+- android_runtime_contracts.test.mjs 用 node:test 定义 24 个 `test` 用例（清点证据：wiki 仓库 tracking/count-tools-tests-364d1d594.txt）
 - Android 设备信息由 Flutter owner 实现 `tools/tests/android_runtime_contracts.test.mjs:37`
 - hosts/android 的 `getDeviceInfo` 要求 Android get_device_info 走 owner 通道 `tools/tests/android_runtime_contracts.test.mjs:42`
 - OwnerSystemCapabilityChannel.kt 把 get_device_info 映射到 `AndroidHostDeviceInfo.read` `tools/tests/android_runtime_contracts.test.mjs:47`
@@ -59,13 +59,13 @@ date: 2026-11-11
 - 公开目录分 basic_tools、file_system_tools、http_tools 三类 `tools/tests/builtin_tool_catalog.test.mjs:25`
 - 内部目录由 `internalToolCategoriesEnSource` 与 `internalToolCategoriesCnSource` 提供 `tools/tests/builtin_tool_catalog.test.mjs:27` `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:45` `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:1281`
 - 英文与中文两套目录各自断言每个内置工具恰好出现一次 `tools/tests/builtin_tool_catalog.test.mjs:24`
-- builtin_tool_catalog.test.mjs 定义 2 个 `test`，在 En 与 Cn 双语下各跑一次，共 4 个用例 `tools/tests/builtin_tool_catalog.test.mjs:22`
+- builtin_tool_catalog.test.mjs 定义 2 个 `test`，在 En 与 Cn 双语下各跑一次，共 4 个用例（清点证据：wiki 仓库 tracking/count-tools-tests-364d1d594.txt）
 - `write_file` 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数 `tools/tests/builtin_tool_catalog.test.mjs:43`
 - `write_file` 不在内部目录中，内部目录对应项是 `write_file_binary` `tools/tests/builtin_tool_catalog.test.mjs:47`
 
 ### Compose DSL 产物
 
-- compose_dsl_artifact.test.mjs 定义 8 个 `test` 用例 `tools/tests/compose_dsl_artifact.test.mjs:21`
+- compose_dsl_artifact.test.mjs 定义 8 个 `test` 用例（清点证据：wiki 仓库 tracking/count-tools-tests-364d1d594.txt）
 - compose_dsl_artifact.test.mjs 用 `compileComposeModule` 构建 Compose 产物 `tools/tests/compose_dsl_artifact.test.mjs:22`
 - Compose 产物头为 // @operit-compose-artifact 4，产物包含 `OperitComposeReactive.frame` `tools/tests/compose_dsl_artifact.test.mjs:23`
 - Compose 产物确定且幂等：同一源码两次编译结果相等，编译产物再编译结果不变 `tools/tests/compose_dsl_artifact.test.mjs:25`
@@ -130,5 +130,5 @@ date: 2026-11-11
   - tools/tests/android_runtime_contracts.test.mjs（395 行，24 个 test 用例）
   - tools/tests/builtin_tool_catalog.test.mjs（50 行，2 个 test 定义 × En/Cn 双语 = 4 个用例）
   - tools/tests/compose_dsl_artifact.test.mjs（129 行，8 个 test 用例）
-- 文件总数与分类核验方法：2026-11-12 对基线 AAswordman/Operit2 @ 364d1d594，用 `find tools/tests -type f | wc -l` 得 152，`find tools/tests -maxdepth 1 -type f | wc -l` 得 124，顶层扩展名与文件名前缀用 `ls` 清点，子目录文件数用 `find <子目录> -type f | wc -l` 清点，用例数用 `grep -c '^test('` 计数。清点记录与完整文件清单见 wiki 仓库 tracking/count-tools-tests-364d1d594.txt；聚合总数只保留在正文，不再以无依据的引用出现在 facts.json 里。
+- 文件总数与分类核验方法：2026-11-12 对基线 AAswordman/Operit2 @ 364d1d594，用 `find tools/tests -type f | wc -l` 得 152，`find tools/tests -maxdepth 1 -type f | wc -l` 得 124，顶层扩展名与文件名前缀用 `ls` 清点，子目录文件数用 `find <子目录> -type f | wc -l` 清点，用例数用 `grep -c '^test('` 计数。清点记录与完整文件清单见 wiki 仓库 tracking/count-tools-tests-364d1d594.txt；聚合总数与单文件用例总数只保留在正文，不再以无依据的引用出现在 facts.json 里。
 - 范围限定：本页三个种子文件仅作示例，其余 149 个文件未逐个列出、未读内容；android 前缀 8 个文件、compose_dsl 前缀 9 个文件按文件名前缀归类，内容只核对了三个种子文件。

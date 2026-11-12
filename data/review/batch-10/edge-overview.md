@@ -29,7 +29,7 @@ date: 2026-11-11
 - `space` — 提供设备空间接入。`edge/README.md:22`
 - `http-agent` — 提供模型工具调用。`edge/README.md:22`
 - `scene` — 提供可选显示能力。`edge/README.md:22`
-- 主入口：统一验收入口命令是 `EMSDK=/path/to/emsdk npm run test:device-budget --prefix edge/boards/esp32/editor`，从仓库根目录运行。`edge/README.md:37`
+- 主入口：ESP32 完整模拟器验收入口命令是 `EMSDK=/path/to/emsdk npm run test:device-budget --prefix edge/boards/esp32/editor`，从仓库根目录运行。`edge/README.md:37`
 - 数据流向：厂商决定产品形态，设备空间、配对、加密连接和权限走 Operit 共享协议。`edge/README.md:3`
 
 ## 核心机制

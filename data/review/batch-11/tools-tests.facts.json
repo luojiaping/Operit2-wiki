@@ -4,10 +4,6 @@
   "ref": "tools/tests/builtin_tool_catalog.test.mjs:6"
  },
  {
-  "fact": "android_runtime_contracts.test.mjs 用 node:test 定义 24 个 test 用例。",
-  "ref": "tools/tests/android_runtime_contracts.test.mjs:37"
- },
- {
   "fact": "android_runtime_contracts.test.mjs 用 source() 读取生产文件做跨语言宿主契约检查。",
   "ref": "tools/tests/android_runtime_contracts.test.mjs:9"
  },
@@ -158,13 +154,5 @@
  {
   "fact": "builtin_tool_catalog.test.mjs 用 toolNames() 从提示声明中读出工具名。",
   "ref": "tools/tests/builtin_tool_catalog.test.mjs:18"
- },
- {
-  "fact": "builtin_tool_catalog.test.mjs 定义 2 个 test，在 En 与 Cn 双语下各跑一次，共 4 个用例。",
-  "ref": "tools/tests/builtin_tool_catalog.test.mjs:22"
- },
- {
-  "fact": "compose_dsl_artifact.test.mjs 定义 8 个 test 用例。",
-  "ref": "tools/tests/compose_dsl_artifact.test.mjs:21"
  }
 ]
