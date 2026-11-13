@@ -245,7 +245,7 @@ date: 2026-11-11
 - `PluginLoadingOverlay` — 与设置页同步卡片、同步订阅一起移除。`docs/device-space-large-sync-progress.md:67`
 - `SpaceSyncProgressCard` — 设置页的同步卡片，与 `PluginLoadingOverlay` 一起移除。`docs/device-space-large-sync-progress.md:67`
 - `LocalCoreProxy` — 通过共享 `Weak` 缓存复用仍存活的应用客户端。`docs/device-space-large-sync-progress.md:78`
-- `localApplicationSharedClient()` — 每次创建新的 `Arc`，导致同步服务注册表无法把后台 worker 与进度订阅识别为同一应用。`docs/device-space-large-sync-progress.md:76`
+- 原 `localApplicationSharedClient()` — 修复前每次创建新的 `Arc`，导致同步服务注册表无法把后台 worker 与进度订阅识别为同一应用。`docs/device-space-large-sync-progress.md:76`
 
 ## 调用链
 
