@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13 13:39 UTC",
+  "updated": "2026-11-13 13:50 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -987,10 +987,10 @@
       "facts": "review/batch-05/host-web.facts.json",
       "lint": "review/batch-05/host-web.lint.md",
       "seed_files": [],
-      "facts_count": 162,
+      "facts_count": 166,
       "refs_valid": "",
       "critic": "",
-      "summary": "Web/WASM Host：浏览器原生引擎插件 JS 执行、结构化克隆加 MessagePack 64 KiB 共享缓冲区同步调用、全部 host trait 经 globalThis.__operitHost 桥接实现",
+      "summary": "Web/WASM Host：浏览器原生引擎插件 JS 执行、结构化克隆加 MessagePack 64 KiB 共享缓冲区同步调用、浏览器环境中已实现的一组 Host 适配器经 globalThis.__operitHost 桥接实现",
       "updated": "2026-11-11"
     },
     {
@@ -1203,7 +1203,7 @@
       "facts": "review/batch-06/plugin-toolpkg-overview.facts.json",
       "lint": "review/batch-06/plugin-toolpkg-overview.lint.md",
       "seed_files": [],
-      "facts_count": 68,
+      "facts_count": 69,
       "refs_valid": "",
       "critic": "",
       "summary": "ToolPkg 2.0.0 总览：ZIP 格式、manifest 三版本号、API 2.0.0 与 1.0.x 关系、buildin/external/examples 三类包打包区别",
@@ -1239,11 +1239,11 @@
       "facts": "review/batch-07/sync-overview.facts.json",
       "lint": "review/batch-07/sync-overview.lint.md",
       "seed_files": [],
-      "facts_count": 225,
+      "facts_count": 228,
       "refs_valid": "",
       "critic": "",
       "summary": "同步总览：Space 内具备 storage.provide 的节点经 SpacePersistenceSyncService 交换持久化操作与 Blob，四类校验分工与授权、交换、分页、Blob、调度机制。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-07/sync-progress",
@@ -1257,7 +1257,7 @@
       "facts": "review/batch-07/sync-progress.facts.json",
       "lint": "review/batch-07/sync-progress.lint.md",
       "seed_files": [],
-      "facts_count": 159,
+      "facts_count": 160,
       "refs_valid": "",
       "critic": "",
       "summary": "大同步进度：首次加入与离线增量走同一链路，3 秒加 256 条/1 MiB 门槛后才向界面发布可见进度，接收成功不等于业务应用成功，附 2026-10-25 与 2026-11-11 iOS/macOS 模拟器联调记录。",
@@ -1365,11 +1365,11 @@
       "facts": "review/batch-08/theme-render.facts.json",
       "lint": "review/batch-08/theme-render.lint.md",
       "seed_files": [],
-      "facts_count": 117,
+      "facts_count": 120,
       "refs_valid": "",
       "critic": "",
       "summary": "主题渲染与媒体校验：Rust 侧 L4 图片/SVG/字体/九宫格像素检查与确定性 Stored ZIP 导出",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-08/theme-studio",
@@ -1437,7 +1437,7 @@
       "facts": "review/batch-09/model-catalog.facts.json",
       "lint": "review/batch-09/model-catalog.lint.md",
       "seed_files": [],
-      "facts_count": 67,
+      "facts_count": 69,
       "refs_valid": "",
       "critic": "",
       "summary": "模型目录与模型识别：models.dev 双文件目录的下载、缓存与过期刷新，及无列表接口服务商的固定列表",
@@ -1815,7 +1815,7 @@
       "facts": "review/batch-11/dev-release.facts.json",
       "lint": "review/batch-11/dev-release.lint.md",
       "seed_files": [],
-      "facts_count": 90,
+      "facts_count": 91,
       "refs_valid": "",
       "critic": "",
       "summary": "版本与发布：SemVer 命名与通道规则由 docs/release-versioning.md 定义，release notes 现有两份、最高覆盖到 2.0.0-preview.27，云端构建由六个 workflow 负责（以版本文档记载为准，本轮未读 workflow 文件）。",
@@ -1833,7 +1833,7 @@
       "facts": "review/batch-11/migrate-operit1.facts.json",
       "lint": "review/batch-11/migrate-operit1.lint.md",
       "seed_files": [],
-      "facts_count": 68,
+      "facts_count": 70,
       "refs_valid": "",
       "critic": "",
       "summary": "从 Operit1 迁移：快照预检与导入 CLI 入口、可迁移与不可迁移数据、数据救援流程，详细 FAQ 指到 Operit-wiki 附录草稿。",
