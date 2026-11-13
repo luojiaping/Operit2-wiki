@@ -2,8 +2,10 @@
   "issue": 79,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "主题的安装、作用域与同步：模板安装与 device/space 归属由普通插件管理系统负责，从模板创建的独立配置随 Space 同步；插件 dataStore 与 Rust PreferencesDataStore 共用同一套 PreferenceMerge 执行器，schema 迁移由 withSchema 声明、原生引擎经 Transaction::migration::Context 执行；主题偏好 schema 3→4 迁移已定位：UserPreferencesManager::store 以 withMigration(5) 打开用户偏好文件，3 分支做旧主题偏好解码与快照迁移，4 分支把 chat_style 拆分为 user_chat_style / ai_chat_style。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6806557515
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6867252689,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 23:18 UTC"
 }
