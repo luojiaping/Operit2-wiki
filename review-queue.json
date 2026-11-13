@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12 22:25 UTC",
+  "updated": "2026-11-13 13:35 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -492,7 +492,7 @@
       "batch": "batch-03",
       "title": "插件——Plugin SDK",
       "module": "core",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 22,
       "issue_title": "[评审] 插件——Plugin SDK",
       "md": "review/batch-03/core-plugin-sdk.md",
@@ -503,7 +503,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Plugin SDK：ToolPkg 包模型与加载流程、Hook 挂载点、Compose DSL UI 声明、JS SDK 宿主契约",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-03/core-plugin-theme",
@@ -528,7 +528,7 @@
       "batch": "batch-03",
       "title": "代理生成——扫描、发射器与本地代理运行时",
       "module": "core",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 31,
       "issue_title": "[评审] 代理生成——扫描、发射器与本地代理运行时",
       "md": "review/batch-03/core-proxy.md",
@@ -539,7 +539,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "代理生成：扫描从源码生成代理 IR，Rust 与 Dart 发射器分别生成分发代码与客户端，本地代理运行时分发调用与管理流。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-03/core-rslink",
@@ -762,7 +762,7 @@
       "batch": "batch-05",
       "title": "Android 模块应用",
       "module": "apps",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 43,
       "issue_title": "[评审] Android 模块应用",
       "md": "review/batch-05/app-android-module.md",
@@ -775,14 +775,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Android 模块应用：与 Flutter APK 共享同一 Core 与 JNI 库的 Root 模块打包/启动形态，业务数据位于 /data/adb/operit2，更新时保留。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/app-cli",
       "batch": "batch-05",
       "title": "命令行应用 operit2",
       "module": "apps",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 44,
       "issue_title": "[评审] 命令行应用 operit2",
       "md": "review/batch-05/app-cli.md",
@@ -793,14 +793,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "命令行应用 operit2：进程内完整 CoreNode，31 个固有命令族加插件命令，link 配对/空间/网络控制、daemon owner 控制通道、离线 rescue 与终端 TUI。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/app-flutter",
       "batch": "batch-05",
       "title": "Flutter 应用（主客户端）",
       "module": "apps",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 45,
       "issue_title": "[评审] Flutter 应用（主客户端）",
       "md": "review/batch-05/app-flutter.md",
@@ -811,14 +811,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Flutter 应用总览页：单一代价覆盖七平台、FFI ABI v3 桥接、flutter-ohos fork、lib/core 与 lib/ui 分工",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/app-host-capability-matrix",
       "batch": "batch-05",
       "title": "能力 × 平台矩阵",
       "module": "hosts",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 56,
       "issue_title": "[评审] 能力 × 平台矩阵",
       "md": "review/batch-05/app-host-capability-matrix.md",
@@ -829,14 +829,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "能力 × 平台矩阵：34 个 HostManager 槽位能力 × 7 个平台共 238 格，由脚本按 host-api trait 定义与各平台 createRuntimeHostManager 注册生成",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/app-server",
       "batch": "batch-05",
       "title": "服务端应用（占位）",
       "module": "apps",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 46,
       "issue_title": "[评审] 服务端应用（占位）",
       "md": "review/batch-05/app-server.md",
@@ -847,14 +847,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "服务端应用为空目录占位：apps/server 下仅有 1 字节的 .gitkeep，无代码与 README，尚未实现。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/host-android",
       "batch": "batch-05",
       "title": "Android Host",
       "module": "hosts",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 47,
       "issue_title": "[评审] Android Host",
       "md": "review/batch-05/host-android.md",
@@ -865,14 +865,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Android Host：proot bash 与 android-system shell 双终端、Root/Shizuku/App 特权传输、托管运行时、文档资源文件系统、密钥桥接与蓝牙/TTS/系统操作能力",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/host-apple",
       "batch": "batch-05",
       "title": "Apple Host（macOS 与 iOS 共享实现）",
       "module": "hosts",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 48,
       "issue_title": "[评审] Apple Host（macOS 与 iOS 共享实现）",
       "md": "review/batch-05/host-apple.md",
@@ -883,14 +883,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Apple Host：macOS 与 iOS 共享 hosts/apple 实现，macOS 壳重命名导出并以 createRuntimeHostManager 组装；沙盒决定文件与终端可用范围，iOS 终端为报错桩。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/host-common",
       "batch": "batch-05",
       "title": "Host 共享实现",
       "module": "hosts",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 55,
       "issue_title": "[评审] Host 共享实现",
       "md": "review/batch-05/host-common.md",
@@ -901,14 +901,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Host 共享实现：8 个共享 crate、顶层源文件、Unix daemon 与数据救援的共享机制",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/host-ios-linux-runtime",
       "batch": "batch-05",
       "title": "iOS 内嵌 ARM64 Linux 运行时（vendored）",
       "module": "hosts",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 50,
       "issue_title": "[评审] iOS 内嵌 ARM64 Linux 运行时（vendored）",
       "md": "review/batch-05/host-ios-linux-runtime.md",
@@ -919,14 +919,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "iOS 内嵌 ARM64 Linux 运行时：C++17 解释器 + Linux 用户 ABI，24 组矩阵分实现/接线/验证三态，ELF、fork/COW、文件/网络/PTY 各归属模块与交付验收状态。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/host-ios",
       "batch": "batch-05",
       "title": "iOS Host 与 ARM64 Linux 运行时",
       "module": "hosts",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 49,
       "issue_title": "[评审] iOS Host 与 ARM64 Linux 运行时",
       "md": "review/batch-05/host-ios.md",
@@ -937,7 +937,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "iOS Host：ARM64 与系统 shell 双后端终端经 JSON 桥接调用原生运行时，Host 目录以原始绝对路径 bind mount，串口无原生 accessory provider，容器 UUID 变化时靠配置代次丢弃旧会话注册。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/host-linux",
@@ -962,7 +962,7 @@
       "batch": "batch-05",
       "title": "OpenHarmony Host",
       "module": "hosts",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 54,
       "issue_title": "[评审] OpenHarmony Host",
       "md": "review/batch-05/host-ohos.md",
@@ -973,7 +973,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "OpenHarmony Host：QEMU-vroot Alpine 双终端与托管运行时、Sherpa ONNX 本地推理、AVPlayer TTS 播放、离线 OCR/PDF 与显式存储根",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/host-web",
@@ -998,7 +998,7 @@
       "batch": "batch-05",
       "title": "Windows Host",
       "module": "hosts",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 52,
       "issue_title": "[评审] Windows Host",
       "md": "review/batch-05/host-windows.md",
@@ -1009,7 +1009,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Windows Host：PowerShell 默认、随包 Bash 双终端 PTY、命名管道 daemon 控制端点、MSI/ZIP 退出后静默更新、MCI 音频与 TTS、WinSock 经典蓝牙与 WinRT BLE、命名管道 Plugin SDK IPC",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-06/plugin-catalog-buildin",
@@ -1034,7 +1034,7 @@
       "batch": "batch-06",
       "title": "外置（官方可选）插件目录",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 67,
       "issue_title": "[评审] 外置（官方可选）插件目录",
       "md": "review/batch-06/plugin-catalog-external.md",
@@ -1045,7 +1045,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "外置插件目录：external 目录 30 个插件与 tsconfig.json 的磁盘清点，subagents 五个工具、六个演示性质插件与 image_workbench、waifu、wechat、qqbot 的边界。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-06/plugin-compose-dsl",
@@ -1070,7 +1070,7 @@
       "batch": "batch-06",
       "title": "JS/TS 与 Wasm 运行时",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 60,
       "issue_title": "[评审] JS/TS 与 Wasm 运行时",
       "md": "review/batch-06/plugin-js-wasm-runtime.md",
@@ -1081,14 +1081,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "JS/TS 与 Wasm 运行时：QuickJS 类型声明、ToolPkg.wasm 的 JS API、wasmi Rust 宿主、归档加载与注册桥。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-06/plugin-manifest",
       "batch": "batch-06",
       "title": "清单 manifest 与安装作用域",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 59,
       "issue_title": "[评审] 清单 manifest 与安装作用域",
       "md": "review/batch-06/plugin-manifest.md",
@@ -1099,14 +1099,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ToolPkg 清单 manifest 字段、device/space 安装作用域、环境变量与配置归属及 1.0.x 在 2.0.0 运行时的加载兼容性",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-06/plugin-mcp",
       "batch": "batch-06",
       "title": "MCP 集成",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 62,
       "issue_title": "[评审] MCP 集成",
       "md": "review/batch-06/plugin-mcp.md",
@@ -1117,14 +1117,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "MCP 作为 Core 工具运行时：服务器配置、安装、启用、工具发现与执行、设备空间共享",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-06/plugin-packagebuilder",
       "batch": "batch-06",
       "title": "PackageBuilder（随软件携带的插件开发 Skill）",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 64,
       "issue_title": "[评审] PackageBuilder（随软件携带的插件开发 Skill）",
       "md": "review/batch-06/plugin-packagebuilder.md",
@@ -1135,14 +1135,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "PackageBuilder 随软件携带的插件开发 Skill：标准开发流程、API 2.0.0 manifest 声明与 1.0.x 旧包迁移检查",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-06/plugin-quick-plugin-creator",
       "batch": "batch-06",
       "title": "QuickPluginCreator（App 内现场生成插件）",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 65,
       "issue_title": "[评审] QuickPluginCreator（App 内现场生成插件）",
       "md": "review/batch-06/plugin-quick-plugin-creator.md",
@@ -1153,14 +1153,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "QuickPluginCreator 入口只准备 PackageBuilder 与 operit_editor 并把需求填为聊天草稿，不自动生成源码；现场插件的安装、测试与发布按 operit_editor 命令流程走。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-06/plugin-skills",
       "batch": "batch-06",
       "title": "Skills 机制",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 63,
       "issue_title": "[评审] Skills 机制",
       "md": "review/batch-06/plugin-skills.md",
@@ -1171,14 +1171,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Skills 机制：SKILL.md 目录包、device/space 双位置扫描、随包/zip/GitHub/直接输入四种导入、激活时 SKILL.md 全文拼进系统提示，PackageBuilder 为随包 Skill。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-06/plugin-theme",
       "batch": "batch-06",
       "title": "主题即插件（theme-as-ToolPkg）",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 68,
       "issue_title": "[评审] 主题即插件（theme-as-ToolPkg）",
       "md": "review/batch-06/plugin-theme.md",
@@ -1189,7 +1189,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "主题即插件：manifest 的 themes 数组声明模板，模板只是创建源，应用时烘焙成独立 ThemeConfig，安装同步卸载由普通包管理系统负责，moss_atelier 含 moss 与 dune 两套模板。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-06/plugin-toolpkg-overview",
@@ -1214,7 +1214,7 @@
       "batch": "batch-07",
       "title": "局域网发现、配对与加入 Space",
       "module": "sync",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 73,
       "issue_title": "[评审] 局域网发现、配对与加入 Space",
       "md": "review/batch-07/sync-discovery-join.md",
@@ -1225,7 +1225,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "局域网发现、配对与加入 Space：mDNS 发现、Link 三操作、配对授权边界与 space_join 的 refresh 流程。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-07/sync-overview",
@@ -1268,7 +1268,7 @@
       "batch": "batch-07",
       "title": "协议版本与构建指纹",
       "module": "sync",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 75,
       "issue_title": "[评审] 协议版本与构建指纹",
       "md": "review/batch-07/sync-protocol-version.md",
@@ -1279,14 +1279,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Core 与 Edge 共用整数协议版本，构建指纹由 peer-protocol.json 记录，版本不匹配返回 PEER_PROTOCOL_MISMATCH。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-07/sync-routing",
       "batch": "batch-07",
       "title": "设备间路由与实时分发",
       "module": "sync",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 76,
       "issue_title": "[评审] 设备间路由与实时分发",
       "md": "review/batch-07/sync-routing.md",
@@ -1297,14 +1297,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "设备间路由与实时分发：承载层与 Operit 选路分层、Dijkstra 代价选路、SharedWatchHub 一条边只发一次再分发，及 PeerSync 对端同步调用面。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-07/sync-transaction-model",
       "batch": "batch-07",
       "title": "事务模型与同步契约",
       "module": "sync",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 70,
       "issue_title": "[评审] 事务模型与同步契约",
       "md": "review/batch-07/sync-transaction-model.md",
@@ -1315,14 +1315,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "事务模型与同步契约：记号体系、统一顺序合并、三类迁移与强制校正，文档定义与 Transaction.rs 实现逐条对照",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-07/sync-vfs",
       "batch": "batch-07",
       "title": "VFS 挂载与文件访问边界",
       "module": "sync",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 72,
       "issue_title": "[评审] VFS 挂载与文件访问边界",
       "md": "review/batch-07/sync-vfs.md",
@@ -1333,14 +1333,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "VFS 根入口挂载、VisualFileSystem 与 FileSystemHost 的分工、模块级原生访问边界及 Host 文件选择结果到 VFS 路径的转换",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-07/sync-workspace-files",
       "batch": "batch-07",
       "title": "工作区文件同步与 .operit/sync.json",
       "module": "sync",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 71,
       "issue_title": "[评审] 工作区文件同步与 .operit/sync.json",
       "md": "review/batch-07/sync-workspace-files.md",
@@ -1351,7 +1351,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "工作区文件同步与 .operit/sync.json：三类受管目录、默认同步策略、跳过规则与产出目录绑定继承",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-08/theme-render",
@@ -1376,7 +1376,7 @@
       "batch": "batch-08",
       "title": "Theme Studio 预览协议 v1",
       "module": "theme",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 77,
       "issue_title": "[评审] Theme Studio 预览协议 v1",
       "md": "review/batch-08/theme-studio.md",
@@ -1387,7 +1387,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Theme Studio 预览协议 v1：同源 MessagePort 固定握手、Rust/WASM 预览核内校验、themeSha256 与素材 SHA-256 一致性比对、真实帧回执、帧捕获与确定性 .toolpkg 导出。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-08/theme-sync",
@@ -1412,7 +1412,7 @@
       "batch": "batch-08",
       "title": "工具展示语义与 WebView 渲染",
       "module": "theme",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 80,
       "issue_title": "[评审] 工具展示语义与 WebView 渲染",
       "md": "review/batch-08/ui-display.md",
@@ -1423,7 +1423,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "工具展示语义与 WebView 渲染：展示声明由工具所有者写、Core 传递、Flutter 按声明渲染；应用缩放与页面缩放相互独立，乘积送入原生页面 API。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-09/model-catalog",
@@ -1448,7 +1448,7 @@
       "batch": "batch-09",
       "title": "模型调用与聊天发送契约",
       "module": "model",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 82,
       "issue_title": "[评审] 模型调用与聊天发送契约",
       "md": "review/batch-09/model-chat-send.md",
@@ -1459,14 +1459,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "模型调用与聊天发送契约：SDK 恰好暴露 sendMessage、sendMessageStreaming、cancel 三个方法，Rust 权威实现与 TypeScript 导出分列 chat.rs 与 chat.d.ts，发送、取消、流式输出的执行控制按一次准入、原生租约、观察释放三分。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-09/model-tts",
       "batch": "batch-09",
       "title": "TTS 供应商目录",
       "module": "model",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 83,
       "issue_title": "[评审] TTS 供应商目录",
       "md": "review/batch-09/model-tts.md",
@@ -1477,7 +1477,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "TTS 供应商目录：Rust TtsCatalog 内 22 行供应商定义，文档七家供应商的默认模型、音频格式、鉴权头、响应管道、预置音色与在线查询页数均经代码逐行核验",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-acceptance-v1",
@@ -1502,7 +1502,7 @@
       "batch": "batch-10",
       "title": "Edge 在设备空间中的职责与边界",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 91,
       "issue_title": "[评审] Edge 在设备空间中的职责与边界",
       "md": "review/batch-10/edge-architecture.md",
@@ -1513,14 +1513,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 在设备空间中的职责与边界：硬件 Edge 节点与完整 CoreNode 的区别、内置 edge 角色权限、五种成员操作的影响、ESP32 两条聊天路径的切换条件。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-core-entry-protocol",
       "batch": "batch-10",
       "title": "受限设备的空间与展示链路",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 92,
       "issue_title": "[评审] 受限设备的空间与展示链路",
       "md": "review/batch-10/edge-core-entry-protocol.md",
@@ -1531,14 +1531,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "受限设备的空间与展示链路：控制状态按版本快照发布与校验，审批证据经 ConsentProjection 投影展示且投影不能代替授权，聊天内容由 Core 投影后经窗口订阅进入设备展示。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-esp32-chat",
       "batch": "batch-10",
       "title": "ESP32 聊天实现",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 94,
       "issue_title": "[评审] ESP32 聊天实现",
       "md": "review/batch-10/edge-esp32-chat.md",
@@ -1549,14 +1549,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ESP32 两套聊天实现：独立聊天直连模型服务 HTTP 端点，远端 Core 模式下 Edge 只保留显示缓存与执行摘要，迟到结果经会话守卫隔离。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-esp32-editor",
       "batch": "batch-10",
       "title": "ESP32 编辑器与调试工具",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 95,
       "issue_title": "[评审] ESP32 编辑器与调试工具",
       "md": "review/batch-10/edge-esp32-editor.md",
@@ -1567,14 +1567,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ESP32 编辑器提供共享 C/Wasm UI 预览、Rust Edge 模拟器、固件构建与真机调试四项能力，模拟器直接编译固件模块并经真实 TCP 与桌面 Core 配对连通。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-esp32-firmware",
       "batch": "batch-10",
       "title": "ESP32 固件",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 93,
       "issue_title": "[评审] ESP32 固件",
       "md": "review/batch-10/edge-esp32-firmware.md",
@@ -1585,14 +1585,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ESP32-2432S028 固件：六位码配对、Station/设置 AP 双模 Wi-Fi、独立聊天与远端 Core 聊天的上下文规则、设备 preference 上限与合并规则及原生 HTTP/语音传输。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-esp32-resources",
       "batch": "batch-10",
       "title": "ESP32 资源预算与内存实测",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 96,
       "issue_title": "[评审] ESP32 资源预算与内存实测",
       "md": "review/batch-10/edge-esp32-resources.md",
@@ -1603,7 +1603,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ESP32 模拟器 Rust 堆 262,144 字节固定预算与 252,208 字节峰值分项实测，附严格栈预算复验与 Peer/IPC 清理后验证。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-headless-sensor",
@@ -1628,7 +1628,7 @@
       "batch": "batch-10",
       "title": "厂商接入指南",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 90,
       "issue_title": "[评审] 厂商接入指南",
       "md": "review/batch-10/edge-manufacturer-guide.md",
@@ -1639,7 +1639,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "厂商接入指南：三种需求的功能开关、最小装配六步、配对与空间授权的区分及 ESP32 模拟器内存预算。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-overview",
@@ -1664,7 +1664,7 @@
       "batch": "batch-10",
       "title": "PB_SBC01_H3 机器人",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 99,
       "issue_title": "[评审] PB_SBC01_H3 机器人",
       "md": "review/batch-10/edge-pb-sbc01-h3.md",
@@ -1675,7 +1675,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "PB_SBC01_H3 机器人：完整 Core 控制器与本地脸部控制台渲染器，共用机器人脸部状态文件。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-sdk-contract",
@@ -1700,7 +1700,7 @@
       "batch": "batch-10",
       "title": "operit-edge-sdk 入口与功能开关",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 85,
       "issue_title": "[评审] operit-edge-sdk 入口与功能开关",
       "md": "review/batch-10/edge-sdk-entry.md",
@@ -1711,14 +1711,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "operit-edge-sdk 入口与功能开关：稳定厂商入口、agent/space/http-agent/scene 四功能、SpaceDevice::assemble 与 EdgeNode::headless 两种装配方式、依赖审计脚本的 8 种功能组合检查",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-sdk-node",
       "batch": "batch-10",
       "title": "Edge 节点 crate",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 87,
       "issue_title": "[评审] Edge 节点 crate",
       "md": "review/batch-10/edge-sdk-node.md",
@@ -1729,14 +1729,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 节点 crate：类型化设备服务与 EdgePeerRouter 只接受本地 Target 路由，配对与 Space 准入分开，无 storage.provide 时只能持久化自身配置与有界偏好。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-sdk-proxy",
       "batch": "batch-10",
       "title": "Edge 代理 crate",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 88,
       "issue_title": "[评审] Edge 代理 crate",
       "md": "review/batch-10/edge-sdk-proxy.md",
@@ -1747,14 +1747,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 代理 crate：在内部封装 Link 请求构造与响应/事件解码，调用方只用类型化方法。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-10/edge-sdk-scene",
       "batch": "batch-10",
       "title": "Scene 服务与资源格式",
       "module": "edge",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 89,
       "issue_title": "[评审] Scene 服务与资源格式",
       "md": "review/batch-10/edge-sdk-scene.md",
@@ -1765,14 +1765,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Scene 服务与资源格式：原生 edge.scene 服务管有界索引资源、持久显示配置、条带绘制与本地触摸命中测试，配置与资源以一次原子快照保存恢复，线路与 ESP1/ESI1 资产格式见 plugins/docs/edge-scene.md。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/dev-building",
       "batch": "batch-11",
       "title": "构建指南",
       "module": "dev",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 111,
       "issue_title": "[评审] 构建指南",
       "md": "review/batch-11/dev-building.md",
@@ -1783,14 +1783,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "构建指南：仓库布局、通用与各平台前置要求、钉死的构建输入与来源规则、iOS/插件资产/工作流插件钉死值、发布脚本与云端构建、Flutter/Android/OpenHarmony/Web 构建链、Windows GNU 工具链排障与清理。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/dev-contributing",
       "batch": "batch-11",
       "title": "贡献指南",
       "module": "dev",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 112,
       "issue_title": "[评审] 贡献指南",
       "md": "review/batch-11/dev-contributing.md",
@@ -1801,7 +1801,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "贡献指南：改动范围、本地检查、分支提交、PR 流程、AGPL-3.0 许可与行为规范。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/dev-release",
@@ -1880,7 +1880,7 @@
       "batch": "batch-11",
       "title": "Figma 界面桥接工具",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 107,
       "issue_title": "[评审] Figma 界面桥接工具",
       "md": "review/batch-11/tools-figma.md",
@@ -1891,14 +1891,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Figma 界面桥接工具：当前为静态图层，两个入口共用 .operit-design.json，完整可交互应用与实时客户端均未完成验收",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/tools-overview",
       "batch": "batch-11",
       "title": "tools 总览",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 100,
       "issue_title": "[评审] tools 总览",
       "md": "review/batch-11/tools-overview.md",
@@ -1909,7 +1909,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "tools 总览：本地构建与 GitHub Actions 共用同一批 Python 构建入口，产物进 tools/release/work 与 dist，凭据进 tools/release/secrets。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/tools-peer-protocol-check",
@@ -1934,7 +1934,7 @@
       "batch": "batch-11",
       "title": "性能场景与基准",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 108,
       "issue_title": "[评审] 性能场景与基准",
       "md": "review/batch-11/tools-perf-benchmarks.md",
@@ -1945,14 +1945,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Link 端到端性能场景与 macOS/iOS 基准脚本：跨节点场景链路、报告字段与 trace 测量口径",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/tools-release",
       "batch": "batch-11",
       "title": "发布流程",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 103,
       "issue_title": "[评审] 发布流程",
       "md": "review/batch-11/tools-release.md",
@@ -1963,14 +1963,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "发布流程：版本、tag、通道与包资产规则由 docs/release-versioning.md 定义，build_release.py 构建资产，download_action_artifacts.py 收集云端产物，publish_dist.py 发布，release_interactive.py 提供交互入口。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/tools-runtime-kits",
       "batch": "batch-11",
       "title": "各平台运行时工具包",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 104,
       "issue_title": "[评审] 各平台运行时工具包",
       "md": "review/batch-11/tools-runtime-kits.md",
@@ -1981,7 +1981,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "四个运行时工具包（Android、iOS、OpenHarmony、Web）各准备的内容、iOS 独立 AArch64 Linux 运行时与 V86 的区分，以及各工具包构建说明的位置。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/tools-tests",
@@ -2006,7 +2006,7 @@
       "batch": "batch-11",
       "title": "主题工具与 Web Studio",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 105,
       "issue_title": "[评审] 主题工具与 Web Studio",
       "md": "review/batch-11/tools-theme-studio.md",
@@ -2017,7 +2017,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "主题工具与 Web Studio：ToolPkg 主题包格式、build_preview.py 不可变预览内核构建、Studio 与 Rust/WASM 校验器的 MessagePort/Web Worker 协议摘要、prepare_builtin_fonts.py 内置字体子集化配方。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/tools-windows-installer",
@@ -2042,7 +2042,7 @@
       "batch": "batch-11",
       "title": "排障·桌面端（Windows / macOS / Linux）",
       "module": "dev",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 115,
       "issue_title": "[评审] 排障·桌面端（Windows / macOS / Linux）",
       "md": "review/batch-11/troubleshoot-desktop.md",
@@ -2053,14 +2053,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "桌面端排障：Impeller 渲染目标失败的 iOS 崩溃证据与引擎层修复链，及 WebView 渲染与 Windows WebView2 合成。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/troubleshoot-mobile",
       "batch": "batch-11",
       "title": "排障·移动端（Android / iOS）",
       "module": "dev",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 114,
       "issue_title": "[评审] 排障·移动端（Android / iOS）",
       "md": "review/batch-11/troubleshoot-mobile.md",
@@ -2071,14 +2071,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "排障·移动端（Android / iOS）：Android root shell 能力边界与风险、iOS 性能定位、TestFlight 反馈排查",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/troubleshoot-web",
       "batch": "batch-11",
       "title": "排障·Web 与 Web Access",
       "module": "dev",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 116,
       "issue_title": "[评审] 排障·Web 与 Web Access",
       "md": "review/batch-11/troubleshoot-web.md",
@@ -2089,7 +2089,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Web Access 部署与跨域隔离头、浏览器会话生命周期、七后端 WebView 渲染缩放差异排查",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     }
   ]
 }
