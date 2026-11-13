@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-13 13:50 UTC",
+  "updated": "2026-11-13 23:18 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -944,7 +944,7 @@
       "batch": "batch-05",
       "title": "Linux Host",
       "module": "hosts",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 51,
       "issue_title": "[评审] Linux Host",
       "md": "review/batch-05/host-linux.md",
@@ -955,7 +955,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Linux Host：bash PTY 终端、桌面包管理、D-Bus 蓝牙与插件 IPC，HTTP 与存储委托共享实现，daemon 为共享实现",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/host-ohos",
@@ -980,7 +980,7 @@
       "batch": "batch-05",
       "title": "Web/WASM Host",
       "module": "hosts",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 53,
       "issue_title": "[评审] Web/WASM Host",
       "md": "review/batch-05/host-web.md",
@@ -991,7 +991,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Web/WASM Host：浏览器原生引擎插件 JS 执行、结构化克隆加 MessagePack 64 KiB 共享缓冲区同步调用、浏览器环境中已实现的一组 Host 适配器经 globalThis.__operitHost 桥接实现",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-05/host-windows",
@@ -1052,7 +1052,7 @@
       "batch": "batch-06",
       "title": "Compose DSL 界面",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 61,
       "issue_title": "[评审] Compose DSL 界面",
       "md": "review/batch-06/plugin-compose-dsl.md",
@@ -1063,7 +1063,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Compose DSL 以 ABI 4 布局程序声明界面，ctx.useEffect 按依赖变化或处置清理，主题与传输快照加事务修订号驱动渲染。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-06/plugin-js-wasm-runtime",
@@ -1196,7 +1196,7 @@
       "batch": "batch-06",
       "title": "ToolPkg 2.0.0 总览",
       "module": "plugins",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 58,
       "issue_title": "[评审] ToolPkg 2.0.0 总览",
       "md": "review/batch-06/plugin-toolpkg-overview.md",
@@ -1207,7 +1207,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ToolPkg 2.0.0 总览：ZIP 格式、manifest 三版本号、API 2.0.0 与 1.0.x 关系、buildin/external/examples 三类包打包区别",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-07/sync-discovery-join",
@@ -1232,7 +1232,7 @@
       "batch": "batch-07",
       "title": "同步总览：Space 持久化同步",
       "module": "sync",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 69,
       "issue_title": "[评审] 同步总览：Space 持久化同步",
       "md": "review/batch-07/sync-overview.md",
@@ -1358,7 +1358,7 @@
       "batch": "batch-08",
       "title": "主题渲染与媒体校验",
       "module": "theme",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 78,
       "issue_title": "[评审] 主题渲染与媒体校验",
       "md": "review/batch-08/theme-render.md",
@@ -1394,7 +1394,7 @@
       "batch": "batch-08",
       "title": "主题的安装、作用域与同步",
       "module": "theme",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 79,
       "issue_title": "[评审] 主题的安装、作用域与同步",
       "md": "review/batch-08/theme-sync.md",
@@ -1405,7 +1405,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "主题的安装、作用域与同步：模板安装与 device/space 归属由普通插件管理系统负责，从模板创建的独立配置随 Space 同步；插件 dataStore 与 Rust PreferencesDataStore 共用同一套 PreferenceMerge 执行器，schema 迁移由 withSchema 声明、原生引擎经 Transaction::migration::Context 执行；主题偏好 schema 3→4 迁移已定位：UserPreferencesManager::store 以 withMigration(5) 打开用户偏好文件，3 分支做旧主题偏好解码与快照迁移，4 分支把 chat_style 拆分为 user_chat_style / ai_chat_style。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-08/ui-display",
@@ -1430,7 +1430,7 @@
       "batch": "batch-09",
       "title": "模型目录与模型识别",
       "module": "model",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 81,
       "issue_title": "[评审] 模型目录与模型识别",
       "md": "review/batch-09/model-catalog.md",
@@ -1441,7 +1441,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "模型目录与模型识别：models.dev 双文件目录的下载、缓存与过期刷新，及无列表接口服务商的固定列表",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-09/model-chat-send",
@@ -1808,7 +1808,7 @@
       "batch": "batch-11",
       "title": "版本与发布",
       "module": "dev",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 113,
       "issue_title": "[评审] 版本与发布",
       "md": "review/batch-11/dev-release.md",
@@ -1819,14 +1819,14 @@
       "refs_valid": "",
       "critic": "",
       "summary": "版本与发布：SemVer 命名与通道规则由 docs/release-versioning.md 定义，release notes 现有两份、最高覆盖到 2.0.0-preview.27，云端构建由六个 workflow 负责（以版本文档记载为准，本轮未读 workflow 文件）。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/migrate-operit1",
       "batch": "batch-11",
       "title": "从 Operit1 迁移",
       "module": "dev",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 117,
       "issue_title": "[评审] 从 Operit1 迁移",
       "md": "review/batch-11/migrate-operit1.md",
@@ -1837,7 +1837,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "从 Operit1 迁移：快照预检与导入 CLI 入口、可迁移与不可迁移数据、数据救援流程，详细 FAQ 指到 Operit-wiki 附录草稿。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/tools-build-scripts",
@@ -2024,7 +2024,7 @@
       "batch": "batch-11",
       "title": "Windows MSI 安装器与卸载数据清理",
       "module": "tools",
-      "status": "review-pending",
+      "status": "approved",
       "issue": 102,
       "issue_title": "[评审] Windows MSI 安装器与卸载数据清理",
       "md": "review/batch-11/tools-windows-installer.md",
@@ -2035,7 +2035,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Windows MSI 安装器与卸载数据清理：MSI 默认保留数据、完整卸载界面勾选清理，压缩包版用独立清理工具，六处清理范围不可回滚，附 MSI 契约测试与打包流程。",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "batch-11/troubleshoot-desktop",
