@@ -2,8 +2,10 @@
   "issue": 50,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "iOS 内嵌 ARM64 Linux 运行时：C++17 解释器 + Linux 用户 ABI，24 组矩阵分实现/接线/验证三态，ELF、fork/COW、文件/网络/PTY 各归属模块与交付验收状态。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6799478625
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854336776,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:33 UTC"
 }

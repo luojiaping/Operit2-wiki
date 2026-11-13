@@ -2,8 +2,10 @@
   "issue": 47,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "Android Host：proot bash 与 android-system shell 双终端、Root/Shizuku/App 特权传输、托管运行时、文档资源文件系统、密钥桥接与蓝牙/TTS/系统操作能力",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6799476828
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854330541,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:33 UTC"
 }

@@ -2,8 +2,10 @@
   "issue": 115,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "桌面端排障：Impeller 渲染目标失败的 iOS 崩溃证据与引擎层修复链，及 WebView 渲染与 Windows WebView2 合成。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6810823494
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854444391,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:35 UTC"
 }

@@ -2,8 +2,10 @@
   "issue": 48,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "Apple Host：macOS 与 iOS 共享 hosts/apple 实现，macOS 壳重命名导出并以 createRuntimeHostManager 组装；沙盒决定文件与终端可用范围，iOS 终端为报错桩。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6799477347
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854332636,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:33 UTC"
 }

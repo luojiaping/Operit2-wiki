@@ -10145,7 +10145,7 @@
     }
   },
   "meta": {
-    "build_date": "2026-11-13T06:25:04+08:00",
+    "build_date": "2026-11-13T21:35:22+08:00",
     "degraded": false,
     "initial_view": [
       "wiki/entities/module-agent.md",
@@ -10183,10 +10183,10 @@
     "total_edges": 630,
     "total_nodes": 139,
     "warning_summary": {
-      "build_id": "4acb1cdabcf428b7b731afe2c5a990ef6c3f6353f5888abc7848b09df06de51b",
+      "build_id": "a89cb8383cb0b213c21d7db4c1fabd8c02d8cee546c2114318d064159689a5ec",
       "by_code": {},
       "details_ref": "wiki/graph-warnings.json",
-      "details_sha256": "b3a622bdb4c2af9272c9f68e96690fe119e83ee5b7560c6362e23e4cec2d142a",
+      "details_sha256": "fed3cb6d90347f8213996835aea113d50899f7dad34398c9c5d6d39b53c3c08e",
       "error_occurrences": 0,
       "total_groups": 0,
       "total_occurrences": 0,
@@ -10453,7 +10453,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# Android 模块应用\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：apps｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 模块应用与普通 Flutter APK 是什么关系\n- Root 执行环境由谁提供\n- 构建与发布产物是什么\n- 模块业务数据在 /data/adb/operit2，更新时如何保留\n\n## 种子文件\n\n- `apps/android-module/README.md`\n- `apps/android-module/src/Runtime.rs`\n- `apps/android-module/android/src/main/kotlin/app/operit/ModuleMain.kt`\n- `apps/android-module/build.py`\n- `apps/android-module/package/module.prop`\n- `apps/android-module/package/customize.sh`\n- `apps/android-module/package/service.sh`\n- `apps/android-module/package/action.sh`\n- `apps/android-module/package/uninstall.sh`\n- `apps/android-module/package/operit-host-ctl`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-apps|模块 apps]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Android 模块应用\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：apps｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 模块应用与普通 Flutter APK 是什么关系\n- Root 执行环境由谁提供\n- 构建与发布产物是什么\n- 模块业务数据在 /data/adb/operit2，更新时如何保留\n\n## 种子文件\n\n- `apps/android-module/README.md`\n- `apps/android-module/src/Runtime.rs`\n- `apps/android-module/android/src/main/kotlin/app/operit/ModuleMain.kt`\n- `apps/android-module/build.py`\n- `apps/android-module/package/module.prop`\n- `apps/android-module/package/customize.sh`\n- `apps/android-module/package/service.sh`\n- `apps/android-module/package/action.sh`\n- `apps/android-module/package/uninstall.sh`\n- `apps/android-module/package/operit-host-ctl`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-apps|模块 apps]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/app-android-module.md",
       "label": "Android 模块应用",
       "source_path": "wiki/topics/app-android-module.md",
@@ -10461,7 +10461,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# 命令行应用 operit2\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：apps｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- CLI 是完整 CoreNode 还是瘦客户端\n- link 子命令提供哪些能力\n- daemon 与 mdns 发现、rescue 各是做什么的\n- TUI 与 Flutter UI 的能力边界是什么\n\n## 种子文件\n\n- `apps/cli/Cargo.toml`\n- `apps/cli/src/main.rs`\n- `apps/cli/src/bootstrap.rs`\n- `apps/cli/src/cli/mod.rs`\n- `apps/cli/src/cli/link.rs`\n- `apps/cli/src/cli/host_ops.rs`\n- `apps/cli/src/cli/network_control_ui.rs`\n- `apps/cli/src/cli/transfer.rs`\n- `apps/cli/src/cli/web.rs`\n- `apps/cli/src/daemon.rs`\n- `apps/cli/src/mdns.rs`\n- `apps/cli/src/rescue.rs`\n- `apps/cli/src/chat_runtime.rs`\n- `apps/cli/src/core_proxy.rs`\n- `apps/cli/src/tui/mod.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-apps|模块 apps]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[app-flutter|Flutter 应用（主客户端）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 命令行应用 operit2\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：apps｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- CLI 是完整 CoreNode 还是瘦客户端\n- link 子命令提供哪些能力\n- daemon 与 mdns 发现、rescue 各是做什么的\n- TUI 与 Flutter UI 的能力边界是什么\n\n## 种子文件\n\n- `apps/cli/Cargo.toml`\n- `apps/cli/src/main.rs`\n- `apps/cli/src/bootstrap.rs`\n- `apps/cli/src/cli/mod.rs`\n- `apps/cli/src/cli/link.rs`\n- `apps/cli/src/cli/host_ops.rs`\n- `apps/cli/src/cli/network_control_ui.rs`\n- `apps/cli/src/cli/transfer.rs`\n- `apps/cli/src/cli/web.rs`\n- `apps/cli/src/daemon.rs`\n- `apps/cli/src/mdns.rs`\n- `apps/cli/src/rescue.rs`\n- `apps/cli/src/chat_runtime.rs`\n- `apps/cli/src/core_proxy.rs`\n- `apps/cli/src/tui/mod.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-apps|模块 apps]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[app-flutter|Flutter 应用（主客户端）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/app-cli.md",
       "label": "命令行应用 operit2",
       "source_path": "wiki/topics/app-cli.md",
@@ -10469,7 +10469,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# Flutter 应用（主客户端）\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：apps｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 一个 Flutter 应用如何覆盖 Android/iOS/macOS/Windows/Linux/Web/OHOS\n- Dart 侧与 Rust Core 如何桥接\n- 为什么用 AAswordman/flutter-ohos 分支而不是官方 Flutter\n- lib/ui 与 lib/core 的分工是什么\n\n## 种子文件\n\n- `apps/flutter/app/README.md`\n- `apps/flutter/app/pubspec.yaml`\n- `apps/flutter/app/lib/`\n- `apps/flutter/native/operit-flutter-bridge/`\n- `apps/flutter/packages/operit_ui/`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-apps|模块 apps]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[app-server|服务端应用（占位）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Flutter 应用（主客户端）\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：apps｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 一个 Flutter 应用如何覆盖 Android/iOS/macOS/Windows/Linux/Web/OHOS\n- Dart 侧与 Rust Core 如何桥接\n- 为什么用 AAswordman/flutter-ohos 分支而不是官方 Flutter\n- lib/ui 与 lib/core 的分工是什么\n\n## 种子文件\n\n- `apps/flutter/app/README.md`\n- `apps/flutter/app/pubspec.yaml`\n- `apps/flutter/app/lib/`\n- `apps/flutter/native/operit-flutter-bridge/`\n- `apps/flutter/packages/operit_ui/`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-apps|模块 apps]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[app-server|服务端应用（占位）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/app-flutter.md",
       "label": "Flutter 应用（主客户端）",
       "source_path": "wiki/topics/app-flutter.md",
@@ -10477,7 +10477,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# 能力 × 平台矩阵\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 能力全集从哪来\n- 每个格子填什么，判定标准是什么\n- 已知明确的“不支持”有哪些\n- 矩阵脚本如何取数，多久重新生成一次\n\n## 种子文件\n\n- `core/crates/foundation/host-api/src/lib.rs`\n- `core/crates/foundation/host-api/src/HostManager.rs`\n- `core/crates/foundation/host-api/README.md`\n- `hosts/android/src/lib.rs`\n- `hosts/apple/src/lib.rs`\n- `hosts/ios/src/lib.rs`\n- `hosts/linux/src/lib.rs`\n- `hosts/macos/src/lib.rs`\n- `hosts/ohos/src/lib.rs`\n- `hosts/web/src/lib.rs`\n- `hosts/windows/src/lib.rs`\n- `hosts/ohos/README.md`\n- `hosts/web/README.md`\n- `hosts/ios/README.md`\n- `hosts/README.md`\n- `docs/permission-access-architecture.md`\n- `docs/filesystem-access-boundary.md`\n- `docs/core-node-space-binding-architecture.md`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-android|Android Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-apple|Apple Host（macOS 与 iOS 共享实现）]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios|iOS Host 与 ARM64 Linux 运行时]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-linux|Linux Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ohos|OpenHarmony Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-web|Web/WASM Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-windows|Windows Host]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 能力 × 平台矩阵\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 能力全集从哪来\n- 每个格子填什么，判定标准是什么\n- 已知明确的“不支持”有哪些\n- 矩阵脚本如何取数，多久重新生成一次\n\n## 种子文件\n\n- `core/crates/foundation/host-api/src/lib.rs`\n- `core/crates/foundation/host-api/src/HostManager.rs`\n- `core/crates/foundation/host-api/README.md`\n- `hosts/android/src/lib.rs`\n- `hosts/apple/src/lib.rs`\n- `hosts/ios/src/lib.rs`\n- `hosts/linux/src/lib.rs`\n- `hosts/macos/src/lib.rs`\n- `hosts/ohos/src/lib.rs`\n- `hosts/web/src/lib.rs`\n- `hosts/windows/src/lib.rs`\n- `hosts/ohos/README.md`\n- `hosts/web/README.md`\n- `hosts/ios/README.md`\n- `hosts/README.md`\n- `docs/permission-access-architecture.md`\n- `docs/filesystem-access-boundary.md`\n- `docs/core-node-space-binding-architecture.md`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-android|Android Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-apple|Apple Host（macOS 与 iOS 共享实现）]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios|iOS Host 与 ARM64 Linux 运行时]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-linux|Linux Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ohos|OpenHarmony Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-web|Web/WASM Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-windows|Windows Host]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/app-host-capability-matrix.md",
       "label": "能力 × 平台矩阵",
       "source_path": "wiki/topics/app-host-capability-matrix.md",
@@ -10485,7 +10485,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# 服务端应用（占位）\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：apps｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- server 应用目前是什么状态\n- 服务端形态由谁承接\n\n## 种子文件\n\n- `apps/server/.gitkeep`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-apps|模块 apps]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 服务端应用（占位）\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：apps｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- server 应用目前是什么状态\n- 服务端形态由谁承接\n\n## 种子文件\n\n- `apps/server/.gitkeep`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-apps|模块 apps]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/app-server.md",
       "label": "服务端应用（占位）",
       "source_path": "wiki/topics/app-server.md",
@@ -10637,7 +10637,7 @@
     },
     {
       "community": "chapter-03",
-      "content": "# 插件——Plugin SDK\n\n\u003e 状态：待评审｜章节：Core｜模块：core｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- ToolPkg 的包模型与加载流程是什么\n- Hook 系统有哪些挂载点\n- Compose DSL 如何声明 UI\n- JsExecutionHost / JsExecutionProvider 两个 trait 如何分工\n\n## 种子文件\n\n- `core/crates/plugin/README.md`\n- `core/crates/plugin/sdk/src/lib.rs`\n- `core/crates/plugin/sdk/src/PackageManager.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs`\n- `core/crates/plugin/sdk/src/js_sdk/core.rs`\n\n## 关联条目\n\n- [[chapter-03|Core]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-core|模块 core]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[core-tool-packages-mcp|工具系统——包、技能与 MCP]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 插件——Plugin SDK\n\n\u003e 状态：已发布｜章节：Core｜模块：core｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- ToolPkg 的包模型与加载流程是什么\n- Hook 系统有哪些挂载点\n- Compose DSL 如何声明 UI\n- JsExecutionHost / JsExecutionProvider 两个 trait 如何分工\n\n## 种子文件\n\n- `core/crates/plugin/README.md`\n- `core/crates/plugin/sdk/src/lib.rs`\n- `core/crates/plugin/sdk/src/PackageManager.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs`\n- `core/crates/plugin/sdk/src/js_sdk/core.rs`\n\n## 关联条目\n\n- [[chapter-03|Core]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-core|模块 core]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[core-tool-packages-mcp|工具系统——包、技能与 MCP]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/core-plugin-sdk.md",
       "label": "插件——Plugin SDK",
       "source_path": "wiki/topics/core-plugin-sdk.md",
@@ -10669,7 +10669,7 @@
     },
     {
       "community": "chapter-03",
-      "content": "# 代理生成——扫描、发射器与本地代理运行时\n\n\u003e 状态：待评审｜章节：Core｜模块：core｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 代理扫描如何从源码生成代理 IR\n- Rust 与 Dart 发射器各生成什么\n- 本地代理运行时如何分发调用与管理流\n\n## 种子文件\n\n- `core/crates/proxy/README.md`\n- `core/crates/proxy/scan/src/lib.rs`\n- `core/crates/proxy/local/src/lib.rs`\n- `core/crates/proxy/bridge/src/lib.rs`\n- `core/crates/proxy/rust-codegen/src/lib.rs`\n- `core/crates/proxy/dart-codegen/src/lib.rs`\n\n## 关联条目\n\n- [[chapter-03|Core]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-core|模块 core]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[core-rslink|RsLink——Rust 间 Link 协议层]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 代理生成——扫描、发射器与本地代理运行时\n\n\u003e 状态：已发布｜章节：Core｜模块：core｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 代理扫描如何从源码生成代理 IR\n- Rust 与 Dart 发射器各生成什么\n- 本地代理运行时如何分发调用与管理流\n\n## 种子文件\n\n- `core/crates/proxy/README.md`\n- `core/crates/proxy/scan/src/lib.rs`\n- `core/crates/proxy/local/src/lib.rs`\n- `core/crates/proxy/bridge/src/lib.rs`\n- `core/crates/proxy/rust-codegen/src/lib.rs`\n- `core/crates/proxy/dart-codegen/src/lib.rs`\n\n## 关联条目\n\n- [[chapter-03|Core]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-core|模块 core]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[core-rslink|RsLink——Rust 间 Link 协议层]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/core-proxy.md",
       "label": "代理生成——扫描、发射器与本地代理运行时",
       "source_path": "wiki/topics/core-proxy.md",
@@ -10725,7 +10725,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# 构建指南\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：dev｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 仓库布局是怎样的\n- 各平台构建的前置要求是什么\n- 哪些构建输入是钉死的\n- Windows GNU 工具链常见问题如何处理\n\n## 种子文件\n\n- `BUILDING.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-dev|模块 dev]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-build-scripts|构建脚本入口]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-overview|tools 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-release|发布流程]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 构建指南\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：dev｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 仓库布局是怎样的\n- 各平台构建的前置要求是什么\n- 哪些构建输入是钉死的\n- Windows GNU 工具链常见问题如何处理\n\n## 种子文件\n\n- `BUILDING.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-dev|模块 dev]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-build-scripts|构建脚本入口]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-overview|tools 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-release|发布流程]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/dev-building.md",
       "label": "构建指南",
       "source_path": "wiki/topics/dev-building.md",
@@ -10733,7 +10733,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# 贡献指南\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：dev｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 改动范围有什么限制\n- 提交前必须跑哪些本地检查\n- 分支与提交命名规则是什么\n- PR 流程与许可、行为规范是什么\n\n## 种子文件\n\n- `CONTRIBUTING.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-dev|模块 dev]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[dev-building|构建指南]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 贡献指南\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：dev｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 改动范围有什么限制\n- 提交前必须跑哪些本地检查\n- 分支与提交命名规则是什么\n- PR 流程与许可、行为规范是什么\n\n## 种子文件\n\n- `CONTRIBUTING.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-dev|模块 dev]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[dev-building|构建指南]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/dev-contributing.md",
       "label": "贡献指南",
       "source_path": "wiki/topics/dev-contributing.md",
@@ -10757,7 +10757,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# Edge 在设备空间中的职责与边界\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 硬件 Edge 节点与完整 CoreNode 在应用组成、Agent/ToolPkg、业务副本上有何区别\n- 内置 edge 角色有什么权限，没有什么权限\n- 配对、解除配对、退出空间、隔离、移除五种操作各影响什么\n- ESP32 的独立模式与远端 Core 模式两条聊天路径如何切换\n\n## 种子文件\n\n- `edge/docs/architecture.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Edge 在设备空间中的职责与边界\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 硬件 Edge 节点与完整 CoreNode 在应用组成、Agent/ToolPkg、业务副本上有何区别\n- 内置 edge 角色有什么权限，没有什么权限\n- 配对、解除配对、退出空间、隔离、移除五种操作各影响什么\n- ESP32 的独立模式与远端 Core 模式两条聊天路径如何切换\n\n## 种子文件\n\n- `edge/docs/architecture.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-architecture.md",
       "label": "Edge 在设备空间中的职责与边界",
       "source_path": "wiki/topics/edge-architecture.md",
@@ -10765,7 +10765,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# 受限设备的空间与展示链路\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 控制状态如何发布与校验\n- 聊天展示投影包含什么、排除什么\n- 为什么展示投影不能代替授权\n\n## 种子文件\n\n- `edge/docs/core-entry-protocol.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-contract|Edge 契约 crate]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 受限设备的空间与展示链路\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 控制状态如何发布与校验\n- 聊天展示投影包含什么、排除什么\n- 为什么展示投影不能代替授权\n\n## 种子文件\n\n- `edge/docs/core-entry-protocol.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-contract|Edge 契约 crate]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-core-entry-protocol.md",
       "label": "受限设备的空间与展示链路",
       "source_path": "wiki/topics/edge-core-entry-protocol.md",
@@ -10773,7 +10773,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# ESP32 聊天实现\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 独立聊天如何直连模型服务\n- 远端 Core 模式下 Edge 只保存什么\n- 迟到结果为什么不能进入新会话\n\n## 种子文件\n\n- `edge/boards/esp32/src/edge_chat.rs`\n- `edge/boards/esp32/src/standalone_chat.rs`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# ESP32 聊天实现\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 独立聊天如何直连模型服务\n- 远端 Core 模式下 Edge 只保存什么\n- 迟到结果为什么不能进入新会话\n\n## 种子文件\n\n- `edge/boards/esp32/src/edge_chat.rs`\n- `edge/boards/esp32/src/standalone_chat.rs`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-esp32-chat.md",
       "label": "ESP32 聊天实现",
       "source_path": "wiki/topics/edge-esp32-chat.md",
@@ -10781,7 +10781,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# ESP32 编辑器与调试工具\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 编辑器提供哪四项能力\n- 模拟器如何复用固件模块并通过真实 TCP 连桌面 Core\n- 修改 Web、共享 C UI、Rust 模拟器后各如何生效\n\n## 种子文件\n\n- `edge/boards/esp32/editor/README.md`\n- `edge/boards/esp32/editor/FRONTEND.md`\n- `edge/boards/esp32/editor/AGENT_API.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# ESP32 编辑器与调试工具\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 编辑器提供哪四项能力\n- 模拟器如何复用固件模块并通过真实 TCP 连桌面 Core\n- 修改 Web、共享 C UI、Rust 模拟器后各如何生效\n\n## 种子文件\n\n- `edge/boards/esp32/editor/README.md`\n- `edge/boards/esp32/editor/FRONTEND.md`\n- `edge/boards/esp32/editor/AGENT_API.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-esp32-editor.md",
       "label": "ESP32 编辑器与调试工具",
       "source_path": "wiki/topics/edge-esp32-editor.md",
@@ -10789,7 +10789,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# ESP32 固件\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 固件如何配对\n- Wi-Fi 如何配置\n- 独立聊天与远端 Core 聊天的上下文规则有何不同\n- 设备 preference 的上限与合并规则是什么\n\n## 种子文件\n\n- `edge/boards/esp32/README.md`\n- `edge/boards/esp32/src/main.rs`\n- `edge/boards/esp32/src/runtime_host.rs`\n- `edge/boards/esp32/src/wifi.rs`\n- `edge/boards/esp32/src/device_services.rs`\n- `edge/boards/esp32/src/device_preferences.rs`\n- `edge/boards/esp32/src/device_http.rs`\n- `edge/boards/esp32/src/device_speech.rs`\n- `edge/boards/esp32/src/space_work.rs`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-esp32-chat|ESP32 聊天实现]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# ESP32 固件\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 固件如何配对\n- Wi-Fi 如何配置\n- 独立聊天与远端 Core 聊天的上下文规则有何不同\n- 设备 preference 的上限与合并规则是什么\n\n## 种子文件\n\n- `edge/boards/esp32/README.md`\n- `edge/boards/esp32/src/main.rs`\n- `edge/boards/esp32/src/runtime_host.rs`\n- `edge/boards/esp32/src/wifi.rs`\n- `edge/boards/esp32/src/device_services.rs`\n- `edge/boards/esp32/src/device_preferences.rs`\n- `edge/boards/esp32/src/device_http.rs`\n- `edge/boards/esp32/src/device_speech.rs`\n- `edge/boards/esp32/src/space_work.rs`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-esp32-chat|ESP32 聊天实现]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-esp32-firmware.md",
       "label": "ESP32 固件",
       "source_path": "wiki/topics/edge-esp32-firmware.md",
@@ -10797,7 +10797,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# ESP32 资源预算与内存实测\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 模拟器固定 Rust 堆与三类任务栈预算各是多少\n- 峰值 252,208 字节中占比最大的三项是什么\n- 为什么模拟器数据不能直接当作真机整板 RAM\n\n## 种子文件\n\n- `edge/docs/esp32-memory-profile-2026-10-27.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# ESP32 资源预算与内存实测\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 模拟器固定 Rust 堆与三类任务栈预算各是多少\n- 峰值 252,208 字节中占比最大的三项是什么\n- 为什么模拟器数据不能直接当作真机整板 RAM\n\n## 种子文件\n\n- `edge/docs/esp32-memory-profile-2026-10-27.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-esp32-resources.md",
       "label": "ESP32 资源预算与内存实测",
       "source_path": "wiki/topics/edge-esp32-resources.md",
@@ -10813,7 +10813,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# 厂商接入指南\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 离线传感器、HTTP 模型、加入空间三种需求各启用哪些功能\n- 最小装配六步是什么\n- 配对、加入空间、授权三者为什么不能互相代替\n- ESP32 模拟器的固定堆与栈预算是多少\n\n## 种子文件\n\n- `edge/docs/manufacturer-guide.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-entry|operit-edge-sdk 入口与功能开关]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 厂商接入指南\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 离线传感器、HTTP 模型、加入空间三种需求各启用哪些功能\n- 最小装配六步是什么\n- 配对、加入空间、授权三者为什么不能互相代替\n- ESP32 模拟器的固定堆与栈预算是多少\n\n## 种子文件\n\n- `edge/docs/manufacturer-guide.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-overview|Edge 总览与产品形态]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-entry|operit-edge-sdk 入口与功能开关]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-manufacturer-guide.md",
       "label": "厂商接入指南",
       "source_path": "wiki/topics/edge-manufacturer-guide.md",
@@ -10829,7 +10829,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# PB_SBC01_H3 机器人\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 两个二进制各负责什么\n- 板级目录、hosts/linux、sdk/node、sdk/proxy 四处边界如何分工\n- 机器人脸部状态文件写在哪里\n\n## 种子文件\n\n- `edge/boards/pb_sbc01_h3/README.md`\n- `edge/boards/pb_sbc01_h3/board/README.md`\n- `edge/boards/pb_sbc01_h3/src/main.rs`\n- `edge/boards/pb_sbc01_h3/src/app.rs`\n- `edge/boards/pb_sbc01_h3/src/config.rs`\n- `edge/boards/pb_sbc01_h3/src/face_console.rs`\n- `edge/boards/pb_sbc01_h3/board/src/lib.rs`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-node|Edge 节点 crate]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-proxy|Edge 代理 crate]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# PB_SBC01_H3 机器人\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 两个二进制各负责什么\n- 板级目录、hosts/linux、sdk/node、sdk/proxy 四处边界如何分工\n- 机器人脸部状态文件写在哪里\n\n## 种子文件\n\n- `edge/boards/pb_sbc01_h3/README.md`\n- `edge/boards/pb_sbc01_h3/board/README.md`\n- `edge/boards/pb_sbc01_h3/src/main.rs`\n- `edge/boards/pb_sbc01_h3/src/app.rs`\n- `edge/boards/pb_sbc01_h3/src/config.rs`\n- `edge/boards/pb_sbc01_h3/src/face_console.rs`\n- `edge/boards/pb_sbc01_h3/board/src/lib.rs`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-node|Edge 节点 crate]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-proxy|Edge 代理 crate]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-pb-sbc01-h3.md",
       "label": "PB_SBC01_H3 机器人",
       "source_path": "wiki/topics/edge-pb-sbc01-h3.md",
@@ -10845,7 +10845,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# operit-edge-sdk 入口与功能开关\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 稳定厂商入口是哪个 crate\n- agent / space / http-agent / scene 四个功能各提供什么\n- SpaceDevice::assemble 与 EdgeNode::headless 各用于什么装配方式\n- 依赖审计脚本检查哪几种功能组合\n\n## 种子文件\n\n- `edge/sdk/README.md`\n- `edge/sdk/Cargo.toml`\n- `edge/sdk/src/lib.rs`\n- `edge/sdk/src/agent.rs`\n- `edge/sdk/src/http_agent.rs`\n- `edge/sdk/src/space_device.rs`\n- `edge/tools/check-sdk-dependencies.py`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-contract|Edge 契约 crate]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# operit-edge-sdk 入口与功能开关\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 稳定厂商入口是哪个 crate\n- agent / space / http-agent / scene 四个功能各提供什么\n- SpaceDevice::assemble 与 EdgeNode::headless 各用于什么装配方式\n- 依赖审计脚本检查哪几种功能组合\n\n## 种子文件\n\n- `edge/sdk/README.md`\n- `edge/sdk/Cargo.toml`\n- `edge/sdk/src/lib.rs`\n- `edge/sdk/src/agent.rs`\n- `edge/sdk/src/http_agent.rs`\n- `edge/sdk/src/space_device.rs`\n- `edge/tools/check-sdk-dependencies.py`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-contract|Edge 契约 crate]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-sdk-entry.md",
       "label": "operit-edge-sdk 入口与功能开关",
       "source_path": "wiki/topics/edge-sdk-entry.md",
@@ -10853,7 +10853,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# Edge 节点 crate\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- EdgePeerRouter 接受哪些路由，不承担什么\n- 原生服务如何注册\n- 配对与空间加入为什么是两个独立步骤\n- 没有 storage.provide 时设备能保存什么，不能参与什么\n\n## 种子文件\n\n- `edge/sdk/node/README.md`\n- `edge/sdk/node/src/lib.rs`\n- `edge/sdk/node/src/PeerRouter.rs`\n- `edge/sdk/node/src/peer.rs`\n- `edge/sdk/node/src/service.rs`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Edge 节点 crate\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- EdgePeerRouter 接受哪些路由，不承担什么\n- 原生服务如何注册\n- 配对与空间加入为什么是两个独立步骤\n- 没有 storage.provide 时设备能保存什么，不能参与什么\n\n## 种子文件\n\n- `edge/sdk/node/README.md`\n- `edge/sdk/node/src/lib.rs`\n- `edge/sdk/node/src/PeerRouter.rs`\n- `edge/sdk/node/src/peer.rs`\n- `edge/sdk/node/src/service.rs`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-sdk-node.md",
       "label": "Edge 节点 crate",
       "source_path": "wiki/topics/edge-sdk-node.md",
@@ -10861,7 +10861,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# Edge 代理 crate\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Proxy 如何封装 Link 请求构造与响应解码\n- 调用方为什么不直接构造 CoreCallRequest / CoreValue / CoreEvent\n\n## 种子文件\n\n- `edge/sdk/proxy/README.md`\n- `edge/sdk/proxy/src/lib.rs`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-contract|Edge 契约 crate]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Edge 代理 crate\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Proxy 如何封装 Link 请求构造与响应解码\n- 调用方为什么不直接构造 CoreCallRequest / CoreValue / CoreEvent\n\n## 种子文件\n\n- `edge/sdk/proxy/README.md`\n- `edge/sdk/proxy/src/lib.rs`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-sdk-contract|Edge 契约 crate]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-sdk-proxy.md",
       "label": "Edge 代理 crate",
       "source_path": "wiki/topics/edge-sdk-proxy.md",
@@ -10869,7 +10869,7 @@
     },
     {
       "community": "chapter-10",
-      "content": "# Scene 服务与资源格式\n\n\u003e 状态：待评审｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- edge.scene 服务管哪四件事\n- 配置与资源如何以一次原子快照保存与恢复\n- 线路与资产格式见哪份文档\n\n## 种子文件\n\n- `edge/sdk/scene/README.md`\n- `edge/sdk/scene/src/lib.rs`\n- `edge/sdk/scene/src/protocol.rs`\n- `plugins/docs/edge-scene.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-architecture|Edge 在设备空间中的职责与边界]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Scene 服务与资源格式\n\n\u003e 状态：已发布｜章节：Edge 与厂商接入｜模块：edge｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- edge.scene 服务管哪四件事\n- 配置与资源如何以一次原子快照保存与恢复\n- 线路与资产格式见哪份文档\n\n## 种子文件\n\n- `edge/sdk/scene/README.md`\n- `edge/sdk/scene/src/lib.rs`\n- `edge/sdk/scene/src/protocol.rs`\n- `plugins/docs/edge-scene.md`\n\n## 关联条目\n\n- [[chapter-10|Edge 与厂商接入]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-edge|模块 edge]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[edge-architecture|Edge 在设备空间中的职责与边界]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/edge-sdk-scene.md",
       "label": "Scene 服务与资源格式",
       "source_path": "wiki/topics/edge-sdk-scene.md",
@@ -10877,7 +10877,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# Android Host\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Android Host 提供哪些能力\n- 终端特权与普通终端的边界是什么\n- 与 apps/android-module 的关系\n\n## 种子文件\n\n- `hosts/README.md`\n- `hosts/android/Cargo.toml`\n- `hosts/android/src/lib.rs`\n- `hosts/android/src/terminal.rs`\n- `hosts/android/src/terminal_privilege.rs`\n- `hosts/android/src/managed_runtime.rs`\n- `hosts/android/src/filesystem.rs`\n- `hosts/android/src/document_filesystem.rs`\n- `hosts/android/src/local_inference.rs`\n- `hosts/android/src/secret_store.rs`\n- `hosts/android/src/service_discovery.rs`\n- `hosts/android/src/system_operation.rs`\n- `hosts/android/src/tts_playback.rs`\n- `hosts/android/src/tts_synthesis.rs`\n- `hosts/android/src/web_visit.rs`\n- `hosts/android/src/bluetooth.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[app-android-module|Android 模块应用]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Android Host\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Android Host 提供哪些能力\n- 终端特权与普通终端的边界是什么\n- 与 apps/android-module 的关系\n\n## 种子文件\n\n- `hosts/README.md`\n- `hosts/android/Cargo.toml`\n- `hosts/android/src/lib.rs`\n- `hosts/android/src/terminal.rs`\n- `hosts/android/src/terminal_privilege.rs`\n- `hosts/android/src/managed_runtime.rs`\n- `hosts/android/src/filesystem.rs`\n- `hosts/android/src/document_filesystem.rs`\n- `hosts/android/src/local_inference.rs`\n- `hosts/android/src/secret_store.rs`\n- `hosts/android/src/service_discovery.rs`\n- `hosts/android/src/system_operation.rs`\n- `hosts/android/src/tts_playback.rs`\n- `hosts/android/src/tts_synthesis.rs`\n- `hosts/android/src/web_visit.rs`\n- `hosts/android/src/bluetooth.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[app-android-module|Android 模块应用]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/host-android.md",
       "label": "Android Host",
       "source_path": "wiki/topics/host-android.md",
@@ -10885,7 +10885,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# Apple Host（macOS 与 iOS 共享实现）\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Apple Host 在 macOS 与 iOS 之间如何复用\n- 沙盒对文件/终端能力有什么限制\n- macOS 的 createRuntimeHostManager 注册了哪些 Host\n\n## 种子文件\n\n- `hosts/apple/Cargo.toml`\n- `hosts/apple/src/lib.rs`\n- `hosts/apple/src/tools/fs/mod.rs`\n- `hosts/apple/src/tools/terminal/mod.rs`\n- `hosts/apple/src/tools/terminal/terminal_macos.rs`\n- `hosts/apple/src/tools/browser/mod.rs`\n- `hosts/apple/src/tools/runtime/mod.rs`\n- `hosts/apple/src/tools/storage/mod.rs`\n- `hosts/apple/src/tools/system/mod.rs`\n- `hosts/apple/src/tools/system/battery.rs`\n- `hosts/apple/src/tools/system/packages.rs`\n- `hosts/apple/src/tools/local_inference/mod.rs`\n- `hosts/apple/src/tools/tts/mod.rs`\n- `hosts/apple/src/tools/http/mod.rs`\n- `hosts/apple/src/tools/audio/mod.rs`\n- `hosts/apple/src/tools/bluetooth/mod.rs`\n- `hosts/apple/src/sandbox.rs`\n- `hosts/apple/src/service_discovery.rs`\n- `hosts/macos/src/lib.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios|iOS Host 与 ARM64 Linux 运行时]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Apple Host（macOS 与 iOS 共享实现）\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Apple Host 在 macOS 与 iOS 之间如何复用\n- 沙盒对文件/终端能力有什么限制\n- macOS 的 createRuntimeHostManager 注册了哪些 Host\n\n## 种子文件\n\n- `hosts/apple/Cargo.toml`\n- `hosts/apple/src/lib.rs`\n- `hosts/apple/src/tools/fs/mod.rs`\n- `hosts/apple/src/tools/terminal/mod.rs`\n- `hosts/apple/src/tools/terminal/terminal_macos.rs`\n- `hosts/apple/src/tools/browser/mod.rs`\n- `hosts/apple/src/tools/runtime/mod.rs`\n- `hosts/apple/src/tools/storage/mod.rs`\n- `hosts/apple/src/tools/system/mod.rs`\n- `hosts/apple/src/tools/system/battery.rs`\n- `hosts/apple/src/tools/system/packages.rs`\n- `hosts/apple/src/tools/local_inference/mod.rs`\n- `hosts/apple/src/tools/tts/mod.rs`\n- `hosts/apple/src/tools/http/mod.rs`\n- `hosts/apple/src/tools/audio/mod.rs`\n- `hosts/apple/src/tools/bluetooth/mod.rs`\n- `hosts/apple/src/sandbox.rs`\n- `hosts/apple/src/service_discovery.rs`\n- `hosts/macos/src/lib.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios|iOS Host 与 ARM64 Linux 运行时]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/host-apple.md",
       "label": "Apple Host（macOS 与 iOS 共享实现）",
       "source_path": "wiki/topics/host-apple.md",
@@ -10893,7 +10893,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# Host 共享实现\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- hosts/common 的 8 个 crate 各提供什么共享能力\n- 共享实现与平台实现的分界线是什么\n- chromium_browser.rs 与 terminal_command.rs 为什么是顶层 .rs 而不是 crate\n- 数据救援与 CLI 的 rescue、docs/data-rescue.md 是什么关系\n\n## 种子文件\n\n- `hosts/common/operit-host-native-common/src/lib.rs`\n- `hosts/common/operit-host-native-common/src/DaemonHost.rs`\n- `hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs`\n- `hosts/common/operit-host-native-common/src/SerialPort.rs`\n- `hosts/common/operit-host-native-common/src/ServiceDiscovery.rs`\n- `hosts/common/operit-host-native-common/src/SharedBuffer.rs`\n- `hosts/common/operit-host-native-common/src/Tcp.rs`\n- `hosts/common/operit-host-native-filesystem/src/lib.rs`\n- `hosts/common/operit-host-native-http/src/lib.rs`\n- `hosts/common/operit-host-native-storage/src/lib.rs`\n- `hosts/common/operit-host-native-terminal/src/lib.rs`\n- `hosts/common/operit-host-native-scheduler/src/lib.rs`\n- `hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs`\n- `hosts/common/operit-host-data-rescue/src/lib.rs`\n- `hosts/common/chromium_browser.rs`\n- `hosts/common/terminal_command.rs`\n- `hosts/unix/daemon.rs`\n- `hosts/plugin-sdk-client/src/lib.rs`\n- `hosts/tests/daemon.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[app-cli|命令行应用 operit2]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-android|Android Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios|iOS Host 与 ARM64 Linux 运行时]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Host 共享实现\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- hosts/common 的 8 个 crate 各提供什么共享能力\n- 共享实现与平台实现的分界线是什么\n- chromium_browser.rs 与 terminal_command.rs 为什么是顶层 .rs 而不是 crate\n- 数据救援与 CLI 的 rescue、docs/data-rescue.md 是什么关系\n\n## 种子文件\n\n- `hosts/common/operit-host-native-common/src/lib.rs`\n- `hosts/common/operit-host-native-common/src/DaemonHost.rs`\n- `hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs`\n- `hosts/common/operit-host-native-common/src/SerialPort.rs`\n- `hosts/common/operit-host-native-common/src/ServiceDiscovery.rs`\n- `hosts/common/operit-host-native-common/src/SharedBuffer.rs`\n- `hosts/common/operit-host-native-common/src/Tcp.rs`\n- `hosts/common/operit-host-native-filesystem/src/lib.rs`\n- `hosts/common/operit-host-native-http/src/lib.rs`\n- `hosts/common/operit-host-native-storage/src/lib.rs`\n- `hosts/common/operit-host-native-terminal/src/lib.rs`\n- `hosts/common/operit-host-native-scheduler/src/lib.rs`\n- `hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs`\n- `hosts/common/operit-host-data-rescue/src/lib.rs`\n- `hosts/common/chromium_browser.rs`\n- `hosts/common/terminal_command.rs`\n- `hosts/unix/daemon.rs`\n- `hosts/plugin-sdk-client/src/lib.rs`\n- `hosts/tests/daemon.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[app-cli|命令行应用 operit2]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-android|Android Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios|iOS Host 与 ARM64 Linux 运行时]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/host-common.md",
       "label": "Host 共享实现",
       "source_path": "wiki/topics/host-common.md",
@@ -10901,7 +10901,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# iOS 内嵌 ARM64 Linux 运行时（vendored）\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 这是一个什么东西\n- completeness.md 如何区分实现、接线、验证\n- Guest 指令执行、ELF 装载、fork/COW、文件/挂载、网络、PTY 各由哪些模块负责\n- 性能与验收状态在哪份文档里\n\n## 种子文件\n\n- `hosts/ios/linux-runtime/README.md`\n- `hosts/ios/linux-runtime/docs/README.md`\n- `hosts/ios/linux-runtime/docs/completeness.md`\n- `hosts/ios/linux-runtime/docs/delivery-status.md`\n- `hosts/ios/linux-runtime/include/operit/arm64_runtime.h`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# iOS 内嵌 ARM64 Linux 运行时（vendored）\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 这是一个什么东西\n- completeness.md 如何区分实现、接线、验证\n- Guest 指令执行、ELF 装载、fork/COW、文件/挂载、网络、PTY 各由哪些模块负责\n- 性能与验收状态在哪份文档里\n\n## 种子文件\n\n- `hosts/ios/linux-runtime/README.md`\n- `hosts/ios/linux-runtime/docs/README.md`\n- `hosts/ios/linux-runtime/docs/completeness.md`\n- `hosts/ios/linux-runtime/docs/delivery-status.md`\n- `hosts/ios/linux-runtime/include/operit/arm64_runtime.h`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/host-ios-linux-runtime.md",
       "label": "iOS 内嵌 ARM64 Linux 运行时（vendored）",
       "source_path": "wiki/topics/host-ios-linux-runtime.md",
@@ -10909,7 +10909,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# iOS Host 与 ARM64 Linux 运行时\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- iOS 终端如何工作\n- Host 目录如何以原始绝对路径 bind mount 到 Linux 运行时\n- 串口现状：为什么说“没有已安装的原生串口 accessory provider”\n- iOS 容器 UUID 变化时路径如何恢复\n\n## 种子文件\n\n- `hosts/ios/README.md`\n- `hosts/ios/Cargo.toml`\n- `hosts/ios/src/lib.rs`\n- `hosts/ios/src/terminal.rs`\n- `hosts/ios/src/bridge.rs`\n- `hosts/ios/src/managed_runtime.rs`\n- `hosts/ios/src/serial.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-apple|Apple Host（macOS 与 iOS 共享实现）]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios-linux-runtime|iOS 内嵌 ARM64 Linux 运行时（vendored）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# iOS Host 与 ARM64 Linux 运行时\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- iOS 终端如何工作\n- Host 目录如何以原始绝对路径 bind mount 到 Linux 运行时\n- 串口现状：为什么说“没有已安装的原生串口 accessory provider”\n- iOS 容器 UUID 变化时路径如何恢复\n\n## 种子文件\n\n- `hosts/ios/README.md`\n- `hosts/ios/Cargo.toml`\n- `hosts/ios/src/lib.rs`\n- `hosts/ios/src/terminal.rs`\n- `hosts/ios/src/bridge.rs`\n- `hosts/ios/src/managed_runtime.rs`\n- `hosts/ios/src/serial.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-apple|Apple Host（macOS 与 iOS 共享实现）]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios-linux-runtime|iOS 内嵌 ARM64 Linux 运行时（vendored）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/host-ios.md",
       "label": "iOS Host 与 ARM64 Linux 运行时",
       "source_path": "wiki/topics/host-ios.md",
@@ -10925,7 +10925,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# OpenHarmony Host\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- OHOS Host 提供哪些能力\n- 托管运行时如何通过 QEMU-vroot Alpine 实现\n- 本地推理与 TTS 播放是如何分工的\n- 应用存储根目录为什么必须显式传入 bridge 创建函数\n\n## 种子文件\n\n- `hosts/ohos/README.md`\n- `hosts/ohos/Cargo.toml`\n- `hosts/ohos/src/lib.rs`\n- `hosts/ohos/src/terminal.rs`\n- `hosts/ohos/src/managed_runtime.rs`\n- `hosts/ohos/src/filesystem.rs`\n- `hosts/ohos/src/documents.rs`\n- `hosts/ohos/src/storage.rs`\n- `hosts/ohos/src/http.rs`\n- `hosts/ohos/src/local_inference.rs`\n- `hosts/ohos/src/system_operation.rs`\n- `hosts/ohos/src/tts_playback.rs`\n- `hosts/ohos/src/audio_playback.rs`\n- `hosts/ohos/src/bluetooth.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# OpenHarmony Host\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- OHOS Host 提供哪些能力\n- 托管运行时如何通过 QEMU-vroot Alpine 实现\n- 本地推理与 TTS 播放是如何分工的\n- 应用存储根目录为什么必须显式传入 bridge 创建函数\n\n## 种子文件\n\n- `hosts/ohos/README.md`\n- `hosts/ohos/Cargo.toml`\n- `hosts/ohos/src/lib.rs`\n- `hosts/ohos/src/terminal.rs`\n- `hosts/ohos/src/managed_runtime.rs`\n- `hosts/ohos/src/filesystem.rs`\n- `hosts/ohos/src/documents.rs`\n- `hosts/ohos/src/storage.rs`\n- `hosts/ohos/src/http.rs`\n- `hosts/ohos/src/local_inference.rs`\n- `hosts/ohos/src/system_operation.rs`\n- `hosts/ohos/src/tts_playback.rs`\n- `hosts/ohos/src/audio_playback.rs`\n- `hosts/ohos/src/bluetooth.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/host-ohos.md",
       "label": "OpenHarmony Host",
       "source_path": "wiki/topics/host-ohos.md",
@@ -10941,7 +10941,7 @@
     },
     {
       "community": "chapter-05",
-      "content": "# Windows Host\n\n\u003e 状态：待评审｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Windows 终端、进程管理、daemon 与 Unix 平台有何不同\n- 应用更新如何工作\n- MCI 是什么能力\n- Plugin SDK IPC 在 Windows 上走 pipe，与其他平台有何不同\n\n## 种子文件\n\n- `hosts/windows/Cargo.toml`\n- `hosts/windows/src/lib.rs`\n- `hosts/windows/src/daemon.rs`\n- `hosts/windows/src/process.rs`\n- `hosts/windows/src/tools/terminal/mod.rs`\n- `hosts/windows/src/tools/fs/mod.rs`\n- `hosts/windows/src/tools/runtime/mod.rs`\n- `hosts/windows/src/tools/storage/mod.rs`\n- `hosts/windows/src/tools/system/mod.rs`\n- `hosts/windows/src/tools/system/application_update.rs`\n- `hosts/windows/src/tools/system/application_update.ps1`\n- `hosts/windows/src/tools/system/packages.rs`\n- `hosts/windows/src/tools/browser/mod.rs`\n- `hosts/windows/src/tools/http/mod.rs`\n- `hosts/windows/src/tools/audio/mod.rs`\n- `hosts/windows/src/tools/bluetooth/mod.rs`\n- `hosts/windows/src/tools/tts/mod.rs`\n- `hosts/windows/src/tools/mci.rs`\n- `hosts/windows/src/plugin_sdk_ipc.rs`\n- `hosts/windows/src/plugin_sdk_pipe.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-android|Android Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-apple|Apple Host（macOS 与 iOS 共享实现）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Windows Host\n\n\u003e 状态：已发布｜章节：应用与 Host｜模块：hosts｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Windows 终端、进程管理、daemon 与 Unix 平台有何不同\n- 应用更新如何工作\n- MCI 是什么能力\n- Plugin SDK IPC 在 Windows 上走 pipe，与其他平台有何不同\n\n## 种子文件\n\n- `hosts/windows/Cargo.toml`\n- `hosts/windows/src/lib.rs`\n- `hosts/windows/src/daemon.rs`\n- `hosts/windows/src/process.rs`\n- `hosts/windows/src/tools/terminal/mod.rs`\n- `hosts/windows/src/tools/fs/mod.rs`\n- `hosts/windows/src/tools/runtime/mod.rs`\n- `hosts/windows/src/tools/storage/mod.rs`\n- `hosts/windows/src/tools/system/mod.rs`\n- `hosts/windows/src/tools/system/application_update.rs`\n- `hosts/windows/src/tools/system/application_update.ps1`\n- `hosts/windows/src/tools/system/packages.rs`\n- `hosts/windows/src/tools/browser/mod.rs`\n- `hosts/windows/src/tools/http/mod.rs`\n- `hosts/windows/src/tools/audio/mod.rs`\n- `hosts/windows/src/tools/bluetooth/mod.rs`\n- `hosts/windows/src/tools/tts/mod.rs`\n- `hosts/windows/src/tools/mci.rs`\n- `hosts/windows/src/plugin_sdk_ipc.rs`\n- `hosts/windows/src/plugin_sdk_pipe.rs`\n\n## 关联条目\n\n- [[chapter-05|应用与 Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-hosts|模块 hosts]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-android|Android Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-apple|Apple Host（macOS 与 iOS 共享实现）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/host-windows.md",
       "label": "Windows Host",
       "source_path": "wiki/topics/host-windows.md",
@@ -10997,7 +10997,7 @@
     },
     {
       "community": "chapter-09",
-      "content": "# 模型调用与聊天发送契约\n\n\u003e 状态：待评审｜章节：模型与 Provider｜模块：model｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 当前 SDK 对外暴露的发送方法恰好是哪三个\n- Rust 权威实现与 TypeScript 导出各在哪里\n- 发送、取消、流式输出的执行控制如何划分\n\n## 种子文件\n\n- `docs/chat-send-api.md`\n- `core/crates/plugin/sdk/src/js_sdk/chat.rs`\n\n## 关联条目\n\n- [[chapter-09|模型与 Provider]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-model|模块 model]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[model-catalog|模型目录与模型识别]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 模型调用与聊天发送契约\n\n\u003e 状态：已发布｜章节：模型与 Provider｜模块：model｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 当前 SDK 对外暴露的发送方法恰好是哪三个\n- Rust 权威实现与 TypeScript 导出各在哪里\n- 发送、取消、流式输出的执行控制如何划分\n\n## 种子文件\n\n- `docs/chat-send-api.md`\n- `core/crates/plugin/sdk/src/js_sdk/chat.rs`\n\n## 关联条目\n\n- [[chapter-09|模型与 Provider]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-model|模块 model]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[model-catalog|模型目录与模型识别]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/model-chat-send.md",
       "label": "模型调用与聊天发送契约",
       "source_path": "wiki/topics/model-chat-send.md",
@@ -11005,7 +11005,7 @@
     },
     {
       "community": "chapter-09",
-      "content": "# TTS 供应商目录\n\n\u003e 状态：待评审｜章节：模型与 Provider｜模块：model｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- TTS 设置界面从哪里读供应商、请求模板、鉴权头、音频格式、音色列表\n- 七家供应商各自的默认模型、音频格式、音色来源\n- 在线音色查询每页取多少条\n- 合成请求与音色查询走哪条 HTTP 通道\n\n## 种子文件\n\n- `docs/tts-providers.md`\n- `core/crates/foundation/model/src/TtsCatalog.rs`\n- `core/crates/provider/services/src/tts/VoiceServiceFactory.rs`\n\n## 关联条目\n\n- [[chapter-09|模型与 Provider]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-model|模块 model]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[model-catalog|模型目录与模型识别]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# TTS 供应商目录\n\n\u003e 状态：已发布｜章节：模型与 Provider｜模块：model｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- TTS 设置界面从哪里读供应商、请求模板、鉴权头、音频格式、音色列表\n- 七家供应商各自的默认模型、音频格式、音色来源\n- 在线音色查询每页取多少条\n- 合成请求与音色查询走哪条 HTTP 通道\n\n## 种子文件\n\n- `docs/tts-providers.md`\n- `core/crates/foundation/model/src/TtsCatalog.rs`\n- `core/crates/provider/services/src/tts/VoiceServiceFactory.rs`\n\n## 关联条目\n\n- [[chapter-09|模型与 Provider]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-model|模块 model]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[model-catalog|模型目录与模型识别]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/model-tts.md",
       "label": "TTS 供应商目录",
       "source_path": "wiki/topics/model-tts.md",
@@ -11021,7 +11021,7 @@
     },
     {
       "community": "chapter-06",
-      "content": "# 外置（官方可选）插件目录\n\n\u003e 状态：待评审｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 外置插件与内置插件的打包、加载、启用方式有何不同\n- subagents 插件提供哪些工具\n- 哪些外置插件是演示性质的\n- image_workbench、waifu、wechat、qqbot 这类大插件各自的边界是什么\n\n## 种子文件\n\n- `plugins/packages/external/subagents/manifest.json`\n- `plugins/packages/external/moss_atelier/manifest.json`\n- `plugins/packages/external/worldbook/manifest.json`\n- `plugins/packages/external/wechat/manifest.json`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-manifest|清单 manifest 与安装作用域]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-theme|主题即插件（theme-as-ToolPkg）]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 外置（官方可选）插件目录\n\n\u003e 状态：已发布｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 外置插件与内置插件的打包、加载、启用方式有何不同\n- subagents 插件提供哪些工具\n- 哪些外置插件是演示性质的\n- image_workbench、waifu、wechat、qqbot 这类大插件各自的边界是什么\n\n## 种子文件\n\n- `plugins/packages/external/subagents/manifest.json`\n- `plugins/packages/external/moss_atelier/manifest.json`\n- `plugins/packages/external/worldbook/manifest.json`\n- `plugins/packages/external/wechat/manifest.json`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-manifest|清单 manifest 与安装作用域]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-theme|主题即插件（theme-as-ToolPkg）]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/plugin-catalog-external.md",
       "label": "外置（官方可选）插件目录",
       "source_path": "wiki/topics/plugin-catalog-external.md",
@@ -11037,7 +11037,7 @@
     },
     {
       "community": "chapter-06",
-      "content": "# JS/TS 与 Wasm 运行时\n\n\u003e 状态：待评审｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- JS 引擎是什么\n- Wasm 模块如何加载、调用\n- 注册流程是怎样的\n- 脚本超时与取消规则是什么\n\n## 种子文件\n\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs`\n- `plugins/types/quickjs-runtime.d.ts`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# JS/TS 与 Wasm 运行时\n\n\u003e 状态：已发布｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- JS 引擎是什么\n- Wasm 模块如何加载、调用\n- 注册流程是怎样的\n- 脚本超时与取消规则是什么\n\n## 种子文件\n\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs`\n- `plugins/types/quickjs-runtime.d.ts`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/plugin-js-wasm-runtime.md",
       "label": "JS/TS 与 Wasm 运行时",
       "source_path": "wiki/topics/plugin-js-wasm-runtime.md",
@@ -11045,7 +11045,7 @@
     },
     {
       "community": "chapter-06",
-      "content": "# 清单 manifest 与安装作用域\n\n\u003e 状态：待评审｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- manifest 有哪些字段\n- installation_scope device 与 space 有什么区别\n- 环境变量与配置归谁所有\n- 1.0.0/1.0.1 的包在 2.0.0 运行时上加载兼容性如何\n\n## 种子文件\n\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgPackageModels.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs`\n- `plugins/docs/V1_COMPATIBILITY.md`\n- `plugins/packages/buildin/character_cards/manifest.json`\n- `plugins/packages/buildin/workflow/manifest.json`\n- `plugins/packages/external/moss_atelier/manifest.json`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 清单 manifest 与安装作用域\n\n\u003e 状态：已发布｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- manifest 有哪些字段\n- installation_scope device 与 space 有什么区别\n- 环境变量与配置归谁所有\n- 1.0.0/1.0.1 的包在 2.0.0 运行时上加载兼容性如何\n\n## 种子文件\n\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgPackageModels.rs`\n- `core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs`\n- `plugins/docs/V1_COMPATIBILITY.md`\n- `plugins/packages/buildin/character_cards/manifest.json`\n- `plugins/packages/buildin/workflow/manifest.json`\n- `plugins/packages/external/moss_atelier/manifest.json`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/plugin-manifest.md",
       "label": "清单 manifest 与安装作用域",
       "source_path": "wiki/topics/plugin-manifest.md",
@@ -11053,7 +11053,7 @@
     },
     {
       "community": "chapter-06",
-      "content": "# MCP 集成\n\n\u003e 状态：待评审｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- MCP 在 Operit2 里是什么扩展类型\n- MCP 服务器如何配置、安装、启用\n- MCP 工具如何变成 Agent 可调用的工具\n- MCP 配置在设备空间内如何共享\n\n## 种子文件\n\n- `core/crates/tool/services/src/tools/mcp/MCPManager.rs`\n- `core/crates/tool/services/src/tools/mcp/MCPPackage.rs`\n- `core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs`\n- `core/crates/tool/services/src/tools/mcp/MCPToolParameter.rs`\n- `core/crates/tool/services/src/tools/mcp/MCPServerConfig.rs`\n- `core/crates/tool/services/src/tools/mcp/MCPTool.rs`\n- `core/crates/tool/services/src/tools/mcp/mod.rs`\n- `core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs`\n- `core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs`\n- `core/crates/tool/services/src/tools/mcp_runtime/mod.rs`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# MCP 集成\n\n\u003e 状态：已发布｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- MCP 在 Operit2 里是什么扩展类型\n- MCP 服务器如何配置、安装、启用\n- MCP 工具如何变成 Agent 可调用的工具\n- MCP 配置在设备空间内如何共享\n\n## 种子文件\n\n- `core/crates/tool/services/src/tools/mcp/MCPManager.rs`\n- `core/crates/tool/services/src/tools/mcp/MCPPackage.rs`\n- `core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs`\n- `core/crates/tool/services/src/tools/mcp/MCPToolParameter.rs`\n- `core/crates/tool/services/src/tools/mcp/MCPServerConfig.rs`\n- `core/crates/tool/services/src/tools/mcp/MCPTool.rs`\n- `core/crates/tool/services/src/tools/mcp/mod.rs`\n- `core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs`\n- `core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs`\n- `core/crates/tool/services/src/tools/mcp_runtime/mod.rs`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/plugin-mcp.md",
       "label": "MCP 集成",
       "source_path": "wiki/topics/plugin-mcp.md",
@@ -11061,7 +11061,7 @@
     },
     {
       "community": "chapter-06",
-      "content": "# PackageBuilder（随软件携带的插件开发 Skill）\n\n\u003e 状态：待评审｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- PackageBuilder 是什么\n- 用 PackageBuilder 开发一个插件的标准流程是什么\n- API 2.0.0 下新建包要在 manifest 里声明什么\n- 旧版 1.0.0/1.0.1 包迁移要检查哪些项\n\n## 种子文件\n\n- `plugins/skills/external/PackageBuilder/SKILL.md`\n- `plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md`\n- `plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md`\n- `plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-manifest|清单 manifest 与安装作用域]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-skills|Skills 机制]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# PackageBuilder（随软件携带的插件开发 Skill）\n\n\u003e 状态：已发布｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- PackageBuilder 是什么\n- 用 PackageBuilder 开发一个插件的标准流程是什么\n- API 2.0.0 下新建包要在 manifest 里声明什么\n- 旧版 1.0.0/1.0.1 包迁移要检查哪些项\n\n## 种子文件\n\n- `plugins/skills/external/PackageBuilder/SKILL.md`\n- `plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md`\n- `plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md`\n- `plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-manifest|清单 manifest 与安装作用域]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-skills|Skills 机制]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/plugin-packagebuilder.md",
       "label": "PackageBuilder（随软件携带的插件开发 Skill）",
       "source_path": "wiki/topics/plugin-packagebuilder.md",
@@ -11069,7 +11069,7 @@
     },
     {
       "community": "chapter-06",
-      "content": "# QuickPluginCreator（App 内现场生成插件）\n\n\u003e 状态：待评审｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- App 里的入口实际做什么\n- 它与 PackageBuilder、operit_editor 是什么关系\n- 现场生成的插件如何安装、测试、发布\n\n## 种子文件\n\n- `apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart`\n- `apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart`\n- `plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-skills|Skills 机制]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# QuickPluginCreator（App 内现场生成插件）\n\n\u003e 状态：已发布｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- App 里的入口实际做什么\n- 它与 PackageBuilder、operit_editor 是什么关系\n- 现场生成的插件如何安装、测试、发布\n\n## 种子文件\n\n- `apps/flutter/app/lib/ui/features/packages/dialogs/QuickPluginCreatorDialog.dart`\n- `apps/flutter/app/lib/ui/features/packages/screens/QuickPluginCreatorSetupSupport.dart`\n- `plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-skills|Skills 机制]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/plugin-quick-plugin-creator.md",
       "label": "QuickPluginCreator（App 内现场生成插件）",
       "source_path": "wiki/topics/plugin-quick-plugin-creator.md",
@@ -11077,7 +11077,7 @@
     },
     {
       "community": "chapter-06",
-      "content": "# Skills 机制\n\n\u003e 状态：待评审｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Skill 是什么\n- Skill 如何打包、安装、按需导入\n- Skill 与 Agent 运行时如何交互\n\n## 种子文件\n\n- `core/crates/tool/services/src/tools/skill/SkillManager.rs`\n- `core/crates/tool/services/src/tools/skill/SkillPackage.rs`\n- `core/crates/tool/services/src/tools/skill/mod.rs`\n- `core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs`\n- `core/crates/tool/services/src/tools/skill_runtime/mod.rs`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Skills 机制\n\n\u003e 状态：已发布｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Skill 是什么\n- Skill 如何打包、安装、按需导入\n- Skill 与 Agent 运行时如何交互\n\n## 种子文件\n\n- `core/crates/tool/services/src/tools/skill/SkillManager.rs`\n- `core/crates/tool/services/src/tools/skill/SkillPackage.rs`\n- `core/crates/tool/services/src/tools/skill/mod.rs`\n- `core/crates/tool/services/src/tools/skill_runtime/SkillRepository.rs`\n- `core/crates/tool/services/src/tools/skill_runtime/mod.rs`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/plugin-skills.md",
       "label": "Skills 机制",
       "source_path": "wiki/topics/plugin-skills.md",
@@ -11085,7 +11085,7 @@
     },
     {
       "community": "chapter-06",
-      "content": "# 主题即插件（theme-as-ToolPkg）\n\n\u003e 状态：待评审｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- manifest 的 themes 数组如何声明主题模板\n- 主题模板与 ThemeConfig 是什么关系\n- 主题如何安装、作用域、同步、更新与卸载\n- moss_atelier 这个例子包含哪两套模板\n\n## 种子文件\n\n- `core/crates/plugin/theme/schema/theme-v1.schema.json`\n- `core/crates/plugin/theme/schema/theme-template.schema.json`\n- `docs/theme-v1-contract.md`\n- `docs/theme-studio-protocol-v1.md`\n- `plugins/packages/external/moss_atelier/manifest.json`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[core-plugin-theme|插件——主题 v1 契约]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 主题即插件（theme-as-ToolPkg）\n\n\u003e 状态：已发布｜章节：插件系统｜模块：plugins｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- manifest 的 themes 数组如何声明主题模板\n- 主题模板与 ThemeConfig 是什么关系\n- 主题如何安装、作用域、同步、更新与卸载\n- moss_atelier 这个例子包含哪两套模板\n\n## 种子文件\n\n- `core/crates/plugin/theme/schema/theme-v1.schema.json`\n- `core/crates/plugin/theme/schema/theme-template.schema.json`\n- `docs/theme-v1-contract.md`\n- `docs/theme-studio-protocol-v1.md`\n- `plugins/packages/external/moss_atelier/manifest.json`\n\n## 关联条目\n\n- [[chapter-06|插件系统]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-plugins|模块 plugins]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[core-plugin-theme|插件——主题 v1 契约]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/plugin-theme.md",
       "label": "主题即插件（theme-as-ToolPkg）",
       "source_path": "wiki/topics/plugin-theme.md",
@@ -11101,7 +11101,7 @@
     },
     {
       "community": "chapter-07",
-      "content": "# 局域网发现、配对与加入 Space\n\n\u003e 状态：待评审｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 发现协议：查询什么服务名\n- Link 的 Call / Watch / Push 三个基础操作各自是什么\n- 配对只授予什么授权\n- space_join 的 refresh 流程是怎样的\n\n## 种子文件\n\n- `docs/device-space-lan-discovery.md`\n- `docs/link-access-architecture.md`\n- `core/crates/node/runtime/src/peer/discovery.rs`\n- `core/crates/node/runtime/src/peer/space_join.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-overview|同步总览：Space 持久化同步]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 局域网发现、配对与加入 Space\n\n\u003e 状态：已发布｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 发现协议：查询什么服务名\n- Link 的 Call / Watch / Push 三个基础操作各自是什么\n- 配对只授予什么授权\n- space_join 的 refresh 流程是怎样的\n\n## 种子文件\n\n- `docs/device-space-lan-discovery.md`\n- `docs/link-access-architecture.md`\n- `core/crates/node/runtime/src/peer/discovery.rs`\n- `core/crates/node/runtime/src/peer/space_join.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-overview|同步总览：Space 持久化同步]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/sync-discovery-join.md",
       "label": "局域网发现、配对与加入 Space",
       "source_path": "wiki/topics/sync-discovery-join.md",
@@ -11125,7 +11125,7 @@
     },
     {
       "community": "chapter-07",
-      "content": "# 协议版本与构建指纹\n\n\u003e 状态：待评审｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 软件版本、厂商固件版本、协议版本三者为何各自独立\n- core/peer-protocol.json 的指纹覆盖哪些内容\n- 新协议实现文件为什么必须加入 sources\n- 协议不同时返回什么错误\n\n## 种子文件\n\n- `docs/peer-protocol-versioning.md`\n- `core/peer-protocol.json`\n- `core/crates/node/runtime/src/SyncConsistency.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-discovery-join|局域网发现、配对与加入 Space]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-overview|同步总览：Space 持久化同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-transaction-model|事务模型与同步契约]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 协议版本与构建指纹\n\n\u003e 状态：已发布｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 软件版本、厂商固件版本、协议版本三者为何各自独立\n- core/peer-protocol.json 的指纹覆盖哪些内容\n- 新协议实现文件为什么必须加入 sources\n- 协议不同时返回什么错误\n\n## 种子文件\n\n- `docs/peer-protocol-versioning.md`\n- `core/peer-protocol.json`\n- `core/crates/node/runtime/src/SyncConsistency.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-discovery-join|局域网发现、配对与加入 Space]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-overview|同步总览：Space 持久化同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-transaction-model|事务模型与同步契约]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/sync-protocol-version.md",
       "label": "协议版本与构建指纹",
       "source_path": "wiki/topics/sync-protocol-version.md",
@@ -11133,7 +11133,7 @@
     },
     {
       "community": "chapter-07",
-      "content": "# 设备间路由与实时分发\n\n\u003e 状态：待评审｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Operit 的路由决策与承载层选路是什么关系\n- 选代价最小的活跃路由如何实现\n- 共享的实时状态源如何做到一条边只发一次、再分发\n- 本文档不定义哪些内容\n\n## 种子文件\n\n- `docs/device-net-routing-distribution.md`\n- `core/crates/node/runtime/src/PeerSync.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[arch-routing|路由与转发]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 设备间路由与实时分发\n\n\u003e 状态：已发布｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Operit 的路由决策与承载层选路是什么关系\n- 选代价最小的活跃路由如何实现\n- 共享的实时状态源如何做到一条边只发一次、再分发\n- 本文档不定义哪些内容\n\n## 种子文件\n\n- `docs/device-net-routing-distribution.md`\n- `core/crates/node/runtime/src/PeerSync.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[arch-routing|路由与转发]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/sync-routing.md",
       "label": "设备间路由与实时分发",
       "source_path": "wiki/topics/sync-routing.md",
@@ -11141,7 +11141,7 @@
     },
     {
       "community": "chapter-07",
-      "content": "# 事务模型与同步契约\n\n\u003e 状态：待评审｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 事务的记号体系各自指什么\n- 两端事务按什么顺序合并\n- preference / layout / SQL 三种迁移的区别是什么\n- 最终同步后两个文件一致是如何保证的\n\n## 种子文件\n\n- `docs/transaction-model.md`\n- `docs/transaction-sync-contract.md`\n- `core/crates/persistence/store/src/Transaction.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-overview|同步总览：Space 持久化同步]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 事务模型与同步契约\n\n\u003e 状态：已发布｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 事务的记号体系各自指什么\n- 两端事务按什么顺序合并\n- preference / layout / SQL 三种迁移的区别是什么\n- 最终同步后两个文件一致是如何保证的\n\n## 种子文件\n\n- `docs/transaction-model.md`\n- `docs/transaction-sync-contract.md`\n- `core/crates/persistence/store/src/Transaction.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-overview|同步总览：Space 持久化同步]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/sync-transaction-model.md",
       "label": "事务模型与同步契约",
       "source_path": "wiki/topics/sync-transaction-model.md",
@@ -11149,7 +11149,7 @@
     },
     {
       "community": "chapter-07",
-      "content": "# VFS 挂载与文件访问边界\n\n\u003e 状态：待评审｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- VFS 根入口各挂到哪里\n- 业务代码为什么不许直接拿调用方路径调 FileSystemHost\n- 原生访问边界由什么强制执行\n- Host 文件选择结果如何变成 VFS 路径\n\n## 种子文件\n\n- `docs/vfs-mounts.md`\n- `docs/filesystem-access-boundary.md`\n- `core/crates/tool/services/src/files/VisualFileSystem.rs`\n- `core/crates/tool/services/src/files/PathMapper.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-workspace-files|工作区文件同步与 .operit/sync.json]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# VFS 挂载与文件访问边界\n\n\u003e 状态：已发布｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- VFS 根入口各挂到哪里\n- 业务代码为什么不许直接拿调用方路径调 FileSystemHost\n- 原生访问边界由什么强制执行\n- Host 文件选择结果如何变成 VFS 路径\n\n## 种子文件\n\n- `docs/vfs-mounts.md`\n- `docs/filesystem-access-boundary.md`\n- `core/crates/tool/services/src/files/VisualFileSystem.rs`\n- `core/crates/tool/services/src/files/PathMapper.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-workspace-files|工作区文件同步与 .operit/sync.json]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/sync-vfs.md",
       "label": "VFS 挂载与文件访问边界",
       "source_path": "wiki/topics/sync-vfs.md",
@@ -11157,7 +11157,7 @@
     },
     {
       "community": "chapter-07",
-      "content": "# 工作区文件同步与 .operit/sync.json\n\n\u003e 状态：待评审｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 哪些目录参与双向复制\n- .operit/sync.json 的默认策略是什么\n- 外部挂载目录、软链接、失效链接、Windows junction 为什么跳过\n- 产出目录绑定如何继承\n\n## 种子文件\n\n- `docs/workspace-file-sync.md`\n- `docs/vfs-mounts.md`\n- `core/crates/persistence/store/src/WorkspaceFileSyncStore.rs`\n- `core/crates/persistence/store/src/FileSyncPolicy.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-vfs|VFS 挂载与文件访问边界]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 工作区文件同步与 .operit/sync.json\n\n\u003e 状态：已发布｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 哪些目录参与双向复制\n- .operit/sync.json 的默认策略是什么\n- 外部挂载目录、软链接、失效链接、Windows junction 为什么跳过\n- 产出目录绑定如何继承\n\n## 种子文件\n\n- `docs/workspace-file-sync.md`\n- `docs/vfs-mounts.md`\n- `core/crates/persistence/store/src/WorkspaceFileSyncStore.rs`\n- `core/crates/persistence/store/src/FileSyncPolicy.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-vfs|VFS 挂载与文件访问边界]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/sync-workspace-files.md",
       "label": "工作区文件同步与 .operit/sync.json",
       "source_path": "wiki/topics/sync-workspace-files.md",
@@ -11173,7 +11173,7 @@
     },
     {
       "community": "chapter-08",
-      "content": "# Theme Studio 预览协议 v1\n\n\u003e 状态：待评审｜章节：UI 与主题｜模块：theme｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 信任边界：主题作者能提供什么、不能提供什么\n- 固定握手流程是怎样的\n- 预览核的校验在什么位置执行\n- themeSha256 / 素材 SHA-256 的作用是什么\n\n## 种子文件\n\n- `docs/theme-studio-protocol-v1.md`\n- `tools/theme/studio_message_port.ts`\n- `core/crates/plugin/theme/src/preview.rs`\n- `core/crates/plugin/theme/src/wasm.rs`\n\n## 关联条目\n\n- [[chapter-08|UI 与主题]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-theme|模块 theme]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-theme|主题即插件（theme-as-ToolPkg）]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[theme-render|主题渲染与媒体校验]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Theme Studio 预览协议 v1\n\n\u003e 状态：已发布｜章节：UI 与主题｜模块：theme｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 信任边界：主题作者能提供什么、不能提供什么\n- 固定握手流程是怎样的\n- 预览核的校验在什么位置执行\n- themeSha256 / 素材 SHA-256 的作用是什么\n\n## 种子文件\n\n- `docs/theme-studio-protocol-v1.md`\n- `tools/theme/studio_message_port.ts`\n- `core/crates/plugin/theme/src/preview.rs`\n- `core/crates/plugin/theme/src/wasm.rs`\n\n## 关联条目\n\n- [[chapter-08|UI 与主题]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-theme|模块 theme]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[plugin-theme|主题即插件（theme-as-ToolPkg）]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[theme-render|主题渲染与媒体校验]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/theme-studio.md",
       "label": "Theme Studio 预览协议 v1",
       "source_path": "wiki/topics/theme-studio.md",
@@ -11205,7 +11205,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# Figma 界面桥接工具\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 当前工具只能做到什么，明确做不到什么\n- 两个入口各生成什么，共用什么文件格式\n- 交互应用的验收标准与待解架构问题见哪份文档\n\n## 种子文件\n\n- `tools/figma/README.md`\n- `tools/figma/INTERACTIVE_APP.md`\n- `tools/figma/LIVE.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-theme-studio|主题工具与 Web Studio]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# Figma 界面桥接工具\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 当前工具只能做到什么，明确做不到什么\n- 两个入口各生成什么，共用什么文件格式\n- 交互应用的验收标准与待解架构问题见哪份文档\n\n## 种子文件\n\n- `tools/figma/README.md`\n- `tools/figma/INTERACTIVE_APP.md`\n- `tools/figma/LIVE.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-theme-studio|主题工具与 Web Studio]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/tools-figma.md",
       "label": "Figma 界面桥接工具",
       "source_path": "wiki/topics/tools-figma.md",
@@ -11213,7 +11213,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# tools 总览\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- tools/ 收纳哪几类工具，哪类不随产品发行\n- 本地构建与 GitHub Actions 为什么共用同一批入口\n- 构建产物与私密凭据各放在哪个被忽略的目录\n\n## 种子文件\n\n- `tools/build_scripts/README.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-build-scripts|构建脚本入口]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-release|发布流程]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-windows-installer|Windows MSI 安装器与卸载数据清理]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# tools 总览\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- tools/ 收纳哪几类工具，哪类不随产品发行\n- 本地构建与 GitHub Actions 为什么共用同一批入口\n- 构建产物与私密凭据各放在哪个被忽略的目录\n\n## 种子文件\n\n- `tools/build_scripts/README.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-build-scripts|构建脚本入口]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-release|发布流程]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-windows-installer|Windows MSI 安装器与卸载数据清理]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/tools-overview.md",
       "label": "tools 总览",
       "source_path": "wiki/topics/tools-overview.md",
@@ -11229,7 +11229,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# 性能场景与基准\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Link 性能场景为什么必须针对 CoreNodeRouter → PeerLink → CoreNode 写\n- 性能报告必须记录哪四项\n- benchmarks/ 下 macOS/iOS 的 traces 各测什么\n\n## 种子文件\n\n- `tools/link-perf/README.md`\n- `tools/link-perf/run_link_perf.ps1`\n- `tools/benchmarks/macos_idle.py`\n- `tools/benchmarks/markdown_pipeline.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-overview|tools 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 性能场景与基准\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Link 性能场景为什么必须针对 CoreNodeRouter → PeerLink → CoreNode 写\n- 性能报告必须记录哪四项\n- benchmarks/ 下 macOS/iOS 的 traces 各测什么\n\n## 种子文件\n\n- `tools/link-perf/README.md`\n- `tools/link-perf/run_link_perf.ps1`\n- `tools/benchmarks/macos_idle.py`\n- `tools/benchmarks/markdown_pipeline.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[tools-overview|tools 总览]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/tools-perf-benchmarks.md",
       "label": "性能场景与基准",
       "source_path": "wiki/topics/tools-perf-benchmarks.md",
@@ -11237,7 +11237,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# 发布流程\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 版本、GitHub tag、更新通道与包资产规则由哪份文档定义\n- build_release.py 必须遵循什么\n- download_action_artifacts.py 与 release_interactive.py 各在流程的哪一步\n\n## 种子文件\n\n- `tools/release/RELEASE_SPEC.md`\n- `tools/release/build_release.py`\n- `tools/release/publish_dist.py`\n- `tools/release/release_interactive.py`\n- `docs/release-versioning.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 发布流程\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 版本、GitHub tag、更新通道与包资产规则由哪份文档定义\n- build_release.py 必须遵循什么\n- download_action_artifacts.py 与 release_interactive.py 各在流程的哪一步\n\n## 种子文件\n\n- `tools/release/RELEASE_SPEC.md`\n- `tools/release/build_release.py`\n- `tools/release/publish_dist.py`\n- `tools/release/release_interactive.py`\n- `docs/release-versioning.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/tools-release.md",
       "label": "发布流程",
       "source_path": "wiki/topics/tools-release.md",
@@ -11245,7 +11245,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# 各平台运行时工具包\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 四个运行时工具包各准备什么\n- iOS 终端后端为什么是独立的 AArch64 Linux runtime，而不是 V86\n- 各运行时工具包的构建说明在哪个 BUILDING.md\n\n## 种子文件\n\n- `tools/android-runtime/README.md`\n- `tools/ios-runtime/README.md`\n- `tools/ohos-runtime/README.md`\n- `tools/web-runtime/README.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios-linux-runtime|iOS 内嵌 ARM64 Linux 运行时（vendored）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 各平台运行时工具包\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 四个运行时工具包各准备什么\n- iOS 终端后端为什么是独立的 AArch64 Linux runtime，而不是 V86\n- 各运行时工具包的构建说明在哪个 BUILDING.md\n\n## 种子文件\n\n- `tools/android-runtime/README.md`\n- `tools/ios-runtime/README.md`\n- `tools/ohos-runtime/README.md`\n- `tools/web-runtime/README.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios-linux-runtime|iOS 内嵌 ARM64 Linux 运行时（vendored）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/tools-runtime-kits.md",
       "label": "各平台运行时工具包",
       "source_path": "wiki/topics/tools-runtime-kits.md",
@@ -11261,7 +11261,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# 主题工具与 Web Studio\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 主题包格式为什么是 ToolPkg\n- 预览内核如何构建为不可变的 rendererReleaseId 目录\n- Studio 与 Rust/WASM 校验器之间走什么协议\n- 内置字体子集化配方由哪个脚本维护\n\n## 种子文件\n\n- `tools/theme/README.md`\n- `tools/theme/studio/README.md`\n- `tools/theme/build_preview.py`\n- `tools/theme/studio_message_port.ts`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[theme-studio|Theme Studio 预览协议 v1]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 主题工具与 Web Studio\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：tools｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 主题包格式为什么是 ToolPkg\n- 预览内核如何构建为不可变的 rendererReleaseId 目录\n- Studio 与 Rust/WASM 校验器之间走什么协议\n- 内置字体子集化配方由哪个脚本维护\n\n## 种子文件\n\n- `tools/theme/README.md`\n- `tools/theme/studio/README.md`\n- `tools/theme/build_preview.py`\n- `tools/theme/studio_message_port.ts`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-tools|模块 tools]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[theme-studio|Theme Studio 预览协议 v1]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/tools-theme-studio.md",
       "label": "主题工具与 Web Studio",
       "source_path": "wiki/topics/tools-theme-studio.md",
@@ -11277,7 +11277,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# 排障·桌面端（Windows / macOS / Linux）\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：dev｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Flutter Impeller 渲染目标失败如何处理\n- WebView 渲染在桌面端有什么已知问题\n- Windows GNU 工具链问题见哪一页\n\n## 种子文件\n\n- `docs/flutter-impeller-render-target-failure.md`\n- `docs/webview-rendering.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-dev|模块 dev]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[dev-building|构建指南]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 排障·桌面端（Windows / macOS / Linux）\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：dev｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Flutter Impeller 渲染目标失败如何处理\n- WebView 渲染在桌面端有什么已知问题\n- Windows GNU 工具链问题见哪一页\n\n## 种子文件\n\n- `docs/flutter-impeller-render-target-failure.md`\n- `docs/webview-rendering.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-dev|模块 dev]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[dev-building|构建指南]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/troubleshoot-desktop.md",
       "label": "排障·桌面端（Windows / macOS / Linux）",
       "source_path": "wiki/topics/troubleshoot-desktop.md",
@@ -11285,7 +11285,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# 排障·移动端（Android / iOS）\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：dev｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Android root shell 的能力边界与风险是什么\n- iOS 性能问题如何定位\n- TestFlight 反馈的典型问题有哪些\n- 移动端 Host 能力与桌面端有何不同\n\n## 种子文件\n\n- `docs/android-root-shell.md`\n- `docs/performance-ios-2026-10-27.md`\n- `docs/testflight-feedback-investigation-2026-11-09.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-dev|模块 dev]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[app-host-capability-matrix|能力 × 平台矩阵]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-android|Android Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios|iOS Host 与 ARM64 Linux 运行时]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[troubleshoot-desktop|排障·桌面端（Windows / macOS / Linux）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 排障·移动端（Android / iOS）\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：dev｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Android root shell 的能力边界与风险是什么\n- iOS 性能问题如何定位\n- TestFlight 反馈的典型问题有哪些\n- 移动端 Host 能力与桌面端有何不同\n\n## 种子文件\n\n- `docs/android-root-shell.md`\n- `docs/performance-ios-2026-10-27.md`\n- `docs/testflight-feedback-investigation-2026-11-09.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-dev|模块 dev]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[app-host-capability-matrix|能力 × 平台矩阵]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-android|Android Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-ios|iOS Host 与 ARM64 Linux 运行时]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[troubleshoot-desktop|排障·桌面端（Windows / macOS / Linux）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/troubleshoot-mobile.md",
       "label": "排障·移动端（Android / iOS）",
       "source_path": "wiki/topics/troubleshoot-mobile.md",
@@ -11293,7 +11293,7 @@
     },
     {
       "community": "chapter-11",
-      "content": "# 排障·Web 与 Web Access\n\n\u003e 状态：待评审｜章节：开发与工具｜模块：dev｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Web Access 如何部署与访问\n- 浏览器 Host 与 WebAssembly 运行时的能力边界是什么\n- Web 端与桌面端渲染差异如何排查\n\n## 种子文件\n\n- `apps/flutter/app/web/README.md`\n- `docs/webview-rendering.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-dev|模块 dev]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-web|Web/WASM Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[troubleshoot-desktop|排障·桌面端（Windows / macOS / Linux）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 排障·Web 与 Web Access\n\n\u003e 状态：已发布｜章节：开发与工具｜模块：dev｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- Web Access 如何部署与访问\n- 浏览器 Host 与 WebAssembly 运行时的能力边界是什么\n- Web 端与桌面端渲染差异如何排查\n\n## 种子文件\n\n- `apps/flutter/app/web/README.md`\n- `docs/webview-rendering.md`\n\n## 关联条目\n\n- [[chapter-11|开发与工具]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-dev|模块 dev]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[host-web|Web/WASM Host]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[troubleshoot-desktop|排障·桌面端（Windows / macOS / Linux）]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/troubleshoot-web.md",
       "label": "排障·Web 与 Web Access",
       "source_path": "wiki/topics/troubleshoot-web.md",
@@ -11301,7 +11301,7 @@
     },
     {
       "community": "chapter-08",
-      "content": "# 工具展示语义与 WebView 渲染\n\n\u003e 状态：待评审｜章节：UI 与主题｜模块：theme｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 工具的展示信息由谁声明\n- 内置工具的声明与 tool_display_labels.json 如何配合\n- WebView 应用缩放与页面缩放为何独立\n\n## 种子文件\n\n- `docs/tool-display-semantics.md`\n- `docs/webview-rendering.md`\n\n## 关联条目\n\n- [[chapter-08|UI 与主题]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-theme|模块 theme]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 工具展示语义与 WebView 渲染\n\n\u003e 状态：已发布｜章节：UI 与主题｜模块：theme｜大纲 v1（2026-11-13）\n\n## 计划覆盖的问题\n\n- 工具的展示信息由谁声明\n- 内置工具的声明与 tool_display_labels.json 如何配合\n- WebView 应用缩放与页面缩放为何独立\n\n## 种子文件\n\n- `docs/tool-display-semantics.md`\n- `docs/webview-rendering.md`\n\n## 关联条目\n\n- [[chapter-08|UI 与主题]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-theme|模块 theme]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/ui-display.md",
       "label": "工具展示语义与 WebView 渲染",
       "source_path": "wiki/topics/ui-display.md",
@@ -11311,7 +11311,7 @@
 }
   </script>
   <script id="graph-warning-data" type="application/json">
-{"bundle":{"build_id":"4acb1cdabcf428b7b731afe2c5a990ef6c3f6353f5888abc7848b09df06de51b","candidate_sets":[],"groups":[],"summary":{"build_id":"4acb1cdabcf428b7b731afe2c5a990ef6c3f6353f5888abc7848b09df06de51b","by_code":{},"details_ref":"wiki/graph-warnings.json","details_sha256":"b3a622bdb4c2af9272c9f68e96690fe119e83ee5b7560c6362e23e4cec2d142a","error_occurrences":0,"total_groups":0,"total_occurrences":0,"warning_occurrences":0},"version":1},"details_status":"available","details_unavailable_reason":null,"omitted_candidate_set_count":0,"omitted_group_count":0,"summary":{"build_id":"4acb1cdabcf428b7b731afe2c5a990ef6c3f6353f5888abc7848b09df06de51b","by_code":{},"details_ref":"wiki/graph-warnings.json","details_sha256":"b3a622bdb4c2af9272c9f68e96690fe119e83ee5b7560c6362e23e4cec2d142a","error_occurrences":0,"total_groups":0,"total_occurrences":0,"warning_occurrences":0},"warning_details_truncated":false}  </script>
+{"bundle":{"build_id":"a89cb8383cb0b213c21d7db4c1fabd8c02d8cee546c2114318d064159689a5ec","candidate_sets":[],"groups":[],"summary":{"build_id":"a89cb8383cb0b213c21d7db4c1fabd8c02d8cee546c2114318d064159689a5ec","by_code":{},"details_ref":"wiki/graph-warnings.json","details_sha256":"fed3cb6d90347f8213996835aea113d50899f7dad34398c9c5d6d39b53c3c08e","error_occurrences":0,"total_groups":0,"total_occurrences":0,"warning_occurrences":0},"version":1},"details_status":"available","details_unavailable_reason":null,"omitted_candidate_set_count":0,"omitted_group_count":0,"summary":{"build_id":"a89cb8383cb0b213c21d7db4c1fabd8c02d8cee546c2114318d064159689a5ec","by_code":{},"details_ref":"wiki/graph-warnings.json","details_sha256":"fed3cb6d90347f8213996835aea113d50899f7dad34398c9c5d6d39b53c3c08e","error_occurrences":0,"total_groups":0,"total_occurrences":0,"warning_occurrences":0},"warning_details_truncated":false}  </script>
   <script id="graph-layout" type="application/json">
 {"version":1,"pins":{"wiki/entities/chapter-01.md":{"x":18,"y":16},"wiki/entities/chapter-02.md":{"x":50,"y":13},"wiki/entities/chapter-03.md":{"x":82,"y":16},"wiki/entities/chapter-04.md":{"x":12,"y":42},"wiki/entities/chapter-05.md":{"x":36,"y":38},"wiki/entities/chapter-06.md":{"x":62,"y":38},"wiki/entities/chapter-07.md":{"x":88,"y":42},"wiki/entities/chapter-08.md":{"x":16,"y":68},"wiki/entities/chapter-09.md":{"x":38,"y":72},"wiki/entities/chapter-10.md":{"x":62,"y":70},"wiki/entities/chapter-11.md":{"x":84,"y":68}},"updatedAt":"2026-11-13"}
   </script>

@@ -2,8 +2,10 @@
   "issue": 44,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "命令行应用 operit2：进程内完整 CoreNode，31 个固有命令族加插件命令，link 配对/空间/网络控制、daemon owner 控制通道、离线 rescue 与终端 TUI。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6799475013
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854324978,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:33 UTC"
 }

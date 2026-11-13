@@ -2,8 +2,10 @@
   "issue": 52,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "Windows Host：PowerShell 默认、随包 Bash 双终端 PTY、命名管道 daemon 控制端点、MSI/ZIP 退出后静默更新、MCI 音频与 TTS、WinSock 经典蓝牙与 WinRT BLE、命名管道 Plugin SDK IPC",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6799480174
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854340462,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:33 UTC"
 }

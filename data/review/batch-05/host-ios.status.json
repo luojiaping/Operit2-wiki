@@ -2,8 +2,10 @@
   "issue": 49,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "iOS Host：ARM64 与系统 shell 双后端终端经 JSON 桥接调用原生运行时，Host 目录以原始绝对路径 bind mount，串口无原生 accessory provider，容器 UUID 变化时靠配置代次丢弃旧会话注册。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6799477892
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854334832,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:33 UTC"
 }
