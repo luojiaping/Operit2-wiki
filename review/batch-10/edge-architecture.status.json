@@ -2,8 +2,10 @@
   "issue": 91,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "Edge 在设备空间中的职责与边界：硬件 Edge 节点与完整 CoreNode 的区别、内置 edge 角色权限、五种成员操作的影响、ESP32 两条聊天路径的切换条件。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6808996527
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854411669,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:34 UTC"
 }

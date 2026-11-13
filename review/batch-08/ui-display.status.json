@@ -2,8 +2,10 @@
   "issue": 80,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "工具展示语义与 WebView 渲染：展示声明由工具所有者写、Core 传递、Flutter 按声明渲染；应用缩放与页面缩放相互独立，乘积送入原生页面 API。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6806557825
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854392450,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:34 UTC"
 }

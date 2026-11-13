@@ -2,8 +2,10 @@
   "issue": 70,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "事务模型与同步契约：记号体系、统一顺序合并、三类迁移与强制校正，文档定义与 Transaction.rs 实现逐条对照",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6806238184
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854370824,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:34 UTC"
 }

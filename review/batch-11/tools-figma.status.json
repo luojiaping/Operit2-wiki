@@ -2,8 +2,10 @@
   "issue": 107,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "Figma 界面桥接工具：当前为静态图层，两个入口共用 .operit-design.json，完整可交互应用与实时客户端均未完成验收",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6810820851
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854433304,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:34 UTC"
 }

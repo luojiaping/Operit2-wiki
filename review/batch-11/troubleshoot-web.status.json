@@ -2,8 +2,10 @@
   "issue": 116,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "Web Access 部署与跨域隔离头、浏览器会话生命周期、七后端 WebView 渲染缩放差异排查",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6810823770
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854446184,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:35 UTC"
 }

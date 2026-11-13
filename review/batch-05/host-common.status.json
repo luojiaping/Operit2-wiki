@@ -2,8 +2,10 @@
   "issue": 55,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "Host 共享实现：8 个共享 crate、顶层源文件、Unix daemon 与数据救援的共享机制",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6799481755
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854346221,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:33 UTC"
 }

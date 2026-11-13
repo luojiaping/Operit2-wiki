@@ -2,8 +2,10 @@
   "issue": 100,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "tools 总览：本地构建与 GitHub Actions 共用同一批 Python 构建入口，产物进 tools/release/work 与 dist，凭据进 tools/release/secrets。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6810818581
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854424189,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:34 UTC"
 }

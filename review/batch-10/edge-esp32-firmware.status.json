@@ -2,8 +2,10 @@
   "issue": 93,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "ESP32-2432S028 固件：六位码配对、Station/设置 AP 双模 Wi-Fi、独立聊天与远端 Core 聊天的上下文规则、设备 preference 上限与合并规则及原生 HTTP/语音传输。",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6808997201
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854415010,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:34 UTC"
 }

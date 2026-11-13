@@ -2,8 +2,10 @@
   "issue": 83,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "TTS 供应商目录：Rust TtsCatalog 内 22 行供应商定义，文档七家供应商的默认模型、音频格式、鉴权头、响应管道、预置音色与在线查询页数均经代码逐行核验",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6807303879
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6854400647,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 13:34 UTC"
 }
