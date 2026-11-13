@@ -2,8 +2,10 @@
   "issue": 78,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "主题渲染与媒体校验：Rust 侧 L4 图片/SVG/字体/九宫格像素检查与确定性 Stored ZIP 导出",
   "updated": "2026-11-13",
-  "approved_by_comment_id": 6806556895
+  "approved_by_comment_id": 6867250690,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 23:18 UTC"
 }

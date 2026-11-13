@@ -2,8 +2,10 @@
   "issue": 51,
   "source_commit": "364d1d594",
   "source_repo": "operit2",
-  "status": "review-pending",
+  "status": "approved",
   "summary": "Linux Host：bash PTY 终端、桌面包管理、D-Bus 蓝牙与插件 IPC，HTTP 与存储委托共享实现，daemon 为共享实现",
-  "updated": "2026-11-11",
-  "approved_by_comment_id": 6799479613
+  "updated": "2026-11-13",
+  "approved_by_comment_id": 6867238547,
+  "approved_by": "luojiaping",
+  "approved_at": "2026-11-13 23:18 UTC"
 }
