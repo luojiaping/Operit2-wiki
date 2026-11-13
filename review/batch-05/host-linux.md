@@ -160,10 +160,10 @@ tesseract 语言映射为 Latin 对 eng、Chinese 对 chi_sim、Japanese 对 jpn
 ### 包管理：desktop 文件即应用
 
 应用扫描根目录包含用户 applications 目录、XDG_DATA_DIRS、flatpak 与 snapd 的 desktop 目录（`hosts/linux/src/tools/system/packages.rs:48`）。
-`list` 只收录 Type 为 Application 的条目，排除 Hidden 与 NoDisplay 条目（`hosts/linux/src/tools/system/packages.rs:130`）。
+`list` 只收录 Type 为 Application 的条目，排除 Hidden 条目，NoDisplay 条目仅在 `include` 为 false 时排除（`hosts/linux/src/tools/system/packages.rs:130`）。
 `start` 用 gio launch 启动桌面应用（`hosts/linux/src/tools/system/packages.rs:143`）。
 `stop` 对 Flatpak 应用调用 flatpak kill（`hosts/linux/src/tools/system/packages.rs:178`）。
-启动可执行文件不可为 env、sh、bash、flatpak、snap（`hosts/linux/src/tools/system/packages.rs:162`）。
+停止非 X-Flatpak 应用时，可执行文件不可为 env、sh、bash、flatpak、snap（`hosts/linux/src/tools/system/packages.rs:162`）。
 向可执行文件匹配的进程发送 kill -TERM（`hosts/linux/src/tools/system/packages.rs:202`）。
 `install` 先尝试 `AppInstaller::installPortableApp` 安装便携包（`hosts/linux/src/tools/system/packages.rs:219`）。
 install 接受 .deb、.rpm、.flatpakref、.flatpak、.snap，用 xdg-open 打开系统安装器（`hosts/linux/src/tools/system/packages.rs:237`）。

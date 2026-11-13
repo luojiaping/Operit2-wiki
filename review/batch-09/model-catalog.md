@@ -2,7 +2,7 @@
 title: 模型目录与模型识别
 module: model
 platforms: [all]
-sources: 3
+sources: 5
 date: 2026-11-11
 ---
 
@@ -11,7 +11,9 @@ date: 2026-11-11
 - 模型目录是运行时从 models.dev 下载的数据：拉取模型、添加模型和对话时用到的价格、上下文长度、能力与思考档位来自该目录，程序里不再编译模型数据快照（文档说法，未在代码验证）。`docs/model-catalog.md:4`
 - 对话时用到的价格、上下文长度、能力与思考档位来自该目录，调用侧见 [[model-chat-send|模型调用与聊天发送契约]]。`docs/model-catalog.md:4`
 - 目录分两个文件下载，存到本机节点本地运行时存储，首次使用时从本地读取。`core/crates/runtime/application/src/services/ModelCatalogService.rs:204`
-- 没有模型列表接口的服务商不走下载路径，使用 `ModelCatalog.rs` 里手工维护的固定列表（文档说法；固定列表面向无模型列表接口的服务商已由代码注释验证）。`docs/model-catalog.md:20`
+- 没有模型列表接口的服务商（`OPENAI_CODEX`）不请求服务商模型列表接口，模型行来自 `ModelCatalog.rs` 里手工维护的固定列表。`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:410`
+- 固定列表不等于绕过目录初始化与下载：`requireCatalog` 与 `refreshCatalogIfStale` 在服务商列表抓取之前执行，能力解析仍要求 models.dev 目录就绪。`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:394`
+- `ModelSpecResolver::new` 对非 `LOCAL_MODEL` 服务商先要求完整目录。`core/crates/runtime/application/src/data/preferences/ModelSpecResolver.rs:99`
 - 本地运行的模型不依赖此目录（文档说法，本页 seed 代码未验证）。`docs/model-catalog.md:19`
 
 ## AI 速览
@@ -154,7 +156,7 @@ date: 2026-11-11
 10. 下载成功后在用目录被替换，`updatedAt` 更新。`core/crates/runtime/application/src/services/ModelCatalogService.rs:186`
 11. 下载失败时记录 `lastError` 与 `lastFailureAt`，在用目录保持不变。`core/crates/runtime/application/src/services/ModelCatalogService.rs:194`
 12. `catalogStatus` 返回 `updatedAt` 与 `lastError`。`core/crates/runtime/application/src/services/ModelCatalogService.rs:103`
-13. 没有模型列表接口的服务商不走上述下载路径，使用 `MODEL_CATALOG_MODEL_ROWS` 固定列表提供价格、上下文与能力。`core/crates/foundation/model/collects/ModelCatalog.rs:3`
+13. 没有模型列表接口的服务商（`OPENAI_CODEX`）跳过服务商列表抓取，模型行来自固定列表；但该路径仍先执行 `requireCatalog` 与过期刷新，能力解析要求 models.dev 目录就绪。`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:394`
 
 ## 来源
 
@@ -162,6 +164,7 @@ date: 2026-11-11
 - `core/crates/runtime/application/src/services/ModelCatalogService.rs`
 - `core/crates/foundation/model/collects/ModelCatalog.rs`
 - 三份 seed 文件合计 428 行（文档 106 行、服务 298 行、固定列表 24 行），与大纲 `est_lines: 428` 一致；源码基线为 `AAswordman/Operit2 @ 364d1d594`（2026-11-11，本地 checkout 已核验 `git rev-parse HEAD`）。
+- 为核实固定列表与目录初始化的关系，另读 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs` 与 `ModelSpecResolver.rs`（基线 364d1d594；非本页 seed）。`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:389`
 - 价格、上下文长度、能力、思考档位的来源，识别规则，用户设置与目录的关系，思考档位，命令行均为文档说法，本页两份代码 seed 未验证对应实现。`docs/model-catalog.md:4`
 - 否定性结论核验方法（2026-11-12，基线 364d1d594）：对三份 seed 文件执行 `grep -rn "getModelCatalogStatus|refreshModelCatalog|ModelProfile|ThinkingDialect"`，仅 `docs/model-catalog.md` 命中，两份代码文件零命中；`grep -rn "thinking|reasoning"` 同样仅文档命中；固定列表列定义逐字读 `ModelCatalog.rs` 第 2 行表头注释，无思考档位相关列；`grep -c "^OPENAI_CODEX"` 得 20 行且无其他服务商行；代码中 `local` 仅出现在 `node-local runtime storage`（`ModelCatalogService.rs` 第 4 行与第 295 行），无本地模型路径的表述，本地模型不依赖目录的说法只来自文档。`core/crates/foundation/model/collects/ModelCatalog.rs:2`
 - 未读文件：文档提到的 `core/crates/foundation/model/src/ModelsDevCatalog.rs` 不在本页 seed 清单中，未读未引。`docs/model-catalog.md:25`

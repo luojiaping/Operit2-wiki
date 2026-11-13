@@ -266,5 +266,13 @@
   {
     "fact": "文档称 provider-model-available-list 的输出列出每个模型识别成的目录模型（文档说法，未在代码验证）",
     "ref": "docs/model-catalog.md:106"
+  },
+  {
+    "fact": "requireCatalog 与 refreshCatalogIfStale 在服务商列表抓取之前执行，OPENAI_CODEX 跳过服务商列表抓取",
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:394"
+  },
+  {
+    "fact": "ModelSpecResolver::new 对非 LOCAL_MODEL 服务商先要求完整目录",
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelSpecResolver.rs:99"
   }
 ]

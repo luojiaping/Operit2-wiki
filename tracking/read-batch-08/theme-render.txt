@@ -1,12 +1,13 @@
 # theme-render — seed 阅读记录（batch-08）
 
 基线：AAswordman/Operit2 @ 364d1d594（本地 checkout 已核实为该 commit）。
-阅读日期：2026-11-12。以下 5 个 seed 文件已 100% 逐行读完，共 1969 行。
+阅读日期：2026-11-12，2026-11-13 按评审意见补读 1 个文件。以下 6 个 seed 文件已 100% 逐行读完，共 2102 行。
 
 - docs/theme-studio-protocol-v1.md — 93 行，全部读完
 - core/crates/plugin/theme/src/media.rs — 950 行，全部读完
 - core/crates/plugin/theme/src/lib.rs — 564 行，全部读完
 - core/crates/plugin/theme/src/export.rs — 288 行，全部读完
 - core/crates/plugin/theme/src/json.rs — 74 行，全部读完
+- tools/theme/preview/web/theme_contract_client.js — 133 行，全部读完（2026-11-13 补读）
 
 未读文件：core/crates/plugin/theme/src/preview.rs 与 src/wasm.rs 不在本页 seed 清单内，未读未引；协议文档中提到的这两个文件名仅作为文档提及出现，正文不引用其实现。

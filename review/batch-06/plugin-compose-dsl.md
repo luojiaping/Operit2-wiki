@@ -100,7 +100,7 @@ Flutter 对每个布局程序只安装与校验一次（`core/crates/plugin/sdk/
 ## 关键符号
 
 - `compileComposeModule` — 在页面创建前提前编译可移植 JavaScript，不执行插件代码（`plugins/tools/compile_compose_module.mjs:10`）
-- `compileComposeModule` 的 `TypeError` — `source` 与 `identity` 均为非空字符串的要求，违反时抛出（`plugins/tools/compile_compose_module.mjs:12`）
+- `compileComposeModule` 的 `TypeError` — `source` 必须为字符串、`identity` 必须为非空字符串的要求，违反时抛出（`plugins/tools/compile_compose_module.mjs:12`）
 - `OperitComposeCompiler` — 首次使用时在 vm 上下文中装入解析器、制品与编译器源后缓存的编译器（`plugins/tools/compile_compose_module.mjs:22`）
 - `compiler.artifact(source, identity)` — `compileComposeModule` 返回的编译结果（`plugins/tools/compile_compose_module.mjs:11`）（`plugins/tools/compile_compose_module.mjs:24`）
 - `readComposeDslParserSource` — 返回与 facade 同一份构建清单中的受信任的仅源解析器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgComposeDslBridge.rs:3`）

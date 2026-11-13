@@ -31,12 +31,13 @@ date: 2026-11-11
 
 ### 快照检查与导入
 
-- operit2 cli backup inspect-operit1-snapshot <snapshot-zip-path> 调用 `inspectOperit1Snapshot` 做导入前预检。`apps/cli/src/cli/transfer.rs:153`
-- operit2 cli import operit1-snapshot <snapshot-zip-path> 由 `import_operit1_snapshot` 处理。`apps/cli/src/cli/transfer.rs:106`
+- `operit2 cli backup inspect-operit1-snapshot <snapshot-zip-path>` 调用 `inspectOperit1Snapshot` 做导入前预检。`apps/cli/src/cli/transfer.rs:153`
+- `operit2 cli import operit1-snapshot <snapshot-zip-path>` 由 `import_operit1_snapshot` 处理。`apps/cli/src/cli/transfer.rs:106`
 - 导入时先调 `inspectOperit1Snapshot` 预览，再调 `importOperit1Snapshot` 写入。`apps/cli/src/cli/transfer.rs:263`
 - CLI 的 import 子命令分发到 `run_import_command`，backup 子命令分发到 `run_backup_command`。`apps/cli/src/cli/mod.rs:173`
 - 预检输出打印 Package、Chats、Messages 三项计数。`apps/cli/src/cli/transfer.rs:160`
-- 预检输出打印 Detected domains，即源快照中实际检测到的域名。`apps/cli/src/cli/transfer.rs:168`
+- 预检输出打印 `Detected domains`，即源快照中检测到的数据域。`apps/cli/src/cli/transfer.rs:168`
+- Detected domains 收集 `model_configs`、`chat_history` 等数据域。`core/crates/runtime/application/src/data/backup/operit1/Operit1ModelMigration.rs:156`
 - 预检输出打印模型配置数，逐个列出模型配置名与 configId。`apps/cli/src/cli/transfer.rs:170`
 - 预检输出逐个打印 datastore 文件名与 key 数。`apps/cli/src/cli/transfer.rs:175`
 - 导入输出打印 Imported chats、Imported messages、Imported memories、Imported files、Imported external files、Imported workspaces 六项计数。`apps/cli/src/cli/transfer.rs:276`
@@ -86,8 +87,9 @@ date: 2026-11-11
 - CLI 数据救援用 operit2 rescue describe、export、inspect、import、resume。`docs/data-rescue.md:14`
 - rescue CLI 入口不启动 Core、不打开 SQLite。`apps/cli/src/rescue.rs:1`
 - rescue 帮助列出 describe、export、inspect、import、resume 五条命令，import 与 resume 带 --confirm。`apps/cli/src/rescue.rs:85`
-- rescue 的 export、inspect、import 接受 --runtime-root、--workspace-root、--confirm 三个选项。`apps/cli/src/rescue.rs:22`
-- 顶层帮助把 operit2 rescue <command> 列为导出、检查、导入或恢复数据救援的入口。`apps/cli/src/cli/mod.rs:1785`
+- rescue 的 export、inspect、import、resume 接受公共的 `--runtime-root` 与 `--workspace-root` 选项。`apps/cli/src/rescue.rs:22`
+- `--confirm` 仅对 import 与 resume 有效，export 或 inspect 传 `--confirm` 报错。`apps/cli/src/rescue.rs:35`
+- 顶层帮助把 `operit2 rescue <command>` 列为导出、检查、导入或恢复数据救援的入口。`apps/cli/src/cli/mod.rs:1785`
 - Flutter 维护界面是独立路由，不构造 `CoreApplicationService`、`RuntimeBootstrapManager`、常规日志路径与常规业务 UI。`docs/data-rescue.md:16`
 - 原生平台用 `operit.files.v1` 归档布局，浏览器用 `operit.browser.v1` 归档布局；归档是普通 ZIP 文件，不需要密码；每次恢复前按声明大小与 SHA-256 校验每个 payload。`docs/data-rescue.md:20`
 - 恢复先暂存校验再发布，原目录保留在生成的 `.operit-retained-*` 路径（原生平台）与 `data-rescue/retained-*`（浏览器）。`docs/data-rescue.md:24`
@@ -115,8 +117,8 @@ date: 2026-11-11
 ## 调用链
 
 1. 在 Operit1 设置页备份功能调用 `exportToBackupDir` 导出快照。（一代）app/src/main/java/com/ai/assistance/operit/ui/features/settings/screens/ChatBackupSettingsScreen.kt:989
-2. operit2 cli backup inspect-operit1-snapshot <snapshot-zip-path> 预检，`inspectOperit1Snapshot` 返回预览。`apps/cli/src/cli/transfer.rs:153`
-3. operit2 cli import operit1-snapshot <snapshot-zip-path> 先调 `inspectOperit1Snapshot` 预览，再调 `importOperit1Snapshot` 写入。`apps/cli/src/cli/transfer.rs:263`
+2. `operit2 cli backup inspect-operit1-snapshot <snapshot-zip-path>` 预检，`inspectOperit1Snapshot` 返回预览。`apps/cli/src/cli/transfer.rs:153`
+3. `operit2 cli import operit1-snapshot <snapshot-zip-path>` 先调 `inspectOperit1Snapshot` 预览，再调 `importOperit1Snapshot` 写入。`apps/cli/src/cli/transfer.rs:263`
 4. 导入按模型配置、语音偏好、DataStore 偏好、文件、聊天库、token 统计顺序执行。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:427`
 5. 导入完成后打印 Imported chats、Imported messages、Imported memories、Imported files、Imported external files、Imported workspaces 六项计数。`apps/cli/src/cli/transfer.rs:276`
 6. 数据救援走独立入口 operit2 rescue describe、export、inspect、import、resume，import 与 resume 带 --confirm。`apps/cli/src/rescue.rs:85`

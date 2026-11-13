@@ -22,7 +22,7 @@ Operit2 使用与 SemVer 兼容的版本。`docs/release-versioning.md:7`
 - `core/crates/foundation/util/src/GithubReleaseUtil.rs` — 更新器实现。`docs/release-versioning.md:397`
 - `cliVersion` — CLI 以其 Cargo 包版本作为该值。`docs/release-versioning.md:177`
 - `coreVersion` — App 从 `operit-runtime` 暴露该值。`docs/release-versioning.md:177`
-- 主入口：`build_release.py`，`--scope` 接受 `cli`、`app`、`full`。`docs/release-versioning.md:233`
+- 主入口：`build_release.py`，`--scope` 接受 `cli`、`app`、`full`、`none`。`tools/release/build_release.py:113`
 - 数据流向：Cargo 与 pubspec 版本 → `build_release.py` 校验与构建 → `tools/release/dist` 暂存资产 → `publish_dist.py` 上传到 GitHub Release → 更新器按通道与精确文件名发现更新。`docs/release-versioning.md:239`
 
 ## 核心机制
@@ -83,7 +83,8 @@ Android 的 `module.prop` 使用共享的完整发布版本，并以同一 Flutt
 构建发布脚本是 `tools/release/build_release.py`。`docs/release-versioning.md:209`
 GitHub 发布凭证存放在 `tools/release/secrets/github.env`，该目录被 git 忽略。`docs/release-versioning.md:215`
 `build_release.py` 只构建发布资产，`publish_dist.py` 上传已暂存于 `tools/release/dist` 的文件。`docs/release-versioning.md:239`
-构建发布脚本的 `--scope` 接受 `cli`、`app`、`full` 三个取值。`docs/release-versioning.md:233`
+构建发布脚本的 `--scope` 接受 `cli`、`app`、`full`、`none` 四个取值。`tools/release/build_release.py:113`
+`--scope none` 对应 `ReleaseProduct.NONE`，不构建任何产品。`tools/release/build_release.py:1293`
 `download_action_artifacts.py` 在把发布资产复制进 `tools/release/dist` 之前，验证每个请求的 run 都以 `success` 结论完成。`docs/release-versioning.md:314`
 默认发布仓库是 `AAswordman/Operit2`。`docs/release-versioning.md:364`
 构建与发布脚本必须拒绝 CLI 与 runtime 发布版本不一致的情况。`docs/release-versioning.md:373`
@@ -144,7 +145,7 @@ macOS 原生桥接冒烟测试通过，覆盖 PTY、流式输出、命令取消�
 ## 调用链
 
 1. 构建与发布脚本读取 `apps/cli/Cargo.toml` 与 `core/crates/runtime/application/Cargo.toml` 的 `package.version`，要求两个值相同且不含构建元数据。`docs/release-versioning.md:173`
-2. `build_release.py` 的 `--scope` 接受 `cli`、`app`、`full` 三个取值。`docs/release-versioning.md:233`
+2. `build_release.py` 的 `--scope` 接受 `cli`、`app`、`full`、`none` 四个取值。`tools/release/build_release.py:113`
 3. `build_release.py` 只构建发布资产。`docs/release-versioning.md:239`
 4. 云端 run 的资产由 `download_action_artifacts.py` 在每个请求的 run 都以 `success` 结论完成后收集进 `tools/release/dist`。`docs/release-versioning.md:314`
 5. ESP32 本地构建把板级 ZIP 包写入 `tools/release/dist/operit2-firmware-esp32-2432s028-<release-version>.zip`，包内含完整 4 MiB 初始刷机镜像、拆分刷机镜像、`partitions.csv` 与带已验证偏移量和 SHA-256 摘要的 manifest。`docs/release-versioning.md:331`

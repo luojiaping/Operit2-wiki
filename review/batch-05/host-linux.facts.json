@@ -396,7 +396,7 @@
   "ref": "hosts/linux/src/tools/system/packages.rs:48"
  },
  {
-  "fact": "list 只收录 Type 为 Application 的条目，排除 Hidden 与 NoDisplay 条目",
+  "fact": "list 只收录 Type 为 Application 的条目，排除 Hidden 条目，NoDisplay 条目仅在 include 为 false 时排除",
   "ref": "hosts/linux/src/tools/system/packages.rs:130"
  },
  {
@@ -408,7 +408,7 @@
   "ref": "hosts/linux/src/tools/system/packages.rs:178"
  },
  {
-  "fact": "启动可执行文件不可为 env、sh、bash、flatpak、snap",
+  "fact": "停止非 X-Flatpak 应用时，可执行文件不可为 env、sh、bash、flatpak、snap",
   "ref": "hosts/linux/src/tools/system/packages.rs:162"
  },
  {
