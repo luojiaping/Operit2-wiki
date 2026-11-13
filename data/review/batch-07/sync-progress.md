@@ -37,7 +37,7 @@ date: 2026-11-11
 - 离线成员继续通过原有可达性检查跳过，失败遵循原有指数退避。`docs/device-space-large-sync-progress.md:14`
 - 一个 `CoreNode` 共享一个同步服务状态；后台同步、加入后的唤醒及路由切换前的同步使用相同 gate，同一对端串行执行。`docs/device-space-large-sync-progress.md:15`
 - 加入完成只唤醒原有后台调度，不等待业务数据全部同步后才向界面返回。`docs/device-space-large-sync-progress.md:16`
-- Full Core 的 `RuntimeRemoteLinkService::afterJoined` 直接等待 `synchronizeReachablePeer`，失败只写日志。`docs/device-space-large-sync-progress.md:6`
+- 修复前，Full Core 的 `RuntimeRemoteLinkService::afterJoined` 直接等待 `synchronizeReachablePeer`，失败只写日志。`docs/device-space-large-sync-progress.md:6`
 - 常驻同步服务由持久化变更、连接变化、每两秒的文件扫描唤醒。`docs/device-space-large-sync-progress.md:6`
 - 常驻服务 `synchronizeOnce` 先交换空间投影，再通过 change gate 对可达成员执行权限交换、设备偏好交换、版本检查和业务同步。`docs/device-space-large-sync-progress.md:7`
 - 业务同步要求两端都有存储权限。`docs/device-space-large-sync-progress.md:7`
@@ -45,7 +45,7 @@ date: 2026-11-11
 - 文件按 64 KiB 分块，关闭传输后再次检查文件是否落盘。`docs/device-space-large-sync-progress.md:8`
 - 每轮最多 64 页。`docs/device-space-large-sync-progress.md:9`
 - UI 的 `deviceSpaceSnapshotFlow` 只有成员和拓扑，没有同步执行信息。`docs/device-space-large-sync-progress.md:10`
-- 独立创建的 facade 会创建独立的同步状态，首次同步与常驻同步没有共用 gate。`docs/device-space-large-sync-progress.md:10`
+- 修复前，独立创建的 facade 会创建独立的同步状态，首次同步与常驻同步没有共用 gate。`docs/device-space-large-sync-progress.md:10`
 - 同步过程直接产生状态：检查差异、交换记录、传输文件、等待重试、完成。`docs/device-space-large-sync-progress.md:17`
 - 状态流独立于拓扑流，避免进度更新触发拓扑和权限重新加载。`docs/device-space-large-sync-progress.md:17`
 - 隐藏任务只保留本地计数；等待同步结果的同时竞争一个延时，快任务完成即取消延时，不为每次小同步留下独立定时任务。`docs/device-space-large-sync-progress.md:17`
@@ -236,7 +236,7 @@ date: 2026-11-11
 - SyncProgressTracker 的 `fileOffset` — 节流发布文件偏移并累加传输字节。`core/crates/node/runtime/src/SpaceSyncProgress.rs:291`
 - 结束时按 `pending`、`error`、`pendingRecords` 决定 `Waiting` 或 `Completed`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:314`
 - `space_join::refresh` — 校验审批结果并导入成员、身份和拓扑，发布 `Joined`。`docs/device-space-large-sync-progress.md:5`
-- `RuntimeRemoteLinkService::afterJoined` — 直接等待 `synchronizeReachablePeer`，失败只写日志。`docs/device-space-large-sync-progress.md:6`
+- RuntimeRemoteLinkService 的 `afterJoined` — 只调度后台同步（`scheduleSynchronization("space_joined")`），不等待业务同步。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1389`
 - `synchronizeOnce` — 先交换空间投影，再通过 change gate 做权限交换、设备偏好交换、版本检查和业务同步。`docs/device-space-large-sync-progress.md:7`
 - `synchronizeDomains` — 比较 `receipt`，合并双向差异，按操作数和传输字节分页。`docs/device-space-large-sync-progress.md:8`
 - `deviceSpaceSnapshotFlow` — 只有成员和拓扑，没有同步执行信息。`docs/device-space-large-sync-progress.md:10`
@@ -250,7 +250,7 @@ date: 2026-11-11
 ## 调用链
 
 1. 加入：`space_join::refresh` 校验审批结果并导入成员、身份和拓扑，发布 `Joined`。`docs/device-space-large-sync-progress.md:5`
-2. 加入后：Full Core 的 `RuntimeRemoteLinkService::afterJoined` 直接等待 `synchronizeReachablePeer`，失败只写日志。`docs/device-space-large-sync-progress.md:6`
+2. 加入后：RuntimeRemoteLinkService 的 `afterJoined` 只调度后台同步（`scheduleSynchronization("space_joined")`），不等待业务数据同步。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1389`
 3. 加入完成只唤醒原有后台调度，不等待业务数据全部同步后才向界面返回。`docs/device-space-large-sync-progress.md:16`
 4. 常驻同步由持久化变更、连接变化、每两秒的文件扫描唤醒。`docs/device-space-large-sync-progress.md:6`
 5. 常驻服务 `synchronizeOnce` 先交换空间投影，再通过 change gate 对可达成员执行权限交换、设备偏好交换、版本检查和业务同步；业务同步要求两端都有存储权限。`docs/device-space-large-sync-progress.md:7`

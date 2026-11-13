@@ -3,7 +3,7 @@
   "source_commit": "364d1d594",
   "source_repo": "operit2",
   "status": "review-pending",
-  "summary": "Web/WASM Host：浏览器原生引擎插件 JS 执行、结构化克隆加 MessagePack 64 KiB 共享缓冲区同步调用、全部 host trait 经 globalThis.__operitHost 桥接实现",
+  "summary": "Web/WASM Host：浏览器原生引擎插件 JS 执行、结构化克隆加 MessagePack 64 KiB 共享缓冲区同步调用、浏览器环境中已实现的一组 Host 适配器经 globalThis.__operitHost 桥接实现",
   "updated": "2026-11-11",
   "approved_by_comment_id": 6799480646
 }

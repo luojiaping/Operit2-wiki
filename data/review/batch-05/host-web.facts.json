@@ -1,7 +1,7 @@
 [
  {
-  "fact": "`operit-host-web` 为 `operit-host-api` 的每个 host trait 提供 Web/WASM 实现",
-  "ref": "hosts/web/README.md:3"
+  "fact": "`createRuntimeHostManager` 注册浏览器环境中已实现的一组 Host 适配器",
+  "ref": "hosts/web/src/lib.rs:36"
  },
  {
   "fact": "Web Host 的 crate 名为 `operit-host-web`",
@@ -146,6 +146,22 @@
  {
   "fact": "运行时事件 Host 通过 `withHostRuntimeEventHost` 注册 `WebHostRuntimeEventHost`",
   "ref": "hosts/web/src/lib.rs:69"
+ },
+ {
+  "fact": "`httpServerHost`、`tcpHost`、`serialPortHost`、`serviceDiscoveryHost` 在 Web Host 组装后保持为 `None`",
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:395"
+ },
+ {
+  "fact": "`browserAutomationHost`、`floatingWindowHost`、`composeDslWebViewHost` 在 Web Host 组装后同样保持为 `None`",
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:390"
+ },
+ {
+  "fact": "`deviceIoHost`、`robotFaceHost`、`ttsSynthesisHost` 在 Web Host 组装后同样保持为 `None`",
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:404"
+ },
+ {
+  "fact": "`pluginSdkIpcHost` 与 `coreCommandExecutor` 在 Web Host 组装后同样保持为 `None`",
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:419"
  },
  {
   "fact": "`src/tools/fs/mod.rs` 实现 `FileSystemHost`",

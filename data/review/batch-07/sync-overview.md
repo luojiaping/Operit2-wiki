@@ -20,7 +20,7 @@ date: 2026-11-11
 - `PreferencesDataStore` 管单数据集工作副本与原子提交。`docs/sync-architecture.md:20`
 - 各业务 owner 管历史编码转换、业务验证与提交后运行时更新。`docs/sync-architecture.md:21`
 - `SYNC_DOMAINS` 含 preferences、chat、binding、runtime_file、network_control、plugin_storage 六个域。`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:28`
-- 同步协议版本为 5，两端在交换前确认支持初始化事务。`docs/sync-architecture.md:131`
+- 同步收据的 `protocolVersion` 为 1，`consistencyVersion` 为 7。`core/crates/runtime/application/src/core/application/OperitApplication.rs:1003`
 - 所有同步设备需一起更新到 `consistencyVersion: 7`，旧协议不能完成同步。`docs/sync-architecture.md:86`
 
 ## AI 速览
@@ -117,11 +117,14 @@ date: 2026-11-11
 - 归档和待应用记录在同一查询规划器内去重、排序与分页，应用层不能在分页之后追加完整待应用队列。`docs/sync-architecture.md:72`
 - 全局注册表持有弱引用，最后一个 Store owner 释放后，共享索引、账本和 Host 可以释放。`docs/sync-architecture.md:72`
 - 锁顺序为接收账本在前、按设备顺序的日志锁在后。`docs/sync-architecture.md:72`
-- `receive_state.json` 的 `formatVersion: 2` 保存收据、指纹与轻量元数据，payload 位于 `pending/<sha256(opId)>.json`。`docs/sync-architecture.md:78`
+- 已退休布局的 `receive_state.json` 用 `formatVersion: 2` 保存收据、指纹与轻量元数据，payload 位于 `pending/<sha256(opId)>.json`。`docs/sync-architecture.md:78`
 - 加密偏好继续按其加密编码持久化。`docs/sync-architecture.md:78`
-- 接收时先原子发布记录文件，再提交引用与收据账本。`docs/sync-architecture.md:80`
-- 应用完成时先提交移除引用的账本，再删除记录文件，加载时清理私有目录中未被引用的文件。`docs/sync-architecture.md:80`
-- 旧内嵌格式逐条迁出并保留原始编码，所有记录文件落盘后才原子替换账本，升级中断时原账本和原始操作仍是重试依据。`docs/sync-architecture.md:82`
+- 已退休布局下接收时先原子发布记录文件，再提交引用与收据账本。`docs/sync-architecture.md:80`
+- 已退休布局下应用完成时先提交移除引用的账本，再删除记录文件，加载时清理私有目录中未被引用的文件。`docs/sync-architecture.md:80`
+- 已退休布局升级时，旧内嵌格式逐条迁出并保留原始编码，所有记录文件落盘后才原子替换账本，升级中断时原账本和原始操作仍是重试依据。`docs/sync-architecture.md:82`
+- `importLegacyJournal` 是已退休文件账本的唯一读取者，只在首次打开 SQL 事务账本时导入一次。`core/crates/persistence/store/src/SyncOperationStore.rs:1744`
+- 生产接收由 `receiveOperations` 经 `storeOriginals` 保存操作。`core/crates/persistence/store/src/SyncOperationStore.rs:1874`
+- `storeOriginals` 在 SQL 事务内调 `Journal::put` 写原始操作。`core/crates/persistence/store/src/SyncOperationStore.rs:1800`
 - SQL 完整快照仍携带所有表列和原始覆盖凭据，用于条件导出、修复与提交校验。`docs/sync-architecture.md:86`
 - 一致性清单只使用 `digest` 判断内容是否相同，由数据所属模块排除本地辅助信息后计算，不设置旧摘要回退或兼容字段。`docs/sync-architecture.md:86`
 - 聊天 owner 比较时排除 SQLite 本地分配的 `messages.messageId` 和 `message_variants.variantId`，按去掉本地列后的内容重新排序。`docs/sync-architecture.md:88`
@@ -334,3 +337,4 @@ date: 2026-11-11
 
 - `docs/sync-architecture.md`
 - `core/crates/node/runtime/src/SpacePersistenceSyncService.rs`
+- 退休账本与版本字段事实另据 `core/crates/persistence/store/src/SyncOperationStore.rs` 与 `core/crates/runtime/application/src/core/application/OperitApplication.rs`（基线 364d1d594）。

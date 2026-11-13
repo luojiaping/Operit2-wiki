@@ -2,7 +2,7 @@
 title: 主题渲染与媒体校验
 module: theme
 platforms: [all]
-sources: 5
+sources: 6
 date: 2026-11-11
 ---
 
@@ -78,7 +78,9 @@ date: 2026-11-11
 - 像素总计上限 `MAX_TOTAL_IMAGE_PIXELS` 为 64,000,000。`core/crates/plugin/theme/src/lib.rs:57`
 - 预览图尺寸 `PREVIEW_WIDTH` 为 1280，`PREVIEW_HEIGHT` 为 800。`core/crates/plugin/theme/src/lib.rs:58`
 - 字体表上限 `MAX_FONT_TABLES` 为 64，字形上限 `MAX_FONT_GLYPHS` 为 65,535。`core/crates/plugin/theme/src/lib.rs:60`
-- 校验器内存上限 `MAX_VALIDATOR_MEMORY_BYTES` 为 512 MiB，任务时长上限 `MAX_VALIDATOR_TASK_MILLIS` 为 15,000。`core/crates/plugin/theme/src/lib.rs:62`
+- `MAX_VALIDATOR_MEMORY_BYTES` 声明为 512 MiB，基线中无执行消费者，未接入校验器内存执行约束。`core/crates/plugin/theme/src/lib.rs:62`
+- `MAX_VALIDATOR_TASK_MILLIS` 声明为 15,000，Rust 侧无执行消费者。`core/crates/plugin/theme/src/lib.rs:63`
+- Worker 契约任务由 `MAX_TASK_MILLIS` 计时，超时关闭通道。`tools/theme/preview/web/theme_contract_client.js:72`
 
 ### 图片校验
 
@@ -188,7 +190,7 @@ date: 2026-11-11
 - `metadata_for_path` — 返回模板本地资源的渲染媒体类型与字节上限。`core/crates/plugin/theme/src/lib.rs:529`
 - `export_toolpkg_from_theme` — 导出主入口：校验草稿并生成确定性 Stored ZIP。`core/crates/plugin/theme/src/export.rs:48`
 - `export_toolpkg_from_theme_transfer` — 导出传输入口：元数据 JSON 与二进制媒体分开传输。`core/crates/plugin/theme/src/export.rs:227`
-- `MAX_VALIDATOR_TASK_MILLIS` — 单次校验任务时长上限为 15,000。`core/crates/plugin/theme/src/lib.rs:62`
+- `MAX_VALIDATOR_TASK_MILLIS` — 声明为 15,000，Rust 侧无执行消费者。`core/crates/plugin/theme/src/lib.rs:63`
 
 ## 调用链
 
@@ -217,7 +219,8 @@ date: 2026-11-11
 - core/crates/plugin/theme/src/lib.rs（564 行）
 - core/crates/plugin/theme/src/export.rs（288 行）
 - core/crates/plugin/theme/src/json.rs（74 行）
-- 以上 5 份 seed 共 1969 行，2026-11-12 对基线 AAswordman/Operit2 @ 364d1d594 全文读完；阅读记录见 tracking/read-batch-08/theme-render.txt。
+- tools/theme/preview/web/theme_contract_client.js（133 行）
+- 以上 6 份 seed 共 2102 行，2026-11-12 对基线 AAswordman/Operit2 @ 364d1d594 全文读完；tools/theme/preview/web/theme_contract_client.js 于 2026-11-13 按评审意见补读 133 行；阅读记录见 tracking/read-batch-08/theme-render.txt。
 - 协议文档中的主张（Rust/WASM 绑定名、握手与超时、帧捕获、导出前自动切换场景）在正文中表述为协议文档规定，未当作代码实现引用；对应代码文件 src/wasm.rs 与 src/preview.rs 不在本页 seed 清单内，未读未引。
 - frontmatter platforms [all] 的依据：2026-11-12 对基线 364d1d594 的 5 份 seed 执行 grep -rn "cfg(target_os|cfg(target_family|cfg(windows|cfg(unix"，零命中。
 - 主题快照字段数：本页不写具体数字；5 份 seed 全文读完未见以字段数为口径的快照定义，不沿用未经核实的数字。

@@ -164,8 +164,12 @@
     "ref": "docs/release-versioning.md:239"
   },
   {
-    "fact": "构建发布脚本的 `--scope` 接受 `cli`、`app`、`full` 三个取值。",
-    "ref": "docs/release-versioning.md:233"
+    "fact": "构建发布脚本的 `--scope` 接受 `cli`、`app`、`full`、`none` 四个取值。",
+    "ref": "tools/release/build_release.py:113"
+  },
+  {
+    "fact": "`--scope none` 对应 `ReleaseProduct.NONE`，不构建任何产品。",
+    "ref": "tools/release/build_release.py:1293"
   },
   {
     "fact": "`download_action_artifacts.py` 在把发布资产复制进 `tools/release/dist` 之前，验证每个请求的 run 都以 `success` 结论完成。",

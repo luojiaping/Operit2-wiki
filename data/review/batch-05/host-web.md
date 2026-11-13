@@ -2,13 +2,13 @@
 title: Web/WASM Host
 module: hosts
 platforms: [web]
-sources: [hosts/web/README.md, hosts/web/Cargo.toml, hosts/web/src/lib.rs, hosts/web/src/common.rs, hosts/web/src/javascript_runtime.rs, hosts/web/src/javascript_promises.js, hosts/web/src/tools/fs/mod.rs, hosts/web/src/tools/browser/mod.rs, hosts/web/src/tools/browser_session/mod.rs, hosts/web/src/tools/runtime/mod.rs, hosts/web/src/tools/storage/mod.rs, hosts/web/src/tools/system/mod.rs, hosts/web/src/tools/terminal/mod.rs, hosts/web/src/tools/archive/mod.rs, hosts/web/src/tools/websocket.rs]
+sources: [hosts/web/README.md, hosts/web/Cargo.toml, hosts/web/src/lib.rs, hosts/web/src/common.rs, hosts/web/src/javascript_runtime.rs, hosts/web/src/javascript_promises.js, hosts/web/src/tools/fs/mod.rs, hosts/web/src/tools/browser/mod.rs, hosts/web/src/tools/browser_session/mod.rs, hosts/web/src/tools/runtime/mod.rs, hosts/web/src/tools/storage/mod.rs, hosts/web/src/tools/system/mod.rs, hosts/web/src/tools/terminal/mod.rs, hosts/web/src/tools/archive/mod.rs, hosts/web/src/tools/websocket.rs, core/crates/foundation/host-api/src/HostManager.rs]
 date: 2026-11-11
 ---
 
 ## 概述
 
-`operit-host-web` 为 `operit-host-api` 的每个 host trait 提供 Web/WASM 实现（`hosts/web/README.md:3`）。
+`createRuntimeHostManager` 注册浏览器环境中已实现的一组 Host 适配器（`hosts/web/src/lib.rs:36`）。
 Web 平台的 Rust 代码调用与原生构建相同的 host trait（`hosts/web/README.md:4`）。
 浏览器侧在构造 Web host 结构体之前安装 `globalThis.__operitHost`（`hosts/web/README.md:4`）。
 Web Host 的 crate 名为 `operit-host-web`（`hosts/web/Cargo.toml:2`）。
@@ -54,7 +54,7 @@ SQLite 整数以字符串形式跨 JS 传递，以保留 64 位值（`hosts/web/
 `js_i64` 先尝试把字符串解析为 `i64`，再接受 JS 数字（`hosts/web/src/common.rs:838`）。
 `OperitWebHost` 桥接类型列出 `fileSystem`、`webVisit`、`managedRuntime`、`managedRuntimeProcess`、`runtimeStorage`、`sqlite`、`terminal`、`systemOperation`、`localInference`（`hosts/web/README.md:60`）。
 
-### Host 组装：`createRuntimeHostManager` 注册全部 host trait
+### Host 组装：`createRuntimeHostManager` 注册浏览器环境的一组 host trait
 
 `createRuntimeHostManager` 返回 `HostManager`（`hosts/web/src/lib.rs:36`）。
 `runtimeSqliteHost` 是 `runtimeStorageHost` 的克隆（`hosts/web/src/lib.rs:38`）。
@@ -74,6 +74,10 @@ TTS 播放 Host 通过 `withTtsPlaybackHost` 注册 `WebTtsPlaybackHost`（`host
 运行时任务调度 Host 通过 `withHostRuntimeTaskSchedulerHost` 注册（`hosts/web/src/lib.rs:67`）。
 JS 运行时 Host 通过 `withHostJavaScriptRuntimeHost` 注册 `WebHostJavaScriptRuntimeHost`（`hosts/web/src/lib.rs:68`）。
 运行时事件 Host 通过 `withHostRuntimeEventHost` 注册 `WebHostRuntimeEventHost`（`hosts/web/src/lib.rs:69`）。
+`httpServerHost`、`tcpHost`、`serialPortHost`、`serviceDiscoveryHost` 在 Web Host 组装后保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:395`）。
+`browserAutomationHost`、`floatingWindowHost`、`composeDslWebViewHost` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:390`）。
+`deviceIoHost`、`robotFaceHost`、`ttsSynthesisHost` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:404`）。
+`pluginSdkIpcHost` 与 `coreCommandExecutor` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:419`）。
 `call_data_rescue` 调用桥接 `dataRescue` 模块（`hosts/web/src/common.rs:46`）。
 
 ### 插件 JS 执行：浏览器原生引擎
@@ -265,3 +269,4 @@ WebSocket 关闭码 1000 或 1005 视为正常关闭，其余关闭码视为错�
 - hosts/web/src/tools/terminal/mod.rs
 - hosts/web/src/tools/archive/mod.rs
 - hosts/web/src/tools/websocket.rs
+- core/crates/foundation/host-api/src/HostManager.rs

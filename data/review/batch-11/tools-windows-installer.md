@@ -150,7 +150,7 @@ date: 2026-11-11
 
 - CreatePlan 先对启动配置文件调用 EnsureNoLinkedAncestor 检查链接祖先。`tools/windows-installer/shared/UserDataCleanup.cs:73`
 - 每个去重后的清理根目录调用 ValidateRoot。`tools/windows-installer/shared/UserDataCleanup.cs:92`
-- ValidateRoot 拒绝磁盘根目录、受保护路径包含的目录与 Windows 目录。`tools/windows-installer/shared/UserDataCleanup.cs:149`
+- ValidateRoot 拒绝磁盘根目录、等于或包含受保护路径的清理根，以及 Windows 目录及其子树。`tools/windows-installer/shared/UserDataCleanup.cs:149`
 - 清理根目录逐个调用 EnsureNoLinkedAncestor 检查。`tools/windows-installer/shared/UserDataCleanup.cs:152`
 - EnsureNoLinkedAncestor 沿路径的祖先目录逐级向上检查。`tools/windows-installer/shared/UserDataCleanup.cs:181`
 - 祖先目录带 ReparsePoint 属性时抛 IOException，提示数据路径经过链接。`tools/windows-installer/shared/UserDataCleanup.cs:190`

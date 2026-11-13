@@ -22,7 +22,7 @@ ToolPkg 支持将多个功能相关的子包（`subpackages`）组织在一起�
 - `version` — 插件自身的发布版本，与 `api_version`、`schema_version` 分别声明（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:175`）
 - `toolpkg_id` — 包的唯一标识符，建议使用反向域名格式（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:174`）
 - `main` — ToolPkg 主入口脚本路径，用于执行注册函数（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:177`）
-- `registerToolPkg` — 包注册函数，在独立的临时 JavaScript engine 中执行，60 秒内完成（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）
+- `registerToolPkg` — 包注册函数，在独立的临时 JavaScript engine 中执行，60 秒期限仅为格式指南要求，注册链路实际不执行该期限，详见“注册与执行上下文”一节（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）
 - `ToolPkg.ipc` — 跨上下文共享状态与调用能力的显式通道（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:574`）
 - `ToolPkg.wasm.call` — 调用 native WASM runtime 的导出函数，当前 ABI 支持 `i32`、`i64`、`f32`、`f64` 标量参数和返回值（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`）
 - `ToolPkg.getConfigDir` — 包配置目录，在模块顶层、`registerToolPkg()` 内和执行期间均可用（`docs/toolpkg-runtime.md:95`）
@@ -69,7 +69,8 @@ ToolPkg API `2.0.0` 基本所有公共接口都通过统一 host 能力提供跨
 子包脚本中定义的工具会被注册为 `<subpackage_id>:<tool_name>` 格式（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:243`）。
 子包的 `enabled_by_default` 表示是否默认启用，默认为 `false`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:236`）。
 每个 ToolPkg 的 `registerToolPkg()` 在独立的临时 JavaScript engine 中执行，注册状态不会跨包共享（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
-主脚本注册必须在 60 秒内完成，同步死循环和超过时限的异步注册都会被终止（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
+格式指南要求主脚本注册在 60 秒内完成，并要求终止同步死循环和超过时限的异步注册（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
+注册链路实际未执行该期限：注册执行传入的中断参数是 `HostJavaScriptExecutionInterrupt::unlimited()`，即无截止时间（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:582`）。
 注册期间禁止调用 `ToolPkg.readResource(...)` 和 `ToolPkg.wasm.call(...)`，调用会立即抛出异常（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
 `ToolPkg.registerToolboxUiModule` 注册 UI 模块，`runtime` 默认 `compose_dsl`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:473`）。
 `ToolPkg.registerUiRoute` 注册 UI 路由，不填 `route` 或 `routeId` 时宿主按 `toolpkg:<toolpkg_id>:ui:<id>` 自动生成稳定路由 ID（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:479`）。
@@ -147,7 +148,7 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 1. 具体 API 以 PackageBuilder 的当前版本 `types/` 为准，包名和目录树是格式示例（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:9`）。
 2. `Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 创建不含外层目录的 .toolpkg 归档，`manifest` 位于归档根目录（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:814`）。
 3. 用户在包管理中执行 package import 导入成品，再执行 package enable 启用包（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:86`）。
-4. `registerToolPkg()` 在独立的临时 JavaScript engine 中执行注册，60 秒内完成（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
+4. `registerToolPkg()` 在独立的临时 JavaScript engine 中执行注册，60 秒期限仅为格式指南要求，注册链路实际不执行该期限，详见“注册与执行上下文”一节（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
 5. 子包工具按 `<subpackage_id>:<tool_name>` 注册（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:243`）。
 6. `ToolPkg.registerToolboxUiModule` 与 `ToolPkg.registerUiRoute` 注册 UI 模块与路由（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:473`）。
 7. 运行时按 `main`、`ui`、`sandbox`、`provider` 分发执行上下文（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:536`）。

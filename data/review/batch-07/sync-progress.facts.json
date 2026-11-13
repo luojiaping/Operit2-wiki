@@ -188,7 +188,7 @@
     "ref": "docs/device-space-large-sync-progress.md:5"
   },
   {
-    "fact": "文档写明：Full Core 的 `RuntimeRemoteLinkService::afterJoined` 直接等待 `synchronizeReachablePeer`，失败只写日志。",
+    "fact": "文档写明：修复前，Full Core 的 `RuntimeRemoteLinkService::afterJoined` 直接等待 `synchronizeReachablePeer`，失败只写日志。",
     "ref": "docs/device-space-large-sync-progress.md:6"
   },
   {
@@ -224,7 +224,7 @@
     "ref": "docs/device-space-large-sync-progress.md:10"
   },
   {
-    "fact": "文档写明：独立创建的 facade 会创建独立的同步状态，首次同步与常驻同步没有共用 gate。",
+    "fact": "文档写明：修复前，独立创建的 facade 会创建独立的同步状态，首次同步与常驻同步没有共用 gate。",
     "ref": "docs/device-space-large-sync-progress.md:10"
   },
   {
@@ -634,5 +634,9 @@
   {
     "fact": "`SpaceSyncProgress` 记录的本地执行进度与成员关系和同步 receipt 独立。",
     "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:21"
+  },
+  {
+    "fact": "RuntimeRemoteLinkService 的 `afterJoined` 只调度后台同步（`scheduleSynchronization(\"space_joined\")`），不等待业务同步。",
+    "ref": "core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1389"
   }
 ]
