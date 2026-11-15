@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-15 09:01 UTC",
+  "updated": "2026-11-15 13:07 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -1494,7 +1494,7 @@
       "facts_count": 79,
       "refs_valid": "",
       "critic": "",
-      "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界；README 引用按上游 0f08fd43 核验（:53→:57），其余内容仍按基线 ff5373fb6。",
+      "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界；README 引用按上游 0f08fd43 核验（:53→:57），其余内容仍按基线 a119411ce。",
       "updated": "2026-11-15"
     },
     {
@@ -1959,7 +1959,7 @@
       "facts": "review/batch-11/tools-release.facts.json",
       "lint": "review/batch-11/tools-release.lint.md",
       "seed_files": [],
-      "facts_count": 189,
+      "facts_count": 192,
       "refs_valid": "",
       "critic": "",
       "summary": "发布流程：版本、tag、通道与包资产规则由 docs/release-versioning.md 定义，build_release.py 构建资产，download_action_artifacts.py 收集云端产物，publish_dist.py 发布，release_interactive.py 提供交互入口。",
