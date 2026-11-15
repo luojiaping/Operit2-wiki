@@ -156,7 +156,7 @@ a:hover { text-decoration: underline; }
 }
 
 /* ---- 三栏布局 ---- */
-.layout { max-width: 1280px; margin: 0 auto; padding: 20px; }
+.layout { max-width: min(1680px, calc(100% - 32px)); margin: 0 auto; padding: 20px; }
 @media (min-width: 1024px) {
   .layout.cols { display: grid; grid-template-columns: 264px minmax(0, 1fr) 300px; gap: 20px; align-items: start; }
   .rail-left { position: sticky; top: 76px; max-height: calc(100vh - 96px); overflow: auto; }
@@ -403,7 +403,7 @@ details.collapse .body { padding: 0 16px 16px; }
 .tut-card .d { font-size: 13px; color: var(--app-muted); }
 
 /* ---- Wiki 里程碑 ---- */
-.milestones { margin: 36px auto 0; max-width: 1240px; padding: 0 18px; }
+.milestones { margin: 36px auto 0; max-width: min(1680px, calc(100% - 32px)); padding: 0 18px; }
 .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .sec-head h2 { font-size: 22px; letter-spacing: .06em; margin: 0 0 6px; }
 .sec-head h2::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px;
@@ -480,7 +480,7 @@ body.home { background-color: var(--ink); }
 
 /* ---- 悬浮胶囊导航 ---- */
 .topbar { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 100;
-  width: min(1240px, calc(100% - 28px));
+  width: min(1680px, calc(100% - 28px));
   background: rgba(8, 11, 15, 0.66);
   -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.09);
@@ -505,7 +505,7 @@ body.home { background-color: var(--ink); }
 
 .kicker { position: relative; margin-bottom: 20px; font-size: 12px; letter-spacing: .32em; color: var(--app-accent-strong); }
 .mono { font-family: var(--font-mono); }
-#dotTitle { width: min(1400px, 96vw); height: min(38vh, 340px); min-height: 170px; display: block; position: relative; }
+#dotTitle { width: min(1600px, 96vw); height: min(38vh, 340px); min-height: 170px; display: block; position: relative; }
 .hero-sub { position: relative; margin: 28px 0 0; font-size: clamp(15px, 2vw, 19px); color: var(--app-muted); line-height: 1.9; }
 .hero-ctas { position: relative; display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; justify-content: center; }
 .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--app-accent); color: #2b1206;
@@ -525,7 +525,7 @@ body.home { background-color: var(--ink); }
 
 
 /* ---- 通用区块 ---- */
-.wrap { max-width: 1240px; margin: 0 auto; }
+.wrap { max-width: min(1680px, calc(100% - 32px)); margin: 0 auto; }
 .prompt-sec { position: relative; z-index: 1; padding: 110px 20px 20px; }
 .sec-label { font-size: 12px; letter-spacing: .32em; color: var(--app-accent-strong); margin-bottom: 16px; }
 .sec-giant { font-family: var(--font-display); font-weight: 900; font-size: clamp(42px, 7vw, 92px);
@@ -544,7 +544,7 @@ body.home { background-color: var(--ink); }
 .prompt-sec .prompt-hint { font-size: 12.5px; }
 
 /* ---- 里程碑 ---- */
-.milestones { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 110px 20px 30px; }
+.milestones { position: relative; z-index: 1; max-width: min(1680px, calc(100% - 32px)); margin: 0 auto; padding: 110px 20px 30px; }
 .ms-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
 .ms-top .sec-giant { margin-bottom: 10px; }
 .sec-sub { color: var(--app-muted); font-size: 14px; margin: 0; }
