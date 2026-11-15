@@ -32,7 +32,7 @@ date: 2026-11-11
 - `SendMessageLifecycleStage` — 发送全流程的 24 个阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:481）
 - `SendMessageRuntime` — 一次发送的运行时上下文。（core/crates/provider/services/src/chat/EnhancedAIService.rs:519）
 - `ProviderRuntimeSupport` — Provider 代码向运行时索取能力的 trait。（core/crates/provider/services/src/runtime_support.rs:281）
-- `ProviderRuntimeContext` — 持有 `ProviderRuntimeSupport` 实现的上下文。（core/crates/provider/services/src/runtime_support.rs:386）
+- `ProviderRuntimeContext` — 持有 `ProviderRuntimeSupport` 实现的上下文。（core/crates/provider/services/src/runtime_support.rs:399）
 - `ChatConfigurationResult` — 一次执行的参与者档案与执行快照。（core/crates/provider/services/src/runtime_support.rs:218）
 - `ChatConfigurationRequest` — 解析聊天配置的请求。（core/crates/provider/services/src/runtime_support.rs:59）
 - `ChatConfigurationPurpose` — Display 与 Execution 两种配置目的。（core/crates/provider/services/src/runtime_support.rs:48）
@@ -72,10 +72,10 @@ date: 2026-11-11
 
 ### ClaudeProvider：Anthropic 适配器
 
-- `ClaudeProvider` 的字段含 `api_endpoint`、`api_key`、`model_name`、`provider_type`、`enable_tool_call`、`custom_headers`，以及默认关闭的 `enable_claude_1h_prompt_cache`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:36）
+- `ClaudeProvider` 的字段含 `api_endpoint`、`key_getter`、`model_name`、`provider_type`、`enable_tool_call`、`custom_headers`，以及默认关闭的 `enable_claude_1h_prompt_cache`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:35）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:41）
 - ClaudeProvider 的 `new` 默认关闭 1 小时提示缓存。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:53）
 - `with_claude_1h_prompt_cache` 是 builder 方法，用于开启 1 小时提示缓存。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:75）
-- `create_request_body` 写入 `model`、`messages`、`stream`，`system` 非空时才写入，`max_tokens` 未指定时补默认值。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:171）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:180）
+- `create_request_body` 写入 `model`、`messages`、`stream`，`system` 非空时才写入，`max_tokens` 未指定时补默认值。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:175）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:184）
 - 只有 `enable_tool_call` 为真且 `available_tools` 非空时，请求体才带 `tools`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:189）
 - 请求体经 `ThinkingDialect::Anthropic` 应用思考方言，再加已启用的模型参数。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:196）
 - `fit_max_tokens_to_thinking_budget` 在思考预算不小于 `max_tokens` 时，若用户显式设置了 `max_tokens` 则返回错误，否则把 `max_tokens` 扩为 budget 加 `DEFAULT_MAX_TOKENS`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1276）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1296）
@@ -93,18 +93,18 @@ date: 2026-11-11
 - `apply_stable_cache_breakpoints` 给最后一条消息的最后一个内容块补 `cache_control`，已有的 `cache_control` 不被覆盖。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:322）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:344）
 - `build_tool_definitions_for_claude` 把每个 `ToolPrompt` 转为 `name`、`description`、`input_schema`，参数 JSON 解析失败时用空对象 schema 兜底。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:397）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:403）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:409）
 - `build_content_array` 把文本中的图片链接转为 base64 image 内容块。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:417）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:431）
-- 文本与图片均为空时，`build_content_array` 返回 `"[Empty]"` 文本块。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:444）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:460）
-- `add_parameters` 只写入 `isEnabled` 的模型参数。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:561）
+- 文本与图片均为空时，`build_content_array` 返回 `"[Empty]"` 文本块。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:451）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:464）
+- `add_parameters` 只写入 `isEnabled` 的模型参数。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:562）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:568）
 - 请求头固定为 `application/json` 与 `anthropic-version` 2023-06-01。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:578）
-- `api_key` 非空时才加 `x-api-key` 请求头，再叠加 `custom_headers`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:584）
-- OpenAI 兼容口径下，`prompt_tokens` 需减去缓存 token 才得到 `input_base`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:691）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:707）
+- `x-api-key` 请求头改由 `key_getter` 在 `sendHttpRequest` 里经 `KeyAuthentication::Header` 附加，`headers` 只拼固定头与 `custom_headers`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:128）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:584）
+- OpenAI 兼容口径下，`prompt_tokens` 需减去缓存 token 才得到 `input_base`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:684）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:715）
 - Anthropic 口径下 `input_tokens` 本身不含缓存读与缓存创建，缓存创建 token 另行加回 `input`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:697）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:720）
-- `cached_input` 取 `cache_read_input_tokens`，依次回退到 `prompt_tokens_details/cached_tokens`、`input_tokens_details/cached_tokens`、`cached_tokens`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:660）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:667）
+- `cached_input` 取 `cache_read_input_tokens`，依次回退到 `prompt_tokens_details/cached_tokens`、`input_tokens_details/cached_tokens`、`cached_tokens`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:652）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:655）
 - 无 `usage` 字段时，token 计数回退到 `TokenCacheManager` 的本地状态。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:49）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:628）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:635）
 - `ClaudeProvider` 的 `provider_model` 返回以冒号拼接的 `provider_type` 与 `model_name`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:752）
 - `reset_token_counts` 清零 `TokenCacheManager` 与三项 token 计数。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:49）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:758）
 - `cancel_streaming` 把 `cancelled` 置为真。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:765）
-- `send_message` 流式时经 Host 任务调度器以后台任务 `"claude-response-stream"` 发送，`RequestCancelled` 不视为终端失败，其他错误写入终端失败。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:770）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:789）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:800）
+- `send_message` 流式时经 Host 任务调度器以后台任务 `"claude-response-stream"` 发送，`RequestCancelled` 不视为终端失败，其他错误写入终端失败。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:767）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:782）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:797）
 - `send_message` 非流式时返回冷流，只在首次收集时执行一次请求。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:770）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:816）
 - `calculate_input_tokens` 用与发送时相同的序列化内容做预估，且不更新已存储的 token 计数。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:835）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:841）
 - `send_streaming_message` 在发送前发出 savepoint 修订。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:847）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:855）
@@ -120,8 +120,8 @@ date: 2026-11-11
 - `content_block_start` 的 `tool_use` 块仅在 `enable_tool_call` 为真时处理，转为随机标签名的 XML 工具调用标记。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1118）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1125）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1133）
 - `thinking` 内容块转为 `<think>` 标记包裹的思考文本。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1155）
 - `parse_anthropic_non_streaming` 把 `text` 与 `thinking` 块拼成文本，`thinking` 包在 `<think>` 标记内。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1216）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1232）
-- `parse_anthropic_non_streaming` 的 `tool_use` 块仅在 `enable_tool_call` 为真时转为随机标签名的 XML 标记。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1216）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1246）
-- 无 `content` 数组时，`parse_anthropic_non_streaming` 回退读取 `choices/0/message/content`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1220）
+- `parse_anthropic_non_streaming` 的 `tool_use` 块仅在 `enable_tool_call` 为真时转为随机标签名的 XML 标记。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1213）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1239）
+- 无 `content` 数组时，`parse_anthropic_non_streaming` 回退读取 `choices/0/message/content`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1213）
 
 ### EnhancedAIService：对话编排
 
@@ -229,15 +229,15 @@ date: 2026-11-11
 - `ProviderRuntimeSupport` 要求实现方提供 `disableUserPreferenceDescription` 与 `defaultTtsConfigId`。（core/crates/provider/services/src/runtime_support.rs:281）（core/crates/provider/services/src/runtime_support.rs:301）
 - `ProviderRuntimeSupport` 要求实现方提供 `resolveChatConfiguration` 与 `aiVisibleSkillPackages`。（core/crates/provider/services/src/runtime_support.rs:281）（core/crates/provider/services/src/runtime_support.rs:309）
 - `ProviderRuntimeSupport` 要求实现方提供 `modelBindingForFunction` 与 `resolvedModelConfig`。（core/crates/provider/services/src/runtime_support.rs:281）（core/crates/provider/services/src/runtime_support.rs:318）
-- `ProviderRuntimeSupport` 要求实现方提供 `providerProfile`。（core/crates/provider/services/src/runtime_support.rs:344）（core/crates/provider/services/src/runtime_support.rs:387）
+- `ProviderRuntimeSupport` 要求实现方提供 `providerProfile`。（core/crates/provider/services/src/runtime_support.rs:349）（core/crates/provider/services/src/runtime_support.rs:400）
 - `loadCodexTokens` 默认实现返回错误，要求 Codex 授权。（core/crates/provider/services/src/runtime_support.rs:331）
 - `saveCodexTokens` 默认实现返回错误，Codex 授权无法保存。（core/crates/provider/services/src/runtime_support.rs:338）
-- `ProviderRuntimeSupport` 提供 `hasToolPkgAiProvider` 与 `toolPkgAiProvider` 查询 ToolPkg AI 供应商注册。（core/crates/provider/services/src/runtime_support.rs:350）（core/crates/provider/services/src/runtime_support.rs:387）
-- `ProviderRuntimeSupport` 提供 `runToolPkgAiProviderHook` 调用 ToolPkg AI 供应商函数。（core/crates/provider/services/src/runtime_support.rs:358）（core/crates/provider/services/src/runtime_support.rs:387）
-- `ProviderRuntimeSupport` 提供 `decodeToolPkgHookResult` 解码 ToolPkg 钩子结果。（core/crates/provider/services/src/runtime_support.rs:370）（core/crates/provider/services/src/runtime_support.rs:387）
-- `ProviderRuntimeSupport` 提供 `messageTimingNow` 取时间快照与 `logMessageTiming` 写时间日志。（core/crates/provider/services/src/runtime_support.rs:376）（core/crates/provider/services/src/runtime_support.rs:387）
-- `ProviderRuntimeContext` 用 `Arc` 持有任意一个 `ProviderRuntimeSupport` 实现。（core/crates/provider/services/src/runtime_support.rs:388）
-- `ProviderRuntimeContext` 提供 `support` 取引用与 `shared_support` 取共享 `Arc`。（core/crates/provider/services/src/runtime_support.rs:392）（core/crates/provider/services/src/runtime_support.rs:402）
+- `ProviderRuntimeSupport` 提供 `hasToolPkgAiProvider` 与 `toolPkgAiProvider` 查询 ToolPkg AI 供应商注册。（core/crates/provider/services/src/runtime_support.rs:362）（core/crates/provider/services/src/runtime_support.rs:400）
+- `ProviderRuntimeSupport` 提供 `runToolPkgAiProviderHook` 调用 ToolPkg AI 供应商函数。（core/crates/provider/services/src/runtime_support.rs:368）（core/crates/provider/services/src/runtime_support.rs:400）
+- `ProviderRuntimeSupport` 提供 `decodeToolPkgHookResult` 解码 ToolPkg 钩子结果。（core/crates/provider/services/src/runtime_support.rs:383）（core/crates/provider/services/src/runtime_support.rs:400）
+- `ProviderRuntimeSupport` 提供 `messageTimingNow` 取时间快照与 `logMessageTiming` 写时间日志。（core/crates/provider/services/src/runtime_support.rs:386）（core/crates/provider/services/src/runtime_support.rs:400）
+- `ProviderRuntimeContext` 用 `Arc` 持有任意一个 `ProviderRuntimeSupport` 实现。（core/crates/provider/services/src/runtime_support.rs:400）
+- `ProviderRuntimeContext` 提供 `support` 取引用与 `shared_support` 取共享 `Arc`。（core/crates/provider/services/src/runtime_support.rs:405）（core/crates/provider/services/src/runtime_support.rs:415）
 - `ProviderFunctionModelBinding` 含 `providerId` 与 `modelId`。（core/crates/provider/services/src/runtime_support.rs:24）
 - `ProviderMessageTiming` 只含 `startedAtMs`。（core/crates/provider/services/src/runtime_support.rs:35）
 - `ProviderPackageInfo` 含 `name` 与 `description`。（core/crates/provider/services/src/runtime_support.rs:41）
@@ -272,7 +272,7 @@ date: 2026-11-11
 - `SendMessageRuntime` — 一次发送的运行时上下文。（core/crates/provider/services/src/chat/EnhancedAIService.rs:519）
 - `SendMessageLifecycleStage` — 发送全流程的 24 个阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:481）
 - `ProviderRuntimeSupport` — Provider 代码向运行时索取能力的 trait。（core/crates/provider/services/src/runtime_support.rs:281）
-- `ProviderRuntimeContext` — 持有 `ProviderRuntimeSupport` 实现的上下文。（core/crates/provider/services/src/runtime_support.rs:386）
+- `ProviderRuntimeContext` — 持有 `ProviderRuntimeSupport` 实现的上下文。（core/crates/provider/services/src/runtime_support.rs:399）
 - `ChatConfigurationResult` — 一次执行的参与者档案与执行快照。（core/crates/provider/services/src/runtime_support.rs:218）
 - `ChatConfigurationPurpose` — Display 与 Execution 两种配置目的。（core/crates/provider/services/src/runtime_support.rs:48）
 - `ProviderFunctionModelBinding` — `providerId` 与 `modelId` 的绑定。（core/crates/provider/services/src/runtime_support.rs:23）

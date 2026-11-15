@@ -134,33 +134,33 @@ Host 密钥根目录优先取 XDG_STATE_HOME 下的 operit2/secrets（`hosts/lin
 ### 系统操作与包管理
 
 `LinuxSystemOperationHost` 是 Linux 系统操作 Host（`hosts/linux/src/tools/system/mod.rs:19`）。
-`applicationUpdateTarget` 返回 `LinuxTarGz` 包与 `Immediate` 安装时序（`hosts/linux/src/tools/system/mod.rs:34`）。
-系统语言按 LC_ALL、LC_MESSAGES、LANG 的顺序取（`hosts/linux/src/tools/system/mod.rs:332`）。
-`getSystemLanguageCode` 委托给 `get_linux_system_language_code`（`hosts/linux/src/tools/system/mod.rs:38`）。
-通知发送调用 notify-send（`hosts/linux/src/tools/system/mod.rs:48`）。
-修改系统设置经 gsettings set 执行（`hosts/linux/src/tools/system/mod.rs:443`）。
-读取系统设置经 gsettings get 执行（`hosts/linux/src/tools/system/mod.rs:461`）。
-setting 须为 schema:key 形式（`hosts/linux/src/tools/system/mod.rs:492`）。
-`installApp` 要求安装时序为 Immediate（`hosts/linux/src/tools/system/mod.rs:86`）。
-`installApp` 把安装交给 `packages::install`（`hosts/linux/src/tools/system/mod.rs:87`）。
-`uninstallApp` 交给 `packages::uninstall`（`hosts/linux/src/tools/system/mod.rs:91`）。
-`listInstalledApps` 交给 `packages::list`（`hosts/linux/src/tools/system/mod.rs:95`）。
-`startApp` 交给 `packages::start`（`hosts/linux/src/tools/system/mod.rs:99`）。
-`stopApp` 交给 `packages::stop`（`hosts/linux/src/tools/system/mod.rs:103`）。
-通知查询调用 dunstctl history（`hosts/linux/src/tools/system/mod.rs:352`）。
-Linux 不提供历史前台使用时长（`hosts/linux/src/tools/system/mod.rs:517`）。
-高精度定位请求精度等级 8，否则请求 6（`hosts/linux/src/tools/system/mod.rs:528`）。
-定位结果的 `provider` 为 geoclue2（`hosts/linux/src/tools/system/mod.rs:584`）。
-定位不提供 civic 地址，city 与 province 为空（`hosts/linux/src/tools/system/mod.rs:588`）。
-设备 ID 取自 /etc/machine-id，系统名取自 /etc/os-release 的 PRETTY_NAME（`hosts/linux/src/tools/system/mod.rs:600`）。
-发行版名与内核版本拼进 `androidVersion` 字段（`hosts/linux/src/tools/system/mod.rs:631`）。
-`sdkVersion` 为 0，`screenDensity` 为 1.0（`hosts/linux/src/tools/system/mod.rs:632`）。
-无电池设备返回电池电量 -1 与未充电（`hosts/linux/src/tools/system/mod.rs:765`）。
-截图调用 gnome-screenshot -f（`hosts/linux/src/tools/system/mod.rs:172`）。
-`captureScreenshotTo` 把截图字节经选定的 VFS 能力写出并删除原生暂存文件（`hosts/linux/src/tools/system/mod.rs:135`）。
-文字识别调用 tesseract（`hosts/linux/src/tools/system/mod.rs:196`）。
-`recognizeText` 的 `imagePath` 参数改走 `FileSource`，经 `nativePath` 取原生路径（`hosts/linux/src/tools/system/mod.rs:149`）。
-tesseract 语言映射为 Latin 对 eng、Chinese 对 chi_sim、Japanese 对 jpn、Korean 对 kor（`hosts/linux/src/tools/system/mod.rs:290`）。
+`applicationUpdateTarget` 仅当可执行文件所在目录含 `data/flutter_assets` 时返回 `LinuxTarGz` 包与 `Immediate` 安装时序，否则返回 `None`（`hosts/linux/src/tools/system/mod.rs:34`）。
+系统语言按 LC_ALL、LC_MESSAGES、LANG 的顺序取（`hosts/linux/src/tools/system/mod.rs:335`）。
+`getSystemLanguageCode` 委托给 `get_linux_system_language_code`（`hosts/linux/src/tools/system/mod.rs:41`）。
+通知发送调用 notify-send（`hosts/linux/src/tools/system/mod.rs:51`）。
+修改系统设置经 gsettings set 执行（`hosts/linux/src/tools/system/mod.rs:446`）。
+读取系统设置经 gsettings get 执行（`hosts/linux/src/tools/system/mod.rs:464`）。
+setting 须为 schema:key 形式（`hosts/linux/src/tools/system/mod.rs:495`）。
+`installApp` 要求安装时序为 Immediate（`hosts/linux/src/tools/system/mod.rs:89`）。
+`installApp` 把安装交给 `packages::install`（`hosts/linux/src/tools/system/mod.rs:90`）。
+`uninstallApp` 交给 `packages::uninstall`（`hosts/linux/src/tools/system/mod.rs:94`）。
+`listInstalledApps` 交给 `packages::list`（`hosts/linux/src/tools/system/mod.rs:98`）。
+`startApp` 交给 `packages::start`（`hosts/linux/src/tools/system/mod.rs:102`）。
+`stopApp` 交给 `packages::stop`（`hosts/linux/src/tools/system/mod.rs:106`）。
+通知查询调用 dunstctl history（`hosts/linux/src/tools/system/mod.rs:355`）。
+Linux 不提供历史前台使用时长（`hosts/linux/src/tools/system/mod.rs:520`）。
+高精度定位请求精度等级 8，否则请求 6（`hosts/linux/src/tools/system/mod.rs:531`）。
+定位结果的 `provider` 为 geoclue2（`hosts/linux/src/tools/system/mod.rs:587`）。
+定位不提供 civic 地址，city 与 province 为空（`hosts/linux/src/tools/system/mod.rs:591`）。
+设备 ID 取自 /etc/machine-id，系统名取自 /etc/os-release 的 PRETTY_NAME（`hosts/linux/src/tools/system/mod.rs:603`）。
+发行版名与内核版本拼进 `androidVersion` 字段（`hosts/linux/src/tools/system/mod.rs:634`）。
+`sdkVersion` 为 0，`screenDensity` 为 1.0（`hosts/linux/src/tools/system/mod.rs:635`）。
+无电池设备返回电池电量 -1 与未充电（`hosts/linux/src/tools/system/mod.rs:768`）。
+截图调用 gnome-screenshot -f（`hosts/linux/src/tools/system/mod.rs:175`）。
+`captureScreenshotTo` 把截图字节经选定的 VFS 能力写出并删除原生暂存文件（`hosts/linux/src/tools/system/mod.rs:138`）。
+文字识别调用 tesseract（`hosts/linux/src/tools/system/mod.rs:199`）。
+`recognizeText` 的 `imagePath` 参数改走 `FileSource`，经 `nativePath` 取原生路径（`hosts/linux/src/tools/system/mod.rs:152`）。
+tesseract 语言映射为 Latin 对 eng、Chinese 对 chi_sim、Japanese 对 jpn、Korean 对 kor（`hosts/linux/src/tools/system/mod.rs:293`）。
 
 ### 包管理：desktop 文件即应用
 
@@ -283,7 +283,7 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 - `LinuxBrowserAutomationHost` — Linux 浏览器自动化 Host（`hosts/linux/src/tools/browser/mod.rs:37`）
 - `NativeLocalInferenceHost` — 本地推理 Host（`hosts/linux/src/lib.rs:75`）
 - `ScriptUiAutomationHost` — UI 自动化 Host（`hosts/linux/src/lib.rs:76`）
-- `captureScreenshotTo` — 截图字节经 VFS 能力写出（`hosts/linux/src/tools/system/mod.rs:135`）
+- `captureScreenshotTo` — 截图字节经 VFS 能力写出（`hosts/linux/src/tools/system/mod.rs:138`）
 - `synthesizeSpeechBytes` — 导出合成音频字节（`hosts/linux/src/tools/tts/mod.rs:199`）
 - `PTY_OUTPUT_LIMIT` — PTY 输出缓冲上限，1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:19`）
 - `PTY_PROMPT_MARKER_PREFIX` — PTY 提示标记前缀（`hosts/linux/src/tools/terminal/mod.rs:20`）
@@ -304,7 +304,7 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 
 ### 安装一个应用
 
-1. `installApp` 要求安装时序为 Immediate（`hosts/linux/src/tools/system/mod.rs:86`）
+1. `installApp` 要求安装时序为 Immediate（`hosts/linux/src/tools/system/mod.rs:89`）
 2. `install` 先尝试 `AppInstaller::installPortableApp` 安装便携包（`hosts/linux/src/tools/system/packages.rs:219`）
 3. install 接受 .deb、.rpm、.flatpakref、.flatpak、.snap，用 xdg-open 打开系统安装器（`hosts/linux/src/tools/system/packages.rs:237`）
 4. 打开系统安装器后报告 `installState` 为 `InstallerOpened`（`hosts/linux/src/tools/system/packages.rs:245`）

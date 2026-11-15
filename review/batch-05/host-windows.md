@@ -156,29 +156,29 @@ Windows Plugin SDK IPC 走命名管道，管道路径由 `pipeName` 映射（`ho
 
 ### 系统操作
 
-`applicationUpdateTarget` 转发给 application_update 的 `target`（`hosts/windows/src/tools/system/mod.rs:40`）。
-`installApp` 按 `AppInstallTiming` 分流：Immediate 立即安装，AfterProcessExit 走 application_update 的 `prepare`（`hosts/windows/src/tools/system/mod.rs:68`）。
-`request_windows_install_app` 先尝试 `installPortableApp` 安装便携应用（`hosts/windows/src/tools/system/mod.rs:578`）。
-.msix 与 .appx 包经 `Add-AppxPackage` 安装，.msi 包经 msiexec 安装并接受退出码 0、1641 与 3010（`hosts/windows/src/tools/system/mod.rs:597`）。
-.exe 安装只打开安装程序，状态记为 `installer_opened`，安装结果未经验证（`hosts/windows/src/tools/system/mod.rs:603`）。
-通知经 `ToastNotificationManager` 以 app.operit.operit2 为 ID 创建通知器发出（`hosts/windows/src/tools/system/mod.rs:159`）。
-通知激活地址为 operit2://notification/open-app，打开指定会话时带 chatId 参数（`hosts/windows/src/tools/system/mod.rs:173`）。
-系统语言经 `GetUserDefaultLocaleName` 读取（`hosts/windows/src/tools/system/mod.rs:477`）。
-系统设置命名空间 system、secure、global 映射到 `HKCU` 下 Software\Operit2 的子键（`hosts/windows/src/tools/system/mod.rs:555`）。
-Windows Host 明确表示不暴露历史前台使用时长且未配置使用记录器（`hosts/windows/src/tools/system/mod.rs:788`）。
-定位用 WinRT `Geolocator` 完成（`hosts/windows/src/tools/system/mod.rs:800`）。
-定位结果的 provider 为 `windows-geolocator`（`hosts/windows/src/tools/system/mod.rs:862`）。
-截图用 PowerShell 的 `CopyFromScreen` 截取整个虚拟桌面（`hosts/windows/src/tools/system/mod.rs:223`）。
-`captureScreenshotTo` 把截图字节经选定的 VFS 能力写入目标并删除原生暂存文件（`hosts/windows/src/tools/system/mod.rs:117`）。
-文本识别用 Windows.Media.Ocr 的 `OcrEngine` 的 `TryCreateFromLanguage` 创建引擎（`hosts/windows/src/tools/system/mod.rs:305`）。
-OCR 语言映射为 en-US、zh-Hans、ja、ko 四种标签（`hosts/windows/src/tools/system/mod.rs:399`）。
-OCR 高质量模式把图片放大 2 倍，但放大后宽或高超过 4096 时不放大（`hosts/windows/src/tools/system/mod.rs:362`）。
-通知历史通过 `UserNotificationListener` 的 Current 实例读取（`hosts/windows/src/tools/system/mod.rs:693`）。
-读取通知历史前须请求监听权限，未获 Allowed 即报错（`hosts/windows/src/tools/system/mod.rs:699`）。
-`listInstalledApps` 调用 packages 的 `list` 枚举已安装应用（`hosts/windows/src/tools/system/mod.rs:78`）。
-`uninstallApp` 转发给 packages 的 `operation`（`hosts/windows/src/tools/system/mod.rs:73`）。
-`startApp` 转发给 packages 的 `operation`（`hosts/windows/src/tools/system/mod.rs:81`）。
-`stopApp` 转发给 packages 的 `operation`（`hosts/windows/src/tools/system/mod.rs:85`）。
+`applicationUpdateTarget` 转发给 application_update 的 `target`（`hosts/windows/src/tools/system/mod.rs:53`）。
+`installApp` 按 `AppInstallTiming` 分流：Immediate 立即安装，AfterProcessExit 走 application_update 的 `prepare`（`hosts/windows/src/tools/system/mod.rs:81`）。
+`request_windows_install_app` 先尝试 `installPortableApp` 安装便携应用（`hosts/windows/src/tools/system/mod.rs:591`）。
+.msix 与 .appx 包经 `Add-AppxPackage` 安装，.msi 包经 msiexec 安装并接受退出码 0、1641 与 3010（`hosts/windows/src/tools/system/mod.rs:610`）。
+.exe 安装只打开安装程序，状态记为 `installer_opened`，安装结果未经验证（`hosts/windows/src/tools/system/mod.rs:616`）。
+通知经 `ToastNotificationManager` 以 app.operit.operit2 为 ID 创建通知器发出（`hosts/windows/src/tools/system/mod.rs:172`）。
+通知激活地址为 operit2://notification/open-app，打开指定会话时带 chatId 参数（`hosts/windows/src/tools/system/mod.rs:186`）。
+系统语言经 `GetUserDefaultLocaleName` 读取（`hosts/windows/src/tools/system/mod.rs:490`）。
+系统设置命名空间 system、secure、global 映射到 `HKCU` 下 Software\Operit2 的子键（`hosts/windows/src/tools/system/mod.rs:568`）。
+Windows Host 明确表示不暴露历史前台使用时长且未配置使用记录器（`hosts/windows/src/tools/system/mod.rs:801`）。
+定位用 WinRT `Geolocator` 完成（`hosts/windows/src/tools/system/mod.rs:813`）。
+定位结果的 provider 为 `windows-geolocator`（`hosts/windows/src/tools/system/mod.rs:875`）。
+截图用 PowerShell 的 `CopyFromScreen` 截取整个虚拟桌面（`hosts/windows/src/tools/system/mod.rs:236`）。
+`captureScreenshotTo` 把截图字节经选定的 VFS 能力写入目标并删除原生暂存文件（`hosts/windows/src/tools/system/mod.rs:130`）。
+文本识别用 Windows.Media.Ocr 的 `OcrEngine` 的 `TryCreateFromLanguage` 创建引擎（`hosts/windows/src/tools/system/mod.rs:318`）。
+OCR 语言映射为 en-US、zh-Hans、ja、ko 四种标签（`hosts/windows/src/tools/system/mod.rs:412`）。
+OCR 高质量模式把图片放大 2 倍，但放大后宽或高超过 4096 时不放大（`hosts/windows/src/tools/system/mod.rs:375`）。
+通知历史通过 `UserNotificationListener` 的 Current 实例读取（`hosts/windows/src/tools/system/mod.rs:706`）。
+读取通知历史前须请求监听权限，未获 Allowed 即报错（`hosts/windows/src/tools/system/mod.rs:712`）。
+`listInstalledApps` 调用 packages 的 `list` 枚举已安装应用（`hosts/windows/src/tools/system/mod.rs:91`）。
+`uninstallApp` 转发给 packages 的 `operation`（`hosts/windows/src/tools/system/mod.rs:86`）。
+`startApp` 转发给 packages 的 `operation`（`hosts/windows/src/tools/system/mod.rs:94`）。
+`stopApp` 转发给 packages 的 `operation`（`hosts/windows/src/tools/system/mod.rs:98`）。
 应用目录枚举注册表 Uninstall 项与 `Get-AppxPackage` 的 Appx 包（`hosts/windows/src/tools/system/packages.rs:8`）。
 Win32 应用 ID 前缀为 win32:，Appx 应用 ID 前缀为 appx:（`hosts/windows/src/tools/system/packages.rs:10`）。
 `Resolve-App` 要求应用恰好匹配一项，否则报错（`hosts/windows/src/tools/system/packages.rs:14`）。
@@ -191,13 +191,13 @@ MSI 应用卸载经 `msiexec.exe` 加 /x 执行（`hosts/windows/src/tools/syste
 
 ### 应用更新
 
-更新目标返回 `AfterProcessExit` 时序，MSI 安装对应 `WindowsMsi`，否则对应 `WindowsZip`（`hosts/windows/src/tools/system/application_update.rs:34`）。
+更新目标返回 `AfterProcessExit` 时序，MSI 安装对应 `WindowsMsi`，否则对应 `WindowsZip`（`hosts/windows/src/tools/system/application_update.rs:37`）。
 `installation` 经 PowerShell 的 `Get-OperitInstallation` 查询当前可执行文件的 MSI 归属（`hosts/windows/src/tools/system/application_update.rs:21`）。
-`prepare` 要求更新包为绝对路径的可读文件（`hosts/windows/src/tools/system/application_update.rs:49`）。
-便携版安装的更新经 `installPortableApp` 处理，非 ZIP 包报错（`hosts/windows/src/tools/system/application_update.rs:55`）。
-MSI 安装只接受扩展名为 msi 的更新包（`hosts/windows/src/tools/system/application_update.rs:60`）。
-更新助手启动后等待其 ready 确认再返回，安装状态为 `RestartRequired`（`hosts/windows/src/tools/system/application_update.rs:85`）。
-更新助手以 installer-令牌.ready 与 installer-令牌.log 两个文件与主进程握手（`hosts/windows/src/tools/system/application_update.rs:67`）。
+`prepare` 要求更新包为绝对路径的可读文件（`hosts/windows/src/tools/system/application_update.rs:52`）。
+便携版安装的更新经 `installPortableApp` 处理，非 ZIP 包报错（`hosts/windows/src/tools/system/application_update.rs:58`）。
+MSI 安装只接受扩展名为 msi 的更新包（`hosts/windows/src/tools/system/application_update.rs:63`）。
+更新助手启动后等待其 ready 确认再返回，安装状态为 `RestartRequired`（`hosts/windows/src/tools/system/application_update.rs:88`）。
+更新助手以 installer-令牌.ready 与 installer-令牌.log 两个文件与主进程握手（`hosts/windows/src/tools/system/application_update.rs:70`）。
 更新脚本以 UpgradeCode {A60B4E40-8A60-4BCD-AB33-DA7D939E436D} 识别 Operit MSI 产品族（`hosts/windows/src/tools/system/application_update.ps1:2`）。
 `Get-OperitRegisteredFolder` 从 HKCU 的 Software\Operit\Operit2\Installer 读取 `InstallLocation`（`hosts/windows/src/tools/system/application_update.ps1:16`）。
 `Get-OperitInstallation` 要求当前用户恰好注册一个 Operit MSI 产品（`hosts/windows/src/tools/system/application_update.ps1:45`）。
@@ -205,12 +205,12 @@ MSI 安装只接受扩展名为 msi 的更新包（`hosts/windows/src/tools/syst
 更新包必须是按用户安装的 x64 MSI（`hosts/windows/src/tools/system/application_update.ps1:102`）。
 更新 MSI 文件名必须为 operit2-app-windows-x86_64-加版本号加 .msi（`hosts/windows/src/tools/system/application_update.ps1:105`）。
 MSI 更新必须包含更新的产品版本与新的产品代码（`hosts/windows/src/tools/system/application_update.ps1:110`）。
-更新助手发布 ready 标记后等待父进程完全退出（`hosts/windows/src/tools/system/application_update.ps1:144`）。
-等待期间若发现同安装的另一实例在运行，更新中止并报错（`hosts/windows/src/tools/system/application_update.ps1:147`）。
-父进程退出后更新助手重新核对已安装产品与更新包的身份（`hosts/windows/src/tools/system/application_update.ps1:152`）。
-更新以 `msiexec.exe` 加 /qn /norestart 静默安装（`hosts/windows/src/tools/system/application_update.ps1:159`）。
-msiexec 返回 3010 时更新结果记为 `system_restart_required` 并提示重启 Windows（`hosts/windows/src/tools/system/application_update.ps1:162`）。
-安装成功后更新助手重新启动可执行文件（`hosts/windows/src/tools/system/application_update.ps1:172`）。
+更新助手发布 ready 标记后等待父进程完全退出（`hosts/windows/src/tools/system/application_update.ps1:148`）。
+等待期间若发现同安装的另一实例在运行，更新中止并报错（`hosts/windows/src/tools/system/application_update.ps1:151`）。
+父进程退出后更新助手重新核对已安装产品与更新包的身份（`hosts/windows/src/tools/system/application_update.ps1:156`）。
+更新以 `msiexec.exe` 加 /qn /norestart 静默安装（`hosts/windows/src/tools/system/application_update.ps1:163`）。
+msiexec 返回 3010 时更新结果记为 `system_restart_required` 并提示重启 Windows（`hosts/windows/src/tools/system/application_update.ps1:166`）。
+安装成功后更新助手重新启动可执行文件（`hosts/windows/src/tools/system/application_update.ps1:177`）。
 更新结果以 JSON 写入日志路径加 .result.json 的文件（`hosts/windows/src/tools/system/application_update.ps1:117`）。
 
 ### MCI 与音频
@@ -340,10 +340,10 @@ Plugin SDK 会话 ID 格式为 `plugin-sdk-windows-` 加序号（`hosts/windows/
 - `validatePath` — 只接受绝对 Windows 路径（`hosts/windows/src/tools/fs/mod.rs:42`）
 - `readSecret` — 用 `CredReadW` 读 Windows Credential Manager（`hosts/windows/src/tools/storage/mod.rs:51`）
 - `writeSecret` — 以 Operit2 为用户名写入凭据（`hosts/windows/src/tools/storage/mod.rs:73`）
-- `applicationUpdateTarget` — 转发给 application_update 的 `target`（`hosts/windows/src/tools/system/mod.rs:37`）
+- `applicationUpdateTarget` — 转发给 application_update 的 `target`（`hosts/windows/src/tools/system/mod.rs:50`）
 - `target` — 解析本应用副本的更新包格式（`hosts/windows/src/tools/system/application_update.rs:31`）
-- `prepare` — 校验更新包为绝对路径的可读文件（`hosts/windows/src/tools/system/application_update.rs:49`）
-- `captureScreenshotTo` — 截图字节经 VFS 能力写入目标（`hosts/windows/src/tools/system/mod.rs:117`）
+- `prepare` — 校验更新包为绝对路径的可读文件（`hosts/windows/src/tools/system/application_update.rs:52`）
+- `captureScreenshotTo` — 截图字节经 VFS 能力写入目标（`hosts/windows/src/tools/system/mod.rs:130`）
 - `Get-OperitInstallation` — 查询当前可执行文件的 MSI 归属（`hosts/windows/src/tools/system/application_update.ps1:48`）
 - `Assert-OperitMsiUpdate` — 校验更新包属于 Operit MSI 产品族（`hosts/windows/src/tools/system/application_update.ps1:96`）
 - `Invoke-OperitMsiUpdate` — 运行一次无人值守升级（`hosts/windows/src/tools/system/application_update.ps1:129`）
@@ -366,13 +366,13 @@ Plugin SDK 会话 ID 格式为 `plugin-sdk-windows-` 加序号（`hosts/windows/
 
 ### 应用更新（MSI 安装）
 
-1. `installApp` 在 `AfterProcessExit` 时序下调用 application_update 的 `prepare`（`hosts/windows/src/tools/system/mod.rs:68`）
-2. `prepare` 校验更新包为绝对路径的可读文件（`hosts/windows/src/tools/system/application_update.rs:49`）
-3. prepare 校验 MSI 安装只接受扩展名为 msi 的更新包（`hosts/windows/src/tools/system/application_update.rs:60`）
-4. 更新助手启动后等待其 ready 确认再返回，安装状态为 `RestartRequired`（`hosts/windows/src/tools/system/application_update.rs:85`）
-5. 更新助手发布 ready 标记后等待父进程完全退出（`hosts/windows/src/tools/system/application_update.ps1:144`）
-6. 更新以 `msiexec.exe` 加 /qn /norestart 静默安装（`hosts/windows/src/tools/system/application_update.ps1:159`）
-7. 安装成功后更新助手重新启动可执行文件（`hosts/windows/src/tools/system/application_update.ps1:172`）
+1. `installApp` 在 `AfterProcessExit` 时序下调用 application_update 的 `prepare`（`hosts/windows/src/tools/system/mod.rs:81`）
+2. `prepare` 校验更新包为绝对路径的可读文件（`hosts/windows/src/tools/system/application_update.rs:52`）
+3. prepare 校验 MSI 安装只接受扩展名为 msi 的更新包（`hosts/windows/src/tools/system/application_update.rs:63`）
+4. 更新助手启动后等待其 ready 确认再返回，安装状态为 `RestartRequired`（`hosts/windows/src/tools/system/application_update.rs:88`）
+5. 更新助手发布 ready 标记后等待父进程完全退出（`hosts/windows/src/tools/system/application_update.ps1:148`）
+6. 更新以 `msiexec.exe` 加 /qn /norestart 静默安装（`hosts/windows/src/tools/system/application_update.ps1:163`）
+7. 安装成功后更新助手重新启动可执行文件（`hosts/windows/src/tools/system/application_update.ps1:177`）
 
 ### 终端命令执行
 

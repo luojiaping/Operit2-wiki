@@ -1,6 +1,6 @@
 {
   "issue": 47,
-  "source_commit": "ff5373fb6",
+  "source_commit": "a119411ce",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Android Host：proot bash 与 android-system shell 双终端、Root/Shizuku/App 特权传输、托管运行时、文档资源文件系统、密钥桥接与蓝牙/TTS/系统操作能力",

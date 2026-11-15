@@ -21,35 +21,35 @@
   },
   {
     "fact": "operit-util 的直接依赖包括 heic-rs 与 image。",
-    "ref": "core/crates/foundation/util/Cargo.toml:22"
+    "ref": "core/crates/foundation/util/Cargo.toml:24"
   },
   {
     "fact": "operit-util 的直接依赖包括 serde、serde_json 与 tokio。",
-    "ref": "core/crates/foundation/util/Cargo.toml:25"
+    "ref": "core/crates/foundation/util/Cargo.toml:27"
   },
   {
     "fact": "operit-util 的直接依赖包括 uuid。",
-    "ref": "core/crates/foundation/util/Cargo.toml:28"
+    "ref": "core/crates/foundation/util/Cargo.toml:30"
   },
   {
     "fact": "Cargo.toml 的 default 特性包含 full。",
     "ref": "core/crates/foundation/util/Cargo.toml:13"
   },
   {
-    "fact": "full 特性拉入 flate2、regex、zip 三个可选依赖。",
+    "fact": "full 特性拉入 regex、zip 两个可选依赖。",
     "ref": "core/crates/foundation/util/Cargo.toml:14"
   },
   {
-    "fact": "flate2 在依赖表里标记为 optional = true。",
+    "fact": "flate2 不再是可选依赖，是直接依赖。",
     "ref": "core/crates/foundation/util/Cargo.toml:21"
   },
   {
     "fact": "regex 在依赖表里标记为 optional = true。",
-    "ref": "core/crates/foundation/util/Cargo.toml:24"
+    "ref": "core/crates/foundation/util/Cargo.toml:26"
   },
   {
     "fact": "zip 在依赖表里标记为 optional = true。",
-    "ref": "core/crates/foundation/util/Cargo.toml:29"
+    "ref": "core/crates/foundation/util/Cargo.toml:31"
   },
   {
     "fact": "ChatUtils 的模块声明带 #[cfg(feature = \"full\")] 门。",
@@ -61,7 +61,7 @@
   },
   {
     "fact": "TokenCacheManager 的模块声明带 #[cfg(feature = \"full\")] 门。",
-    "ref": "core/crates/foundation/util/src/lib.rs:45"
+    "ref": "core/crates/foundation/util/src/lib.rs:47"
   },
   {
     "fact": "AndroidUserPathUtils 与 AnrMonitor 是 operit-util 的公开模块。",
@@ -89,51 +89,51 @@
   },
   {
     "fact": "GlobalExceptionHandler、HtmlParserUtil 与 HttpMultiPartDownloader 是 operit-util 的公开模块。",
-    "ref": "core/crates/foundation/util/src/lib.rs:18"
+    "ref": "core/crates/foundation/util/src/lib.rs:20"
   },
   {
     "fact": "ImageBitmapLimiter、ImagePoolManager、IntRangeSerializer 与 LocalDateTimeSerializer 是 operit-util 的公开模块。",
-    "ref": "core/crates/foundation/util/src/lib.rs:21"
+    "ref": "core/crates/foundation/util/src/lib.rs:23"
   },
   {
     "fact": "LocaleUtils、LocationUtils 与 MarkdownRenderStream 是 operit-util 的公开模块。",
-    "ref": "core/crates/foundation/util/src/lib.rs:25"
+    "ref": "core/crates/foundation/util/src/lib.rs:27"
   },
   {
     "fact": "MediaBase64Limiter、MediaLinkBuilder、MediaPoolManager 与 MediaRegistration 是 operit-util 的公开模块。",
-    "ref": "core/crates/foundation/util/src/lib.rs:28"
+    "ref": "core/crates/foundation/util/src/lib.rs:30"
   },
   {
     "fact": "NetworkUtils、OCRUtils 与 OperitPaths 是 operit-util 的公开模块。",
-    "ref": "core/crates/foundation/util/src/lib.rs:32"
+    "ref": "core/crates/foundation/util/src/lib.rs:34"
   },
   {
     "fact": "PortProcessKiller、PluginStoragePaths 与 RuntimeStoreRoot 是 operit-util 的公开模块，RuntimeStorageLayout 改为从 operit_host_api 重导出。",
-    "ref": "core/crates/foundation/util/src/lib.rs:35"
+    "ref": "core/crates/foundation/util/src/lib.rs:37"
   },
   {
     "fact": "SerializationSetup、SkillRepoZipPoolManager、StreamingJsonXmlConverter 与 StructuredAssistantContentParser 是 operit-util 的公开模块。",
-    "ref": "core/crates/foundation/util/src/lib.rs:40"
+    "ref": "core/crates/foundation/util/src/lib.rs:42"
   },
   {
     "fact": "TextSegmenter 是 operit-util 的公开模块。",
-    "ref": "core/crates/foundation/util/src/lib.rs:44"
-  },
-  {
-    "fact": "TokenCacheManager 是 operit-util 的公开模块。",
     "ref": "core/crates/foundation/util/src/lib.rs:46"
   },
   {
+    "fact": "TokenCacheManager 是 operit-util 的公开模块。",
+    "ref": "core/crates/foundation/util/src/lib.rs:48"
+  },
+  {
     "fact": "TtsCleaner、TtsSegmenter、UriSerializer 与 WaifuMessageProcessor 是 operit-util 的公开模块。",
-    "ref": "core/crates/foundation/util/src/lib.rs:47"
+    "ref": "core/crates/foundation/util/src/lib.rs:49"
   },
   {
     "fact": "exceptions、stream 与 streamnative 是 operit-util 的公开子模块树。",
-    "ref": "core/crates/foundation/util/src/lib.rs:51"
+    "ref": "core/crates/foundation/util/src/lib.rs:53"
   },
   {
     "fact": "UpdateHttp 是 operit-util 内部的私有模块，不对外公开。",
-    "ref": "core/crates/foundation/util/src/lib.rs:17"
+    "ref": "core/crates/foundation/util/src/lib.rs:18"
   },
   {
     "fact": "stream 子树包含 HotStream、ReverseStream、RevisableTextStream 与 Stream。",

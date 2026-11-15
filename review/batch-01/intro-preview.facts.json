@@ -69,67 +69,67 @@
   },
   {
     "fact": "Release tag 与 GitHub prerelease 标志必须一致：preview 与 rc 对应 true，stable 对应 false。",
-    "ref": "docs/release-versioning.md:60"
+    "ref": "docs/release-versioning.md:61"
   },
   {
     "fact": "Draft releases 被更新器忽略。",
-    "ref": "docs/release-versioning.md:65"
+    "ref": "docs/release-versioning.md:66"
   },
   {
     "fact": "首次公开 preview 使用 v2.0.0-preview.1。",
-    "ref": "docs/release-versioning.md:69"
+    "ref": "docs/release-versioning.md:70"
   },
   {
     "fact": "首次 stable 发布使用 v2.0.0。",
-    "ref": "docs/release-versioning.md:75"
+    "ref": "docs/release-versioning.md:76"
   },
   {
     "fact": "发布包文件名格式为 operit2-<product>-<platform>-<architecture>-<release-version>.<extension>。",
-    "ref": "docs/release-versioning.md:87"
+    "ref": "docs/release-versioning.md:88"
   },
   {
-    "fact": "发布包不附带单独的 checksum 文件。",
+    "fact": "发布包附带经认证的 `.update.json` 清单与可选的 `.patch.gz` 增量传输资产。",
     "ref": "docs/release-versioning.md:113"
   },
   {
     "fact": "更新发现从最近 30 个 releases 懒加载，只在当前页无兼容包时加载更老页面。",
-    "ref": "docs/release-versioning.md:188"
+    "ref": "docs/release-versioning.md:190"
   },
   {
     "fact": "选中的版本只在新于已装版本时才提供，更新发现不降级已装应用。",
-    "ref": "docs/release-versioning.md:194"
+    "ref": "docs/release-versioning.md:196"
   },
   {
     "fact": "发布版本来源是 apps/cli/Cargo.toml 与 core/crates/runtime/application/Cargo.toml 的 package.version，两值必须相同且不得含 build metadata；CLI 用其作 cliVersion，App 从 operit-runtime 暴露 coreVersion。",
-    "ref": "docs/release-versioning.md:205"
+    "ref": "docs/release-versioning.md:207"
   },
   {
     "fact": "Flutter 平台版本与 Operit2 发布版本分离：apps/flutter/app/pubspec.yaml 的 version 为 major.minor.patch+buildNumber。",
-    "ref": "docs/release-versioning.md:210"
+    "ref": "docs/release-versioning.md:212"
   },
   {
     "fact": "Flutter major.minor.patch 必须与 Operit2 发布版本一致；buildNumber 只是 Android、Windows、Linux 与 macOS 构建的平台包元数据。",
-    "ref": "docs/release-versioning.md:219"
-  },
-  {
-    "fact": "App 与 full 构建成功后 buildNumber 加 1；CLI-only 构建不改 buildNumber。",
     "ref": "docs/release-versioning.md:221"
   },
   {
+    "fact": "App 与 full 构建成功后 buildNumber 加 1；CLI-only 构建不改 buildNumber。",
+    "ref": "docs/release-versioning.md:223"
+  },
+  {
     "fact": "构建发布脚本是 tools/release/build_release.py。",
-    "ref": "docs/release-versioning.md:237"
+    "ref": "docs/release-versioning.md:239"
   },
   {
     "fact": "publish_dist.py 只上传已 staged 在 tools/release/dist 的文件，不重新构建。",
-    "ref": "docs/release-versioning.md:267"
+    "ref": "docs/release-versioning.md:270"
   },
   {
     "fact": "更新器实现在 core/crates/foundation/util/src/GithubReleaseUtil.rs。",
-    "ref": "docs/release-versioning.md:425"
+    "ref": "docs/release-versioning.md:429"
   },
   {
     "fact": "App/CLI 发布版本不控制 Core 或 Edge 的配对、路由与同步。",
-    "ref": "docs/release-versioning.md:472"
+    "ref": "docs/release-versioning.md:476"
   },
   {
     "fact": "release notes 之一是 2.0.0-preview.22 · Apple Build 28，对比基线为 Build 27 / 2.0.0-preview.21。",
@@ -177,10 +177,10 @@
   },
   {
     "fact": "cli update check 只检查是否有可用更新，不下载。",
-    "ref": "docs/release-versioning.md:447"
+    "ref": "docs/release-versioning.md:451"
   },
   {
     "fact": "发布包命名的共享实现是 tools/build_scripts/release_artifacts.py。",
-    "ref": "docs/release-versioning.md:90"
+    "ref": "docs/release-versioning.md:91"
   }
 ]

@@ -1,6 +1,6 @@
 {
   "issue": 39,
-  "source_commit": "ff5373fb6",
+  "source_commit": "a119411ce",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "记忆：按 owner 划分的同步记忆空间，候选入队后由 60 秒间隔任务批量提取并落库",

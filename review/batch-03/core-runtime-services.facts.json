@@ -677,39 +677,39 @@
   },
   {
     "fact": "RuntimeProviderSupport::loadCodexTokens 返回保存的 ChatGPT Codex 会话，未保存时返回错误",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:600"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:611"
   },
   {
     "fact": "RuntimeProviderSupport::saveCodexTokens 持久化刷新后的 ChatGPT Codex 会话",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:609"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:620"
   },
   {
     "fact": "RuntimeProviderSupport::providerProfile 返回指定 id 的 provider 档案",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:618"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:629"
   },
   {
     "fact": "RuntimeProviderSupport::hasToolPkgAiProvider 判断指定 ToolPkg AI provider 是否已注册",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:628"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:650"
   },
   {
     "fact": "RuntimeProviderSupport::toolPkgAiProvider 返回指定 ToolPkg AI provider 的注册信息",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:633"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:655"
   },
   {
     "fact": "RuntimeProviderSupport::runToolPkgAiProviderHook 调用 ToolPkg AI provider 的钩子函数",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:638"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:660"
   },
   {
     "fact": "RuntimeProviderSupport::decodeToolPkgHookResult 解码 ToolPkg 钩子结果",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:672"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:694"
   },
   {
     "fact": "RuntimeProviderSupport::messageTimingNow 返回 provider 消息计时快照",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:677"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:699"
   },
   {
     "fact": "RuntimeProviderSupport::logMessageTiming 写入一条 provider 消息计时日志",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:685"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:707"
   },
   {
     "fact": "ToolRuntimeSupportService 是创建 tools 运行时服务的工厂结构",

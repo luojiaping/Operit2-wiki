@@ -45,63 +45,63 @@
  },
  {
   "fact": "createRuntimeHostManager 组装 Android 自有的运行时 HostManager",
-  "ref": "hosts/android/src/lib.rs:75"
+  "ref": "hosts/android/src/lib.rs:76"
  },
  {
   "fact": "createRuntimeHostManager 以 AndroidRuntimeStorageHost 作 Host 密钥库",
-  "ref": "hosts/android/src/lib.rs:79"
+  "ref": "hosts/android/src/lib.rs:80"
  },
  {
   "fact": "运行时组合以 `NativeLocalInferenceHost::withSpeech` 包装 `AndroidLocalInferenceHost` 注册本地推理 Host",
-  "ref": "hosts/android/src/lib.rs:94"
+  "ref": "hosts/android/src/lib.rs:95"
  },
  {
   "fact": "运行时组合以 acquireMulticastLease 作 ServiceDiscovery 的网络租约来源",
-  "ref": "hosts/android/src/lib.rs:98"
+  "ref": "hosts/android/src/lib.rs:99"
  },
  {
   "fact": "运行时组合注册 AndroidPluginSdkIpcHost",
-  "ref": "hosts/android/src/lib.rs:101"
+  "ref": "hosts/android/src/lib.rs:102"
  },
  {
   "fact": "createPrivilegedRuntimeHostManager 组装不含应用自有 JNI 注册的特权 Android Host",
-  "ref": "hosts/android/src/lib.rs:106"
+  "ref": "hosts/android/src/lib.rs:107"
  },
  {
   "fact": "特权组合以 NativeFileSecretStore(secretRoot) 作 Host 密钥库",
-  "ref": "hosts/android/src/lib.rs:120"
+  "ref": "hosts/android/src/lib.rs:121"
  },
  {
   "fact": "特权组合使用 NativeHostRuntimeEventSchedulerHost 作运行时事件调度 Host",
-  "ref": "hosts/android/src/lib.rs:123"
+  "ref": "hosts/android/src/lib.rs:125"
  },
  {
   "fact": "createBaseRuntimeHostManager 组装应用与独立模块所有者共享的 Android 能力",
-  "ref": "hosts/android/src/lib.rs:130"
+  "ref": "hosts/android/src/lib.rs:131"
  },
  {
   "fact": "基础组合以 AndroidFileSystemHost、AndroidHttpHost 与 AndroidManagedRuntimeHost 装配 HostManager",
-  "ref": "hosts/android/src/lib.rs:151"
+  "ref": "hosts/android/src/lib.rs:153"
  },
  {
   "fact": "基础组合注册 NativeHttpServerHost、NativeTcpHost 与 NativeSerialPortHost",
-  "ref": "hosts/android/src/lib.rs:162"
+  "ref": "hosts/android/src/lib.rs:163"
  },
  {
   "fact": "基础组合注册 AndroidHostJavaScriptRuntimeHost 与 AndroidHostRuntimeTaskSchedulerHost",
-  "ref": "hosts/android/src/lib.rs:166"
+  "ref": "hosts/android/src/lib.rs:167"
  },
  {
   "fact": "归档暂存 Host 使用 archiveRuntimeRoot，因为 Android 共享存储以 ENOSYS 拒绝 flock，模块运行时根目录是私有的",
-  "ref": "hosts/android/src/lib.rs:145"
+  "ref": "hosts/android/src/lib.rs:150"
  },
  {
   "fact": "createBaseRuntimeHostManager 的 webVisitHost 由调用方传入",
-  "ref": "hosts/android/src/lib.rs:133"
+  "ref": "hosts/android/src/lib.rs:135"
  },
  {
   "fact": "lib.rs 导出 androidPrivilegedPtyOperation",
-  "ref": "hosts/android/src/lib.rs:36"
+  "ref": "hosts/android/src/lib.rs:37"
  },
  {
   "fact": "terminalInfo 把 PROOT_TERMINAL 列为默认终端、PRIMARY_TERMINAL_TYPE 列为默认终端类型",
@@ -517,63 +517,63 @@
  },
  {
   "fact": "应用更新目标按架构选 APK：aarch64 取 arm64-v8a，arm 取 armeabi-v7a，安装时机为 Immediate",
-  "ref": "hosts/android/src/system_operation.rs:72"
+  "ref": "hosts/android/src/system_operation.rs:78"
  },
  {
   "fact": "getSystemLanguageCode 优先返回构造时给定的 language，否则调用 androidHostSystemLanguageCode",
-  "ref": "hosts/android/src/system_operation.rs:85"
+  "ref": "hosts/android/src/system_operation.rs:95"
  },
  {
   "fact": "sendNotification 返回错误，要求 Android UI host bridge",
-  "ref": "hosts/android/src/system_operation.rs:97"
+  "ref": "hosts/android/src/system_operation.rs:107"
  },
  {
   "fact": "getNotifications 返回错误，要求 Android notification host bridge",
-  "ref": "hosts/android/src/system_operation.rs:161"
+  "ref": "hosts/android/src/system_operation.rs:169"
  },
  {
   "fact": "getDeviceLocation 返回错误，要求 Android location host bridge",
-  "ref": "hosts/android/src/system_operation.rs:179"
+  "ref": "hosts/android/src/system_operation.rs:185"
  },
  {
   "fact": "getDeviceInfo 返回错误，要求 Android device info host bridge",
-  "ref": "hosts/android/src/system_operation.rs:189"
+  "ref": "hosts/android/src/system_operation.rs:197"
  },
  {
   "fact": "captureScreenshot 返回错误，要求 Android screen capture host bridge",
-  "ref": "hosts/android/src/system_operation.rs:202"
+  "ref": "hosts/android/src/system_operation.rs:212"
  },
  {
   "fact": "`captureScreenshotTo` 经 VFS 能力写截图字节并删除原生暂存文件",
-  "ref": "hosts/android/src/system_operation.rs:194"
+  "ref": "hosts/android/src/system_operation.rs:204"
  },
  {
   "fact": "recognizeText 返回错误，要求 Android OCR host bridge",
-  "ref": "hosts/android/src/system_operation.rs:208"
+  "ref": "hosts/android/src/system_operation.rs:218"
  },
  {
   "fact": "installApp 要求 Immediate 时机，再以 install_app 请求包操作",
-  "ref": "hosts/android/src/system_operation.rs:121"
+  "ref": "hosts/android/src/system_operation.rs:130"
  },
  {
   "fact": "startApp 转交给 startAppWithActivity 且 activity 为 None",
-  "ref": "hosts/android/src/system_operation.rs:144"
+  "ref": "hosts/android/src/system_operation.rs:152"
  },
  {
   "fact": "listInstalledApps 以 list_installed_apps 请求包操作",
-  "ref": "hosts/android/src/system_operation.rs:133"
+  "ref": "hosts/android/src/system_operation.rs:143"
  },
  {
   "fact": "uninstallApp 以 uninstall_app 请求包操作",
-  "ref": "hosts/android/src/system_operation.rs:126"
+  "ref": "hosts/android/src/system_operation.rs:136"
  },
  {
   "fact": "stopApp 以 stop_app 请求包操作",
-  "ref": "hosts/android/src/system_operation.rs:155"
+  "ref": "hosts/android/src/system_operation.rs:165"
  },
  {
   "fact": "应用使用时长查询以 get_app_usage_time 请求包操作",
-  "ref": "hosts/android/src/system_operation.rs:172"
+  "ref": "hosts/android/src/system_operation.rs:182"
  },
  {
   "fact": "AndroidTtsPlaybackHost 由所有者应用的控制器驱动",

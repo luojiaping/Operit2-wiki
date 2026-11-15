@@ -25,7 +25,7 @@ date: 2026-11-11
 ## AI 速览
 
 - `CoreNode` — 一个运行 Operit Core 的应用实例（`docs/core-node-space-binding-architecture.md:39`）
-- `OperitApplication` — 单节点业务运行时（`core/crates/runtime/application/src/core/application/OperitApplication.rs:119`）
+- `OperitApplication` — 单节点业务运行时（`core/crates/runtime/application/src/core/application/OperitApplication.rs:120`）
 - `LocalCoreProxy` — 本机类型化代理，包起 OperitApplication（`core/crates/proxy/local/src/lib.rs:34`）
 - `HostManager` — 本节点宿主能力集（`core/crates/foundation/host-api/src/HostManager.rs:139`）
 - `CoreApplication` — 组装根，拥有一棵运行中的 Core 树（`core/crates/application/core/src/lib.rs:69`）
@@ -146,11 +146,11 @@ list_core_nodes 返回包含 `currentNodeId` 与 `nodes` 的对象（`core/crate
 
 全量交换由变更门控调度，空闲设备不重复搬运未变化的状态（`docs/core-node-space-binding-architecture.md:217`）。
 
-同步门控先检查 `backoffElapsed`：退避未到期时本周期不做完整交换；`pendingWork` 或 `consecutiveFailures` 大于 0 时直接安排完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:754`）。
+同步门控先检查 `backoffElapsed`：退避未到期时本周期不做完整交换；`pendingWork` 或 `consecutiveFailures` 大于 0 时直接安排完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:759`）。
 
-未获存储复制授权的成员走 `authority_only` 分支，直接继续控制交换，不发摘要探针（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:766`）。
+未获存储复制授权的成员走 `authority_only` 分支，直接继续控制交换，不发摘要探针（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:772`）。
 
-只有具备存储复制授权、处于正常变更门控状态的可达成员，才用 `syncClockDigest` 判断是否需要完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:68`）。
+只有具备存储复制授权、处于正常变更门控状态的可达成员，才用 `syncClockDigest` 判断是否需要完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:71`）。
 
 失败按对端指数退避（2 秒起、60 秒封顶），成功后复位（`docs/core-node-space-binding-architecture.md:230`）。
 
@@ -313,7 +313,7 @@ Router 在比较写入前验证目标属于 `Space` 且 `Link` 路由可达（`d
 | 符号 | 职责 | 引用 |
 | --- | --- | --- |
 | `CoreNode` | 一个运行 Operit Core 的应用实例（架构概念，代码中无同名 struct） | `docs/core-node-space-binding-architecture.md:39` |
-| `OperitApplication` | 单节点业务运行时 | `core/crates/runtime/application/src/core/application/OperitApplication.rs:119` |
+| `OperitApplication` | 单节点业务运行时 | `core/crates/runtime/application/src/core/application/OperitApplication.rs:120` |
 | `LocalCoreProxy` | 本机类型化代理，包起 OperitApplication | `core/crates/proxy/local/src/lib.rs:34` |
 | `HostManager` | 本节点宿主能力集 | `core/crates/foundation/host-api/src/HostManager.rs:139` |
 | `CoreApplication` | 组装根，拥有一棵运行中的 Core 树 | `core/crates/application/core/src/lib.rs:69` |

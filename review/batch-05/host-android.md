@@ -32,9 +32,9 @@ Host crate 不拥有 Flutter UI 状态与 WebView 控件（`hosts/README.md:49`�
 - `ShellPrivileges` — 只描述已批准的特权，不发起授权请求（`hosts/android/src/terminal_privilege.rs:5`）
 - `ShellTransport` — 为一次系统 shell 会话选择一种传输（`hosts/android/src/terminal_privilege.rs:11`）
 - `AndroidPtyProcess` — 区分本地子进程与 Shizuku 远程进程（`hosts/android/src/terminal.rs:99`）
-- 主入口函数之一是 `createRuntimeHostManager`，组装 Android 自有的运行时 `HostManager`（`hosts/android/src/lib.rs:75`）
-- 另一主入口是 `createPrivilegedRuntimeHostManager`，组装不含应用自有 JNI 注册的特权 Android Host（`hosts/android/src/lib.rs:106`）
-- `createBaseRuntimeHostManager` 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:130`）
+- 主入口函数之一是 `createRuntimeHostManager`，组装 Android 自有的运行时 `HostManager`（`hosts/android/src/lib.rs:76`）
+- 另一主入口是 `createPrivilegedRuntimeHostManager`，组装不含应用自有 JNI 注册的特权 Android Host（`hosts/android/src/lib.rs:107`）
+- `createBaseRuntimeHostManager` 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:131`）
 - 运行时代码经 `HostManager` 消费 Android Host 的能力实现（`hosts/README.md:3`）
 - 需要 Java 侧能力的调用经 JNI 桥接发出，例如特权查询经 JNI 方法 `terminalPrivilegeOperation` 发给 Java 侧桥接对象（`hosts/android/src/terminal_privilege.rs:60`）
 
@@ -42,20 +42,20 @@ Host crate 不拥有 Flutter UI 状态与 WebView 控件（`hosts/README.md:49`�
 
 ### Host 组装：应用组合与特权组合
 
-`createRuntimeHostManager` 组装 Android 自有的运行时 `HostManager`（`hosts/android/src/lib.rs:75`）。
-`createRuntimeHostManager` 以 `AndroidRuntimeStorageHost` 作 Host 密钥库（`hosts/android/src/lib.rs:79`）。
-运行时组合以 `NativeLocalInferenceHost::withSpeech` 包装 `AndroidLocalInferenceHost` 注册本地推理 Host（`hosts/android/src/lib.rs:94`）。
-运行时组合以 `acquireMulticastLease` 作 `ServiceDiscovery` 的网络租约来源（`hosts/android/src/lib.rs:98`）。
-运行时组合注册 `AndroidPluginSdkIpcHost`（`hosts/android/src/lib.rs:101`）。
-`createPrivilegedRuntimeHostManager` 组装不含应用自有 JNI 注册的特权 Android Host（`hosts/android/src/lib.rs:106`）。
-特权组合以 NativeFileSecretStore(secretRoot) 作 Host 密钥库（`hosts/android/src/lib.rs:120`）。
-特权组合使用 `NativeHostRuntimeEventSchedulerHost` 作运行时事件调度 Host（`hosts/android/src/lib.rs:123`）。
-`createBaseRuntimeHostManager` 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:130`）。
-基础组合以 `AndroidFileSystemHost`、`AndroidHttpHost` 与 `AndroidManagedRuntimeHost` 装配 `HostManager`（`hosts/android/src/lib.rs:151`）。
-基础组合注册 `NativeHttpServerHost`、`NativeTcpHost` 与 `NativeSerialPortHost`（`hosts/android/src/lib.rs:162`）。
-基础组合注册 `AndroidHostJavaScriptRuntimeHost` 与 `AndroidHostRuntimeTaskSchedulerHost`（`hosts/android/src/lib.rs:166`）。
-归档暂存 Host 使用 `archiveRuntimeRoot`，因为 Android 共享存储以 ENOSYS 拒绝 flock，模块运行时根目录是私有的（`hosts/android/src/lib.rs:145`）。
-`createBaseRuntimeHostManager` 的 `webVisitHost` 由调用方传入（`hosts/android/src/lib.rs:133`）。
+`createRuntimeHostManager` 组装 Android 自有的运行时 `HostManager`（`hosts/android/src/lib.rs:76`）。
+`createRuntimeHostManager` 以 `AndroidRuntimeStorageHost` 作 Host 密钥库（`hosts/android/src/lib.rs:80`）。
+运行时组合以 `NativeLocalInferenceHost::withSpeech` 包装 `AndroidLocalInferenceHost` 注册本地推理 Host（`hosts/android/src/lib.rs:95`）。
+运行时组合以 `acquireMulticastLease` 作 `ServiceDiscovery` 的网络租约来源（`hosts/android/src/lib.rs:99`）。
+运行时组合注册 `AndroidPluginSdkIpcHost`（`hosts/android/src/lib.rs:102`）。
+`createPrivilegedRuntimeHostManager` 组装不含应用自有 JNI 注册的特权 Android Host（`hosts/android/src/lib.rs:107`）。
+特权组合以 NativeFileSecretStore(secretRoot) 作 Host 密钥库（`hosts/android/src/lib.rs:121`）。
+特权组合使用 `NativeHostRuntimeEventSchedulerHost` 作运行时事件调度 Host（`hosts/android/src/lib.rs:125`）。
+`createBaseRuntimeHostManager` 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:131`）。
+基础组合以 `AndroidFileSystemHost`、`AndroidHttpHost` 与 `AndroidManagedRuntimeHost` 装配 `HostManager`（`hosts/android/src/lib.rs:153`）。
+基础组合注册 `NativeHttpServerHost`、`NativeTcpHost` 与 `NativeSerialPortHost`（`hosts/android/src/lib.rs:163`）。
+基础组合注册 `AndroidHostJavaScriptRuntimeHost` 与 `AndroidHostRuntimeTaskSchedulerHost`（`hosts/android/src/lib.rs:167`）。
+归档暂存 Host 使用 `archiveRuntimeRoot`，因为 Android 共享存储以 ENOSYS 拒绝 flock，模块运行时根目录是私有的（`hosts/android/src/lib.rs:150`）。
+`createBaseRuntimeHostManager` 的 `webVisitHost` 由调用方传入（`hosts/android/src/lib.rs:135`）。
 Android Host crate 依赖 `operit-host-api`（`hosts/android/Cargo.toml:12`）。
 Android Host crate 依赖 `operit-host-local-inference`（本地推理共享实现）（`hosts/android/Cargo.toml:9`）。
 Android Host crate 依赖 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage 特性（`hosts/android/Cargo.toml:13`）。
@@ -97,7 +97,7 @@ Shizuku 系统 shell 把应用私有目录下的工作目录映射到 /sdcard（
 非 `android_documents` 后端的终端文件系统后端被拒绝（`hosts/android/src/terminal.rs:42`）。
 本地 PTY 子进程在 Android 上以 `forkpty` 创建（`hosts/android/src/terminal.rs:2020`）。
 非 Android 目标上返回 Android PTY is only available on Android target 错误（`hosts/android/src/terminal.rs:2005`）。
-lib.rs 导出 `androidPrivilegedPtyOperation`（`hosts/android/src/lib.rs:36`）。
+lib.rs 导出 `androidPrivilegedPtyOperation`（`hosts/android/src/lib.rs:37`）。
 `androidPrivilegedPtyOperation` 为特权 Binder 服务提供 PTY 原语，不调用应用运行时（`hosts/android/src/terminal.rs:2231`）。
 特权 PTY 支持 start 操作（`hosts/android/src/terminal.rs:2243`）。
 特权 PTY 的 poll 操作调用 `pollPidExitCode` 返回 exitCode（`hosts/android/src/terminal.rs:2282`）。
@@ -183,21 +183,21 @@ Root 进程的 `android.fileManagement`、`android.root`、`android.shizuku`、`
 
 系统操作 Host 的 `new` 接受 `settingReader`、`settingWriter` 与 `packageOperation` 三个所有者回调（`hosts/android/src/system_operation.rs:28`）。
 `forPrivilegedRuntime` 以显式启动时语言构造独立 Host（`hosts/android/src/system_operation.rs:40`）。
-应用更新目标按架构选 APK：aarch64 取 arm64-v8a，arm 取 armeabi-v7a，安装时机为 Immediate（`hosts/android/src/system_operation.rs:72`）。
-`getSystemLanguageCode` 优先返回构造时给定的 language，否则调用 `androidHostSystemLanguageCode`（`hosts/android/src/system_operation.rs:85`）。
-`sendNotification` 返回错误，要求 Android UI host bridge（`hosts/android/src/system_operation.rs:97`）。
-`getNotifications` 返回错误，要求 Android notification host bridge（`hosts/android/src/system_operation.rs:161`）。
-`getDeviceLocation` 返回错误，要求 Android location host bridge（`hosts/android/src/system_operation.rs:179`）。
-`getDeviceInfo` 返回错误，要求 Android device info host bridge（`hosts/android/src/system_operation.rs:189`）。
-`captureScreenshot` 返回错误，要求 Android screen capture host bridge（`hosts/android/src/system_operation.rs:202`）。
-`captureScreenshotTo` 经 VFS 能力写截图字节并删除原生暂存文件（`hosts/android/src/system_operation.rs:194`）。
-`recognizeText` 返回错误，要求 Android OCR host bridge（`hosts/android/src/system_operation.rs:208`）。
-`installApp` 要求 Immediate 时机，再以 install_app 请求包操作（`hosts/android/src/system_operation.rs:121`）。
-`startApp` 转交给 `startAppWithActivity` 且 activity 为 None（`hosts/android/src/system_operation.rs:144`）。
-`listInstalledApps` 以 list_installed_apps 请求包操作（`hosts/android/src/system_operation.rs:133`）。
-`uninstallApp` 以 uninstall_app 请求包操作（`hosts/android/src/system_operation.rs:126`）。
-`stopApp` 以 stop_app 请求包操作（`hosts/android/src/system_operation.rs:155`）。
-应用使用时长查询以 get_app_usage_time 请求包操作（`hosts/android/src/system_operation.rs:172`）。
+应用更新目标按架构选 APK：aarch64 取 arm64-v8a，arm 取 armeabi-v7a，安装时机为 Immediate（`hosts/android/src/system_operation.rs:78`）。
+`getSystemLanguageCode` 优先返回构造时给定的 language，否则调用 `androidHostSystemLanguageCode`（`hosts/android/src/system_operation.rs:95`）。
+`sendNotification` 返回错误，要求 Android UI host bridge（`hosts/android/src/system_operation.rs:107`）。
+`getNotifications` 返回错误，要求 Android notification host bridge（`hosts/android/src/system_operation.rs:169`）。
+`getDeviceLocation` 返回错误，要求 Android location host bridge（`hosts/android/src/system_operation.rs:185`）。
+`getDeviceInfo` 返回错误，要求 Android device info host bridge（`hosts/android/src/system_operation.rs:197`）。
+`captureScreenshot` 返回错误，要求 Android screen capture host bridge（`hosts/android/src/system_operation.rs:212`）。
+`captureScreenshotTo` 经 VFS 能力写截图字节并删除原生暂存文件（`hosts/android/src/system_operation.rs:204`）。
+`recognizeText` 返回错误，要求 Android OCR host bridge（`hosts/android/src/system_operation.rs:218`）。
+`installApp` 要求 Immediate 时机，再以 install_app 请求包操作（`hosts/android/src/system_operation.rs:130`）。
+`startApp` 转交给 `startAppWithActivity` 且 activity 为 None（`hosts/android/src/system_operation.rs:152`）。
+`listInstalledApps` 以 list_installed_apps 请求包操作（`hosts/android/src/system_operation.rs:143`）。
+`uninstallApp` 以 uninstall_app 请求包操作（`hosts/android/src/system_operation.rs:136`）。
+`stopApp` 以 stop_app 请求包操作（`hosts/android/src/system_operation.rs:165`）。
+应用使用时长查询以 get_app_usage_time 请求包操作（`hosts/android/src/system_operation.rs:182`）。
 
 ### 语音、网页访问与蓝牙
 
@@ -236,16 +236,16 @@ Root 进程的 `android.fileManagement`、`android.root`、`android.shizuku`、`
 
 ### 与模块应用的关系
 
-`createBaseRuntimeHostManager` 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:130`）。
-特权组合以 NativeFileSecretStore(secretRoot) 作 Host 密钥库（`hosts/android/src/lib.rs:120`）。
+`createBaseRuntimeHostManager` 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:131`）。
+特权组合以 NativeFileSecretStore(secretRoot) 作 Host 密钥库（`hosts/android/src/lib.rs:121`）。
 模块已拥有 Root 进程时不需要应用 JVM 或 su 子进程（`hosts/android/src/terminal_privilege.rs:37`）。
-Android Host 的能力由应用与独立模块所有者共享，模块应用侧的打包与启动见 [[app-android-module|Android 模块应用]]（`hosts/android/src/lib.rs:130`）。
+Android Host 的能力由应用与独立模块所有者共享，模块应用侧的打包与启动见 [[app-android-module|Android 模块应用]]（`hosts/android/src/lib.rs:131`）。
 
 ## 关键符号
 
-- `createRuntimeHostManager` — 组装 Android 自有的运行时 `HostManager`（`hosts/android/src/lib.rs:75`）
-- `createPrivilegedRuntimeHostManager` — 组装不含应用自有 JNI 注册的特权 Android Host（`hosts/android/src/lib.rs:106`）
-- `createBaseRuntimeHostManager` — 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:130`）
+- `createRuntimeHostManager` — 组装 Android 自有的运行时 `HostManager`（`hosts/android/src/lib.rs:76`）
+- `createPrivilegedRuntimeHostManager` — 组装不含应用自有 JNI 注册的特权 Android Host（`hosts/android/src/lib.rs:107`）
+- `createBaseRuntimeHostManager` — 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:131`）
 - `AndroidTerminalHost` — Android PTY 终端 Host（`hosts/android/src/terminal.rs:69`）
 - `AndroidFileSystemHost` — Android 文件系统 Host（`hosts/android/src/filesystem.rs:12`）
 - `AndroidManagedRuntimeHost` — Android 托管运行时 Host（`hosts/android/src/managed_runtime.rs:17`）
@@ -301,9 +301,9 @@ Android Host 的能力由应用与独立模块所有者共享，模块应用侧�
 
 ### Host 组装
 
-1. `createRuntimeHostManager` 组装 Android 自有的运行时 `HostManager`（`hosts/android/src/lib.rs:75`）。
-2. `createPrivilegedRuntimeHostManager` 组装不含应用自有 JNI 注册的特权 Android Host（`hosts/android/src/lib.rs:106`）。
-3. `createBaseRuntimeHostManager` 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:130`）。
+1. `createRuntimeHostManager` 组装 Android 自有的运行时 `HostManager`（`hosts/android/src/lib.rs:76`）。
+2. `createPrivilegedRuntimeHostManager` 组装不含应用自有 JNI 注册的特权 Android Host（`hosts/android/src/lib.rs:107`）。
+3. `createBaseRuntimeHostManager` 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:131`）。
 
 ## 来源
 

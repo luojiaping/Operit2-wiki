@@ -21,7 +21,7 @@
  },
  {
   "fact": "Windows Host 依赖 `windows-sys` 0.59，特性含 Win32_Devices_Bluetooth、Win32_Media_Multimedia 与 Win32_System_Pipes",
-  "ref": "hosts/windows/Cargo.toml:32"
+  "ref": "hosts/windows/Cargo.toml:33"
  },
  {
   "fact": "daemon 模块只在 `daemon` 特性启用时编译",
@@ -373,95 +373,95 @@
  },
  {
   "fact": "`applicationUpdateTarget` 转发给 application_update 的 `target`",
-  "ref": "hosts/windows/src/tools/system/mod.rs:40"
+  "ref": "hosts/windows/src/tools/system/mod.rs:53"
  },
  {
   "fact": "`installApp` 按 `AppInstallTiming` 分流：Immediate 立即安装，AfterProcessExit 走 application_update 的 `prepare`",
-  "ref": "hosts/windows/src/tools/system/mod.rs:68"
- },
- {
-  "fact": "`request_windows_install_app` 先尝试 `installPortableApp` 安装便携应用",
-  "ref": "hosts/windows/src/tools/system/mod.rs:578"
- },
- {
-  "fact": ".msix 与 .appx 包经 `Add-AppxPackage` 安装，.msi 包经 msiexec 安装并接受退出码 0、1641 与 3010",
-  "ref": "hosts/windows/src/tools/system/mod.rs:597"
- },
- {
-  "fact": ".exe 安装只打开安装程序，状态记为 `installer_opened`，安装结果未经验证",
-  "ref": "hosts/windows/src/tools/system/mod.rs:603"
- },
- {
-  "fact": "通知经 `ToastNotificationManager` 以 app.operit.operit2 为 ID 创建通知器发出",
-  "ref": "hosts/windows/src/tools/system/mod.rs:159"
- },
- {
-  "fact": "通知激活地址为 operit2://notification/open-app，打开指定会话时带 chatId 参数",
-  "ref": "hosts/windows/src/tools/system/mod.rs:173"
- },
- {
-  "fact": "系统语言经 `GetUserDefaultLocaleName` 读取",
-  "ref": "hosts/windows/src/tools/system/mod.rs:477"
- },
- {
-  "fact": "系统设置命名空间 system、secure、global 映射到 `HKCU` 下 Software\\Operit2 的子键",
-  "ref": "hosts/windows/src/tools/system/mod.rs:555"
- },
- {
-  "fact": "Windows Host 明确表示不暴露历史前台使用时长且未配置使用记录器",
-  "ref": "hosts/windows/src/tools/system/mod.rs:788"
- },
- {
-  "fact": "定位用 WinRT `Geolocator` 完成",
-  "ref": "hosts/windows/src/tools/system/mod.rs:800"
- },
- {
-  "fact": "定位结果的 provider 为 `windows-geolocator`",
-  "ref": "hosts/windows/src/tools/system/mod.rs:862"
- },
- {
-  "fact": "截图用 PowerShell 的 `CopyFromScreen` 截取整个虚拟桌面",
-  "ref": "hosts/windows/src/tools/system/mod.rs:223"
- },
- {
-  "fact": "`captureScreenshotTo` 把截图字节经选定的 VFS 能力写入目标并删除原生暂存文件",
-  "ref": "hosts/windows/src/tools/system/mod.rs:117"
- },
- {
-  "fact": "文本识别用 Windows.Media.Ocr 的 `OcrEngine` 的 `TryCreateFromLanguage` 创建引擎",
-  "ref": "hosts/windows/src/tools/system/mod.rs:305"
- },
- {
-  "fact": "OCR 语言映射为 en-US、zh-Hans、ja、ko 四种标签",
-  "ref": "hosts/windows/src/tools/system/mod.rs:399"
- },
- {
-  "fact": "OCR 高质量模式把图片放大 2 倍，但放大后宽或高超过 4096 时不放大",
-  "ref": "hosts/windows/src/tools/system/mod.rs:362"
- },
- {
-  "fact": "通知历史通过 `UserNotificationListener` 的 Current 实例读取",
-  "ref": "hosts/windows/src/tools/system/mod.rs:693"
- },
- {
-  "fact": "读取通知历史前须请求监听权限，未获 Allowed 即报错",
-  "ref": "hosts/windows/src/tools/system/mod.rs:699"
- },
- {
-  "fact": "`listInstalledApps` 调用 packages 的 `list` 枚举已安装应用",
-  "ref": "hosts/windows/src/tools/system/mod.rs:78"
- },
- {
-  "fact": "`uninstallApp` 转发给 packages 的 `operation`",
-  "ref": "hosts/windows/src/tools/system/mod.rs:73"
- },
- {
-  "fact": "`startApp` 转发给 packages 的 `operation`",
   "ref": "hosts/windows/src/tools/system/mod.rs:81"
  },
  {
+  "fact": "`request_windows_install_app` 先尝试 `installPortableApp` 安装便携应用",
+  "ref": "hosts/windows/src/tools/system/mod.rs:591"
+ },
+ {
+  "fact": ".msix 与 .appx 包经 `Add-AppxPackage` 安装，.msi 包经 msiexec 安装并接受退出码 0、1641 与 3010",
+  "ref": "hosts/windows/src/tools/system/mod.rs:610"
+ },
+ {
+  "fact": ".exe 安装只打开安装程序，状态记为 `installer_opened`，安装结果未经验证",
+  "ref": "hosts/windows/src/tools/system/mod.rs:616"
+ },
+ {
+  "fact": "通知经 `ToastNotificationManager` 以 app.operit.operit2 为 ID 创建通知器发出",
+  "ref": "hosts/windows/src/tools/system/mod.rs:172"
+ },
+ {
+  "fact": "通知激活地址为 operit2://notification/open-app，打开指定会话时带 chatId 参数",
+  "ref": "hosts/windows/src/tools/system/mod.rs:186"
+ },
+ {
+  "fact": "系统语言经 `GetUserDefaultLocaleName` 读取",
+  "ref": "hosts/windows/src/tools/system/mod.rs:490"
+ },
+ {
+  "fact": "系统设置命名空间 system、secure、global 映射到 `HKCU` 下 Software\\Operit2 的子键",
+  "ref": "hosts/windows/src/tools/system/mod.rs:568"
+ },
+ {
+  "fact": "Windows Host 明确表示不暴露历史前台使用时长且未配置使用记录器",
+  "ref": "hosts/windows/src/tools/system/mod.rs:801"
+ },
+ {
+  "fact": "定位用 WinRT `Geolocator` 完成",
+  "ref": "hosts/windows/src/tools/system/mod.rs:813"
+ },
+ {
+  "fact": "定位结果的 provider 为 `windows-geolocator`",
+  "ref": "hosts/windows/src/tools/system/mod.rs:875"
+ },
+ {
+  "fact": "截图用 PowerShell 的 `CopyFromScreen` 截取整个虚拟桌面",
+  "ref": "hosts/windows/src/tools/system/mod.rs:236"
+ },
+ {
+  "fact": "`captureScreenshotTo` 把截图字节经选定的 VFS 能力写入目标并删除原生暂存文件",
+  "ref": "hosts/windows/src/tools/system/mod.rs:130"
+ },
+ {
+  "fact": "文本识别用 Windows.Media.Ocr 的 `OcrEngine` 的 `TryCreateFromLanguage` 创建引擎",
+  "ref": "hosts/windows/src/tools/system/mod.rs:318"
+ },
+ {
+  "fact": "OCR 语言映射为 en-US、zh-Hans、ja、ko 四种标签",
+  "ref": "hosts/windows/src/tools/system/mod.rs:412"
+ },
+ {
+  "fact": "OCR 高质量模式把图片放大 2 倍，但放大后宽或高超过 4096 时不放大",
+  "ref": "hosts/windows/src/tools/system/mod.rs:375"
+ },
+ {
+  "fact": "通知历史通过 `UserNotificationListener` 的 Current 实例读取",
+  "ref": "hosts/windows/src/tools/system/mod.rs:706"
+ },
+ {
+  "fact": "读取通知历史前须请求监听权限，未获 Allowed 即报错",
+  "ref": "hosts/windows/src/tools/system/mod.rs:712"
+ },
+ {
+  "fact": "`listInstalledApps` 调用 packages 的 `list` 枚举已安装应用",
+  "ref": "hosts/windows/src/tools/system/mod.rs:91"
+ },
+ {
+  "fact": "`uninstallApp` 转发给 packages 的 `operation`",
+  "ref": "hosts/windows/src/tools/system/mod.rs:86"
+ },
+ {
+  "fact": "`startApp` 转发给 packages 的 `operation`",
+  "ref": "hosts/windows/src/tools/system/mod.rs:94"
+ },
+ {
   "fact": "`stopApp` 转发给 packages 的 `operation`",
-  "ref": "hosts/windows/src/tools/system/mod.rs:85"
+  "ref": "hosts/windows/src/tools/system/mod.rs:98"
  },
  {
   "fact": "应用目录枚举注册表 Uninstall 项与 `Get-AppxPackage` 的 Appx 包",
@@ -501,7 +501,7 @@
  },
  {
   "fact": "更新目标返回 `AfterProcessExit` 时序，MSI 安装对应 `WindowsMsi`，否则对应 `WindowsZip`",
-  "ref": "hosts/windows/src/tools/system/application_update.rs:34"
+  "ref": "hosts/windows/src/tools/system/application_update.rs:37"
  },
  {
   "fact": "`installation` 经 PowerShell 的 `Get-OperitInstallation` 查询当前可执行文件的 MSI 归属",
@@ -509,23 +509,23 @@
  },
  {
   "fact": "`prepare` 要求更新包为绝对路径的可读文件",
-  "ref": "hosts/windows/src/tools/system/application_update.rs:49"
+  "ref": "hosts/windows/src/tools/system/application_update.rs:52"
  },
  {
   "fact": "便携版安装的更新经 `installPortableApp` 处理，非 ZIP 包报错",
-  "ref": "hosts/windows/src/tools/system/application_update.rs:55"
+  "ref": "hosts/windows/src/tools/system/application_update.rs:58"
  },
  {
   "fact": "MSI 安装只接受扩展名为 msi 的更新包",
-  "ref": "hosts/windows/src/tools/system/application_update.rs:60"
+  "ref": "hosts/windows/src/tools/system/application_update.rs:63"
  },
  {
   "fact": "更新助手启动后等待其 ready 确认再返回，安装状态为 `RestartRequired`",
-  "ref": "hosts/windows/src/tools/system/application_update.rs:85"
+  "ref": "hosts/windows/src/tools/system/application_update.rs:88"
  },
  {
   "fact": "更新助手以 installer-令牌.ready 与 installer-令牌.log 两个文件与主进程握手",
-  "ref": "hosts/windows/src/tools/system/application_update.rs:67"
+  "ref": "hosts/windows/src/tools/system/application_update.rs:70"
  },
  {
   "fact": "更新脚本以 UpgradeCode {A60B4E40-8A60-4BCD-AB33-DA7D939E436D} 识别 Operit MSI 产品族",
@@ -557,27 +557,27 @@
  },
  {
   "fact": "更新助手发布 ready 标记后等待父进程完全退出",
-  "ref": "hosts/windows/src/tools/system/application_update.ps1:144"
+  "ref": "hosts/windows/src/tools/system/application_update.ps1:148"
  },
  {
   "fact": "等待期间若发现同安装的另一实例在运行，更新中止并报错",
-  "ref": "hosts/windows/src/tools/system/application_update.ps1:147"
+  "ref": "hosts/windows/src/tools/system/application_update.ps1:151"
  },
  {
   "fact": "父进程退出后更新助手重新核对已安装产品与更新包的身份",
-  "ref": "hosts/windows/src/tools/system/application_update.ps1:152"
+  "ref": "hosts/windows/src/tools/system/application_update.ps1:156"
  },
  {
   "fact": "更新以 `msiexec.exe` 加 /qn /norestart 静默安装",
-  "ref": "hosts/windows/src/tools/system/application_update.ps1:159"
+  "ref": "hosts/windows/src/tools/system/application_update.ps1:163"
  },
  {
   "fact": "msiexec 返回 3010 时更新结果记为 `system_restart_required` 并提示重启 Windows",
-  "ref": "hosts/windows/src/tools/system/application_update.ps1:162"
+  "ref": "hosts/windows/src/tools/system/application_update.ps1:166"
  },
  {
   "fact": "安装成功后更新助手重新启动可执行文件",
-  "ref": "hosts/windows/src/tools/system/application_update.ps1:172"
+  "ref": "hosts/windows/src/tools/system/application_update.ps1:177"
  },
  {
   "fact": "更新结果以 JSON 写入日志路径加 .result.json 的文件",

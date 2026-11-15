@@ -115,9 +115,9 @@ modelProfile 生成的参与者 `toolAccess` 关闭，内置工具、包、技�
 `validateModelExecutionData` 要求 `schemaVersion` 为 1、`contextKey` 与 profile id 均为 `model:chat`、名称等于模型绑定模型 id、单一参与者、resources 与三段提示词均为空（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:408）。
 `validateNativeModelExecutionData` 还要求 `participantId` 与保存的 profile id 一致（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:420）。
 RuntimeProviderSupport::generateLocalLlm 经 `LocalLlmService` 做本地推理，`bindingKey` 为空时先调用 `ensureLocalLlmBinding`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:465）。
-注：RuntimeProviderSupport 的 dataDir 接口已删除；`modelBindingForFunction`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:575）、`resolvedModelConfig`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:589）、`providerProfile`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:618）三函数改用默认配置管理器，不再接收 rootDir 参数。
+注：RuntimeProviderSupport 的 dataDir 接口已删除；`modelBindingForFunction`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:575）、`resolvedModelConfig`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:589）、`providerProfile`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:629）三函数改用默认配置管理器，不再接收 rootDir 参数。
 RuntimeProviderSupport::resolveChatConfiguration 在异步任务中经 `ChatConfigurationApi` 解析持久化聊天上下文（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:539）。
-RuntimeProviderSupport 的 `loadCodexTokens` 返回保存的 ChatGPT Codex 会话，未保存时返回错误（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:600）。
+RuntimeProviderSupport 的 `loadCodexTokens` 返回保存的 ChatGPT Codex 会话，未保存时返回错误（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:611）。
 `bindRuntimeServices` 绑定工具处理器与 provider 运行时上下文，重复绑定返回错误（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:90）。
 `bindChatHistoryManager` 捕获与聊天 delegate 共享的规范记录管理器，重复绑定返回错误（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:104）。
 `bindDeviceToolRuntime` 安装设备工具运行时，重复初始化返回错误（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:138）。
@@ -231,6 +231,6 @@ start_terminal_pty_output_reader 每轮轮询后等 `waitForHostRuntimeDelay(40)
 ## 来源
 
 - `core/crates/runtime/application/src/services/ChatServiceCore.rs`（3880 行）
-- `core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs`（879 行）
+- `core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs`（901 行）
 - `core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs`（1302 行）
 - `core/crates/runtime/application/src/services/RuntimeTerminalService.rs`（555 行）
