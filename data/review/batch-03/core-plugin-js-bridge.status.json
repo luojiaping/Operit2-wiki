@@ -1,6 +1,6 @@
 {
   "issue": 23,
-  "source_commit": "ff5373fb6",
+  "source_commit": "a119411ce",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "插件——JS 桥：JsEngine 实现 JsExecutionEngine，HostJsExecutionProvider 实现 JsExecutionProvider，JS 经 35 个同步与 12 个异步宿主绑定调宿主操作。",

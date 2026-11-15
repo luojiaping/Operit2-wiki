@@ -1,6 +1,6 @@
 {
   "issue": 94,
-  "source_commit": "ff5373fb6",
+  "source_commit": "a119411ce",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "ESP32 两套聊天实现：独立聊天直连模型服务 HTTP 端点，远端 Core 模式下 Edge 只保留显示缓存与执行摘要，迟到结果经会话守卫隔离。",

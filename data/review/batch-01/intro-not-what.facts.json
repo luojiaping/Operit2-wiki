@@ -85,7 +85,7 @@
   },
   {
     "fact": "ModelConfigManager 经 preferenceStore 用 PreferencesDataStore::newWithStorage 打开模型配置存储",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:112"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:132"
   },
   {
     "fact": "PreferencesDataStore::newWithStorage 创建 Space 偏好存储",
@@ -101,7 +101,7 @@
   },
   {
     "fact": "writeProvider 把完整 ProviderProfile 作为同步偏好值写入 provider_<id>",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479"
   },
   {
     "fact": "ProviderProfile 包含 apiKey 与 apiKeyPool",
@@ -109,7 +109,7 @@
   },
   {
     "fact": "Provider 凭证存在随配置同步的路径",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479"
   },
   {
     "fact": "Full 只表示 AI 能力限制放宽，不表示 Host 提权，也不能创造操作系统没有的能力",

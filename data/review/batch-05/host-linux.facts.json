@@ -304,108 +304,108 @@
   "ref": "hosts/linux/src/tools/system/mod.rs:19"
  },
  {
-  "fact": "applicationUpdateTarget 返回 LinuxTarGz 包与 Immediate 安装时序",
+  "fact": "applicationUpdateTarget 仅当可执行文件所在目录含 data/flutter_assets/ 时返回 LinuxTarGz 包与 Immediate 安装时序，否则返回 None",
   "ref": "hosts/linux/src/tools/system/mod.rs:34"
  },
  {
   "fact": "系统语言按 LC_ALL、LC_MESSAGES、LANG 的顺序取",
-  "ref": "hosts/linux/src/tools/system/mod.rs:332"
+  "ref": "hosts/linux/src/tools/system/mod.rs:335"
  },
  {
   "fact": "通知发送调用 notify-send",
-  "ref": "hosts/linux/src/tools/system/mod.rs:48"
+  "ref": "hosts/linux/src/tools/system/mod.rs:51"
  },
  {
   "fact": "修改系统设置经 gsettings set 执行",
-  "ref": "hosts/linux/src/tools/system/mod.rs:443"
+  "ref": "hosts/linux/src/tools/system/mod.rs:446"
  },
  {
   "fact": "读取系统设置经 gsettings get 执行",
-  "ref": "hosts/linux/src/tools/system/mod.rs:461"
+  "ref": "hosts/linux/src/tools/system/mod.rs:464"
  },
  {
   "fact": "setting 须为 schema:key 形式",
-  "ref": "hosts/linux/src/tools/system/mod.rs:492"
+  "ref": "hosts/linux/src/tools/system/mod.rs:495"
  },
  {
   "fact": "installApp 要求安装时序为 Immediate",
-  "ref": "hosts/linux/src/tools/system/mod.rs:86"
+  "ref": "hosts/linux/src/tools/system/mod.rs:89"
  },
  {
   "fact": "installApp 把安装交给 packages::install",
-  "ref": "hosts/linux/src/tools/system/mod.rs:87"
+  "ref": "hosts/linux/src/tools/system/mod.rs:90"
  },
  {
   "fact": "uninstallApp 交给 packages::uninstall",
-  "ref": "hosts/linux/src/tools/system/mod.rs:91"
+  "ref": "hosts/linux/src/tools/system/mod.rs:94"
  },
  {
   "fact": "listInstalledApps 交给 packages::list",
-  "ref": "hosts/linux/src/tools/system/mod.rs:95"
+  "ref": "hosts/linux/src/tools/system/mod.rs:98"
  },
  {
   "fact": "startApp 交给 packages::start",
-  "ref": "hosts/linux/src/tools/system/mod.rs:99"
+  "ref": "hosts/linux/src/tools/system/mod.rs:102"
  },
  {
   "fact": "stopApp 交给 packages::stop",
-  "ref": "hosts/linux/src/tools/system/mod.rs:103"
+  "ref": "hosts/linux/src/tools/system/mod.rs:106"
  },
  {
   "fact": "通知查询调用 dunstctl history",
-  "ref": "hosts/linux/src/tools/system/mod.rs:352"
+  "ref": "hosts/linux/src/tools/system/mod.rs:355"
  },
  {
   "fact": "Linux 不提供历史前台使用时长",
-  "ref": "hosts/linux/src/tools/system/mod.rs:517"
+  "ref": "hosts/linux/src/tools/system/mod.rs:520"
  },
  {
   "fact": "高精度定位请求精度等级 8，否则请求 6",
-  "ref": "hosts/linux/src/tools/system/mod.rs:528"
+  "ref": "hosts/linux/src/tools/system/mod.rs:531"
  },
  {
   "fact": "定位结果的 provider 为 geoclue2",
-  "ref": "hosts/linux/src/tools/system/mod.rs:584"
+  "ref": "hosts/linux/src/tools/system/mod.rs:587"
  },
  {
   "fact": "定位不提供 civic 地址，city 与 province 为空",
-  "ref": "hosts/linux/src/tools/system/mod.rs:588"
+  "ref": "hosts/linux/src/tools/system/mod.rs:591"
  },
  {
   "fact": "设备 ID 取自 /etc/machine-id，系统名取自 /etc/os-release 的 PRETTY_NAME",
-  "ref": "hosts/linux/src/tools/system/mod.rs:600"
+  "ref": "hosts/linux/src/tools/system/mod.rs:603"
  },
  {
   "fact": "发行版名与内核版本拼进 androidVersion 字段",
-  "ref": "hosts/linux/src/tools/system/mod.rs:631"
+  "ref": "hosts/linux/src/tools/system/mod.rs:634"
  },
  {
   "fact": "sdkVersion 为 0，screenDensity 为 1.0",
-  "ref": "hosts/linux/src/tools/system/mod.rs:632"
+  "ref": "hosts/linux/src/tools/system/mod.rs:635"
  },
  {
   "fact": "无电池设备返回电池电量 -1 与未充电",
-  "ref": "hosts/linux/src/tools/system/mod.rs:765"
+  "ref": "hosts/linux/src/tools/system/mod.rs:768"
  },
  {
   "fact": "截图调用 gnome-screenshot -f",
-  "ref": "hosts/linux/src/tools/system/mod.rs:172"
+  "ref": "hosts/linux/src/tools/system/mod.rs:175"
  },
  {
   "fact": "captureScreenshotTo 把截图字节经选定的 VFS 能力写出并删除原生暂存文件",
-  "ref": "hosts/linux/src/tools/system/mod.rs:135"
+  "ref": "hosts/linux/src/tools/system/mod.rs:138"
  },
  {
   "fact": "recognizeText 的 imagePath 参数改走 FileSource",
-  "ref": "hosts/linux/src/tools/system/mod.rs:149"
+  "ref": "hosts/linux/src/tools/system/mod.rs:152"
  },
  {
   "fact": "文字识别调用 tesseract",
-  "ref": "hosts/linux/src/tools/system/mod.rs:196"
+  "ref": "hosts/linux/src/tools/system/mod.rs:199"
  },
  {
   "fact": "tesseract 语言映射为 Latin 对 eng、Chinese 对 chi_sim、Japanese 对 jpn、Korean 对 kor",
-  "ref": "hosts/linux/src/tools/system/mod.rs:290"
+  "ref": "hosts/linux/src/tools/system/mod.rs:293"
  },
  {
   "fact": "应用扫描根目录包含用户 applications 目录、XDG_DATA_DIRS、flatpak 与 snapd 的 desktop 目录",
@@ -725,7 +725,7 @@
  },
  {
   "fact": "getSystemLanguageCode 委托给 get_linux_system_language_code",
-  "ref": "hosts/linux/src/tools/system/mod.rs:38"
+  "ref": "hosts/linux/src/tools/system/mod.rs:41"
  },
  {
   "fact": "hiddenPtySessionId 按 executorKey 复用已存在的隐藏会话",

@@ -44,33 +44,33 @@ date: 2026-11-11
 - 宿主能力边界见 [[core-foundation|基础层——共享契约与数据模型]]。
 - `ChatUtils` 的声明带 `#[cfg(feature = "full")]` 门（core/crates/foundation/util/src/lib.rs:8）。
 - `DocumentConversionUtil` 的声明带 `#[cfg(feature = "full")]` 门（core/crates/foundation/util/src/lib.rs:12）。
-- `TokenCacheManager` 的声明带 `#[cfg(feature = "full")]` 门（core/crates/foundation/util/src/lib.rs:45）。
+- `TokenCacheManager` 的声明带 `#[cfg(feature = "full")]` 门（core/crates/foundation/util/src/lib.rs:47）。
 - Cargo.toml 的 `default` 特性包含 `full`（core/crates/foundation/util/Cargo.toml:13）
-- `full` 特性拉入 `flate2`、`regex`、`zip` 三个可选依赖（core/crates/foundation/util/Cargo.toml:14）。
-- `flate2` 是可选依赖（core/crates/foundation/util/Cargo.toml:21）。
-- `regex` 是可选依赖（core/crates/foundation/util/Cargo.toml:24）。
-- `zip` 是可选依赖（core/crates/foundation/util/Cargo.toml:29）。
+- `full` 特性拉入 `regex`、`zip` 两个可选依赖（core/crates/foundation/util/Cargo.toml:14）。
+- `flate2` 不再是可选依赖，是直接依赖（core/crates/foundation/util/Cargo.toml:21）。
+- `regex` 是可选依赖（core/crates/foundation/util/Cargo.toml:26）。
+- `zip` 是可选依赖（core/crates/foundation/util/Cargo.toml:31）。
 - 三个门控模块随默认构建编译，因为 `default` 包含 `full`（core/crates/foundation/util/Cargo.toml:13）。
-- `UpdateHttp` 是内部的私有模块，不对外公开（core/crates/foundation/util/src/lib.rs:17）。
+- `UpdateHttp` 是内部的私有模块，不对外公开（core/crates/foundation/util/src/lib.rs:18）。
 
 ### 子能力清点
 
 - 日志：`AppLogger`、`ChainLogger`（core/crates/foundation/util/src/lib.rs:3）。
 - 资产复制：`AssetCopyUtils`（core/crates/foundation/util/src/lib.rs:5）。
-- 文本分段：`TextSegmenter`（core/crates/foundation/util/src/lib.rs:44）。
+- 文本分段：`TextSegmenter`（core/crates/foundation/util/src/lib.rs:46）。
 - 平台路径：`AndroidUserPathUtils`、`AnrMonitor`（core/crates/foundation/util/src/lib.rs:1）。
 - 聊天标记：`ChatMarkupRegex`（core/crates/foundation/util/src/lib.rs:7）。
 - 颜色与崩溃：`ColorQrCodeUtil`、`CrashRecoveryState`（core/crates/foundation/util/src/lib.rs:10）。
 - 音视频与文件：`FFmpegUtil`、`FileUtils`、`GithubReleaseUtil`（core/crates/foundation/util/src/lib.rs:14）。
-- 异常与解析：`GlobalExceptionHandler`、`HtmlParserUtil`、`HttpMultiPartDownloader`（core/crates/foundation/util/src/lib.rs:18）。
-- 图像与序列化：`ImageBitmapLimiter`、`ImagePoolManager`、`IntRangeSerializer`、`LocalDateTimeSerializer`（core/crates/foundation/util/src/lib.rs:21）。
-- 区域与渲染：`LocaleUtils`、`LocationUtils`、`MarkdownRenderStream`（core/crates/foundation/util/src/lib.rs:25）。
-- 媒体池：`MediaBase64Limiter`、`MediaLinkBuilder`、`MediaPoolManager`、`MediaRegistration`（core/crates/foundation/util/src/lib.rs:28）。
-- 网络与路径：`NetworkUtils`、`OCRUtils`、`OperitPaths`（core/crates/foundation/util/src/lib.rs:32）。
-- 存储布局：`PortProcessKiller`、`PluginStoragePaths`、`RuntimeStoreRoot` 是公开模块，`RuntimeStorageLayout` 改为从 operit_host_api 重导出（core/crates/foundation/util/src/lib.rs:35）。
-- 转换与解析：`SerializationSetup`、`SkillRepoZipPoolManager`、`StreamingJsonXmlConverter`、`StructuredAssistantContentParser`（core/crates/foundation/util/src/lib.rs:40）。
-- 语音与消息：`TtsCleaner`、`TtsSegmenter`、`UriSerializer`、`WaifuMessageProcessor`（core/crates/foundation/util/src/lib.rs:47）。
-- 子树：`exceptions`、`stream`、`streamnative`（core/crates/foundation/util/src/lib.rs:51）。
+- 异常与解析：`GlobalExceptionHandler`、`HtmlParserUtil`、`HttpMultiPartDownloader`（core/crates/foundation/util/src/lib.rs:20）。
+- 图像与序列化：`ImageBitmapLimiter`、`ImagePoolManager`、`IntRangeSerializer`、`LocalDateTimeSerializer`（core/crates/foundation/util/src/lib.rs:23）。
+- 区域与渲染：`LocaleUtils`、`LocationUtils`、`MarkdownRenderStream`（core/crates/foundation/util/src/lib.rs:27）。
+- 媒体池：`MediaBase64Limiter`、`MediaLinkBuilder`、`MediaPoolManager`、`MediaRegistration`（core/crates/foundation/util/src/lib.rs:30）。
+- 网络与路径：`NetworkUtils`、`OCRUtils`、`OperitPaths`（core/crates/foundation/util/src/lib.rs:34）。
+- 存储布局：`PortProcessKiller`、`PluginStoragePaths`、`RuntimeStoreRoot` 是公开模块，`RuntimeStorageLayout` 改为从 operit_host_api 重导出（core/crates/foundation/util/src/lib.rs:37）。
+- 转换与解析：`SerializationSetup`、`SkillRepoZipPoolManager`、`StreamingJsonXmlConverter`、`StructuredAssistantContentParser`（core/crates/foundation/util/src/lib.rs:42）。
+- 语音与消息：`TtsCleaner`、`TtsSegmenter`、`UriSerializer`、`WaifuMessageProcessor`（core/crates/foundation/util/src/lib.rs:49）。
+- 子树：`exceptions`、`stream`、`streamnative`（core/crates/foundation/util/src/lib.rs:53）。
 - stream 子树包含 `HotStream`、`ReverseStream`、`RevisableTextStream` 与 `Stream`（core/crates/foundation/util/src/stream/mod.rs:1）
 - stream 子树包含 `StreamBuilders`、`StreamGroup`、`StreamKmpGraph`、`StreamKmpMatchResult` 与 `StreamOperators`（core/crates/foundation/util/src/stream/mod.rs:5）
 - stream 子树包含 `StringExtensions`、`TextStreamRevisionTracker` 与 `plugins`（core/crates/foundation/util/src/stream/mod.rs:10）

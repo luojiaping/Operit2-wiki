@@ -104,8 +104,8 @@
     "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:119"
   },
   {
-    "fact": "ClaudeProvider 的字段含 api_endpoint、api_key、model_name、provider_type、enable_tool_call、custom_headers，以及默认关闭的 enable_claude_1h_prompt_cache。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:36"
+    "fact": "ClaudeProvider 的字段含 api_endpoint、key_getter、model_name、provider_type、enable_tool_call、custom_headers，以及默认关闭的 enable_claude_1h_prompt_cache。",
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:35"
   },
   {
     "fact": "ClaudeProvider::new 默认关闭 1 小时提示缓存。",
@@ -117,7 +117,7 @@
   },
   {
     "fact": "create_request_body 写入 model、messages、stream，system 非空时才写入，max_tokens 未指定时补默认值。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:180"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:184"
   },
   {
     "fact": "只有 enable_tool_call 为真且 available_tools 非空时，请求体才带 tools。",
@@ -189,23 +189,23 @@
   },
   {
     "fact": "文本与图片均为空时，build_content_array 返回 \"[Empty]\" 文本块。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:444"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:451"
   },
   {
     "fact": "add_parameters 只写入 isEnabled 的模型参数。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:561"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:562"
   },
   {
     "fact": "请求头固定为 application/json 与 anthropic-version 2023-06-01。",
     "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:578"
   },
   {
-    "fact": "api_key 非空时才加 x-api-key 请求头，再叠加 custom_headers。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:584"
+    "fact": "x-api-key 请求头改由 key_getter 在 sendHttpRequest 里经 KeyAuthentication::Header 附加，headers 只拼固定头与 custom_headers。",
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:128"
   },
   {
     "fact": "OpenAI 兼容口径下，prompt_tokens 需减去缓存 token 才得到 input_base。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:707"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:684"
   },
   {
     "fact": "Anthropic 口径下 input_tokens 本身不含缓存读与缓存创建，缓存创建 token 另行加回 input。",
@@ -213,7 +213,7 @@
   },
   {
     "fact": "cached_input 取 cache_read_input_tokens，依次回退到 prompt_tokens_details/cached_tokens、input_tokens_details/cached_tokens、cached_tokens。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:667"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:652"
   },
   {
     "fact": "无 usage 字段时，token 计数回退到 TokenCacheManager 的本地状态。",
@@ -233,7 +233,7 @@
   },
   {
     "fact": "send_message 流式时经 Host 任务调度器以后台任务 \"claude-response-stream\" 发送，RequestCancelled 不视为终端失败，其他错误写入终端失败。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:800"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:782"
   },
   {
     "fact": "send_message 非流式时返回冷流，只在首次收集时执行一次请求。",
@@ -293,15 +293,15 @@
   },
   {
     "fact": "parse_anthropic_non_streaming 把 text 与 thinking 块拼成文本，thinking 包在 <think> 标记内。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1232"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1229"
   },
   {
     "fact": "parse_anthropic_non_streaming 的 tool_use 块仅在 enable_tool_call 为真时转为随机标签名的 XML 标记。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1246"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1239"
   },
   {
     "fact": "无 content 数组时，parse_anthropic_non_streaming 回退读取 choices/0/message/content。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1220"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1213"
   },
   {
     "fact": "EnhancedAIService 持有 multi_service_manager、conversation_service、tool_handler。",
@@ -781,7 +781,7 @@
   },
   {
     "fact": "ProviderRuntimeSupport 要求实现方提供 providerProfile。",
-    "ref": "core/crates/provider/services/src/runtime_support.rs:344"
+    "ref": "core/crates/provider/services/src/runtime_support.rs:349"
   },
   {
     "fact": "loadCodexTokens 默认实现返回错误，要求 Codex 授权。",
@@ -793,26 +793,26 @@
   },
   {
     "fact": "ProviderRuntimeSupport 提供 hasToolPkgAiProvider 与 toolPkgAiProvider 查询 ToolPkg AI 供应商注册。",
-    "ref": "core/crates/provider/services/src/runtime_support.rs:350"
+    "ref": "core/crates/provider/services/src/runtime_support.rs:362"
   },
   {
     "fact": "ProviderRuntimeSupport 提供 runToolPkgAiProviderHook 调用 ToolPkg AI 供应商函数。",
-    "ref": "core/crates/provider/services/src/runtime_support.rs:358"
+    "ref": "core/crates/provider/services/src/runtime_support.rs:368"
   },
   {
     "fact": "ProviderRuntimeSupport 提供 decodeToolPkgHookResult 解码 ToolPkg 钩子结果。",
-    "ref": "core/crates/provider/services/src/runtime_support.rs:370"
+    "ref": "core/crates/provider/services/src/runtime_support.rs:383"
   },
   {
     "fact": "ProviderRuntimeSupport 提供 messageTimingNow 取时间快照与 logMessageTiming 写时间日志。",
-    "ref": "core/crates/provider/services/src/runtime_support.rs:376"
+    "ref": "core/crates/provider/services/src/runtime_support.rs:386"
   },
   {
     "fact": "ProviderRuntimeContext 用 Arc 持有任意一个 ProviderRuntimeSupport 实现。",
-    "ref": "core/crates/provider/services/src/runtime_support.rs:388"
+    "ref": "core/crates/provider/services/src/runtime_support.rs:400"
   },
   {
     "fact": "ProviderRuntimeContext 提供 support() 取引用与 shared_support() 取共享 Arc。",
-    "ref": "core/crates/provider/services/src/runtime_support.rs:400"
+    "ref": "core/crates/provider/services/src/runtime_support.rs:410"
   }
 ]

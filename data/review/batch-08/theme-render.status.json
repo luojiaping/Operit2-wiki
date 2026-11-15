@@ -1,6 +1,6 @@
 {
   "issue": 78,
-  "source_commit": "ff5373fb6",
+  "source_commit": "a119411ce",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "主题渲染与媒体校验：Rust 侧 L4 图片/SVG/字体/九宫格像素检查与确定性 Stored ZIP 导出",

@@ -261,15 +261,15 @@
 },
 {
 "fact": "ModelConfigManager 的模型配置 store 由 preferenceStore 创建",
-"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:134"
+"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:155"
 },
 {
 "fact": "preferenceStore 用 PreferencesDataStore::newWithStorage 打开偏好 store",
-"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:112"
+"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:132"
 },
 {
 "fact": "writeProvider 把整个 ProviderProfile 以 provider_<id> 为键写入同步偏好",
-"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360"
+"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479"
 },
 {
 "fact": "ProviderProfile 包含 apiKey 与 apiKeyPool",
@@ -349,6 +349,6 @@
 },
 {
 "fact": "Flutter 扫码确认提示写明确认后直接连接并提交加入，无需输入配对码",
-"ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4614"
+"ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4641"
 }
 ]

@@ -32,7 +32,7 @@ Operit2 处于 Preview 阶段，底层结构、数据格式、插件契约与跨
 - `ServiceDiscovery` — 记录发现接口、地址、守护进程错误与扫描总数的日志来源（`docs/device-space-lan-discovery.md:52`）
 - `RuntimePeerService` — 记录广播总数与四类过滤总数的组件（`docs/device-space-lan-discovery.md:57`）
 - `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:603`）
-- ModelConfigManager 的 `preferenceStore` — 模型配置管理器入口，用 newWithStorage 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:108`）
+- ModelConfigManager 的 `preferenceStore` — 模型配置管理器入口，用 newWithStorage 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128`）
 - PreferencesDataStore 的 `newWithStorage` — 创建 Space 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2924`）
 - `SpaceJoinRequest` — 加入申请记录，状态字段是 SpaceJoinStatus（`core/crates/node/runtime/src/NodeSpaceService.rs:313`）
 - `SpaceJoinStatus` — Pending、Approving、Approved、Rejected、Cancelled、Expired、Joined（`core/crates/node/runtime/src/NodeSpaceService.rs:307`）
@@ -114,7 +114,7 @@ TXT 元数据必须包含 `nodeId`、`displayName` 与 `transports`，不完整�
 `operit2 cli link qr http --no-discovery` 在没有守护进程或 TUI 属主运行时启动 HTTP 监听器并保持到 Ctrl-C（`docs/device-space-lan-discovery.md:137`）。
 `link qr` 的 `--json` 以无终端转义序列的形式输出连接信息（`docs/device-space-lan-discovery.md:142`）。
 交互式 `link session` 中 `qr` 显示同一连接码，`pair <connection-code>` 完成 QR 配对，`space` 命令提交或检查加入请求（`docs/device-space-lan-discovery.md:145`）。
-Flutter 扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4611`）。
+Flutter 扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4638`）。
 
 ### Web Access
 
@@ -149,12 +149,12 @@ runtime 布局：`runtime/src` 存放 TypeScript 源码，`runtime/generated` �
 README 称 API 密钥、设备私钥、配对密钥、会话与本地平台权限默认归属本地节点，加入 `Space` 不会自动复制（`README.md:128`）。`Full` 只表示放宽 AI 能力限制，不提升 `Host` 权限，也不创造操作系统没有的能力（`README.md:129`）。
 
 Provider 配置走另一条路，与上面这句 README 原则冲突：
-ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:108`）。
-`preferenceStore` 用 PreferencesDataStore 的 `newWithStorage` 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:112`）。
+ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128`）。
+`preferenceStore` 用 PreferencesDataStore 的 `newWithStorage` 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:132`）。
 `newWithStorage` 创建的是 `Space` 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2924`）。
-`writeProvider` 把整个 `ProviderProfile` 以 `provider_<id>` 为键写入同步偏好（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360`）。
+`writeProvider` 把整个 `ProviderProfile` 以 `provider_<id>` 为键写入同步偏好（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479`）。
 `ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:603`）。
-结论：Provider 凭证存在随配置同步的实现路径，加入 Space 不会自动复制不能作为当前实现的保证（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360`）。
+结论：Provider 凭证存在随配置同步的实现路径，加入 Space 不会自动复制不能作为当前实现的保证（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479`）。
 范围说明：以上只核实了代码里的同步偏好写入路径，没有做真实双设备同步实验，不保证另一台设备实际收到凭证。
 
 ## 关键符号
@@ -169,7 +169,7 @@ ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/cr
 - `ServiceDiscovery` — 记录发现接口、地址、守护进程错误与扫描总数的日志来源（`docs/device-space-lan-discovery.md:52`）
 - `RuntimePeerService` — 记录广播总数与四类过滤总数的组件（`docs/device-space-lan-discovery.md:57`）
 - `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:603`）
-- ModelConfigManager 的 `preferenceStore` — 模型配置管理器入口，用 newWithStorage 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:108`）
+- ModelConfigManager 的 `preferenceStore` — 模型配置管理器入口，用 newWithStorage 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128`）
 - PreferencesDataStore 的 `newWithStorage` — 创建 Space 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2924`）
 - `SpaceJoinRequest` — 加入申请记录，状态字段是 SpaceJoinStatus（`core/crates/node/runtime/src/NodeSpaceService.rs:313`）
 - `SpaceJoinStatus` — 加入申请状态机（`core/crates/node/runtime/src/NodeSpaceService.rs:307`）
@@ -191,7 +191,7 @@ ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/cr
 11. 刷新申请：link space refresh [space-name] 对发出的申请调用 `refreshDeviceSpaceJoin` 并打印更新后的回执（`apps/cli/src/cli/link.rs:1016`）。
 12. 成功判据：已批准的加入申请经 `adoptApprovedMembership` 落为 `Joined`（`core/crates/node/runtime/src/peer/space_join.rs:1328`）。
 13. 核对成员：用 operit2 cli link space show 核对 Space 名称与成员数量（`apps/cli/src/cli/link.rs:921`）。
-14. Flutter 扫码：扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4611`）。
+14. Flutter 扫码：扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4638`）。
 15. 用浏览器访问：`operit2 cli web open` 打开 https://web.operit.app/（`apps/cli/src/cli/web.rs:6`）；打开页面不会自动让浏览器成为 `Space` 中的独立节点（`README.md:72`）。
 16. 备份：`operit2 cli export snapshot <path>` 导出快照（`apps/cli/src/cli/transfer.rs:53`），恢复用 `operit2 cli backup restore <path>`（`apps/cli/src/cli/transfer.rs:122`），检查用 `operit2 cli backup inspect <snapshot-zip-path>`（`apps/cli/src/cli/transfer.rs:123`）。
 

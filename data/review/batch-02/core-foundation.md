@@ -40,10 +40,10 @@ Foundation crates 为其他核心领域提供共享契约与数据类型。(`cor
 - `CoreLinkError` — Link 错误载体 (`core/crates/foundation/link/src/protocol.rs:1040`)
 - `RoutedCoreRequest` — 跨设备空间路由的请求载体 (`core/crates/foundation/link/src/protocol.rs:988`)
 - `LinkDeviceInfo` — 设备信息 (`core/crates/foundation/link/src/protocol.rs:774`)
-- `FileSystemHost` — 文件系统能力 (`core/crates/foundation/host-contract/src/lib.rs:3402`)
+- `FileSystemHost` — 文件系统能力 (`core/crates/foundation/host-contract/src/lib.rs:3429`)
 - `TerminalHost` — 终端能力 (`core/crates/foundation/host-contract/src/lib.rs:1882`)
 - `RuntimeStorageHost` — 虚拟运行时存储 (`core/crates/foundation/host-contract/src/lib.rs:1985`)
-- `SystemOperationHost` — 系统操作 (`core/crates/foundation/host-contract/src/lib.rs:3341`)
+- `SystemOperationHost` — 系统操作 (`core/crates/foundation/host-contract/src/lib.rs:3353`)
 - `UiAutomationHost` — 无障碍快照与输入操作 (`core/crates/foundation/host-contract/src/UiAutomation.rs:100`)
 - `LINK_VERSION` — 取自包版本 (`core/crates/foundation/link/src/lib.rs:17`)
 
@@ -77,7 +77,7 @@ android.shizuku 的 isRequired 为 false，启动 Shizuku 或 Sui 后才启用�
 android.root 的 isRequired 为 false。 (`core/crates/foundation/host-contract/src/lib.rs:917`)
 android.accessibility 的 isRequired 为 false，动作为 HostManaged，需安装内置 UI 自动化配套包并在系统无障碍设置中启用。 (`core/crates/foundation/host-contract/src/lib.rs:897`)
 ohosOnboardingRequirements 返回包含 ohos.location 的前置要求。 (`core/crates/foundation/host-contract/src/lib.rs:930`)
-单测验证 OpenHarmony 入门前置要求的 id 集合是 ohos.location 与 ohos.bluetooth。 (`core/crates/foundation/host-contract/src/lib.rs:3592`)
+单测验证 OpenHarmony 入门前置要求的 id 集合是 ohos.location 与 ohos.bluetooth。 (`core/crates/foundation/host-contract/src/lib.rs:3620`)
 
 **HostManager：宿主聚合与全局默认。**
 
@@ -205,7 +205,7 @@ internal 捕获调用方位置生成 INTERNAL_ERROR 错误。 (`core/crates/foun
 **模块。**
 
 声明 AtomicCounter、FileSystemResource、RuntimeStorageLayout、PluginStorage、HttpServer、PluginSdkIpc、Tcp、TerminalWorkingDirectory、TimeUtils、JavaScriptBootstrap、JavaScriptCodeCache、JavaScriptExecutionInterrupt、SerialPort、UiAutomation、ServiceDiscovery 等模块。 (`core/crates/foundation/host-contract/src/lib.rs:3`)
-声明 ServiceDiscovery 模块。 (`core/crates/foundation/host-contract/src/lib.rs:3677`)
+声明 ServiceDiscovery 模块。 (`core/crates/foundation/host-contract/src/lib.rs:3705`)
 
 **环境描述符与能力类型。**
 
@@ -306,15 +306,15 @@ HostJavaScriptRuntimeHost 声明 createHostJavaScriptRuntime 在当前归属执�
 HostRuntimeTaskSchedulerHost 声明 monotonicTimeMillis 读取与墙钟变化无关的单调毫秒。 (`core/crates/foundation/host-contract/src/lib.rs:2555`)
 scheduleHostRuntimeTask 调度命名一次性运行时任务。 (`core/crates/foundation/host-contract/src/lib.rs:2561`)
 AppInstallState 有 PermissionRequired、InstallerOpened、RestartRequired、Completed 四个变体。 (`core/crates/foundation/host-contract/src/lib.rs:2617`)
-AppInstallTiming 有 Immediate、AfterProcessExit 两个变体，默认 Immediate。 (`core/crates/foundation/host-contract/src/lib.rs:3321`)
-requireImmediate 对 AfterProcessExit 返回不支持错误。 (`core/crates/foundation/host-contract/src/lib.rs:3329`)
-SystemOperationHost 的 applicationUpdateTarget 默认返回 None，禁用应用内更新。 (`core/crates/foundation/host-contract/src/lib.rs:3341`)
-startAppWithActivity 在指定 activity 时返回不支持错误，否则调用 startApp。 (`core/crates/foundation/host-contract/src/lib.rs:3358`)
-installApp、uninstallApp、listInstalledApps、startApp 覆盖应用安装、卸载、列表与启动。 (`core/crates/foundation/host-contract/src/lib.rs:3354`)
-stopApp 与 getNotifications 分别停止应用与读取通知。 (`core/crates/foundation/host-contract/src/lib.rs:3364`)
-getDeviceLocation 与 getDeviceInfo 分别读取设备位置与设备信息。 (`core/crates/foundation/host-contract/src/lib.rs:3376`)
-captureScreenshot 截屏；recognizeText 对指定图片能力做 OCR 识别文本。 (`core/crates/foundation/host-contract/src/lib.rs:3382`)
-captureScreenshotTo 把截屏字节发布到选定的 VFS 目标，默认返回不支持错误。 (`core/crates/foundation/host-contract/src/lib.rs:3382`)
+AppInstallTiming 有 Immediate、AfterProcessExit 两个变体，默认 Immediate。 (`core/crates/foundation/host-contract/src/lib.rs:3328`)
+requireImmediate 对 AfterProcessExit 返回不支持错误。 (`core/crates/foundation/host-contract/src/lib.rs:3336`)
+SystemOperationHost 的 applicationUpdateTarget 默认返回 None，禁用应用内更新。 (`core/crates/foundation/host-contract/src/lib.rs:3369`)
+startAppWithActivity 在指定 activity 时返回不支持错误，否则调用 startApp。 (`core/crates/foundation/host-contract/src/lib.rs:3386`)
+installApp、uninstallApp、listInstalledApps、startApp 覆盖应用安装、卸载、列表与启动。 (`core/crates/foundation/host-contract/src/lib.rs:3382`)
+stopApp 与 getNotifications 分别停止应用与读取通知。 (`core/crates/foundation/host-contract/src/lib.rs:3392`)
+getDeviceLocation 与 getDeviceInfo 分别读取设备位置与设备信息。 (`core/crates/foundation/host-contract/src/lib.rs:3404`)
+captureScreenshot 截屏；recognizeText 对指定图片能力做 OCR 识别文本。 (`core/crates/foundation/host-contract/src/lib.rs:3410`)
+captureScreenshotTo 把截屏字节发布到选定的 VFS 目标，默认返回不支持错误。 (`core/crates/foundation/host-contract/src/lib.rs:3410`)
 AudioPlaybackHost 声明 playFile、playAudio、playMusicFile、playMusic、pauseMusic、resumeMusic、stopMusic、seekMusic、setMusicVolume、musicStatus。 (`core/crates/foundation/host-contract/src/lib.rs:2785`)
 BluetoothHost 声明 supportsClassicListening 声明入站 RFCOMM 支持。 (`core/crates/foundation/host-contract/src/lib.rs:2982`)
 scanBluetoothDevices 扫描设备。 (`core/crates/foundation/host-contract/src/lib.rs:2987`)
@@ -336,14 +336,14 @@ synthesizeLocalFiles 把语音合成进 VFS 输出能力并保留其公开标识
 ToastHost 声明 toast 在前端内呈现一条短暂消息。 (`core/crates/foundation/host-contract/src/lib.rs:3263`)
 ClipboardHost 声明 setClipboardText 替换系统剪贴板文本并返回已存文本。 (`core/crates/foundation/host-contract/src/lib.rs:3268`)
 FloatingWindowHost 声明 command 处理一条浮窗命令。 (`core/crates/foundation/host-contract/src/lib.rs:3293`)
-FileSystemHost 声明 envLabel 与 environmentDescriptor。 (`core/crates/foundation/host-contract/src/lib.rs:3402`)
-FileSystemHost 声明 readFile、readFileWithLimit、readFileBytes。 (`core/crates/foundation/host-contract/src/lib.rs:3406`)
-writeFile 与 writeFileBytes 分别写文本与字节。 (`core/crates/foundation/host-contract/src/lib.rs:3417`)
-deleteFile、fileExists、moveFile、copyFile、makeDirectory 覆盖删除、判存、移动、复制与建目录。 (`core/crates/foundation/host-contract/src/lib.rs:3432`)
-findFiles、fileInfo、grepCode、zipFiles、unzipFiles、openFile、shareFile 覆盖查找、元信息、代码检索、压缩、解压、打开与分享。 (`core/crates/foundation/host-contract/src/lib.rs:3439`)
-readFileBytesRange 默认返回不支持错误。 (`core/crates/foundation/host-contract/src/lib.rs:3411`)
-openAppendFile 默认返回不支持错误。 (`core/crates/foundation/host-contract/src/lib.rs:3420`)
-appendFileBytes 默认返回不支持错误。 (`core/crates/foundation/host-contract/src/lib.rs:3427`)
+FileSystemHost 声明 envLabel 与 environmentDescriptor。 (`core/crates/foundation/host-contract/src/lib.rs:3430`)
+FileSystemHost 声明 readFile、readFileWithLimit、readFileBytes。 (`core/crates/foundation/host-contract/src/lib.rs:3434`)
+writeFile 与 writeFileBytes 分别写文本与字节。 (`core/crates/foundation/host-contract/src/lib.rs:3445`)
+deleteFile、fileExists、moveFile、copyFile、makeDirectory 覆盖删除、判存、移动、复制与建目录。 (`core/crates/foundation/host-contract/src/lib.rs:3460`)
+findFiles、fileInfo、grepCode、zipFiles、unzipFiles、openFile、shareFile 覆盖查找、元信息、代码检索、压缩、解压、打开与分享。 (`core/crates/foundation/host-contract/src/lib.rs:3467`)
+readFileBytesRange 默认返回不支持错误。 (`core/crates/foundation/host-contract/src/lib.rs:3439`)
+openAppendFile 默认返回不支持错误。 (`core/crates/foundation/host-contract/src/lib.rs:3448`)
+appendFileBytes 默认返回不支持错误。 (`core/crates/foundation/host-contract/src/lib.rs:3455`)
 FileSource 声明 vfsPath、readBytes、readBytesRange、fileInfo、nativePath 五个方法。 (`core/crates/foundation/host-contract/src/FileSystemResource.rs:14`)
 FileTarget 声明 vfsPath、writeBytes、nativePath 三个方法。 (`core/crates/foundation/host-contract/src/FileSystemResource.rs:27`)
 

@@ -1,6 +1,6 @@
 {
   "issue": 21,
-  "source_commit": "ff5373fb6",
+  "source_commit": "a119411ce",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "工具系统——包、技能与 MCP：包工具执行、技能加载管理、MCP 接入调用与 JS 运行时",
