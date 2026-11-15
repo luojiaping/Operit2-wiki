@@ -43,13 +43,13 @@ Operit2 的定位是一个连接用户设备空间的 `Agent` 核心，见 `READ
 加入 `Space` 不会自动授予节点其他设备的系统权限，见 `README.md:20`。
 `Space` 成员资格不会授予其他节点读取本机文件、使用本机终端或获得管理员/root 能力，见 `README.md:127`。
 README 声明 `API` key、设备私钥、配对密钥、session 和本地平台权限默认属于节点本地，不随加入 `Space` 复制，见 `README.md:128`。
-实现与该原则冲突：`ModelConfigManager` 经 `preferenceStore` 用 `PreferencesDataStore::newWithStorage` 打开模型配置存储，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:112`。
-`PreferencesDataStore::newWithStorage` 创建 `Space` 偏好存储，见 `core/crates/persistence/store/src/PreferencesDataStore.rs:2925`。
+实现与该原则冲突：ModelConfigManager 经 `preferenceStore` 用 `PreferencesDataStore::newWithStorage` 打开模型配置存储，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:112`。
+PreferencesDataStore 的 `newWithStorage` 创建 `Space` 偏好存储，见 `core/crates/persistence/store/src/PreferencesDataStore.rs:2925`。
 该存储为存储路径创建 `PreferencesSyncDescriptor` 形式的 `syncDescriptor`，见 `core/crates/persistence/store/src/PreferencesDataStore.rs:2956`。
 该存储挂接 `syncOperationStore`，见 `core/crates/persistence/store/src/PreferencesDataStore.rs:2962`。
-`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>`，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332`。
+`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>`，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360`。
 `ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`，见 `core/crates/foundation/model/src/ModelConfigData.rs:605`。
-因此 `Provider` 凭证存在随配置同步的路径，不要把 `Provider` 凭证与设备身份、配对密钥、操作系统权限统称不复制，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332`。
+因此 `Provider` 凭证存在随配置同步的路径，不要把 `Provider` 凭证与设备身份、配对密钥、操作系统权限统称不复制，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360`。
 以上同步路径只核对到代码，未做真实双设备同步实验。
 `Full` 只表示 AI 能力限制放宽，不表示 `Host` 提权，也不能创造操作系统没有的能力，见 `README.md:129`。
 设备身份、配对 secret 和 `Host` 授权保持节点本地，`Space` 成员资格不授予其他节点直接读取本机文件或终端的能力，见 `docs/core-node-space-binding-architecture.md:472`。

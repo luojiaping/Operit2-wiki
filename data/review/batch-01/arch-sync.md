@@ -34,7 +34,7 @@ date: 2026-11-11
 - 同一 Space 内具备 `storage.provide` 且提供 Core 存储服务的节点交换持久化操作与 Blob（`docs/sync-architecture.md:3`）。配对、成员资格、路由可达性和存储授权分别校验（`docs/sync-architecture.md:3`）。
 - 同步目标分三类：`DataStore`、`SQL`、`File`（`docs/transaction-model.md:6`）。
 - 每个偏好文件是独立数据集，一个数据集失败不能阻止独立数据集提交（`docs/sync-architecture.md:25`）。跨文件业务操作不具备单次原子性（`docs/sync-architecture.md:25`）。
-- 布局状态只属于本节点，不参与 Space 同步，也不能由远端版本推进（`docs/sync-architecture.md:46`）。当前对话选择属于本机状态，各端独立保存（`docs/transaction-sync-contract.md:69`）。
+- 布局状态只属于本节点，不参与 Space 同步，也不能由远端版本推进（`docs/sync-architecture.md:50`）。当前对话选择属于本机状态，各端独立保存（`docs/transaction-sync-contract.md:69`）。
 
 ### 接收与应用是两件事
 
@@ -50,31 +50,31 @@ date: 2026-11-11
 
 ### 布局与迁移
 
-- 偏好布局由节点本地的 `PreferenceLayout` 管理，迁移步骤必须可重入：先提交目标数据，再登记退役路径，最后由 DataStore 原子提交布局版本与退役声明（`docs/sync-architecture.md:44`）。
-- 跨文件迁移不宣称具有跨文件原子性，失败时布局版本不推进，同步保留原待处理操作（`docs/sync-architecture.md:44`）。
+- 偏好布局由节点本地的 `PreferenceLayout` 管理，迁移步骤必须可重入：先提交目标数据，再登记退役路径，最后由 DataStore 原子提交布局版本与退役声明（`docs/sync-architecture.md:48`）。
+- 跨文件迁移不宣称具有跨文件原子性，失败时布局版本不推进，同步保留原待处理操作（`docs/sync-architecture.md:48`）。
 - 迁移等价式要求同一规则作用于状态和事务的结果一致，存续事务保持原文（`docs/transaction-model.md:48`）。
 - 收到未来格式时，原文进入待处理，升级就绪后应用（`docs/transaction-sync-contract.md:41`）。旧路径事务晚到时，按 layout 映射交给当前归属（`docs/transaction-sync-contract.md:42`）。
 
 ### 提交、outbox 与锁
 
-- 偏好业务值和内部 `__operit_preferences_replication` 字段经 Host 原子写入一起提交（`docs/sync-architecture.md:50`）。
-- 业务提交后归档原始操作，归档可靠完成后清除 outbox；归档失败保留同一操作供后续发布，业务提交失败不能产生可导出的操作（`docs/sync-architecture.md:52`）。
-- 数据集锁覆盖历史收集、归档与 outbox 合并、解码、重放和提交（`docs/sync-architecture.md:54`）。
+- 偏好业务值和内部 `__operit_preferences_replication` 字段经 Host 原子写入一起提交（`docs/sync-architecture.md:54`）。
+- 业务提交后归档原始操作，归档可靠完成后清除 outbox；归档失败保留同一操作供后续发布，业务提交失败不能产生可导出的操作（`docs/sync-architecture.md:56`）。
+- 数据集锁覆盖历史收集、归档与 outbox 合并、解码、重放和提交（`docs/sync-architecture.md:58`）。
 
 ### 会话删除是终态
 
-- 整段会话删除使用保留的 SQL 事务操作，历史行删除、删除事实与接收凭据在同一事务提交（`docs/sync-architecture.md:56`）。
-- 删除事实沿用 `sync_sql_deletions`，不依赖 Space 成员或 Binding；对同一会话 ID，删除是终态而非可被后续 upsert 撤销的普通字段（`docs/sync-architecture.md:57`）。
-- 数据库 28 → 29 为删除事实建立查询索引，并在同一升级事务内清除旧链路已删除却又被恢复的会话行（`docs/sync-architecture.md:61`）。
-- 退出后删除、重新加入也遵守删除规则（`docs/sync-architecture.md:59`）。
+- 整段会话删除使用保留的 SQL 事务操作，历史行删除、删除事实与接收凭据在同一事务提交（`docs/sync-architecture.md:60`）。
+- 删除事实沿用 `sync_sql_deletions`，不依赖 Space 成员或 Binding；对同一会话 ID，删除是终态而非可被后续 upsert 撤销的普通字段（`docs/sync-architecture.md:61`）。
+- 数据库 28 → 29 为删除事实建立查询索引，并在同一升级事务内清除旧链路已删除却又被恢复的会话行（`docs/sync-architecture.md:65`）。
+- 退出后删除、重新加入也遵守删除规则（`docs/sync-architecture.md:63`）。
 
 ### 日志、待应用记录与内存边界
 
-- 生产日志位于 `transactions.sqlite`，聊天和插件 SQL 通过同一 source 接口导出各自的业务日志（`docs/sync-architecture.md:68`）。
-- 收据、domain、数据集和水位先筛选，偏好历史与事务不进行实体状态压缩（`docs/sync-architecture.md:70`）。
-- 页面按精确序列化字节数与记录数限制；单条超限记录由传输层处理（`docs/sync-architecture.md:70`）。
-- `receive_state.json` 的 `formatVersion: 2` 保存收据、指纹与轻量元数据，payload 位于 `pending/<sha256(opId)>.json`（`docs/sync-architecture.md:78`）。
-- 接收时先原子发布记录文件，再提交引用与收据账本；应用完成时先提交移除引用的账本，再删除记录文件（`docs/sync-architecture.md:80`）。
+- 生产日志位于 `transactions.sqlite`，聊天和插件 SQL 通过同一 source 接口导出各自的业务日志（`docs/sync-architecture.md:72`）。
+- 收据、domain、数据集和水位先筛选，偏好历史与事务不进行实体状态压缩（`docs/sync-architecture.md:74`）。
+- 页面按精确序列化字节数与记录数限制；单条超限记录由传输层处理（`docs/sync-architecture.md:74`）。
+- 待应用原件、收据和指纹保存在 `transactions.sqlite`，应用完成后更新 SQL 状态（`docs/sync-architecture.md:82`）。
+- 旧 `receive_state.json` 和 `pending/` 仅供首次迁移读取，提交后清理（`docs/sync-architecture.md:82`）。
 
 ### 一致性比较
 
@@ -93,13 +93,13 @@ date: 2026-11-11
 - `sync_cycle.start` 记录本轮合并的唤醒来源，周期开始不表示执行了全量快照传输（`docs/sync-architecture.md:102`）。
 - `sync_gate.required` 记录进入对端同步流程的条件（`docs/sync-architecture.md:103`）。
 - `sync_pass.start/done/failed` 记录目标节点、调用来源、排队与执行耗时及失败后的重试时间（`docs/sync-architecture.md:104`）。
-- `sync_consistency.correct` 日志输出 `target`、`mode=full_snapshot`、`owner`、`source`、`damaged`、`localRevision`、`remoteRevision` 字段，没有 reason 字段（`core/crates/node/runtime/src/SyncConsistency.rs:60`）。
+- `sync_consistency.correct` 日志输出 `target`、`mode=full_snapshot`、`owner`、`source`、`damaged`、`localRevision`、`remoteRevision` 字段，没有 reason 字段（`core/crates/node/runtime/src/SyncConsistency.rs:62`）。
 - `docs/sync-architecture.md:105` 另列 `reason` 取 `content_digest_mismatch`、`local_file_missing`、`remote_file_missing` 三值，实际输出中没有该字段（`docs/sync-architecture.md:105`）。
-- `sync_consistency.snapshot` 日志输出 `target`、`owner`、`source`、`coverageOnly`、`bytes`、`hash` 字段（`core/crates/node/runtime/src/SyncConsistency.rs:105`）。
+- `sync_consistency.snapshot` 日志输出 `target`、`owner`、`source`、`coverageOnly`、`bytes`、`hash` 字段（`core/crates/node/runtime/src/SyncConsistency.rs:114`）。
 - `coverageOnly=true` 表示覆盖凭据，`bytes` 是导出的 Blob 大小（`docs/sync-architecture.md:106`）。
-- `sync_consistency.applied` 日志输出 `target`、`mode=full_snapshot`、`owner`、`source` 字段（`core/crates/node/runtime/src/SyncConsistency.rs:85`）。
-- `sync_consistency.done` 日志输出 `target`、`mode=full_snapshot`、`corrections`、`complete`、`elapsedMs` 字段（`core/crates/node/runtime/src/SyncConsistency.rs:95`）。
-- 快照导出期间文件变化时，`snapshotChanged` 判定为版本竞争，校正直接返回 `false`，此处不输出 deferred 日志（`core/crates/node/runtime/src/SyncConsistency.rs:87`）。
+- `sync_consistency.applied` 日志输出 `target`、`mode=full_snapshot`、`owner`、`source` 字段（`core/crates/node/runtime/src/SyncConsistency.rs:87`）。
+- `sync_consistency.done` 日志输出 `target`、`mode=full_snapshot`、`corrections`、`complete`、`elapsedMs` 字段（`core/crates/node/runtime/src/SyncConsistency.rs:104`）。
+- 快照导出期间文件变化时，`snapshotChanged` 判定为版本竞争，校正直接返回 `false`，此处不输出 deferred 日志（`core/crates/node/runtime/src/SyncConsistency.rs:92`）。
 - 定位重复全量时先搜索 `mode=full_snapshot`，再按目标节点和时间对照 gate 与周期来源（`docs/sync-architecture.md:108`）。
 
 ### 事务模型与合并
@@ -116,11 +116,11 @@ date: 2026-11-11
 ### 强制校正
 
 - 正常内容差异校正的前提为两端导出范围都未过期且最终内容仍不同（`docs/transaction-model.md:140`）。
-- 内容相同时仍会生成完整校正计划：`correctionPlans` 在 `Source::Equal` 且 `force` 为真或任一端仍有该 owner 的 `skipped` 原文时，按业务修订与节点优先序选权威端（`core/crates/node/runtime/src/SyncConsistency.rs:138`）。
-- 导出或应用曾失败时，即使当前内容相同也重建初始化基线（`docs/sync-architecture.md:121`）。
-- 内容已经相同但仍有 skip 时也完成封存，矫正携带双方当次捕获的 skip ID 与文件覆盖范围写入初始化事务，然后清理对应旧原文（`docs/sync-architecture.md:123`）。
-- `force` 取自对端 gate 的 `pendingWork`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:987`）。
-- 校正未完成或仍有未交换操作时，对端 gate 的 `pendingWork` 置真（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:995`）。
+- 内容相同时仍会生成完整校正计划：correctionPlans 在 `Source::Equal` 且该 owner 在失败清单中，或任一端仍有该 owner 的 `pending` 或 `skipped` 原文时，按业务修订与节点优先序选权威端（`core/crates/node/runtime/src/SyncConsistency.rs:150`）。
+- 确定的能力／数据失败记录日志并封存为 `skip`，在本次任务的最终检查中强制复制该 `owner` 的完整快照；内容已经相同但有失败原件时仍重建该 owner 的初始化基线，健康 owner 不因其他文件失败而重导（`docs/sync-architecture.md:121`）。
+- 内容已经相同但仍有 `skip` 时也完成封存，矫正携带双方当次捕获的 `pending`／`skip` ID 与文件覆盖范围写入初始化事务，然后清理对应旧原文（`docs/sync-architecture.md:123`）。
+- 一致性校正由失败操作清单驱动：本轮失败操作 ID 收集进 `failed` 映射，传入 `synchronizeConsistency`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:977`）。
+- 交换中出现待处理操作或错误时，recordPendingWork 置对端 gate 的 `pendingWork` 为真（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:890`）；整轮同步完成时 pendingWork 清零（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:984`）。
 - 权威内容按业务修订、节点优先序依次比较选出，直接复制权威方的完整同步文件，并在两端保存相同初始化事务（`docs/transaction-model.md:146`、`docs/transaction-model.md:150`）。
 - 校正后的覆盖集合取双方已处理身份的并集，校正结果以事务合并封存（`docs/transaction-model.md:153`、`docs/transaction-model.md:160`）。
 - 故障恢复是人为规定的权威替换，允许权威内容不同于损坏历史的重放结果（`docs/transaction-model.md:166`、`docs/transaction-model.md:173`）。
@@ -134,26 +134,26 @@ date: 2026-11-11
 - `SyncOperationStore` — 原始操作、身份指纹、接收凭据与日志查询（`docs/sync-architecture.md:18`）
 - `PreferenceMerge` — 偏好 owner 声明与物化协调（`docs/sync-architecture.md:19`）
 - `PreferencesDataStore` — 单数据集工作副本与原子提交（`docs/sync-architecture.md:20`）
-- `PreferenceLayout` — 节点本地的偏好布局管理，管文件的创建、设置所有权转移和旧路径退役（`docs/sync-architecture.md:44`）
+- `PreferenceLayout` — 节点本地的偏好布局管理，管文件的创建、设置所有权转移和旧路径退役（`docs/sync-architecture.md:48`）
 - `Transaction::compaction` — 公共合并函数，Preference 同步用它选择有效事务（`docs/sync-architecture.md:127`）
 - `Transaction.rs` — 事务模型的实现入口（`docs/transaction-model.md:189`）
-- `receive_state.json` — formatVersion 2 的待应用记录账本，payload 按操作 ID 哈希分文件存放（`docs/sync-architecture.md:78`）
-- `transactions.sqlite` — 生产日志数据库（`docs/sync-architecture.md:68`）
-- `sync_sql_deletions` — 删除事实的沿用表（`docs/sync-architecture.md:57`）
-- `__operit_preferences_replication` — 偏好内部复制字段，保存初始值导入标记、来源 epoch/序号、逻辑时间、已应用指纹及待归档 outbox（`docs/sync-architecture.md:50`）
+- `receive_state.json` — 已退休的待应用记录账本，旧文件与 `pending/` 仅供首次迁移读取，提交后清理（`docs/sync-architecture.md:82`）
+- `transactions.sqlite` — 生产日志数据库（`docs/sync-architecture.md:72`）
+- `sync_sql_deletions` — 删除事实的沿用表（`docs/sync-architecture.md:61`）
+- `__operit_preferences_replication` — 偏好内部复制字段，保存初始值导入标记、来源 epoch/序号、逻辑时间、已应用指纹及待归档 outbox（`docs/sync-architecture.md:54`）
 - `consistencyVersion: 7` — 一致性协议版本，所有同步设备需一起更新到该版本（`docs/sync-architecture.md:86`）
-- `correctionPlans` — 生成完整校正计划，内容相同时 force 或 skipped 原文仍触发（`core/crates/node/runtime/src/SyncConsistency.rs:133`）
-- `synchronizeConsistency` — 执行一致性校正，输出 correct、applied、done 日志（`core/crates/node/runtime/src/SyncConsistency.rs:49`）
+- `correctionPlans` — 生成完整校正计划，内容相同时失败清单、`pending` 或 `skipped` 原文仍触发（`core/crates/node/runtime/src/SyncConsistency.rs:135`）
+- `synchronizeConsistency` — 执行一致性校正，输出 correct、applied、done 日志（`core/crates/node/runtime/src/SyncConsistency.rs:47`）
 
 ## 调用链
 
 1. 本地业务变更 → 数据集原子提交 → 持久 outbox → 操作日志（`docs/sync-architecture.md:8`）
 2. 操作日志经 Router / PeerSync 到达对端（`docs/sync-architecture.md:8`）
 3. 对端按原始操作与接收凭据解码并计算重放计划 → 原子提交 → 通知（`docs/sync-architecture.md:12`）
-4. 接收时先原子发布记录文件，再提交引用与收据账本；应用完成时先提交移除引用的账本，再删除记录文件（`docs/sync-architecture.md:80`）
-5. 业务提交后归档原始操作，归档可靠完成后清除 outbox（`docs/sync-architecture.md:52`）
+4. 待应用原件保存在 `transactions.sqlite`，应用完成后更新 SQL 状态；旧 `receive_state.json` 仅供首次迁移读取（`docs/sync-architecture.md:82`）
+5. 业务提交后归档原始操作，归档可靠完成后清除 outbox（`docs/sync-architecture.md:56`）
 6. 两端完成迁移和本轮增量交换后比较最终同步内容；内容仍有差异时以业务更新较新的一方为权威，强制校正并保存同一条初始化事务，再比较确认一致（`docs/transaction-sync-contract.md:8`）
-7. 内容相同但 `force` 为真或任一端仍有 `skipped` 原文时，同样生成完整校正计划，按业务修订与节点优先序选权威端重建初始化基线（`core/crates/node/runtime/src/SyncConsistency.rs:138`）
+7. 内容相同但该 owner 在失败清单中，或任一端仍有该 owner 的 `pending` 或 `skipped` 原文时，同样生成完整校正计划，按业务修订与节点优先序选权威端重建初始化基线（`core/crates/node/runtime/src/SyncConsistency.rs:150`）
 8. 断开重连后，离线端通过基线接续，已覆盖历史按空效果确认，其余修改继续按原顺序合并（`docs/transaction-model.md:135`）
 
 ## 来源
@@ -161,7 +161,7 @@ date: 2026-11-11
 - docs/sync-architecture.md（131 行，全文已读）
 - docs/transaction-model.md（189 行，全文已读）
 - docs/transaction-sync-contract.md（75 行，全文已读）
-- core/crates/node/runtime/src/SyncConsistency.rs（261 行，全文已读）
-- core/crates/node/runtime/src/SpacePersistenceSyncService.rs（1907 行，节选已读：第 986–995 行 force 与 pendingWork 逻辑）
+- core/crates/node/runtime/src/SyncConsistency.rs（260 行，全文已读）
+- core/crates/node/runtime/src/SpacePersistenceSyncService.rs（1818 行，节选已读：第 874–890 行 recordPendingWork、第 977–984 行 failed 清单与 pendingWork 清零）
 
-注：`docs/sync-architecture.md:3` 引用了 `docs/edge-architecture.md`，该文件在基线 364d1d594 上不存在，本页未采用其中关于 Edge 控制状态边界的说法。
+注：`docs/sync-architecture.md:3` 引用了 `docs/edge-architecture.md`，该文件在基线 364d1d594 与 ff5373fb6 上均不存在，本页未采用其中关于 Edge 控制状态边界的说法。

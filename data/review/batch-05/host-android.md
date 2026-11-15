@@ -2,7 +2,7 @@
 title: Android Host
 module: hosts
 platforms: [android]
-sources: [hosts/README.md, hosts/android/Cargo.toml, hosts/android/src/lib.rs, hosts/android/src/terminal.rs, hosts/android/src/terminal_privilege.rs, hosts/android/src/managed_runtime.rs, hosts/android/src/filesystem.rs, hosts/android/src/document_filesystem.rs, hosts/android/src/local_inference.rs, hosts/android/src/secret_store.rs, hosts/android/src/service_discovery.rs, hosts/android/src/system_operation.rs, hosts/android/src/tts_playback.rs, hosts/android/src/tts_synthesis.rs, hosts/android/src/web_visit.rs, hosts/android/src/bluetooth.rs]
+sources: [hosts/README.md, hosts/android/Cargo.toml, hosts/android/src/lib.rs, hosts/android/src/terminal.rs, hosts/android/src/terminal_privilege.rs, hosts/android/src/managed_runtime.rs, hosts/common/managed_runtime_process.rs, hosts/android/src/filesystem.rs, hosts/android/src/document_filesystem.rs, hosts/android/src/local_inference.rs, hosts/android/src/secret_store.rs, hosts/android/src/service_discovery.rs, hosts/android/src/system_operation.rs, hosts/android/src/tts_playback.rs, hosts/android/src/tts_synthesis.rs, hosts/android/src/web_visit.rs, hosts/android/src/bluetooth.rs]
 date: 2026-11-11
 ---
 
@@ -21,7 +21,7 @@ Host crate 不拥有 Flutter UI 状态与 WebView 控件（`hosts/README.md:49`�
 
 - `AndroidTerminalHost` — Android PTY 终端 Host（`hosts/android/src/terminal.rs:69`）
 - `AndroidFileSystemHost` — Android 文件系统 Host（`hosts/android/src/filesystem.rs:12`）
-- `AndroidManagedRuntimeHost` — Android 托管运行时 Host（`hosts/android/src/managed_runtime.rs:20`）
+- `AndroidManagedRuntimeHost` — Android 托管运行时 Host（`hosts/android/src/managed_runtime.rs:17`）
 - `AndroidSystemOperationHost` — Android 系统操作 Host（`hosts/android/src/system_operation.rs:21`）
 - `AndroidLocalInferenceHost` — Android 本地推理 Host（`hosts/android/src/local_inference.rs:14`）
 - `AndroidBluetoothHost` — Android 蓝牙 Host（`hosts/android/src/bluetooth.rs:25`）
@@ -44,7 +44,7 @@ Host crate 不拥有 Flutter UI 状态与 WebView 控件（`hosts/README.md:49`�
 
 `createRuntimeHostManager` 组装 Android 自有的运行时 `HostManager`（`hosts/android/src/lib.rs:75`）。
 `createRuntimeHostManager` 以 `AndroidRuntimeStorageHost` 作 Host 密钥库（`hosts/android/src/lib.rs:79`）。
-运行时组合注册 `AndroidLocalInferenceHost`（`hosts/android/src/lib.rs:94`）。
+运行时组合以 `NativeLocalInferenceHost::withSpeech` 包装 `AndroidLocalInferenceHost` 注册本地推理 Host（`hosts/android/src/lib.rs:94`）。
 运行时组合以 `acquireMulticastLease` 作 `ServiceDiscovery` 的网络租约来源（`hosts/android/src/lib.rs:98`）。
 运行时组合注册 `AndroidPluginSdkIpcHost`（`hosts/android/src/lib.rs:101`）。
 `createPrivilegedRuntimeHostManager` 组装不含应用自有 JNI 注册的特权 Android Host（`hosts/android/src/lib.rs:106`）。
@@ -56,9 +56,10 @@ Host crate 不拥有 Flutter UI 状态与 WebView 控件（`hosts/README.md:49`�
 基础组合注册 `AndroidHostJavaScriptRuntimeHost` 与 `AndroidHostRuntimeTaskSchedulerHost`（`hosts/android/src/lib.rs:166`）。
 归档暂存 Host 使用 `archiveRuntimeRoot`，因为 Android 共享存储以 ENOSYS 拒绝 flock，模块运行时根目录是私有的（`hosts/android/src/lib.rs:145`）。
 `createBaseRuntimeHostManager` 的 `webVisitHost` 由调用方传入（`hosts/android/src/lib.rs:133`）。
-Android Host crate 依赖 `operit-host-api`（`hosts/android/Cargo.toml:11`）。
-Android Host crate 依赖 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage 特性（`hosts/android/Cargo.toml:12`）。
-`jni` 0.21 只在 `target_os` 为 android 时作为依赖引入（`hosts/android/Cargo.toml:19`）。
+Android Host crate 依赖 `operit-host-api`（`hosts/android/Cargo.toml:12`）。
+Android Host crate 依赖 `operit-host-local-inference`（本地推理共享实现）（`hosts/android/Cargo.toml:9`）。
+Android Host crate 依赖 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage 特性（`hosts/android/Cargo.toml:13`）。
+`jni` 0.21 只在 `target_os` 为 android 时作为依赖引入（`hosts/android/Cargo.toml:20`）。
 
 ### 终端：两种实现
 
@@ -124,19 +125,18 @@ Shizuku 进程退出码经 `terminal_privilege` 的 `call` 发 operation poll �
 
 ### 托管运行时
 
-`AndroidManagedRuntimeHost` 的 `runtimeWorkspaceDir` 位于 `OPERIT_ANDROID_INTERNAL_ROOT` 下的 managed_runtime（`hosts/android/src/managed_runtime.rs:113`）。
-`resolveRuntimeExecutable` 在 `executablePath` 非空时使用该路径，否则按程序取默认值（`hosts/android/src/managed_runtime.rs:126`）。
-默认可执行文件为 Node 的 /usr/bin/node、Python 的 /usr/bin/python3、Uv 的 /usr/bin/uv、Pnpm 的 /usr/bin/pnpm（`hosts/android/src/managed_runtime.rs:129`）。
-`ManagedRuntimeProgram::Command` 按名字原样作可执行文件（`hosts/android/src/managed_runtime.rs:132`）。
-解析出的可执行文件经 `validateRootfsExecutable` 校验（`hosts/android/src/managed_runtime.rs:137`）。
-托管运行时进程经 `buildAndroidProotCommand` 构建并设置 `PROOT_NO_SECCOMP` 为 1（`hosts/android/src/managed_runtime.rs:150`）。
-托管运行时 stderr 缓冲超过 400 行时丢弃最旧行（`hosts/android/src/managed_runtime.rs:188`）。
-两个管道读取任务经 `scheduleServiceTasks` 以 managed-runtime-pipes 调度，调度失败时杀死子进程并返回错误（`hosts/android/src/managed_runtime.rs:196`）。
-一次性运行时命令以 `PROOT_NO_SECCOMP` 为 1 执行并返回 `RuntimeCommandOutput`（`hosts/android/src/managed_runtime.rs:220`）。
-`readStdoutLine` 用 `recv_timeout` 等待一行，超时或断开时返回 None（`hosts/android/src/managed_runtime.rs:62`）。
-`kill` 在 `try_wait` 显示进程仍在运行时调用 `child.kill`（`hosts/android/src/managed_runtime.rs:99`）。
-`writeManagedRuntimeLine` 按 `MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES` 分发大小帧写入（`hosts/android/src/managed_runtime.rs:234`）。
-`MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES` 为 4 KiB（`hosts/android/src/managed_runtime.rs:15`）。
+`AndroidManagedRuntimeHost` 的 `runtimeWorkspaceDir` 位于 `OPERIT_ANDROID_INTERNAL_ROOT` 下的 managed_runtime（`hosts/android/src/managed_runtime.rs:28`）。
+`resolveRuntimeExecutable` 在 `executablePath` 非空时使用该路径，否则按程序取默认值（`hosts/android/src/managed_runtime.rs:36`）。
+默认可执行文件为 Node 的 /usr/bin/node、Python 的 /usr/bin/python3、Uv 的 /usr/bin/uv、Pnpm 的 /usr/bin/pnpm（`hosts/android/src/managed_runtime.rs:44`）。
+`ManagedRuntimeProgram::Command` 按名字原样作可执行文件（`hosts/android/src/managed_runtime.rs:48`）。
+解析出的可执行文件经 `validateRootfsExecutable` 校验（`hosts/android/src/managed_runtime.rs:51`）。
+托管运行时进程经 `buildAndroidProotCommand` 构建并设置 `PROOT_NO_SECCOMP` 为 1（`hosts/android/src/managed_runtime.rs:62`）。
+托管运行时 stderr 缓冲超过 400 行时丢弃最旧行（`hosts/common/managed_runtime_process.rs:57`）。
+两个管道读取任务经 `scheduleNativeServiceTasks` 以 managed-runtime-pipes 调度，调度失败时杀死子进程并返回错误（`hosts/common/managed_runtime_process.rs:65`）。
+一次性运行时命令以 `PROOT_NO_SECCOMP` 为 1 执行并返回 `RuntimeCommandOutput`（`hosts/android/src/managed_runtime.rs:80`）。
+`readStdoutLine` 用 `recv_timeout` 等待一行，超时或断开时返回 None（`hosts/common/managed_runtime_process.rs:125`）。
+`kill` 在 `try_wait` 显示进程仍在运行时调用 `child.kill`（`hosts/common/managed_runtime_process.rs:153`）。
+`writeLine` 与 `writeLines` 经 `writeFrames` 拼成一帧写入 stdin（`hosts/common/managed_runtime_process.rs:119`）。
 
 ### 文件系统：原生路径与文档资源
 
@@ -148,10 +148,11 @@ Root 进程的 `android.fileManagement`、`android.root`、`android.shizuku`、`
 非资源路径不是绝对路径时返回 Path must be an absolute Android path 错误（`hosts/android/src/filesystem.rs:67`）。
 `listFiles` 对资源路径调用 `document_filesystem` 的 `call`，对非资源路径调用 inner 的 `listFiles`（`hosts/android/src/filesystem.rs:73`）。
 文档写入时内容以 base64 编码传输（`hosts/android/src/filesystem.rs:115`）。
-文档字节响应经 `decodeBytes` 做 base64 解码（`hosts/android/src/filesystem.rs:245`）。
-`appendFileBytes` 直接调用 inner 的 `appendFileBytes`，不经过文档资源分支（`hosts/android/src/filesystem.rs:129`）。
-`openFile` 先校验路径，无 presentation 回调时走文档调用（`hosts/android/src/filesystem.rs:217`）。
-`shareFile` 先校验路径，有 presentation 回调时转交给回调（`hosts/android/src/filesystem.rs:232`）。
+文档字节响应经 `decodeBytes` 做 base64 解码（`hosts/android/src/filesystem.rs:251`）。
+`appendFileBytes` 对资源路径经文档调用写文件，内容 base64 编码、`append` 为 true（`hosts/android/src/filesystem.rs:130`）。
+`appendFileBytes` 对非资源路径直接调用 inner 的 `appendFileBytes`（`hosts/android/src/filesystem.rs:136`）。
+`openFile` 先校验路径，无 presentation 回调时走文档调用（`hosts/android/src/filesystem.rs:223`）。
+`shareFile` 先校验路径，有 presentation 回调时转交给回调（`hosts/android/src/filesystem.rs:238`）。
 文档文件系统调用经 JNI `fileSystemResourceOperation` 发给 Java 侧已拥有的运行时 Host（`hosts/android/src/document_filesystem.rs:13`）。
 响应 ok 不为 true 或缺少 value 时 `decode_response` 返回错误（`hosts/android/src/document_filesystem.rs:34`）。
 非 Android 目标上文档文件系统调用返回 Android document filesystem is unavailable on this platform 错误（`hosts/android/src/document_filesystem.rs:29`）。
@@ -188,8 +189,9 @@ Root 进程的 `android.fileManagement`、`android.root`、`android.shizuku`、`
 `getNotifications` 返回错误，要求 Android notification host bridge（`hosts/android/src/system_operation.rs:161`）。
 `getDeviceLocation` 返回错误，要求 Android location host bridge（`hosts/android/src/system_operation.rs:179`）。
 `getDeviceInfo` 返回错误，要求 Android device info host bridge（`hosts/android/src/system_operation.rs:189`）。
-`captureScreenshot` 返回错误，要求 Android screen capture host bridge（`hosts/android/src/system_operation.rs:195`）。
-`recognizeText` 返回错误，要求 Android OCR host bridge（`hosts/android/src/system_operation.rs:203`）。
+`captureScreenshot` 返回错误，要求 Android screen capture host bridge（`hosts/android/src/system_operation.rs:202`）。
+`captureScreenshotTo` 经 VFS 能力写截图字节并删除原生暂存文件（`hosts/android/src/system_operation.rs:194`）。
+`recognizeText` 返回错误，要求 Android OCR host bridge（`hosts/android/src/system_operation.rs:208`）。
 `installApp` 要求 Immediate 时机，再以 install_app 请求包操作（`hosts/android/src/system_operation.rs:121`）。
 `startApp` 转交给 `startAppWithActivity` 且 activity 为 None（`hosts/android/src/system_operation.rs:144`）。
 `listInstalledApps` 以 list_installed_apps 请求包操作（`hosts/android/src/system_operation.rs:133`）。
@@ -207,7 +209,8 @@ Root 进程的 `android.fileManagement`、`android.root`、`android.shizuku`、`
 `resumeSpeech` 以 resume 命令恢复当前语音会话（`hosts/android/src/tts_playback.rs:63`）。
 `stopSpeech` 以 stop 命令停止当前语音会话（`hosts/android/src/tts_playback.rs:68`）。
 `speechState` 以 state 命令查询当前语音会话状态（`hosts/android/src/tts_playback.rs:73`）。
-`synthesizeSpeech` 把请求转交给所有者提供的合成器回调（`hosts/android/src/tts_synthesis.rs:20`）。
+`synthesizeSpeech` 把请求转交给所有者提供的合成器回调（`hosts/android/src/tts_synthesis.rs:28`）。
+`synthesizeSpeechBytes` 合成音频后读回字节并删除原生临时文件（`hosts/android/src/tts_synthesis.rs:21`）。
 `AndroidWebVisitHost` 的 `visitWeb` 返回错误，要求 Android WebView host bridge（`hosts/android/src/web_visit.rs:11`）。
 `execute` 把命令与参数交给 controller 回调并解码响应（`hosts/android/src/bluetooth.rs:30`）。
 `supportsClassicListening` 返回 true（`hosts/android/src/bluetooth.rs:45`）。
@@ -245,7 +248,7 @@ Android Host 的能力由应用与独立模块所有者共享，模块应用侧�
 - `createBaseRuntimeHostManager` — 组装应用与独立模块所有者共享的 Android 能力（`hosts/android/src/lib.rs:130`）
 - `AndroidTerminalHost` — Android PTY 终端 Host（`hosts/android/src/terminal.rs:69`）
 - `AndroidFileSystemHost` — Android 文件系统 Host（`hosts/android/src/filesystem.rs:12`）
-- `AndroidManagedRuntimeHost` — Android 托管运行时 Host（`hosts/android/src/managed_runtime.rs:20`）
+- `AndroidManagedRuntimeHost` — Android 托管运行时 Host（`hosts/android/src/managed_runtime.rs:17`）
 - `AndroidSystemOperationHost` — Android 系统操作 Host（`hosts/android/src/system_operation.rs:21`）
 - `AndroidLocalInferenceHost` — Android 本地推理 Host（`hosts/android/src/local_inference.rs:14`）
 - `AndroidBluetoothHost` — Android 蓝牙 Host（`hosts/android/src/bluetooth.rs:25`）
@@ -285,16 +288,16 @@ Android Host 的能力由应用与独立模块所有者共享，模块应用侧�
 1. `listFiles` 对资源路径调用 `document_filesystem` 的 `call`，对非资源路径调用 inner 的 `listFiles`（`hosts/android/src/filesystem.rs:73`）。
 2. 文档文件系统调用经 JNI `fileSystemResourceOperation` 发给 Java 侧已拥有的运行时 Host（`hosts/android/src/document_filesystem.rs:13`）。
 3. 文档写入时内容以 base64 编码传输（`hosts/android/src/filesystem.rs:115`）。
-4. 文档字节响应经 `decodeBytes` 做 base64 解码（`hosts/android/src/filesystem.rs:245`）。
+4. 文档字节响应经 `decodeBytes` 做 base64 解码（`hosts/android/src/filesystem.rs:251`）。
 5. 响应 ok 不为 true 或缺少 value 时 `decode_response` 返回错误（`hosts/android/src/document_filesystem.rs:34`）。
 
 ### 托管运行时执行
 
-1. `resolveRuntimeExecutable` 在 `executablePath` 非空时使用该路径，否则按程序取默认值（`hosts/android/src/managed_runtime.rs:126`）。
-2. 解析出的可执行文件经 `validateRootfsExecutable` 校验（`hosts/android/src/managed_runtime.rs:137`）。
-3. 托管运行时进程经 `buildAndroidProotCommand` 构建并设置 `PROOT_NO_SECCOMP` 为 1（`hosts/android/src/managed_runtime.rs:150`）。
-4. 两个管道读取任务经 `scheduleServiceTasks` 以 managed-runtime-pipes 调度（`hosts/android/src/managed_runtime.rs:196`）。
-5. `readStdoutLine` 用 `recv_timeout` 等待一行，超时或断开时返回 None（`hosts/android/src/managed_runtime.rs:62`）。
+1. `resolveRuntimeExecutable` 在 `executablePath` 非空时使用该路径，否则按程序取默认值（`hosts/android/src/managed_runtime.rs:36`）。
+2. 解析出的可执行文件经 `validateRootfsExecutable` 校验（`hosts/android/src/managed_runtime.rs:51`）。
+3. 托管运行时进程经 `buildAndroidProotCommand` 构建并设置 `PROOT_NO_SECCOMP` 为 1（`hosts/android/src/managed_runtime.rs:62`）。
+4. 两个管道读取任务经 `scheduleNativeServiceTasks` 以 managed-runtime-pipes 调度（`hosts/common/managed_runtime_process.rs:65`）。
+5. `readStdoutLine` 用 `recv_timeout` 等待一行，超时或断开时返回 None（`hosts/common/managed_runtime_process.rs:125`）。
 
 ### Host 组装
 
@@ -310,6 +313,7 @@ Android Host 的能力由应用与独立模块所有者共享，模块应用侧�
 - `hosts/android/src/terminal.rs`
 - `hosts/android/src/terminal_privilege.rs`
 - `hosts/android/src/managed_runtime.rs`
+- `hosts/common/managed_runtime_process.rs`
 - `hosts/android/src/filesystem.rs`
 - `hosts/android/src/document_filesystem.rs`
 - `hosts/android/src/local_inference.rs`

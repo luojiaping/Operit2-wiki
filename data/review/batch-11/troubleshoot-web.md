@@ -9,28 +9,28 @@ date: 2026-11-11
 ## 概述
 
 - 本页回答三个问题：Web Access 如何部署与访问、浏览器 Host 与 WebAssembly 运行时的能力边界是什么、Web 端与桌面端渲染差异如何排查。`apps/flutter/app/web/README.md:1`
-- Web Access 前端边界由 apps/flutter/app/web/ 目录拥有，该目录是 `web.operit.app` 的标准 Flutter Web 入口目录。`apps/flutter/app/web/README.md:44`
+- Web Access 前端边界由 apps/flutter/app/web/ 目录拥有，该目录是 `web.operit.app` 的标准 Flutter Web 入口目录。`apps/flutter/app/web/README.md:46`
 - 浏览器执行属于运行时宿主，会话是否存在不由工作区是否打开决定。`docs/browser-session-lifecycle.md:3`
 - Flutter 应用支持 Android、iOS、macOS、Windows、Linux、OHOS 与 Web，应用缩放与各浏览器的页面缩放相互独立。`docs/webview-rendering.md:3`
 - 本页事实均引自三份文档原文，属于文档声明，未逐项核验对应实现代码。`apps/flutter/app/web/README.md:1`
 
 ## AI 速览
 
-- `web.operit.app` — Web Access 部署域名，部署服务器或反向代理必须发出三个跨域隔离头。`apps/flutter/app/web/README.md:14`
-- `web_dev_config.yaml` — Flutter 开发服务器配置，配置内置开发服务器 `http://127.0.0.1:4835` 并发送三个跨域隔离头。`apps/flutter/app/web/README.md:18`
-- `operit2 cli web open` — 打开 `https://web.operit.app/` 的入口，不启动本地服务器，不把凭据放进 URL。`apps/flutter/app/web/README.md:53`
-- `runtime/src/` — TypeScript 源码及其编译器配置。`apps/flutter/app/web/README.md:47`
-- `runtime/generated/` — 生成的 JavaScript/WASM 产物与 v86 客户机运行时。`apps/flutter/app/web/README.md:48`
-- `runtime/vendor/` — MessagePack 等第三方静态文件。`apps/flutter/app/web/README.md:50`
+- `web.operit.app` — Web Access 部署域名，部署服务器或反向代理必须发出三个跨域隔离头。`apps/flutter/app/web/README.md:16`
+- `web_dev_config.yaml` — Flutter 开发服务器配置，配置内置开发服务器 `http://127.0.0.1:4835` 并发送三个跨域隔离头。`apps/flutter/app/web/README.md:20`
+- `operit2 cli web open` — 打开 `https://web.operit.app/` 的入口，不启动本地服务器，不把凭据放进 URL。`apps/flutter/app/web/README.md:55`
+- `runtime/src/` — TypeScript 源码及其编译器配置。`apps/flutter/app/web/README.md:49`
+- `runtime/generated/` — 生成的 JavaScript/WASM 产物与 v86 客户机运行时。`apps/flutter/app/web/README.md:50`
+- `runtime/vendor/` — MessagePack 等第三方静态文件。`apps/flutter/app/web/README.md:52`
 - `WebViewScaleScope` — 在不改变宿主 DPR 的情况下提供应用缩放。`docs/webview-rendering.md:10`
 - `PlatformWebViewController.requiresNativeApplicationZoom` — 按后端能力选择缩放策略。`docs/webview-rendering.md:11`
 - `NativeWebViewZoom` — 保留应用缩放与页面缩放两个因子，校验输入并序列化原生更新。`docs/webview-rendering.md:26`
-- `OperitSafeWebView` — iOS 后端在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:63`
+- `OperitSafeWebView` — iOS 后端在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:82`
 - `RuntimeBrowserOwnerSurfaceHost` — 为每个存活会话保留一个真实 WebView，始终位于全局宿主。`docs/browser-session-lifecycle.md:29`
 - `WorkspaceBrowserSurface` — 普通浏览器与临时网页访问共用的展示入口。`docs/browser-session-lifecycle.md:30`
 - `RuntimeWebVisitSession` — 收到请求时直接创建会话并开始加载、检测与提取。`docs/browser-session-lifecycle.md:38`
 - `visit_web` — 总执行期限 45 秒的临时网页访问工具。`docs/browser-session-lifecycle.md:42`
-- 主入口：开发运行从 `apps/flutter/app` 执行 `fvm flutter run -d edge`；已部署访问走 `https://web.operit.app/`。`apps/flutter/app/web/README.md:26` `apps/flutter/app/web/README.md:53`
+- 主入口：开发运行从 `apps/flutter/app` 执行 `fvm flutter run -d edge`；已部署访问走 `https://web.operit.app/`。`apps/flutter/app/web/README.md:28` `apps/flutter/app/web/README.md:55`
 - 数据流向：`browser_*` 工具 → `BrowserAutomationBridge` → `RuntimeBrowserOwnerHost` → `RuntimeBrowserOwner` 持有的 `WebViewController`。`docs/browser-session-lifecycle.md:11`
 - 数据流向：`visit_web` 工具 → `WebVisitBridge` → `RuntimeWebVisitSession` → `BrowserSessions` 协议。`docs/browser-session-lifecycle.md:17`
 
@@ -38,24 +38,25 @@ date: 2026-11-11
 
 ### Web Access 部署与访问
 
-- 部署服务器必须为每个应用资产发送三个跨域隔离头，以便线程化 Sherpa ONNX WebAssembly 运行本地 STT 与 TTS。`apps/flutter/app/web/README.md:6`
-- 三个头是 `Cross-Origin-Opener-Policy: same-origin`、`Cross-Origin-Embedder-Policy: require-corp`、`Cross-Origin-Resource-Policy: same-origin`。`apps/flutter/app/web/README.md:9`
-- `web.operit.app` 的部署服务器或反向代理必须发出这三个头。`apps/flutter/app/web/README.md:14`
-- CLI 对外暴露的 Link Access 服务器不提供 Web 前端。`apps/flutter/app/web/README.md:14`
-- 跨域隔离头只启用跨域隔离，不开放对远程 API 的无限制 CORS 访问，远程 API 服务器仍须通过自身 CORS 策略授权开发源。`apps/flutter/app/web/README.md:37`
-- `web_dev_config.yaml` 只配置 Flutter 开发服务器，已部署的托管须独立发送这些头。`apps/flutter/app/web/README.md:39`
-- FVM 锁定的 Flutter SDK 原生读取 Flutter 应用根目录的 `web_dev_config.yaml`。`apps/flutter/app/web/README.md:18`
-- `web_dev_config.yaml` 配置内置开发服务器 `http://127.0.0.1:4835`，并发送三个跨域隔离头。`apps/flutter/app/web/README.md:19`
-- Flutter Web 开发不需要单独的 Node 进程或代理端口。`apps/flutter/app/web/README.md:21`
-- 从 `apps/flutter/app` 运行 `fvm flutter run -d edge` 启动 Edge 开发运行。`apps/flutter/app/web/README.md:26`
-- Chrome 开发运行使用 `fvm flutter run -d chrome`。`apps/flutter/app/web/README.md:29`
-- 手动打开浏览器时使用 `fvm flutter run -d web-server`，然后打开 `http://127.0.0.1:4835`。`apps/flutter/app/web/README.md:30`
-- edge、chrome、web-server 三种设备共享同一原生服务器配置，Flutter 调试连接与热重载直接使用该源。`apps/flutter/app/web/README.md:31`
-- VS Code 里从 Run and Debug 选择 `Operit2: Web (isolated)` 并按 F5，经 FVM Flutter SDK 启动 Edge，无需预启动代理任务。`apps/flutter/app/web/README.md:34`
-- 原生应用与 CLI 不打包、不提供 apps/flutter/app/web/ 目录。`apps/flutter/app/web/README.md:52`
-- 设置入口与 `operit2 cli web open` 打开 `https://web.operit.app/`，不启动本地服务器，不把凭据放进 URL。`apps/flutter/app/web/README.md:53`
-- 连接另一台设备是独立的节点监听/配对操作，不是 Web Access 服务器生命周期。`apps/flutter/app/web/README.md:54`
-- 独立浏览器运行时保存在 `runtime/` 下并按用途拆分：`runtime/src/` 含 TypeScript 源码及编译器配置，`runtime/generated/` 含生成的 JavaScript/WASM 产物与 v86 客户机运行时，`runtime/vendor/` 含 MessagePack 等第三方静态文件。`apps/flutter/app/web/README.md:47`
+- 部署服务器必须为每个应用资产发送三个跨域隔离头。`apps/flutter/app/web/README.md:8`
+- 运行时的同步 Host 通道与插件工作线程需要在安全的跨域隔离浏览器上下文中使用 `SharedArrayBuffer`，启动时在取得运行时所有权前检查这些前提条件。`apps/flutter/app/web/README.md:6`
+- 三个头是 `Cross-Origin-Opener-Policy: same-origin`、`Cross-Origin-Embedder-Policy: require-corp`、`Cross-Origin-Resource-Policy: same-origin`。`apps/flutter/app/web/README.md:11`
+- `web.operit.app` 的部署服务器或反向代理必须发出这三个头。`apps/flutter/app/web/README.md:16`
+- CLI 对外暴露的 Link Access 服务器不提供 Web 前端。`apps/flutter/app/web/README.md:16`
+- 跨域隔离头只启用跨域隔离，不开放对远程 API 的无限制 CORS 访问，远程 API 服务器仍须通过自身 CORS 策略授权开发源。`apps/flutter/app/web/README.md:39`
+- `web_dev_config.yaml` 只配置 Flutter 开发服务器，已部署的托管须独立发送这些头。`apps/flutter/app/web/README.md:41`
+- FVM 锁定的 Flutter SDK 原生读取 Flutter 应用根目录的 `web_dev_config.yaml`。`apps/flutter/app/web/README.md:20`
+- `web_dev_config.yaml` 配置内置开发服务器 `http://127.0.0.1:4835`，并发送三个跨域隔离头。`apps/flutter/app/web/README.md:21`
+- Flutter Web 开发不需要单独的 Node 进程或代理端口。`apps/flutter/app/web/README.md:23`
+- 从 `apps/flutter/app` 运行 `fvm flutter run -d edge` 启动 Edge 开发运行。`apps/flutter/app/web/README.md:28`
+- Chrome 开发运行使用 `fvm flutter run -d chrome`。`apps/flutter/app/web/README.md:31`
+- 手动打开浏览器时使用 `fvm flutter run -d web-server`，然后打开 `http://127.0.0.1:4835`。`apps/flutter/app/web/README.md:32`
+- edge、chrome、web-server 三种设备共享同一原生服务器配置，Flutter 调试连接与热重载直接使用该源。`apps/flutter/app/web/README.md:33`
+- VS Code 里从 Run and Debug 选择 `Operit2: Web (isolated)` 并按 F5，经 FVM Flutter SDK 启动 Edge，无需预启动代理任务。`apps/flutter/app/web/README.md:36`
+- 原生应用与 CLI 不打包、不提供 apps/flutter/app/web/ 目录。`apps/flutter/app/web/README.md:54`
+- 设置入口与 `operit2 cli web open` 打开 `https://web.operit.app/`，不启动本地服务器，不把凭据放进 URL。`apps/flutter/app/web/README.md:55`
+- 连接另一台设备是独立的节点监听/配对操作，不是 Web Access 服务器生命周期。`apps/flutter/app/web/README.md:56`
+- 独立浏览器运行时保存在 `runtime/` 下并按用途拆分：`runtime/src/` 含 TypeScript 源码及编译器配置，`runtime/generated/` 含生成的 JavaScript/WASM 产物与 v86 客户机运行时，`runtime/vendor/` 含 MessagePack 等第三方静态文件。`apps/flutter/app/web/README.md:49`
 
 ### 浏览器 Host 与 WebAssembly 运行时能力边界
 
@@ -99,39 +100,39 @@ date: 2026-11-11
 - 较旧的 ArkWeb SDK 缺少绝对原生浏览器缩放 API，OHOS 页面缩放桥因此对应用的 JavaScript 已启用浏览器使用整页 CSS zoom。`docs/webview-rendering.md:36`
 - OHOS 页面缩放桥把主帧 document-start 脚本与用户脚本分开保留，对当前文档应用缩放，重置时恢复已有的内联根缩放。`docs/webview-rendering.md:38`
 - 应用缩放本身不要求页面 JavaScript。`docs/webview-rendering.md:39`
-- WebView2 直接向 Windows 引擎提供合成视觉，Flutter 平台视图层决定放置、变换、裁剪与绘制顺序。`docs/webview-rendering.md:42`
-- Windows 后备存储使用预乘 alpha 的 DXGI 交换链，原生浏览器显示使用合成视觉，不用 Flutter Texture，不做连续屏幕捕获。`docs/webview-rendering.md:44`
-- ANGLE 保持帧缓冲方向，DirectComposition 按 Flutter 由后向前的绘制顺序用 `AddVisual(visual, FALSE, nullptr)` 追加图层。`docs/webview-rendering.md:48`
-- Flutter 对话框与模态屏障必须覆盖浏览器并拦截指针输入。`docs/webview-rendering.md:49`
-- iOS 后端用 `OperitSafeWebView` 在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:63`
-- 无效几何尺寸会禁用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，并在布局调用结束后经已有导航错误通道上报一次。`docs/webview-rendering.md:65`
-- 失败的 iOS 视图不再布局、不再复用。`docs/webview-rendering.md:67`
-- 引擎或 SDK 变更后，原生渲染、IME 与手势行为必须在对应设备上检查。`docs/webview-rendering.md:81`
+- WebView2 直接向 Windows 引擎提供合成视觉，Flutter 平台视图层决定放置、变换、裁剪与绘制顺序。`docs/webview-rendering.md:61`
+- Windows 后备存储使用预乘 alpha 的 DXGI 交换链，原生浏览器显示使用合成视觉，不用 Flutter Texture，不做连续屏幕捕获。`docs/webview-rendering.md:63`
+- ANGLE 保持帧缓冲方向，DirectComposition 按 Flutter 由后向前的绘制顺序用 `AddVisual(visual, FALSE, nullptr)` 追加图层。`docs/webview-rendering.md:67`
+- Flutter 对话框与模态屏障必须覆盖浏览器并拦截指针输入。`docs/webview-rendering.md:68`
+- iOS 后端用 `OperitSafeWebView` 在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:82`
+- 无效几何尺寸会禁用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，并在布局调用结束后经已有导航错误通道上报一次。`docs/webview-rendering.md:84`
+- 失败的 iOS 视图不再布局、不再复用。`docs/webview-rendering.md:86`
+- 引擎或 SDK 变更后，原生渲染、IME 与手势行为必须在对应设备上检查。`docs/webview-rendering.md:100`
 - Flutter 测试验证共享生命周期与控制器契约，各平台真实 WebView 的渲染、输入与后台行为仍需设备验证。`docs/browser-session-lifecycle.md:46`
 
 ### 维护检查命令
 
-- SDK 版本锁定在 `apps/flutter/app/.fvmrc`，SDK 与应用命令从 `apps/flutter/app` 运行。`docs/webview-rendering.md:51`
-- Windows 构建命令依次是 `fvm install --skip-pub-get`、`fvm flutter precache --windows`、`fvm flutter pub get`、`fvm flutter run -d windows`。`docs/webview-rendering.md:55`
-- 维护检查命令是 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`，从 `apps/flutter/app` 运行。`docs/webview-rendering.md:74`
-- 浏览器端缩放检查命令是 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:75`
-- `windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。`docs/webview-rendering.md:79`
-- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:80`
+- SDK 版本锁定在 `apps/flutter/app/.fvmrc`，SDK 与应用命令从 `apps/flutter/app` 运行。`docs/webview-rendering.md:70`
+- Windows 构建命令依次是 `fvm install --skip-pub-get`、`fvm flutter precache --windows`、`fvm flutter pub get`、`fvm flutter run -d windows`。`docs/webview-rendering.md:74`
+- 维护检查命令是 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`，从 `apps/flutter/app` 运行。`docs/webview-rendering.md:93`
+- 浏览器端缩放检查命令是 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:94`
+- `windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。`docs/webview-rendering.md:98`
+- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:99`
 - Flutter 测试覆盖并发创建的正序与逆序返回、排队创建及错误传播、未打开工作区的访问、延迟展示、展示异常、并发完成与取消、迟到创建、脚本无响应、嵌套休眠、视图实例保持和偏移后的触摸命中。`docs/browser-session-lifecycle.md:46`
 
 ## 关键符号
 
-- `web.operit.app` — Web Access 部署域名。`apps/flutter/app/web/README.md:14`
-- `web_dev_config.yaml` — Flutter 开发服务器配置。`apps/flutter/app/web/README.md:18`
-- `operit2 cli web open` — 打开 `https://web.operit.app/` 的入口。`apps/flutter/app/web/README.md:53`
-- `runtime/src/` — TypeScript 源码及其编译器配置。`apps/flutter/app/web/README.md:47`
-- `runtime/generated/` — 生成的 JavaScript/WASM 产物与 v86 客户机运行时。`apps/flutter/app/web/README.md:48`
-- `runtime/vendor/` — MessagePack 等第三方静态文件。`apps/flutter/app/web/README.md:50`
+- `web.operit.app` — Web Access 部署域名。`apps/flutter/app/web/README.md:16`
+- `web_dev_config.yaml` — Flutter 开发服务器配置。`apps/flutter/app/web/README.md:20`
+- `operit2 cli web open` — 打开 `https://web.operit.app/` 的入口。`apps/flutter/app/web/README.md:55`
+- `runtime/src/` — TypeScript 源码及其编译器配置。`apps/flutter/app/web/README.md:49`
+- `runtime/generated/` — 生成的 JavaScript/WASM 产物与 v86 客户机运行时。`apps/flutter/app/web/README.md:50`
+- `runtime/vendor/` — MessagePack 等第三方静态文件。`apps/flutter/app/web/README.md:52`
 - `WebViewScaleScope` — 在不改变宿主 DPR 的情况下提供应用缩放。`docs/webview-rendering.md:10`
 - `PlatformWebViewController.requiresNativeApplicationZoom` — 按后端能力选择缩放策略。`docs/webview-rendering.md:11`
 - `NativeWebViewZoom` — 保留两个缩放因子，校验输入并序列化原生更新。`docs/webview-rendering.md:26`
-- `OperitSafeWebView` — iOS 后端校验有限 frame 与 bounds 值的视图。`docs/webview-rendering.md:63`
-- `CALayerInvalidGeometry` — iOS 几何异常，在 Objective-C 边界隔离并经导航错误通道上报一次。`docs/webview-rendering.md:65`
+- `OperitSafeWebView` — iOS 后端校验有限 frame 与 bounds 值的视图。`docs/webview-rendering.md:82`
+- `CALayerInvalidGeometry` — iOS 几何异常，在 Objective-C 边界隔离并经导航错误通道上报一次。`docs/webview-rendering.md:84`
 - `RuntimeBrowserOwnerSurfaceHost` — 为每个存活会话保留一个真实 WebView。`docs/browser-session-lifecycle.md:29`
 - `WorkspaceBrowserSurface` — 普通浏览器与临时网页访问共用的展示入口。`docs/browser-session-lifecycle.md:30`
 - `RuntimeBrowserSurfaceTarget` — 原生展示提供的展示锚点。`docs/browser-session-lifecycle.md:30`
@@ -144,8 +145,8 @@ date: 2026-11-11
 
 ## 调用链
 
-1. 部署访问：部署服务器或反向代理为每个应用资产发送三个跨域隔离头 → 浏览器打开 `https://web.operit.app/` → 线程化 Sherpa ONNX WebAssembly 运行本地 STT 与 TTS。`apps/flutter/app/web/README.md:6` `apps/flutter/app/web/README.md:53`
-2. 开发运行：从 `apps/flutter/app` 执行 `fvm flutter run -d edge`（或 `-d chrome`、`-d web-server`）→ `web_dev_config.yaml` 配置的内置服务器在 `http://127.0.0.1:4835` 发送三个跨域隔离头 → Flutter 调试连接与热重载使用该源。`apps/flutter/app/web/README.md:19` `apps/flutter/app/web/README.md:26`
+1. 部署访问：部署服务器或反向代理为每个应用资产发送三个跨域隔离头 → 浏览器打开 `https://web.operit.app/` → 启动时检查跨域隔离前提条件，取得运行时所有权后同步 Host 通道与插件工作线程使用 SharedArrayBuffer。`apps/flutter/app/web/README.md:8` `apps/flutter/app/web/README.md:55`
+2. 开发运行：从 `apps/flutter/app` 执行 `fvm flutter run -d edge`（或 `-d chrome`、`-d web-server`）→ `web_dev_config.yaml` 配置的内置服务器在 `http://127.0.0.1:4835` 发送三个跨域隔离头 → Flutter 调试连接与热重载使用该源。`apps/flutter/app/web/README.md:21` `apps/flutter/app/web/README.md:28`
 3. `browser_*` 工具 → `StandardBrowserAutomationTools` / `BrowserAutomationHost` → `FlutterHostAdapters` → `RuntimeHostInteractionService` → `RuntimeHostInteractionSubscriber` → `BrowserAutomationBridge` → `RuntimeBrowserOwnerHost` → `RuntimeBrowserSessionRegistry` → `RuntimeBrowserOwner` 持有的 `WebViewController`。`docs/browser-session-lifecycle.md:11`
 4. `visit_web` 工具 → `FlutterHostAdapters` → `RuntimeHostInteractionService` → `RuntimeHostInteractionSubscriber` → `WebVisitBridge` → `RuntimeBrowserOwnerHost` → `RuntimeWebVisitRegistry` / `RuntimeWebVisitSession` → `BrowserSessions`（create / evaluate / events / close 协议）→ `RuntimeBrowserService` → 同一个 `RuntimeBrowserOwner`。`docs/browser-session-lifecycle.md:17`
 5. 展示链路：`RuntimeBrowserOwnerSurfaceHost` 为存活会话保留真实 WebView → `WorkspaceBrowserSurface` 经 `RuntimeBrowserSurfaceTarget` 锚点展示，原生展示用锚点，Web 展示用已有合成画面传输。`docs/browser-session-lifecycle.md:30`
@@ -154,8 +155,9 @@ date: 2026-11-11
 
 ## 来源
 
-- `apps/flutter/app/web/README.md`（55 行）：Web Access 部署、开发运行、运行时布局。`apps/flutter/app/web/README.md:1`
-- `docs/webview-rendering.md`（82 行）：WebView 渲染策略、七后端缩放表、Windows 合成、iOS 几何、维护检查。`docs/webview-rendering.md:1`
+- `apps/flutter/app/web/README.md`（57 行）：Web Access 部署、开发运行、运行时布局。`apps/flutter/app/web/README.md:1`
+- `docs/webview-rendering.md`（101 行）：WebView 渲染策略、七后端缩放表、Windows 合成、iOS 几何、维护检查。`docs/webview-rendering.md:1`
+- `docs/webview-rendering.md` 新增「Android legacy WebView scripts」一节（:41–57），属 Android 端内容，不在本页 Web 与桌面端排障范围内，未立事实。`docs/webview-rendering.md:41`
 - `docs/browser-session-lifecycle.md`（46 行）：浏览器会话与工作区展示生命周期、请求链路、超时与回归验证。`docs/browser-session-lifecycle.md:1`
 - 本页事实均引自上述三份文档原文，属于文档声明，未逐项核验对应实现代码。`apps/flutter/app/web/README.md:1`
 - `docs/browser-session-lifecycle.md` 在大纲备注中列为待补测 seed，实测 46 行，已纳入本页 seed。`docs/browser-session-lifecycle.md:1`

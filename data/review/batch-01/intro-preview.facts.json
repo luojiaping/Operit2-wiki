@@ -93,43 +93,43 @@
   },
   {
     "fact": "更新发现从最近 30 个 releases 懒加载，只在当前页无兼容包时加载更老页面。",
-    "ref": "docs/release-versioning.md:160"
+    "ref": "docs/release-versioning.md:188"
   },
   {
     "fact": "选中的版本只在新于已装版本时才提供，更新发现不降级已装应用。",
-    "ref": "docs/release-versioning.md:166"
+    "ref": "docs/release-versioning.md:194"
   },
   {
     "fact": "发布版本来源是 apps/cli/Cargo.toml 与 core/crates/runtime/application/Cargo.toml 的 package.version，两值必须相同且不得含 build metadata；CLI 用其作 cliVersion，App 从 operit-runtime 暴露 coreVersion。",
-    "ref": "docs/release-versioning.md:177"
+    "ref": "docs/release-versioning.md:205"
   },
   {
     "fact": "Flutter 平台版本与 Operit2 发布版本分离：apps/flutter/app/pubspec.yaml 的 version 为 major.minor.patch+buildNumber。",
-    "ref": "docs/release-versioning.md:182"
+    "ref": "docs/release-versioning.md:210"
   },
   {
     "fact": "Flutter major.minor.patch 必须与 Operit2 发布版本一致；buildNumber 只是 Android、Windows、Linux 与 macOS 构建的平台包元数据。",
-    "ref": "docs/release-versioning.md:191"
+    "ref": "docs/release-versioning.md:219"
   },
   {
     "fact": "App 与 full 构建成功后 buildNumber 加 1；CLI-only 构建不改 buildNumber。",
-    "ref": "docs/release-versioning.md:193"
+    "ref": "docs/release-versioning.md:221"
   },
   {
     "fact": "构建发布脚本是 tools/release/build_release.py。",
-    "ref": "docs/release-versioning.md:209"
+    "ref": "docs/release-versioning.md:237"
   },
   {
     "fact": "publish_dist.py 只上传已 staged 在 tools/release/dist 的文件，不重新构建。",
-    "ref": "docs/release-versioning.md:239"
+    "ref": "docs/release-versioning.md:267"
   },
   {
     "fact": "更新器实现在 core/crates/foundation/util/src/GithubReleaseUtil.rs。",
-    "ref": "docs/release-versioning.md:397"
+    "ref": "docs/release-versioning.md:425"
   },
   {
     "fact": "App/CLI 发布版本不控制 Core 或 Edge 的配对、路由与同步。",
-    "ref": "docs/release-versioning.md:444"
+    "ref": "docs/release-versioning.md:472"
   },
   {
     "fact": "release notes 之一是 2.0.0-preview.22 · Apple Build 28，对比基线为 Build 27 / 2.0.0-preview.21。",
@@ -169,15 +169,15 @@
   },
   {
     "fact": "operit2 cli update check 支持无参数调用，无参数时自动使用 CARGO_PKG_VERSION 作当前版本。",
-    "ref": "apps/cli/src/cli/mod.rs:531"
+    "ref": "apps/cli/src/cli/mod.rs:538"
   },
   {
     "fact": "operit2 cli update check 接受显式参数 current_version，显式参数覆盖版本比较基准。",
-    "ref": "apps/cli/src/cli/mod.rs:559"
+    "ref": "apps/cli/src/cli/mod.rs:566"
   },
   {
     "fact": "cli update check 只检查是否有可用更新，不下载。",
-    "ref": "docs/release-versioning.md:419"
+    "ref": "docs/release-versioning.md:447"
   },
   {
     "fact": "发布包命名的共享实现是 tools/build_scripts/release_artifacts.py。",

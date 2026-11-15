@@ -14,7 +14,7 @@ date: 2026-11-11
 - Studio 侧以 TypeScript 实现。`docs/theme-studio-protocol-v1.md:8`
 - 预览核在自身同源 Rust/WASM Worker 中独立执行闭合 JSON Schema/语义校验以及与客户端导入完全一致的 `L4` 图片/SVG/字体/九宫格像素检查，校验通过后才允许调用 Flutter 图片解码与 `FontLoader`；媒体校验细节见 [[theme-render|主题渲染与媒体校验]]。`docs/theme-studio-protocol-v1.md:10`
 - 父页声称的 `themeSha256` 或素材 SHA-256 仅用于一致性比对，不授予媒体解析权限。`docs/theme-studio-protocol-v1.md:9`
-- `wasm.rs` 是指向同一原生契约实现的轻量浏览器绑定，生成确定性字节，但不批准包也不安装包。`core/crates/plugin/theme/src/wasm.rs:1`
+- wasm.rs 是指向同一原生契约实现的轻量浏览器绑定，生成确定性字节，但不批准包也不安装包。`core/crates/plugin/theme/src/wasm.rs:1`
 - client-shell 回执不是跨平台 1:1 截图或整场景一致性/导出授权，最终界面需要两者。`tools/theme/studio_message_port.ts:427`
 
 ## AI 速览
@@ -52,7 +52,7 @@ date: 2026-11-11
 - **信任边界**：协议规定 `SVG` 拒绝 `DTD`/实体、脚本、事件属性、`CSS/style`、外链、`foreignObject`、滤镜、动画、嵌入式文档和未知属性。`docs/theme-studio-protocol-v1.md:11`
 - **信任边界**：`ValidatedThemePreview` 私有构造，调用方提供的哈希不能授予媒体权限。`core/crates/plugin/theme/src/preview.rs:30`
 - **信任边界**：`ValidatedThemePreview` 既不是渲染回执，也不是可安装包。`core/crates/plugin/theme/src/preview.rs:31`
-- **信任边界**：`wasm.rs` 是指向同一原生契约实现的轻量浏览器绑定，生成确定性字节，但不批准包也不安装包。`core/crates/plugin/theme/src/wasm.rs:1`
+- **信任边界**：wasm.rs 是指向同一原生契约实现的轻量浏览器绑定，生成确定性字节，但不批准包也不安装包。`core/crates/plugin/theme/src/wasm.rs:1`
 - **握手**：Studio 加载部署生成的 `theme-studio-config.json` / `renderer-release.json`，获取固定的 `rendererReleaseId`、`fixtureVersion` 与 `fixtureSourceSha256`，并先订阅 `window.message`。`docs/theme-studio-protocol-v1.md:15`
 - **握手**：Studio 将 `iframe.src` 指向同源 `/theme-preview/<rendererReleaseId>/?studioOrigin=<origin>&nonce=<nonce>&rendererReleaseId=<id>`。`docs/theme-studio-protocol-v1.md:16`
 - **握手**：预览核在自身 Rust/WASM Worker 启动就绪后，向 `window.parent` 发送 `operit.theme.preview.available.v1`。`docs/theme-studio-protocol-v1.md:17`
@@ -66,12 +66,12 @@ date: 2026-11-11
 - **握手**：构造函数要求 `rendererReleaseId` 匹配 `/^[A-Za-z0-9._-]{1,128}$/`，且 `fixtureVersion` 非空、`fixtureSourceSha256` 通过 `isSha256` 校验。`tools/theme/studio_message_port.ts:86`
 - **握手**：`ThemeStudioMessagePort` 的状态机为 `idle`、`connecting`、`connected`、`failed`、`closed` 五态。`tools/theme/studio_message_port.ts:61`
 - **握手**：`connect` 在 state 不为 `idle` 时抛 already-connected，通道为单次使用。`tools/theme/studio_message_port.ts:107`
-- **握手**：握手先订阅 `window.message` 并启动 `port1`。`tools/theme/studio_message_port.ts:117`
+- **握手**：握手先订阅 window.message 并启动 `port1`。`tools/theme/studio_message_port.ts:117`
 - **握手**：`connect` 把 `studioOrigin`、`nonce` 与 `rendererReleaseId` 写进预览 URL 查询参数后才设置 `iframe.src`。`tools/theme/studio_message_port.ts:122`
 - **握手**：连接启动定时器 `connectTimer` 为 15_000 毫秒，超时以 preview-startup-timeout 失败。`tools/theme/studio_message_port.ts:121`
 - **握手**：`onWindowMessage` 仅接受 origin 等于预览 URL origin 且 source 为 `iframe.contentWindow` 的消息。`tools/theme/studio_message_port.ts:128`
 - **握手**：收到 available.v1 后 Studio 以 `operit.theme.studio.connect.v1` 向预览窗口转移唯一一个端口（`channel.port2`）。`tools/theme/studio_message_port.ts:143`
-- **握手**：收到 ready.v1 后把 `requestedRevision` 置为 `nextRevision` 减 1，状态转为 connected 并移除 `window.message` 监听。`tools/theme/studio_message_port.ts:319`
+- **握手**：收到 ready.v1 后把 `requestedRevision` 置为 `nextRevision` 减 1，状态转为 connected 并移除 window.message 监听。`tools/theme/studio_message_port.ts:319`
 - **握手**：响应 `revision` 小于已请求 revision 时被忽略，不等于已请求 revision 时抛错。`tools/theme/studio_message_port.ts:328`
 - **握手**：`requireHeader` 要求消息 `protocolVersion` 为 1 且 `rendererReleaseId` 与配置一致，否则抛协议或渲染版本不匹配错误。`tools/theme/studio_message_port.ts:389`
 - **握手**：`fail` 把状态置为 failed、清空 `renderedReceipt`、拒绝待处理捕获与就绪等待，并向 handler 发送 error.v1。`tools/theme/studio_message_port.ts:401`
@@ -125,7 +125,7 @@ date: 2026-11-11
 - **加载与校验**：目录总长度必须等于负载长度，否则报 binary payload has unreferenced bytes or too many fonts。`core/crates/plugin/theme/src/preview.rs:143`
 - **加载与校验**：`validate_theme_preview_transfer` 先规范化草稿，失败时在复制媒体负载前返回。`core/crates/plugin/theme/src/preview.rs:156`
 - **加载与校验**：`preview_error` 构造 code 为 theme-preview-input-invalid、阶段为 `ValidationStage::Integrity` 的错误。`core/crates/plugin/theme/src/preview.rs:161`
-- **加载与校验**：`ValidatedThemePreview` 提供 `theme()`、`receipt()` 与 `file_bytes(path)` 访问器。`core/crates/plugin/theme/src/preview.rs:41`
+- **加载与校验**：`ValidatedThemePreview` 提供 `theme`、`receipt` 与 `file_bytes` 访问器。`core/crates/plugin/theme/src/preview.rs:41`
 - **加载与校验**：`normalize_theme_draft`（js 名 `normalizeThemeDraft`）成功时返回 ok、`theme`、`canonicalThemeJson` 与 `themeSha256`。`core/crates/plugin/theme/src/wasm.rs:10`
 - **加载与校验**：`validate_theme_preview_draft`（js 名 `validateThemePreviewDraft`）内部调用 `validate_theme_preview_transfer`，成功时返回 `canonicalThemeJson`、`themeSha256` 与 `receipt`。`core/crates/plugin/theme/src/wasm.rs:37`
 - **点选与场景**：预览核注册 6 个可检视部件目标：`background`、`navigation.sidebar`、`chat.topBar`、`chat.userMessage`、`chat.aiMessage` 与 `chat.composer`，点击后通过 `operit.theme.preview.selection.v1` 回传选中目标。`docs/theme-studio-protocol-v1.md:59`
@@ -192,7 +192,7 @@ date: 2026-11-11
 4. Studio 侧只接受 origin 与 source 均匹配的 available 消息，`onWindowMessage` 校验 origin 等于预览 URL origin 且 source 为 `iframe.contentWindow`。`tools/theme/studio_message_port.ts:128`
 5. Studio 以 `operit.theme.studio.connect.v1` 向预览窗口转移唯一一个端口（`channel.port2`）。`tools/theme/studio_message_port.ts:143`
 6. 子页核对 exact origin、`window.parent` 消息源、相同协议头、单一端口且无既有连接后，在私有端口返回 `operit.theme.preview.ready.v1` 与 `nextRevision`。`docs/theme-studio-protocol-v1.md:19`
-7. Studio 收到 ready.v1 后把 `requestedRevision` 置为 `nextRevision` 减 1，状态转为 connected 并移除 `window.message` 监听。`tools/theme/studio_message_port.ts:319`
+7. Studio 收到 ready.v1 后把 `requestedRevision` 置为 `nextRevision` 减 1，状态转为 connected 并移除 window.message 监听。`tools/theme/studio_message_port.ts:319`
 8. Studio 发送 `operit.theme.preview.load.v1`，携带 `revision`、`canonicalThemeJson`、`themeSha256`、`brightness`、`viewport`、`showConversation` 与 `assets`。`docs/theme-studio-protocol-v1.md:37`
 9. 预览核执行加载链路：reserve revision → Rust/WASM 校验 → 核对规范化与资产收据 → 准备字体与解码图片 → loaded.v1 → Flutter 真实帧回调 → rendered.v1。`docs/theme-studio-protocol-v1.md:48`
 10. `operit.theme.preview.loaded.v1` 仅表示资源准备完成，真实 Flutter 帧绘制后发出 `operit.theme.preview.rendered.v1`，绑定同一 revision 与摘要。`docs/theme-studio-protocol-v1.md:54`
@@ -208,3 +208,4 @@ date: 2026-11-11
 - `core/crates/plugin/theme/src/preview.rs`
 - `core/crates/plugin/theme/src/wasm.rs`
 - 本页 seed 为以上 4 个文件；协议文档中点名的预览 JS Worker `theme_contract_worker.js` 与 Dart 预览壳 `tools/theme/preview` 不在本页 seed 内，本页不展开其实现。`docs/theme-studio-protocol-v1.md:8`
+- 基线复核：2026-11-15 对新基线 ff5373fb6 复核，4 个 seed 文件 0 行改动，120 条事实锚行逐字相同、事实文本零改动。

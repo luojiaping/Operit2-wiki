@@ -81,39 +81,39 @@
 },
 {
 "fact": "operit2 cli link 的子命令清单是 discover、qr、pair、unpair、peers、prompts、listen、session、space、doctor、control、stream-probe、edge-call",
-"ref": "apps/cli/src/cli/link.rs:1299"
+"ref": "apps/cli/src/cli/link.rs:1499"
 },
 {
 "fact": "operit2 cli link listen 接受 http、ws、tcp、serial、bluetooth 五种传输方式，支持 --automatic-port、--fixed-port 与 --bind <host:port>",
-"ref": "apps/cli/src/cli/link.rs:1309"
+"ref": "apps/cli/src/cli/link.rs:1509"
 },
 {
 "fact": "operit2 cli link discover 接受 --timeout-ms 参数",
-"ref": "apps/cli/src/cli/link.rs:1304"
+"ref": "apps/cli/src/cli/link.rs:1504"
 },
 {
 "fact": "link discover 的默认超时是 2000 毫秒",
-"ref": "apps/cli/src/cli/link.rs:679"
+"ref": "apps/cli/src/cli/link.rs:871"
 },
 {
 "fact": "operit2 cli link space show 显示 Space 名称与成员数量",
-"ref": "apps/cli/src/cli/link.rs:729"
+"ref": "apps/cli/src/cli/link.rs:921"
 },
 {
 "fact": "operit2 cli link space join 接受设备名或编号作为选择器",
-"ref": "apps/cli/src/cli/link.rs:1310"
+"ref": "apps/cli/src/cli/link.rs:1510"
 },
 {
 "fact": "operit2 cli link qr 接受 http、ws、tcp 传输方式选择，支持 --bind <host:port> 与 --no-discovery",
-"ref": "apps/cli/src/cli/link.rs:1305"
+"ref": "apps/cli/src/cli/link.rs:1505"
 },
 {
 "fact": "operit2 cli identity list 列出本地身份与当前活动身份",
-"ref": "apps/cli/src/cli/mod.rs:205"
+"ref": "apps/cli/src/cli/mod.rs:212"
 },
 {
 "fact": "operit2 cli storage paths 由 storage 命令的 paths 子命令实现",
-"ref": "core/crates/command/core/src/commands/storage.rs:16"
+"ref": "core/crates/command/core/src/commands/storage.rs:20"
 },
 {
 "fact": "operit2 cli export snapshot <path> 导出快照",
@@ -137,11 +137,11 @@
 },
 {
 "fact": "不带参数运行 operit2 进入 TUI",
-"ref": "apps/cli/src/main.rs:57"
+"ref": "apps/cli/src/main.rs:59"
 },
 {
 "fact": "operit2 cli version 显示 CLI、Core 与 Link 版本",
-"ref": "apps/cli/src/cli/mod.rs:129"
+"ref": "apps/cli/src/cli/mod.rs:131"
 },
 {
 "fact": "operit2 cli web open 只打开 https://web.operit.app/，不启动本地服务器，不把凭证放进 URL",
@@ -173,95 +173,95 @@
 },
 {
 "fact": "已发现的 nodeId 只是拨号提示，会话握手验证预期节点并证明持有现有配对密钥后，运行时把成功的地址与传输方式持久化到出站配对记录",
-"ref": "docs/device-space-lan-discovery.md:21"
+"ref": "docs/device-space-lan-discovery.md:27"
 },
 {
 "fact": "认证失败不改变已保存的端点，并发的解除配对或凭证替换不会被进行中的连接撤销",
-"ref": "docs/device-space-lan-discovery.md:25"
+"ref": "docs/device-space-lan-discovery.md:31"
 },
 {
 "fact": "Windows、Linux、Android 与 OHOS 使用共享原生 mDNS 提供方，守护进程与浏览器工作线程归 Host 所有",
-"ref": "docs/device-space-lan-discovery.md:32"
+"ref": "docs/device-space-lan-discovery.md:38"
 },
 {
 "fact": "iOS 与 macOS 使用系统 Bonjour DNS-SD 守护进程，不使用应用自有的 UDP 组播套接字，macOS CLI 安装同样的 Apple 发现 Host",
-"ref": "docs/device-space-lan-discovery.md:37"
+"ref": "docs/device-space-lan-discovery.md:43"
 },
 {
 "fact": "两端都必须放行本地组播 DNS 流量（UDP 5353 到 224.0.0.251 / ff02::fb）与到已广播监听器端口的入站连接",
-"ref": "docs/device-space-lan-discovery.md:55"
+"ref": "docs/device-space-lan-discovery.md:61"
 },
 {
 "fact": "v2 连接码携带节点 ID、显示名、实时网络地址与 5 分钟有效的随机邀请密钥",
-"ref": "docs/device-space-lan-discovery.md:108"
+"ref": "docs/device-space-lan-discovery.md:115"
 },
 {
 "fact": "扫码确认通过已有的 SPAKE2 配对交换认证并提交 Space 加入请求，该路径不显示手动配对码对话框",
-"ref": "docs/device-space-lan-discovery.md:110"
+"ref": "docs/device-space-lan-discovery.md:117"
 },
 {
 "fact": "相机扫码在 Android、iOS、macOS 与 web 上可用，其他 Host 导入图片或粘贴连接码",
-"ref": "docs/device-space-lan-discovery.md:103"
+"ref": "docs/device-space-lan-discovery.md:110"
 },
 {
 "fact": "operit2 cli link qr http --no-discovery 在没有守护进程或 TUI 属主运行时启动 HTTP 监听器并保持到 Ctrl-C",
-"ref": "docs/device-space-lan-discovery.md:130"
+"ref": "docs/device-space-lan-discovery.md:137"
 },
 {
 "fact": "link qr 的 --json 以无终端转义序列的形式输出连接信息",
-"ref": "docs/device-space-lan-discovery.md:135"
+"ref": "docs/device-space-lan-discovery.md:142"
 },
 {
 "fact": "交互式 link session 中 qr 显示同一连接码，pair <connection-code> 完成 QR 配对，space 命令提交或检查加入请求",
-"ref": "docs/device-space-lan-discovery.md:138"
+"ref": "docs/device-space-lan-discovery.md:145"
 },
 {
 "fact": "部署服务器必须为每个应用资产发送 COOP same-origin、COEP require-corp、CORP same-origin 三个响应头，线程化 Sherpa ONNX WebAssembly 才能运行本地 STT 与 TTS",
-"ref": "apps/flutter/app/web/README.md:9"
+"ref": "apps/flutter/app/web/README.md:11"
 },
 {
 "fact": "CLI 暴露的 Link Access 服务器不提供 Web 前端",
-"ref": "apps/flutter/app/web/README.md:14"
+"ref": "apps/flutter/app/web/README.md:16"
 },
 {
 "fact": "FVM 固定的 Flutter SDK 从 Flutter 应用根目录读取 web_dev_config.yaml，内置开发服务器位于 http://127.0.0.1:4835 并发送三个跨域隔离头，不需要单独的 Node 进程或代理端口",
-"ref": "apps/flutter/app/web/README.md:20"
+"ref": "apps/flutter/app/web/README.md:22"
 },
 {
 "fact": "Web 开发用 fvm flutter run -d edge，Chrome 用 -d chrome，手动打开浏览器用 -d web-server 并访问 http://127.0.0.1:4835",
-"ref": "apps/flutter/app/web/README.md:26"
+"ref": "apps/flutter/app/web/README.md:28"
 },
 {
 "fact": "VS Code 选择 Operit2: Web (isolated) 后按 F5 启动 Edge，无需预启动代理任务",
-"ref": "apps/flutter/app/web/README.md:34"
+"ref": "apps/flutter/app/web/README.md:36"
 },
 {
 "fact": "跨域隔离头启用跨域隔离，不代表对远程 API 无限制的 CORS 访问，远程 API 服务器仍须通过自身 CORS 策略授权开发源",
-"ref": "apps/flutter/app/web/README.md:37"
+"ref": "apps/flutter/app/web/README.md:39"
 },
 {
 "fact": "runtime/src 存放 TypeScript 源码，runtime/generated 存放生成的 JavaScript/WASM 产物与 v86 客户机运行时，runtime/vendor 存放 MessagePack 等第三方静态文件",
-"ref": "apps/flutter/app/web/README.md:47"
+"ref": "apps/flutter/app/web/README.md:49"
 },
 {
 "fact": "原生应用与 CLI 不打包也不提供 web 目录，设置入口与 operit2 cli web open 打开 https://web.operit.app/，不启动本地服务器，不把凭证放进 URL",
-"ref": "apps/flutter/app/web/README.md:52"
+"ref": "apps/flutter/app/web/README.md:54"
 },
 {
 "fact": "连接另一台设备是独立的节点监听与配对操作，不是 Web Access 服务器生命周期",
-"ref": "apps/flutter/app/web/README.md:55"
+"ref": "apps/flutter/app/web/README.md:57"
 },
 {
 "fact": "ServiceDiscovery 日志记录选定的原生浏览接口、解析到的地址与端口、守护进程错误、广播与扫描总数",
-"ref": "docs/device-space-lan-discovery.md:46"
+"ref": "docs/device-space-lan-discovery.md:52"
 },
 {
 "fact": "RuntimePeerService 记录原始广播总数与本地、已配对、无效、可添加四类过滤总数",
-"ref": "docs/device-space-lan-discovery.md:51"
+"ref": "docs/device-space-lan-discovery.md:57"
 },
 {
 "fact": "ModelConfigManager 的模型配置 store 由 preferenceStore 创建",
-"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:136"
+"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:134"
 },
 {
 "fact": "preferenceStore 用 PreferencesDataStore::newWithStorage 打开偏好 store",
@@ -269,7 +269,7 @@
 },
 {
 "fact": "writeProvider 把整个 ProviderProfile 以 provider_<id> 为键写入同步偏好",
-"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332"
+"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360"
 },
 {
 "fact": "ProviderProfile 包含 apiKey 与 apiKeyPool",
@@ -289,35 +289,35 @@
 },
 {
 "fact": "print_connection_qr 打印二维码与连接码",
-"ref": "apps/cli/src/cli/link.rs:195"
+"ref": "apps/cli/src/cli/link.rs:381"
 },
 {
 "fact": "link pair 收到 operit:// 连接码时用 startPairingFromCode 配对，成功后直接返回，不输入六位码",
-"ref": "apps/cli/src/cli/link.rs:122"
+"ref": "apps/cli/src/cli/link.rs:271"
 },
 {
 "fact": "link pair 不带连接码时走手动配对分支，在接收设备上读六位码并用 finishPairing 完成",
-"ref": "apps/cli/src/cli/link.rs:127"
+"ref": "apps/cli/src/cli/link.rs:276"
 },
 {
 "fact": "link space join 只提交加入申请并打印回执",
-"ref": "apps/cli/src/cli/link.rs:799"
+"ref": "apps/cli/src/cli/link.rs:991"
 },
 {
 "fact": "加入申请回执打印申请人、状态、Space 名与审批人",
-"ref": "apps/cli/src/cli/link.rs:882"
+"ref": "apps/cli/src/cli/link.rs:1074"
 },
 {
 "fact": "link space requests incoming/outgoing 分别列出收到与发出的加入申请",
-"ref": "apps/cli/src/cli/link.rs:805"
+"ref": "apps/cli/src/cli/link.rs:997"
 },
 {
 "fact": "link space approve/reject 由 Space 一侧对收到的加入申请做决定",
-"ref": "apps/cli/src/cli/link.rs:830"
+"ref": "apps/cli/src/cli/link.rs:1022"
 },
 {
 "fact": "link space refresh 对发出的加入申请调用 refreshDeviceSpaceJoin 并打印更新后的回执",
-"ref": "apps/cli/src/cli/link.rs:824"
+"ref": "apps/cli/src/cli/link.rs:1016"
 },
 {
 "fact": "加入审批与配对、同步成员关系是分开的步骤",
@@ -329,7 +329,7 @@
 },
 {
 "fact": "已批准的加入申请经 adoptApprovedMembership 落为 Joined",
-"ref": "core/crates/node/runtime/src/peer/space_join.rs:1318"
+"ref": "core/crates/node/runtime/src/peer/space_join.rs:1328"
 },
 {
 "fact": "Flutter 扫码对话框的 Confirm join 按钮确认后返回扫到的连接码",
@@ -337,11 +337,11 @@
 },
 {
 "fact": "Flutter 扫码确认后把连接码交给 _pair 配对",
-"ref": "apps/flutter/app/lib/ui/common/DeviceSpaceDiscoveryPanel.dart:365"
+"ref": "apps/flutter/app/lib/ui/common/DeviceSpaceDiscoveryPanel.dart:380"
 },
 {
 "fact": "Flutter 用连接码配对后调用 showSpaceJoinRequest 提交加入请求",
-"ref": "apps/flutter/app/lib/ui/common/DeviceSpaceDiscoveryPanel.dart:321"
+"ref": "apps/flutter/app/lib/ui/common/DeviceSpaceDiscoveryPanel.dart:336"
 },
 {
 "fact": "showSpaceJoinRequest 调用 requestDeviceSpaceJoin 提交加入申请",
@@ -349,6 +349,6 @@
 },
 {
 "fact": "Flutter 扫码确认提示写明确认后直接连接并提交加入，无需输入配对码",
-"ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4565"
+"ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4614"
 }
 ]

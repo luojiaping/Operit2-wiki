@@ -1,6 +1,6 @@
 [
   {
-    "fact": "`docs/release-versioning.md` 是 Operit2 app 与 CLI 发布版本的事实来源。",
+    "fact": "docs/release-versioning.md 是 Operit2 app 与 CLI 发布版本的事实来源。",
     "ref": "docs/release-versioning.md:3"
   },
   {
@@ -93,214 +93,218 @@
   },
   {
     "fact": "MSI 的三段版本号编码为 `major.minor.(patch * 1000 + revision)`。",
-    "ref": "docs/release-versioning.md:142"
+    "ref": "docs/release-versioning.md:170"
   },
   {
     "fact": "MSI 的 revision 取值：dev 为 1–199，preview 为 201–399，rc 为 401–599，stable 为 999。",
-    "ref": "docs/release-versioning.md:143"
+    "ref": "docs/release-versioning.md:171"
   },
   {
     "fact": "MSI 计数器超过 199、不支持的 prerelease 标识符与 MSI 字段溢出都会显式失败。",
-    "ref": "docs/release-versioning.md:144"
+    "ref": "docs/release-versioning.md:172"
   },
   {
     "fact": "发布文件名中的版本与 Git tag 一致，但去掉前导 `v`。",
-    "ref": "docs/release-versioning.md:148"
+    "ref": "docs/release-versioning.md:176"
   },
   {
     "fact": "更新器按每个 release 自身的 tag 与请求的 product、platform、architecture 构建精确文件名。",
-    "ref": "docs/release-versioning.md:149"
-  },
-  {
-    "fact": "更新发现从最近 30 个 release 开始惰性加载 release 页面。",
-    "ref": "docs/release-versioning.md:160"
-  },
-  {
-    "fact": "更新发现跳过没有精确 platform 与 architecture 包或超出已安装版本通道的 release，某页含兼容包时选取该页最高 SemVer 并停止请求更旧页面。",
-    "ref": "docs/release-versioning.md:163"
-  },
-  {
-    "fact": "选中的版本仅在比已安装版本新时才提供，更新发现不降级已安装应用。",
-    "ref": "docs/release-versioning.md:165"
-  },
-  {
-    "fact": "发布版本的来源是 `apps/cli/Cargo.toml` 与 `core/crates/runtime/application/Cargo.toml` 的 `package.version`，两个值必须相同。",
-    "ref": "docs/release-versioning.md:173"
-  },
-  {
-    "fact": "两个 Cargo 版本值不得包含构建元数据，CLI 以其 Cargo 包版本作为 `cliVersion`，App 从 `operit-runtime` 暴露 `coreVersion`。",
     "ref": "docs/release-versioning.md:177"
   },
   {
-    "fact": "Flutter 平台元数据与 Operit2 发布版本分离，`apps/flutter/app/pubspec.yaml` 的版本形式为 `major.minor.patch+buildNumber`。",
-    "ref": "docs/release-versioning.md:182"
-  },
-  {
-    "fact": "`2.0.0-preview.1` 对应的 Flutter 平台版本为 `2.0.0+1`。",
+    "fact": "更新发现从最近 30 个 release 开始惰性加载 release 页面。",
     "ref": "docs/release-versioning.md:188"
   },
   {
-    "fact": "Flutter 的 `major.minor.patch` 必须与 Operit2 发布版本一致，`buildNumber` 只是 Android、Windows、Linux 与 macOS 构建的平台包元数据。",
+    "fact": "更新发现跳过没有精确 platform 与 architecture 包或超出已安装版本通道的 release，某页含兼容包时选取该页最高 SemVer 并停止请求更旧页面。",
     "ref": "docs/release-versioning.md:191"
   },
   {
-    "fact": "App 与 full 运行先用当前 Flutter `buildNumber` 构建，全部所选 App 资产成功后再把 `apps/flutter/app/pubspec.yaml` 的 `buildNumber` 加 1；CLI-only 运行不改变 Flutter `buildNumber`。",
+    "fact": "选中的版本仅在比已安装版本新时才提供，更新发现不降级已安装应用。",
     "ref": "docs/release-versioning.md:193"
   },
   {
+    "fact": "发布版本的来源是 `apps/cli/Cargo.toml` 与 `core/crates/runtime/application/Cargo.toml` 的 `package.version`，两个值必须相同。",
+    "ref": "docs/release-versioning.md:201"
+  },
+  {
+    "fact": "两个 Cargo 版本值不得包含构建元数据，CLI 以其 Cargo 包版本作为 `cliVersion`，App 从 `operit-runtime` 暴露 `coreVersion`。",
+    "ref": "docs/release-versioning.md:205"
+  },
+  {
+    "fact": "Flutter 平台元数据与 Operit2 发布版本分离，`apps/flutter/app/pubspec.yaml` 的版本形式为 `major.minor.patch+buildNumber`。",
+    "ref": "docs/release-versioning.md:210"
+  },
+  {
+    "fact": "`2.0.0-preview.1` 对应的 Flutter 平台版本为 `2.0.0+1`。",
+    "ref": "docs/release-versioning.md:216"
+  },
+  {
+    "fact": "Flutter 的 `major.minor.patch` 必须与 Operit2 发布版本一致，`buildNumber` 只是 Android、Windows、Linux 与 macOS 构建的平台包元数据。",
+    "ref": "docs/release-versioning.md:219"
+  },
+  {
+    "fact": "App 与 full 运行先用当前 Flutter `buildNumber` 构建，全部所选 App 资产成功后再把 `apps/flutter/app/pubspec.yaml` 的 `buildNumber` 加 1；CLI-only 运行不改变 Flutter `buildNumber`。",
+    "ref": "docs/release-versioning.md:221"
+  },
+  {
     "fact": "Android 的 `module.prop` 使用共享的完整发布版本，并以同一 Flutter `buildNumber` 作为 `versionCode`；两种 Android 形态都成功后，App/full 发布才把 build number 加 1。",
-    "ref": "docs/release-versioning.md:197"
+    "ref": "docs/release-versioning.md:225"
   },
   {
     "fact": "构建发布脚本是 `tools/release/build_release.py`。",
-    "ref": "docs/release-versioning.md:209"
+    "ref": "docs/release-versioning.md:237"
   },
   {
     "fact": "GitHub 发布凭证存放在 `tools/release/secrets/github.env`，该目录被 git 忽略。",
-    "ref": "docs/release-versioning.md:215"
+    "ref": "docs/release-versioning.md:243"
   },
   {
     "fact": "`build_release.py` 只构建发布资产，`publish_dist.py` 上传已暂存于 `tools/release/dist` 的文件。",
-    "ref": "docs/release-versioning.md:239"
+    "ref": "docs/release-versioning.md:267"
   },
   {
-    "fact": "构建发布脚本的 `--scope` 接受 `cli`、`app`、`full`、`none` 四个取值。",
-    "ref": "tools/release/build_release.py:113"
+    "fact": "`--scope` 的取值由 `ReleaseScope` 枚举定义。",
+    "ref": "tools/release/build_release.py:1306"
   },
   {
-    "fact": "`--scope none` 对应 `ReleaseProduct.NONE`，不构建任何产品。",
-    "ref": "tools/release/build_release.py:1293"
+    "fact": "`ReleaseScope` 有 `cli`、`app`、`full`、`none` 四个取值。",
+    "ref": "tools/release/build_release.py:114"
+  },
+  {
+    "fact": "`ReleaseScope.NONE` 对应 `ReleaseProduct.NONE`，不构建任何产品。",
+    "ref": "tools/release/build_release.py:1295"
   },
   {
     "fact": "`download_action_artifacts.py` 在把发布资产复制进 `tools/release/dist` 之前，验证每个请求的 run 都以 `success` 结论完成。",
-    "ref": "docs/release-versioning.md:314"
+    "ref": "docs/release-versioning.md:342"
   },
   {
     "fact": "默认发布仓库是 `AAswordman/Operit2`。",
-    "ref": "docs/release-versioning.md:364"
+    "ref": "docs/release-versioning.md:392"
   },
   {
     "fact": "构建与发布脚本必须拒绝 CLI 与 runtime 发布版本不一致的情况。",
-    "ref": "docs/release-versioning.md:373"
+    "ref": "docs/release-versioning.md:401"
   },
   {
     "fact": "构建与发布脚本必须拒绝包含构建元数据的 Cargo 与 runtime 发布版本。",
-    "ref": "docs/release-versioning.md:374"
-  },
-  {
-    "fact": "构建与发布脚本必须从发布版本推导 GitHub prerelease 标志。",
-    "ref": "docs/release-versioning.md:377"
-  },
-  {
-    "fact": "构建与发布脚本必须在 App/full 资产构建成功后把 Flutter `buildNumber` 加 1。",
-    "ref": "docs/release-versioning.md:379"
-  },
-  {
-    "fact": "构建与发布脚本必须在上传暂存文件前检查已有 GitHub release 的 prerelease 标志。",
-    "ref": "docs/release-versioning.md:381"
-  },
-  {
-    "fact": "云端发布构建可组合，全部可用的平台 workflow 都是手动 `workflow_dispatch` 入口。",
-    "ref": "docs/release-versioning.md:278"
-  },
-  {
-    "fact": "macOS 与 iOS 的 workflow 还能通过 `workflow_call` 由 Apple Release Build 复用。",
-    "ref": "docs/release-versioning.md:279"
-  },
-  {
-    "fact": "Apple Release Build 覆盖 macOS App、macOS CLI 与未签名的 iOS App。",
-    "ref": "docs/release-versioning.md:282"
-  },
-  {
-    "fact": "macOS Flutter Build 覆盖 macOS App 和/或 CLI。",
-    "ref": "docs/release-versioning.md:283"
-  },
-  {
-    "fact": "iOS Flutter Build 覆盖未签名的 iOS App。",
-    "ref": "docs/release-versioning.md:284"
-  },
-  {
-    "fact": "Windows Release Build 覆盖 Windows App 和/或 CLI。",
-    "ref": "docs/release-versioning.md:285"
-  },
-  {
-    "fact": "Linux Release Build 覆盖 Linux App 和/或 CLI。",
-    "ref": "docs/release-versioning.md:286"
-  },
-  {
-    "fact": "Android Flutter Build 覆盖已签名的 Android APK 与 module 安装器 ZIP。",
-    "ref": "docs/release-versioning.md:287"
-  },
-  {
-    "fact": "Android Flutter Build 要求仓库 secret `ANDROID_RELEASE_KEYSTORE_BASE64`、`ANDROID_RELEASE_STORE_PASSWORD`、`ANDROID_RELEASE_KEY_ALIAS`、`ANDROID_RELEASE_KEY_PASSWORD`。",
-    "ref": "docs/release-versioning.md:293"
-  },
-  {
-    "fact": "Android keystore secret 必须经过 Base64 编码。",
-    "ref": "docs/release-versioning.md:299"
-  },
-  {
-    "fact": "OpenHarmony 仍是本地构建，因为仓库没有其 SDK 与命令行工具的可复现分发地址。",
-    "ref": "docs/release-versioning.md:300"
-  },
-  {
-    "fact": "在外部工具链来源与签名 secret 配置好之前，不得把 OpenHarmony 视为可用的云端构建。",
-    "ref": "docs/release-versioning.md:302"
-  },
-  {
-    "fact": "更新器实现位于 `core/crates/foundation/util/src/GithubReleaseUtil.rs`。",
-    "ref": "docs/release-versioning.md:397"
-  },
-  {
-    "fact": "更新器把版本严格解析为 `major.minor.patch[-prerelease][+build]`。",
     "ref": "docs/release-versioning.md:402"
   },
   {
-    "fact": "更新器在版本比较时忽略构建元数据。",
-    "ref": "docs/release-versioning.md:403"
-  },
-  {
-    "fact": "更新器按更新器通道选择 release，并按精确的 product、platform、architecture 与完整发布 tag 版本匹配资产。",
+    "fact": "构建与发布脚本必须从发布版本推导 GitHub prerelease 标志。",
     "ref": "docs/release-versioning.md:405"
   },
   {
-    "fact": "更新器拒绝 GitHub prerelease 标志不一致的情况。",
-    "ref": "docs/release-versioning.md:406"
+    "fact": "构建与发布脚本必须在 App/full 资产构建成功后把 Flutter `buildNumber` 加 1。",
+    "ref": "docs/release-versioning.md:407"
   },
   {
-    "fact": "App/CLI 发布版本不控制 Core 或 Edge 的配对、路由或同步。",
-    "ref": "docs/release-versioning.md:444"
+    "fact": "构建与发布脚本必须在上传暂存文件前检查已有 GitHub release 的 prerelease 标志。",
+    "ref": "docs/release-versioning.md:409"
   },
   {
-    "fact": "Core/Edge 协议版本是独立的整数协议版本，附带构建时源码指纹，运行时检查只比较协议版本。",
-    "ref": "docs/release-versioning.md:445"
+    "fact": "云端发布构建可组合，全部可用的平台 workflow 都是手动 `workflow_dispatch` 入口。",
+    "ref": "docs/release-versioning.md:306"
   },
   {
-    "fact": "`cli update target` 显示当前桌面 CLI 的更新器目标。",
-    "ref": "docs/release-versioning.md:413"
+    "fact": "macOS 与 iOS 的 workflow 还能通过 `workflow_call` 由 Apple Release Build 复用。",
+    "ref": "docs/release-versioning.md:307"
   },
   {
-    "fact": "`cli update check 0.0.0-preview.0` 在不下载的情况下检查是否有 release 可用。",
-    "ref": "docs/release-versioning.md:419"
+    "fact": "Apple Release Build 覆盖 macOS App、macOS CLI 与未签名的 iOS App。",
+    "ref": "docs/release-versioning.md:310"
   },
   {
-    "fact": "`cli update download 0.0.0-preview.0` 下载匹配资产并显示进度，但不安装。",
+    "fact": "macOS Flutter Build 覆盖 macOS App 和/或 CLI。",
+    "ref": "docs/release-versioning.md:311"
+  },
+  {
+    "fact": "iOS Flutter Build 覆盖未签名的 iOS App。",
+    "ref": "docs/release-versioning.md:312"
+  },
+  {
+    "fact": "Windows Release Build 覆盖 Windows App 和/或 CLI。",
+    "ref": "docs/release-versioning.md:313"
+  },
+  {
+    "fact": "Linux Release Build 覆盖 Linux App 和/或 CLI。",
+    "ref": "docs/release-versioning.md:314"
+  },
+  {
+    "fact": "Android Flutter Build 覆盖已签名的 Android APK 与 module 安装器 ZIP。",
+    "ref": "docs/release-versioning.md:315"
+  },
+  {
+    "fact": "Android Flutter Build 要求仓库 secret `ANDROID_RELEASE_KEYSTORE_BASE64`、`ANDROID_RELEASE_STORE_PASSWORD`、`ANDROID_RELEASE_KEY_ALIAS`、`ANDROID_RELEASE_KEY_PASSWORD`。",
+    "ref": "docs/release-versioning.md:321"
+  },
+  {
+    "fact": "Android keystore secret 必须经过 Base64 编码。",
+    "ref": "docs/release-versioning.md:327"
+  },
+  {
+    "fact": "OpenHarmony 仍是本地构建，因为仓库没有其 SDK 与命令行工具的可复现分发地址。",
+    "ref": "docs/release-versioning.md:328"
+  },
+  {
+    "fact": "在外部工具链来源与签名 secret 配置好之前，不得把 OpenHarmony 视为可用的云端构建。",
+    "ref": "docs/release-versioning.md:330"
+  },
+  {
+    "fact": "更新器实现位于 `core/crates/foundation/util/src/GithubReleaseUtil.rs`。",
     "ref": "docs/release-versioning.md:425"
   },
   {
-    "fact": "`cli update run 0.0.0-preview.0` 走完整 CLI 更新路径，当前目标匹配时包含安装覆盖。",
+    "fact": "更新器把版本严格解析为 `major.minor.patch[-prerelease][+build]`。",
+    "ref": "docs/release-versioning.md:430"
+  },
+  {
+    "fact": "更新器在版本比较时忽略构建元数据。",
     "ref": "docs/release-versioning.md:431"
   },
   {
+    "fact": "更新器按更新器通道选择 release，并按精确的 product、platform、architecture 与完整发布 tag 版本匹配资产。",
+    "ref": "docs/release-versioning.md:433"
+  },
+  {
+    "fact": "更新器拒绝 GitHub prerelease 标志不一致的情况。",
+    "ref": "docs/release-versioning.md:434"
+  },
+  {
+    "fact": "App/CLI 发布版本不控制 Core 或 Edge 的配对、路由或同步。",
+    "ref": "docs/release-versioning.md:472"
+  },
+  {
+    "fact": "Core/Edge 协议版本是独立的整数协议版本，附带构建时源码指纹，运行时检查只比较协议版本。",
+    "ref": "docs/release-versioning.md:473"
+  },
+  {
+    "fact": "`cli update target` 显示当前桌面 CLI 的更新器目标。",
+    "ref": "docs/release-versioning.md:441"
+  },
+  {
+    "fact": "`cli update check 0.0.0-preview.0` 在不下载的情况下检查是否有 release 可用。",
+    "ref": "docs/release-versioning.md:447"
+  },
+  {
+    "fact": "`cli update download 0.0.0-preview.0` 下载匹配资产并显示进度，但不安装。",
+    "ref": "docs/release-versioning.md:453"
+  },
+  {
+    "fact": "`cli update run 0.0.0-preview.0` 走完整 CLI 更新路径，当前目标匹配时包含安装覆盖。",
+    "ref": "docs/release-versioning.md:459"
+  },
+  {
     "fact": "用 `0.0.0-preview.0` 这类 prerelease 当前版本测试预览 release；用 `0.0.0` 这类 stable 当前版本选择 stable channel 并忽略 GitHub prerelease。",
-    "ref": "docs/release-versioning.md:440"
+    "ref": "docs/release-versioning.md:468"
   },
   {
     "fact": "ESP32 本地构建把板级 ZIP 包写入 `tools/release/dist/operit2-firmware-esp32-2432s028-<release-version>.zip`，包内含完整 4 MiB 初始刷机镜像、拆分刷机镜像、`partitions.csv` 与带已验证偏移量和 SHA-256 摘要的 manifest。",
-    "ref": "docs/release-versioning.md:331"
+    "ref": "docs/release-versioning.md:359"
   },
   {
-    "fact": "release notes 文件 `2.0.0-preview.22-build28.md` 覆盖 `2.0.0-preview.22`，Apple Build 28。",
+    "fact": "release notes 文件 2.0.0-preview.22-build28.md 覆盖 `2.0.0-preview.22`，Apple Build 28。",
     "ref": "docs/release-notes/2.0.0-preview.22-build28.md:1"
   },
   {
@@ -328,7 +332,7 @@
     "ref": "docs/release-notes/2.0.0-preview.22-build28.md:81"
   },
   {
-    "fact": "release notes 文件 `2.0.0-preview.27-build33.md` 覆盖 `2.0.0-preview.27`，Apple build 33。",
+    "fact": "release notes 文件 2.0.0-preview.27-build33.md 覆盖 `2.0.0-preview.27`，Apple build 33。",
     "ref": "docs/release-notes/2.0.0-preview.27-build33.md:1"
   },
   {

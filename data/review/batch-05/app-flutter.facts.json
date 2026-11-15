@@ -4,7 +4,7 @@
     "ref": "apps/flutter/app/pubspec.yaml:1"
   },
   {
-    "fact": "Flutter 应用的 version 是 2.0.0+38",
+    "fact": "Flutter 应用的 version 是 2.0.0+42",
     "ref": "apps/flutter/app/pubspec.yaml:19"
   },
   {
@@ -69,11 +69,11 @@
   },
   {
     "fact": "pubspec 在 dependency_overrides 中把 webview_all_ohos 指向本地 thirdparty 路径",
-    "ref": "apps/flutter/app/pubspec.yaml:157"
+    "ref": "apps/flutter/app/pubspec.yaml:159"
   },
   {
     "fact": "ffi ^2.2.0 声明在 pubspec 的 dev_dependencies 段",
-    "ref": "apps/flutter/app/pubspec.yaml:131"
+    "ref": "apps/flutter/app/pubspec.yaml:132"
   },
   {
     "fact": "Android 平台壳的清单文件是 AndroidManifest.xml，首行声明 manifest 元素",
@@ -133,31 +133,31 @@
   },
   {
     "fact": "桥接在 Android 上依赖 operit-host-android-native，路径指向 hosts/android",
-    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:51"
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:53"
   },
   {
     "fact": "桥接在 Windows 上依赖 operit-host-windows-native，路径指向 hosts/windows",
-    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:54"
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:56"
   },
   {
     "fact": "桥接在 Linux 上依赖 operit-host-linux-native，路径指向 hosts/linux",
-    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:57"
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:59"
   },
   {
     "fact": "桥接在 OpenHarmony 上依赖 operit-host-ohos-native，路径指向 hosts/ohos",
-    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:60"
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:62"
   },
   {
     "fact": "桥接在 iOS 上依赖 operit-host-ios-native，路径指向 hosts/ios",
-    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:63"
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:65"
   },
   {
     "fact": "桥接在 macOS 上依赖 operit-host-macos-native，带 arm64-runtime 特性",
-    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:66"
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:68"
   },
   {
     "fact": "桥接在 wasm32 上依赖 operit-host-web，路径指向 hosts/web",
-    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:71"
+    "ref": "apps/flutter/native/operit-flutter-bridge/Cargo.toml:73"
   },
   {
     "fact": "在非 Android、非 OpenHarmony 平台上，BridgeExports 导出 operit_flutter_bridge_create 创建引用计数的 runtime",
@@ -169,23 +169,31 @@
   },
   {
     "fact": "operit_flutter_bridge_ffi_connect 是 FFI 连接入口，位于 FfiTransport.rs",
-    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:288"
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:306"
   },
   {
-    "fact": "Flutter Core 调用与流只用 ABI 版本 3，ABI v1 与 v2 已移除",
-    "ref": "apps/flutter/native/operit-flutter-bridge/FFI.md:3"
+    "fact": "Flutter Core 调用与流只用 ABI 版本 4，ABI v1 与 v2 已移除",
+    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:107"
   },
   {
-    "fact": "Dart 拒绝 version 不是 3 的描述符",
-    "ref": "apps/flutter/native/operit-flutter-bridge/FFI.md:5"
+    "fact": "Dart 拒绝 version 不是 4 的描述符",
+    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:107"
   },
   {
     "fact": "每个 Flutter isolate 在 operit/runtime 平台通道上惰性调用 connectCoreFfi",
     "ref": "apps/flutter/native/operit-flutter-bridge/FFI.md:10"
   },
   {
-    "fact": "FFI 描述符的 version 字段是整数 3",
-    "ref": "apps/flutter/native/operit-flutter-bridge/FFI.md:16"
+    "fact": "FFI 描述符的 version 字段是整数 4",
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:328"
+  },
+  {
+    "fact": "ABI v4 新增同步失败上报，独立于 VM 投递会话",
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:2"
+  },
+  {
+    "fact": "ABI v4 的连接描述符新增 reportFailure 字段",
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:341"
   },
   {
     "fact": "Web 用 WebWasmCoreProxy、JS interop、Runtime Worker 与 Rust WASM",
@@ -193,15 +201,15 @@
   },
   {
     "fact": "FfiCoreTransport 实现 CoreByteTransport",
-    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:41"
+    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:43"
   },
   {
     "fact": "FfiCoreTransport 的 _connect 在 MethodChannel operit/runtime 上调用 connectCoreFfi",
-    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:69"
+    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:71"
   },
   {
-    "fact": "FfiCoreTransport 校验描述符 version 等于 3 且 NativeApi.majorVersion 等于 2，否则抛错",
-    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:99"
+    "fact": "FfiCoreTransport 校验描述符 version 等于 4 且 NativeApi.majorVersion 等于 2，否则抛错",
+    "ref": "apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:107"
   },
   {
     "fact": "PlatformCoreProxy 按 dart.library.html 条件导出原生或 Web 实现",
@@ -237,11 +245,11 @@
   },
   {
     "fact": "主窗口启动 CoreApplicationService.instance.initialize，ownsRuntime 取 clientOnly 的反值",
-    "ref": "apps/flutter/app/lib/main.dart:162"
+    "ref": "apps/flutter/app/lib/main.dart:161"
   },
   {
     "fact": "主窗口根组件是 OperitDesignCaptureScope 包裹的 OperitApp",
-    "ref": "apps/flutter/app/lib/main.dart:236"
+    "ref": "apps/flutter/app/lib/main.dart:235"
   },
   {
     "fact": "启动流程调用 prepareLiquidGlass 初始化液态玻璃",

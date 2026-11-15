@@ -8,7 +8,7 @@ date: 2026-11-11
 
 ## 概述
 
-- `tools/docs/build_whitepaper.py` 构建中文论文版 PDF 与本地目视 QA 产物。`tools/docs/build_whitepaper.py:1`
+- tools/docs/build_whitepaper.py 构建中文论文版 PDF 与本地目视 QA 产物。`tools/docs/build_whitepaper.py:1`
 - README 声明可编辑原稿是 `docs/whitepaper/Operit2论文版.md`。`tools/docs/README.md:9`
 - 原稿路径未在基线核实到：基线内不存在 `docs/whitepaper/` 目录，也不存在 `docs/whitepaper/Operit2论文版.md` 文件，核验方法见「来源」小节。`tools/docs/build_whitepaper.py:32`
 - 构建产物写到 `output/pdf/Operit2技术白皮书-论文版.pdf`。`tools/docs/README.md:10`
@@ -112,7 +112,7 @@ date: 2026-11-11
 ## 来源
 
 - seed 文件：`tools/docs/README.md`（全文 38 行）与 `tools/docs/build_whitepaper.py`（全文 463 行），合计 501 行，均已读完。`tools/docs/README.md:1`
-- 原稿不存在的核验方法：2026-11-11，对基线 AAswordman/Operit2 @ 364d1d594 的本地 checkout 执行 `ls docs/whitepaper`，返回 No such file or directory；执行 `test -f docs/whitepaper/Operit2论文版.md`，返回不存在；全仓 grep `论文版|docs/whitepaper`（`*.py`、`*.md`、`*.yaml`、`*.toml`）仅命中 `tools/docs/README.md:9` 与 `tools/docs/build_whitepaper.py:32` 两处声明本身。`tools/docs/build_whitepaper.py:32`
+- 原稿不存在的核验方法：2026-11-11，对基线 AAswordman/Operit2 @ 364d1d594 的本地 checkout 执行 `ls docs/whitepaper`，返回 No such file or directory；执行 `test -f docs/whitepaper/Operit2论文版.md`，返回不存在；全仓 grep `论文版|docs/whitepaper`（`*.py`、`*.md`、`*.yaml`、`*.toml`）仅命中 `tools/docs/README.md:9` 与 `tools/docs/build_whitepaper.py:32` 两处声明本身。2026-11-15 对新基线 ff5373fb6 复核：`docs/whitepaper` 仍不存在，`docs/Operit2技术白皮书.pdf` 仍存在，两 seed 文件 0 行改动，全仓 grep 结果不变。`tools/docs/build_whitepaper.py:32`
 - 刷新目标存在的核验结果：同一基线下 `test -f docs/Operit2技术白皮书.pdf` 返回存在，`main` 的复制目标文件在基线内有对应物。`tools/docs/build_whitepaper.py:458`
 - 本页不写版本号与日期：脚本与 README 均未写死白皮书版本号或构建日期，版本行由原稿 `版本：` 块按 version 样式排版，而原稿未在基线核实到。`tools/docs/build_whitepaper.py:373`
 - 相关页：构建脚本入口见 [[tools-build-scripts|构建脚本入口]]。`tools/docs/README.md:5`

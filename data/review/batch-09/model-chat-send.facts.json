@@ -277,230 +277,238 @@
   },
   {
     "fact": "文档写明 Flutter 引导目前仅支持文本，附件或回复目标会被拒绝且不清空草稿",
-    "ref": "docs/chat-send-api.md:63"
+    "ref": "docs/chat-send-api.md:76"
   },
   {
     "fact": "文档写明 Flutter 的 Guide current conversation 调用内部 steerMessage(chatId, messageText) Core 路由",
-    "ref": "docs/chat-send-api.md:61"
+    "ref": "docs/chat-send-api.md:74"
   },
   {
     "fact": "文档写明 Flutter 的 Interrupt and send 是唯一有意组合 cancelMessage 与新普通发送的 composer 动作",
-    "ref": "docs/chat-send-api.md:62"
+    "ref": "docs/chat-send-api.md:75"
   },
   {
     "fact": "文档写明引导不是第二次普通发送，也不获取另一个执行租约",
-    "ref": "docs/chat-send-api.md:66"
-  },
-  {
-    "fact": "文档写明活动聊天轮次拥有共享 FIFO 收件箱，provider 在已完成的工具结果之后、开始下一个模型请求之前查看该收件箱",
-    "ref": "docs/chat-send-api.md:67"
-  },
-  {
-    "fact": "文档写明引导不取消在途的 provider 请求或工具调用，也不自己消费收件箱",
-    "ref": "docs/chat-send-api.md:69"
-  },
-  {
-    "fact": "文档写明在已完成物理响应边界，外层聊天轮次提交当前助手段，再逐条抽干并持久化每条引导条目为各自可见的用户消息",
-    "ref": "docs/chat-send-api.md:72"
-  },
-  {
-    "fact": "文档写明多条引导条目按 FIFO 顺序恰好消费一次，截止后到达的条目留给下一段",
-    "ref": "docs/chat-send-api.md:77"
-  },
-  {
-    "fact": "文档写明最终回执仍标识原始用户提交，同时返回最终助手修订",
     "ref": "docs/chat-send-api.md:79"
   },
   {
-    "fact": "文档写明空的最终收件箱会原子关闭，之后的引导请求收到错误而不是被滞留在已完成的轮次中",
+    "fact": "文档写明活动聊天轮次拥有共享 FIFO 收件箱，provider 在已完成的工具结果之后、开始下一个模型请求之前查看该收件箱",
+    "ref": "docs/chat-send-api.md:80"
+  },
+  {
+    "fact": "文档写明引导不取消在途的 provider 请求或工具调用，也不自己消费收件箱",
     "ref": "docs/chat-send-api.md:82"
   },
   {
+    "fact": "文档写明在已完成物理响应边界，外层聊天轮次提交当前助手段，再逐条抽干并持久化每条引导条目为各自可见的用户消息",
+    "ref": "docs/chat-send-api.md:85"
+  },
+  {
+    "fact": "文档写明多条引导条目按 FIFO 顺序恰好消费一次，截止后到达的条目留给下一段",
+    "ref": "docs/chat-send-api.md:90"
+  },
+  {
+    "fact": "文档写明最终回执仍标识原始用户提交，同时返回最终助手修订",
+    "ref": "docs/chat-send-api.md:92"
+  },
+  {
+    "fact": "文档写明空的最终收件箱会原子关闭，之后的引导请求收到错误而不是被滞留在已完成的轮次中",
+    "ref": "docs/chat-send-api.md:95"
+  },
+  {
     "fact": "文档写明取消关闭收件箱且只丢弃尚未提交的条目",
-    "ref": "docs/chat-send-api.md:83"
+    "ref": "docs/chat-send-api.md:96"
   },
   {
     "fact": "文档写明该 Flutter/Core 控制路由不是新的插件 SDK 方法",
-    "ref": "docs/chat-send-api.md:93"
+    "ref": "docs/chat-send-api.md:106"
   },
   {
     "fact": "part 标识 markdown、thinking、工具调用、工具结果与 status，工具身份与属性已结构化",
-    "ref": "docs/chat-send-api.md:116"
-  },
-  {
-    "fact": "文档写明被移除的 part 在下一次替换中消失，消费者必须替换消息状态而不是追加每次快照",
-    "ref": "docs/chat-send-api.md:118"
-  },
-  {
-    "fact": "文档写明多个物理助手消息保留以各自实际消息时间戳标识的独立快照",
-    "ref": "docs/chat-send-api.md:124"
-  },
-  {
-    "fact": "文档写明每次发送的快照内容与元数据记账上限为 8 MiB，溢出会显式拒绝观察",
-    "ref": "docs/chat-send-api.md:128"
-  },
-  {
-    "fact": "慢消费会把未消费的修订合并为最新权威状态，不产生仅追加的分块队列",
     "ref": "docs/chat-send-api.md:129"
   },
   {
-    "fact": "文档写明 JavaScript 迭代器上同时只能有一个待处理的 next()",
+    "fact": "文档写明被移除的 part 在下一次替换中消失，消费者必须替换消息状态而不是追加每次快照",
     "ref": "docs/chat-send-api.md:131"
   },
   {
-    "fact": "文档写明流式提交在第一次拉取时开始，请求在迭代器创建时被捕获，调用方变更不能改变随后的原生准入",
-    "ref": "docs/chat-send-api.md:133"
-  },
-  {
-    "fact": "文档写明从未启动的迭代器返回不会发送请求",
-    "ref": "docs/chat-send-api.md:135"
-  },
-  {
-    "fact": "文档写明 completed 事件携带实际的最终回执，其结果区分已提交的完成或取消、非持久化输出、被阻止的输入与被插件消费的输入",
+    "fact": "文档写明多个物理助手消息保留以各自实际消息时间戳标识的独立快照",
     "ref": "docs/chat-send-api.md:137"
   },
   {
-    "fact": "文档写明被消费的请求不能证明消费插件自己后续的工作已完成",
-    "ref": "docs/chat-send-api.md:139"
+    "fact": "文档写明每次发送的快照内容与元数据记账上限为 8 MiB，溢出会显式拒绝观察",
+    "ref": "docs/chat-send-api.md:141"
   },
   {
-    "fact": "文档写明原生失败会拒绝迭代，而不是制造一个完成事件",
-    "ref": "docs/chat-send-api.md:140"
+    "fact": "慢消费会把未消费的修订合并为最新权威状态，不产生仅追加的分块队列",
+    "ref": "docs/chat-send-api.md:142"
   },
   {
-    "fact": "文档写明中断循环、调用迭代器的 return() 或消费者抛错都会释放观察，显式释放会唤醒待处理的原生拉取",
-    "ref": "docs/chat-send-api.md:145"
+    "fact": "文档写明 JavaScript 迭代器上同时只能有一个待处理的 next()",
+    "ref": "docs/chat-send-api.md:144"
   },
   {
-    "fact": "文档写明这些释放操作都不取消模型生成，原生发送终结仍会运行",
+    "fact": "文档写明流式提交在第一次拉取时开始，请求在迭代器创建时被捕获，调用方变更不能改变随后的原生准入",
     "ref": "docs/chat-send-api.md:146"
   },
   {
-    "fact": "文档写明 cancel(chatId) 在异步访问模型之前捕获调用引擎的已启用已认证包及其在该聊天的确切活动执行",
-    "ref": "docs/chat-send-api.md:149"
+    "fact": "文档写明从未启动的迭代器返回不会发送请求",
+    "ref": "docs/chat-send-api.md:148"
   },
   {
-    "fact": "文档写明已排队的请求不能取消另一个包或更新的执行",
+    "fact": "文档写明 completed 事件携带实际的最终回执，其结果区分已提交的完成或取消、非持久化输出、被阻止的输入与被插件消费的输入",
     "ref": "docs/chat-send-api.md:150"
   },
   {
-    "fact": "取消确认含 chatId 与 cancelRequested，终端回执报告原始发送的实际结果",
+    "fact": "文档写明被消费的请求不能证明消费插件自己后续的工作已完成",
     "ref": "docs/chat-send-api.md:152"
   },
   {
-    "fact": "文档写明没有活动的自有执行时产生 cancelRequested: false 的真实确认",
+    "fact": "文档写明原生失败会拒绝迭代，而不是制造一个完成事件",
     "ref": "docs/chat-send-api.md:153"
   },
   {
-    "fact": "文档写明 NativeGroupTurnTransport 只用 sendMessage 与 cancel",
+    "fact": "文档写明中断循环、调用迭代器的 return() 或消费者抛错都会释放观察，显式释放会唤醒待处理的原生拉取",
     "ref": "docs/chat-send-api.md:158"
   },
   {
-    "fact": "文档写明群组 finish/abandon 方法是插件本地规划操作，不是额外的 Tools.Chat API",
+    "fact": "文档写明这些释放操作都不取消模型生成，原生发送终结仍会运行",
+    "ref": "docs/chat-send-api.md:159"
+  },
+  {
+    "fact": "文档写明 cancel(chatId) 在异步访问模型之前捕获调用引擎的已启用已认证包及其在该聊天的确切活动执行",
     "ref": "docs/chat-send-api.md:162"
   },
   {
-    "fact": "文档写明原始用户输入在调用响应规划器之前用 record_only 持久化一次",
-    "ref": "docs/chat-send-api.md:164"
+    "fact": "文档写明已排队的请求不能取消另一个包或更新的执行",
+    "ref": "docs/chat-send-api.md:163"
   },
   {
-    "fact": "文档写明每个 participant 都用引用该已确认时间戳的 continuation",
+    "fact": "取消确认含 chatId 与 cancelRequested，终端回执报告原始发送的实际结果",
     "ref": "docs/chat-send-api.md:165"
   },
   {
-    "fact": "文档写明中间回复用 summaryPolicy defer，最终规划回复用 after_reply 且只有它有资格收到完成通知",
+    "fact": "文档写明没有活动的自有执行时产生 cancelRequested: false 的真实确认",
     "ref": "docs/chat-send-api.md:166"
   },
   {
-    "fact": "文档写明空计划或 speak-false 计划只留用户记录且不检查摘要",
-    "ref": "docs/chat-send-api.md:168"
+    "fact": "文档写明 NativeGroupTurnTransport 只用 sendMessage 与 cancel",
+    "ref": "docs/chat-send-api.md:171"
   },
   {
-    "fact": "文档写明 continuation 终结不会再次增加原始用户提交计数",
-    "ref": "docs/chat-send-api.md:169"
+    "fact": "文档写明群组 finish/abandon 方法是插件本地规划操作，不是额外的 Tools.Chat API",
+    "ref": "docs/chat-send-api.md:175"
   },
   {
-    "fact": "文档写明包在生产聊天输入钩子中注册 group-input-submit",
-    "ref": "docs/chat-send-api.md:172"
+    "fact": "文档写明原始用户输入在调用响应规划器之前用 record_only 持久化一次",
+    "ref": "docs/chat-send-api.md:177"
   },
   {
-    "fact": "文档写明该钩子在返回 Consume 并清空 composer 之前等待实际输入持久化回执，规划与生成留在钩子之外",
-    "ref": "docs/chat-send-api.md:174"
+    "fact": "文档写明每个 participant 都用引用该已确认时间戳的 continuation",
+    "ref": "docs/chat-send-api.md:178"
   },
   {
-    "fact": "文档写明输入持久化失败时 composer 保持完整，规划器或响应失败保留已记录的原始输入并传播原始错误",
-    "ref": "docs/chat-send-api.md:176"
-  },
-  {
-    "fact": "文档写明 source 为 Sequence 的原生发送不递归进入群组规划",
+    "fact": "文档写明中间回复用 summaryPolicy defer，最终规划回复用 after_reply 且只有它有资格收到完成通知",
     "ref": "docs/chat-send-api.md:179"
   },
   {
+    "fact": "文档写明空计划或 speak-false 计划只留用户记录且不检查摘要",
+    "ref": "docs/chat-send-api.md:181"
+  },
+  {
+    "fact": "文档写明 continuation 终结不会再次增加原始用户提交计数",
+    "ref": "docs/chat-send-api.md:182"
+  },
+  {
+    "fact": "文档写明包在生产聊天输入钩子中注册 group-input-submit",
+    "ref": "docs/chat-send-api.md:185"
+  },
+  {
+    "fact": "文档写明该钩子在返回 Consume 并清空 composer 之前等待实际输入持久化回执，规划与生成留在钩子之外",
+    "ref": "docs/chat-send-api.md:187"
+  },
+  {
+    "fact": "文档写明输入持久化失败时 composer 保持完整，规划器或响应失败保留已记录的原始输入并传播原始错误",
+    "ref": "docs/chat-send-api.md:189"
+  },
+  {
+    "fact": "文档写明 source 为 Sequence 的原生发送不递归进入群组规划",
+    "ref": "docs/chat-send-api.md:192"
+  },
+  {
     "fact": "文档把 node --test core/crates/plugin/javascript-bridge/tests/chat-send-contracts.test.mjs 列为无需 Rust/Flutter 编译的可重复检查",
-    "ref": "docs/chat-send-api.md:190"
+    "ref": "docs/chat-send-api.md:203"
   },
   {
     "fact": "文档写明源码断言与 Rust 语法解析不是 Rust 类型检查、实时 AI 请求或跨平台运行时验收",
-    "ref": "docs/chat-send-api.md:198"
+    "ref": "docs/chat-send-api.md:211"
   },
   {
     "fact": "文档写明会话级上下文刷新读取当前绑定并为每个当前绑定 participant 估算请求窗口，存储的会话窗口取其中最大值",
-    "ref": "docs/chat-send-api.md:207"
-  },
-  {
-    "fact": "文档写明带显式 participant 的刷新只估算该 participant，历史助手作者不选择会话的当前配置",
-    "ref": "docs/chat-send-api.md:209"
-  },
-  {
-    "fact": "文档写明重新生成助手修订需要该修订的持久化 participant 身份，缺失身份、目录初始化错误与扩展读取错误以原始失败停止重新生成而不是选替代 participant",
-    "ref": "docs/chat-send-api.md:213"
-  },
-  {
-    "fact": "文档写明手动摘要插入调用摘要模型时不先解析会话执行 participant，包括只有用户消息的历史",
-    "ref": "docs/chat-send-api.md:216"
-  },
-  {
-    "fact": "文档写明共享 JavaScript 运行时为每个待处理 Promise 反应保留一次调用，主钩子完成可返回 Consume 而这些反应让会话保持分离",
     "ref": "docs/chat-send-api.md:220"
   },
   {
-    "fact": "文档写明插件不需要为观察到的后台工作设置固定时长的 keepalive 定时器",
-    "ref": "docs/chat-send-api.md:224"
+    "fact": "文档写明带显式 participant 的刷新只估算该 participant，历史助手作者不选择会话的当前配置",
+    "ref": "docs/chat-send-api.md:222"
   },
   {
-    "fact": "文档写明配置执行结果要求完整的 historyPolicy 对象含 isolateParticipants 与 labelUserMessages，普通模型会话两者都为 false",
-    "ref": "docs/chat-send-api.md:228"
+    "fact": "文档写明重新生成助手修订需要该修订的持久化 participant 身份，缺失身份、目录初始化错误与扩展读取错误以原始失败停止重新生成而不是选替代 participant",
+    "ref": "docs/chat-send-api.md:226"
   },
   {
-    "fact": "文档写明角色卡隔离 participant，群组还标注用户消息；Core 对模型请求与上下文窗口估算都应用该策略",
-    "ref": "docs/chat-send-api.md:230"
+    "fact": "文档写明手动摘要插入调用摘要模型时不先解析会话执行 participant，包括只有用户消息的历史",
+    "ref": "docs/chat-send-api.md:229"
   },
   {
-    "fact": "文档写明隔离的助手消息按其持久化 participant ID 在已认证配置 owner 下归属，其他 participant 的有序 Markdown 发言成为前缀为 [From role: name] 的用户参考上下文",
+    "fact": "文档写明共享 JavaScript 运行时为每个待处理 Promise 反应保留一次调用，主钩子完成可返回 Consume 而这些反应让会话保持分离",
     "ref": "docs/chat-send-api.md:233"
   },
   {
-    "fact": "文档写明其他 participant 的 thinking、status 与工具协议被排除，群组用户输入前缀为 [From user]",
+    "fact": "文档写明插件不需要为观察到的后台工作设置固定时长的 keepalive 定时器",
     "ref": "docs/chat-send-api.md:237"
   },
   {
-    "fact": "文档写明投影从最新摘要开始，不从改名卡片、重复显示名或当前群组成员推断历史作者，缺失必需作者或显示身份是错误",
-    "ref": "docs/chat-send-api.md:239"
+    "fact": "文档写明配置执行结果要求完整的 historyPolicy 对象含 isolateParticipants 与 labelUserMessages，普通模型会话两者都为 false",
+    "ref": "docs/chat-send-api.md:241"
   },
   {
-    "fact": "文档写明最终回复后 Core 刷新会话窗口并检查每个已配置模型的已启用摘要阈值，超阈值调度一个已有的规范摘要任务且 autoContinue 为 false",
+    "fact": "文档写明角色卡隔离 participant，群组还标注用户消息；Core 对模型请求与上下文窗口估算都应用该策略",
     "ref": "docs/chat-send-api.md:243"
   },
   {
-    "fact": "文档写明该 API 不含角色卡群组概念",
-    "ref": "docs/chat-send-api.md:247"
+    "fact": "文档写明隔离的助手消息按其持久化 participant ID 在已认证配置 owner 下归属，其他 participant 的有序 Markdown 发言成为前缀为 [From role: name] 的用户参考上下文",
+    "ref": "docs/chat-send-api.md:246"
   },
   {
-    "fact": "文档写明原生存储宿主用标准库 File::lock 与 File::try_lock（Rust 1.89 最低）而不是 fs2",
+    "fact": "文档写明其他 participant 的 thinking、status 与工具协议被排除，群组用户输入前缀为 [From user]",
     "ref": "docs/chat-send-api.md:250"
   },
   {
+    "fact": "文档写明投影从最新摘要开始，不从改名卡片、重复显示名或当前群组成员推断历史作者，缺失必需作者或显示身份是错误",
+    "ref": "docs/chat-send-api.md:252"
+  },
+  {
+    "fact": "文档写明最终回复后 Core 刷新会话窗口并检查每个已配置模型的已启用摘要阈值，超阈值调度一个已有的规范摘要任务且 autoContinue 为 false",
+    "ref": "docs/chat-send-api.md:256"
+  },
+  {
+    "fact": "文档写明该 API 不含角色卡群组概念",
+    "ref": "docs/chat-send-api.md:260"
+  },
+  {
+    "fact": "文档写明原生存储宿主用标准库 File::lock 与 File::try_lock（Rust 1.89 最低）而不是 fs2",
+    "ref": "docs/chat-send-api.md:263"
+  },
+  {
     "fact": "文档写明争用的租约仍归活动进程所有，其他锁错误经宿主 API 传播",
-    "ref": "docs/chat-send-api.md:251"
+    "ref": "docs/chat-send-api.md:264"
+  },
+  {
+    "fact": "文档写明 `send_message` 工具接受 `hide_user_message: true` 时 Core 以 `HIDDEN_PLACEHOLDER` 记录用户消息，同时在持久化历史与模型上下文中保留原始 parts",
+    "ref": "docs/chat-send-api.md:59"
+  },
+  {
+    "fact": "文档写明隐藏用户行在 Flutter 转录中只显示紧凑占位符，点击打开完整原文纯文本；隐藏行省略复制、编辑重发与插件上下文菜单动作，并排除在多消息文本复制之外",
+    "ref": "docs/chat-send-api.md:64"
   }
 ]

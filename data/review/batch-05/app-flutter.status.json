@@ -1,10 +1,10 @@
 {
   "issue": 45,
-  "source_commit": "364d1d594",
+  "source_commit": "ff5373fb6",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Flutter 应用总览页：单一代价覆盖七平台、FFI ABI v3 桥接、flutter-ohos fork、lib/core 与 lib/ui 分工",
-  "updated": "2026-11-13",
+  "updated": "2026-11-15",
   "approved_by_comment_id": 6854326969,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-13 13:33 UTC"

@@ -2,7 +2,7 @@
 title: Linux Host
 module: hosts
 platforms: [linux]
-sources: [hosts/linux/Cargo.toml, hosts/linux/src/lib.rs, hosts/linux/src/tools/terminal/mod.rs, hosts/linux/src/tools/fs/mod.rs, hosts/linux/src/tools/runtime/mod.rs, hosts/linux/src/tools/storage/mod.rs, hosts/linux/src/tools/system/mod.rs, hosts/linux/src/tools/system/packages.rs, hosts/linux/src/tools/browser/mod.rs, hosts/linux/src/tools/http/mod.rs, hosts/linux/src/tools/audio/mod.rs, hosts/linux/src/tools/bluetooth/mod.rs, hosts/linux/src/tools/tts/mod.rs, hosts/linux/src/plugin_sdk_ipc.rs]
+sources: [hosts/linux/Cargo.toml, hosts/linux/src/lib.rs, hosts/linux/src/tools/terminal/mod.rs, hosts/linux/src/tools/fs/mod.rs, hosts/linux/src/tools/runtime/mod.rs, hosts/linux/src/tools/storage/mod.rs, hosts/linux/src/tools/system/mod.rs, hosts/linux/src/tools/system/packages.rs, hosts/linux/src/tools/browser/mod.rs, hosts/linux/src/tools/http/mod.rs, hosts/linux/src/tools/audio/mod.rs, hosts/linux/src/tools/bluetooth/mod.rs, hosts/linux/src/tools/tts/mod.rs, hosts/linux/src/plugin_sdk_ipc.rs, hosts/common/managed_runtime_process.rs, hosts/common/ui_automation.rs, hosts/linux/src/ui_automation.py]
 date: 2026-11-11
 ---
 
@@ -10,17 +10,17 @@ date: 2026-11-11
 
 Linux Host 由 crate `operit-host-linux-native` 提供（`hosts/linux/Cargo.toml:2`）。
 `operit-host-linux-native` 声明 `publish = false`，不对外发布（`hosts/linux/Cargo.toml:6`）。
-`createRuntimeHostManager` 接收 `runtimeRoot`、`workspaceRoot` 与 `webVisitHost` 三个参数（`hosts/linux/src/lib.rs:51`）。
+`createRuntimeHostManager` 接收 `runtimeRoot`、`workspaceRoot` 与 `webVisitHost` 三个参数（`hosts/linux/src/lib.rs:54`）。
 daemon 模块通过 #[path] 指向 hosts/unix/daemon.rs 的共享实现，细节见 [[host-common|Host 公共实现]]（`hosts/linux/src/lib.rs:6`）。
 `daemon` 模块只在启用 `daemon` 特性且目标为 Linux 时编译（`hosts/linux/src/lib.rs:5`）。
-终端、文件系统、系统操作、音频、蓝牙由 Linux 自有实现提供，Android 的同名 tools 见 [[host-android|Android Host]]（`hosts/linux/src/lib.rs:42`）。
-HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`hosts/linux/src/lib.rs:75`）。
+终端、文件系统、系统操作、音频、蓝牙由 Linux 自有实现提供，Android 的同名 tools 见 [[host-android|Android Host]]（`hosts/linux/src/lib.rs:45`）。
+HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`hosts/linux/src/lib.rs:82`）。
 
 ## AI 速览
 
 - `LinuxTerminalHost` — Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:28`）
 - `LinuxFileSystemHost` — Linux 文件系统 Host（`hosts/linux/src/tools/fs/mod.rs:19`）
-- `LinuxManagedRuntimeHost` — Linux 托管运行时 Host（`hosts/linux/src/tools/runtime/mod.rs:20`）
+- `LinuxManagedRuntimeHost` — Linux 托管运行时 Host（`hosts/linux/src/tools/runtime/mod.rs:17`）
 - `LinuxRuntimeStorageHost` — Linux 运行时存储与密钥 Host（`hosts/linux/src/tools/storage/mod.rs:13`）
 - `LinuxSystemOperationHost` — Linux 系统操作 Host（`hosts/linux/src/tools/system/mod.rs:19`）
 - `LinuxHttpHost` — Linux HTTP 与 WebSocket Host，内部持有 `NativeHttpHost`（`hosts/linux/src/tools/http/mod.rs:12`）
@@ -31,21 +31,25 @@ HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`ho
 - `LinuxPluginSdkIpcHost` — Linux 插件 SDK IPC Host（`hosts/linux/src/plugin_sdk_ipc.rs:112`）
 - `LinuxWebVisitHost` — Linux 网页访问 Host（`hosts/linux/src/tools/browser/mod.rs:13`）
 - `LinuxBrowserAutomationHost` — Linux 浏览器自动化 Host（`hosts/linux/src/tools/browser/mod.rs:37`）
-- 主入口是 `createRuntimeHostManager`，接收 `runtimeRoot`、`workspaceRoot` 与 `webVisitHost` 三个参数（`hosts/linux/src/lib.rs:51`）
-- 数据流向：`HostManager` 由 `LinuxFileSystemHost` 等 Linux tools 装配（`hosts/linux/src/lib.rs:63`）
+- `NativeLocalInferenceHost` — 本地推理 Host（`hosts/linux/src/lib.rs:75`）
+- `ScriptUiAutomationHost` — UI 自动化 Host，经 python3 执行 `ui_automation.py`（`hosts/linux/src/lib.rs:76`）
+- 主入口是 `createRuntimeHostManager`，接收 `runtimeRoot`、`workspaceRoot` 与 `webVisitHost` 三个参数（`hosts/linux/src/lib.rs:54`）
+- 数据流向：`HostManager` 由 `LinuxFileSystemHost` 等 Linux tools 装配（`hosts/linux/src/lib.rs:66`）
 
 ## 核心机制
 
 ### Host 组装：一个入口与两类 tools
 
-`HostManager` 用 `LinuxFileSystemHost`、`LinuxHttpHost`、`LinuxSystemOperationHost` 与 `LinuxManagedRuntimeHost` 装配（`hosts/linux/src/lib.rs:63`）。
-同一份 `LinuxRuntimeStorageHost` 实例兼任 Host 密钥库与 `runtimeSqliteHost`（`hosts/linux/src/lib.rs:60`）。
-第二个 `LinuxHttpHost` 实例注册为 WebSocket Host（`hosts/linux/src/lib.rs:73`）。
-HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`hosts/linux/src/lib.rs:75`）。
-`LinuxHostJavaScriptRuntimeHost` 是 operit-host-native-common 的 `NativeHostJavaScriptRuntimeHost` 的重导出（`hosts/linux/src/lib.rs:29`）。
-`LinuxHostRuntimeEventSchedulerHost` 与 `LinuxHostRuntimeTaskSchedulerHost` 是 operit-host-native-common 的重导出（`hosts/linux/src/lib.rs:31`）。
-服务发现 Host 使用 operit-host-native-common 的 `ServiceDiscoveryProvider`（`hosts/linux/src/lib.rs:86`）。
-`LinuxPluginSdkIpcHost` 注册为插件 SDK IPC Host（`hosts/linux/src/lib.rs:88`）。
+`HostManager` 用 `LinuxFileSystemHost`、`LinuxHttpHost`、`LinuxSystemOperationHost` 与 `LinuxManagedRuntimeHost` 装配（`hosts/linux/src/lib.rs:69`）。
+同一份 `LinuxRuntimeStorageHost` 实例兼任 Host 密钥库与 `runtimeSqliteHost`（`hosts/linux/src/lib.rs:63`）。
+第二个 `LinuxHttpHost` 实例注册为 WebSocket Host（`hosts/linux/src/lib.rs:80`）。
+运行时组合注册 `NativeLocalInferenceHost` 为本地推理 Host（`hosts/linux/src/lib.rs:75`）。
+运行时组合注册 `ScriptUiAutomationHost` 为 UI 自动化 Host，经 python3 执行 `ui_automation.py`（`hosts/linux/src/lib.rs:76`）。
+HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`hosts/linux/src/lib.rs:82`）。
+`LinuxHostJavaScriptRuntimeHost` 是 operit-host-native-common 的 `NativeHostJavaScriptRuntimeHost` 的重导出（`hosts/linux/src/lib.rs:32`）。
+`LinuxHostRuntimeEventSchedulerHost` 与 `LinuxHostRuntimeTaskSchedulerHost` 是 operit-host-native-common 的重导出（`hosts/linux/src/lib.rs:34`）。
+服务发现 Host 使用 operit-host-native-common 的 `ServiceDiscoveryProvider`（`hosts/linux/src/lib.rs:93`）。
+`LinuxPluginSdkIpcHost` 注册为插件 SDK IPC Host（`hosts/linux/src/lib.rs:95`）。
 Linux Host crate 依赖 `operit-host-api`（`hosts/linux/Cargo.toml:20`）。
 Linux Host crate 依赖 `operit-host-native-common`，并启用 `tcp`、`serial`、`fs`、`http`、`scheduler`、`storage`、`app-install` 特性（`hosts/linux/Cargo.toml:21`）。
 Linux Host crate 依赖 `operit-host-native-plugin-sdk-ipc`（`hosts/linux/Cargo.toml:22`）。
@@ -56,8 +60,8 @@ Linux Host crate 依赖 `portable-pty` 0.9.0（`hosts/linux/Cargo.toml:23`）。
 
 `LinuxHttpHost` 内部持有 `NativeHttpHost`（`hosts/linux/src/tools/http/mod.rs:12`）。
 存储操作由 `delegate_runtime_storage` 宏转发给共享的 `NativeRuntimeStorageHost`（`hosts/linux/src/tools/storage/mod.rs:18`）。
-终端、文件系统、系统操作、音频、蓝牙由 Linux 自有实现提供（`hosts/linux/src/lib.rs:42`）。
-TTS 由 Linux 自有实现提供（`hosts/linux/src/lib.rs:47`）。
+终端、文件系统、系统操作、音频、蓝牙由 Linux 自有实现提供（`hosts/linux/src/lib.rs:45`）。
+TTS 由 Linux 自有实现提供（`hosts/linux/src/lib.rs:50`）。
 
 ### 终端：只要 bash 的 PTY
 
@@ -104,17 +108,16 @@ owner 与 group 字段为空字符串（`hosts/linux/src/tools/fs/mod.rs:311`）
 
 ### 托管运行时：直接执行系统里的解释器
 
-`LinuxManagedRuntimeHost` 是 Linux 托管运行时 Host（`hosts/linux/src/tools/runtime/mod.rs:20`）。
-Reveal 动作对目录调用 xdg-open（`hosts/linux/src/tools/runtime/mod.rs:118`）。
-Terminal 动作启动 x-terminal-emulator（`hosts/linux/src/tools/runtime/mod.rs:123`）。
-`runtimeWorkspaceDir` 为 $HOME 下的 .local/share/operit2/managed_runtime（`hosts/linux/src/tools/runtime/mod.rs:143`）。
-Node 映射为 node、Python 映射为 python3、Uv 映射为 uv、Pnpm 映射为 pnpm（`hosts/linux/src/tools/runtime/mod.rs:166`）。
-`startRuntimeProcess` 启动带管道 stdio 的托管运行时子进程（`hosts/linux/src/tools/runtime/mod.rs:180`）。
-托管运行时 stdout 与 stderr 读取任务以 `managed-runtime-pipes` 调度（`hosts/linux/src/tools/runtime/mod.rs:237`）。
-托管运行时 stderr 缓冲上限为 400 行（`hosts/linux/src/tools/runtime/mod.rs:229`）。
-`runRuntimeCommand` 执行一次性托管运行时命令（`hosts/linux/src/tools/runtime/mod.rs:252`）。
-`MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES` 为 4 * 1024（`hosts/linux/src/tools/runtime/mod.rs:17`）。
-单行达到 `MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES` 时按整帧写入（`hosts/linux/src/tools/runtime/mod.rs:277`）。
+`LinuxManagedRuntimeHost` 是 Linux 托管运行时 Host（`hosts/linux/src/tools/runtime/mod.rs:17`）。
+Reveal 动作对目录调用 xdg-open（`hosts/linux/src/tools/runtime/mod.rs:39`）。
+Terminal 动作启动 x-terminal-emulator（`hosts/linux/src/tools/runtime/mod.rs:44`）。
+`runtimeWorkspaceDir` 为 $HOME 下的 .local/share/operit2/managed_runtime（`hosts/linux/src/tools/runtime/mod.rs:65`）。
+Node 映射为 node、Python 映射为 python3、Uv 映射为 uv、Pnpm 映射为 pnpm（`hosts/linux/src/tools/runtime/mod.rs:91`）。
+`startRuntimeProcess` 启动带管道 stdio 的托管运行时子进程（`hosts/linux/src/tools/runtime/mod.rs:106`）。
+托管运行时 stdout 与 stderr 读取任务以 `managed-runtime-pipes` 调度（`hosts/common/managed_runtime_process.rs:65`）。
+托管运行时 stderr 缓冲上限为 400 行（`hosts/common/managed_runtime_process.rs:57`）。
+`runRuntimeCommand` 执行一次性托管运行时命令（`hosts/linux/src/tools/runtime/mod.rs:121`）。
+多行经 `writeFrames` 拼成一个连续帧一次写出（`hosts/common/managed_runtime_process.rs:78`）。
 
 ### 存储与密钥：XDG 目录与 0600 密钥文件
 
@@ -132,30 +135,32 @@ Host 密钥根目录优先取 XDG_STATE_HOME 下的 operit2/secrets（`hosts/lin
 
 `LinuxSystemOperationHost` 是 Linux 系统操作 Host（`hosts/linux/src/tools/system/mod.rs:19`）。
 `applicationUpdateTarget` 返回 `LinuxTarGz` 包与 `Immediate` 安装时序（`hosts/linux/src/tools/system/mod.rs:34`）。
-系统语言按 LC_ALL、LC_MESSAGES、LANG 的顺序取（`hosts/linux/src/tools/system/mod.rs:323`）。
+系统语言按 LC_ALL、LC_MESSAGES、LANG 的顺序取（`hosts/linux/src/tools/system/mod.rs:332`）。
 `getSystemLanguageCode` 委托给 `get_linux_system_language_code`（`hosts/linux/src/tools/system/mod.rs:38`）。
 通知发送调用 notify-send（`hosts/linux/src/tools/system/mod.rs:48`）。
-修改系统设置经 gsettings set 执行（`hosts/linux/src/tools/system/mod.rs:434`）。
-读取系统设置经 gsettings get 执行（`hosts/linux/src/tools/system/mod.rs:452`）。
-setting 须为 schema:key 形式（`hosts/linux/src/tools/system/mod.rs:483`）。
+修改系统设置经 gsettings set 执行（`hosts/linux/src/tools/system/mod.rs:443`）。
+读取系统设置经 gsettings get 执行（`hosts/linux/src/tools/system/mod.rs:461`）。
+setting 须为 schema:key 形式（`hosts/linux/src/tools/system/mod.rs:492`）。
 `installApp` 要求安装时序为 Immediate（`hosts/linux/src/tools/system/mod.rs:86`）。
 `installApp` 把安装交给 `packages::install`（`hosts/linux/src/tools/system/mod.rs:87`）。
 `uninstallApp` 交给 `packages::uninstall`（`hosts/linux/src/tools/system/mod.rs:91`）。
 `listInstalledApps` 交给 `packages::list`（`hosts/linux/src/tools/system/mod.rs:95`）。
 `startApp` 交给 `packages::start`（`hosts/linux/src/tools/system/mod.rs:99`）。
 `stopApp` 交给 `packages::stop`（`hosts/linux/src/tools/system/mod.rs:103`）。
-通知查询调用 dunstctl history（`hosts/linux/src/tools/system/mod.rs:343`）。
-Linux 不提供历史前台使用时长（`hosts/linux/src/tools/system/mod.rs:508`）。
-高精度定位请求精度等级 8，否则请求 6（`hosts/linux/src/tools/system/mod.rs:519`）。
-定位结果的 `provider` 为 geoclue2（`hosts/linux/src/tools/system/mod.rs:575`）。
-定位不提供 civic 地址，city 与 province 为空（`hosts/linux/src/tools/system/mod.rs:579`）。
-设备 ID 取自 /etc/machine-id，系统名取自 /etc/os-release 的 PRETTY_NAME（`hosts/linux/src/tools/system/mod.rs:591`）。
-发行版名与内核版本拼进 `androidVersion` 字段（`hosts/linux/src/tools/system/mod.rs:622`）。
-`sdkVersion` 为 0，`screenDensity` 为 1.0（`hosts/linux/src/tools/system/mod.rs:623`）。
-无电池设备返回电池电量 -1 与未充电（`hosts/linux/src/tools/system/mod.rs:756`）。
-截图调用 gnome-screenshot -f（`hosts/linux/src/tools/system/mod.rs:163`）。
-文字识别调用 tesseract（`hosts/linux/src/tools/system/mod.rs:187`）。
-tesseract 语言映射为 Latin 对 eng、Chinese 对 chi_sim、Japanese 对 jpn、Korean 对 kor（`hosts/linux/src/tools/system/mod.rs:281`）。
+通知查询调用 dunstctl history（`hosts/linux/src/tools/system/mod.rs:352`）。
+Linux 不提供历史前台使用时长（`hosts/linux/src/tools/system/mod.rs:517`）。
+高精度定位请求精度等级 8，否则请求 6（`hosts/linux/src/tools/system/mod.rs:528`）。
+定位结果的 `provider` 为 geoclue2（`hosts/linux/src/tools/system/mod.rs:584`）。
+定位不提供 civic 地址，city 与 province 为空（`hosts/linux/src/tools/system/mod.rs:588`）。
+设备 ID 取自 /etc/machine-id，系统名取自 /etc/os-release 的 PRETTY_NAME（`hosts/linux/src/tools/system/mod.rs:600`）。
+发行版名与内核版本拼进 `androidVersion` 字段（`hosts/linux/src/tools/system/mod.rs:631`）。
+`sdkVersion` 为 0，`screenDensity` 为 1.0（`hosts/linux/src/tools/system/mod.rs:632`）。
+无电池设备返回电池电量 -1 与未充电（`hosts/linux/src/tools/system/mod.rs:765`）。
+截图调用 gnome-screenshot -f（`hosts/linux/src/tools/system/mod.rs:172`）。
+`captureScreenshotTo` 把截图字节经选定的 VFS 能力写出并删除原生暂存文件（`hosts/linux/src/tools/system/mod.rs:135`）。
+文字识别调用 tesseract（`hosts/linux/src/tools/system/mod.rs:196`）。
+`recognizeText` 的 `imagePath` 参数改走 `FileSource`，经 `nativePath` 取原生路径（`hosts/linux/src/tools/system/mod.rs:149`）。
+tesseract 语言映射为 Latin 对 eng、Chinese 对 chi_sim、Japanese 对 jpn、Korean 对 kor（`hosts/linux/src/tools/system/mod.rs:290`）。
 
 ### 包管理：desktop 文件即应用
 
@@ -185,6 +190,7 @@ Linux 网页访问的 `visitWeb` 调用 `visit_with_chromium`（`hosts/linux/src
 `LinuxBrowserAutomationHost` 是 `ChromiumBrowserAutomationHost` 的包装（`hosts/linux/src/tools/browser/mod.rs:37`）。
 `LinuxHttpHost` 内部持有 `NativeHttpHost`（`hosts/linux/src/tools/http/mod.rs:12`）。
 `executeHttpRequest` 转发给 `inner`（`hosts/linux/src/tools/http/mod.rs:68`）。
+`downloadToFile` 的目标参数改走 `FileTarget`（`hosts/linux/src/tools/http/mod.rs:73`）。
 `openWebSocket` 由 Linux HTTP Host 的 `WebSocketHost` 实现提供（`hosts/linux/src/tools/http/mod.rs:95`）。
 
 ### 音频：ffplay 音乐与 xdg-open 单条音频
@@ -226,13 +232,14 @@ BLE 服务发现先调用 `wait_for_bluez_services` 等待服务就绪（`hosts/
 `LinuxTtsSynthesisHost` 是无状态合成器（`hosts/linux/src/tools/tts/mod.rs:13`）。
 `LinuxTtsPlaybackHost` 持有播放状态（`hosts/linux/src/tools/tts/mod.rs:23`）。
 `supportsSystemSpeech` 返回 true（`hosts/linux/src/tools/tts/mod.rs:57`）。
-Linux 系统 TTS 只支持 wav 输出（`hosts/linux/src/tools/tts/mod.rs:207`）。
-语音合成调用 espeak-ng（`hosts/linux/src/tools/tts/mod.rs:215`）。
-语速换算为 175.0 * speed 词每分钟，范围 80 到 450（`hosts/linux/src/tools/tts/mod.rs:257`）。
-音调换算为 50.0 * pitch，范围 0 到 99（`hosts/linux/src/tools/tts/mod.rs:271`）。
-voice 与 locale 不可同时指定（`hosts/linux/src/tools/tts/mod.rs:287`）。
-合成输出路径位于系统临时目录下的 `operit_tts`（`hosts/linux/src/tools/tts/mod.rs:246`）。
-播放用 aplay 播放音频文件（`hosts/linux/src/tools/tts/mod.rs:374`）。
+Linux 系统 TTS 只支持 wav 输出（`hosts/linux/src/tools/tts/mod.rs:215`）。
+语音合成调用 espeak-ng（`hosts/linux/src/tools/tts/mod.rs:221`）。
+`synthesizeSpeechBytes` 导出合成音频字节并删除临时原生文件（`hosts/linux/src/tools/tts/mod.rs:199`）。
+语速换算为 175.0 * speed 词每分钟，范围 80 到 450（`hosts/linux/src/tools/tts/mod.rs:265`）。
+音调换算为 50.0 * pitch，范围 0 到 99（`hosts/linux/src/tools/tts/mod.rs:279`）。
+voice 与 locale 不可同时指定（`hosts/linux/src/tools/tts/mod.rs:295`）。
+合成输出路径位于系统临时目录下的 `operit_tts`（`hosts/linux/src/tools/tts/mod.rs:254`）。
+播放用 aplay 播放音频文件（`hosts/linux/src/tools/tts/mod.rs:382`）。
 暂停向播放进程发 -STOP 信号（`hosts/linux/src/tools/tts/mod.rs:153`）。
 恢复向播放进程发 -CONT 信号（`hosts/linux/src/tools/tts/mod.rs:174`）。
 
@@ -260,10 +267,10 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 ## 关键符号
 
 - `operit-host-linux-native` — Linux Host crate（`hosts/linux/Cargo.toml:2`）
-- `createRuntimeHostManager` — 组装 Linux 运行时 `HostManager` 的主入口（`hosts/linux/src/lib.rs:51`）
+- `createRuntimeHostManager` — 组装 Linux 运行时 `HostManager` 的主入口（`hosts/linux/src/lib.rs:54`）
 - `LinuxTerminalHost` — Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:28`）
 - `LinuxFileSystemHost` — Linux 文件系统 Host（`hosts/linux/src/tools/fs/mod.rs:19`）
-- `LinuxManagedRuntimeHost` — Linux 托管运行时 Host（`hosts/linux/src/tools/runtime/mod.rs:20`）
+- `LinuxManagedRuntimeHost` — Linux 托管运行时 Host（`hosts/linux/src/tools/runtime/mod.rs:17`）
 - `LinuxRuntimeStorageHost` — Linux 运行时存储与密钥 Host（`hosts/linux/src/tools/storage/mod.rs:13`）
 - `LinuxSystemOperationHost` — Linux 系统操作 Host（`hosts/linux/src/tools/system/mod.rs:19`）
 - `LinuxHttpHost` — Linux HTTP 与 WebSocket Host（`hosts/linux/src/tools/http/mod.rs:12`）
@@ -274,6 +281,10 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 - `LinuxPluginSdkIpcHost` — Linux 插件 SDK IPC Host（`hosts/linux/src/plugin_sdk_ipc.rs:112`）
 - `LinuxWebVisitHost` — Linux 网页访问 Host（`hosts/linux/src/tools/browser/mod.rs:13`）
 - `LinuxBrowserAutomationHost` — Linux 浏览器自动化 Host（`hosts/linux/src/tools/browser/mod.rs:37`）
+- `NativeLocalInferenceHost` — 本地推理 Host（`hosts/linux/src/lib.rs:75`）
+- `ScriptUiAutomationHost` — UI 自动化 Host（`hosts/linux/src/lib.rs:76`）
+- `captureScreenshotTo` — 截图字节经 VFS 能力写出（`hosts/linux/src/tools/system/mod.rs:135`）
+- `synthesizeSpeechBytes` — 导出合成音频字节（`hosts/linux/src/tools/tts/mod.rs:199`）
 - `PTY_OUTPUT_LIMIT` — PTY 输出缓冲上限，1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:19`）
 - `PTY_PROMPT_MARKER_PREFIX` — PTY 提示标记前缀（`hosts/linux/src/tools/terminal/mod.rs:20`）
 - `validateSecretKey` — 校验 Host 密钥 key，只允许字母数字与 . _ -（`hosts/linux/src/tools/storage/mod.rs:190`）
@@ -300,10 +311,10 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 
 ### 合成并播放一句语音
 
-1. Linux 系统 TTS 只支持 wav 输出（`hosts/linux/src/tools/tts/mod.rs:207`）
-2. 语音合成调用 espeak-ng（`hosts/linux/src/tools/tts/mod.rs:215`）
-3. 合成输出路径位于系统临时目录下的 `operit_tts`（`hosts/linux/src/tools/tts/mod.rs:246`）
-4. 播放用 aplay 播放音频文件（`hosts/linux/src/tools/tts/mod.rs:374`）
+1. Linux 系统 TTS 只支持 wav 输出（`hosts/linux/src/tools/tts/mod.rs:215`）
+2. 语音合成调用 espeak-ng（`hosts/linux/src/tools/tts/mod.rs:221`）
+3. 合成输出路径位于系统临时目录下的 `operit_tts`（`hosts/linux/src/tools/tts/mod.rs:254`）
+4. 播放用 aplay 播放音频文件（`hosts/linux/src/tools/tts/mod.rs:382`）
 5. 暂停向播放进程发 -STOP 信号（`hosts/linux/src/tools/tts/mod.rs:153`）
 6. 恢复向播放进程发 -CONT 信号（`hosts/linux/src/tools/tts/mod.rs:174`）
 
@@ -333,3 +344,6 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 - `hosts/linux/src/tools/bluetooth/mod.rs`
 - `hosts/linux/src/tools/tts/mod.rs`
 - `hosts/linux/src/plugin_sdk_ipc.rs`
+- `hosts/common/managed_runtime_process.rs`
+- `hosts/common/ui_automation.rs`
+- `hosts/linux/src/ui_automation.py`

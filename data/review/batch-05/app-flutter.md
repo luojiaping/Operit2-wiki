@@ -9,7 +9,7 @@ date: 2026-11-11
 ## 概述
 
 Flutter 应用是 Operit2 的主客户端，包名是 operit2（`apps/flutter/app/pubspec.yaml:1`）。
-Flutter 应用的 version 是 2.0.0+38（`apps/flutter/app/pubspec.yaml:19`）。
+Flutter 应用的 version 是 2.0.0+42（`apps/flutter/app/pubspec.yaml:19`）。
 Flutter 应用的 environment 要求 sdk ^3.10.8（`apps/flutter/app/pubspec.yaml:22`）。
 README 声明全部平台使用 AAswordman/flutter-ohos（`apps/flutter/app/README.md:3`）。
 README 写明的 fork 版本是 3.41.10-ohos-0.0.2-beta.operit.1（`apps/flutter/app/README.md:4`）。
@@ -24,17 +24,17 @@ README 要求执行 fvm flutter precache --web --ohos（`apps/flutter/app/README
 ## AI 速览
 
 - `main` — 应用入口，执行启动序列（`apps/flutter/app/lib/main.dart:32`）
-- `platformCoreProxy` — Dart 侧 Core 代理，原生走 FFI、Web 走 WASM（`apps/flutter/app/lib/core/bridge/PlatformCoreProxy.dart:3`）
-- `FfiCoreTransport` — 原生 FFI 传输，实现 `CoreByteTransport`（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:41`）
+- `platformCoreProxy` — Dart 侧 Core 代理，原生走 FFI、Web 走 WASM（`apps/flutter/app/lib/core/bridge/PlatformCoreProxyNative.dart:6`、`apps/flutter/app/lib/core/bridge/PlatformCoreProxyWeb.dart:6`）
+- `FfiCoreTransport` — 原生 FFI 传输，实现 `CoreByteTransport`（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:43`）
 - `WebWasmCoreProxy` — Web 平台的 Core 代理（`apps/flutter/app/lib/core/bridge/PlatformCoreProxyWeb.dart:6`）
 - `OperitApp` — 主窗口根组件（`apps/flutter/app/lib/ui/main/OperitApp.dart:19`）
 - `RuntimeBootstrapManager` — 启动时初始化 runtime 引导状态（`apps/flutter/app/lib/main.dart:105`）
-- `CoreApplicationService` — 主窗口启动 Core 应用服务（`apps/flutter/app/lib/main.dart:162`）
+- `CoreApplicationService` — 主窗口启动 Core 应用服务（`apps/flutter/app/lib/main.dart:161`）
 - `operit_flutter_bridge_create` — 在非 Android、非 OpenHarmony 平台上创建 runtime 的 C 导出（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:26`）
-- `operit_flutter_bridge_ffi_connect` — FFI 连接入口（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:288`）
+- `operit_flutter_bridge_ffi_connect` — FFI 连接入口（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:306`）
 - `prepareLiquidGlass` — 预载液态玻璃光学着色器（`apps/flutter/packages/operit_ui/README.md:21`）
 - 主入口函数是 `main`（`apps/flutter/app/lib/main.dart:32`）。
-- 数据流向一句话：Dart 侧经 platformCoreProxy 发请求，原生平台走 FFI 会话进 Rust bridge，Web 平台走 JS interop 与 Rust WASM（`apps/flutter/native/operit-flutter-bridge/FFI.md:153`、`apps/flutter/app/lib/core/bridge/PlatformCoreProxy.dart:3`、`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:69`）。
+- 数据流向一句话：Dart 侧经 platformCoreProxy 发请求，原生平台走 FFI 会话进 Rust bridge，Web 平台走 JS interop 与 Rust WASM（`apps/flutter/native/operit-flutter-bridge/FFI.md:153`、`apps/flutter/app/lib/core/bridge/PlatformCoreProxy.dart:3`、`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:71`）。
 
 ## 核心机制
 
@@ -54,8 +54,8 @@ pubspec 声明 path_provider_ohos，来自 openharmony-sig/flutter_packages 的 
 pubspec 声明 url_launcher_ohos，来自 openharmony-sig/flutter_packages 的 git 仓库（`apps/flutter/app/pubspec.yaml:78`）。
 pubspec 声明 record_ohos，来自本地 thirdparty 路径（`apps/flutter/app/pubspec.yaml:69`）。
 pubspec 声明 image_picker_ohos，来自本地 thirdparty 路径（`apps/flutter/app/pubspec.yaml:93`）。
-pubspec 在 dependency_overrides 中把 webview_all_ohos 指向本地 thirdparty 路径（`apps/flutter/app/pubspec.yaml:157`）。
-ffi ^2.2.0 声明在 pubspec 的 dev_dependencies 段（`apps/flutter/app/pubspec.yaml:131`）。
+pubspec 在 dependency_overrides 中把 webview_all_ohos 指向本地 thirdparty 路径（`apps/flutter/app/pubspec.yaml:159`）。
+ffi ^2.2.0 声明在 pubspec 的 dev_dependencies 段（`apps/flutter/app/pubspec.yaml:132`）。
 
 ### Dart 侧与 Rust Core 的桥接
 
@@ -66,24 +66,26 @@ operit-flutter-bridge 是 Flutter 到平台无关 Core runtime 的传输边界�
 PlatformRuntimeFactory 选择 host 构造，PlatformRuntimeAbi 选择 ABI 模块（`apps/flutter/native/operit-flutter-bridge/src/lib.rs:3`）。
 platform_runtime 用 cfg 门控为 android、ios、linux、macos 各设一个模块（`apps/flutter/native/operit-flutter-bridge/src/platform_runtime/mod.rs:13`）。
 platform_runtime 用 cfg 门控为 ohos、web、windows 各设一个模块（`apps/flutter/native/operit-flutter-bridge/src/platform_runtime/mod.rs:21`）。
-桥接在 Android 上依赖 operit-host-android-native，路径指向 hosts/android（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:51`）。
-桥接在 Windows 上依赖 operit-host-windows-native，路径指向 hosts/windows（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:54`）。
-桥接在 Linux 上依赖 operit-host-linux-native，路径指向 hosts/linux（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:57`）。
-桥接在 OpenHarmony 上依赖 operit-host-ohos-native，路径指向 hosts/ohos（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:60`）。
-桥接在 iOS 上依赖 operit-host-ios-native，路径指向 hosts/ios（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:63`）。
-桥接在 macOS 上依赖 operit-host-macos-native，带 arm64-runtime 特性（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:66`）。
-桥接在 wasm32 上依赖 operit-host-web，路径指向 hosts/web（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:71`）。
+桥接在 Android 上依赖 operit-host-android-native，路径指向 hosts/android（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:53`）。
+桥接在 Windows 上依赖 operit-host-windows-native，路径指向 hosts/windows（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:56`）。
+桥接在 Linux 上依赖 operit-host-linux-native，路径指向 hosts/linux（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:59`）。
+桥接在 OpenHarmony 上依赖 operit-host-ohos-native，路径指向 hosts/ohos（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:62`）。
+桥接在 iOS 上依赖 operit-host-ios-native，路径指向 hosts/ios（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:65`）。
+桥接在 macOS 上依赖 operit-host-macos-native，带 arm64-runtime 特性（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:68`）。
+桥接在 wasm32 上依赖 operit-host-web，路径指向 hosts/web（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:73`）。
 在非 Android、非 OpenHarmony 平台上，BridgeExports 导出 operit_flutter_bridge_create 创建引用计数的 runtime（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:26`）。
 OpenHarmony 用独立的 operit_flutter_bridge_create_ohos 入口，参数含 runtime_root、workspace_root、system_language_code、device_model（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:95`）。
-operit_flutter_bridge_ffi_connect 是 FFI 连接入口，位于 FfiTransport.rs（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:288`）。
-Flutter Core 调用与流只用 ABI 版本 3，ABI v1 与 v2 已移除（`apps/flutter/native/operit-flutter-bridge/FFI.md:3`）。
-Dart 拒绝 version 不是 3 的描述符（`apps/flutter/native/operit-flutter-bridge/FFI.md:5`）。
+operit_flutter_bridge_ffi_connect 是 FFI 连接入口，位于 FfiTransport.rs（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:306`）。
+Flutter Core 调用与流只用 ABI 版本 4，ABI v1 与 v2 已移除（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:107`）。
+Dart 拒绝 version 不是 4 的描述符（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:107`）。
 每个 Flutter isolate 在 operit/runtime 平台通道上惰性调用 connectCoreFfi（`apps/flutter/native/operit-flutter-bridge/FFI.md:10`）。
-FFI 描述符的 version 字段是整数 3（`apps/flutter/native/operit-flutter-bridge/FFI.md:16`）。
+FFI 描述符的 version 字段是整数 4（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:328`）。
+ABI v4 新增同步失败上报，独立于 VM 投递会话（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:2`）。
+ABI v4 的连接描述符新增 `reportFailure` 字段（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:341`）。
 Web 用 WebWasmCoreProxy、JS interop、Runtime Worker 与 Rust WASM（`apps/flutter/native/operit-flutter-bridge/FFI.md:153`）。
-FfiCoreTransport 实现 CoreByteTransport（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:41`）。
-FfiCoreTransport 的 _connect 在 MethodChannel operit/runtime 上调用 connectCoreFfi（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:69`）。
-FfiCoreTransport 校验描述符 version 等于 3 且 NativeApi.majorVersion 等于 2，否则抛错（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:99`）。
+FfiCoreTransport 实现 CoreByteTransport（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:43`）。
+FfiCoreTransport 的 _connect 在 MethodChannel operit/runtime 上调用 connectCoreFfi（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:71`）。
+FfiCoreTransport 校验描述符 version 等于 4 且 NativeApi.majorVersion 等于 2，否则抛错（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:107`）。
 PlatformCoreProxy 按 dart.library.html 条件导出原生或 Web 实现（`apps/flutter/app/lib/core/bridge/PlatformCoreProxy.dart:3`）。
 原生平台的 platformCoreProxy 是 FfiCoreProxy（`apps/flutter/app/lib/core/bridge/PlatformCoreProxyNative.dart:6`）。
 Web 平台的 platformCoreProxy 是 WebWasmCoreProxy（`apps/flutter/app/lib/core/bridge/PlatformCoreProxyWeb.dart:6`）。
@@ -97,7 +99,7 @@ README 声明全部平台使用 AAswordman/flutter-ohos（`apps/flutter/app/READ
 README 要求执行 fvm flutter precache --web --ohos（`apps/flutter/app/README.md:11`）。
 pubspec 声明 path_provider_ohos，来自 openharmony-sig/flutter_packages 的 git 仓库（`apps/flutter/app/pubspec.yaml:61`）。
 pubspec 声明 url_launcher_ohos，来自 openharmony-sig/flutter_packages 的 git 仓库（`apps/flutter/app/pubspec.yaml:78`）。
-桥接在 OpenHarmony 上依赖 operit-host-ohos-native，路径指向 hosts/ohos（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:60`）。
+桥接在 OpenHarmony 上依赖 operit-host-ohos-native，路径指向 hosts/ohos（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:62`）。
 OpenHarmony 用独立的 operit_flutter_bridge_create_ohos 入口，参数含 runtime_root、workspace_root、system_language_code、device_model（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:95`）。
 
 ### lib/core 与 lib/ui 的分工
@@ -119,20 +121,20 @@ operit_ui 要求在应用或预览启动时调用 prepareLiquidGlass 预载光�
 ## 关键符号
 
 - `main` — 应用入口，执行启动序列（`apps/flutter/app/lib/main.dart:32`）
-- `platformCoreProxy` — Dart 侧 Core 代理（`apps/flutter/app/lib/core/bridge/PlatformCoreProxy.dart:3`）
+- `platformCoreProxy` — Dart 侧 Core 代理（`apps/flutter/app/lib/core/bridge/PlatformCoreProxyNative.dart:6`、`apps/flutter/app/lib/core/bridge/PlatformCoreProxyWeb.dart:6`）
 - `FfiCoreProxy` — 原生平台的 Core 代理实现（`apps/flutter/app/lib/core/bridge/PlatformCoreProxyNative.dart:6`）
 - `WebWasmCoreProxy` — Web 平台的 Core 代理实现（`apps/flutter/app/lib/core/bridge/PlatformCoreProxyWeb.dart:6`）
-- `FfiCoreTransport` — 原生 FFI 传输（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:41`）
+- `FfiCoreTransport` — 原生 FFI 传输（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:43`）
 - `PlatformRuntimeHost` — 声明 `dataRescue` 的接口，CoreProxy 实现该接口（`apps/flutter/app/lib/core/bridge/CoreProxy.dart:10`）
 - `RuntimeBootstrapManager` — runtime 引导管理（`apps/flutter/app/lib/main.dart:105`）
-- `CoreApplicationService` — Core 应用服务（`apps/flutter/app/lib/main.dart:162`）
+- `CoreApplicationService` — Core 应用服务（`apps/flutter/app/lib/main.dart:161`）
 - `OperitApp` — 主窗口根组件（`apps/flutter/app/lib/ui/main/OperitApp.dart:19`）
 - `DataRescueApp` — 数据救援应用（`apps/flutter/app/lib/main.dart:15`）
 - `prepareLiquidGlass` — 预载液态玻璃光学着色器（`apps/flutter/app/lib/main.dart:113`）
 - `operit_flutter_bridge_create` — 在非 Android、非 OpenHarmony 平台上创建引用计数的 runtime（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:26`）
 - `operit_flutter_bridge_create_ohos` — OpenHarmony 的 bridge 创建入口（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:95`）
-- `operit_flutter_bridge_ffi_connect` — FFI 连接入口（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:288`）
-- `connectCoreFfi` — 平台通道上的 FFI 连接方法（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:69`）
+- `operit_flutter_bridge_ffi_connect` — FFI 连接入口（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:306`）
+- `connectCoreFfi` — 平台通道上的 FFI 连接方法（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:71`）
 - `ThemePreferenceSnapshot` — operit_ui 的外观快照模型，有 104 个字段（`apps/flutter/packages/operit_ui/lib/src/model/theme_preference_snapshot.dart:3`）
 
 ## 调用链
@@ -141,10 +143,10 @@ operit_ui 要求在应用或预览启动时调用 prepareLiquidGlass 预载光�
 2. 启动时先向 `platformCoreProxy.dataRescue` 查询 launchMode（`apps/flutter/app/lib/main.dart:42`）。
 3. 启动流程调用 `RuntimeBootstrapManager.instance.initialize`（`apps/flutter/app/lib/main.dart:105`）。
 4. 启动流程调用 `prepareLiquidGlass` 初始化液态玻璃（`apps/flutter/app/lib/main.dart:113`）。
-5. 主窗口启动 `CoreApplicationService.instance.initialize`，ownsRuntime 取 clientOnly 的反值（`apps/flutter/app/lib/main.dart:162`）。
-6. 主窗口根组件是 `OperitDesignCaptureScope` 包裹的 `OperitApp`（`apps/flutter/app/lib/main.dart:236`）。
-7. 原生平台上 FfiCoreTransport 在 MethodChannel operit/runtime 上调用 `connectCoreFfi` 取 FFI 描述符（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:69`）。
-8. FfiCoreTransport 校验描述符 version 等于 3 且 NativeApi.majorVersion 等于 2，否则抛错（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:99`）。
+5. 主窗口启动 `CoreApplicationService.instance.initialize`，ownsRuntime 取 clientOnly 的反值（`apps/flutter/app/lib/main.dart:161`）。
+6. 主窗口根组件是 `OperitDesignCaptureScope` 包裹的 `OperitApp`（`apps/flutter/app/lib/main.dart:235`）。
+7. 原生平台上 FfiCoreTransport 在 MethodChannel operit/runtime 上调用 `connectCoreFfi` 取 FFI 描述符（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:71`）。
+8. FfiCoreTransport 校验描述符 version 等于 4 且 NativeApi.majorVersion 等于 2，否则抛错（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:107`）。
 9. Web 平台上 platformCoreProxy 是 `WebWasmCoreProxy`，走 JS interop 与 Rust WASM（`apps/flutter/native/operit-flutter-bridge/FFI.md:153`）。
 
 ## 来源

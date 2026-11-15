@@ -49,7 +49,7 @@ date: 2026-11-11
 - `assets/images/*` 和 `assets/fonts/*` 相对于视觉定义所在目录解析，校验回执中的资源路径是渲染器使用的模板内路径。(docs/theme-v1-contract.md:27)
 - 模板的 `files` 数组最少 2 项、最多 63 项。(core/crates/plugin/theme/schema/theme-template.schema.json:7)
 - 资源清单每项必填 `path` 与 `mediaType`。(core/crates/plugin/theme/schema/theme-template.schema.json:32)
-- 模板资源路径只允许 `theme.json`、`preview.png`、`licenses/*.txt`、`assets/images/*` 图片与 `assets/fonts/*.ttf` 五类路径。(core/crates/plugin/theme/schema/theme-template.schema.json:17)
+- 模板资源路径只允许 theme.json、preview.png、licenses/*.txt、assets/images/* 图片与 assets/fonts/*.ttf 五类路径。(core/crates/plugin/theme/schema/theme-template.schema.json:17)
 - 资源清单的 `mediaType` 只允许 `application/json`、`image/png`、`image/jpeg`、`image/svg+xml`、`font/ttf`、`text/plain` 六种。(core/crates/plugin/theme/schema/theme-template.schema.json:22)
 - `files` 只登记该模板引用的资源路径和媒体类型，无需填写字节数或 SHA-256。(docs/theme-v1-contract.md:29)
 - 旧包残留的 `bytes`、`sha256` 字段会被忽略，文件大小限制根据实际资源检查，内部缓存摘要由系统自动计算。(docs/theme-v1-contract.md:29)
@@ -95,9 +95,17 @@ date: 2026-11-11
 - 后续渲染读取配置与外观资源，不再依赖来源插件是否安装，也不会随来源模板更新而改写配置。(docs/theme-v1-contract.md:51)
 - 主题没有独立主题库、共享模板选择、只读锁定、主题专用卸载约束或模板恢复页面。(docs/theme-v1-contract.md:51)
 - 普通 ToolPkg 的 `themes` 声明、模板校验、共享 Flutter 渲染，以及 Studio 编辑和导出继续保留。(docs/theme-v1-contract.md:53)
-- 外观资源或配色加载失败时，客户端展示明确错误及“重试”“重置外观”操作，重试读取原有值。(docs/theme-v1-contract.md:55)
-- 重置外观只由用户点击触发，保留头像与已保存配置，并显式选中自定义外观，错误不会触发自动替换。(docs/theme-v1-contract.md:55)
-- 应用旧版配置时清除其没有声明的新增外观字段，避免沿用此前模板的输入框样式。(docs/theme-v1-contract.md:55)
+- 外观资源或配色加载失败时，客户端展示明确错误及“重试”“重置外观”操作，重试读取原有值。(docs/theme-v1-contract.md:57)
+- 重置外观只由用户点击触发，保留头像与已保存配置，并显式选中自定义外观，错误不会触发自动替换。(docs/theme-v1-contract.md:57)
+- 应用旧版配置时清除其没有声明的新增外观字段，避免沿用此前模板的输入框样式。(docs/theme-v1-contract.md:57)
+
+### 气泡贴图编辑
+
+- 气泡贴图编辑以完整原图为固定编辑区，支持缩放、平移和恢复完整显示。(docs/theme-v1-contract.md:55)
+- 气泡贴图编辑用白框标出裁切边界，框外保留原图并压暗；蓝色两横两竖按渲染器实际像素切片分出九宫格。(docs/theme-v1-contract.md:55)
+- 九宫格四角保留，上下边、左右边及中间区域按所选模式分别平铺或拉伸。(docs/theme-v1-contract.md:55)
+- 裁切、九宫格、缩放和效果预览分为独立页签，手机上参数保持两列，原图不随参数滚走；宽屏在原图旁显示参数。(docs/theme-v1-contract.md:55)
+- 效果预览不叠加切线；关闭取消草稿，保存沿用既有气泡图片字段。(docs/theme-v1-contract.md:55)
 
 ### moss_atelier：两套模板的例子
 
@@ -178,6 +186,6 @@ date: 2026-11-11
 
 - `core/crates/plugin/theme/schema/theme-v1.schema.json`（1247 行）
 - `core/crates/plugin/theme/schema/theme-template.schema.json`（58 行）
-- `docs/theme-v1-contract.md`（55 行）
+- `docs/theme-v1-contract.md`（57 行）
 - `docs/theme-studio-protocol-v1.md`（93 行）
 - `plugins/packages/external/moss_atelier/manifest.json`（66 行）

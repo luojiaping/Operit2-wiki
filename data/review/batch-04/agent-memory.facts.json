@@ -501,7 +501,7 @@
  },
  {
   "fact": "`normalize` 把提供方返回的向量归一化为单位长度。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:35"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:28"
  },
  {
   "fact": "`rebuildMemoryEmbeddings` 把重建工作交给仓库的 `rebuildMemoryEmbeddings`。",
