@@ -171,7 +171,7 @@
       <div class="offline-toolbar-host" data-testid="offline-toolbar-host"></div>
       <div class="offline-badges" aria-label="图谱统计">
         <span>139 节点</span>
-        <span>630 关联</span>
+        <span>629 关联</span>
         <span>2026-11-15</span>
         <button class="offline-theme-toggle" type="button" data-testid="offline-theme-toggle" aria-label="切换墨夜主题">墨夜</button>
       </div>
@@ -2073,14 +2073,14 @@
       "id": "e213",
       "relation_type": "依赖",
       "signals": {
-        "co_citation": 0.125,
+        "co_citation": 0,
         "source_overlap": null,
         "type_affinity": 1
       },
       "source_signal_available": false,
       "to": "wiki/topics/sync-transaction-model.md",
       "type": "EXTRACTED",
-      "weight": 0.563
+      "weight": 0.5
     },
     {
       "confidence": "EXTRACTED",
@@ -7799,18 +7799,18 @@
     },
     {
       "confidence": "EXTRACTED",
-      "from": "wiki/topics/sync-protocol-version.md",
+      "from": "wiki/topics/sync-routing.md",
       "id": "e558",
       "relation_type": "依赖",
       "signals": {
-        "co_citation": 0.75,
+        "co_citation": 0,
         "source_overlap": null,
-        "type_affinity": 0.8
+        "type_affinity": 1
       },
       "source_signal_available": false,
-      "to": "wiki/topics/sync-transaction-model.md",
+      "to": "wiki/entities/chapter-07.md",
       "type": "EXTRACTED",
-      "weight": 0.775
+      "weight": 0.5
     },
     {
       "confidence": "EXTRACTED",
@@ -7823,7 +7823,7 @@
         "type_affinity": 1
       },
       "source_signal_available": false,
-      "to": "wiki/entities/chapter-07.md",
+      "to": "wiki/entities/module-sync.md",
       "type": "EXTRACTED",
       "weight": 0.5
     },
@@ -7850,21 +7850,6 @@
       "signals": {
         "co_citation": 0,
         "source_overlap": null,
-        "type_affinity": 1
-      },
-      "source_signal_available": false,
-      "to": "wiki/entities/module-sync.md",
-      "type": "EXTRACTED",
-      "weight": 0.5
-    },
-    {
-      "confidence": "EXTRACTED",
-      "from": "wiki/topics/sync-routing.md",
-      "id": "e561",
-      "relation_type": "依赖",
-      "signals": {
-        "co_citation": 0,
-        "source_overlap": null,
         "type_affinity": 0.8
       },
       "source_signal_available": false,
@@ -7875,7 +7860,52 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/sync-transaction-model.md",
+      "id": "e561",
+      "relation_type": "依赖",
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      },
+      "source_signal_available": false,
+      "to": "wiki/entities/chapter-07.md",
+      "type": "EXTRACTED",
+      "weight": 0.5
+    },
+    {
+      "confidence": "EXTRACTED",
+      "from": "wiki/topics/sync-transaction-model.md",
       "id": "e562",
+      "relation_type": "依赖",
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      },
+      "source_signal_available": false,
+      "to": "wiki/entities/module-sync.md",
+      "type": "EXTRACTED",
+      "weight": 0.5
+    },
+    {
+      "confidence": "EXTRACTED",
+      "from": "wiki/topics/sync-transaction-model.md",
+      "id": "e563",
+      "relation_type": "依赖",
+      "signals": {
+        "co_citation": 0.333,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      },
+      "source_signal_available": false,
+      "to": "wiki/topics/sync-overview.md",
+      "type": "EXTRACTED",
+      "weight": 0.567
+    },
+    {
+      "confidence": "EXTRACTED",
+      "from": "wiki/topics/sync-vfs.md",
+      "id": "e564",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.125,
@@ -7886,36 +7916,6 @@
       "to": "wiki/entities/chapter-07.md",
       "type": "EXTRACTED",
       "weight": 0.563
-    },
-    {
-      "confidence": "EXTRACTED",
-      "from": "wiki/topics/sync-transaction-model.md",
-      "id": "e563",
-      "relation_type": "依赖",
-      "signals": {
-        "co_citation": 0.125,
-        "source_overlap": null,
-        "type_affinity": 1
-      },
-      "source_signal_available": false,
-      "to": "wiki/entities/module-sync.md",
-      "type": "EXTRACTED",
-      "weight": 0.563
-    },
-    {
-      "confidence": "EXTRACTED",
-      "from": "wiki/topics/sync-transaction-model.md",
-      "id": "e564",
-      "relation_type": "依赖",
-      "signals": {
-        "co_citation": 0.444,
-        "source_overlap": null,
-        "type_affinity": 0.8
-      },
-      "source_signal_available": false,
-      "to": "wiki/topics/sync-overview.md",
-      "type": "EXTRACTED",
-      "weight": 0.622
     },
     {
       "confidence": "EXTRACTED",
@@ -7928,21 +7928,6 @@
         "type_affinity": 1
       },
       "source_signal_available": false,
-      "to": "wiki/entities/chapter-07.md",
-      "type": "EXTRACTED",
-      "weight": 0.563
-    },
-    {
-      "confidence": "EXTRACTED",
-      "from": "wiki/topics/sync-vfs.md",
-      "id": "e566",
-      "relation_type": "依赖",
-      "signals": {
-        "co_citation": 0.125,
-        "source_overlap": null,
-        "type_affinity": 1
-      },
-      "source_signal_available": false,
       "to": "wiki/entities/module-sync.md",
       "type": "EXTRACTED",
       "weight": 0.563
@@ -7950,7 +7935,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/sync-vfs.md",
-      "id": "e567",
+      "id": "e566",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.4,
@@ -7965,7 +7950,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/sync-workspace-files.md",
-      "id": "e568",
+      "id": "e567",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.25,
@@ -7980,7 +7965,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/sync-workspace-files.md",
-      "id": "e569",
+      "id": "e568",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.25,
@@ -7991,6 +7976,21 @@
       "to": "wiki/entities/module-sync.md",
       "type": "EXTRACTED",
       "weight": 0.625
+    },
+    {
+      "confidence": "EXTRACTED",
+      "from": "wiki/topics/sync-workspace-files.md",
+      "id": "e569",
+      "relation_type": "依赖",
+      "signals": {
+        "co_citation": 0.4,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      },
+      "source_signal_available": false,
+      "to": "wiki/topics/sync-vfs.md",
+      "type": "EXTRACTED",
+      "weight": 0.6
     },
     {
       "confidence": "EXTRACTED",
@@ -8009,18 +8009,18 @@
     },
     {
       "confidence": "EXTRACTED",
-      "from": "wiki/topics/sync-workspace-files.md",
+      "from": "wiki/topics/theme-render.md",
       "id": "e570",
       "relation_type": "依赖",
       "signals": {
-        "co_citation": 0.4,
+        "co_citation": 0.25,
         "source_overlap": null,
-        "type_affinity": 0.8
+        "type_affinity": 1
       },
       "source_signal_available": false,
-      "to": "wiki/topics/sync-vfs.md",
+      "to": "wiki/entities/chapter-08.md",
       "type": "EXTRACTED",
-      "weight": 0.6
+      "weight": 0.625
     },
     {
       "confidence": "EXTRACTED",
@@ -8033,24 +8033,24 @@
         "type_affinity": 1
       },
       "source_signal_available": false,
-      "to": "wiki/entities/chapter-08.md",
+      "to": "wiki/entities/module-theme.md",
       "type": "EXTRACTED",
       "weight": 0.625
     },
     {
       "confidence": "EXTRACTED",
-      "from": "wiki/topics/theme-render.md",
+      "from": "wiki/topics/theme-studio.md",
       "id": "e572",
       "relation_type": "依赖",
       "signals": {
-        "co_citation": 0.25,
+        "co_citation": 0,
         "source_overlap": null,
         "type_affinity": 1
       },
       "source_signal_available": false,
-      "to": "wiki/entities/module-theme.md",
+      "to": "wiki/entities/chapter-08.md",
       "type": "EXTRACTED",
-      "weight": 0.625
+      "weight": 0.5
     },
     {
       "confidence": "EXTRACTED",
@@ -8063,21 +8063,6 @@
         "type_affinity": 1
       },
       "source_signal_available": false,
-      "to": "wiki/entities/chapter-08.md",
-      "type": "EXTRACTED",
-      "weight": 0.5
-    },
-    {
-      "confidence": "EXTRACTED",
-      "from": "wiki/topics/theme-studio.md",
-      "id": "e574",
-      "relation_type": "依赖",
-      "signals": {
-        "co_citation": 0,
-        "source_overlap": null,
-        "type_affinity": 1
-      },
-      "source_signal_available": false,
       "to": "wiki/entities/module-theme.md",
       "type": "EXTRACTED",
       "weight": 0.5
@@ -8085,7 +8070,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/theme-studio.md",
-      "id": "e575",
+      "id": "e574",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8100,7 +8085,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/theme-studio.md",
-      "id": "e576",
+      "id": "e575",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.667,
@@ -8115,7 +8100,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/theme-sync.md",
-      "id": "e577",
+      "id": "e576",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8130,7 +8115,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/theme-sync.md",
-      "id": "e578",
+      "id": "e577",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8145,7 +8130,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/theme-sync.md",
-      "id": "e579",
+      "id": "e578",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8154,6 +8139,21 @@
       },
       "source_signal_available": false,
       "to": "wiki/topics/core-plugin-theme.md",
+      "type": "EXTRACTED",
+      "weight": 0.4
+    },
+    {
+      "confidence": "EXTRACTED",
+      "from": "wiki/topics/theme-sync.md",
+      "id": "e579",
+      "relation_type": "依赖",
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      },
+      "source_signal_available": false,
+      "to": "wiki/topics/plugin-theme.md",
       "type": "EXTRACTED",
       "weight": 0.4
     },
@@ -8174,23 +8174,8 @@
     },
     {
       "confidence": "EXTRACTED",
-      "from": "wiki/topics/theme-sync.md",
-      "id": "e580",
-      "relation_type": "依赖",
-      "signals": {
-        "co_citation": 0,
-        "source_overlap": null,
-        "type_affinity": 0.8
-      },
-      "source_signal_available": false,
-      "to": "wiki/topics/plugin-theme.md",
-      "type": "EXTRACTED",
-      "weight": 0.4
-    },
-    {
-      "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-build-scripts.md",
-      "id": "e581",
+      "id": "e580",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.222,
@@ -8205,7 +8190,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-build-scripts.md",
-      "id": "e582",
+      "id": "e581",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.273,
@@ -8220,7 +8205,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-build-scripts.md",
-      "id": "e583",
+      "id": "e582",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.5,
@@ -8235,7 +8220,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-docs-whitepaper.md",
-      "id": "e584",
+      "id": "e583",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8250,7 +8235,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-docs-whitepaper.md",
-      "id": "e585",
+      "id": "e584",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8265,7 +8250,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-docs-whitepaper.md",
-      "id": "e586",
+      "id": "e585",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.333,
@@ -8280,7 +8265,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-figma.md",
-      "id": "e587",
+      "id": "e586",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8295,7 +8280,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-figma.md",
-      "id": "e588",
+      "id": "e587",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8310,7 +8295,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-figma.md",
-      "id": "e589",
+      "id": "e588",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.667,
@@ -8321,6 +8306,21 @@
       "to": "wiki/topics/tools-theme-studio.md",
       "type": "EXTRACTED",
       "weight": 0.733
+    },
+    {
+      "confidence": "EXTRACTED",
+      "from": "wiki/topics/tools-overview.md",
+      "id": "e589",
+      "relation_type": "依赖",
+      "signals": {
+        "co_citation": 0.167,
+        "source_overlap": null,
+        "type_affinity": 1
+      },
+      "source_signal_available": false,
+      "to": "wiki/entities/chapter-11.md",
+      "type": "EXTRACTED",
+      "weight": 0.583
     },
     {
       "confidence": "EXTRACTED",
@@ -8343,21 +8343,6 @@
       "id": "e590",
       "relation_type": "依赖",
       "signals": {
-        "co_citation": 0.167,
-        "source_overlap": null,
-        "type_affinity": 1
-      },
-      "source_signal_available": false,
-      "to": "wiki/entities/chapter-11.md",
-      "type": "EXTRACTED",
-      "weight": 0.583
-    },
-    {
-      "confidence": "EXTRACTED",
-      "from": "wiki/topics/tools-overview.md",
-      "id": "e591",
-      "relation_type": "依赖",
-      "signals": {
         "co_citation": 0.182,
         "source_overlap": null,
         "type_affinity": 1
@@ -8370,7 +8355,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-overview.md",
-      "id": "e592",
+      "id": "e591",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.667,
@@ -8385,7 +8370,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-overview.md",
-      "id": "e593",
+      "id": "e592",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.6,
@@ -8400,7 +8385,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-overview.md",
-      "id": "e594",
+      "id": "e593",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.4,
@@ -8415,7 +8400,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-peer-protocol-check.md",
-      "id": "e595",
+      "id": "e594",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8430,7 +8415,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-peer-protocol-check.md",
-      "id": "e596",
+      "id": "e595",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8445,7 +8430,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-peer-protocol-check.md",
-      "id": "e597",
+      "id": "e596",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8460,7 +8445,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-peer-protocol-check.md",
-      "id": "e598",
+      "id": "e597",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8475,7 +8460,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-perf-benchmarks.md",
-      "id": "e599",
+      "id": "e598",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8484,6 +8469,21 @@
       },
       "source_signal_available": false,
       "to": "wiki/entities/chapter-11.md",
+      "type": "EXTRACTED",
+      "weight": 0.5
+    },
+    {
+      "confidence": "EXTRACTED",
+      "from": "wiki/topics/tools-perf-benchmarks.md",
+      "id": "e599",
+      "relation_type": "依赖",
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      },
+      "source_signal_available": false,
+      "to": "wiki/entities/module-tools.md",
       "type": "EXTRACTED",
       "weight": 0.5
     },
@@ -8523,21 +8523,6 @@
       "id": "e600",
       "relation_type": "依赖",
       "signals": {
-        "co_citation": 0,
-        "source_overlap": null,
-        "type_affinity": 1
-      },
-      "source_signal_available": false,
-      "to": "wiki/entities/module-tools.md",
-      "type": "EXTRACTED",
-      "weight": 0.5
-    },
-    {
-      "confidence": "EXTRACTED",
-      "from": "wiki/topics/tools-perf-benchmarks.md",
-      "id": "e601",
-      "relation_type": "依赖",
-      "signals": {
         "co_citation": 0.4,
         "source_overlap": null,
         "type_affinity": 0.8
@@ -8550,7 +8535,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-release.md",
-      "id": "e602",
+      "id": "e601",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.167,
@@ -8565,7 +8550,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-release.md",
-      "id": "e603",
+      "id": "e602",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.091,
@@ -8580,7 +8565,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-runtime-kits.md",
-      "id": "e604",
+      "id": "e603",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8595,7 +8580,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-runtime-kits.md",
-      "id": "e605",
+      "id": "e604",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8610,7 +8595,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-runtime-kits.md",
-      "id": "e606",
+      "id": "e605",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8625,7 +8610,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-tests.md",
-      "id": "e607",
+      "id": "e606",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8640,7 +8625,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-tests.md",
-      "id": "e608",
+      "id": "e607",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8655,7 +8640,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-tests.md",
-      "id": "e609",
+      "id": "e608",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.333,
@@ -8666,6 +8651,21 @@
       "to": "wiki/topics/tools-build-scripts.md",
       "type": "EXTRACTED",
       "weight": 0.567
+    },
+    {
+      "confidence": "EXTRACTED",
+      "from": "wiki/topics/tools-tests.md",
+      "id": "e609",
+      "relation_type": "依赖",
+      "signals": {
+        "co_citation": 0.4,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      },
+      "source_signal_available": false,
+      "to": "wiki/topics/tools-overview.md",
+      "type": "EXTRACTED",
+      "weight": 0.6
     },
     {
       "confidence": "EXTRACTED",
@@ -8684,23 +8684,8 @@
     },
     {
       "confidence": "EXTRACTED",
-      "from": "wiki/topics/tools-tests.md",
-      "id": "e610",
-      "relation_type": "依赖",
-      "signals": {
-        "co_citation": 0.4,
-        "source_overlap": null,
-        "type_affinity": 0.8
-      },
-      "source_signal_available": false,
-      "to": "wiki/topics/tools-overview.md",
-      "type": "EXTRACTED",
-      "weight": 0.6
-    },
-    {
-      "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-theme-studio.md",
-      "id": "e611",
+      "id": "e610",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.056,
@@ -8715,7 +8700,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-theme-studio.md",
-      "id": "e612",
+      "id": "e611",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.091,
@@ -8730,7 +8715,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-theme-studio.md",
-      "id": "e613",
+      "id": "e612",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8745,7 +8730,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-windows-installer.md",
-      "id": "e614",
+      "id": "e613",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.111,
@@ -8760,7 +8745,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/tools-windows-installer.md",
-      "id": "e615",
+      "id": "e614",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.182,
@@ -8775,7 +8760,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-desktop.md",
-      "id": "e616",
+      "id": "e615",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.111,
@@ -8790,7 +8775,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-desktop.md",
-      "id": "e617",
+      "id": "e616",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.286,
@@ -8805,7 +8790,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-desktop.md",
-      "id": "e618",
+      "id": "e617",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.5,
@@ -8820,7 +8805,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-mobile.md",
-      "id": "e619",
+      "id": "e618",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8829,6 +8814,21 @@
       },
       "source_signal_available": false,
       "to": "wiki/entities/chapter-11.md",
+      "type": "EXTRACTED",
+      "weight": 0.5
+    },
+    {
+      "confidence": "EXTRACTED",
+      "from": "wiki/topics/troubleshoot-mobile.md",
+      "id": "e619",
+      "relation_type": "依赖",
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      },
+      "source_signal_available": false,
+      "to": "wiki/entities/module-dev.md",
       "type": "EXTRACTED",
       "weight": 0.5
     },
@@ -8855,21 +8855,6 @@
       "signals": {
         "co_citation": 0,
         "source_overlap": null,
-        "type_affinity": 1
-      },
-      "source_signal_available": false,
-      "to": "wiki/entities/module-dev.md",
-      "type": "EXTRACTED",
-      "weight": 0.5
-    },
-    {
-      "confidence": "EXTRACTED",
-      "from": "wiki/topics/troubleshoot-mobile.md",
-      "id": "e621",
-      "relation_type": "依赖",
-      "signals": {
-        "co_citation": 0,
-        "source_overlap": null,
         "type_affinity": 0.8
       },
       "source_signal_available": false,
@@ -8880,7 +8865,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-mobile.md",
-      "id": "e622",
+      "id": "e621",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8895,7 +8880,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-mobile.md",
-      "id": "e623",
+      "id": "e622",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8910,7 +8895,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-mobile.md",
-      "id": "e624",
+      "id": "e623",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.5,
@@ -8925,7 +8910,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-web.md",
-      "id": "e625",
+      "id": "e624",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8940,7 +8925,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-web.md",
-      "id": "e626",
+      "id": "e625",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8955,7 +8940,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-web.md",
-      "id": "e627",
+      "id": "e626",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8970,7 +8955,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/troubleshoot-web.md",
-      "id": "e628",
+      "id": "e627",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0.5,
@@ -8985,7 +8970,7 @@
     {
       "confidence": "EXTRACTED",
       "from": "wiki/topics/ui-display.md",
-      "id": "e629",
+      "id": "e628",
       "relation_type": "依赖",
       "signals": {
         "co_citation": 0,
@@ -8994,6 +8979,21 @@
       },
       "source_signal_available": false,
       "to": "wiki/entities/chapter-08.md",
+      "type": "EXTRACTED",
+      "weight": 0.5
+    },
+    {
+      "confidence": "EXTRACTED",
+      "from": "wiki/topics/ui-display.md",
+      "id": "e629",
+      "relation_type": "依赖",
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      },
+      "source_signal_available": false,
+      "to": "wiki/entities/module-theme.md",
       "type": "EXTRACTED",
       "weight": 0.5
     },
@@ -9009,21 +9009,6 @@
       },
       "source_signal_available": false,
       "to": "wiki/topics/plugin-packagebuilder.md",
-      "type": "EXTRACTED",
-      "weight": 0.5
-    },
-    {
-      "confidence": "EXTRACTED",
-      "from": "wiki/topics/ui-display.md",
-      "id": "e630",
-      "relation_type": "依赖",
-      "signals": {
-        "co_citation": 0,
-        "source_overlap": null,
-        "type_affinity": 1
-      },
-      "source_signal_available": false,
-      "to": "wiki/entities/module-theme.md",
       "type": "EXTRACTED",
       "weight": 0.5
     },
@@ -9183,14 +9168,14 @@
       "id": "e72",
       "relation_type": "依赖",
       "signals": {
-        "co_citation": 0.125,
+        "co_citation": 0,
         "source_overlap": null,
         "type_affinity": 1
       },
       "source_signal_available": false,
       "to": "wiki/topics/sync-transaction-model.md",
       "type": "EXTRACTED",
-      "weight": 0.563
+      "weight": 0.5
     },
     {
       "confidence": "EXTRACTED",
@@ -9789,7 +9774,7 @@
     "isolated_nodes": [],
     "meta": {
       "degraded": false,
-      "edge_count": 630,
+      "edge_count": 629,
       "max_insight_edges": 1000,
       "max_insight_nodes": 250,
       "node_count": 139
@@ -9868,7 +9853,7 @@
       {
         "color_index": 6,
         "id": "chapter-07",
-        "internal_edge_weight": 25.33,
+        "internal_edge_weight": 24.248,
         "is_primary": false,
         "is_weak": false,
         "label": "第 7 章 多设备同步",
@@ -10010,7 +9995,6 @@
           "wiki/topics/dev-building.md",
           "wiki/topics/edge-sdk-contract.md",
           "wiki/topics/plugin-theme.md",
-          "wiki/topics/sync-protocol-version.md",
           "wiki/topics/tools-build-scripts.md",
           "wiki/entities/chapter-01.md",
           "wiki/entities/chapter-08.md",
@@ -10025,6 +10009,7 @@
           "wiki/topics/intro-overview.md",
           "wiki/topics/model-catalog.md",
           "wiki/topics/sync-discovery-join.md",
+          "wiki/topics/sync-protocol-version.md",
           "wiki/topics/sync-workspace-files.md",
           "wiki/topics/troubleshoot-mobile.md",
           "wiki/topics/agent-chat-branch.md",
@@ -10045,7 +10030,6 @@
           "wiki/topics/host-windows.md",
           "wiki/topics/plugin-catalog-external.md",
           "wiki/topics/plugin-manifest.md",
-          "wiki/topics/sync-transaction-model.md",
           "wiki/topics/theme-studio.md",
           "wiki/topics/tools-release.md",
           "wiki/topics/troubleshoot-desktop.md",
@@ -10071,6 +10055,7 @@
           "wiki/topics/plugin-skills.md",
           "wiki/topics/sync-progress.md",
           "wiki/topics/sync-routing.md",
+          "wiki/topics/sync-transaction-model.md",
           "wiki/topics/sync-vfs.md",
           "wiki/topics/theme-sync.md",
           "wiki/topics/tools-peer-protocol-check.md",
@@ -10145,7 +10130,7 @@
     }
   },
   "meta": {
-    "build_date": "2026-11-15T03:20:41+08:00",
+    "build_date": "2026-11-15T16:56:14+08:00",
     "degraded": false,
     "initial_view": [
       "wiki/entities/module-agent.md",
@@ -10180,13 +10165,13 @@
       "wiki/topics/arch-space.md"
     ],
     "insights_degraded": false,
-    "total_edges": 630,
+    "total_edges": 629,
     "total_nodes": 139,
     "warning_summary": {
-      "build_id": "141ad2c47a314441f734358be4a09d2f09f77b8857415c1718f6af325521d17d",
+      "build_id": "41b01e759aa0e6f69e1947b634c2b4311faa2fb2445395ed1544a1904824887d",
       "by_code": {},
       "details_ref": "wiki/graph-warnings.json",
-      "details_sha256": "57e846246c6a319b16e777846f4a448d6b75566b37b26e18b8490ad7354be14c",
+      "details_sha256": "c38e94abec9980111f4f28f0a399887dbfed626a1ccc7cc27caf0b65fe7dcb10",
       "error_occurrences": 0,
       "total_groups": 0,
       "total_occurrences": 0,
@@ -11125,7 +11110,7 @@
     },
     {
       "community": "chapter-07",
-      "content": "# 协议版本与构建指纹\n\n\u003e 状态：已发布｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-15）\n\n## 计划覆盖的问题\n\n- 软件版本、厂商固件版本、协议版本三者为何各自独立\n- core/peer-protocol.json 的指纹覆盖哪些内容\n- 新协议实现文件为什么必须加入 sources\n- 协议不同时返回什么错误\n\n## 种子文件\n\n- `docs/peer-protocol-versioning.md`\n- `core/peer-protocol.json`\n- `core/crates/node/runtime/src/SyncConsistency.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-discovery-join|局域网发现、配对与加入 Space]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-overview|同步总览：Space 持久化同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-transaction-model|事务模型与同步契约]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
+      "content": "# 协议版本与构建指纹\n\n\u003e 状态：已发布｜章节：多设备同步｜模块：sync｜大纲 v1（2026-11-15）\n\n## 计划覆盖的问题\n\n- 软件版本、厂商固件版本、协议版本三者为何各自独立\n- core/peer-protocol.json 的指纹覆盖哪些内容\n- 新协议实现文件为什么必须加入 sources\n- 协议不同时返回什么错误\n\n## 种子文件\n\n- `docs/peer-protocol-versioning.md`\n- `core/peer-protocol.json`\n- `core/crates/node/runtime/src/SyncConsistency.rs`\n\n## 关联条目\n\n- [[chapter-07|多设备同步]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[module-sync|模块 sync]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-discovery-join|局域网发现、配对与加入 Space]] \u003c!-- confidence: EXTRACTED --\u003e\n- [[sync-overview|同步总览：Space 持久化同步]] \u003c!-- confidence: EXTRACTED --\u003e\n\n\u003e 本页为大纲规划占位或已写条目的图谱投影：内容仅来自 outline-v1.yaml 的确定性字段与已写正文的真实交叉引用，未引入任何推测。",
       "id": "wiki/topics/sync-protocol-version.md",
       "label": "协议版本与构建指纹",
       "source_path": "wiki/topics/sync-protocol-version.md",
@@ -11311,7 +11296,7 @@
 }
   </script>
   <script id="graph-warning-data" type="application/json">
-{"bundle":{"build_id":"141ad2c47a314441f734358be4a09d2f09f77b8857415c1718f6af325521d17d","candidate_sets":[],"groups":[],"summary":{"build_id":"141ad2c47a314441f734358be4a09d2f09f77b8857415c1718f6af325521d17d","by_code":{},"details_ref":"wiki/graph-warnings.json","details_sha256":"57e846246c6a319b16e777846f4a448d6b75566b37b26e18b8490ad7354be14c","error_occurrences":0,"total_groups":0,"total_occurrences":0,"warning_occurrences":0},"version":1},"details_status":"available","details_unavailable_reason":null,"omitted_candidate_set_count":0,"omitted_group_count":0,"summary":{"build_id":"141ad2c47a314441f734358be4a09d2f09f77b8857415c1718f6af325521d17d","by_code":{},"details_ref":"wiki/graph-warnings.json","details_sha256":"57e846246c6a319b16e777846f4a448d6b75566b37b26e18b8490ad7354be14c","error_occurrences":0,"total_groups":0,"total_occurrences":0,"warning_occurrences":0},"warning_details_truncated":false}  </script>
+{"bundle":{"build_id":"41b01e759aa0e6f69e1947b634c2b4311faa2fb2445395ed1544a1904824887d","candidate_sets":[],"groups":[],"summary":{"build_id":"41b01e759aa0e6f69e1947b634c2b4311faa2fb2445395ed1544a1904824887d","by_code":{},"details_ref":"wiki/graph-warnings.json","details_sha256":"c38e94abec9980111f4f28f0a399887dbfed626a1ccc7cc27caf0b65fe7dcb10","error_occurrences":0,"total_groups":0,"total_occurrences":0,"warning_occurrences":0},"version":1},"details_status":"available","details_unavailable_reason":null,"omitted_candidate_set_count":0,"omitted_group_count":0,"summary":{"build_id":"41b01e759aa0e6f69e1947b634c2b4311faa2fb2445395ed1544a1904824887d","by_code":{},"details_ref":"wiki/graph-warnings.json","details_sha256":"c38e94abec9980111f4f28f0a399887dbfed626a1ccc7cc27caf0b65fe7dcb10","error_occurrences":0,"total_groups":0,"total_occurrences":0,"warning_occurrences":0},"warning_details_truncated":false}  </script>
   <script id="graph-layout" type="application/json">
 {"version":1,"pins":{"wiki/entities/chapter-01.md":{"x":18,"y":16},"wiki/entities/chapter-02.md":{"x":50,"y":13},"wiki/entities/chapter-03.md":{"x":82,"y":16},"wiki/entities/chapter-04.md":{"x":12,"y":42},"wiki/entities/chapter-05.md":{"x":36,"y":38},"wiki/entities/chapter-06.md":{"x":62,"y":38},"wiki/entities/chapter-07.md":{"x":88,"y":42},"wiki/entities/chapter-08.md":{"x":16,"y":68},"wiki/entities/chapter-09.md":{"x":38,"y":72},"wiki/entities/chapter-10.md":{"x":62,"y":70},"wiki/entities/chapter-11.md":{"x":84,"y":68}},"updatedAt":"2026-11-15"}
   </script>
