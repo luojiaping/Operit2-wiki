@@ -31,7 +31,7 @@ date: 2026-11-11
 - 主入口二：运行时页面，采集运行中的 Flutter 渲染树与插件 WebView 的 DOM。`tools/figma/README.md:12`
 - 数据流向一句话：Theme Studio 或运行中应用产出 `.operit-design.json`，Figma 插件导入为原生图层，设计修改导出回传。`tools/figma/README.md:9`
 - 实时入口另走 `live.mjs` 连接同一台电脑上的 debug 应用。`tools/figma/LIVE.md:20`
-- 交付状态：`INTERACTIVE_APP.md` 的状态是需求与架构边界已确认，完整应用实现和真实 Figma 验收尚未完成，核查日期为 2026-10-30。`tools/figma/INTERACTIVE_APP.md:3`
+- 交付状态：INTERACTIVE_APP.md 的状态是需求与架构边界已确认，完整应用实现和真实 Figma 验收尚未完成，核查日期为 2026-10-30。`tools/figma/INTERACTIVE_APP.md:3`
 
 ## 核心机制
 
@@ -117,7 +117,7 @@ date: 2026-11-11
 
 ### 实时运行客户端初版
 
-- `LIVE.md` 的实时客户端是连接真实 Operit 的 Web 客户端初版，它持续接收当前界面，把点击、滚动、输入及受支持的设计修改交回真实 Flutter 或插件渲染器，它需要同一台电脑上的 debug Operit，当前还不能作为一份自包含的完整软件交给设计同学。`tools/figma/LIVE.md:3`
+- LIVE.md 的实时客户端是连接真实 Operit 的 Web 客户端初版，它持续接收当前界面，把点击、滚动、输入及受支持的设计修改交回真实 Flutter 或插件渲染器，它需要同一台电脑上的 debug Operit，当前还不能作为一份自包含的完整软件交给设计同学。`tools/figma/LIVE.md:3`
 - 实时客户端启动先在 VS Code 中选择 `Operit2: Figma design`，或用 flutter run -d macos 并加 `--dart-define=OPERIT_DESIGN_BRIDGE=true` 与 `--vmservice-out-file`。`tools/figma/LIVE.md:12`
 - 实时客户端启动随后执行 `npm --prefix tools/figma run build:live`，再执行 `node tools/figma/live.mjs --vm-service-file /tmp/operit-design-vm.txt`。`tools/figma/LIVE.md:19`
 - 实时连接服务仅监听 `127.0.0.1`，请求使用 Authorization 头，地址中的口令保留在 URL 片段中，客户端连接成功后清除地址栏片段，请勿把完整连接地址提交到仓库、上传到 Figma 代码文件或公开分享。`tools/figma/LIVE.md:23`

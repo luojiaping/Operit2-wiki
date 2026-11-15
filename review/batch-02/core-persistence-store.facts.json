@@ -730,5 +730,9 @@
   {
     "fact": "COMPACT_TOPOLOGY_V1 的值是 topologyV1。",
     "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:127"
+  },
+  {
+    "fact": "SqliteStore 的 addInvalidationObserver 把实时 store 传给失效回调，回调不必持有自己的 store。",
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:143"
   }
 ]

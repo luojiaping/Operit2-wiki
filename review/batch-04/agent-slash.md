@@ -24,11 +24,11 @@ commands.rs 只定义补全表与补全逻辑，不含执行分发（apps/cli/sr
 - `handle_shell_command_with_core` — 交互式 shell 的命令分发器（apps/cli/src/chat_runtime.rs:517）。
 - `split_shell_command_line` — shell 输入切分器（apps/cli/src/chat_runtime.rs:643）。
 - `parse_shell_args` — shell 启动参数解析器，含 --resume（apps/cli/src/chat_runtime.rs:321）。
-- `read_cli_plugin_commands` — 向 Core 取插件命令目录（apps/cli/src/cli/mod.rs:1844）。
-- `CLI_COMMANDS` — 31 个固有 CLI 命令族（apps/cli/src/cli/mod.rs:1794）。
-- `run_cli_root_inner` — CLI 总分发器（apps/cli/src/cli/mod.rs:116）。
+- `read_cli_plugin_commands` — 向 Core 取插件命令目录（apps/cli/src/cli/mod.rs:1859）。
+- `CLI_COMMANDS` — 31 个固有 CLI 命令族（apps/cli/src/cli/mod.rs:1809）。
+- `run_cli_root_inner` — CLI 总分发器（apps/cli/src/cli/mod.rs:118）。
 - 主入口（shell）：`run_shell_command_with_core`（apps/cli/src/chat_runtime.rs:393）。
-- 主入口（CLI）：`run_cli_root_inner`（apps/cli/src/cli/mod.rs:116）。
+- 主入口（CLI）：`run_cli_root_inner`（apps/cli/src/cli/mod.rs:118）。
 - 数据流向（补全）：TUI 输入 → `matching_command_specs` 筛候选（apps/cli/src/tui/input/commands.rs:656）。
 - 数据流向（shell）：输入 → `split_shell_command_line` 切分 → `handle_shell_command_with_core` 分发（apps/cli/src/chat_runtime.rs:522）。
 
@@ -61,8 +61,8 @@ commands.rs 只定义补全表与补全逻辑，不含执行分发（apps/cli/sr
 `TuiPluginCommandSpec` 是 Core 返回的插件 slash 命令，有 name、usage、description 三个字段（apps/cli/src/tui/input/commands.rs:17）。
 `expand_plugin_command` 把 /name <a|b c|d> 形 usage 展开为每备选一条建议（apps/cli/src/tui/input/commands.rs:558）。
 备选必须以字面词开头，`<value>` 开头的 usage 不展开（apps/cli/src/tui/input/commands.rs:587）。
-插件命令的唯一来源是 Core：CLI 调 `plugin` `commands` `--json` 取目录（apps/cli/src/cli/mod.rs:1848），用户写文件定义 slash 命令的加载机制在 seed 内不存在。
-插件命令名与 `CLI_COMMANDS` 冲突时 CLI 报错拒绝启动（apps/cli/src/cli/mod.rs:1855）。
+插件命令的唯一来源是 Core：CLI 调 `plugin` `commands` `--json` 取目录（apps/cli/src/cli/mod.rs:1863），用户写文件定义 slash 命令的加载机制在 seed 内不存在。
+插件命令名与 `CLI_COMMANDS` 冲突时 CLI 报错拒绝启动（apps/cli/src/cli/mod.rs:1869）。
 三份 seed 内没有用户自定义 slash 命令的文件加载入口：custom 一词在三份文件里零命中，commands.rs 无文件读取调用；插件命令的唯一来源是 Core 返回的 `TuiPluginCommandSpec`（apps/cli/src/tui/input/commands.rs:17）。
 交互式 shell 的提示符由 `short_chat_label` 取 chat-id 前 8 个字符拼成（apps/cli/src/chat_runtime.rs:402）。
 空行跳过，以斜杠开头的输入进 `handle_shell_command_with_core`（apps/cli/src/chat_runtime.rs:416）。
@@ -90,19 +90,20 @@ updatedAt 相同时用 `displayOrder` 二次比较（apps/cli/src/chat_runtime.r
 启动 --resume 与 shell 内 /resume 的差别：启动时取全部历史的最新者，shell 内排除当前聊天（apps/cli/src/chat_runtime.rs:450）。
 parse_shell_args 拒绝重复的 `--resume`（apps/cli/src/chat_runtime.rs:333）。
 parse_shell_args 拒绝 --chat 与 --resume 同用，也拒绝 --resume 与 --source 或 --input 同用（apps/cli/src/chat_runtime.rs:365）。
-CLI 调用先处理 `help`、-h、--help，再按首词分发（apps/cli/src/cli/mod.rs:122）。
-`version` 只打印本地版本，不建 Core（apps/cli/src/cli/mod.rs:129）。
-`link`、`identity`、`web` 在建 Core 前本地分发（apps/cli/src/cli/mod.rs:138）。
-`install` 与 `uninstall` 在建 Core 前本地分发（apps/cli/src/cli/mod.rs:146）。
-`daemon` 命令在建 Core 前先试 `try_run_cli_command`（apps/cli/src/cli/mod.rs:155）。
-chat shell 路由到 `run_chat_shell_command_with_core`（apps/cli/src/cli/mod.rs:175）。
-`shell` 路由到 `run_shell_command`（apps/cli/src/cli/mod.rs:182）。
-每次建 Core 后先调 `read_cli_plugin_commands` 取插件命令目录（apps/cli/src/cli/mod.rs:159）。
-名命中插件命令目录的 CLI 命令转发给 `run_core_command_and_print`（apps/cli/src/cli/mod.rs:193）。
-未知 CLI 命令报错 Unknown command（apps/cli/src/cli/mod.rs:196）。
-`CLI_COMMANDS` 列 31 个固有命令族（apps/cli/src/cli/mod.rs:1794）。
-cli_usage_lines 先列固有命令族，再追加插件命令（apps/cli/src/cli/mod.rs:1875）。
-run_core_command_and_print 在 --json 模式下给 Core 命令追加 `--json` 参数（apps/cli/src/cli/mod.rs:1448）。
+CLI 调用先处理 `help`、-h、--help，再按首词分发（apps/cli/src/cli/mod.rs:124）。
+`version` 只打印本地版本，不建 Core（apps/cli/src/cli/mod.rs:131）。
+`link`、`identity`、`web` 在建 Core 前本地分发（apps/cli/src/cli/mod.rs:136、apps/cli/src/cli/mod.rs:145）。
+`install` 与 `uninstall` 在建 Core 前本地分发（apps/cli/src/cli/mod.rs:153）。
+`daemon` 命令在建 Core 前先试 `try_run_cli_command`（apps/cli/src/cli/mod.rs:162）。
+chat shell 路由到 `run_chat_shell_command_with_core`（apps/cli/src/cli/mod.rs:182）。
+`shell` 路由到 `run_shell_command`（apps/cli/src/cli/mod.rs:189）。
+每次建 Core 后先调 `read_cli_plugin_commands` 取插件命令目录（apps/cli/src/cli/mod.rs:166）。
+名命中插件命令目录的 CLI 命令转发给 `run_core_command_and_print`（apps/cli/src/cli/mod.rs:200）。
+未知 CLI 命令报错 Unknown command（apps/cli/src/cli/mod.rs:203）。
+`CLI_COMMANDS` 列 31 个固有命令族（apps/cli/src/cli/mod.rs:1809）。
+cli_usage_lines 先列固有命令族，再追加插件命令（apps/cli/src/cli/mod.rs:1877）。
+run_core_command_and_print 在 --json 模式下给 Core 命令追加 `--json` 参数（apps/cli/src/cli/mod.rs:1463）。
+run_core_command_and_print 与 run_local_core_command_and_print 先经 `cli_core_command_args` 在命令前加 `--cwd` 与当前目录（apps/cli/src/cli/mod.rs:1450）。
 CLI 命令的完整分发见 [[core-command|命令层——CLI 命令编排]]。
 
 ## 关键符号
@@ -122,11 +123,11 @@ CLI 命令的完整分发见 [[core-command|命令层——CLI 命令编排]]。
 - `latest_chat_id_with_core` — 取 updatedAt 最大的聊天 id（apps/cli/src/chat_runtime.rs:475）。
 - `send_chat_message_with_core_result` — 经 Core 命令 chat send 发消息（apps/cli/src/chat_runtime.rs:722）。
 - `print_shell_usage` — 打印 shell 的 12 行命令表（apps/cli/src/chat_runtime.rs:690）。
-- `run_cli_root_inner` — CLI 总分发器（apps/cli/src/cli/mod.rs:116）。
-- `CLI_COMMANDS` — 31 个固有 CLI 命令族（apps/cli/src/cli/mod.rs:1794）。
-- `read_cli_plugin_commands` — 向 Core 取插件命令目录（apps/cli/src/cli/mod.rs:1844）。
-- `run_core_command_and_print` — 转发命令给 Core 并打印输出（apps/cli/src/cli/mod.rs:1442）。
-- `print_root_usage` — 打印 operit2 顶层用法（apps/cli/src/cli/mod.rs:1774）。
+- `run_cli_root_inner` — CLI 总分发器（apps/cli/src/cli/mod.rs:118）。
+- `CLI_COMMANDS` — 31 个固有 CLI 命令族（apps/cli/src/cli/mod.rs:1809）。
+- `read_cli_plugin_commands` — 向 Core 取插件命令目录（apps/cli/src/cli/mod.rs:1859）。
+- `run_core_command_and_print` — 转发命令给 Core 并打印输出（apps/cli/src/cli/mod.rs:1457）。
+- `print_root_usage` — 打印 operit2 顶层用法（apps/cli/src/cli/mod.rs:1789）。
 
 ## 调用链
 
@@ -138,13 +139,13 @@ CLI 命令的完整分发见 [[core-command|命令层——CLI 命令编排]]。
 6. /resume 在除当前聊天外的历史里取 `max_by` 选出的最新聊天（apps/cli/src/chat_runtime.rs:569）。
 7. 选中后调 `switchChat` 切换并打印 Chat: {id}（apps/cli/src/chat_runtime.rs:586）。
 8. 消息经 `send_chat_message_with_core_result` 走 Core 命令 chat send --json（apps/cli/src/chat_runtime.rs:722）。
-9. CLI 调用先处理 `help`、-h、--help，再按首词分发（apps/cli/src/cli/mod.rs:122）。
-10. 插件命令先由 `read_cli_plugin_commands` 取目录，名命中后转发给 Core（apps/cli/src/cli/mod.rs:159）。
+9. CLI 调用先处理 `help`、-h、--help，再按首词分发（apps/cli/src/cli/mod.rs:124）。
+10. 插件命令先由 `read_cli_plugin_commands` 取目录，名命中后转发给 Core（apps/cli/src/cli/mod.rs:166）。
 
 ## 来源
 
 - apps/cli/src/tui/input/commands.rs（925 行，全文已读）
-- apps/cli/src/cli/mod.rs（2354 行，全文已读）
+- apps/cli/src/cli/mod.rs（2369 行，全文已读）
 - apps/cli/src/chat_runtime.rs（842 行，全文已读）
-- 基线 AAswordman/Operit2 @ 364d1d594；三份 seed 合计 4121 行，全部读完。
+- 基线 AAswordman/Operit2 @ ff5373fb6；三份 seed 合计 4136 行，全部读完。
 - 覆盖边界：TUI 收到回车后如何执行 /network、/model 等命令，分发路径不在三份 seed 内，本页不写；TUI 补全表与交互式 shell 分发器重合的命令词只有 help、exit、quit、new、switch、resume、attach、attachments、clear-attachments 共 9 个，chat、current、show、send 四词只存在于 shell 分发器。

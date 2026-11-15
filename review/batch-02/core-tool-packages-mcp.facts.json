@@ -37,155 +37,155 @@
   },
   {
     "fact": "SkillManager 在 device 与 space 两个位置扫描技能。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:58"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:64"
   },
   {
-    "fact": "同一技能名同时出现在两处位置时视为所有权冲突，从结果中移除并报错 Skill ownership conflict。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:70"
+    "fact": "同一技能名在另一 scope 已有属主记录时，该 scope 的扫描结果被跳过。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:78"
   },
   {
     "fact": "device 位置的技能会登记到 ExtensionStore，元数据 visible 为 true。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:81"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:85"
   },
   {
-    "fact": "登记记录的 scope 或 sourceName 与扫描结果不一致时，技能不予加载并报错 Skill content does not match its registered location。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:91"
+    "fact": "登记记录的 sourceName 与扫描结果不一致时，技能不予加载并报错 `Skill content does not match its registered location`。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:82"
   },
   {
-    "fact": "space 位置的技能只认 ExtensionStore 中 scope 为 space 的记录。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:123"
+    "fact": "扫描某位置时，属主记录的 scope 与该位置不一致的技能会被跳过。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:78"
   },
   {
     "fact": "space 位置磁盘上有目录但不在记录中的技能会被跳过。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:154"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:68"
   },
   {
     "fact": "技能文件优先取 SKILL.md，不存在时改用 skill.md。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:156"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:122"
   },
   {
     "fact": "两个文件都不存在时报错 Missing SKILL.md in {目录}。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:181"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:129"
   },
   {
     "fact": "SKILL.md 前置元数据中 name 为空时，用目录名作为技能名。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:188"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:132"
   },
   {
     "fact": "同名技能重复扫描时报错 Duplicate scanned skill name。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:204"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:94"
   },
   {
     "fact": "getAvailableSkills 返回 refreshAvailableSkills 扫描到的有效技能包集合。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:233"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:170"
   },
   {
     "fact": "getSkillLoadErrors 返回扫描过程的错误集合。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:247"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:184"
   },
   {
     "fact": "getBundledExternalSkillCandidates 列出已打包但尚未安装的外部技能。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:252"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:208"
   },
   {
-    "fact": "importBundledExternalSkill 导入已安装的技能时报错 Skill already exists in an installation location。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:305"
+    "fact": "importBundledExternalSkill 导入已安装的技能时就地更新：新版先写入暂存目录，旧版移入 previous 备份后再替换，并保留原有设置。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:296"
   },
   {
     "fact": "快速插件创建所用的内置技能名为 PackageBuilder。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:14"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:15"
   },
   {
     "fact": "ensureQuickPluginCreatorBundledSkill 在 PackageBuilder 技能不存在时导入它，已存在则直接返回。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:372"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:404"
   },
   {
     "fact": "readSkillContent 读取已安装技能的 SKILL.md 文件内容。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:387"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:419"
   },
   {
     "fact": "getSkillSystemPrompt 生成的提示词以 Using package (Skill): {技能名} 与 Use Time 开头，并写明执行策略与描述。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:405"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:437"
   },
   {
     "fact": "提示词包含 SKILL.md 路径与技能目录。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:414"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:446"
   },
   {
     "fact": "提示词包含技能目录的目录树与 SKILL.md 全文。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:422"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:453"
   },
   {
     "fact": "deleteSkill 删除 ExtensionStore 中的 skill 记录，返回删除是否成功。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:439"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:471"
   },
   {
     "fact": "导入技能压缩包时先解压到 .import_tmp_{毫秒时间戳} 临时目录。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:457"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:489"
   },
   {
     "fact": "导入完成后删除临时目录。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:473"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:505"
   },
   {
     "fact": "导入时压缩包内只有一个子目录，则以它为搜索根。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:495"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:527"
   },
   {
     "fact": "导入时可指定压缩包内的子目录作为搜索起点。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:500"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:532"
   },
   {
     "fact": "safeChildPath 只接受 Normal 路径组件，其他组件报错 Invalid import path。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:845"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:887"
   },
   {
-    "fact": "导入时先找搜索根下的直接 SKILL.md，找不到则递归查找最多 10 个。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:512"
+    "fact": "导入时先找搜索根下的直接 SKILL.md，找不到则递归查找整个子树。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:857"
   },
   {
     "fact": "递归查找不到 SKILL.md 时，导入报错 No SKILL.md found in the imported zip。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:520"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:549"
   },
   {
     "fact": "导入的技能名优先取 SKILL.md 元数据的 name。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:529"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:601"
   },
   {
     "fact": "导入命名都为空时用 skill 作为目录名。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:554"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:620"
   },
   {
     "fact": "导入目标已存在同名技能时报错 Skill already exists in an installation location。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:560"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:627"
   },
   {
     "fact": "解析技能元数据时先读开头的 --- frontmatter 块。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:613"
-  },
-  {
-    "fact": "frontmatter 中 name 或 description 缺失时，扫描文件前 40 行补齐。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:622"
-  },
-  {
-    "fact": "导入打包技能资产时，相对路径只接受 Normal 组件，否则报错 Invalid plugin type asset path。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:665"
-  },
-  {
-    "fact": "写入打包技能前，先清空技能目录的全部子项。",
     "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:684"
   },
   {
+    "fact": "frontmatter 中 name 或 description 缺失时，扫描文件前 40 行补齐。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:693"
+  },
+  {
+    "fact": "导入打包技能资产时，相对路径只接受 Normal 组件，否则报错 Invalid plugin type asset path。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:736"
+  },
+  {
+    "fact": "写入打包技能前，先把旧技能目录移入 previous 备份，再把准备好的新目录移入原位。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:341"
+  },
+  {
     "fact": "目录树文本按目录在前、文件在后排序，同类按名称不区分大小写排序。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:713"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:767"
   },
   {
     "fact": "解压 zip 时拒绝 enclosed_name 为空的条目，报错 Zip entry is outside target dir。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:750"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:804"
   },
   {
     "fact": "技能根目录取自 paths.skills_dir()。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:587"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:658"
   },
   {
     "fact": "MCPManager 是进程内全局单例，INSTANCE 为 OnceLock。",
@@ -349,7 +349,7 @@
   },
   {
     "fact": "invokeAndStreamAsync 在调用前解析图片保存目标。",
-    "ref": "core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:474"
+    "ref": "core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:475"
   },
   {
     "fact": "ToolPkg IPC 分发函数名为 __operit_toolpkg_runtime_dispatch__。",
@@ -381,7 +381,7 @@
   },
   {
     "fact": "materializeToolPkgResource 把 ToolPkg 资源物化为文件，返回 /operitapp/data 下的 VFS 路径。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:180"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:176"
   },
   {
     "fact": "资源输出文件名取请求指定值，否则取包声明值，并只保留 basename。",
@@ -389,99 +389,99 @@
   },
   {
     "fact": "有容器运行时直接从容器复制资源，否则解析子包运行时复制。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:148"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:145"
   },
   {
     "fact": "三种路径都找不到目标时报错 ToolPkg resource target not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:158"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:155"
   },
   {
     "fact": "resolveJsToolName 中工具名已含冒号时原样返回。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:187"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:184"
   },
   {
     "fact": "按 package_name 解析时包不存在报错 Package not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:201"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:198"
   },
   {
     "fact": "package_name 与 subpackage_id 同时给出时报错。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:213"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:210"
   },
   {
     "fact": "按 subpackage_id 解析时找首选包名，找不到报错 ToolPkg subpackage not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:206"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:203"
   },
   {
     "fact": "ToolPkg IPC 计时只在 OPERIT_PROFILE_COMPOSE_STAGES 环境变量存在时启用。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:250"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:247"
   },
   {
     "fact": "未给目标上下文键且运行时为 main 时，默认上下文键为 toolpkg_main:{目标}。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:307"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:304"
   },
   {
     "fact": "请求的运行时与上下文键推断的运行时不一致时报错。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:324"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:321"
   },
   {
     "fact": "main 目标的上下文键必须等于 toolpkg_main:{目标}。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:331"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:328"
   },
   {
     "fact": "依赖调用要求被调用的提供方目标为 main 运行时，且提供方包不同于调用方包。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:348"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:345"
   },
   {
     "fact": "IPC 目标的 ToolPkg 容器不存在时报错 ToolPkg container not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:343"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:340"
   },
   {
     "fact": "IPC 目标包被禁用时报错 ToolPkg package is disabled。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:350"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:347"
   },
   {
     "fact": "非 main 目标取不到已激活的执行引擎时报错 ToolPkg runtime is not active。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:388"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:385"
   },
   {
     "fact": "执行前校验引擎仍是当前引擎，否则报错执行上下文已被释放或替换。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:402"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:399"
   },
   {
     "fact": "依赖调用要求调用方与提供方都启用。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:507"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:504"
   },
   {
     "fact": "调用方必须在 requires 中声明对提供方的依赖。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:515"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:512"
   },
   {
     "fact": "提供方版本必须落在调用方声明的 minVersion 与 maxVersion 范围内，否则报错 Dependency version mismatch。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:527"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:524"
   },
   {
     "fact": "提供方必须发布 public_api，否则报错。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:538"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:535"
   },
   {
     "fact": "依赖方法必须在提供方的 publicApis 中，否则报错 Public API not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:547"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:544"
   },
   {
     "fact": "上下文键 toolpkg_main: 前缀对应 main 运行时，toolpkg_provider: 对应 provider 运行时。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:554"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:551"
   },
   {
     "fact": "上下文键 toolpkg_compose:、toolpkg_compose_dsl: 与 toolpkg_xml_render: 前缀对应 ui 运行时，toolpkg_sandbox: 对应 sandbox 运行时。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:561"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:558"
   },
   {
     "fact": "requiredText 要求非空字符串。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:578"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:575"
   },
   {
     "fact": "指定子目录导入时找不到 SKILL.md，报错 No SKILL.md found in the selected import path。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:518"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:547"
   },
   {
     "fact": "MCPManager 使用 mcp_runtime::plugins 的 MCPBridgeClient 与 MCP 服务器通信。",
@@ -489,18 +489,18 @@
   },
   {
     "fact": "依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 main。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2068"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2071"
   },
   {
     "fact": "`package_name` 参数指定要激活的包。",
-    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:83"
+    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:84"
   },
   {
     "fact": "命中技能时，激活返回 `getSkillSystemPrompt` 生成的指令提示词。",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:971"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1021"
   },
   {
     "fact": "激活经 `usePackage` 执行。",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1034"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1084"
   }
 ]

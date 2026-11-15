@@ -2,7 +2,7 @@
 title: Apple Host（macOS 与 iOS 共享实现）
 module: hosts
 platforms: [macos, ios]
-sources: [hosts/apple/Cargo.toml, hosts/apple/src/lib.rs, hosts/apple/src/tools/fs/mod.rs, hosts/apple/src/tools/terminal/mod.rs, hosts/apple/src/tools/terminal/terminal_macos.rs, hosts/apple/src/tools/browser/mod.rs, hosts/apple/src/tools/runtime/mod.rs, hosts/apple/src/tools/storage/mod.rs, hosts/apple/src/tools/system/mod.rs, hosts/apple/src/tools/system/battery.rs, hosts/apple/src/tools/system/packages.rs, hosts/apple/src/tools/local_inference/mod.rs, hosts/apple/src/tools/tts/mod.rs, hosts/apple/src/tools/http/mod.rs, hosts/apple/src/tools/audio/mod.rs, hosts/apple/src/tools/bluetooth/mod.rs, hosts/apple/src/sandbox.rs, hosts/apple/src/service_discovery.rs, hosts/macos/src/lib.rs]
+sources: [hosts/apple/Cargo.toml, hosts/apple/src/lib.rs, hosts/apple/src/tools/fs/mod.rs, hosts/apple/src/tools/terminal/mod.rs, hosts/apple/src/tools/terminal/terminal_macos.rs, hosts/apple/src/tools/browser/mod.rs, hosts/apple/src/tools/runtime/mod.rs, hosts/apple/src/tools/storage/mod.rs, hosts/apple/src/tools/system/mod.rs, hosts/apple/src/tools/system/battery.rs, hosts/apple/src/tools/system/packages.rs, hosts/apple/src/tools/local_inference/mod.rs, hosts/apple/src/tools/tts/mod.rs, hosts/apple/src/tools/http/mod.rs, hosts/apple/src/tools/audio/mod.rs, hosts/apple/src/tools/bluetooth/mod.rs, hosts/apple/src/sandbox.rs, hosts/apple/src/service_discovery.rs, hosts/macos/src/lib.rs, hosts/common/managed_runtime_process.rs]
 date: 2026-11-11
 ---
 
@@ -14,7 +14,7 @@ Apple Host 的 crate 名为 `operit-host-apple-native`（`hosts/apple/Cargo.toml
 浏览器 Host 只在 macOS 下导出（`hosts/apple/src/lib.rs:23`）。
 托管运行时 Host 只在 macOS 下导出（`hosts/apple/src/lib.rs:29`）。
 沙盒状态由 `processIsolation` 在运行时判定，决定文件与终端的可用范围（`hosts/apple/src/sandbox.rs:6`）。
-macOS 壳把 Apple Host 重命名为 Macos* 导出，并以 `createRuntimeHostManager` 组装运行时 Host 管理器（`hosts/macos/src/lib.rs:45`）。
+macOS 壳把 Apple Host 重命名为 Macos* 导出，并以 `createRuntimeHostManager` 组装运行时 Host 管理器（`hosts/macos/src/lib.rs:48`）。
 iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[host-ios|iOS Host 与 ARM64 Linux 运行时]]（`hosts/apple/src/tools/terminal/mod.rs:43`）。
 
 ## AI 速览
@@ -34,7 +34,7 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - `AppleTtsPlaybackHost` — TTS 播放 Host（`hosts/apple/src/tools/tts/mod.rs:25`）。
 - `AppleLocalInferenceHost` — 本地推理 Host（`hosts/apple/src/tools/local_inference/mod.rs:20`）。
 - `AppleServiceDiscoveryHost` — Bonjour 服务发现 Host（`hosts/apple/src/service_discovery.rs:136`）。
-- 主入口：`createRuntimeHostManager`（`hosts/macos/src/lib.rs:43`）。
+- 主入口：`createRuntimeHostManager`（`hosts/macos/src/lib.rs:46`）。
 - 数据流向：Core 调 `HostManager` 注册的 Host → Host 调系统命令、系统框架或应用方回调 → 结果返回 Core（`hosts/macos/src/lib.rs:55`）。
 
 ## 核心机制
@@ -47,7 +47,7 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - 托管运行时 Host 只在 macOS 下导出（`hosts/apple/src/lib.rs:29`）。
 - `chromium_browser` 模块只在 macOS 下编译（`hosts/apple/src/lib.rs:5`）。
 - 开启 `arm64-runtime` 特性且目标为 macOS aarch64 时，lib.rs 把 iOS 的桥接模块引入复用（`hosts/apple/src/lib.rs:43`）。
-- macOS 壳把 `AppleFileSystemHost` 重命名为 `MacosFileSystemHost` 导出（`hosts/macos/src/lib.rs:20`）。
+- macOS 壳把 `AppleFileSystemHost` 重命名为 `MacosFileSystemHost` 导出（`hosts/macos/src/lib.rs:23`）。
 
 ### 沙盒判定与文件能力
 
@@ -121,14 +121,15 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - `getAppUsageTime` 要求 `sinceHours` 与 `limit` 大于 0（`hosts/apple/src/tools/system/mod.rs:299`）。
 - macOS 上查询应用使用时长报错，称历史前台用量不暴露，Screen Time 需单独授权的集成（`hosts/apple/src/tools/system/mod.rs:310`）。
 - 两个 Apple 平台上查询设备定位都报错，要求由 Flutter 方 UI 请求定位（`hosts/apple/src/tools/system/mod.rs:337`）。
-- 设备名作 `deviceId`，制造商固定为 Apple（`hosts/apple/src/tools/system/mod.rs:467`）。
-- macOS 上以 uname -m 取机型、以 `sw_vers` 取系统版本（`hosts/apple/src/tools/system/mod.rs:448`）。
-- iOS 上机型固定为 `ios`、系统版本为空（`hosts/apple/src/tools/system/mod.rs:454`）。
-- macOS 上用 screencapture -x 截图到临时路径（`hosts/apple/src/tools/system/mod.rs:349`）。
-- iOS 上截图报错，要求由 Flutter 方 UI 请求截图（`hosts/apple/src/tools/system/mod.rs:366`）。
-- macOS 上生成 Swift 脚本调用 Vision 的 `VNRecognizeTextRequest` 做 OCR（`hosts/apple/src/tools/system/mod.rs:398`）。
-- 语言映射为 Latin 对 `en-US`、Chinese 对 `zh-Hans`、Japanese 对 `ja-JP`、Korean 对 `ko-KR`（`hosts/apple/src/tools/system/mod.rs:388`）。
-- iOS 上 OCR 报错，要求由 Flutter 方 UI 请求（`hosts/apple/src/tools/system/mod.rs:431`）。
+- 设备名作 `deviceId`，制造商固定为 Apple（`hosts/apple/src/tools/system/mod.rs:476`）。
+- macOS 上以 uname -m 取机型、以 `sw_vers` 取系统版本（`hosts/apple/src/tools/system/mod.rs:457`）。
+- iOS 上机型固定为 `ios`、系统版本为空（`hosts/apple/src/tools/system/mod.rs:463`）。
+- macOS 上用 screencapture -x 截图到临时路径（`hosts/apple/src/tools/system/mod.rs:358`）。
+- `captureScreenshotTo` 把截图字节写入 `FileTarget` 并删除原生暂存文件（`hosts/apple/src/tools/system/mod.rs:346`）。
+- iOS 上截图报错，要求由 Flutter 方 UI 请求截图（`hosts/apple/src/tools/system/mod.rs:375`）。
+- macOS 上生成 Swift 脚本调用 Vision 的 `VNRecognizeTextRequest` 做 OCR（`hosts/apple/src/tools/system/mod.rs:407`）。
+- 语言映射为 Latin 对 `en-US`、Chinese 对 `zh-Hans`、Japanese 对 `ja-JP`、Korean 对 `ko-KR`（`hosts/apple/src/tools/system/mod.rs:397`）。
+- iOS 上 OCR 报错，要求由 Flutter 方 UI 请求（`hosts/apple/src/tools/system/mod.rs:440`）。
 
 ### 电池与应用包管理（macOS）
 
@@ -155,18 +156,19 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 
 ### 托管运行时（macOS 专属）
 
-- 托管运行时 stdio 缓冲区常量 `MANAGED_RUNTIME_STDIO_BUFFER_BYTES` 为 64KB（`hosts/apple/src/tools/runtime/mod.rs:16`）。
-- 托管运行时单帧下限常量 `MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES` 为 4KB（`hosts/apple/src/tools/runtime/mod.rs:17`）。
-- openPath 的 `Reveal` 动作调用 open -R（`hosts/apple/src/tools/runtime/mod.rs:118`）。
-- openPath 的 `Terminal` 动作调用 open -a Terminal 打开目标所在目录（`hosts/apple/src/tools/runtime/mod.rs:124`）。
-- `runtimeWorkspaceDir` 为 Library/Application Support 下的 Operit2/managed_runtime，并自动建目录（`hosts/apple/src/tools/runtime/mod.rs:141`）。
-- Node 解析为 `node`，Python 解析为 `python3` 与 `python`（`hosts/apple/src/tools/runtime/mod.rs:160`）。
-- Uv 解析为 `uv`，Pnpm 解析为 `pnpm`（`hosts/apple/src/tools/runtime/mod.rs:162`）。
-- 子进程 `stdin`、`stdout` 与 `stderr` 全部接成管道（`hosts/apple/src/tools/runtime/mod.rs:189`）。
-- 托管运行时 `stderr` 缓冲超过 400 行时丢弃最旧行（`hosts/apple/src/tools/runtime/mod.rs:222`）。
-- 托管运行时 stdout 与 stderr 读取任务以 `managed-runtime-pipes` 为名提交给 `NativeHostRuntimeTaskSchedulerHost`（`hosts/apple/src/tools/runtime/mod.rs:229`）。
-- 一次性执行命令并返回 `exitCode`、`stdout` 与 `stderr`（`hosts/apple/src/tools/runtime/mod.rs:258`）。
-- 小于 4KB 的协议行直接写并换行，达到 4KB 的行拼成一帧写入（`hosts/apple/src/tools/runtime/mod.rs:269`）。
+- 托管运行时进程实现由 hosts/common 的共享模块 `managed_runtime_process` 提供，Apple 侧只保留 Host 外壳与可执行文件解析（`hosts/apple/src/tools/runtime/mod.rs:10`）。
+
+- 托管运行时 stdio 缓冲区常量 `MANAGED_RUNTIME_STDIO_BUFFER_BYTES` 为 64KB（`hosts/common/managed_runtime_process.rs:18`）。
+- openPath 的 `Reveal` 动作调用 open -R（`hosts/apple/src/tools/runtime/mod.rs:39`）。
+- openPath 的 `Terminal` 动作调用 open -a Terminal 打开目标所在目录（`hosts/apple/src/tools/runtime/mod.rs:45`）。
+- `runtimeWorkspaceDir` 为 Library/Application Support 下的 Operit2/managed_runtime，并自动建目录（`hosts/apple/src/tools/runtime/mod.rs:67`）。
+- Node 解析为 `node`，Python 解析为 `python3` 与 `python`（`hosts/apple/src/tools/runtime/mod.rs:86`）。
+- Uv 解析为 `uv`，Pnpm 解析为 `pnpm`（`hosts/apple/src/tools/runtime/mod.rs:88`）。
+- 子进程 `stdin`、`stdout` 与 `stderr` 全部接成管道（`hosts/apple/src/tools/runtime/mod.rs:110`）。
+- 托管运行时 `stderr` 缓冲超过 400 行时丢弃最旧行（`hosts/common/managed_runtime_process.rs:57`）。
+- 托管运行时 stdout 与 stderr 读取任务以 `managed-runtime-pipes` 为名提交给 NativeHostRuntimeTaskSchedulerHost（`hosts/common/managed_runtime_process.rs:65`）。
+- 一次性执行命令并返回 `exitCode`、`stdout` 与 `stderr`（`hosts/common/managed_runtime_process.rs:69`）。
+- 协议行由共享模块的 `writeFrames` 拼成一帧写入 stdin 并刷出（`hosts/common/managed_runtime_process.rs:78`）。
 
 ### 存储与 Keychain
 
@@ -232,10 +234,11 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - BLE 读通知发 `ble_read_notifications` 命令（`hosts/apple/src/tools/bluetooth/mod.rs:183`）。
 - `AppleTtsSynthesisHost` 的 `synthesizer` 字段是应用方提供的合成回调（`hosts/apple/src/tools/tts/mod.rs:20`）。
 - `AppleTtsPlaybackHost` 的 `controller` 字段是应用方提供的播放控制回调（`hosts/apple/src/tools/tts/mod.rs:25`）。
-- `supportsSystemSpeech` 固定返回 `true`（`hosts/apple/src/tools/tts/mod.rs:67`）。
-- 播放与朗读分别映射为 `play` 与 `speak` 命令（`hosts/apple/src/tools/tts/mod.rs:74`）。
-- 暂停与恢复分别映射为 `pause` 与 `resume` 命令（`hosts/apple/src/tools/tts/mod.rs:82`）。
-- 停止与查询状态分别映射为 `stop` 与 `status` 命令（`hosts/apple/src/tools/tts/mod.rs:92`）。
+- `supportsSystemSpeech` 固定返回 `true`（`hosts/apple/src/tools/tts/mod.rs:75`）。
+- `synthesizeSpeechBytes` 合成语音后返回字节并删除临时音频文件（`hosts/apple/src/tools/tts/mod.rs:59`）。
+- 播放与朗读分别映射为 `play` 与 `speak` 命令（`hosts/apple/src/tools/tts/mod.rs:82`）。
+- 暂停与恢复分别映射为 `pause` 与 `resume` 命令（`hosts/apple/src/tools/tts/mod.rs:90`）。
+- 停止与查询状态分别映射为 `stop` 与 `status` 命令（`hosts/apple/src/tools/tts/mod.rs:100`）。
 - `AppleLocalInferenceHost` 把推理交给 `AppleLocalInferenceExecutor` 回调执行（`hosts/apple/src/tools/local_inference/mod.rs:15`）。
 - `transcribeLocalSpeech` 以方法名 `transcribeLocalSpeech` 调用执行器（`hosts/apple/src/tools/local_inference/mod.rs:37`）。
 - `synthesizeLocalSpeech` 以方法名 `synthesizeLocalSpeech` 调用执行器（`hosts/apple/src/tools/local_inference/mod.rs:44`）。
@@ -243,6 +246,7 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - `AppleHttpHost` 内部持有 `NativeHttpHost`（`hosts/apple/src/tools/http/mod.rs:15`）。
 - `imageDelivery` 委托给 `inner`（`hosts/apple/src/tools/http/mod.rs:62`）。
 - `executeHttpRequest` 委托给 `inner`（`hosts/apple/src/tools/http/mod.rs:68`）。
+- `downloadToFile` 的下载目标改为 `FileTarget` 能力（`hosts/apple/src/tools/http/mod.rs:73`）。
 - `openHttpResponseStream` 委托给 `inner`（`hosts/apple/src/tools/http/mod.rs:27`）。
 - `openWebSocket` 委托给 `inner`（`hosts/apple/src/tools/http/mod.rs:104`）。
 
@@ -266,19 +270,21 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - `AppleTtsPlaybackCommand` — TTS 播放命令，含命令名、音频路径与播放请求（`hosts/apple/src/tools/tts/mod.rs:13`）。
 - `AppleServiceDiscoveryHost` — Bonjour 服务发现 Host（`hosts/apple/src/service_discovery.rs:136`）。
 - `AppleFileOpener` — 打开单个文件的回调函数类型（`hosts/apple/src/tools/fs/mod.rs:22`）。
-- `createRuntimeHostManager` — macOS 的运行时 Host 管理器组装入口（`hosts/macos/src/lib.rs:43`）。
+- `createRuntimeHostManager` — macOS 的运行时 Host 管理器组装入口（`hosts/macos/src/lib.rs:46`）。
 - `processIsolation` — 进程沙盒状态判定（`hosts/apple/src/sandbox.rs:6`）。
 
 ## 调用链
 
 ### macOS 运行时 Host 管理器组装
 
-1. 调用方传入 `runtimeRoot`、`workspaceRoot` 与外部的 `webVisitHost`，调用 `createRuntimeHostManager`（`hosts/macos/src/lib.rs:45`）。
-2. 以 `MacosRuntimeStorageHost::new(runtimeRoot, workspaceRoot)` 创建运行时存储 Host（`hosts/macos/src/lib.rs:51`）。
-3. 同一个存储实例被 `clone` 为存储写入、SQLite 存储与密钥库 Host（`hosts/macos/src/lib.rs:53`）。
-4. `withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts` 一次注册文件系统、网页访问、HTTP、系统操作、托管运行时、运行时存储与 SQLite 存储（`hosts/macos/src/lib.rs:58`）。
-5. 链式注册密钥库、WebSocket、HTTP 服务器、TCP 与串口 Host（`hosts/macos/src/lib.rs:65`）。
-6. 链式注册归档暂存、存储写入、运行时事件、事件调度器、JS 运行时、服务发现、任务调度器与插件 SDK IPC Host（`hosts/macos/src/lib.rs:72`）。
+1. 调用方传入 `runtimeRoot`、`workspaceRoot` 与外部的 `webVisitHost`，调用 `createRuntimeHostManager`（`hosts/macos/src/lib.rs:48`）。
+2. 以 `MacosRuntimeStorageHost::new(runtimeRoot, workspaceRoot)` 创建运行时存储 Host（`hosts/macos/src/lib.rs:54`）。
+3. 同一个存储实例被 `clone` 为存储写入、SQLite 存储与密钥库 Host（`hosts/macos/src/lib.rs:56`）。
+4. `withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts` 一次注册文件系统、网页访问、HTTP、系统操作、托管运行时、运行时存储与 SQLite 存储（`hosts/macos/src/lib.rs:61`）。
+5. 链式注册 `NativeLocalInferenceHost` 作本地推理 Host（`hosts/macos/src/lib.rs:67`）。
+6. 链式注册 `ScriptUiAutomationHost` 作 UI 自动化 Host（`hosts/macos/src/lib.rs:68`）。
+7. 链式注册密钥库、WebSocket、HTTP 服务器、TCP 与串口 Host（`hosts/macos/src/lib.rs:72`）。
+8. 链式注册归档暂存、存储写入、运行时事件、事件调度器、JS 运行时、服务发现、任务调度器与插件 SDK IPC Host（`hosts/macos/src/lib.rs:79`）。
 
 ### 文件打开
 
@@ -329,3 +335,4 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - hosts/apple/src/sandbox.rs
 - hosts/apple/src/service_discovery.rs
 - hosts/macos/src/lib.rs
+- hosts/common/managed_runtime_process.rs

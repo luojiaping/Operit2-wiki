@@ -2,7 +2,7 @@
 title: Windows Host
 module: hosts
 platforms: [windows]
-sources: [hosts/windows/Cargo.toml, hosts/windows/src/lib.rs, hosts/windows/src/daemon.rs, hosts/windows/src/process.rs, hosts/windows/src/tools/terminal/mod.rs, hosts/windows/src/tools/fs/mod.rs, hosts/windows/src/tools/runtime/mod.rs, hosts/windows/src/tools/storage/mod.rs, hosts/windows/src/tools/system/mod.rs, hosts/windows/src/tools/system/application_update.rs, hosts/windows/src/tools/system/application_update.ps1, hosts/windows/src/tools/system/packages.rs, hosts/windows/src/tools/browser/mod.rs, hosts/windows/src/tools/http/mod.rs, hosts/windows/src/tools/audio/mod.rs, hosts/windows/src/tools/bluetooth/mod.rs, hosts/windows/src/tools/tts/mod.rs, hosts/windows/src/tools/mci.rs, hosts/windows/src/plugin_sdk_ipc.rs, hosts/windows/src/plugin_sdk_pipe.rs]
+sources: [hosts/windows/Cargo.toml, hosts/windows/src/lib.rs, hosts/windows/src/daemon.rs, hosts/windows/src/process.rs, hosts/windows/src/tools/terminal/mod.rs, hosts/windows/src/tools/fs/mod.rs, hosts/windows/src/tools/runtime/mod.rs, hosts/windows/src/tools/storage/mod.rs, hosts/windows/src/tools/system/mod.rs, hosts/windows/src/tools/system/application_update.rs, hosts/windows/src/tools/system/application_update.ps1, hosts/windows/src/tools/system/packages.rs, hosts/windows/src/tools/browser/mod.rs, hosts/windows/src/tools/http/mod.rs, hosts/windows/src/tools/audio/mod.rs, hosts/windows/src/tools/bluetooth/mod.rs, hosts/windows/src/tools/tts/mod.rs, hosts/windows/src/tools/mci.rs, hosts/windows/src/plugin_sdk_ipc.rs, hosts/windows/src/plugin_sdk_pipe.rs, hosts/windows/src/ui_automation.ps1, hosts/common/managed_runtime_process.rs]
 date: 2026-11-11
 ---
 
@@ -10,7 +10,7 @@ date: 2026-11-11
 
 Windows Host crate 名为 `operit-host-windows-native`（`hosts/windows/Cargo.toml:2`）。
 `operit-host-windows-native` 声明 `publish` 为 false，不对外发布（`hosts/windows/Cargo.toml:6`）。
-`createRuntimeHostManager` 组装 Windows 自有的运行时 `HostManager`（`hosts/windows/src/lib.rs:34`）。
+`createRuntimeHostManager` 组装 Windows 自有的运行时 `HostManager`（`hosts/windows/src/lib.rs:36`）。
 Windows Host 的终端默认 PowerShell（`hosts/windows/src/tools/terminal/mod.rs:31`）。
 Windows Bash 只解析随包提供的 bash/bin/bash.exe（`hosts/windows/src/tools/terminal/mod.rs:693`）。
 Windows Host 的 daemon 控制端点是命名管道，不使用文件系统 socket 探测（`hosts/windows/src/daemon.rs:29`）。
@@ -19,36 +19,42 @@ Windows Host 的 Plugin SDK IPC 走命名管道，管道路径由 `pipeName` 映
 
 ## AI 速览
 
-- `WindowsTerminalHost` — Windows PTY 终端 Host（`hosts/windows/src/lib.rs:30`）
-- `WindowsFileSystemHost` — Windows 文件系统 Host（`hosts/windows/src/lib.rs:25`）
-- `WindowsSystemOperationHost` — Windows 系统操作 Host（`hosts/windows/src/lib.rs:29`）
-- `WindowsManagedRuntimeHost` — Windows 托管运行时 Host（`hosts/windows/src/lib.rs:27`）
-- `WindowsRuntimeStorageHost` — Windows 运行时存储 Host（`hosts/windows/src/lib.rs:28`）
-- `WindowsHttpHost` — Windows HTTP Host（`hosts/windows/src/lib.rs:26`）
-- `WindowsAudioPlaybackHost` — Windows 音频播放 Host（`hosts/windows/src/lib.rs:22`）
-- `WindowsBluetoothHost` — Windows 蓝牙 Host（`hosts/windows/src/lib.rs:23`）
-- `WindowsTtsSynthesisHost` — Windows TTS 合成 Host（`hosts/windows/src/lib.rs:31`）
-- `WindowsTtsPlaybackHost` — Windows TTS 播放 Host（`hosts/windows/src/lib.rs:31`）
-- `WindowsPluginSdkIpcHost` — Windows Plugin SDK IPC Host（`hosts/windows/src/lib.rs:21`）
-- `WindowsWebVisitHost` — Windows 网页访问 Host（`hosts/windows/src/lib.rs:24`）
-- `WindowsBrowserAutomationHost` — Windows 浏览器自动化 Host（`hosts/windows/src/lib.rs:24`）
-- `WindowsHostRuntimeEventHost` — Windows 运行时事件 Host（`hosts/windows/src/lib.rs:17`）
-- 主入口是 `createRuntimeHostManager`，组装 Windows 自有的运行时 `HostManager`（`hosts/windows/src/lib.rs:34`）
-- 数据流向：运行时组合把 Windows 各 Host 注册进 `HostManager`（`hosts/windows/src/lib.rs:47`）
+- `WindowsTerminalHost` — Windows PTY 终端 Host（`hosts/windows/src/lib.rs:32`）
+- `WindowsFileSystemHost` — Windows 文件系统 Host（`hosts/windows/src/lib.rs:27`）
+- `WindowsSystemOperationHost` — Windows 系统操作 Host（`hosts/windows/src/lib.rs:31`）
+- `WindowsManagedRuntimeHost` — Windows 托管运行时 Host（`hosts/windows/src/lib.rs:29`）
+- `WindowsRuntimeStorageHost` — Windows 运行时存储 Host（`hosts/windows/src/lib.rs:30`）
+- `WindowsHttpHost` — Windows HTTP Host（`hosts/windows/src/lib.rs:28`）
+- `WindowsAudioPlaybackHost` — Windows 音频播放 Host（`hosts/windows/src/lib.rs:24`）
+- `WindowsBluetoothHost` — Windows 蓝牙 Host（`hosts/windows/src/lib.rs:25`）
+- `WindowsTtsSynthesisHost` — Windows TTS 合成 Host（`hosts/windows/src/lib.rs:33`）
+- `WindowsTtsPlaybackHost` — Windows TTS 播放 Host（`hosts/windows/src/lib.rs:33`）
+- `WindowsPluginSdkIpcHost` — Windows Plugin SDK IPC Host（`hosts/windows/src/lib.rs:23`）
+- `WindowsWebVisitHost` — Windows 网页访问 Host（`hosts/windows/src/lib.rs:26`）
+- `WindowsBrowserAutomationHost` — Windows 浏览器自动化 Host（`hosts/windows/src/lib.rs:26`）
+- `WindowsHostRuntimeEventHost` — Windows 运行时事件 Host（`hosts/windows/src/lib.rs:19`）
+- `NativeLocalInferenceHost` — Windows 本地推理 Host（`hosts/windows/src/lib.rs:57`）
+- `ScriptUiAutomationHost` — Windows UI 自动化 Host（`hosts/windows/src/lib.rs:58`）
+- `NativeLocalInferenceHost` — Windows 本地推理 Host（`hosts/windows/src/lib.rs:57`）
+- `ScriptUiAutomationHost` — Windows UI 自动化 Host（`hosts/windows/src/lib.rs:58`）
+- 主入口是 `createRuntimeHostManager`，组装 Windows 自有的运行时 `HostManager`（`hosts/windows/src/lib.rs:36`）
+- 数据流向：运行时组合把 Windows 各 Host 注册进 `HostManager`（`hosts/windows/src/lib.rs:48`）
 
 ## 核心机制
 
 ### 组装
 
-运行时组合注册 `WindowsFileSystemHost`、`WindowsHttpHost`、`WindowsSystemOperationHost` 与 `WindowsManagedRuntimeHost`（`hosts/windows/src/lib.rs:47`）。
-`WindowsHttpHost` 同时注册为 WebSocket Host（`hosts/windows/src/lib.rs:56`）。
-运行时组合注册 `NativeHttpServerHost`、`NativeTcpHost` 与 `NativeSerialPortHost`（`hosts/windows/src/lib.rs:57`）。
-运行时组合注册 `WindowsAudioPlaybackHost`、`WindowsBluetoothHost`、`WindowsTtsSynthesisHost` 与 `WindowsTtsPlaybackHost`（`hosts/windows/src/lib.rs:62`）。
-运行时组合注册 `WindowsPluginSdkIpcHost`（`hosts/windows/src/lib.rs:68`）。
-运行时组合注册 `ServiceDiscoveryProvider` 作服务发现 Host（`hosts/windows/src/lib.rs:70`）。
-运行时存储 Host 由 `WindowsRuntimeStorageHost` 创建（`hosts/windows/src/lib.rs:42`）。
-运行时存储 Host 经 `withHostSecretStore` 注册为 Host 密钥库（`hosts/windows/src/lib.rs:55`）。
-Windows Host 依赖 `operit-host-native-common`，启用 tcp、serial、fs、http、scheduler、storage 与 app-install 特性（`hosts/windows/Cargo.toml:21`）。
+运行时组合注册 `WindowsFileSystemHost`、`WindowsHttpHost`、`WindowsSystemOperationHost` 与 `WindowsManagedRuntimeHost`（`hosts/windows/src/lib.rs:48`）。
+运行时组合注册 `NativeLocalInferenceHost` 作本地推理 Host（`hosts/windows/src/lib.rs:57`）。
+运行时组合注册 `ScriptUiAutomationHost` 作 UI 自动化 Host，经 powershell.exe 执行 ui_automation.ps1 脚本（`hosts/windows/src/lib.rs:58`）。
+`WindowsHttpHost` 同时注册为 WebSocket Host（`hosts/windows/src/lib.rs:63`）。
+运行时组合注册 `NativeHttpServerHost`、`NativeTcpHost` 与 `NativeSerialPortHost`（`hosts/windows/src/lib.rs:64`）。
+运行时组合注册 `WindowsAudioPlaybackHost`、`WindowsBluetoothHost`、`WindowsTtsSynthesisHost` 与 `WindowsTtsPlaybackHost`（`hosts/windows/src/lib.rs:69`）。
+运行时组合注册 `WindowsPluginSdkIpcHost`（`hosts/windows/src/lib.rs:75`）。
+运行时组合注册 `ServiceDiscoveryProvider` 作服务发现 Host（`hosts/windows/src/lib.rs:77`）。
+运行时存储 Host 由 `WindowsRuntimeStorageHost` 创建（`hosts/windows/src/lib.rs:44`）。
+运行时存储 Host 经 `withHostSecretStore` 注册为 Host 密钥库（`hosts/windows/src/lib.rs:62`）。
+Windows Host 依赖 `operit-host-native-common`，启用 tcp、serial、fs、http、scheduler、storage 与 app-install 特性（`hosts/windows/Cargo.toml:22`）。
 daemon 模块只在 `daemon` 特性启用时编译（`hosts/windows/src/lib.rs:4`）。
 
 ### 终端：PowerShell 默认，随包 Bash
@@ -92,14 +98,14 @@ PTY 子进程退出码经 `try_wait` 查询（`hosts/windows/src/tools/terminal/
 ### 进程与后台命令
 
 `background_command` 以 `CREATE_NO_WINDOW` 创建后台命令，不分配 Windows 控制台窗口（`hosts/windows/src/process.rs:10`）。
-Reveal 动作调用 `explorer.exe`，非目录目标附加 /select, 参数（`hosts/windows/src/tools/runtime/mod.rs:122`）。
-Terminal 动作启动 `cmd.exe` 加 /k（`hosts/windows/src/tools/runtime/mod.rs:129`）。
-托管运行时工作目录位于 `LOCALAPPDATA` 下的 app.operit/Operit2/managed-runtime（`hosts/windows/src/tools/runtime/mod.rs:149`）。
-托管运行时按程序名解析 `node.exe`、`python.exe`、`uv.exe` 或 `pnpm.cmd`（`hosts/windows/src/tools/runtime/mod.rs:174`）。
-托管运行时子进程的 stdin、stdout、stderr 均以 `Stdio` 的 piped 模式连接（`hosts/windows/src/tools/runtime/mod.rs:201`）。
-托管运行时 stderr 缓冲上限 400 行，超限丢弃旧行（`hosts/windows/src/tools/runtime/mod.rs:238`）。
-`runRuntimeCommand` 运行一次性托管运行时命令并捕获输出（`hosts/windows/src/tools/runtime/mod.rs:261`）。
-`writeManagedRuntimeLine` 按 4 KiB 阈值区分大小帧写入（`hosts/windows/src/tools/runtime/mod.rs:286`）。
+Reveal 动作调用 `explorer.exe`，非目录目标附加 /select, 参数（`hosts/windows/src/tools/runtime/mod.rs:43`）。
+Terminal 动作启动 `cmd.exe` 加 /k（`hosts/windows/src/tools/runtime/mod.rs:51`）。
+托管运行时工作目录位于 `LOCALAPPDATA` 下的 app.operit/Operit2/managed-runtime（`hosts/windows/src/tools/runtime/mod.rs:80`）。
+托管运行时按程序名解析 `node.exe`、`python.exe`、`uv.exe` 或 `pnpm.cmd`（`hosts/windows/src/tools/runtime/mod.rs:105`）。
+托管运行时子进程的 stdin、stdout、stderr 均以 `Stdio` 的 piped 模式连接（`hosts/windows/src/tools/runtime/mod.rs:127`）。
+托管运行时 stderr 缓冲上限 400 行，超限丢弃旧行（`hosts/common/managed_runtime_process.rs:57`）。
+`runRuntimeCommand` 运行一次性托管运行时命令并捕获输出（`hosts/windows/src/tools/runtime/mod.rs:135`）。
+托管运行时写 stdin 时 `writeFrames` 把多行拼成一个连续帧一次写出（`hosts/common/managed_runtime_process.rs:78`）。
 
 ### daemon：命名管道控制端点
 
@@ -152,22 +158,23 @@ Windows Plugin SDK IPC 走命名管道，管道路径由 `pipeName` 映射（`ho
 
 `applicationUpdateTarget` 转发给 application_update 的 `target`（`hosts/windows/src/tools/system/mod.rs:40`）。
 `installApp` 按 `AppInstallTiming` 分流：Immediate 立即安装，AfterProcessExit 走 application_update 的 `prepare`（`hosts/windows/src/tools/system/mod.rs:68`）。
-`request_windows_install_app` 先尝试 `installPortableApp` 安装便携应用（`hosts/windows/src/tools/system/mod.rs:570`）。
-.msix 与 .appx 包经 `Add-AppxPackage` 安装，.msi 包经 msiexec 安装并接受退出码 0、1641 与 3010（`hosts/windows/src/tools/system/mod.rs:588`）。
-.exe 安装只打开安装程序，状态记为 `installer_opened`，安装结果未经验证（`hosts/windows/src/tools/system/mod.rs:594`）。
-通知经 `ToastNotificationManager` 以 app.operit.operit2 为 ID 创建通知器发出（`hosts/windows/src/tools/system/mod.rs:150`）。
-通知激活地址为 operit2://notification/open-app，打开指定会话时带 chatId 参数（`hosts/windows/src/tools/system/mod.rs:165`）。
-系统语言经 `GetUserDefaultLocaleName` 读取（`hosts/windows/src/tools/system/mod.rs:468`）。
-系统设置命名空间 system、secure、global 映射到 `HKCU` 下 Software\Operit2 的子键（`hosts/windows/src/tools/system/mod.rs:543`）。
-Windows Host 明确表示不暴露历史前台使用时长且未配置使用记录器（`hosts/windows/src/tools/system/mod.rs:779`）。
-定位用 WinRT `Geolocator` 完成（`hosts/windows/src/tools/system/mod.rs:791`）。
-定位结果的 provider 为 `windows-geolocator`（`hosts/windows/src/tools/system/mod.rs:853`）。
-截图用 PowerShell 的 `CopyFromScreen` 截取整个虚拟桌面（`hosts/windows/src/tools/system/mod.rs:214`）。
-文本识别用 Windows.Media.Ocr 的 `OcrEngine` 的 `TryCreateFromLanguage` 创建引擎（`hosts/windows/src/tools/system/mod.rs:296`）。
-OCR 语言映射为 en-US、zh-Hans、ja、ko 四种标签（`hosts/windows/src/tools/system/mod.rs:391`）。
-OCR 高质量模式把图片放大 2 倍，但放大后宽或高超过 4096 时不放大（`hosts/windows/src/tools/system/mod.rs:353`）。
-通知历史通过 `UserNotificationListener` 的 Current 实例读取（`hosts/windows/src/tools/system/mod.rs:684`）。
-读取通知历史前须请求监听权限，未获 Allowed 即报错（`hosts/windows/src/tools/system/mod.rs:690`）。
+`request_windows_install_app` 先尝试 `installPortableApp` 安装便携应用（`hosts/windows/src/tools/system/mod.rs:578`）。
+.msix 与 .appx 包经 `Add-AppxPackage` 安装，.msi 包经 msiexec 安装并接受退出码 0、1641 与 3010（`hosts/windows/src/tools/system/mod.rs:597`）。
+.exe 安装只打开安装程序，状态记为 `installer_opened`，安装结果未经验证（`hosts/windows/src/tools/system/mod.rs:603`）。
+通知经 `ToastNotificationManager` 以 app.operit.operit2 为 ID 创建通知器发出（`hosts/windows/src/tools/system/mod.rs:159`）。
+通知激活地址为 operit2://notification/open-app，打开指定会话时带 chatId 参数（`hosts/windows/src/tools/system/mod.rs:173`）。
+系统语言经 `GetUserDefaultLocaleName` 读取（`hosts/windows/src/tools/system/mod.rs:477`）。
+系统设置命名空间 system、secure、global 映射到 `HKCU` 下 Software\Operit2 的子键（`hosts/windows/src/tools/system/mod.rs:555`）。
+Windows Host 明确表示不暴露历史前台使用时长且未配置使用记录器（`hosts/windows/src/tools/system/mod.rs:788`）。
+定位用 WinRT `Geolocator` 完成（`hosts/windows/src/tools/system/mod.rs:800`）。
+定位结果的 provider 为 `windows-geolocator`（`hosts/windows/src/tools/system/mod.rs:862`）。
+截图用 PowerShell 的 `CopyFromScreen` 截取整个虚拟桌面（`hosts/windows/src/tools/system/mod.rs:223`）。
+`captureScreenshotTo` 把截图字节经选定的 VFS 能力写入目标并删除原生暂存文件（`hosts/windows/src/tools/system/mod.rs:117`）。
+文本识别用 Windows.Media.Ocr 的 `OcrEngine` 的 `TryCreateFromLanguage` 创建引擎（`hosts/windows/src/tools/system/mod.rs:305`）。
+OCR 语言映射为 en-US、zh-Hans、ja、ko 四种标签（`hosts/windows/src/tools/system/mod.rs:399`）。
+OCR 高质量模式把图片放大 2 倍，但放大后宽或高超过 4096 时不放大（`hosts/windows/src/tools/system/mod.rs:362`）。
+通知历史通过 `UserNotificationListener` 的 Current 实例读取（`hosts/windows/src/tools/system/mod.rs:693`）。
+读取通知历史前须请求监听权限，未获 Allowed 即报错（`hosts/windows/src/tools/system/mod.rs:699`）。
 `listInstalledApps` 调用 packages 的 `list` 枚举已安装应用（`hosts/windows/src/tools/system/mod.rs:78`）。
 `uninstallApp` 转发给 packages 的 `operation`（`hosts/windows/src/tools/system/mod.rs:73`）。
 `startApp` 转发给 packages 的 `operation`（`hosts/windows/src/tools/system/mod.rs:81`）。
@@ -229,15 +236,16 @@ seek 先查 MCI 的 mode，播放中则以 play 从新位置继续（`hosts/wind
 ### TTS
 
 `WindowsTtsPlaybackHost` 报告 `supportsSystemSpeech` 为 true（`hosts/windows/src/tools/tts/mod.rs:59`）。
-合成只支持 wav 输出格式（`hosts/windows/src/tools/tts/mod.rs:202`）。
-合成经 PowerShell 调用 System.Speech 的 `SpeechSynthesizer` 完成（`hosts/windows/src/tools/tts/mod.rs:272`）。
-合成输出由 `SetOutputToWaveFile` 写为 WAV 文件（`hosts/windows/src/tools/tts/mod.rs:291`）。
-语速换算为 System.Speech 的 Rate：(speed 减 1) 乘 10，范围负 10 到 10（`hosts/windows/src/tools/tts/mod.rs:443`）。
-Windows System.Speech 合成只支持 pitch 1.0（`hosts/windows/src/tools/tts/mod.rs:456`）。
+合成只支持 wav 输出格式（`hosts/windows/src/tools/tts/mod.rs:210`）。
+合成经 PowerShell 调用 System.Speech 的 `SpeechSynthesizer` 完成（`hosts/windows/src/tools/tts/mod.rs:280`）。
+合成输出由 `SetOutputToWaveFile` 写为 WAV 文件（`hosts/windows/src/tools/tts/mod.rs:299`）。
+`synthesizeSpeechBytes` 导出合成音频字节并删除临时原生文件（`hosts/windows/src/tools/tts/mod.rs:196`）。
+语速换算为 System.Speech 的 Rate：(speed 减 1) 乘 10，范围负 10 到 10（`hosts/windows/src/tools/tts/mod.rs:450`）。
+Windows System.Speech 合成只支持 pitch 1.0（`hosts/windows/src/tools/tts/mod.rs:464`）。
 新的朗读请求在已有合成或播放进行中且未指定 interrupt 时返回 busy 错误（`hosts/windows/src/tools/tts/mod.rs:100`）。
 朗读中途被新请求打断时，旧合成的临时音频文件会被删除（`hosts/windows/src/tools/tts/mod.rs:123`）。
-TTS 播放以 operit_tts_ 加 UUID 为 MCI 别名（`hosts/windows/src/tools/tts/mod.rs:369`）。
-TTS 临时文件位于系统临时目录下的 operit_tts 目录（`hosts/windows/src/tools/tts/mod.rs:421`）。
+TTS 播放以 operit_tts_ 加 UUID 为 MCI 别名（`hosts/windows/src/tools/tts/mod.rs:377`）。
+TTS 临时文件位于系统临时目录下的 operit_tts 目录（`hosts/windows/src/tools/tts/mod.rs:429`）。
 TTS 播放 Host 的 `playAudio` 直接播放已生成的语音音频文件（`hosts/windows/src/tools/tts/mod.rs:64`）。
 `speechState` 返回当前语音播放状态（`hosts/windows/src/tools/tts/mod.rs:188`）。
 `stopSpeech` 递增 generation 使进行中的合成失效并停止播放（`hosts/windows/src/tools/tts/mod.rs:180`）。
@@ -301,21 +309,25 @@ Plugin SDK 会话 ID 格式为 `plugin-sdk-windows-` 加序号（`hosts/windows/
 
 ## 关键符号
 
-- `createRuntimeHostManager` — 组装 Windows 自有的运行时 `HostManager`（`hosts/windows/src/lib.rs:34`）
-- `WindowsTerminalHost` — Windows PTY 终端 Host（`hosts/windows/src/lib.rs:30`）
-- `WindowsFileSystemHost` — Windows 文件系统 Host（`hosts/windows/src/lib.rs:25`）
-- `WindowsSystemOperationHost` — Windows 系统操作 Host（`hosts/windows/src/lib.rs:29`）
-- `WindowsManagedRuntimeHost` — Windows 托管运行时 Host（`hosts/windows/src/lib.rs:27`）
-- `WindowsRuntimeStorageHost` — Windows 运行时存储 Host（`hosts/windows/src/lib.rs:28`）
-- `WindowsHttpHost` — Windows HTTP Host（`hosts/windows/src/lib.rs:26`）
-- `WindowsAudioPlaybackHost` — Windows 音频播放 Host（`hosts/windows/src/lib.rs:22`）
-- `WindowsBluetoothHost` — Windows 蓝牙 Host（`hosts/windows/src/lib.rs:23`）
-- `WindowsTtsSynthesisHost` — Windows TTS 合成 Host（`hosts/windows/src/lib.rs:31`）
-- `WindowsTtsPlaybackHost` — Windows TTS 播放 Host（`hosts/windows/src/lib.rs:31`）
-- `WindowsPluginSdkIpcHost` — Windows Plugin SDK IPC Host（`hosts/windows/src/lib.rs:21`）
-- `WindowsWebVisitHost` — Windows 网页访问 Host（`hosts/windows/src/lib.rs:24`）
-- `WindowsBrowserAutomationHost` — Windows 浏览器自动化 Host（`hosts/windows/src/lib.rs:24`）
-- `WindowsHostRuntimeEventHost` — Windows 运行时事件 Host（`hosts/windows/src/lib.rs:17`）
+- `createRuntimeHostManager` — 组装 Windows 自有的运行时 `HostManager`（`hosts/windows/src/lib.rs:36`）
+- `WindowsTerminalHost` — Windows PTY 终端 Host（`hosts/windows/src/lib.rs:32`）
+- `WindowsFileSystemHost` — Windows 文件系统 Host（`hosts/windows/src/lib.rs:27`）
+- `WindowsSystemOperationHost` — Windows 系统操作 Host（`hosts/windows/src/lib.rs:31`）
+- `WindowsManagedRuntimeHost` — Windows 托管运行时 Host（`hosts/windows/src/lib.rs:29`）
+- `WindowsRuntimeStorageHost` — Windows 运行时存储 Host（`hosts/windows/src/lib.rs:30`）
+- `WindowsHttpHost` — Windows HTTP Host（`hosts/windows/src/lib.rs:28`）
+- `WindowsAudioPlaybackHost` — Windows 音频播放 Host（`hosts/windows/src/lib.rs:24`）
+- `WindowsBluetoothHost` — Windows 蓝牙 Host（`hosts/windows/src/lib.rs:25`）
+- `WindowsTtsSynthesisHost` — Windows TTS 合成 Host（`hosts/windows/src/lib.rs:33`）
+- `WindowsTtsPlaybackHost` — Windows TTS 播放 Host（`hosts/windows/src/lib.rs:33`）
+- `WindowsPluginSdkIpcHost` — Windows Plugin SDK IPC Host（`hosts/windows/src/lib.rs:23`）
+- `WindowsWebVisitHost` — Windows 网页访问 Host（`hosts/windows/src/lib.rs:26`）
+- `WindowsBrowserAutomationHost` — Windows 浏览器自动化 Host（`hosts/windows/src/lib.rs:26`）
+- `WindowsHostRuntimeEventHost` — Windows 运行时事件 Host（`hosts/windows/src/lib.rs:19`）
+- `NativeLocalInferenceHost` — Windows 本地推理 Host（`hosts/windows/src/lib.rs:57`）
+- `ScriptUiAutomationHost` — Windows UI 自动化 Host（`hosts/windows/src/lib.rs:58`）
+- `NativeLocalInferenceHost` — Windows 本地推理 Host（`hosts/windows/src/lib.rs:57`）
+- `ScriptUiAutomationHost` — Windows UI 自动化 Host（`hosts/windows/src/lib.rs:58`）
 - `control_endpoint` — 把身份控制端点解析为命名管道路径（`hosts/windows/src/daemon.rs:29`）
 - `ControlListener` — 拥有待接受管道实例的 daemon 控制监听器（`hosts/windows/src/daemon.rs:136`）
 - `spawn_detached` — 以脱离标志启动 daemon（`hosts/windows/src/daemon.rs:173`）
@@ -331,13 +343,15 @@ Plugin SDK 会话 ID 格式为 `plugin-sdk-windows-` 加序号（`hosts/windows/
 - `applicationUpdateTarget` — 转发给 application_update 的 `target`（`hosts/windows/src/tools/system/mod.rs:37`）
 - `target` — 解析本应用副本的更新包格式（`hosts/windows/src/tools/system/application_update.rs:31`）
 - `prepare` — 校验更新包为绝对路径的可读文件（`hosts/windows/src/tools/system/application_update.rs:49`）
+- `captureScreenshotTo` — 截图字节经 VFS 能力写入目标（`hosts/windows/src/tools/system/mod.rs:117`）
 - `Get-OperitInstallation` — 查询当前可执行文件的 MSI 归属（`hosts/windows/src/tools/system/application_update.ps1:48`）
 - `Assert-OperitMsiUpdate` — 校验更新包属于 Operit MSI 产品族（`hosts/windows/src/tools/system/application_update.ps1:96`）
 - `Invoke-OperitMsiUpdate` — 运行一次无人值守升级（`hosts/windows/src/tools/system/application_update.ps1:129`）
 - `mciCommand` — 发无响应 MCI 命令（`hosts/windows/src/tools/mci.rs:42`）
 - `mciCommandWithResponse` — 发带响应查询的 MCI 命令（`hosts/windows/src/tools/mci.rs:47`）
 - `statusForSession` — 经 MCI 查询音乐会话状态（`hosts/windows/src/tools/audio/mod.rs:40`）
-- `synthesizeSpeech` — 合成一句语音为 WAV 文件（`hosts/windows/src/tools/tts/mod.rs:196`）
+- `synthesizeSpeech` — 合成一句语音为 WAV 文件（`hosts/windows/src/tools/tts/mod.rs:204`）
+- `synthesizeSpeechBytes` — 导出合成音频字节（`hosts/windows/src/tools/tts/mod.rs:196`）
 - `speakText` — 朗读一句文本（`hosts/windows/src/tools/tts/mod.rs:87`）
 - `supportsClassicListening` — 声明支持经典蓝牙入站监听（`hosts/windows/src/tools/bluetooth/mod.rs:100`）
 - `bluetoothBleConnect` — 经 WinRT 建立 BLE 连接（`hosts/windows/src/tools/bluetooth/mod.rs:383`）
@@ -381,9 +395,9 @@ Plugin SDK 会话 ID 格式为 `plugin-sdk-windows-` 加序号（`hosts/windows/
 ### TTS 朗读
 
 1. 新的朗读请求在已有合成或播放进行中且未指定 interrupt 时返回 busy 错误（`hosts/windows/src/tools/tts/mod.rs:100`）
-2. 合成经 PowerShell 调用 System.Speech 的 `SpeechSynthesizer` 完成（`hosts/windows/src/tools/tts/mod.rs:272`）
-3. 合成输出由 `SetOutputToWaveFile` 写为 WAV 文件（`hosts/windows/src/tools/tts/mod.rs:291`）
-4. TTS 播放以 operit_tts_ 加 UUID 为 MCI 别名（`hosts/windows/src/tools/tts/mod.rs:369`）
+2. 合成经 PowerShell 调用 System.Speech 的 `SpeechSynthesizer` 完成（`hosts/windows/src/tools/tts/mod.rs:280`）
+3. 合成输出由 `SetOutputToWaveFile` 写为 WAV 文件（`hosts/windows/src/tools/tts/mod.rs:299`）
+4. TTS 播放以 operit_tts_ 加 UUID 为 MCI 别名（`hosts/windows/src/tools/tts/mod.rs:377`）
 5. `speechState` 返回当前语音播放状态（`hosts/windows/src/tools/tts/mod.rs:188`）
 
 ### daemon 启动
@@ -416,3 +430,5 @@ Plugin SDK 会话 ID 格式为 `plugin-sdk-windows-` 加序号（`hosts/windows/
 - hosts/windows/src/tools/mci.rs
 - hosts/windows/src/plugin_sdk_ipc.rs
 - hosts/windows/src/plugin_sdk_pipe.rs
+- hosts/windows/src/ui_automation.ps1
+- hosts/common/managed_runtime_process.rs

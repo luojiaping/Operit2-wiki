@@ -149,19 +149,19 @@
  },
  {
   "fact": "`httpServerHost`、`tcpHost`、`serialPortHost`、`serviceDiscoveryHost` 在 Web Host 组装后保持为 `None`",
-  "ref": "core/crates/foundation/host-api/src/HostManager.rs:395"
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:413"
  },
  {
-  "fact": "`browserAutomationHost`、`floatingWindowHost`、`composeDslWebViewHost` 在 Web Host 组装后同样保持为 `None`",
-  "ref": "core/crates/foundation/host-api/src/HostManager.rs:390"
+  "fact": "`uiAutomationHost`、`browserAutomationHost`、`floatingWindowHost`、`composeDslWebViewHost` 在 Web Host 组装后同样保持为 `None`",
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:408"
  },
  {
   "fact": "`deviceIoHost`、`robotFaceHost`、`ttsSynthesisHost` 在 Web Host 组装后同样保持为 `None`",
-  "ref": "core/crates/foundation/host-api/src/HostManager.rs:404"
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:422"
  },
  {
   "fact": "`pluginSdkIpcHost` 与 `coreCommandExecutor` 在 Web Host 组装后同样保持为 `None`",
-  "ref": "core/crates/foundation/host-api/src/HostManager.rs:419"
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:437"
  },
  {
   "fact": "`src/tools/fs/mod.rs` 实现 `FileSystemHost`",
@@ -332,8 +332,8 @@
   "ref": "hosts/web/src/tools/system/mod.rs:260"
  },
  {
-  "fact": "`recognizeText` 先经 `WebFileSystemHost` 读图片字节，再调用桥接 `recognizeText`",
-  "ref": "hosts/web/src/tools/system/mod.rs:274"
+  "fact": "`recognizeText` 先经 `FileSource` 的 `readBytes` 读图片字节，再调用桥接 `recognizeText`",
+  "ref": "hosts/web/src/tools/system/mod.rs:270"
  },
  {
   "fact": "`getDeviceInfo` 读取 `deviceId`、`model`、`manufacturer`、`androidVersion`、`sdkVersion`",

@@ -74,10 +74,10 @@ TTS 播放 Host 通过 `withTtsPlaybackHost` 注册 `WebTtsPlaybackHost`（`host
 运行时任务调度 Host 通过 `withHostRuntimeTaskSchedulerHost` 注册（`hosts/web/src/lib.rs:67`）。
 JS 运行时 Host 通过 `withHostJavaScriptRuntimeHost` 注册 `WebHostJavaScriptRuntimeHost`（`hosts/web/src/lib.rs:68`）。
 运行时事件 Host 通过 `withHostRuntimeEventHost` 注册 `WebHostRuntimeEventHost`（`hosts/web/src/lib.rs:69`）。
-`httpServerHost`、`tcpHost`、`serialPortHost`、`serviceDiscoveryHost` 在 Web Host 组装后保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:395`）。
-`browserAutomationHost`、`floatingWindowHost`、`composeDslWebViewHost` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:390`）。
-`deviceIoHost`、`robotFaceHost`、`ttsSynthesisHost` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:404`）。
-`pluginSdkIpcHost` 与 `coreCommandExecutor` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:419`）。
+`httpServerHost`、`tcpHost`、`serialPortHost`、`serviceDiscoveryHost` 在 Web Host 组装后保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:413`）。
+`uiAutomationHost`、`browserAutomationHost`、`floatingWindowHost`、`composeDslWebViewHost` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:408`）。
+`deviceIoHost`、`robotFaceHost`、`ttsSynthesisHost` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:422`）。
+`pluginSdkIpcHost` 与 `coreCommandExecutor` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:437`）。
 `call_data_rescue` 调用桥接 `dataRescue` 模块（`hosts/web/src/common.rs:46`）。
 
 ### 插件 JS 执行：浏览器原生引擎
@@ -214,7 +214,7 @@ WebSocket 关闭码 1000 或 1005 视为正常关闭，其余关闭码视为错�
 `installApp` 先调用 `timing.requireImmediate`，要求立即安装时机（`hosts/web/src/tools/system/mod.rs:95`）。
 桥接返回空图片字节时截图报错（`hosts/web/src/tools/system/mod.rs:255`）。
 截图保存时创建父目录后经 `WebFileSystemHost` 写下截图字节并返回路径（`hosts/web/src/tools/system/mod.rs:260`）。
-`recognizeText` 先经 `WebFileSystemHost` 读图片字节，再调用桥接 `recognizeText`（`hosts/web/src/tools/system/mod.rs:274`）。
+`recognizeText` 先经 `FileSource` 的 `readBytes` 读图片字节，再调用桥接 `recognizeText`（`hosts/web/src/tools/system/mod.rs:270`）。
 `getDeviceInfo` 读取 `deviceId`、`model`、`manufacturer`、`androidVersion`、`sdkVersion`（`hosts/web/src/tools/system/mod.rs:228`）。
 `WebManagedRuntimeProcess` 持有桥接返回的标识字符串（`hosts/web/src/tools/runtime/mod.rs:54`）。
 运行命令返回 `exitCode`、`stdout`、`stderr`（`hosts/web/src/tools/runtime/mod.rs:70`）。

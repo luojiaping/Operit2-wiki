@@ -241,406 +241,398 @@
 },
 {
 "fact": "`VisualFileSystem` 把宿主文件接口表现为规范化虚拟文件系统路径",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:12"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:12"
 },
 {
 "fact": "`VisualFileSystem` 持有 `host: Arc<dyn FileSystemHost>` 与 `mapper: PathMapper`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:13"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:13"
 },
 {
-"fact": "`VisualFileSystem` 的 `fromContext` 用 `HostManager` 上下文构造 VFS",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:20"
+"fact": "VisualFileSystem 的 `fromStorage` 用宿主文件系统与 `RuntimeStorageHost` 构造 VFS",
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:70"
 },
 {
-"fact": "`fromContext` 缺少 `RuntimeStorageHost` 时返回错误",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:21"
+"fact": "`fromStorage` 在 `runtimeRootDir` 不可用时返回错误",
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:72"
 },
 {
-"fact": "`fromContext` 要求 `runtimeRootDir` 与 `workspaceRootDir` 均可用",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:22"
-},
-{
-"fact": "`fromContext` 缺少 `FileSystemHost` 时返回错误",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:24"
+"fact": "`fromStorage` 要求 `runtimeRootDir` 与 `workspaceRootDir` 均可用",
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:73"
 },
 {
 "fact": "VisualFileSystem 的 `new` 用宿主文件系统与 `PathMapper` 构造 VFS 包装",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:29"
-},
-{
-"fact": "VisualFileSystem 的 `mapper` 返回所用的 `PathMapper`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:34"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:95"
 },
 {
 "fact": "VisualFileSystem 的 `resolvePath` 经 `mapper.resolve` 把虚拟路径解析为映射宿主路径与 VFS 元数据",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:40"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:151"
 },
 {
 "fact": "VisualFileSystem 的 `runtimePath` 经 `PathMapper` 的 `runtimeDataPath` 返回声明运行时存储条目的 VFS 地址",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:47"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:157"
 },
 {
-"fact": "VisualFileSystem 的 `downloadFile` 先解析 VFS 目标路径，再用 `http.downloadToFile` 把请求下载到解析出的 `physicalPath`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:54"
+"fact": "VisualFileSystem 的 `downloadFile` 先把 VFS 目标路径转为文件能力，再用 `downloadToFile` 下载请求",
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:168"
 },
 {
 "fact": "VisualFileSystem 的 `listFiles` 在 mapper 提供虚拟目录条目时返回这些条目",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:61"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:204"
 },
 {
 "fact": "虚拟目录已有条目时，`listFiles` 再叠加其可访问的原生子项，同名条目不重复",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:66"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:209"
 },
 {
 "fact": "无虚拟目录条目时，`listFiles` 解析路径后委托宿主 `listFiles`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:79"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:222"
 },
 {
 "fact": "VisualFileSystem 的 `readFile` 解析路径后读宿主 `physicalPath` 的文本",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:87"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:230"
 },
 {
 "fact": "VisualFileSystem 的 `readFileWithLimit` 解析路径后按 `maxBytes` 上限读宿主文本",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:96"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:239"
 },
 {
 "fact": "VisualFileSystem 的 `readFileBytes` 解析路径后读宿主 `physicalPath` 的原始字节",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:105"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:248"
 },
 {
 "fact": "VisualFileSystem 的 `writeFile` 解析路径后写文本，`append` 控制追加",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:114"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:270"
 },
 {
 "fact": "VisualFileSystem 的 `writeFileBytes` 解析路径后写原始字节",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:123"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:280"
 },
 {
 "fact": "VisualFileSystem 的 `deleteFile` 解析路径后删除映射的宿主文件或目录，`recursive` 控制递归",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:132"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:299"
 },
 {
 "fact": "VisualFileSystem 的 `fileExists` 对虚拟目录直接返回存在、目录、大小 0",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:141"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:309"
 },
 {
 "fact": "其余路径 `fileExists` 解析后委托宿主 `fileExists`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:148"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:316"
 },
 {
 "fact": "VisualFileSystem 的 `moveFile` 解析源与目标后委托宿主 `moveFile`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:157"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:337"
 },
 {
 "fact": "VisualFileSystem 的 `copyFile` 解析源与目标后委托宿主 `copyFile`，`recursive` 控制递归",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:167"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:348"
 },
 {
 "fact": "VisualFileSystem 的 `makeDirectory` 解析路径后委托宿主 `makeDirectory`，`createParents` 控制建父目录",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:177"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:359"
 },
 {
 "fact": "VisualFileSystem 的 `findFiles` 把请求路径解析为物理路径后调用宿主 `findFiles`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:186"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:368"
 },
 {
 "fact": "搜索结果经 `mapPhysicalChildToVfs` 映回 VFS 路径",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:195"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:377"
 },
 {
 "fact": "VisualFileSystem 的 `fileInfo` 对虚拟目录返回 `virtualDirectoryInfo` 生成的元数据",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:203"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:385"
 },
 {
 "fact": "VisualFileSystem 的 `fileInfo` 把宿主返回元数据的 `path` 改写为解析出的 `vfsPath`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:212"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:394"
 },
 {
 "fact": "VisualFileSystem 的 `grepCode` 把请求路径解析为物理路径后调用宿主 `grepCode`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:219"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:401"
 },
 {
 "fact": "`grepCode` 的每个匹配文件路径经 `mapPhysicalChildToVfs` 改写为 VFS 路径",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:229"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:411"
 },
 {
 "fact": "VisualFileSystem 的 `zipFiles` 解析源与目标后委托宿主 `zipFiles`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:244"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:426"
 },
 {
 "fact": "VisualFileSystem 的 `unzipFiles` 解析源与目标后委托宿主 `unzipFiles`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:254"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:437"
 },
 {
 "fact": "VisualFileSystem 的 `openFile` 解析路径后用平台文件打开器打开映射的宿主文件",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:264"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:448"
 },
 {
 "fact": "VisualFileSystem 的 `shareFile` 解析路径后经宿主分享映射的文件，`title` 为分享标题",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:273"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:457"
 },
 {
 "fact": "`hostErrorMessage` 把 `HostError` 转为桥接侧消息字符串，取 `error.message`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:280"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:481"
 },
 {
 "fact": "`virtualDirectoryInfo` 生成合成虚拟目录元数据：存在、类型 `directory`、大小 0、权限 `rwx`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:290"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:491"
 },
 {
 "fact": "测试断言下载与读取共享同一 VFS 路径，未知路径下载返回错误",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:352"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:575"
 },
 {
 "fact": "测试断言同一资源经 `/operitapp` 路径、`/app` 路径与相对路径解析后读出同一内容",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:380"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:717"
 },
 {
 "fact": "测试断言经 `/app` 写入的文件可经 `/operitapp` 读出同一内容",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:396"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:762"
 },
 {
 "fact": "测试断言 `fileInfo` 回显调用者使用的 VFS 根路径",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:399"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:773"
 },
 {
 "fact": "测试断言根目录列表含 `operitapp`，不含 `app`、`mnt`、`sdcard`、`data`",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:405"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:784"
 },
 {
 "fact": "Linux 测试断言经 `/virtual/linux` 挂载根写入的文件，其 fileInfo 回显同一 VFS 路径",
-"ref": "core/crates/tool/services/src/files/VisualFileSystem.rs:482"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:900"
 },
 {
 "fact": "`ROOT_APP`、`ROOT_MNT`、`ROOT_OPERITAPP`、`ROOT_VIRTUAL`、`ROOT_SDCARD`、`ROOT_DATA` 的值分别为 `app`、`mnt`、`operitapp`、`virtual`、`sdcard`、`data`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:15"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:15"
 },
 {
 "fact": "`VFS_ROOTS` 中 `ROOT_APP`、`ROOT_MNT`、`ROOT_SDCARD`、`ROOT_DATA` 的 `hidden` 为 `true`，`ROOT_OPERITAPP` 与 `ROOT_VIRTUAL` 的 `hidden` 为 `false`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:26"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:26"
 },
 {
 "fact": "`ResolvedVfsPath` 含 `vfsPath` 与 `physicalPath` 两个字段",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:49"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:49"
 },
 {
 "fact": "`physicalPath` 保留旧名，资源后端目标是不透明定位符，需要真实操作系统路径时调用 `nativePath` 或 `terminalDirectory`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:42"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:42"
 },
 {
 "fact": "`ResolvedVfsPath` 的 `terminalDirectory` 让终端宿主翻译受支持的文档后端目录",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:57"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:57"
 },
 {
 "fact": "ResolvedVfsPath 的 `nativePath` 对文档/资源挂载返回错误，对原生后端返回 `physicalPath`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:64"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:64"
 },
 {
 "fact": "`PathMapper` 的 `new` 要求传入 `RuntimeStorageHost`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:99"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:92"
 },
 {
 "fact": "PathMapper 的 `builtinOnly` 明确排除持久挂载，只做内置路径映射，需要已注册挂载的运行时消费者必须用带 Host 的 `new`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:113"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:106"
 },
 {
 "fact": "PathMapper 的 `workspaceCollectionPath` 返回 `/operitapp/workspaces`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:133"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:126"
 },
 {
 "fact": "PathMapper 的 `workspacePath` 在工作区集合根下为工作区 id 构建 VFS 路径",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:140"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:133"
 },
 {
 "fact": "PathMapper 的 `normalizeVfsPath` 规范化绝对 VFS 路径",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:150"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:143"
 },
 {
 "fact": "PathMapper 的 `runtimeDataPath` 要求存储路径以 `runtime/` 开头，并把它接在 `/operitapp/data` 之下",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:156"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:149"
 },
 {
 "fact": "PathMapper 的 `canonicalizeVfsPath` 把 /sdcard 与 /storage/emulated/0 开头的旧共享存储别名转为身份拥有的插件存储路径",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:168"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:161"
 },
 {
 "fact": "PathMapper 的 `normalizeWorkspaceBindingPath` 接受绝对 VFS 路径或绝对宿主路径",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:183"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:176"
 },
 {
 "fact": "工作区绑定路径既不是 VFS 路径也不是绝对宿主路径时返回错误 `Workspace binding must use a VFS path or an absolute host path: {path}`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:200"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:193"
 },
 {
 "fact": "PathMapper 的 `resolveFileToolPath` 在相对路径且无当前文件目录时返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:222"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:215"
 },
 {
 "fact": "相对路径的 `..` 越出 VFS 根时返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:226"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:223"
 },
 {
 "fact": "PathMapper 的 `resolveFileResourcePath` 接受 VFS 路径、原生绝对路径与相对于文件目录的路径",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:242"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:235"
 },
 {
 "fact": "原生兼容路径在任何宿主访问前先进入已挂载的 VFS",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:243"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:233"
 },
 {
 "fact": "resolveFileResourcePath 对 VFS 根路径调用 `canonicalizeVfsPath`，对其他绝对路径调用 `normalizeAbsoluteHostWorkspacePath`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:255"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:246"
 },
 {
 "fact": "PathMapper 的 `joinVfsPath` 连接规范化 VFS 基路径与相对路径",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:265"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:259"
 },
 {
 "fact": "PathMapper 的 `relativePath` 在首段把 `ROOT_APP` 与 `ROOT_OPERITAPP`、ROOT_MNT 与 ROOT_VIRTUAL 视为同一挂载身份",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:284"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:278"
 },
 {
 "fact": "PathMapper 的 `relativeFileToolPath` 按同一挂载身份比较根别名，表达当前文件目录的稳定 VFS 定位符",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:306"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:300"
 },
 {
 "fact": "VFS 根目录 `/` 的条目只含 `hidden` 为 false 的 `VFS_ROOTS`，`ROOT_VIRTUAL` 仅在存在平台挂载时出现",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:330"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:324"
 },
 {
 "fact": "/app 与 /operitapp 的虚拟条目为 data、workspaces、outputs",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:336"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:330"
 },
 {
 "fact": "/mnt 与 /virtual 的条目来自 `mntMountEntries`，即已挂载的平台入口",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:337"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:331"
 },
 {
 "fact": "PathMapper 的 `resolve` 先查注册挂载，`mountRelativePath` 命中时按挂载解析",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:364"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:358"
 },
 {
 "fact": "`native` 后端挂载把 `mount.root` 与相对路径拼接为物理路径",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:371"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:365"
 },
 {
 "fact": "非 `native` 后端挂载把挂载编码为 `FileSystemResource` 定位符",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:374"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:368"
 },
 {
 "fact": "/app 或 /operitapp 下的 data 解析到 `runtimeStoreRoot`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:384"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:378"
 },
 {
 "fact": "/app 或 /operitapp 下的 `outputs` 解析到 `runtimeStoreRoot` 下的 `data/chat_outputs`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:389"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:383"
 },
 {
 "fact": "/app 或 /operitapp 下的 workspaces 解析到 `workspaceCollectionRoot`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:393"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:387"
 },
 {
 "fact": "Windows 盘符经 `normalizeDriveLetter` 规范化，未挂载的盘符返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:398"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:392"
 },
 {
 "fact": "`normalizeDriveLetter` 要求单个 ASCII 字母盘符并转为小写",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:701"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:695"
 },
 {
 "fact": "`/virtual/android/sdcard` 解析到 `/sdcard`，未挂载时返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:418"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:412"
 },
 {
 "fact": "`/virtual/android/root` 解析到 `/`，未挂载时返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:425"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:419"
 },
 {
 "fact": "`/virtual/linux` 解析到 `/`，未挂载时返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:432"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:426"
 },
 {
 "fact": "`/virtual/macos` 解析到 `/`，未挂载时返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:441"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:435"
 },
 {
 "fact": "`/data` 解析到 `/data`，未挂载时返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:450"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:444"
 },
 {
 "fact": "VFS 根 `/` 与裸挂载根是虚拟目录，resolve 返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:382"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:376"
 },
 {
 "fact": "未知 VFS 根返回 `Unknown VFS root` 错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:458"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:452"
 },
 {
 "fact": "`mapPhysicalChildToVfs` 对资源搜索结果校验 `backend` 与 `root` 与基路径一致，否则返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:468"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:462"
 },
 {
 "fact": "宿主返回的原生子路径不在解析基路径之下时返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:482"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:480"
 },
 {
 "fact": "VFS 路径必须以 `/` 开头，否则返回错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:497"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:491"
 },
 {
 "fact": "VFS 路径段 `.` 与 `..` 被拒绝",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:551"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:549"
 },
 {
 "fact": "Windows 盘符路径 D:/... 映射为 /virtual/windows/d/...",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:622"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:616"
 },
 {
 "fact": "非 VFS 的绝对宿主路径按编译目标平台映射：macOS 进 /virtual/macos，Android 进 /virtual/android/root，其余进 /virtual/linux",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:644"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:638"
 },
 {
 "fact": "/mnt 与 /virtual 的平台入口只列出已挂载者：`windows`、`android`、`linux`、`macos`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:726"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:720"
 },
 {
 "fact": "`windowsMounted` 在存在任一盘符根时为 true",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:738"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:732"
 },
 {
 "fact": "Windows 上 `windowsDriveRootExists` 检查 `盘符:/` 是否存在",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:758"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:752"
 },
 {
 "fact": "非 Windows 上 `windowsDriveRootExists` 恒为 `false`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:764"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:758"
 },
 {
 "fact": "Android 上 `androidPathMounted` 检查该路径是否存在",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:784"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:778"
 },
 {
 "fact": "非 Android 上 `androidPathMounted` 恒为 `false`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:790"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:784"
 },
 {
 "fact": "Linux 上 `linuxRootMounted` 检查 `/` 是否存在",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:796"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:790"
 },
 {
 "fact": "非 Linux 上 `linuxRootMounted` 恒为 `false`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:802"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:796"
 },
 {
 "fact": "macOS 上 `macosRootMounted` 检查 `/` 是否存在",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:808"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:802"
 },
 {
 "fact": "非 macOS 上 `macosRootMounted` 恒为 `false`",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:814"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:808"
 },
 {
 "fact": "省略 Host 构造 `PathMapper` 是编译错误",
-"ref": "core/crates/tool/services/src/files/PathMapper.rs:89"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:82"
 }
 ]

@@ -84,11 +84,11 @@ Space 组织节点间的协作与持久化同步，Binding 记录哪个节点继
 
 具备存储复制授权、处于正常变更门控状态的可达成员在每个同步周期使用 `syncClockDigest` 探针判断是否需要完整交换（`docs/core-node-space-binding-architecture.md:218`）。
 
-同步门控先处理退避、待处理工作与失败重试，退避未到期时本轮跳过（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:716`）。
+同步门控先处理退避、待处理工作与失败重试，退避未到期时本轮跳过（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:754`）。
 
-未获存储复制授权的成员走 `authority_only` 分支，不调用 `probeRemoteClockSummary`，直接继续控制交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:731`）。
+未获存储复制授权的成员走 `authority_only` 分支，不调用 `probeRemoteClockSummary`，直接继续控制交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:769`）。
 
-只有正常存储复制门控分支才调用 `probeRemoteClockSummary`，经 `PeerSyncMethod::SyncClockDigest` 读取对端时钟摘要（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:778`）。
+只有正常存储复制门控分支才调用 `probeRemoteClockSummary`，经 `PeerSyncMethod::SyncClockDigest` 读取对端时钟摘要（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:800`）。
 
 同步页单侧一页最多 `DEFAULT_SYNC_PAGE_BYTES`（4 MiB）（`docs/core-node-space-binding-architecture.md:233`）。
 
@@ -158,7 +158,7 @@ README 声明 API 密钥、设备私钥、配对密钥、会话与本地平台�
 
 实现与该原则存在冲突：`ModelConfigManager` 的 `preferenceStore` 经 `PreferencesDataStore::newWithStorage` 打开 Space 偏好存储（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:111`）。
 
-`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>` 键（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332`）。
+`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>` 键（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1361`）。
 
 `ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:603`）。
 
@@ -166,7 +166,7 @@ Space 偏好存储构造时创建同步描述符 `PreferencesSyncDescriptor`（`
 
 Space 偏好存储构造时创建同步日志 `SyncOperationStore`（`core/crates/persistence/store/src/PreferencesDataStore.rs:2962`）。
 
-`localStateSummary` 调用 `publishPreferenceOutboxes` 发布偏好同步 outbox（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:688`）。
+`localStateSummary` 调用 `publishPreferenceOutboxes` 发布偏好同步 outbox（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:696`）。
 
 偏好（`preferences`）属于 Space 持久化同步的载荷类别（`docs/core-node-space-binding-architecture.md:205`）。
 
@@ -212,13 +212,13 @@ Space 偏好存储构造时创建同步日志 `SyncOperationStore`（`core/crate
 
 架构文档 §8 的模块对照表使用目录式写法，本页按下表核对为当前 crate 名。
 
-`node/peer-link` 对应当前 crate `operit-peer-link`（`core/crates/node/peer-link/Cargo.toml:2`）。
+node/peer-link 对应当前 crate `operit-peer-link`（`core/crates/node/peer-link/Cargo.toml:2`）。
 
-`node/runtime` 对应当前 crate `operit-node-runtime`（`core/crates/node/runtime/Cargo.toml:2`）。
+node/runtime 对应当前 crate `operit-node-runtime`（`core/crates/node/runtime/Cargo.toml:2`）。
 
-`runtime/application` 对应当前 crate `operit-runtime`（`core/crates/runtime/application/Cargo.toml:2`）。
+runtime/application 对应当前 crate `operit-runtime`（`core/crates/runtime/application/Cargo.toml:2`）。
 
-`application/core` 对应当前 crate `operit-core-application`（`core/crates/application/core/Cargo.toml:2`）。
+application/core 对应当前 crate `operit-core-application`（`core/crates/application/core/Cargo.toml:2`）。
 
 | 模块（现名） | 职责 | 架构文档 §8 写法 |
 | --- | --- | --- |
@@ -253,7 +253,7 @@ Space 偏好存储构造时创建同步日志 `SyncOperationStore`（`core/crate
 
 1. 本地 App 发起请求，始终首先进入本机 `CoreNodeRouter`（`docs/core-node-space-binding-architecture.md:348`）。
 2. 普通请求进入 `LocalCoreProxy`；带注解的 Binding 请求经 `Binding(key)` 路由到目标 CoreNode（`docs/core-node-space-binding-architecture.md:354`）。
-3. 模型工具循环在工具调用边界切换 CoreNode：模型产生 `switch_core`，源节点验证目标是可达的 Space 成员，在一个事务内持久化 assistant 工具调用、工具结果、chat metadata 与同步操作，Router 比较写入 `Binding(chatId)`，把 Binding record 与 operation 放入 Link route context 发送到目标节点（`docs/core-node-space-binding-architecture.md:395`）。
+3. 模型工具循环在工具调用边界切换 CoreNode：模型产生 `switch_core`，源节点验证目标是可达的 Space 成员，在一个事务内持久化 assistant 工具调用、工具结果、chat metadata 与同步操作，Router 比较写入 Binding(chatId)，把 Binding record 与 operation 放入 Link route context 发送到目标节点（`docs/core-node-space-binding-architecture.md:395`）。
 4. 目标节点的 Router 在调用业务恢复方法前应用并校验 Binding operation，响应业务等待 `requiredClock`，加载已同步 assistant 消息并使用 switch_core 的工具结果发起下一轮模型请求（`docs/core-node-space-binding-architecture.md:407`）。
 5. 响应流属于一次用户发起的 execution，不属于执行 CoreNode；最初接受请求的 `CoreNodeRouter` 保持上游流，当前执行节点只产生该 execution 的后续事件（`docs/core-node-space-binding-architecture.md:432`）。
 6. `SpacePersistenceSyncService` 经认证路由与可达成员持续交换本地操作日志和向量时钟，同步不依赖当前 Binding（`docs/core-node-space-binding-architecture.md:202`）。

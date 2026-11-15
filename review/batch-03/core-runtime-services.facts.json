@@ -1,523 +1,523 @@
 [
   {
     "fact": "ChatServiceCore 结构体持有 enhancedAiService、messageProcessingDelegate、chatHistoryDelegate、messageCoordinationDelegate 四个核心成员",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:243"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:244"
   },
   {
     "fact": "ChatServiceCore::new 按 ChatSelectionMode 决定 chatInputRuntime：FOLLOW_GLOBAL 用 ChatRuntime::Main，LOCAL_ONLY 用 ChatRuntime::Floating",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:261"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:367"
   },
   {
     "fact": "initializeDelegates 新建 ChatHistoryDelegate、MessageProcessingDelegate 与 MessageCoordinationDelegate",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:393"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:488"
   },
   {
-    "fact": "initializeDelegates 把 MessageProcessingDelegate 的 fileSystemHost 设为 ChatServiceCore 的 fileSystemHost",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:392"
+    "fact": "initializeDelegates 把 MessageProcessingDelegate 的 filesystem 设为 ChatServiceCore 的 filesystem",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:487"
   },
   {
     "fact": "initializeChatConfiguration 首次调用恢复持久化历史并缓存结果，重复调用直接返回缓存结果",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:407"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:507"
   },
   {
     "fact": "initializeChatConfiguration 成功后置 initialized 为 true",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:413"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:513"
   },
   {
     "fact": "newEnhancedAiServiceForChat 按 chatId 返回独立的 EnhancedAIService 实例并缓存",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:351"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:459"
   },
   {
     "fact": "generateLocalLlm 只在 Binding 归属节点做模型推理，对话与工具走各自的路由",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:311"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:417"
   },
   {
     "fact": "toolPkgRouteHost 返回绑定到当前聊天运行时的 AIToolHandler",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:321"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:429"
   },
   {
     "fact": "callToolPkgRoute 通过 ToolPkgRouteRuntime::invoke 执行插件方法",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:328"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:436"
   },
   {
     "fact": "watchToolPkgRoute 返回插件异步生成器的 CoreStream",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:335"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:443"
   },
   {
     "fact": "pushToolPkgRoute 通过 ToolPkgRouteRuntime::consume 消费插件的 ReverseStream 输入",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:343"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:451"
   },
   {
     "fact": "sendUserMessage 是带 operit_core_route 的公开发送入口，binding 为 chatIdOverride",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:537"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:637"
   },
   {
     "fact": "sendUserMessage 转交给 startUserMessage 执行",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:550"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:649"
   },
   {
     "fact": "sendUserMessageStream 要求显式空提交块加 EOF，中断上传不得把已收前缀变成聊天消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:557"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:657"
   },
   {
-    "fact": "sendUserMessageStream 先经 chat_input_stream::receive 收齐流式文本再调用 sendUserMessage",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:573"
+    "fact": "sendUserMessageStream 先经 chat_input_stream::receive 收齐流式文本，再经 ChatUserMessageStarter 执行发送管线",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:676"
   },
   {
     "fact": "startUserMessage 要求 admittedLease、deferSequenceCompletion、nativeExecutionId 三者一致，否则返回错误",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:594"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:710"
   },
   {
     "fact": "startUserMessage 在提交前先派发 CHAT_INPUT_EVENT_SUBMIT_REQUESTED 钩子",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:616"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:310"
   },
   {
     "fact": "提交钩子返回 BLOCK 或 CONSUME 时本轮不进入生成，CONSUME 对应 outcome Consumed，BLOCK 对应 outcome Blocked",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:629"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:315"
   },
   {
     "fact": "提交钩子返回 REPLACE 或 ALLOW 时继续执行，REPLACE 用决策文本替换原消息文本",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:638"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:329"
   },
   {
     "fact": "startUserMessage 在 SUBMIT_REQUESTED 之后还派发 CHAT_INPUT_EVENT_SUBMITTED 钩子",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:652"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:343"
   },
   {
     "fact": "recordOnlySequenceInput 只提交原始输入一次，不请求参与者、配置或模型",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:675"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:730"
   },
   {
     "fact": "cancelNativeChatExecution 只取消仍属于该聊天运行时的原生执行，非归属执行返回 false",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:699"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:754"
   },
   {
     "fact": "finishNativeChatSequence 先逐条校验收据定位的消息归属再发布序列级完成",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:706"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:761"
   },
   {
     "fact": "resume 在已拥有聊天的 CoreNode 上恢复 AI 回合",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:728"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:783"
   },
   {
     "fact": "resumeFromRouteContext 用路由变更携带的 CoreRouteResumeContext 恢复目标聊天",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:776"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:831"
   },
   {
     "fact": "beforeChangeRoute 在路由变更前开启执行租约并立即释放以校验执行归属",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:841"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:896"
   },
   {
     "fact": "afterChangeRoute 把恢复交给 resumeFromRouteContext",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:870"
-  },
-  {
-    "fact": "cancelMessage 取消指定聊天的消息生成，persistTurn 为真时提交已生成的部分消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:884"
-  },
-  {
-    "fact": "steerMessage 在不取消当前模型或工具回合的前提下引导进行中的逻辑回合",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:898"
-  },
-  {
-    "fact": "enqueuePendingQueueMessage 向指定聊天的待发消息队列追加一条消息并置 wasBlocked 为 true",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:918"
-  },
-  {
-    "fact": "deletePendingQueueMessage 按 id 删除指定聊天队列中的一条消息",
     "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:925"
   },
   {
+    "fact": "cancelMessage 取消指定聊天的消息生成，persistTurn 为真时提交已生成的部分消息",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:939"
+  },
+  {
+    "fact": "steerMessage 在不取消当前模型或工具回合的前提下引导进行中的逻辑回合",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:953"
+  },
+  {
+    "fact": "enqueuePendingQueueMessage 向指定聊天的待发消息队列追加一条消息并置 wasBlocked 为 true",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:973"
+  },
+  {
+    "fact": "deletePendingQueueMessage 按 id 删除指定聊天队列中的一条消息",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:980"
+  },
+  {
     "fact": "takePendingQueueMessage 取出指定聊天队列中的一条消息用于编辑或显式发送",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:937"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:992"
   },
   {
     "fact": "takeNextPendingQueueMessageIfReady 仅当聊天未在处理、队列曾被阻塞且未被抑制时取出下一条排队消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:976"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1031"
   },
   {
     "fact": "restorePendingQueueMessage 把被拒绝的排队消息插回所属聊天队列头部",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1006"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1061"
   },
   {
     "fact": "setPendingQueueExpanded 更新指定聊天待发消息队列在界面上的展开状态",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1022"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1077"
   },
   {
     "fact": "splitMarkdownContent 把 Markdown 内容拆成渲染事件并经工具处理器装饰工具展示事件",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1032"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1087"
   },
   {
     "fact": "xmlRenderRegistryRevisionFlow 暴露 ToolPkg XML 渲染注册表的修订号流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1041"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1122"
   },
   {
     "fact": "renderToolPkgXml 经注册的 ToolPkg XML 渲染钩子渲染一个 XML 块",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1047"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1128"
   },
   {
     "fact": "ensureRoutedChat 创建路由聊天并经聊天历史管理器登记",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1058"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1139"
   },
   {
     "fact": "createNewChat 创建新聊天，要求 AI 运行时已初始化",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1066"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1147"
   },
   {
     "fact": "switchChat 打开规范历史并同步全局选择",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1098"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1179"
   },
   {
     "fact": "switchChatLocal 打开规范历史但不同步全局选择",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1106"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1187"
   },
   {
     "fact": "chatConfiguration 只解析通用展示身份、有序参与者与插件初始化数据",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1115"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1196"
   },
   {
     "fact": "chatConfigurationForMessage 按消息的配置归属解析模型与语音回放用的消息作者",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1142"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1226"
   },
   {
     "fact": "chatConfigurationForParticipant 精确解析指定执行参与者，解析出的 profile 与请求不一致且归属不是 MODEL_CONFIGURATION_OWNER 时返回错误",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1204"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1288"
   },
   {
     "fact": "deleteChatHistory 删除会话前先取消破坏性变更中的消息生成并删除待发队列",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1229"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1313"
   },
   {
     "fact": "deleteMessage 按时间戳删除指定聊天中的一条消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1284"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1368"
   },
   {
     "fact": "deleteMessages 按时间戳批量删除指定聊天中的多条消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1292"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1376"
   },
   {
     "fact": "updateMessage 替换一条消息的内容并刷新稳定上下文窗口",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1300"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1384"
   },
   {
     "fact": "deleteMessagesFrom 删除指定消息及之后的所有消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1366"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1459"
   },
   {
     "fact": "deleteMessageVariant 删除一条消息的指定备选回复版本",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1373"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1466"
   },
   {
     "fact": "selectMessageVariant 选择一条消息的显示回复版本",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1380"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1473"
   },
   {
     "fact": "createBranch 创建分支聊天并选为当前聊天",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1386"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1479"
   },
   {
     "fact": "insertSummary 仅在用户或 AI 消息处插入总结，其他发送者返回失败",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1407"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1500"
   },
   {
     "fact": "getBranches 返回从指定父聊天派生的分支聊天",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1520"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1613"
   },
   {
     "fact": "compactChat 手动把当前聊天压缩为检查点，不论阈值是否达到",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1527"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1620"
   },
   {
     "fact": "updateChatLocked 更新聊天是否锁定以防破坏性变更",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1561"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1654"
   },
   {
     "fact": "updateChatPinned 更新聊天是否置顶",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1571"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1664"
   },
   {
     "fact": "promoteChatToRoot 把子聊天提升为根聊天，不改变内容与绑定",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1576"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1669"
   },
   {
     "fact": "updateChatOrder 只按 id 重排规范聊天标识",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1581"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1674"
   },
   {
     "fact": "clearCurrentChat 清空当前选定聊天的全部消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1591"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1684"
   },
   {
     "fact": "exportChatHistoriesToJson 把全部聊天历史序列化为 JSON 归档字符串",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1597"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1690"
   },
   {
     "fact": "importChatHistoriesFromJson 从 JSON 归档字符串导入聊天历史",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1606"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1699"
   },
   {
     "fact": "updateChatTitle 更新聊天历史的存储标题",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1619"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1712"
   },
   {
     "fact": "bindChatToWorkspace 把聊天绑定到挂载的文件夹",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1625"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1718"
   },
   {
     "fact": "moveChatToWorkspace 把聊天移到已有工作区，不改变已挂载文件夹",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1633"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1726"
   },
   {
     "fact": "createAndGetDefaultWorkspace 为聊天创建默认工作区目录并返回路径",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1662"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1755"
   },
   {
     "fact": "createAndBindWorkspace 为聊天创建命名工作区并存储工作区绑定",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1673"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1766"
   },
   {
     "fact": "deleteWorkspace 删除工作区的共享默认区域与绑定，保留聊天与已挂载文件",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1703"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1796"
   },
   {
     "fact": "unbindChatFromWorkspace 解除聊天的 workspace 绑定，不删除工作区文件",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1736"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1829"
   },
   {
     "fact": "renameWorkspaceAndChat 同时重命名工作区绑定与聊天标题",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1742"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1835"
   },
   {
     "fact": "previewWorkspaceChangesForMessage 预览回滚到某条消息之前将应用的文件变更",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1759"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1852"
   },
   {
     "fact": "rewindWorkspaceForMessage 把绑定工作区恢复到某条消息之前的快照",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1776"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1869"
   },
   {
     "fact": "rollbackToMessage 仅当目标消息是用户消息时回滚聊天到该消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1806"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1899"
   },
   {
     "fact": "rewindAndResendMessage 回滚用户消息后用编辑内容作为新回合重新发送",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1837"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1930"
   },
   {
     "fact": "regenerateSingleAiMessage 原地重新生成一条 AI 消息，保留周围聊天历史",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1882"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1975"
   },
   {
     "fact": "resetTokenStatistics 清空 token 用量账本并重置当前聊天的 token 统计",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1931"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2024"
   },
   {
     "fact": "updateCumulativeStatistics 为当前聊天与服务重新计算累计 token 统计",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1948"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2041"
   },
   {
     "fact": "handleAttachment 按前缀分发粘贴文本与粘贴图片附件",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1960"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2053"
   },
   {
     "fact": "handleAttachment 收到 screen_capture、notifications_capture、location_capture 时分别做屏幕 OCR、通知与位置捕获",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1976"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2069"
   },
   {
     "fact": "handleAttachment 用 PACKAGE_ATTACHMENT_PREFIX 与 WORKSPACE_MENTION_ATTACHMENT_PREFIX 分发包附件与工作区引用附件",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1988"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2081"
   },
   {
     "fact": "PACKAGE_ATTACHMENT_PREFIX 为 package_attach:，PASTED_TEXT_ATTACHMENT_PREFIX 为 pasted_text:，PASTED_IMAGE_ATTACHMENT_PREFIX 为 pasted_image:，WORKSPACE_MENTION_ATTACHMENT_PREFIX 为 workspace_mention:",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:83"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:84"
   },
   {
     "fact": "attachUploadedFile 仅当已上传附件已导入当前聊天文件目录且 VFS 定位与存储文件一致时才登记",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2436"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2519"
   },
   {
     "fact": "removeAttachment 按存储文件路径删除一条待发附件",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2480"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2563"
   },
   {
     "fact": "clearAttachments 清空全部待发附件",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2486"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2569"
   },
   {
     "fact": "activeStreamingChatIds 返回当前有活跃流式回合的聊天 id",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2491"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2574"
   },
   {
     "fact": "chatHistory 返回当前聊天的内存消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2587"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2670"
   },
   {
     "fact": "chatHistories 返回全部已持久化聊天历史的快照",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2599"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2682"
   },
   {
     "fact": "chatHistoryListItemsFlow 返回按分组准备的聊天历史列表项流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2611"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2694"
   },
   {
     "fact": "routedChatListFlow 在请求聊天的执行方列出会话元数据，并压缩为 Edge 历史",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2617"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2700"
   },
   {
     "fact": "createRoutedChat 从真实路由来源创建会话，不改变其他设备的当前聊天",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2626"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2709"
   },
   {
     "fact": "chatMessagesFlow 返回指定聊天的消息流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2637"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2720"
   },
   {
     "fact": "chatMessagesWindowFlow 按消息索引分页显示窗口，不传输完整历史或工具负载",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2645"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2728"
   },
   {
     "fact": "chatMessagesWindowFlow 向前翻页时一次加载 14 条消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2649"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2732"
   },
   {
     "fact": "chatImagePreviewChunk 先校验图片归属再返回图像预览分块，格式仅支持 rgb565le",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2675"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2758"
   },
   {
     "fact": "registerChatImage 注册校验过的图像输入并把池 id 投影为聊天标记",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2699"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2782"
   },
   {
     "fact": "routeProbeChatMessagesFlow 构建带嵌入响应流的路由诊断聊天消息流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2713"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2796"
   },
   {
     "fact": "chatAvailablePlugins 只列出已启用且包名不超过 108 字符的插件容器",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2787"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2870"
   },
   {
     "fact": "chatAvailablePlugins 的 items 用 take(6) 截取，每页返回 6 个插件",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2801"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2884"
   },
   {
     "fact": "chatPluginDetails 只返回插件的有界元数据与工具清单",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2812"
-  },
-  {
-    "fact": "chatPluginDetails 的 tools 用 take(3) 截取，每页返回 3 个工具名",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2832"
-  },
-  {
-    "fact": "chatPluginStatus 只运行插件自有的诊断导出，不做只读模块存在检查",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2840"
-  },
-  {
-    "fact": "chatPluginStatus 的 testKind 缺省为 connection，对应 test_connection；tool 对应 test_tool_call",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2852"
-  },
-  {
-    "fact": "chatInputMenuSettings 从聊天执行 Core 读取全部输入框行为设置",
     "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2895"
   },
   {
+    "fact": "chatPluginDetails 的 tools 用 take(3) 截取，每页返回 3 个工具名",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2915"
+  },
+  {
+    "fact": "chatPluginStatus 只运行插件自有的诊断导出，不做只读模块存在检查",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2923"
+  },
+  {
+    "fact": "chatPluginStatus 的 testKind 缺省为 connection，对应 test_connection；tool 对应 test_tool_call",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2935"
+  },
+  {
+    "fact": "chatInputMenuSettings 从聊天执行 Core 读取全部输入框行为设置",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2978"
+  },
+  {
     "fact": "saveChatInputMenuSettings 只写提供的字段，保留其他设置的并发修改",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2924"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3007"
   },
   {
     "fact": "chatInputMenuSummary 返回当前窗口大小、输入输出 token 数与最大上下文长度",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2962"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3045"
   },
   {
     "fact": "respondChatToolPermission 经归属聊天路由响应工具权限请求",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2991"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3074"
   },
   {
     "fact": "localChatMessagesFlow 返回本地 Core 上指定聊天的消息流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3002"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3085"
   },
   {
     "fact": "chatStateFlow 返回 Binding 选中 Core 上指定聊天的运行时状态流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3009"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3092"
   },
   {
     "fact": "localChatStateFlow 返回本地 Core 上指定聊天的运行时状态流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3015"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3098"
   },
   {
     "fact": "localChatStateFlow 用 combine5 合并执行状态、显示窗口状态、文件上下文、待发队列与工具权限请求五路流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3054"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3137"
   },
   {
     "fact": "showChatHistorySelector 返回聊天历史选择器是否可见",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3091"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3174"
   },
   {
     "fact": "attachments 返回待发输入附件的快照",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3096"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3179"
   },
   {
     "fact": "getChatHistoryDelegate 返回聊天历史操作的可变访问",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3101"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3184"
   },
   {
     "fact": "getMessageProcessingDelegate 返回消息处理状态的可变访问",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3106"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3189"
   },
   {
     "fact": "getMessageCoordinationDelegate 在增强 AI 已初始化时返回消息协调状态的可变访问",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3111"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3194"
   },
   {
     "fact": "getTokenStatisticsDelegate 返回协调 delegate 持有的 token 统计状态",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3117"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3200"
   },
   {
     "fact": "getEnhancedAiService 返回当前聊天核心使用的增强 AI 服务",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3148"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3231"
   },
   {
     "fact": "isInitialized 返回聊天核心是否完成 delegate 初始化",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3153"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3236"
   },
   {
     "fact": "setSpeakMessageHandler 注册消息朗读动作使用的语音处理器",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3176"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3259"
   },
   {
     "fact": "reloadChatMessagesSmart 用显示窗口策略重新加载请求聊天的消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3182"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3265"
   },
   {
     "fact": "loadOlderMessagesForCurrentChat 把更早的消息加载进当前聊天显示窗口",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3187"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3270"
   },
   {
     "fact": "loadNewerMessagesForCurrentChat 把更新的消息加载进当前聊天显示窗口",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3192"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3275"
   },
   {
     "fact": "showLatestMessagesForCurrentChat 把当前聊天显示窗口移到最新消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3197"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3280"
   },
   {
     "fact": "revealMessageForCurrentChat 在当前聊天显示窗口内揭示一条指定消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3203"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3286"
   },
   {
     "fact": "loadChatMessageLocatorPreviews 搜索聊天并返回轻量消息预览用于导航",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3210"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3293"
   },
   {
     "fact": "setMessageFavorite 按消息时间戳标记或取消标记一条消息为收藏",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3221"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3304"
   },
   {
     "fact": "getMimeTypeFromPath 按文件扩展名返回 MIME 类型，未知扩展名返回 application/octet-stream",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3453"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3536"
   },
   {
     "fact": "authorizeChatImage 仅当图片 id 被本聊天的消息引用且长度不超过 80 字符时才授权",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3545"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3628"
   },
   {
     "fact": "ProviderRuntimeSupportService 是创建 provider 运行时服务的工厂结构",
@@ -649,67 +649,67 @@
   },
   {
     "fact": "RuntimeProviderSupport::updateTokensForProviderModel 经 ApiPreferences 记录指定 provider 与模型的 token 用量",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:508"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:496"
   },
   {
     "fact": "RuntimeProviderSupport::disableUserPreferenceDescription 返回应用偏好中控制画像文档提示词可见性的开关",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:526"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:514"
   },
   {
     "fact": "RuntimeProviderSupport::defaultTtsConfigId 返回应用默认的语音配置 id",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:536"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:524"
   },
   {
     "fact": "RuntimeProviderSupport::resolveChatConfiguration 在异步任务中经 ChatConfigurationApi 解析持久化聊天上下文",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:551"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:539"
   },
   {
     "fact": "RuntimeProviderSupport::aiVisibleSkillPackages 返回 AI 提示词组合可见的技能包描述",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:572"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:560"
   },
   {
     "fact": "RuntimeProviderSupport::modelBindingForFunction 返回指定功能类型的模型绑定",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:587"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:575"
   },
   {
     "fact": "RuntimeProviderSupport::resolvedModelConfig 返回指定 provider 与模型对的解析后模型配置",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:602"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:589"
   },
   {
     "fact": "RuntimeProviderSupport::loadCodexTokens 返回保存的 ChatGPT Codex 会话，未保存时返回错误",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:614"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:600"
   },
   {
     "fact": "RuntimeProviderSupport::saveCodexTokens 持久化刷新后的 ChatGPT Codex 会话",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:623"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:609"
   },
   {
     "fact": "RuntimeProviderSupport::providerProfile 返回指定 id 的 provider 档案",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:632"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:618"
   },
   {
     "fact": "RuntimeProviderSupport::hasToolPkgAiProvider 判断指定 ToolPkg AI provider 是否已注册",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:643"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:628"
   },
   {
     "fact": "RuntimeProviderSupport::toolPkgAiProvider 返回指定 ToolPkg AI provider 的注册信息",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:648"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:633"
   },
   {
     "fact": "RuntimeProviderSupport::runToolPkgAiProviderHook 调用 ToolPkg AI provider 的钩子函数",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:653"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:638"
   },
   {
     "fact": "RuntimeProviderSupport::decodeToolPkgHookResult 解码 ToolPkg 钩子结果",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:687"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:672"
   },
   {
     "fact": "RuntimeProviderSupport::messageTimingNow 返回 provider 消息计时快照",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:692"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:677"
   },
   {
     "fact": "RuntimeProviderSupport::logMessageTiming 写入一条 provider 消息计时日志",
-    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:700"
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:685"
   },
   {
     "fact": "ToolRuntimeSupportService 是创建 tools 运行时服务的工厂结构",
@@ -829,95 +829,91 @@
   },
   {
     "fact": "cachedMcpTools 返回指定 MCP 服务器的缓存工具描述，未缓存时返回空",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:533"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:530"
   },
   {
     "fact": "builtinPluginAssets 返回运行时拥有的内置包资产",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:549"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:546"
   },
   {
     "fact": "bundledExternalPluginAssets 返回运行时拥有的捆绑外部包资产",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:555"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:552"
   },
   {
     "fact": "bundledExternalSkillAssets 返回运行时拥有的捆绑外部技能资产",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:561"
-  },
-  {
-    "fact": "bundledExternalSkillPackageAssets 返回捆绑外部技能包的归档成员引用，不解码媒体",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:566"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:564"
   },
   {
     "fact": "isSkillVisibleToAi 判断指定技能对 AI 包激活是否可见",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:572"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:570"
   },
   {
     "fact": "setSkillVisibleToAi 更新技能包的 AI 可见性",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:578"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:576"
   },
   {
     "fact": "generateMcpPluginDescription 经功能模型能力生成 MCP 描述，不用会话档案",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:586"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:584"
   },
   {
     "fact": "startChatServices 启动父级聊天服务，取 MAIN 与 FLOATING 两个核心",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:632"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:630"
   },
   {
     "fact": "stopChatServices 停止父级聊天服务并清空核心与计数器",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:640"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:638"
   },
   {
     "fact": "isChatProcessing 判断指定聊天是否正在处理",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:653"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:651"
   },
   {
     "fact": "switchMainChat 在 MAIN 槽位核心上切换主聊天",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:666"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:664"
   },
   {
     "fact": "createChatRuntime 创建工作区会话，不设为当前聊天时只用共享记录管理器与发布流",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:683"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:681"
   },
   {
     "fact": "readChatExtension 不取聊天 holder 锁，直接从规范记录读取指定归属的扩展",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:723"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:721"
   },
   {
     "fact": "writeChatExtension 只替换一个归属命名空间，经记录事务与执行守卫写入",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:742"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:740"
   },
   {
     "fact": "deleteChatExtension 只删除一个归属命名空间，经记录事务与执行守卫删除",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:762"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:760"
   },
   {
     "fact": "openPluginChatMessage 准入恰好一次已认证发送并拥有其生成、最终收据与清理",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:774"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:772"
   },
   {
     "fact": "requestPluginChatCancellation 同步捕获归属以便排队取消不指向后续执行",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:817"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:815"
   },
   {
     "fact": "sendChatMessage 在 Holder 之外调用权威提交钩子，只等待发起回合的实际提交收据",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:845"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:843"
   },
   {
     "fact": "callChatModel 直接调用配置的功能模型，不记入聊天历史",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:909"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:907"
   },
   {
     "fact": "processFileBindingOperations 对文件内容应用结构化编辑",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:985"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:983"
   },
   {
     "fact": "generateUnifiedDiff 为文件应用结果生成统一 diff",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1001"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:999"
   },
   {
     "fact": "runtimeChatSlotToRuntimeSlot 把工具 crate 的 MAIN/FLOATING 槽位映射为运行时 holder 槽位",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1302"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1283"
   },
   {
     "fact": "RuntimeTerminalSessionInfo 发布终端会话元数据，含 sessionId、平台、终端类型、工作目录与命令运行状态",
@@ -1012,7 +1008,39 @@
     "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:213"
   },
   {
-    "fact": "截至基线 364d1d594，resolve_terminal_working_dir 对 /app、/operitapp、/mnt、/virtual 路径走 VFS 解析，其余路径走宿主原生解析；上游 053c6686 已删除四根路径分支，宿主目录回调统一走 VFS 链（resolve_terminal_working_dir，同文件 :451–463）；上一层仍先由 TerminalHost::resolveWorkingDirectory 处理所选终端的命名空间（同文件 :310–312），不是所有终端路径都直接送 VFS",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:457"
+    "fact": "resolve_terminal_working_dir 不再按路径分支，全部路径经 VFS 的 resolveResourcePath 解析后由 terminalDirectory 处理",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:454"
+  },
+  {
+    "fact": "startTerminalPty 仍先由 TerminalHost::resolveWorkingDirectory 处理所选终端的命名空间，再经 VFS 回调解析工作目录",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:312"
+  },
+  {
+    "fact": "startUserMessage 先经 captureUserMessageStarter 捕获共享聊天状态与起始选择，再由 ChatUserMessageStarter 执行发送管线",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:696"
+  },
+  {
+    "fact": "projectMessagesForDisplay 对客户端消息快照做一次深度查询并经消息变换桥批量投影显示",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1108"
+  },
+  {
+    "fact": "projectMessageForDisplay 投影单条客户端消息",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1100"
+  },
+  {
+    "fact": "messageTransformRevisionFlow 暴露消息变换处理器的修订号流",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1095"
+  },
+  {
+    "fact": "updateMessage 在持久化前经 ToolPkgMessageTransformBridge 对编辑后消息做 before_persist 变换，变换失败返回 false",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1431"
+  },
+  {
+    "fact": "builtinSkillNames 返回无需启用 AI 可见性的内置技能名",
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:558"
+  },
+  {
+    "fact": "RuntimeProviderSupport 的 dataDir 接口已删除，modelBindingForFunction、resolvedModelConfig、providerProfile 三函数改用默认配置管理器，不再接收 rootDir 参数",
+    "ref": "core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:575"
   }
 ]

@@ -12,7 +12,7 @@ date: 2026-11-11
 
 - operit-plugin-codegen 是 Operit2 的 SDK 代码生成 crate，从 Rust SDK 源码生成 TypeScript 声明树、JavaScript Tools 运行时、内置工具名枚举与四种语言的 SDK 客户端（core/crates/plugin/codegen/src/lib.rs:2）。
 - 代码生成全部发生在构建时，由 build.rs 与 codegen 二进制触发，不在运行时动态生成（core/crates/plugin/sdk/build.rs:55）。
-- SDK 声明的 Rust 源头是 [[core-plugin-sdk|插件——Plugin SDK]] 的 Host trait，生成的 JavaScript 运行时由 [[core-plugin-js-bridge|插件——JS 桥]] 承载（core/crates/plugin/codegen/src/runtime_bindings.rs:12）。
+- SDK 声明的 Rust 源头是 [[core-plugin-sdk|插件——Plugin SDK]] 的 Host trait，生成的 JavaScript 运行时由 [[core-plugin-js-bridge|插件——JS 桥]] 承载（core/crates/plugin/codegen/src/runtime_bindings.rs:13）。
 - operit-plugin-sdk-ipc 是插件 SDK 与 Core 之间的运行时通道，承载调用、订阅与推送三类交互（core/crates/plugin/sdk-ipc/src/lib.rs:9）。
 - operit-plugin-sdk-ipc-bridge 只有 36 行，是 Operit 侧的薄桥接器，只把宿主与 Link 目标接到 `PluginSdkIpcServer` 上（core/crates/plugin/sdk-ipc-bridge/src/lib.rs:9）。
 
@@ -20,7 +20,7 @@ date: 2026-11-11
 
 - `generate_declaration_tree` — 从 Rust SDK 源码生成 TypeScript 声明树（core/crates/plugin/codegen/src/declarations.rs:125）
 - `check_declaration_tree` — 校验已提交声明与重新生成结果一致（core/crates/plugin/codegen/src/declarations.rs:158）
-- `generate_js_tools_runtime` — 生成 JavaScript Tools 运行时（core/crates/plugin/codegen/src/runtime_bindings.rs:288）
+- `generate_js_tools_runtime` — 生成 JavaScript Tools 运行时（core/crates/plugin/codegen/src/runtime_bindings.rs:289）
 - `generate_builtin_tool_names` — 生成 BuiltinToolName 枚举（core/crates/plugin/codegen/src/registration.rs:21）
 - `check_tool_registration_contract` — 校验工具注册与 Rust SDK 工具映射一致（core/crates/plugin/codegen/src/registration.rs:99）
 - `generate_plugin_sdk_client_bindings` — 生成 Rust、Dart、Kotlin、TypeScript 四种语言的 SDK 客户端（core/crates/plugin/codegen/src/client_codegen.rs:11）
@@ -44,7 +44,7 @@ date: 2026-11-11
 ### 声明树生成
 
 - `MODULES` 常量列出 22 个 `ModuleSpec`，每个对应一个 Rust 源文件与一个 TypeScript 声明文件（core/crates/plugin/codegen/src/declarations.rs:29）。
-- storage 模块是唯一带 `additional_rust_file`（foundation/host-api/src/PluginStorage.rs）且 `nullable_wire_fields` 为 true 的模块，输出 storage.generated.d.ts（core/crates/plugin/codegen/src/declarations.rs:34）。
+- storage 模块是唯一带 `additional_rust_file`（foundation/host-contract/src/PluginStorage.rs）且 `nullable_wire_fields` 为 true 的模块，输出 storage.generated.d.ts（core/crates/plugin/codegen/src/declarations.rs:34）。
 - `generate_declaration_tree` 先创建输出目录，再渲染整棵声明树，只把内容变化的文件写入磁盘（core/crates/plugin/codegen/src/declarations.rs:128）。
 - `writeDeclarationWhenChanged` 在文件内容完全相同时跳过写入，缺失或内容不同时写入（core/crates/plugin/codegen/src/declarations.rs:142）。
 - `check_declaration_tree` 比较已提交声明与重新生成结果，不一致时报错列出全部差异文件（core/crates/plugin/codegen/src/declarations.rs:158）。
@@ -92,6 +92,7 @@ date: 2026-11-11
 - is_flattened_intersection 在全部字段带 serde flatten，或字段名为 member_1、member_2 依次编号时成立（core/crates/plugin/codegen/src/declarations.rs:1658）。
 - infer_declaration 优先使用显式 scope/name/kind，ToolPkgBroadcastTopicKey 直接跳过不生成声明（core/crates/plugin/codegen/src/declarations.rs:1679）。
 - infer_declaration 把 FilesHost、NetHost、SystemHost 等 Host trait 按命名空间映射（core/crates/plugin/codegen/src/declarations.rs:1700）。
+- infer_declaration 把 UIAgentHost 与 UIHost 一同映射到 UI 命名空间（core/crates/plugin/codegen/src/declarations.rs:1718）。
 - infer_declaration 把 ChatHost、StorageHost、StorageFacadeHost 映射到 Chat 与 Storage 命名空间（core/crates/plugin/codegen/src/declarations.rs:1719）。
 - infer_declaration 按输出文件经 `prefixed_path` 加命名空间前缀：仅当 Rust 名以该前缀开头时进入命名空间，否则输出到根：files.d.ts 映射为 Files、network.d.ts 映射为 Net、system.d.ts 映射为 System、models.d.ts 映射为 Models、tts.d.ts 映射为 Tts、stt.d.ts 映射为 Stt、theme.d.ts 映射为 Theme、catalog.d.ts 映射为 Catalog、media.d.ts 映射为 Media（core/crates/plugin/codegen/src/declarations.rs:1736）。
 - infer_declaration 把 software_settings.d.ts、ui.d.ts、storage.d.ts 的声明分别归入 SoftwareSettings、UI、Storage 命名空间；仅当 Rust 名以该前缀开头时进入命名空间，否则输出到根；ui.d.ts 中以 `UINode` 开头的声明直接输出原名（core/crates/plugin/codegen/src/declarations.rs:1743）。
@@ -109,38 +110,38 @@ date: 2026-11-11
 
 ### JS Tools 运行时生成
 
-- `HOST_TRAITS` 列出 Files、Net、Net.cookies、System、System.bluetooth 映射（core/crates/plugin/codegen/src/runtime_bindings.rs:12）。
-- HOST_TRAITS 列出 System.bluetooth.ble、System.terminal、System.music、SoftwareSettings 映射（core/crates/plugin/codegen/src/runtime_bindings.rs:21）。
-- HOST_TRAITS 列出 Models、Tts、Stt、Theme、Catalog、Media、Chat、Storage 映射，共 17 组（core/crates/plugin/codegen/src/runtime_bindings.rs:33）。
-- `parse_rust_tool_bindings` 读取 JS_TOOL_BINDINGS 常量数组（core/crates/plugin/codegen/src/runtime_bindings.rs:62）。
-- 每条 JsToolBinding 含 strict_arguments、facade 与 fixed_parameters 字段（core/crates/plugin/codegen/src/runtime_bindings.rs:45）。
-- JsToolBinding 的目标必须是 BuiltinToolName 变体（core/crates/plugin/codegen/src/runtime_bindings.rs:104）。
-- JS_TOOL_API_VARIANTS 引用不存在的绑定时报错（core/crates/plugin/codegen/src/runtime_bindings.rs:196）。
-- JS_TOOL_API_VARIANTS 同一版本号重复声明时报错（core/crates/plugin/codegen/src/runtime_bindings.rs:206）。
-- generate_js_tools_runtime 先校验 Host trait 声明的方法集合与绑定表完全一致，缺失或多余时返回 Rust Tools bindings differ from active host traits 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:298）。
-- generate_js_tools_runtime 生成的 JavaScript 先输出 __operitToolParameterRules，再定义 Tools 命名空间（core/crates/plugin/codegen/src/runtime_bindings.rs:312）。
-- 生成的 JavaScript 内嵌 chat_runtime.js、terminal_runtime.js 与 storage_runtime.js 三个手写运行时（core/crates/plugin/codegen/src/runtime_bindings.rs:400）。
-- Chat 命名空间的方法挂在 __operitToolPkgApi.namespace("Tools.Chat") 下（core/crates/plugin/codegen/src/runtime_bindings.rs:471）。
-- 生成输出末尾追加 compat/v1 的 9 个手写适配器与 DeviceTools.script.js（core/crates/plugin/codegen/src/runtime_bindings.rs:504）。
-- 生成输出在写入前用 tree-sitter 校验 JavaScript 语法（core/crates/plugin/codegen/src/runtime_bindings.rs:513）。
-- 生成输出以 __operitCanonicalTools 保存 Tools 命名空间的深拷贝（core/crates/plugin/codegen/src/runtime_bindings.rs:495）。
-- AsyncIterator facade 经 __operitCreateToolStream 建流，并要求恰好一个请求参数（core/crates/plugin/codegen/src/runtime_bindings.rs:443）。
-- TerminalCallback 走 __operitExecTerminalStreaming，TerminalRun 走 __operitRunTerminal，TerminalWait 走 __operitWaitTerminal（core/crates/plugin/codegen/src/runtime_bindings.rs:445）。
-- Promise 与 Storage facade 走生成的 JS 函数（core/crates/plugin/codegen/src/runtime_bindings.rs:446）。
-- 未知 facade 返回 Unknown result facade 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:452）。
-- 带 API 版本变体的方法经 __operitToolPkgApi.method().since() 或 .between() 生成版本门控函数（core/crates/plugin/codegen/src/runtime_bindings.rs:461）。
-- 非 Chat 的版本变体方法再调 .build("Tools.<命名空间>.<方法>")（core/crates/plugin/codegen/src/runtime_bindings.rs:478）。
-- __operitInvokeToolsBinding 先构造参数，带设备上下文时调用 __operitDeviceToolCall，否则调用 toolCall（core/crates/plugin/codegen/src/runtime_bindings.rs:389）。
-- __operitToolsSelectOverload 在唯一重载时直接选它，首参为对象且存在扁平化重载时选扁平化重载，否则选参数最多的重载（core/crates/plugin/codegen/src/runtime_bindings.rs:348）。
-- __operitToolsBuildParameters 按选定重载映射参数：扁平化参数展开对象字段，标量联合后缀参数映射为标量字段，最后追加固定参数（core/crates/plugin/codegen/src/runtime_bindings.rs:361）。
-- 除 preserve_object_namespaces（Net、Media）内的命名空间外，扁平化参数展开对象字段时经 __operitToolsSnakeCase 转 snake_case；Net 与 Media 保留原字段名（core/crates/plugin/codegen/src/runtime_bindings.rs:371）。
-- generate_parameter_rules 读取 JS_TOOL_PARAMETER_RULES 常量，要求恰好 4 个字段：flatten_arguments、scalar_union_suffixes、preserve_object_namespaces、argument_names（core/crates/plugin/codegen/src/runtime_bindings.rs:560）。
-- generate_parameter_rules 要求每个参数别名是四元组且引用已声明的方法与参数，重复别名报错（core/crates/plugin/codegen/src/runtime_bindings.rs:586）。
-- argument_checks 为 strict_arguments 的方法生成参数校验：String 参数要求非空且首尾无空白，其他路径类型用 __operitSnapshotJsonObject 快照，不支持的类型报错（core/crates/plugin/codegen/src/runtime_bindings.rs:537）。
-- `read_host_method_arguments` 从 HOST_TRAITS 的 trait 中读取每个重载的有序参数名（core/crates/plugin/codegen/src/runtime_bindings.rs:640）。
-- `validate_javascript_syntax` 用 tree-sitter 解析生成的 JavaScript，含错误节点时返回 generated JavaScript Tools runtime contains a syntax error 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:680）。
-- `runtime_method_name` 去掉方法名前的 r# 前缀与 _overload_ 后缀（core/crates/plugin/codegen/src/runtime_bindings.rs:726）。
-- `pascal_case_to_snake_case` 把 PascalCase 变体名还原为 snake_case（core/crates/plugin/codegen/src/runtime_bindings.rs:733）。
+- `HOST_TRAITS` 列出 UI、Files、Net、Net.cookies、System、System.bluetooth 映射（core/crates/plugin/codegen/src/runtime_bindings.rs:13）。
+- HOST_TRAITS 列出 System.bluetooth.ble、System.terminal、System.music、SoftwareSettings 映射（core/crates/plugin/codegen/src/runtime_bindings.rs:22）。
+- HOST_TRAITS 列出 Models、Tts、Stt、Theme、Catalog、Media、Chat、Storage 映射，共 18 组（core/crates/plugin/codegen/src/runtime_bindings.rs:34）。
+- `parse_rust_tool_bindings` 读取 JS_TOOL_BINDINGS 常量数组（core/crates/plugin/codegen/src/runtime_bindings.rs:63）。
+- 每条 JsToolBinding 含 strict_arguments、facade 与 fixed_parameters 字段（core/crates/plugin/codegen/src/runtime_bindings.rs:46）。
+- JsToolBinding 的目标必须是 BuiltinToolName 变体（core/crates/plugin/codegen/src/runtime_bindings.rs:105）。
+- JS_TOOL_API_VARIANTS 引用不存在的绑定时报错（core/crates/plugin/codegen/src/runtime_bindings.rs:197）。
+- JS_TOOL_API_VARIANTS 同一版本号重复声明时报错（core/crates/plugin/codegen/src/runtime_bindings.rs:207）。
+- generate_js_tools_runtime 先校验 Host trait 声明的方法集合与绑定表完全一致，缺失或多余时返回 Rust Tools bindings differ from active host traits 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:299）。
+- generate_js_tools_runtime 生成的 JavaScript 先输出 __operitToolParameterRules，再定义 Tools 命名空间（core/crates/plugin/codegen/src/runtime_bindings.rs:313）。
+- 生成的 JavaScript 内嵌 chat_runtime.js、terminal_runtime.js 与 storage_runtime.js 三个手写运行时（core/crates/plugin/codegen/src/runtime_bindings.rs:401）。
+- Chat 命名空间的方法挂在 __operitToolPkgApi.namespace("Tools.Chat") 下（core/crates/plugin/codegen/src/runtime_bindings.rs:472）。
+- 生成输出末尾追加 compat/v1 的 9 个手写适配器与 DeviceTools.script.js（core/crates/plugin/codegen/src/runtime_bindings.rs:505）。
+- 生成输出在写入前用 tree-sitter 校验 JavaScript 语法（core/crates/plugin/codegen/src/runtime_bindings.rs:514）。
+- 生成输出以 __operitCanonicalTools 保存 Tools 命名空间的深拷贝（core/crates/plugin/codegen/src/runtime_bindings.rs:496）。
+- AsyncIterator facade 经 __operitCreateToolStream 建流，并要求恰好一个请求参数（core/crates/plugin/codegen/src/runtime_bindings.rs:444）。
+- TerminalCallback 走 __operitExecTerminalStreaming，TerminalRun 走 __operitRunTerminal，TerminalWait 走 __operitWaitTerminal（core/crates/plugin/codegen/src/runtime_bindings.rs:446）。
+- Promise 与 Storage facade 走生成的 JS 函数（core/crates/plugin/codegen/src/runtime_bindings.rs:447）。
+- 未知 facade 返回 Unknown result facade 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:453）。
+- 带 API 版本变体的方法经 __operitToolPkgApi.method().since() 或 .between() 生成版本门控函数（core/crates/plugin/codegen/src/runtime_bindings.rs:462）。
+- 非 Chat 的版本变体方法再调 .build("Tools.<命名空间>.<方法>")（core/crates/plugin/codegen/src/runtime_bindings.rs:479）。
+- __operitInvokeToolsBinding 先构造参数，带设备上下文时调用 __operitDeviceToolCall，否则调用 toolCall（core/crates/plugin/codegen/src/runtime_bindings.rs:390）。
+- __operitToolsSelectOverload 在唯一重载时直接选它，首参为对象且存在扁平化重载时选扁平化重载，否则选参数最多的重载（core/crates/plugin/codegen/src/runtime_bindings.rs:349）。
+- __operitToolsBuildParameters 按选定重载映射参数：扁平化参数展开对象字段，标量联合后缀参数映射为标量字段，最后追加固定参数（core/crates/plugin/codegen/src/runtime_bindings.rs:362）。
+- 除 preserve_object_namespaces（Net、Media）内的命名空间外，扁平化参数展开对象字段时经 __operitToolsSnakeCase 转 snake_case；Net 与 Media 保留原字段名（core/crates/plugin/codegen/src/runtime_bindings.rs:372）。
+- generate_parameter_rules 读取 JS_TOOL_PARAMETER_RULES 常量，要求恰好 4 个字段：flatten_arguments、scalar_union_suffixes、preserve_object_namespaces、argument_names（core/crates/plugin/codegen/src/runtime_bindings.rs:561）。
+- generate_parameter_rules 要求每个参数别名是四元组且引用已声明的方法与参数，重复别名报错（core/crates/plugin/codegen/src/runtime_bindings.rs:587）。
+- argument_checks 为 strict_arguments 的方法生成参数校验：String 参数要求非空且首尾无空白，其他路径类型用 __operitSnapshotJsonObject 快照，不支持的类型报错（core/crates/plugin/codegen/src/runtime_bindings.rs:538）。
+- `read_host_method_arguments` 从 HOST_TRAITS 的 trait 中读取每个重载的有序参数名（core/crates/plugin/codegen/src/runtime_bindings.rs:641）。
+- `validate_javascript_syntax` 用 tree-sitter 解析生成的 JavaScript，含错误节点时返回 generated JavaScript Tools runtime contains a syntax error 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:681）。
+- `runtime_method_name` 去掉方法名前的 r# 前缀与 _overload_ 后缀（core/crates/plugin/codegen/src/runtime_bindings.rs:727）。
+- `pascal_case_to_snake_case` 把 PascalCase 变体名还原为 snake_case（core/crates/plugin/codegen/src/runtime_bindings.rs:734）。
 
 ### 内置工具名与注册契约
 
@@ -239,9 +240,9 @@ date: 2026-11-11
 - PluginSdkClient 的 `call` 把请求登记到 pendingCalls 后发送 Call 帧（core/crates/plugin/sdk-ipc/src/client.rs:141）。
 - call 发送失败时移除登记，响应通道关闭时返回错误响应（core/crates/plugin/sdk-ipc/src/client.rs:152）。
 - `watchSnapshot` 发送 WatchSnapshot 帧，返回收到的第一个事件（core/crates/plugin/sdk-ipc/src/client.rs:163）。
-- `watchSnapshot` 把请求登记为 Snapshot 类型的 pendingCalls（core/crates/plugin/sdk-ipc/src/client.rs:173）。
+- `watchSnapshot` 把请求登记为 Snapshot 类型的 pendingCalls（core/crates/plugin/sdk-ipc/src/client.rs:163）。
 - `watch` 发送 WatchOpen（core/crates/plugin/sdk-ipc/src/client.rs:188）。
-- `watch` 返回的流关闭时发送不带错误的 WatchClose（core/crates/plugin/sdk-ipc/src/client.rs:215）。
+- `watch` 返回的流关闭时发送不带错误的 WatchClose（core/crates/plugin/sdk-ipc/src/client.rs:184）。
 - `openPush` 发送 PushOpen（core/crates/plugin/sdk-ipc/src/client.rs:225）。
 - openPush 把推送登记到 pendingPushOpens（core/crates/plugin/sdk-ipc/src/client.rs:234）。
 - openPush 成功后返回序号从 0 开始的 PluginSdkPushSession（core/crates/plugin/sdk-ipc/src/client.rs:246）。
@@ -334,8 +335,8 @@ date: 2026-11-11
 - `check_declaration_tree` — 声明树一致性校验主入口（core/crates/plugin/codegen/src/declarations.rs:158）
 - `MODULES` — 22 个 ModuleSpec 的声明模块清单（core/crates/plugin/codegen/src/declarations.rs:29）
 - EmitContext — 声明发射上下文，收 impl、root_traits 与 named_paths（core/crates/plugin/codegen/src/declarations.rs:333）
-- `generate_js_tools_runtime` — JavaScript Tools 运行时生成主入口（core/crates/plugin/codegen/src/runtime_bindings.rs:288）
-- `HOST_TRAITS` — 17 组 (Rust 文件, Host trait, 命名空间) 映射（core/crates/plugin/codegen/src/runtime_bindings.rs:12）
+- `generate_js_tools_runtime` — JavaScript Tools 运行时生成主入口（core/crates/plugin/codegen/src/runtime_bindings.rs:289）
+- `HOST_TRAITS` — 18 组 (Rust 文件, Host trait, 命名空间) 映射（core/crates/plugin/codegen/src/runtime_bindings.rs:13）
 - `generate_plugin_sdk_client_bindings` — 四语言客户端生成主入口（core/crates/plugin/codegen/src/client_codegen.rs:11）
 - `generate_plugin_sdk_surface` — 路由白名单生成主入口（core/crates/plugin/codegen/src/client_codegen.rs:59）
 - `collect_objects` — 对外暴露对象与方法的收集器（core/crates/plugin/codegen/src/client_codegen.rs:87）

@@ -8,7 +8,7 @@ date: 2026-11-11
 
 ## 概述
 
-- 本页讲向 Operit2 提交改动的规则，seed 文件是 `CONTRIBUTING.md`。`CONTRIBUTING.md:3`
+- 本页讲向 Operit2 提交改动的规则，seed 文件是 CONTRIBUTING.md。`CONTRIBUTING.md:3`
 - Operit2 仓库同时包含 Rust 核心、各平台 host、CLI、Flutter 应用和构建工具。`CONTRIBUTING.md:3`
 - 提交改动前须确认改动属于本仓库的维护范围，并保留与现有架构一致的实现方式。`CONTRIBUTING.md:3`
 - 开始之前须先阅读 `README.md`，该文件说明项目定位、CLI 用法和常用检查命令。`CONTRIBUTING.md:9`
@@ -19,12 +19,12 @@ date: 2026-11-11
 
 ## AI 速览
 
-- 核心文档：`CONTRIBUTING.md` — 贡献的改动范围、本地检查、分支提交、PR 流程、许可与行为规范。`CONTRIBUTING.md:1`
+- 核心文档：CONTRIBUTING.md — 贡献的改动范围、本地检查、分支提交、PR 流程、许可与行为规范。`CONTRIBUTING.md:1`
 - 核心机制：`DCO` — 每个提交必须包含的签署行，确认提交权与许可证发布。`CONTRIBUTING.md:50`
 - 核心符号：`Signed-off-by` — DCO 签署行的行首标记，姓名和邮箱与提交者身份一致。`CONTRIBUTING.md:56`
 - 核心格式：`type(scope): summary` — 提交信息推荐格式，例如 `fix(cli): preserve chat attachments`。`CONTRIBUTING.md:48`
 - 核心许可：`AGPL-3.0` — 项目许可证，贡献按 inbound = outbound 原则授权。`CONTRIBUTING.md:73`
-- 核心模板：`.github/pull_request_template.md` — PR 模板，含改动类型、影响范围、验证与提交者确认。`.github/pull_request_template.md:5`
+- 核心模板：.github/pull_request_template.md — PR 模板，含改动类型、影响范围、验证与提交者确认。`.github/pull_request_template.md:5`
 - 主入口：从最新的默认分支创建主题分支，每个分支聚焦一个问题。`CONTRIBUTING.md:47`
 - 数据流向：从最新默认分支创建主题分支开始，完整流程见 ## 调用链。`CONTRIBUTING.md:47`
 
@@ -102,23 +102,23 @@ date: 2026-11-11
 
 ## 关键符号
 
-- `CONTRIBUTING.md` — 贡献指南全文，93 行，定义改动范围、检查、分支提交、PR、许可与行为规范。`CONTRIBUTING.md:1`
+- CONTRIBUTING.md — 贡献指南全文，93 行，定义改动范围、检查、分支提交、PR、许可与行为规范。`CONTRIBUTING.md:1`
 - `DCO` — Developer Certificate of Origin，每个提交必须包含其签署行。`CONTRIBUTING.md:50`
 - `Signed-off-by` — DCO 签署行的行首标记，格式为 `Signed-off-by: Your Name <your.email@example.com>`。`CONTRIBUTING.md:56`
 - `type(scope): summary` — 提交信息推荐格式，例如 `fix(cli): preserve chat attachments`。`CONTRIBUTING.md:48`
-- `AGPL-3.0` — 项目许可证，`CONTRIBUTING.md` 声明项目采用 GNU Affero General Public License v3.0。`CONTRIBUTING.md:11` `CONTRIBUTING.md:73`
+- `AGPL-3.0` — 项目许可证，CONTRIBUTING.md 声明项目采用 GNU Affero General Public License v3.0。`CONTRIBUTING.md:11` `CONTRIBUTING.md:73`
 - `git commit -s` — 创建签署提交的命令标志，`-s` 加入 `Signed-off-by` 行。`CONTRIBUTING.md:53`
 - `cargo check --manifest-path apps/cli/Cargo.toml` — Rust CLI 的本地检查命令。`CONTRIBUTING.md:30`
 - `fvm flutter analyze` — Flutter 应用的静态分析检查命令。`CONTRIBUTING.md:39`
 - `fvm flutter test` — Flutter 应用的测试检查命令。`CONTRIBUTING.md:40`
-- `.github/pull_request_template.md` — PR 模板，定义改动类型、影响范围、验证与提交者确认检查项。`.github/pull_request_template.md:32`
+- .github/pull_request_template.md — PR 模板，定义改动类型、影响范围、验证与提交者确认检查项。`.github/pull_request_template.md:32`
 
 ## 调用链
 
 1. 阅读 `README.md`、`BUILDING.md`、`LICENSE` 三份前置文档。`CONTRIBUTING.md:9`
 2. 确认改动属于本仓库的维护范围，并保留与现有架构一致的实现方式。`CONTRIBUTING.md:3`
 3. 从最新的默认分支创建主题分支，每个分支聚焦一个问题。`CONTRIBUTING.md:47`
-4. 按改动范围运行相关本地检查：Rust CLI 用 `cargo check` 与 `cargo run --bin operit2 -- cli version`。`CONTRIBUTING.md:30`
+4. 按改动范围运行相关本地检查：Rust CLI 用 `cargo check` 与 cargo run --bin operit2 -- cli version。`CONTRIBUTING.md:30`
 5. Flutter 应用检查先进入 `apps/flutter/app`，再运行 `fvm flutter pub get --enforce-lockfile`、`fvm flutter analyze`、`fvm flutter test`。`CONTRIBUTING.md:38`
 6. 将格式化、重命名和功能改动分开提交，每个提交用 `git commit -s` 加入 DCO 签署行。`CONTRIBUTING.md:53`
 7. 创建 PR：标题说明改动结果，描述问题、解决方案、影响范围和验证结果，列出涉及的平台，完成 PR 模板中的检查项。`CONTRIBUTING.md:62`
@@ -126,7 +126,7 @@ date: 2026-11-11
 
 ## 来源
 
-- `CONTRIBUTING.md`（93 行，全文已读）：贡献指南全文，本页全部事实的来源。`CONTRIBUTING.md:1`
-- `.github/pull_request_template.md`（39 行，全文已读）：PR 模板，改动类型、影响范围、验证与提交者确认检查项的来源。`.github/pull_request_template.md:5`
-- `LICENSE`（首行已核验）：`LICENSE` 文件首行标明 GNU AFFERO GENERAL PUBLIC LICENSE Version 3，与 `CONTRIBUTING.md` 的 AGPL-3.0 声明一致。`LICENSE:1`
-- 本页事实全部来自上述三个文件在基线 AAswordman/Operit2 @ 364d1d594 上的内容；`README.md` 与 `BUILDING.md` 仅在 `CONTRIBUTING.md` 的引用处出现，未展开引用其正文。`CONTRIBUTING.md:9`
+- CONTRIBUTING.md（93 行，全文已读）：贡献指南全文，本页全部事实的来源。`CONTRIBUTING.md:1`
+- .github/pull_request_template.md（39 行，全文已读）：PR 模板，改动类型、影响范围、验证与提交者确认检查项的来源。`.github/pull_request_template.md:5`
+- `LICENSE`（首行已核验）：`LICENSE` 文件首行标明 GNU AFFERO GENERAL PUBLIC LICENSE Version 3，与 CONTRIBUTING.md 的 AGPL-3.0 声明一致。`LICENSE:1`
+- 本页事实全部来自上述三个文件在基线 AAswordman/Operit2 @ ff5373fb6 上的内容；`README.md` 与 `BUILDING.md` 仅在 CONTRIBUTING.md 的引用处出现，未展开引用其正文。`CONTRIBUTING.md:9`

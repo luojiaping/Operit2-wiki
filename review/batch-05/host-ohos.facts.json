@@ -108,20 +108,24 @@
     "ref": "hosts/ohos/README.md:41"
   },
   {
-    "fact": "依赖项包括 `operit-host-api`。",
+    "fact": "依赖项包括 `operit-host-local-inference`。",
     "ref": "hosts/ohos/Cargo.toml:9"
   },
   {
-    "fact": "依赖项包括 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage、terminal 特性。",
+    "fact": "依赖项包括 `operit-host-api`。",
     "ref": "hosts/ohos/Cargo.toml:10"
   },
   {
-    "fact": "依赖项包括 `operit-local-models`。",
+    "fact": "依赖项包括 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage、terminal 特性。",
     "ref": "hosts/ohos/Cargo.toml:11"
   },
   {
+    "fact": "依赖项包括 `operit-local-models`。",
+    "ref": "hosts/ohos/Cargo.toml:12"
+  },
+  {
     "fact": "依赖项包括 `libloading` 0.8。",
-    "ref": "hosts/ohos/Cargo.toml:13"
+    "ref": "hosts/ohos/Cargo.toml:14"
   },
   {
     "fact": "`newOhosFileSystemHost` 创建 `OhosFileSystemHost`。",
@@ -176,7 +180,7 @@
     "ref": "hosts/ohos/src/lib.rs:83"
   },
   {
-    "fact": "运行时组合以 `withLocalInferenceHost` 注册 `OhosLocalInferenceHost` 的 new 结果。",
+    "fact": "运行时组合以 `withLocalInferenceHost` 注册 `NativeLocalInferenceHost::withSpeech` 包装的 `OhosLocalInferenceHost` 的 new 结果。",
     "ref": "hosts/ohos/src/lib.rs:88"
   },
   {
@@ -541,11 +545,15 @@
   },
   {
     "fact": "`captureScreenshot` 经 screenshotCapturer 截图。",
-    "ref": "hosts/ohos/src/system_operation.rs:368"
+    "ref": "hosts/ohos/src/system_operation.rs:377"
   },
   {
-    "fact": "`recognizeText` 经文本识别回调执行。",
-    "ref": "hosts/ohos/src/system_operation.rs:373"
+    "fact": "`captureScreenshotTo` 经选定的 VFS 能力写入截图字节并删除原生暂存文件。",
+    "ref": "hosts/ohos/src/system_operation.rs:369"
+  },
+  {
+    "fact": "`recognizeText` 接受 `FileSource` 图片参数，取原生路径后交文本识别回调执行。",
+    "ref": "hosts/ohos/src/system_operation.rs:382"
   },
   {
     "fact": "`execute` 把操作名与参数交给 controller 回调。",

@@ -208,40 +208,40 @@
     "ref": "core/crates/proxy/local/src/lib.rs:230"
   },
   {
-    "fact": "截至基线 364d1d594，fileSystemHost() 在未设置 `FileSystemHost` 时 panic；上游 053c6686 已改成 filesystem() -> Arc<VisualFileSystem>（同文件 :283），调用 hostManager.vfs().expect(\"LocalCoreProxy requires VFS\")。",
+    "fact": "`filesystem` 返回 `Arc<operit_vfs::VisualFileSystem::VisualFileSystem>`，由 `hostManager.vfs()` 构建；VFS 未设置时 panic，消息为 `LocalCoreProxy requires VFS`；旧的 fileSystemHost 已删除。",
     "ref": "core/crates/proxy/local/src/lib.rs:283"
   },
   {
     "fact": "CoreLinkSharedClient::call 经 dispatchCall 分发，成功返回 CoreCallResponse::ok，失败返回 CoreCallResponse::err。",
-    "ref": "core/crates/proxy/local/src/lib.rs:320"
+    "ref": "core/crates/proxy/local/src/lib.rs:317"
   },
   {
     "fact": "dispatchCall 把请求交给生成的 generated_dispatch_core_proxy_call，在 isolation::future 中执行，并把捕获的流附件收养进流池。",
-    "ref": "core/crates/proxy/local/src/lib.rs:429"
+    "ref": "core/crates/proxy/local/src/lib.rs:426"
   },
   {
     "fact": "异步 watch 快照在 withCoreStreamCapture 与 isolation::future 中调用生成的 generated_dispatch_core_proxy_watch_snapshot_async，错误消息后追加请求上下文。",
-    "ref": "core/crates/proxy/local/src/lib.rs:336"
+    "ref": "core/crates/proxy/local/src/lib.rs:333"
   },
   {
     "fact": "watch 目标为 CORE_STREAM_TARGET 时从流池打开匿名流源，否则走生成的 watch 分发。",
-    "ref": "core/crates/proxy/local/src/lib.rs:350"
+    "ref": "core/crates/proxy/local/src/lib.rs:347"
   },
   {
     "fact": "dispatchWatchSnapshot 是同步分发器，调用生成的 generated_dispatch_core_proxy_watch_snapshot。",
-    "ref": "core/crates/proxy/local/src/lib.rs:448"
+    "ref": "core/crates/proxy/local/src/lib.rs:445"
   },
   {
     "fact": "dispatchWatch 是同步分发器，目标为 CORE_STREAM_TARGET 时从流池打开，否则调用生成的 generated_dispatch_core_proxy_watch。",
-    "ref": "core/crates/proxy/local/src/lib.rs:458"
+    "ref": "core/crates/proxy/local/src/lib.rs:455"
   },
   {
     "fact": "watchSnapshotSync 对外暴露同步 watch 快照分发。",
-    "ref": "core/crates/proxy/local/src/lib.rs:437"
+    "ref": "core/crates/proxy/local/src/lib.rs:434"
   },
   {
     "fact": "watchSync 对外暴露同步 watch 流分发。",
-    "ref": "core/crates/proxy/local/src/lib.rs:443"
+    "ref": "core/crates/proxy/local/src/lib.rs:440"
   },
   {
     "fact": "openPushLocal 直接在本地 Core 代理上打开调用方拥有的输入流。",
@@ -257,27 +257,27 @@
   },
   {
     "fact": "LocalApplicationBridgeTarget 实现中，callLocalApplication 经 dispatchCall 分发，不重新进入服务端服务对象路由。",
-    "ref": "core/crates/proxy/local/src/lib.rs:374"
+    "ref": "core/crates/proxy/local/src/lib.rs:371"
   },
   {
     "fact": "watchLocalApplicationSnapshot 加锁后用生成的 generated_dispatch_application_watch_snapshot 读取快照，不经过代理分发器。",
-    "ref": "core/crates/proxy/local/src/lib.rs:390"
+    "ref": "core/crates/proxy/local/src/lib.rs:387"
   },
   {
     "fact": "watchLocalApplication 加锁后用生成的 generated_dispatch_application_watch 打开 watch，并传入流附件收养器。",
-    "ref": "core/crates/proxy/local/src/lib.rs:408"
+    "ref": "core/crates/proxy/local/src/lib.rs:405"
   },
   {
     "fact": "openLocalApplicationPush 经 openPushLocal 打开生成的应用输入流。",
-    "ref": "core/crates/proxy/local/src/lib.rs:416"
+    "ref": "core/crates/proxy/local/src/lib.rs:413"
   },
   {
     "fact": "adoptCoreStreamAttachments 把序列化流源转交给代理自有的流池。",
-    "ref": "core/crates/proxy/local/src/lib.rs:467"
+    "ref": "core/crates/proxy/local/src/lib.rs:464"
   },
   {
     "fact": "openCoreStreamWatch 从流池打开匿名流源。",
-    "ref": "core/crates/proxy/local/src/lib.rs:472"
+    "ref": "core/crates/proxy/local/src/lib.rs:469"
   },
   {
     "fact": "shutdownToolPkgExecutionEngines 调用 toolPkgShutdown 释放容器拥有的执行引擎 worker，不占用异步应用锁。",
@@ -285,11 +285,11 @@
   },
   {
     "fact": "测试 generated_factories_ignore_application_lock_and_open_core_stream_pool 覆盖工厂调用与 watch 不依赖应用锁。",
-    "ref": "core/crates/proxy/local/src/lib.rs:497"
+    "ref": "core/crates/proxy/local/src/lib.rs:494"
   },
   {
     "fact": "未知属性的 watch 在解析工厂后失败，错误码为 WATCH_NOT_FOUND。",
-    "ref": "core/crates/proxy/local/src/lib.rs:557"
+    "ref": "core/crates/proxy/local/src/lib.rs:551"
   },
   {
     "fact": "LocalApplicationBridgeTarget 分发应用自有的 Link 请求，不进入服务对象路由。",

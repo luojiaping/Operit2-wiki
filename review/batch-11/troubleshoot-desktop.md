@@ -10,7 +10,7 @@ date: 2026-11-11
 
 - 本页的 Impeller 渲染目标失败内容以 iOS 崩溃证据为起点：TestFlight build 26 的两份报告在 iPhone10,3 / iOS 16.7.16 上，经过 `Canvas::GetLocalCoverageLimit → LogMessage::~LogMessage → KillProcess` 终止进程。`docs/flutter-impeller-render-target-failure.md:6`
 - 该修复位于引擎共享的 Impeller 层，没有应用业务层的平台判断。`docs/flutter-impeller-render-target-failure.md:28`
-- 桌面端 WebView 渲染以 Windows 合成为主：Windows 上 `WebView2` 直接向 Windows 引擎提供合成视觉，Flutter platform-view 层决定放置、变换、裁剪与绘制顺序。`docs/webview-rendering.md:42`
+- 桌面端 WebView 渲染以 Windows 合成为主：Windows 上 `WebView2` 直接向 Windows 引擎提供合成视觉，Flutter platform-view 层决定放置、变换、裁剪与绘制顺序。`docs/webview-rendering.md:61`
 - macOS 与 Linux 的 WebView 后端使用未缩放原生视口加原生内容缩放：macOS / WKWebView 的页面缩放走 WKWebView pageZoom，AppKit 使用仅平移的原生 frame。`docs/webview-rendering.md:16`
 - Linux / WebKitGTK 使用未缩放原生视口加原生内容缩放，页面缩放走 WebKitGTK zoom level，GTK 收到仅平移的 frame，不做不支持的缩放隐藏。`docs/webview-rendering.md:17`
 - Windows GNU 工具链问题不在本页 seed 内，归属 [[dev-building|构建指南]]（seed 为 BUILDING.md，按大纲指定，本页未读该文件）。
@@ -25,8 +25,8 @@ date: 2026-11-11
 - `WebViewScaleScope` — 提供应用缩放而不改变宿主 DPR。`docs/webview-rendering.md:10`
 - `PlatformWebViewController` 的 `requiresNativeApplicationZoom` — 按后端能力选择缩放策略。`docs/webview-rendering.md:11`
 - `NativeWebViewZoom` — 保留应用缩放与页面缩放两个因子并序列化原生更新。`docs/webview-rendering.md:26`
-- `WebView2` — Windows 上直接向 Windows 引擎提供合成视觉。`docs/webview-rendering.md:42`
-- `OperitSafeWebView` — iOS 后端在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:63`
+- `WebView2` — Windows 上直接向 Windows 引擎提供合成视觉。`docs/webview-rendering.md:61`
+- `OperitSafeWebView` — iOS 后端在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:82`
 - 主入口（Impeller）：`LazyRenderingConfig` 的 `Make`。`docs/flutter-impeller-render-target-failure.md:30`
 - 主入口（WebView）：`WebViewScaleScope`。`docs/webview-rendering.md:10`
 - 数据流向（Impeller）：目标分配失败 → 帧失败状态保留到最终提交 → 画面录制失败时不执行最终屏幕拷贝或 onscreen 提交，后续帧重新申请资源。`docs/flutter-impeller-render-target-failure.md:41`
@@ -81,19 +81,19 @@ date: 2026-11-11
 - iframe 页面缩放实现不检查嵌入文档，在跨源内容和 `JavaScript` 禁用时均可工作。`docs/webview-rendering.md:32`
 - 较旧的 `ArkWeb` SDK 缺少绝对原生浏览器缩放 API，OHOS 页面缩放桥接因此在应用的 `JavaScript` 启用浏览器中使用整页 CSS zoom。`docs/webview-rendering.md:35`
 - OHOS 桥接把主 frame 的 document-start 脚本与用户脚本分开保留，对当前文档应用缩放，重置时恢复预先存在的内联根缩放，应用缩放本身不需要页面 `JavaScript`。`docs/webview-rendering.md:37`
-- 后备存储使用预乘 alpha 的 `DXGI` swapchain，原生浏览器显示使用合成视觉，不用 `Flutter` Texture 或连续屏幕捕获。`docs/webview-rendering.md:44`
-- `ANGLE` 保持帧缓冲方向，`DirectComposition` 按 Flutter 由后向前的绘制顺序以 `AddVisual(visual, FALSE, nullptr)` 追加层。`docs/webview-rendering.md:47`
-- Windows 上 Flutter 对话框与模态屏障必须覆盖浏览器并拦截指针输入。`docs/webview-rendering.md:48`
-- SDK 版本钉在 `apps/flutter/app/.fvmrc`，SDK 与应用命令在 `apps/flutter/app` 下运行。`docs/webview-rendering.md:51`
-- Windows 命令为 `fvm install --skip-pub-get`、`fvm flutter precache --windows`、`fvm flutter pub get`、`fvm flutter run -d windows`。`docs/webview-rendering.md:55`
-- iOS 后端使用 `OperitSafeWebView` 在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:63`
-- 无效几何禁用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，并在布局调用结束后经已有的导航错误通道上报一次。`docs/webview-rendering.md:64`
-- 失败的视图不再布局或复用。`docs/webview-rendering.md:66`
-- 维护检查在 `apps/flutter/app` 下运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。`docs/webview-rendering.md:74`
-- 维护检查还运行 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:75`
-- `windows_native_composition_probe.dart` 是独立的验收夹具，覆盖裁剪、顺序、对话框与指针路由。`docs/webview-rendering.md:78`
-- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:80`
-- 引擎或 SDK 变更后，原生渲染、IME 与手势行为须在相应设备上检查。`docs/webview-rendering.md:81`
+- 后备存储使用预乘 alpha 的 `DXGI` swapchain，原生浏览器显示使用合成视觉，不用 `Flutter` Texture 或连续屏幕捕获。`docs/webview-rendering.md:63`
+- `ANGLE` 保持帧缓冲方向，`DirectComposition` 按 Flutter 由后向前的绘制顺序以 `AddVisual(visual, FALSE, nullptr)` 追加层。`docs/webview-rendering.md:66`
+- Windows 上 Flutter 对话框与模态屏障必须覆盖浏览器并拦截指针输入。`docs/webview-rendering.md:67`
+- SDK 版本钉在 `apps/flutter/app/.fvmrc`，SDK 与应用命令在 `apps/flutter/app` 下运行。`docs/webview-rendering.md:70`
+- Windows 命令为 `fvm install --skip-pub-get`、`fvm flutter precache --windows`、`fvm flutter pub get`、`fvm flutter run -d windows`。`docs/webview-rendering.md:74`
+- iOS 后端使用 `OperitSafeWebView` 在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:82`
+- 无效几何禁用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，并在布局调用结束后经已有的导航错误通道上报一次。`docs/webview-rendering.md:83`
+- 失败的视图不再布局或复用。`docs/webview-rendering.md:85`
+- 维护检查在 `apps/flutter/app` 下运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。`docs/webview-rendering.md:93`
+- 维护检查还运行 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:94`
+- `windows_native_composition_probe.dart` 是独立的验收夹具，覆盖裁剪、顺序、对话框与指针路由。`docs/webview-rendering.md:97`
+- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:99`
+- 引擎或 SDK 变更后，原生渲染、IME 与手势行为须在相应设备上检查。`docs/webview-rendering.md:100`
 
 ## 关键符号
 
@@ -107,10 +107,10 @@ date: 2026-11-11
 - `WebViewScaleScope` — 提供应用缩放而不改变宿主 DPR。`docs/webview-rendering.md:10`
 - `PlatformWebViewController` 的 `requiresNativeApplicationZoom` — 按后端能力选择缩放策略。`docs/webview-rendering.md:11`
 - `NativeWebViewZoom` — 保留两个因子、校验输入并序列化原生更新。`docs/webview-rendering.md:26`
-- `WebView2` — Windows 上直接向 Windows 引擎提供合成视觉。`docs/webview-rendering.md:42`
-- `DirectComposition` — 按 Flutter 由后向前的绘制顺序追加层。`docs/webview-rendering.md:47`
-- `OperitSafeWebView` — iOS 后端在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:63`
-- `windows_native_composition_probe.dart` — 独立的验收夹具，覆盖裁剪、顺序、对话框与指针路由。`docs/webview-rendering.md:78`
+- `WebView2` — Windows 上直接向 Windows 引擎提供合成视觉。`docs/webview-rendering.md:61`
+- `DirectComposition` — 按 Flutter 由后向前的绘制顺序追加层。`docs/webview-rendering.md:66`
+- `OperitSafeWebView` — iOS 后端在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:82`
+- `windows_native_composition_probe.dart` — 独立的验收夹具，覆盖裁剪、顺序、对话框与指针路由。`docs/webview-rendering.md:97`
 
 ## 调用链
 
@@ -121,16 +121,17 @@ date: 2026-11-11
 5. 提交控制：Metal 的现有调用方在 `RenderToTarget` 返回 false 时停止本次提交，后续帧可重新申请资源。`docs/flutter-impeller-render-target-failure.md:41`
 6. 验证：新增 5 项用例在真实 `Metal` 后端全部通过（952 ms），相关用例共 69 项，其中 68 项在默认模式通过，1 项需要原生绘制窗口，随后启用窗口独立运行通过。`docs/flutter-impeller-render-target-failure.md:59`
 7. 接入：修改 `C++` 源码或热重载不会改变 App 内的 `Flutter` 引擎，必须使用同一基线重新构建 iOS 引擎，验证模拟器与真机发布产物，再接入 SDK 的固定版本缓存来源。`docs/flutter-impeller-render-target-failure.md:83`
-8. Windows 合成链：`WebView2` 直接向 Windows 引擎提供合成视觉 → Flutter platform-view 层决定放置、变换、裁剪与绘制顺序 → 后备存储使用预乘 alpha 的 `DXGI` swapchain。`docs/webview-rendering.md:42`
-9. Windows 绘制顺序：`ANGLE` 保持帧缓冲方向，`DirectComposition` 按 Flutter 由后向前的绘制顺序以 `AddVisual(visual, FALSE, nullptr)` 追加层。`docs/webview-rendering.md:47`
-10. Windows 运行命令：`fvm install --skip-pub-get` → `fvm flutter precache --windows` → `fvm flutter pub get` → `fvm flutter run -d windows`，均在 `apps/flutter/app` 下运行。`docs/webview-rendering.md:55`
-11. 维护检查链：`fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`，再运行 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:74`
+8. Windows 合成链：`WebView2` 直接向 Windows 引擎提供合成视觉 → Flutter platform-view 层决定放置、变换、裁剪与绘制顺序 → 后备存储使用预乘 alpha 的 `DXGI` swapchain。`docs/webview-rendering.md:61`
+9. Windows 绘制顺序：`ANGLE` 保持帧缓冲方向，`DirectComposition` 按 Flutter 由后向前的绘制顺序以 `AddVisual(visual, FALSE, nullptr)` 追加层。`docs/webview-rendering.md:66`
+10. Windows 运行命令：`fvm install --skip-pub-get` → `fvm flutter precache --windows` → `fvm flutter pub get` → `fvm flutter run -d windows`，均在 `apps/flutter/app` 下运行。`docs/webview-rendering.md:74`
+11. 维护检查链：`fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`，再运行 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:93`
 
 ## 来源
 
 - seed 文件 1：docs/flutter-impeller-render-target-failure.md（87 行，Impeller 渲染目标分配失败处理）。
-- seed 文件 2：docs/webview-rendering.md（82 行，WebView 渲染与缩放，含 Windows composition 小节）。
-- 两份 seed 共 169 行，与大纲 est_lines 169 一致；两份文件已 100% 读完。
-- windows-webview-composition.md 核实：2026-11-11 对基线 AAswordman/Operit2 @ 364d1d594 核验，docs/ 目录清单中无 windows-webview-composition.md；以 grep -rI "windows-webview-composition" 检索 docs/ 与 apps/flutter/app/，零命中；webview-rendering.md 以 ## Windows composition 小节承载 Windows 合成内容（见正文引用 docs/webview-rendering.md:40）。该文件不存在的结论按上述方法核验，不引用该文件。
+- seed 文件 2：docs/webview-rendering.md（101 行，WebView 渲染与缩放，含 Windows composition 小节；新基线较旧基线新增 19 行 Android legacy WebView scripts 小节，见下）。
+- 两份 seed 共 188 行（大纲 est_lines 169 为旧基线数；webview-rendering.md 在新基线下新增 19 行）；两份文件已 100% 读完。
+- 新增小节说明：新基线 docs/webview-rendering.md:41 新增“Android legacy WebView scripts”小节（19 行）：Android 按提供方是否支持 DOCUMENT_START_SCRIPT 能力注册用户脚本，不支持的提供方（含受影响的厂商 WebView）改用 evaluateJavascript 在页面启动、提交与完成时注入，脚本按注册顺序每文档执行一次；生命周期注入不保证在页面自身首个脚本前执行，仅针对主 frame，需宿主接口的页面应等 operitComposeDslInterfacesReady。该小节属 Android 端内容，不在本页桌面端（Windows / macOS / Linux）排障范围内，本次未立事实。
+- windows-webview-composition.md 核实：2026-11-11 对基线 AAswordman/Operit2 @ 364d1d594 核验，docs/ 目录清单中无 windows-webview-composition.md；以 grep -rI "windows-webview-composition" 检索 docs/ 与 apps/flutter/app/，零命中；2026-11-15 对新基线 ff5373fb6 重核，仍无该文件、仍零命中；webview-rendering.md 以 ## Windows composition 小节承载 Windows 合成内容（见正文引用 docs/webview-rendering.md:59）。该文件不存在的结论按上述方法核验，不引用该文件。
 - Windows GNU 工具链问题：大纲（outline/outline-v1.yaml）将其归属 [[dev-building|构建指南]]，seed 为 BUILDING.md；本页未读 BUILDING.md，正文只做跨页指向，不复述其内容。
 - 范围说明：Impeller 一节的崩溃证据来自 iOS（TestFlight build 26、iPhone10,3 / iOS 16.7.16），修复位于引擎共享的 Impeller 层；本页 seed 不含 macOS 或 Linux 专属的 Impeller 故障步骤，也不含桌面端 WebView 崩溃日志类排障步骤。

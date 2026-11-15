@@ -48,104 +48,112 @@
     "ref": "docs/device-space-lan-discovery.md:20"
   },
   {
-    "fact": "已发现的 `nodeId` 只是拨号提示，不是授权依据",
+    "fact": "可用性工作线程在已允许的出站网络对端离线时最多每 15 秒主动刷新共享浏览器，用 3 秒扫描覆盖全部对端",
     "ref": "docs/device-space-lan-discovery.md:21"
   },
   {
-    "fact": "会话握手核验期望节点并证明持有已有配对密钥后，运行时把成功的地址与 transport 持久化到出站配对记录",
-    "ref": "docs/device-space-lan-discovery.md:22"
-  },
-  {
-    "fact": "端点持久化包含 OS 分配监听端口的变化，不需要新的配对码",
-    "ref": "docs/device-space-lan-discovery.md:24"
-  },
-  {
-    "fact": "认证失败时已保存的端点保持不变",
+    "fact": "主动刷新可恢复错过的端口变更通告，失败的初始订阅在刷新中重试；阻塞扫描跑在 Host 任务上，不延迟关闭，健康通道不触发主动扫描",
     "ref": "docs/device-space-lan-discovery.md:25"
   },
   {
-    "fact": "并发的解除配对或凭据替换不会被进行中的连接撤销",
-    "ref": "docs/device-space-lan-discovery.md:26"
-  },
-  {
-    "fact": "已建立的通道复用到失败为止，发现不会为在线对端再开一条通道",
+    "fact": "已发现的 `nodeId` 只是拨号提示，不是授权依据",
     "ref": "docs/device-space-lan-discovery.md:27"
   },
   {
-    "fact": "Windows、Linux、Android 与 OHOS 使用共享的原生 mDNS 提供方",
+    "fact": "会话握手核验期望节点并证明持有已有配对密钥后，运行时把成功的地址与 transport 持久化到出站配对记录",
+    "ref": "docs/device-space-lan-discovery.md:28"
+  },
+  {
+    "fact": "端点持久化包含 OS 分配监听端口的变化，不需要新的配对码",
+    "ref": "docs/device-space-lan-discovery.md:30"
+  },
+  {
+    "fact": "认证失败时已保存的端点保持不变",
     "ref": "docs/device-space-lan-discovery.md:32"
   },
   {
+    "fact": "并发的解除配对或凭据替换不会被进行中的连接撤销",
+    "ref": "docs/device-space-lan-discovery.md:32"
+  },
+  {
+    "fact": "已建立的通道复用到失败为止，发现不会为在线对端再开一条通道",
+    "ref": "docs/device-space-lan-discovery.md:33"
+  },
+  {
+    "fact": "Windows、Linux、Android 与 OHOS 使用共享的原生 mDNS 提供方",
+    "ref": "docs/device-space-lan-discovery.md:38"
+  },
+  {
     "fact": "Android 在守护进程打开套接字前获取 Wi-Fi 组播锁，在关闭后释放",
-    "ref": "docs/device-space-lan-discovery.md:34"
-  },
-  {
-    "fact": "纯以太网 Android 硬件没有 Wi-Fi 组播过滤器可获取",
-    "ref": "docs/device-space-lan-discovery.md:35"
-  },
-  {
-    "fact": "iOS 与 macOS 使用系统 Bonjour DNS-SD 守护进程，不使用应用自有的 UDP 组播套接字",
-    "ref": "docs/device-space-lan-discovery.md:37"
-  },
-  {
-    "fact": "IPv4 与 IPv6 地址观察器保留发现服务时所在的接口",
     "ref": "docs/device-space-lan-discovery.md:39"
   },
   {
-    "fact": "Flutter 应用在 iOS 与 macOS 上声明 `_operit-link._tcp` 与本地网络权限说明",
+    "fact": "纯以太网 Android 硬件没有 Wi-Fi 组播过滤器可获取",
     "ref": "docs/device-space-lan-discovery.md:41"
   },
   {
+    "fact": "iOS 与 macOS 使用系统 Bonjour DNS-SD 守护进程，不使用应用自有的 UDP 组播套接字",
+    "ref": "docs/device-space-lan-discovery.md:43"
+  },
+  {
+    "fact": "IPv4 与 IPv6 地址观察器保留发现服务时所在的接口",
+    "ref": "docs/device-space-lan-discovery.md:45"
+  },
+  {
+    "fact": "Flutter 应用在 iOS 与 macOS 上声明 `_operit-link._tcp` 与本地网络权限说明",
+    "ref": "docs/device-space-lan-discovery.md:47"
+  },
+  {
     "fact": "`ServiceDiscovery` 日志记录所选的原生浏览接口、已解析地址与端口、守护进程错误、广播与扫描总数",
-    "ref": "docs/device-space-lan-discovery.md:46"
+    "ref": "docs/device-space-lan-discovery.md:52"
   },
   {
     "fact": "Apple 权限拒绝被明确报告，不会变成一次空的成功扫描",
-    "ref": "docs/device-space-lan-discovery.md:48"
+    "ref": "docs/device-space-lan-discovery.md:54"
   },
   {
     "fact": "`RuntimePeerService` 记录原始广播总数与本地、已配对、无效、可添加四类过滤总数",
-    "ref": "docs/device-space-lan-discovery.md:51"
-  },
-  {
-    "fact": "两端都必须放行本地组播 DNS 流量（UDP 5353 到 `224.0.0.251` / `ff02::fb`）与到已广播监听端口的入站连接",
-    "ref": "docs/device-space-lan-discovery.md:55"
-  },
-  {
-    "fact": "AP/客户端隔离、组播过滤与防火墙策略属于网络配置问题，不由另一发现协议绕过",
     "ref": "docs/device-space-lan-discovery.md:57"
   },
   {
+    "fact": "两端都必须放行本地组播 DNS 流量（UDP 5353 到 `224.0.0.251` / `ff02::fb`）与到已广播监听端口的入站连接",
+    "ref": "docs/device-space-lan-discovery.md:61"
+  },
+  {
+    "fact": "AP/客户端隔离、组播过滤与防火墙策略属于网络配置问题，不由另一发现协议绕过",
+    "ref": "docs/device-space-lan-discovery.md:63"
+  },
+  {
     "fact": "v2 连接码携带节点 ID、显示名、实时网络地址与 5 分钟有效的随机邀请密钥",
-    "ref": "docs/device-space-lan-discovery.md:108"
+    "ref": "docs/device-space-lan-discovery.md:114"
   },
   {
     "fact": "扫描器在打开连接前只显示一个 Confirm join 操作",
-    "ref": "docs/device-space-lan-discovery.md:109"
+    "ref": "docs/device-space-lan-discovery.md:115"
   },
   {
     "fact": "二维码确认经已有的 SPAKE2 配对交换认证并提交 Space 加入请求，该路径两端都不显示手动配对码对话框",
-    "ref": "docs/device-space-lan-discovery.md:110"
+    "ref": "docs/device-space-lan-discovery.md:117"
   },
   {
     "fact": "同意绑定到所显示的 Space 与当前配对，旧邀请不能授权加入另一 Space",
-    "ref": "docs/device-space-lan-discovery.md:113"
-  },
-  {
-    "fact": "二维码地址来自活动监听套接字与 Host 当前网络接口，通配符绑定、端口 0、环回与无作用域 IPv6 链路本地地址从不发布",
-    "ref": "docs/device-space-lan-discovery.md:119"
-  },
-  {
-    "fact": "Host 枚举接口时不启动 mDNS 浏览器或广播，因此二维码连接在发现关闭时仍可用",
     "ref": "docs/device-space-lan-discovery.md:121"
   },
   {
+    "fact": "二维码地址来自活动监听套接字与 Host 当前网络接口，通配符绑定、端口 0、环回与无作用域 IPv6 链路本地地址从不发布",
+    "ref": "docs/device-space-lan-discovery.md:126"
+  },
+  {
+    "fact": "Host 枚举接口时不启动 mDNS 浏览器或广播，因此二维码连接在发现关闭时仍可用",
+    "ref": "docs/device-space-lan-discovery.md:128"
+  },
+  {
     "fact": "连接码不绕过防火墙，也不在隔离网络之间建立连通性",
-    "ref": "docs/device-space-lan-discovery.md:123"
+    "ref": "docs/device-space-lan-discovery.md:130"
   },
   {
     "fact": "CLI 命令 `operit2 cli link qr` 渲染黑白终端二维码",
-    "ref": "docs/device-space-lan-discovery.md:129"
+    "ref": "docs/device-space-lan-discovery.md:136"
   },
   {
     "fact": "Link 的三个基础操作是 Call、Watch、Push",
@@ -309,55 +317,79 @@
   },
   {
     "fact": "`subscribeDiscovery` 经 Host 的 `serviceDiscoveryHost` 订阅 `_operit-link._tcp.local.`",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:18"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:104"
   },
   {
     "fact": "`subscribeDiscovery` 的回调把每条记录交给 `rememberDiscoveryRecords`",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:20"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:107"
   },
   {
     "fact": "`rememberDiscoveryRecords` 为已配对与未配对节点保留当前服务端的端点",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:7"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:50"
   },
   {
-    "fact": "`reconnectionEndpoints` 在已保存端点之前尝试新发现的地址，保留非网络载体",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:32"
+    "fact": "`reconnectionEndpoints` 在已保存端点之前尝试 `discoveredPeerEndpoints` 返回的新发现地址，保留非网络载体",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:210"
   },
   {
     "fact": "`reconnectionEndpoints` 仅在已保存 transport 是网络 transport 时使用已发现记录",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:35"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:208"
   },
   {
-    "fact": "`reconnectionEndpoints` 按记录属性 `nodeId` 等于目标节点筛选已发现记录",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:37"
+    "fact": "`discoveredPeerEndpoints` 按 `nodeId` 等于目标节点筛选已发现对端",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:192"
   },
   {
     "fact": "已发现对端地址以 `http://` 开头映射为 `PeerTransport` 的 Http，以 `ws://` 开头映射为 WebSocket，其余映射为 Tcp",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:40"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:194"
   },
   {
     "fact": "已保存端点在未包含于列表时作为后备追加到末尾",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:47"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:217"
   },
   {
     "fact": "`saveAuthenticatedEndpoint` 只提交已认证的地址，不恢复已删除或已替换的凭据",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:51"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:226"
   },
   {
     "fact": "`saveAuthenticatedEndpoint` 在当前 `sessionId` 或 `sessionSecret` 与原始记录不同时返回 `PEER_PAIRING_CHANGED` 错误",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:55"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:226"
   },
   {
     "fact": "saveAuthenticatedEndpoint 在当前端点或 transport 已被操作员改动时直接返回成功，不覆盖操作员的改动",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:59"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:230"
   },
   {
     "fact": "saveAuthenticatedEndpoint 在当前端点与 transport 已等于新地址时直接返回成功，不重复写回",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:60"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:231"
   },
   {
     "fact": "saveAuthenticatedEndpoint 经 `updateOutboundEndpointLocked` 写回新端点与 transport",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:62"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:233"
+  },
+  {
+    "fact": "`DiscoveryState` 把 LAN 与目录两路发现记录收进同一个缓存",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:7"
+  },
+  {
+    "fact": "`CachedService` 的 `expires` 为空表示记录不过期",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:13"
+  },
+  {
+    "fact": "`rememberDiscoveryRecords` 把 LAN 记录以 `expires` 为空记入缓存",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:55"
+  },
+  {
+    "fact": "`refreshDiscovery` 并行刷新 LAN 与目录两路，交互与后台调用方用同一来源与部分失败语义",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:121"
+  },
+  {
+    "fact": "目录通告记入缓存时过期时间取通告 TTL 与 `LEASE_MS` 的较小值",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:83"
+  },
+  {
+    "fact": "目录缓存的未过期条目数达到 `MAX_PEERS` 时跳过新通告",
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:74"
   },
   {
     "fact": "加入请求的存活期常量 `LIFETIME_MS` 为 15 分钟",
@@ -385,79 +417,83 @@
   },
   {
     "fact": "新建的 `SpaceJoinRequest` 状态为 Pending，`expiresAt` 为当前时间加 `LIFETIME_MS`",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:625"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:635"
   },
   {
     "fact": "新建记录经 `saveRecord` 保存到 OUTBOUND",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:630"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:640"
+  },
+  {
+    "fact": "`prepareSubmission` 持 `MUTATION` 锁重校配对，要求源 Space 的 spaceId 与 spaceRevision 未变，并复用已有的活动出站请求",
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:617"
   },
   {
     "fact": "从 OUTBOUND 读取同意投影，状态非活动时直接返回本地请求",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1296"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1306"
   },
   {
     "fact": "在 `cancelRequested` 为真时先执行 `cancelRemote`，结果非活动时直接返回该结果",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1298"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1308"
   },
   {
     "fact": "调用对端前以 `PairingDirection` 的 Either 重新校验与目标设备的配对",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1304"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1314"
   },
   {
     "fact": "已提交时调用 `joinStatus` 并传入请求 id，未提交时调用 `requestJoin` 并传入 `submissionValue` 的提交内容",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1305"
-  },
-  {
-    "fact": "经 `callPeerSpace` 调用目标设备，并用 `remote.validate` 校验远端回复",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1310"
-  },
-  {
-    "fact": "重读最新本地记录，本地状态已非活动、已请求取消或状态已变化时直接返回最新本地请求，不应用远端回复",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1312"
-  },
-  {
-    "fact": "远端状态为 Approved 时要求附带成员收据，经 `adoptApprovedMembership` 采纳成员关系后把状态置为 Joined",
     "ref": "core/crates/node/runtime/src/peer/space_join.rs:1316"
   },
   {
+    "fact": "经 `callPeerSpace` 调用目标设备，并用 `remote.validate` 校验远端回复",
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1320"
+  },
+  {
+    "fact": "重读最新本地记录，本地状态已非活动、已请求取消或状态已变化时直接返回最新本地请求，不应用远端回复",
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1322"
+  },
+  {
+    "fact": "远端状态为 Approved 时要求附带成员收据，经 `adoptApprovedMembership` 采纳成员关系后把状态置为 Joined",
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1328"
+  },
+  {
     "fact": "发布前把远端请求的 `canApprove` 置为 false",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1321"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1331"
   },
   {
     "fact": "经 `publishOutgoingResponse` 发布状态，发布结果为 Joined 时调用 `afterJoined`，其失败只记警告日志，不让刷新失败",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1323"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1332"
   },
   {
     "fact": "收据的 Space id 须等于目标 Space id，且本地设备与目标设备都是该 Space 成员",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1335"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1345"
   },
   {
     "fact": "采纳前经 `joinSnapshot` 重读当前目标快照，不用过时的批准快照，并校验目标 Space 仍包含申请人",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1344"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1354"
   },
   {
     "fact": "源 Space 于批准后新增成员时（`currentMembers` 不是 `approvedMembers` 的子集）拒绝采纳，要求提交新的合并请求",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1352"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1362"
   },
   {
     "fact": "采纳时导入设备画像与拓扑记录，应用控制操作后执行 `adopt` 采纳快照的 Space",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1357"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1367"
   },
   {
     "fact": "`receive` 接受 `requestJoin`、`cancelJoin` 与 `joinStatus` 三种方法，未知方法返回 Unknown Space join method 错误",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:734"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:744"
   },
   {
     "fact": "`receive` 在分派前以 `PairingDirection` 的 Either 校验与对端的当前配对",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:731"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:741"
   },
   {
     "fact": "入站待处理加入请求达到 64 个活动未过期请求时返回 Too many pending join requests 错误",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:871"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:881"
   },
   {
     "fact": "同一申请人到同一目标已有活动加入请求时返回 An active join request already exists 错误",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:874"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:884"
   },
   {
     "fact": "`reconcile` 依次执行 `expire`、`recoverCommittedApproval` 与 `assign`",
@@ -497,42 +533,42 @@
   },
   {
     "fact": "快照读取要求对端支持快照分页，否则返回 `SPACE_PROTOCOL_INCOMPATIBLE` 错误",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1435"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1445"
   },
   {
     "fact": "导出读取最多尝试 3 次（`0..3`）",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1439"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1449"
   },
   {
     "fact": "仅在导出变化（`SPACE_EXPORT_CHANGED`）时重读，否则返回当次结果",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1452"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1462"
   },
   {
     "fact": "`callPeerSpace` 经 `callNode` 在直接配对的对端上调用一个明确的 Space 方法",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1460"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1471"
   },
   {
     "fact": "取消时先把 `cancelRequested` 置为 true 并持久化，再发送取消",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1411"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1422"
   },
   {
     "fact": "取消发送后请求仍活动时调用 `refresh` 继续轮询",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1418"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1428"
   },
   {
     "fact": "purgePeerRecords 删除该设备的 INBOUND、OUTBOUND 与 INBOX 三类加入记录",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:696"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:706"
   },
   {
     "fact": "`decide` 要求本设备具备评审能力，否则返回 This device cannot approve Space join requests 错误",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1211"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1222"
   },
   {
     "fact": "网关在本地评审员有能力且 `qrJoinConsent` 匹配当前 Space 且未过期时直接批准该加入请求",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:819"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:829"
   },
   {
     "fact": "`purgeDevice` 在配对被遗忘时退役加入申请与评审状态，重新配对的对端必须提交新请求，不得复用旧的准入",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:676"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:686"
   }
 ]

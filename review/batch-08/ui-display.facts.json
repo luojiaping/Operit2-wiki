@@ -8,15 +8,23 @@
     "ref": "docs/tool-display-semantics.md:3"
   },
   {
-    "fact": "`ToolResultMap` 中展示声明与工具名和结果类型放在一起，`list_files` 的声明为 `action = \"list\"`、`icon = \"folder\"`、`target = \"path\"`、`result = \"directory\"`。",
-    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_types.rs:10"
+    "fact": "`ToolResultMap` 中展示声明与工具名和结果类型放在一起。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_types.rs:7"
+  },
+  {
+    "fact": "`list_files` 的声明为 `action = \"list\"`、`icon = \"folder\"`、`target = \"path\"`、`result = \"directory\"`。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_types.rs:19"
+  },
+  {
+    "fact": "`ToolResultMap` 新增九个 UI 工具字段：`list_windows`、`focus_window`、`get_page_info`、`tap`、`long_press`、`click_element`、`set_input_text`、`press_key`、`swipe`，均未标注展示声明。",
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_types.rs:12"
   },
   {
     "fact": "`tool_display` 是 `operit_plugin_sdk_macros` 的过程宏属性，标注在 `ToolResultMap` 上。",
-    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_types.rs:8"
+    "ref": "core/crates/plugin/sdk/src/js_sdk/tool_types.rs:6"
   },
   {
-    "fact": "`tool_display` 宏的定义在 `sdk-macros` 中，解析每个字段的 `display` 属性。",
+    "fact": "`tool_display` 宏的定义在 sdk-macros 中，解析每个字段的 `display` 属性。",
     "ref": "core/crates/plugin/sdk-macros/src/lib.rs:58"
   },
   {
@@ -32,7 +40,7 @@
     "ref": "core/crates/plugin/sdk/src/js_sdk/tool_display.rs:44"
   },
   {
-    "fact": "`tool_display_labels.json` 为 `list` 提供英文 `List` 与中文 `列出`。",
+    "fact": "tool_display_labels.json 为 `list` 提供英文 `List` 与中文 `列出`。",
     "ref": "core/crates/plugin/sdk/src/js_sdk/tool_display_labels.json:19"
   },
   {
@@ -86,6 +94,10 @@
   {
     "fact": "`icon` 支持 `file`、`folder`、`edit`、`delete`、`search`、`terminal`、`web`、`download`、`package`、`time`、`notification`、`clipboard`、`audio`。",
     "ref": "docs/tool-display-semantics.md:46"
+  },
+  {
+    "fact": "Flutter 侧图标映射新增 `info`、`screen`、`tap`、`double_tap`、`long_press`、`swipe`、`keyboard` 七个图标。",
+    "ref": "apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302"
   },
   {
     "fact": "`icon` 缺省时 Flutter 侧解析为通用工具图标 `tool`。",
@@ -285,27 +297,27 @@
   },
   {
     "fact": "Windows 上 WebView2 直接向 Windows 引擎提供 composition visual，原生浏览器显示使用 composition visual，不用 Flutter Texture 或连续截屏。",
-    "ref": "docs/webview-rendering.md:45"
+    "ref": "docs/webview-rendering.md:64"
   },
   {
     "fact": "Windows 后端存储使用预乘 alpha 的 DXGI swapchain。",
-    "ref": "docs/webview-rendering.md:44"
+    "ref": "docs/webview-rendering.md:63"
   },
   {
     "fact": "DirectComposition 用 `AddVisual(visual, FALSE, nullptr)` 按 Flutter 由后向前的绘制顺序追加图层。",
-    "ref": "docs/webview-rendering.md:48"
+    "ref": "docs/webview-rendering.md:67"
   },
   {
     "fact": "Flutter 对话框与模态屏障必须覆盖浏览器并拦截指针输入。",
-    "ref": "docs/webview-rendering.md:49"
+    "ref": "docs/webview-rendering.md:68"
   },
   {
     "fact": "SDK 版本钉在 `apps/flutter/app/.fvmrc`。",
-    "ref": "docs/webview-rendering.md:51"
+    "ref": "docs/webview-rendering.md:70"
   },
   {
     "fact": "iOS 后端用 `OperitSafeWebView` 在 UIKit 布局前校验有限的 frame 与 bounds 值。",
-    "ref": "docs/webview-rendering.md:63"
+    "ref": "docs/webview-rendering.md:82"
   },
   {
     "fact": "`OperitSafeWebView` 是 `WKWebView` 的子类。",
@@ -313,22 +325,22 @@
   },
   {
     "fact": "非法几何停用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，布局调用结束后经现有导航错误通道上报一次。",
-    "ref": "docs/webview-rendering.md:65"
+    "ref": "docs/webview-rendering.md:84"
   },
   {
     "fact": "失败的视图不再布局或复用。",
-    "ref": "docs/webview-rendering.md:67"
+    "ref": "docs/webview-rendering.md:86"
   },
   {
     "fact": "维护检查从 `apps/flutter/app` 运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。",
-    "ref": "docs/webview-rendering.md:74"
+    "ref": "docs/webview-rendering.md:93"
   },
   {
     "fact": "`windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。",
-    "ref": "docs/webview-rendering.md:78"
+    "ref": "docs/webview-rendering.md:97"
   },
   {
     "fact": "`webview_zoom.test.mjs` 检查脚本与通道契约。",
-    "ref": "docs/webview-rendering.md:80"
+    "ref": "docs/webview-rendering.md:99"
   }
 ]

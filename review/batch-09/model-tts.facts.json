@@ -116,7 +116,7 @@
     "ref": "core/crates/foundation/model/src/TtsCatalog.rs:30"
   },
   {
-    "fact": "TTS_CATALOG_VOICE_ROWS 中无 SPEECHIFY_TTS 行（2026-11-12 于基线 364d1d594 对 collects/TtsCatalog.rs 执行 grep SPEECHIFY_TTS 零命中）",
+    "fact": "TTS_CATALOG_VOICE_ROWS 中无 SPEECHIFY_TTS 行（2026-11-15 于基线 ff5373fb6 对 collects/TtsCatalog.rs 执行 grep SPEECHIFY_TTS 零命中）",
     "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:1"
   },
   {
@@ -164,7 +164,7 @@
     "ref": "core/crates/foundation/model/src/TtsCatalog.rs:32"
   },
   {
-    "fact": "TTS_CATALOG_VOICE_ROWS 中无 HUME_TTS 行（2026-11-12 于基线 364d1d594 对 collects/TtsCatalog.rs 执行 grep HUME_TTS 零命中）",
+    "fact": "TTS_CATALOG_VOICE_ROWS 中无 HUME_TTS 行（2026-11-15 于基线 ff5373fb6 对 collects/TtsCatalog.rs 执行 grep HUME_TTS 零命中）",
     "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:1"
   },
   {
@@ -220,16 +220,16 @@
     "ref": "core/crates/foundation/model/src/TtsCatalog.rs:34"
   },
   {
-    "fact": "VoiceServiceFactory 为 SYSTEM_TTS 从上下文取 TtsSynthesisHost 与 FileSystemHost，缺失时返回错误",
+    "fact": "VoiceServiceFactory 为 SYSTEM_TTS 从上下文取 TtsSynthesisHost，缺失时返回错误",
     "ref": "core/crates/provider/services/src/tts/VoiceServiceFactory.rs:22"
   },
   {
     "fact": "VoiceServiceFactory 为 LOCAL_MODEL 返回错误，要求由 runtime local model service 创建",
-    "ref": "core/crates/provider/services/src/tts/VoiceServiceFactory.rs:28"
+    "ref": "core/crates/provider/services/src/tts/VoiceServiceFactory.rs:25"
   },
   {
     "fact": "VoiceServiceFactory 为其余供应商类型先经 TtsCatalog::provider 校验，再创建 HttpVoiceProvider",
-    "ref": "core/crates/provider/services/src/tts/VoiceServiceFactory.rs:32"
+    "ref": "core/crates/provider/services/src/tts/VoiceServiceFactory.rs:29"
   },
   {
     "fact": "文档称 TTS 设置界面从 Rust 的 TtsCatalog 读取供应商、请求模板、鉴权头、音频格式、响应管道和音色列表操作",

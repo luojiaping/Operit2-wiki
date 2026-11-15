@@ -41,7 +41,8 @@ date: 2026-11-11
 - `EdgePeerRouter` 的 `new` 以 `nodeId` 创建路由。`edge/sdk/node/src/PeerRouter.rs:25`
 - `install` 第二次安装返回 `Edge node already installed` 错误。`edge/sdk/node/src/PeerRouter.rs:32`
 - `installSpace` 第二次安装返回 `Edge Space services already installed` 错误。`edge/sdk/node/src/PeerRouter.rs:37`
-- `spaceChannelScope` 未安装 Space 服务时返回 `Ok(None)`。`edge/sdk/node/src/PeerRouter.rs:208`
+- `spaceChannelScope` 未安装 Space 服务时返回 `Ok(None)`。`edge/sdk/node/src/PeerRouter.rs:210`
+- `nodeLocalControlProjection` 返回 `true`，Edge 权限读取使用 `NodeSpaceService` 安装的节点本地授权。`edge/sdk/node/src/PeerRouter.rs:74`
 
 ### 原生服务注册
 
@@ -78,20 +79,20 @@ date: 2026-11-11
 - `createPeerService` 复用已有配对与会话引擎，Core 与 Edge 共享确认码、加密与授权。`edge/sdk/node/src/peer.rs:9`
 - `createPeerService` 用 `HostRuntimePeerService::newWithLimits` 创建 Edge 接收端。`edge/sdk/node/src/peer.rs:17`
 - `installSpace` 安装 `NodeSpaceService`。`edge/sdk/node/src/PeerRouter.rs:37`
-- Space 调用先分流到三个 Space 目标：`NODE_SPACE_TARGET`、`NODE_SPACE_APPROVAL_TARGET` 与 `NODE_SPACE_CONTROL_TARGET`。`edge/sdk/node/src/PeerRouter.rs:85`
+- Space 调用先分流到三个 Space 目标：`NODE_SPACE_TARGET`、`NODE_SPACE_APPROVAL_TARGET` 与 `NODE_SPACE_CONTROL_TARGET`。`edge/sdk/node/src/PeerRouter.rs:87`
 - `checkSpaceOrigin` 要求 Space 调用直连来源、不可中继，`NODE_SPACE_TARGET` 调用 ttl 必须为 0。`edge/sdk/node/src/PeerRouter.rs:63`
-- 准入前调用只允许零跳，同 Space 控制与评审调用在直连上可带正 TTL。`edge/sdk/node/src/PeerRouter.rs:90`
-- 准入与控制目标的请求 `spaceId` 必须等于当前 Space 的 `spaceId`，否则返回 `SPACE_ID_MISMATCH`。`edge/sdk/node/src/PeerRouter.rs:113`
-- 未安装 Space 服务时 Space 调用返回 `EDGE_SPACE_UNAVAILABLE`。`edge/sdk/node/src/PeerRouter.rs:99`
-- `prepareRoutedCall` 只处理 `NODE_SPACE_TARGET` 的 `snapshot` 方法。`edge/sdk/node/src/PeerRouter.rs:141`
-- `prepareEncodedCall` 只处理控制通道的 `exchange` 与 `exchangeBounded`、申请侧的 `requestJoin`、`cancelJoin` 与 `joinStatus`，以及 `observeSpaceSnapshot`。`edge/sdk/node/src/PeerRouter.rs:159`
+- 准入前调用只允许零跳，同 Space 控制与评审调用在直连上可带正 TTL。`edge/sdk/node/src/PeerRouter.rs:92`
+- 准入与控制目标的请求 `spaceId` 必须等于当前 Space 的 `spaceId`，否则返回 `SPACE_ID_MISMATCH`。`edge/sdk/node/src/PeerRouter.rs:115`
+- 未安装 Space 服务时 Space 调用返回 `EDGE_SPACE_UNAVAILABLE`。`edge/sdk/node/src/PeerRouter.rs:101`
+- `prepareRoutedCall` 只处理 `NODE_SPACE_TARGET` 的 `snapshot` 方法。`edge/sdk/node/src/PeerRouter.rs:143`
+- `prepareEncodedCall` 只处理控制通道的 `exchange` 与 `exchangeBounded`、申请侧的 `requestJoin`、`cancelJoin` 与 `joinStatus`，以及 `observeSpaceSnapshot`。`edge/sdk/node/src/PeerRouter.rs:161`
 
 ### 没有 storage.provide 时：能保存什么，不能参与什么
 
 - Edge 不用 `storage.provide` 也能持久化自身配置与资源。`edge/sdk/node/README.md:22`
 - 有界设备偏好在共享 Space 控制通道上交换，带成员与撤销检查。`edge/sdk/node/README.md:23`
 - 完整业务副本要求两端都具备存储能力与真实 Core 存储服务。`edge/sdk/node/README.md:24`
-- 控制通道的 `exchangeBounded` 是 `prepareEncodedCall` 处理的有界交换入口之一。`edge/sdk/node/src/PeerRouter.rs:159`
+- 控制通道的 `exchangeBounded` 是 `prepareEncodedCall` 处理的有界交换入口之一。`edge/sdk/node/src/PeerRouter.rs:161`
 - Host API traits 提供硬件、I/O 与存储，设备应用拥有行为。`edge/sdk/node/README.md:20`
 - 配置 `ToolPkg` 在有能力的宿主上运行，设备配置保存后不必保持安装或运行。`edge/sdk/node/README.md:29`
 - 当前 ESP32 应用支持原生设备服务、有界独立 HTTP 聊天与可选远程 Core 聊天。`edge/sdk/node/README.md:27`
@@ -135,16 +136,16 @@ date: 2026-11-11
 4. `createPeerService` 用共享配对引擎建立加密会话，配对与 Space 准入分开进行。`edge/sdk/node/src/peer.rs:9`
 5. `EdgePeerRouter` 的 `new` 以 `nodeId` 创建路由。`edge/sdk/node/src/PeerRouter.rs:25`
 6. `install` 安装 `EdgeNode`，`installSpace` 安装 `NodeSpaceService`。`edge/sdk/node/src/PeerRouter.rs:32`
-7. `routedCall` 的第一步是执行 `check`。`edge/sdk/node/src/PeerRouter.rs:80`
+7. `routedCall` 的第一步是执行 `check`。`edge/sdk/node/src/PeerRouter.rs:82`
 8. Space 调用再过 `checkSpaceOrigin`：直连来源、不可中继。`edge/sdk/node/src/PeerRouter.rs:63`
 9. 本地调用经 `dispatchAsyncCall` 分发到类型化设备服务。`edge/sdk/node/src/lib.rs:367`
-10. Space 目标调用交给 Space 服务的 `acceptPeerSpaceCall` 处理。`edge/sdk/node/src/PeerRouter.rs:121`
+10. Space 目标调用交给 Space 服务的 `acceptPeerSpaceCall` 处理。`edge/sdk/node/src/PeerRouter.rs:123`
 
 ## 来源
 
 - `edge/sdk/node/README.md`：crate 说明，全文 30 行。
 - `edge/sdk/node/src/lib.rs`：`EdgeNode` 与原生端点分发，全文 1040 行。
-- `edge/sdk/node/src/PeerRouter.rs`：`EdgePeerRouter` 路由与 Space 分流，全文 214 行。
+- `edge/sdk/node/src/PeerRouter.rs`：`EdgePeerRouter` 路由与 Space 分流，全文 216 行。
 - `edge/sdk/node/src/peer.rs`：`createPeerService` 配对接收端，全文 20 行。
 - `edge/sdk/node/src/service.rs`：类型化设备 I/O 与机器人表情服务，全文 521 行。
 

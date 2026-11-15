@@ -2,7 +2,7 @@
 title: 插件——JS 桥
 module: core
 platforms: [all]
-sources: 4
+sources: 8
 date: 2026-11-11
 ---
 
@@ -10,17 +10,17 @@ date: 2026-11-11
 
 javascript-bridge crate 只公开 `pub mod javascript` 一个模块（`core/crates/plugin/javascript-bridge/src/lib.rs:3`）。
 该 crate 以 `extern crate self as operit_js_bridge` 把自身命名为 `operit_js_bridge`（`core/crates/plugin/javascript-bridge/src/lib.rs:1`）。
-`JsEngine` 是 JS 执行引擎，实现 SDK 的 `JsExecutionEngine` trait（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2646`）。
+`JsEngine` 是 JS 执行引擎，实现 SDK 的 `JsExecutionEngine` trait（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2648`）。
 `HostJsExecutionProvider` 实现 SDK 的 `JsExecutionProvider` trait，是引擎的提供方（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:91`）。
-JS 通过 `__operitNative`* 宿主绑定调用宿主操作，35 个同步绑定以 `executeHostOperation` 为统一分发函数注册到 Host 运行时（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1930`）。
-12 个异步宿主绑定以 `executeHostOperation` 的结果结算 Promise（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2151`）。
+JS 通过 `__operitNative`* 宿主绑定调用宿主操作，37 个同步绑定以 `executeHostOperation` 为统一分发函数注册到 Host 运行时（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1932`）。
+12 个异步宿主绑定以 `executeHostOperation` 的结果结算 Promise（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2153`）。
 引擎与 SDK 的衔接点是 `JsExecutionHost`：host 与 context 同时存在时先调 `context.validate()` 再调 `host.for_toolpkg_execution_context(context)`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:303`）。
 `JsExecutionHost` 与 `JsExecutionProvider` 两个 trait 的定义见 [[core-plugin-sdk|插件——Plugin SDK]]。
 ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]]。
 
 ## AI 速览
 
-- `JsEngine` — JS 执行引擎，SDK `JsExecutionEngine` trait 的实现（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2646`）
+- `JsEngine` — JS 执行引擎，SDK `JsExecutionEngine` trait 的实现（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2648`）
 - `JsEngineWorker` — 持有引擎 owner 与可选执行宿主的工作体（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:76`）
 - `JsEngineOwner` — 持有生命周期中断、运行时宿主、状态句柄与存活标志（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:81`）
 - `JsEngineState` — 引擎状态，持有运行时、执行宿主与包上下文（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:283`）
@@ -32,10 +32,12 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 - `JsAsyncCallback` — 异步回调枚举，有 `ProfiledToolResult` 与 `Promise` 两种回调（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:101`）
 - `JsTextResourceSource` — 文本资源来源枚举，有 `Snapshot`、`Package`、`ExecutionHost` 三种来源（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:118`）
 - `JsExecutionListener` — 执行监听器 trait，定义 `on_intermediate_result` 与 `on_failed` 两个回调方法（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:47`）
+- `JsAsyncCompiler` — 异步编译器，把 async 函数降级为生成器（`core/crates/plugin/javascript-bridge/src/javascript/mod.rs:4`）
 - `JsIpcTiming` — IPC 计时，以 Host 调度器的单调时钟记录提交时刻（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:149`）
 - `JsPendingScriptExecution` — 进行中的脚本执行，被丢弃时以会话结束完成调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:199`）
-- `executeHostOperation` — 宿主操作统一分发函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1930`）
-- toolPkgCallContext — 调用身份推导：包目标、上下文键与运行时（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2421`）
+- `executeHostOperation` — 宿主操作统一分发函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1932`）
+- `JsAsyncCompiler` — 异步编译器（`core/crates/plugin/javascript-bridge/src/javascript/mod.rs:4`）
+- toolPkgCallContext — 调用身份推导：包目标、上下文键与运行时（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2423`）
 - `parseToolCallValue` — 解析工具调用值：工具名、参数与设备（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:30`）
 - `toolExecutionResultValue` — 生成工具执行结果信封（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:332`）
 - 主入口函数：`new_toolpkg_execution_engine`（创建绑定包环境的引擎）（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:852`）
@@ -122,47 +124,61 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 - ToolPkg 注册执行先评估 `buildToolPkgApiRuntimeScript()` 生成的 API 运行时脚本与 `buildToolPkgRegistrationBridgeScript(true)` 生成的注册桥脚本，再执行注册函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1405`）。
 - 注册执行完成后通过 `__operitReadRegistrationCapture` 读取注册捕获结果（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1507`）。
 - 注册执行结束时重新评估 `buildToolPkgRegistrationBridgeScript(false)` 生成的运行时桥，恢复运行时桥（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1518`）。
-- 注册结果的 `success` 字段为假时返回其 `message` 作为错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3567`）。
+- 注册结果的 `success` 字段为假时返回其 `message` 作为错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3579`）。
 - `execute_toolpkg_main_registration_function` 转调带文本资源的注册执行，文本资源参数为 `None`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:935`）。
 - Compose DSL 动作的 actionId 去空白后为空时返回 `"compose action id is required"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:971`）。
 - Compose DSL 渲染以 `"__operit_render_compose_dsl"` 为入口函数名执行脚本（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1003`）。
 - Compose DSL 的异步执行传入 `textResources`，中间结果分发到主线程并使用 Compose DSL 文本资源（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1027`）。
 
-### 宿主绑定：35 同步、12 异步、7 Core 路由
+### 宿主绑定：37 同步、12 异步、7 Core 路由
 
 - `registerHostBindings` 先注册 `__operitNativeCompileModuleFactory` 构造函数，参数为 module、exports、require 与 `__operit_call_runtime`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1888`）。
-- 同步宿主绑定数组 `syncNames` 共 35 个名字（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1895`）。
-- 35 个同步宿主绑定都以 `executeHostOperation` 为统一分发函数注册到 Host 运行时（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1930`）。
-- `__operitNativeCallToolStructured` 以专属闭包分发结构化工具调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2005`）。
-- 包间 IPC 要求目标包等于绑定上下文的包名，否则拒绝跨包 IPC（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2040`）。
-- 依赖调用把目标运行时固定为 `"main"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2073`）。
-- JS 定时器要求延迟参数是非负整数，否则返回 `"JavaScript timer delay must be a non-negative integer"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2021`）。
+- 同步宿主绑定数组 `syncNames` 共 37 个名字（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1891`）。
+- 37 个同步宿主绑定都以 `executeHostOperation` 为统一分发函数注册到 Host 运行时（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1932`）。
+- `__operitNativePrepareJavaScript` 把源码交给 `JsAsyncCompiler::compile` 编译，返回编译后的源码字符串（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2918`）。
+- `__operitNativeAsyncMethodKind` 把方法源码交给 `JsAsyncCompiler::method_kind`，返回 function 或 generator（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2923`）。
+- `__operitNativeCallToolStructured` 以专属闭包分发结构化工具调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2007`）。
+- 包间 IPC 要求目标包等于绑定上下文的包名，否则拒绝跨包 IPC（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2042`）。
+- 依赖调用把目标运行时固定为 `"main"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2075`）。
+- JS 定时器要求延迟参数是非负整数，否则返回 `"JavaScript timer delay must be a non-negative integer"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2023`）。
 - `registerCoreRoute` 把一个具名 Core 路由注册为 Host 异步 JSON 函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1866`）。
-- Core 路由 `__operitNativeCallCoreRoute` 以 `registerCoreRoute` 注册为 Host 异步 JSON 函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2095`）。
-- Core 路由共 7 个名字，均以 `registerCoreRoute` 注册为 Host 异步 JSON 函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2095`）。
-- 异步宿主绑定数组 `asyncNames` 共 12 个名字（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2130`）。
-- 12 个异步宿主绑定以 `executeHostOperation` 的结果结算 Promise（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2151`）。
-- `exactHostJavaScriptJsonArguments` 校验结构化宿主绑定的参数个数，不符时返回 `"{name} requires {N} arguments, received {count}"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2186`）。
+- Core 路由 `__operitNativeCallCoreRoute` 以 `registerCoreRoute` 注册为 Host 异步 JSON 函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2097`）。
+- Core 路由共 7 个名字，均以 `registerCoreRoute` 注册为 Host 异步 JSON 函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2097`）。
+- 异步宿主绑定数组 `asyncNames` 共 12 个名字（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2132`）。
+- 12 个异步宿主绑定以 `executeHostOperation` 的结果结算 Promise（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2153`）。
+- `exactHostJavaScriptJsonArguments` 校验结构化宿主绑定的参数个数，不符时返回 `"{name} requires {N} arguments, received {count}"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2188`）。
+
+### JS 编译：异步降级
+
+- `JsAsyncCompiler` 是 javascript 模块新增的子模块（`core/crates/plugin/javascript-bridge/src/javascript/mod.rs:4`）。
+- JsAsyncCompiler 的 `compile` 用 oxc 解析源码并把 async 函数与 async 生成器降级为生成器，辅助调用改写为 __operitAsyncHelpers 后生成代码（`core/crates/plugin/javascript-bridge/src/javascript/JsAsyncCompiler.rs:146`）。
+- JsAsyncCompiler 的 `method_kind` 把方法源码包进类方法解析，读其中的 async 标记返回 function 或 generator（`core/crates/plugin/javascript-bridge/src/javascript/JsAsyncCompiler.rs:195`）。
+- 非 async 方法或 async 生成器时返回 `Routes require an async method or async generator` 错误（`core/crates/plugin/javascript-bridge/src/javascript/JsAsyncCompiler.rs:218`）。
+- 引导脚本新增 `__operitCompileJavaScript`，经 `__operitNativePrepareJavaScript` 编译源码后用 `__operitNativeCompileModuleFactory` 建模块工厂（`core/crates/plugin/javascript-bridge/src/javascript/JsLibraries.rs:460`）。
+- 引导脚本整体先经 `JsAsyncCompiler::compile` 编译，再在前面拼 `JsAsyncHelpers.script.js` 的异步辅助代码（`core/crates/plugin/javascript-bridge/src/javascript/JsLibraries.rs:994`）。
+- 引导脚本拼装 Compose 工厂时不再读 OperitComposeArtifact 缓存，直接调 `__operitNativePrepareComposeModule`（`core/crates/plugin/javascript-bridge/src/javascript/JsLibraries.rs:472`）。
+- RuntimeContext.script.js 的 withContext 运行器不再用 eval，改走 `__operitCompileJavaScript` 编译工厂源码（`core/crates/plugin/javascript-bridge/src/javascript/RuntimeContext.script.js:88`）。
+- 内联 hook 函数源码不再用 eval 直接求值，改走 `__operitCompileJavaScript` 编译后调用（`core/crates/plugin/javascript-bridge/src/javascript/JsLibraries.rs:920`）。
 
 ### 工具调用分发
 
-- 结构化工具调用接受类型、名称、参数与归属调用 ID 四个参数，另可附第 5 个设备元数据参数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2221`）。
-- 结构化工具调用在 Host 调度器的阻塞池上执行，工具执行器可做阻塞宿主调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2280`）。
-- JS 定时器通过 `scheduleDelayedHostRuntimeTask` 安排延迟任务，到时回调结算 Promise（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2319`）。
-- 包间 IPC 通过执行宿主的 `invoke_toolpkg_ipc_async` 提交，成功时以含 `success` 与 `value` 的 JSON 结算 Promise，失败时以 `buildToolPkgIpcFailure` 生成失败信封（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2359`）。
-- Core 路由调用在 Host 调度器上异步执行，引擎生命周期结束时通过 `lifetime.changed()` 取消等待（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2394`）。
+- 结构化工具调用接受类型、名称、参数与归属调用 ID 四个参数，另可附第 5 个设备元数据参数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2223`）。
+- 结构化工具调用在 Host 调度器的阻塞池上执行，工具执行器可做阻塞宿主调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2282`）。
+- JS 定时器通过 `scheduleDelayedHostRuntimeTask` 安排延迟任务，到时回调结算 Promise（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2321`）。
+- 包间 IPC 通过执行宿主的 `invoke_toolpkg_ipc_async` 提交，成功时以含 `success` 与 `value` 的 JSON 结算 Promise，失败时以 `buildToolPkgIpcFailure` 生成失败信封（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2361`）。
+- Core 路由调用在 Host 调度器上异步执行，引擎生命周期结束时通过 `lifetime.changed()` 取消等待（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2396`）。
 
 ### 调用身份与运行时推导
 
-- 调用身份从绑定上下文或 `__operit_ui_package_name` 参数推导 `packageTarget`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2421`）。
-- 调用身份从绑定上下文或 `__operit_execution_context_key` 参数推导 `contextKey`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2424`）。
-- 上下文键以 `toolpkg_provider:` 开头时运行时为 `provider`，以 `toolpkg_compose:` 等开头时为 `ui`，含子包 ID 时为 `sandbox`，其余为 `main`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2444`）。
-- 运行时取值只接受 `main`、`ui`、`sandbox`、`provider`，其他值返回 `ToolPkg execution runtime is invalid` 错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2454`）。
-- IPC 请求要求 channel 非空，否则返回 `"ToolPkg.ipc channel is required"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2479`）。
-- IPC 请求的目标运行时只接受 `main`、`ui`、`sandbox`、`provider` 或空（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2485`）。
-- `clearThreadLocalCallState` 清空当前脚本归属、活跃调用上下文、执行宿主、中间回调、监听器、环境覆盖与文本资源来源（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2505`）。
-- `installThreadLocalCallContext` 把一次调用的执行宿主、中间回调、监听器、环境覆盖与文本资源来源装入线程局部状态（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2527`）。
-- `packageTextResourceSource` 在有包上下文时用包的文本资源宿主，否则用执行宿主（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2554`）。
+- 调用身份从绑定上下文或 `__operit_ui_package_name` 参数推导 `packageTarget`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2423`）。
+- 调用身份从绑定上下文或 `__operit_execution_context_key` 参数推导 `contextKey`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2426`）。
+- 上下文键以 `toolpkg_provider:` 开头时运行时为 `provider`，以 `toolpkg_compose:` 等开头时为 `ui`，含子包 ID 时为 `sandbox`，其余为 `main`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2446`）。
+- 运行时取值只接受 `main`、`ui`、`sandbox`、`provider`，其他值返回 `ToolPkg execution runtime is invalid` 错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2456`）。
+- IPC 请求要求 channel 非空，否则返回 `"ToolPkg.ipc channel is required"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2481`）。
+- IPC 请求的目标运行时只接受 `main`、`ui`、`sandbox`、`provider` 或空（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2487`）。
+- `clearThreadLocalCallState` 清空当前脚本归属、活跃调用上下文、执行宿主、中间回调、监听器、环境覆盖与文本资源来源（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2507`）。
+- `installThreadLocalCallContext` 把一次调用的执行宿主、中间回调、监听器、环境覆盖与文本资源来源装入线程局部状态（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2529`）。
+- `packageTextResourceSource` 在有包上下文时用包的文本资源宿主，否则用执行宿主（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2556`）。
 
 ### 宿主操作工具
 
@@ -192,33 +208,33 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 
 ### 文本资源、中间结果与完成
 
-- 文本资源读取按 Snapshot、Package、ExecutionHost 三种来源分发（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2944`）。
+- 文本资源读取按 Snapshot、Package、ExecutionHost 三种来源分发（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2956`）。
 - `JsIpcTiming` 的 `new` 以 Host 调度器的单调时钟记录提交时刻（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:149`）。
 - `log` 只在成功且设置了 `OPERIT_PROFILE_COMPOSE_STAGES` 环境变量时才输出成功阶段耗时，失败时总输出日志（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:167`）。
-- 中间结果要求有活跃的归属调用，先调监听器的 `on_intermediate_result` 再调中间结果回调（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2796`）。
-- 文本中间结果回调收到非文本值时直接 `panic`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2823`）。
-- `textScriptCompletion` 把结构化脚本结果适配为文本结果（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2804`）。
-- 普通脚本只接受字符串结果，非字符串的结构化结果返回序列化错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2816`）。
-- `sendStructuredIntermediate` 优先发给活跃调用的回调，活跃调用不存在时发给已分离调用的回调，两者都不存在时静默丢弃（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2832`）。
+- 中间结果要求有活跃的归属调用，先调监听器的 `on_intermediate_result` 再调中间结果回调（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2798`）。
+- 文本中间结果回调收到非文本值时直接 `panic`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2825`）。
+- `textScriptCompletion` 把结构化脚本结果适配为文本结果（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2806`）。
+- 普通脚本只接受字符串结果，非字符串的结构化结果返回序列化错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2818`）。
+- `sendStructuredIntermediate` 优先发给活跃调用的回调，活跃调用不存在时发给已分离调用的回调，两者都不存在时静默丢弃（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2834`）。
 - `CancelScope` 回调用于取消指定作用域的 Promise（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:108`）。
-- `requireHostObject` 要求宿主载荷是结构化对象，不接受序列化 JSON 文本（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3287`）。
-- `storeExecutionResult` 要求结果归属的调用仍活跃，否则返回 `"Completion requires an active owning call"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3324`）。
-- `storeExecutionError` 先调执行监听器的 `on_failed`，再把错误存入原生调用会话（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3341`）。
-- 插件数据目录路径必须是绝对 VFS 路径，否则返回 `"Plugin data directory must be an absolute VFS path"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2910`）。
+- `requireHostObject` 要求宿主载荷是结构化对象，不接受序列化 JSON 文本（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3299`）。
+- `storeExecutionResult` 要求结果归属的调用仍活跃，否则返回 `"Completion requires an active owning call"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3336`）。
+- `storeExecutionError` 先调执行监听器的 `on_failed`，再把错误存入原生调用会话（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3353`）。
+- 插件数据目录路径必须是绝对 VFS 路径，否则返回 `"Plugin data directory must be an absolute VFS path"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2912`）。
 
 ### 环境、调用方上下文与配置
 
-- 调用方上下文的 participantId、extensionOwner 与 chatId 写入 `__operit_package_caller_participant_id` 等参数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3369`）。
-- 注册模式下环境归属取自参数 `toolPkgId`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3395`）。
-- 非注册模式下优先取绑定包上下文的包名，否则取 `__operit_package_name` 参数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3425`）。
-- `setHostEnvironmentValue` 要求环境变量名非空，否则返回 `"Environment variable name is required"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3444`）。
-- 解析出的配置目录必须是绝对 VFS 路径，否则报错（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3497`）。
-- `currentExecutionHost` 从线程局部 `CURRENT_EXECUTION_HOST` 取当前调用绑定的执行宿主，不存在时报错 `"JavaScript execution host is unavailable"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3505`）。
+- 调用方上下文的 participantId、extensionOwner 与 chatId 写入 `__operit_package_caller_participant_id` 等参数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3381`）。
+- 注册模式下环境归属取自参数 `toolPkgId`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3407`）。
+- 非注册模式下优先取绑定包上下文的包名，否则取 `__operit_package_name` 参数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3437`）。
+- `setHostEnvironmentValue` 要求环境变量名非空，否则返回 `"Environment variable name is required"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3456`）。
+- 解析出的配置目录必须是绝对 VFS 路径，否则报错（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3509`）。
+- `currentExecutionHost` 从线程局部 `CURRENT_EXECUTION_HOST` 取当前调用绑定的执行宿主，不存在时报错 `"JavaScript execution host is unavailable"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3517`）。
 
 ### Java 桥（Android 宿主）
 
-- `__operitNativeJavaGetCurrentActivity` 恒返回 `"current activity is null"` 错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3167`）。
-- `__operitNativeJavaCallStaticSuspend`、`__operitNativeJavaGetStaticField`、`__operitNativeJavaSetStaticField` 返回 `"Java host operation is not implemented: {name}"` 错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3197`）。
+- `__operitNativeJavaGetCurrentActivity` 恒返回 `"current activity is null"` 错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3179`）。
+- `__operitNativeJavaCallStaticSuspend`、`__operitNativeJavaGetStaticField`、`__operitNativeJavaSetStaticField` 返回 `"Java host operation is not implemented: {name}"` 错误（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3209`）。
 
 ## 关键符号
 
@@ -238,9 +254,9 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 - `HostJsExecutionEngineFactory` — 执行引擎工厂（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:53`）
 - `registerHostBindings` — 注册宿主绑定（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1888`）
 - `registerCoreRoute` — 注册 Core 路由（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1866`）
-- `executeHostOperation` — 宿主操作统一分发函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1930`）
-- dispatchStructuredToolCall — 结构化工具调用分发（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2221`）
-- toolPkgCallContext — 调用身份推导（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2421`）
+- `executeHostOperation` — 宿主操作统一分发函数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1932`）
+- dispatchStructuredToolCall — 结构化工具调用分发（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2223`）
+- toolPkgCallContext — 调用身份推导（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2423`）
 - `parseToolCallValue` — 解析工具调用值（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:30`）
 - `toolExecutionResultValue` — 生成工具执行结果信封（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:332`）
 - `BINARY_DATA_REGISTRY` — 二进制结果注册表（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:45`）
@@ -250,9 +266,9 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 
 ### JS 调用宿主工具
 
-1. JS 调用 `__operitNativeCallToolStructured`，专属闭包分发结构化工具调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2005`）。
-2. dispatchStructuredToolCall 接受类型、名称、参数与归属调用 ID 四个参数，另可附第 5 个设备元数据参数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2221`）。
-3. 结构化工具调用在 Host 调度器的阻塞池上执行，工具执行器可做阻塞宿主调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2280`）。
+1. JS 调用 `__operitNativeCallToolStructured`，专属闭包分发结构化工具调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2007`）。
+2. dispatchStructuredToolCall 接受类型、名称、参数与归属调用 ID 四个参数，另可附第 5 个设备元数据参数（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2223`）。
+3. 结构化工具调用在 Host 调度器的阻塞池上执行，工具执行器可做阻塞宿主调用（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2282`）。
 4. 参数经 `parseToolCallValue` 校验，工具名去空白后为空时返回 `"Tool name cannot be empty"`（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:30`）。
 5. 参数必须是 JSON 对象，否则返回 `"Tool params must be a JSON object"`（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:34`）。
 6. 结果经 `toolExecutionResultValue` 生成信封，信封含 `success` 字段，失败时含 `message` 字段（`core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs:332`）。
@@ -269,10 +285,10 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 
 ### 包间 IPC
 
-1. 调用身份从绑定上下文或 `__operit_ui_package_name` 参数推导 `packageTarget`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2421`）。
-2. IPC 请求要求 channel 非空，否则返回 `"ToolPkg.ipc channel is required"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2479`）。
-3. 包间 IPC 要求目标包等于绑定上下文的包名，否则拒绝跨包 IPC（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2040`）。
-4. 包间 IPC 通过执行宿主的 `invoke_toolpkg_ipc_async` 提交，成功时以含 `success` 与 `value` 的 JSON 结算 Promise，失败时以 `buildToolPkgIpcFailure` 生成失败信封（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2359`）。
+1. 调用身份从绑定上下文或 `__operit_ui_package_name` 参数推导 `packageTarget`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2423`）。
+2. IPC 请求要求 channel 非空，否则返回 `"ToolPkg.ipc channel is required"`（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2481`）。
+3. 包间 IPC 要求目标包等于绑定上下文的包名，否则拒绝跨包 IPC（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2042`）。
+4. 包间 IPC 通过执行宿主的 `invoke_toolpkg_ipc_async` 提交，成功时以含 `success` 与 `value` 的 JSON 结算 Promise，失败时以 `buildToolPkgIpcFailure` 生成失败信封（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2361`）。
 
 ## 来源
 
@@ -280,3 +296,8 @@ ToolPkg 的包模型与执行入口见 [[core-plugin-sdk|插件——Plugin SDK]
 - `core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs`
 - `core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs`
 - `core/crates/plugin/javascript-bridge/src/javascript/JsHostOperations.rs`
+- `core/crates/plugin/javascript-bridge/src/javascript/mod.rs`
+- `core/crates/plugin/javascript-bridge/src/javascript/JsAsyncCompiler.rs`
+- `core/crates/plugin/javascript-bridge/src/javascript/JsAsyncHelpers.script.js`
+- `core/crates/plugin/javascript-bridge/src/javascript/JsLibraries.rs`
+- `core/crates/plugin/javascript-bridge/src/javascript/RuntimeContext.script.js`

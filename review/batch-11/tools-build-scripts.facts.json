@@ -12,7 +12,7 @@
     "ref": "tools/build_scripts/README.md:4"
   },
   {
-    "fact": "截至基线 364d1d594，`tools/build_scripts/` 共 38 个文件。",
+    "fact": "截至基线 ff5373fb6，`tools/build_scripts/` 共 39 个文件。",
     "ref": "tools/build_scripts/README.md:47"
   },
   {
@@ -68,16 +68,16 @@
     "ref": "tools/build_scripts/README.md:8"
   },
   {
-    "fact": "`common.py` 的 `DIST_DIR` 指向 `RELEASE_DIR` 下的 `dist` 目录。",
-    "ref": "tools/build_scripts/common.py:19"
+    "fact": "common.py 的 `DIST_DIR` 指向 `RELEASE_DIR` 下的 `dist` 目录。",
+    "ref": "tools/build_scripts/common.py:20"
   },
   {
-    "fact": "`common.py` 的 `FLUTTER_APP_DIR` 指向 `apps/flutter/app`。",
+    "fact": "common.py 的 `FLUTTER_APP_DIR` 指向 apps/flutter/app。",
+    "ref": "tools/build_scripts/common.py:18"
+  },
+  {
+    "fact": "common.py 的 `REPO_ROOT` 是脚本目录的上两级。",
     "ref": "tools/build_scripts/common.py:17"
-  },
-  {
-    "fact": "`common.py` 的 `REPO_ROOT` 是脚本目录的上两级。",
-    "ref": "tools/build_scripts/common.py:16"
   },
   {
     "fact": "发布包文件名规则是 `operit2-<product>-<platform>-<architecture>-<release-version>.<extension>`。",
@@ -148,7 +148,7 @@
     "ref": "tools/build_scripts/build_flutter_android.py:25"
   },
   {
-    "fact": "`ensure_android_signing` 读取 `RELEASE_DIR` 下 `secrets/android-signing.properties`。",
+    "fact": "`ensure_android_signing` 读取 `RELEASE_DIR` 下 secrets/android-signing.properties。",
     "ref": "tools/build_scripts/build_flutter_android.py:26"
   },
   {
@@ -156,11 +156,11 @@
     "ref": "tools/build_scripts/build_flutter_android.py:45"
   },
   {
-    "fact": "Android 构建执行 `flutter build apk --release --split-per-abi`。",
+    "fact": "Android 构建执行 flutter build apk --release --split-per-abi。",
     "ref": "tools/build_scripts/build_flutter_android.py:133"
   },
   {
-    "fact": "Android 构建限定 `--target-platform android-arm64`。",
+    "fact": "Android 构建限定 --target-platform android-arm64。",
     "ref": "tools/build_scripts/build_flutter_android.py:139"
   },
   {
@@ -184,63 +184,63 @@
     "ref": "tools/build_scripts/build_flutter_android.py:72"
   },
   {
-    "fact": "`build_flutter_android.py` 的 `main` 是 Android 构建入口。",
+    "fact": "build_flutter_android.py 的 `main` 是 Android 构建入口。",
     "ref": "tools/build_scripts/build_flutter_android.py:118"
   },
   {
-    "fact": "Windows Flutter 构建执行 `flutter build windows --release --no-pub`。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:33"
+    "fact": "Windows Flutter 构建执行 flutter build windows --release --no-pub。",
+    "ref": "tools/build_scripts/build_flutter_windows.py:53"
   },
   {
-    "fact": "Windows 发布目录为 `build/windows/x64/runner/Release`。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:38"
-  },
-  {
-    "fact": "Windows App 归档默认名为 `release_asset_name(\"app\", \"windows\", \"x86_64\", \"zip\")`。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:40"
-  },
-  {
-    "fact": "Windows MSI 路径缺省为归档路径换 `.msi` 后缀。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:41"
-  },
-  {
-    "fact": "Windows Flutter 构建调用 `build_windows_msi` 生成安装器。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:42"
-  },
-  {
-    "fact": "`build_flutter_windows.py` 的 `main` 是 Windows Flutter 构建入口。",
+    "fact": "Windows 构建以 `cmake` 的 `--install` 把 `build/windows/x64` 的 `Runtime` 组件装进临时 staging 目录。",
     "ref": "tools/build_scripts/build_flutter_windows.py:30"
   },
   {
+    "fact": "Windows App 归档默认名为 `release_asset_name(\"app\", \"windows\", \"x86_64\", \"zip\")`。",
+    "ref": "tools/build_scripts/build_flutter_windows.py:59"
+  },
+  {
+    "fact": "Windows MSI 路径缺省为归档路径换 `.msi` 后缀。",
+    "ref": "tools/build_scripts/build_flutter_windows.py:60"
+  },
+  {
+    "fact": "Windows Flutter 构建的打包阶段调用 `build_windows_msi` 生成安装器。",
+    "ref": "tools/build_scripts/build_flutter_windows.py:34"
+  },
+  {
+    "fact": "build_flutter_windows.py 的 `main` 是 Windows Flutter 构建入口。",
+    "ref": "tools/build_scripts/build_flutter_windows.py:50"
+  },
+  {
     "fact": "`msi_version` 把 SemVer 通道映射为严格递增的 Windows Installer 版本。",
-    "ref": "tools/build_scripts/build_windows_msi.py:32"
+    "ref": "tools/build_scripts/build_windows_msi.py:36"
   },
   {
     "fact": "预发布计数器 `counter` 不超过 199。",
-    "ref": "tools/build_scripts/build_windows_msi.py:40"
+    "ref": "tools/build_scripts/build_windows_msi.py:44"
   },
   {
     "fact": "`build_windows_msi` 独立入口的默认目标为 `release_asset_name(\"app\", \"windows\", \"x86_64\", \"msi\")`。",
-    "ref": "tools/build_scripts/build_windows_msi.py:146"
+    "ref": "tools/build_scripts/build_windows_msi.py:153"
   },
   {
     "fact": "`REQUIRED_FILES` 列出 MSI 载荷的必需文件。",
     "ref": "tools/build_scripts/build_windows_msi.py:23"
   },
   {
-    "fact": "`build_windows_msi.py` 的 `main` 以共享发布资产命名打包选定的发布目录。",
-    "ref": "tools/build_scripts/build_windows_msi.py:144"
+    "fact": "build_windows_msi.py 的 `main` 以共享发布资产命名打包选定的发布目录。",
+    "ref": "tools/build_scripts/build_windows_msi.py:151"
   },
   {
-    "fact": "`build_cli_windows.py` 的 `--arches` 缺省为 `host`，可选 `host`、`all`、`x86_64`、`aarch64`。",
+    "fact": "build_cli_windows.py 的 `--arches` 缺省为 `host`，可选 `host`、`all`、`x86_64`、`aarch64`。",
     "ref": "tools/build_scripts/build_cli_windows.py:11"
   },
   {
-    "fact": "`build_cli_windows.py` 的 `main` 调用 `build_cli_platform(\"windows\", parse_cli_arch_mode(args.arches))`。",
+    "fact": "build_cli_windows.py 的 `main` 调用 `build_cli_platform`，传入 `\"windows\"` 与 `parse_cli_arch_mode(args.arches)` 的结果。",
     "ref": "tools/build_scripts/build_cli_windows.py:18"
   },
   {
-    "fact": "`build_cli_windows.py` 的 `main` 是 Windows CLI 构建入口。",
+    "fact": "build_cli_windows.py 的 `main` 是 Windows CLI 构建入口。",
     "ref": "tools/build_scripts/build_cli_windows.py:16"
   },
   {
@@ -272,7 +272,7 @@
     "ref": "tools/build_scripts/build_esp32.py:46"
   },
   {
-    "fact": "`npm run build:firmware` 在 `EDITOR_DIR` 执行。",
+    "fact": "npm run build:firmware 在 `EDITOR_DIR` 执行。",
     "ref": "tools/build_scripts/build_esp32.py:54"
   },
   {
@@ -284,7 +284,7 @@
     "ref": "tools/build_scripts/build_esp32.py:93"
   },
   {
-    "fact": "`build_esp32.py` 的 `main` 是 ESP32 构建入口。",
+    "fact": "build_esp32.py 的 `main` 是 ESP32 构建入口。",
     "ref": "tools/build_scripts/build_esp32.py:148"
   },
   {
@@ -296,11 +296,11 @@
     "ref": "tools/build_scripts/build_local.py:15"
   },
   {
-    "fact": "`build_local.py` 的 `--products` 缺省为 `all`。",
+    "fact": "build_local.py 的 `--products` 缺省为 `all`。",
     "ref": "tools/build_scripts/build_local.py:22"
   },
   {
-    "fact": "`build_local.py` 的 `--macos-type` 缺省为 `sandbox`。",
+    "fact": "build_local.py 的 `--macos-type` 缺省为 `sandbox`。",
     "ref": "tools/build_scripts/build_local.py:24"
   },
   {
@@ -336,7 +336,7 @@
     "ref": "tools/build_scripts/build_local.py:99"
   },
   {
-    "fact": "`build_local.py` 的 `main` 是当前宿主构建的入口。",
+    "fact": "build_local.py 的 `main` 是当前宿主构建的入口。",
     "ref": "tools/build_scripts/build_local.py:98"
   },
   {
@@ -349,67 +349,67 @@
   },
   {
     "fact": "`host_platform` 把 `darwin` 映射为 `macos`，`windows` 映射为 `windows`，`linux` 映射为 `linux`。",
-    "ref": "tools/build_scripts/common.py:112"
+    "ref": "tools/build_scripts/common.py:114"
   },
   {
     "fact": "`host_arch` 把 `amd64`/`x86_64` 映射为 `x86_64`，把 `arm64`/`aarch64` 映射为 `aarch64`。",
-    "ref": "tools/build_scripts/common.py:121"
+    "ref": "tools/build_scripts/common.py:123"
   },
   {
     "fact": "`flutter_command` 返回 FVM 配置锁定的 Flutter SDK 中的 `flutter`。",
-    "ref": "tools/build_scripts/common.py:155"
+    "ref": "tools/build_scripts/common.py:157"
   },
   {
     "fact": "`prepare_plugin_assets` 先调用 `prepare_python_command` 再执行同步脚本。",
-    "ref": "tools/build_scripts/common.py:284"
+    "ref": "tools/build_scripts/common.py:286"
   },
   {
-    "fact": "`PLUGIN_SYNC_SCRIPT` 以 `--source runtime --no-hot-reload` 参数运行。",
-    "ref": "tools/build_scripts/common.py:292"
+    "fact": "`PLUGIN_SYNC_SCRIPT` 以 --source runtime --no-hot-reload 参数运行。",
+    "ref": "tools/build_scripts/common.py:294"
   },
   {
     "fact": "`prepare_plugin_assets` 在 `common.py` 中运行，CLI 入口在 `cargo build` 前调用它，Flutter 构建从原生钩子触发它。",
-    "ref": "tools/build_scripts/README.md:70"
+    "ref": "tools/build_scripts/README.md:72"
   },
   {
     "fact": "`verify_cli_plugin_assets` 在打包的 CLI 二进制缺失已生成插件资产时抛错。",
-    "ref": "tools/build_scripts/common.py:325"
+    "ref": "tools/build_scripts/common.py:327"
   },
   {
     "fact": "`compress_zip` 把目录压缩为 ZIP。",
-    "ref": "tools/build_scripts/common.py:90"
+    "ref": "tools/build_scripts/common.py:92"
   },
   {
     "fact": "`compress_tar_gz` 以 `\"w:gz\"` 模式把目录压缩为 tar.gz 归档。",
-    "ref": "tools/build_scripts/common.py:102"
+    "ref": "tools/build_scripts/common.py:104"
   },
   {
-    "fact": "`flutter_pub_get` 用 `fvm flutter pub get` 解析依赖，支持 `--enforce-lockfile`。",
-    "ref": "tools/build_scripts/common.py:360"
+    "fact": "`flutter_pub_get` 用 fvm flutter pub get 解析依赖，支持 `--enforce-lockfile`。",
+    "ref": "tools/build_scripts/common.py:362"
   },
   {
-    "fact": "`generate_dart_proxy_artifacts` 先 `cargo check` proxy 本地 crate 再校验生成的 Dart 代理文件存在。",
-    "ref": "tools/build_scripts/common.py:341"
+    "fact": "`generate_dart_proxy_artifacts` 先 cargo check proxy 本地 crate 再校验生成的 Dart 代理文件存在。",
+    "ref": "tools/build_scripts/common.py:343"
   },
   {
     "fact": "`cargo_build_environment` 为 Cargo 调用构造环境变量。",
-    "ref": "tools/build_scripts/cargo_build.py:15"
+    "ref": "tools/build_scripts/cargo_build.py:17"
   },
   {
     "fact": "路径映射以 `--remap-path-prefix` 标志加入 `flags`。",
-    "ref": "tools/build_scripts/cargo_build.py:64"
+    "ref": "tools/build_scripts/cargo_build.py:66"
   },
   {
     "fact": "映射后的标志写入 `CARGO_ENCODED_RUSTFLAGS` 并删除 `RUSTFLAGS`。",
-    "ref": "tools/build_scripts/cargo_build.py:67"
+    "ref": "tools/build_scripts/cargo_build.py:69"
   },
   {
     "fact": "`cargo_build.py` 的 `main` 要求至少一个命令行参数，否则打印用法并退出。",
-    "ref": "tools/build_scripts/cargo_build.py:72"
+    "ref": "tools/build_scripts/cargo_build.py:74"
   },
   {
     "fact": "`build_flutter_macos.py` 缺省为 `sandbox`。",
-    "ref": "tools/build_scripts/README.md:158"
+    "ref": "tools/build_scripts/README.md:160"
   },
   {
     "fact": "`release_asset_name` 拼出版本化发布包文件名。",
@@ -425,7 +425,7 @@
   },
   {
     "fact": "`build_windows_msi` 把 Windows 发布目录打包为 MSI。",
-    "ref": "tools/build_scripts/build_windows_msi.py:103"
+    "ref": "tools/build_scripts/build_windows_msi.py:110"
   },
   {
     "fact": "`build_esp32` 依次执行固件构建、清单校验与归档打包。",
@@ -445,14 +445,42 @@
   },
   {
     "fact": "`run` 执行一条构建命令。",
-    "ref": "tools/build_scripts/common.py:30"
+    "ref": "tools/build_scripts/common.py:31"
   },
   {
     "fact": "`require_command` 在命令不可用时抛错。",
-    "ref": "tools/build_scripts/common.py:69"
+    "ref": "tools/build_scripts/common.py:71"
   },
   {
     "fact": "`copy_required_file` 在源文件缺失时抛错并复制文件。",
-    "ref": "tools/build_scripts/common.py:82"
+    "ref": "tools/build_scripts/common.py:84"
+  },
+  {
+    "fact": "`DEBUG_ASSET_FILES` 列出三项调试专用 Flutter 资产：`kernel_blob.bin`、`vm_snapshot_data`、`isolate_snapshot_data`。",
+    "ref": "tools/build_scripts/build_windows_msi.py:29"
+  },
+  {
+    "fact": "`write_payload` 在发布目录出现调试专用 Flutter 资产时抛错，拒绝打包 Windows 发布版。",
+    "ref": "tools/build_scripts/build_windows_msi.py:61"
+  },
+  {
+    "fact": "`download_catalog` 从 `https://models.dev/` 下载指定名称的目录 JSON 并校验其为非空对象。",
+    "ref": "tools/build_scripts/models_dev_bundle.py:20"
+  },
+  {
+    "fact": "`refresh_bundle` 把 `api` 与 `models` 两份目录一起打包进 catalog.json.gz。",
+    "ref": "tools/build_scripts/models_dev_bundle.py:30"
+  },
+  {
+    "fact": "`prepare_build_catalog` 在带 `--release` 的 Cargo 构建前必刷新模型目录，开发构建仅在本地尚无该文件时刷新。",
+    "ref": "tools/build_scripts/models_dev_bundle.py:53"
+  },
+  {
+    "fact": "cargo_build.py 的 `main` 在执行命令前调用 `prepare_build_catalog`。",
+    "ref": "tools/build_scripts/cargo_build.py:78"
+  },
+  {
+    "fact": "common.py 在执行 Cargo 命令前调用 `prepare_build_catalog`。",
+    "ref": "tools/build_scripts/common.py:42"
   }
 ]

@@ -97,7 +97,7 @@
   },
   {
     "fact": "writeProvider 把完整 ProviderProfile 作为同步偏好值写入 provider_<id> 键",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1332"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1361"
   },
   {
     "fact": "ProviderProfile 包含 apiKey 与 apiKeyPool",
@@ -113,7 +113,7 @@
   },
   {
     "fact": "localStateSummary 调用 publishPreferenceOutboxes 发布偏好同步 outbox",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:688"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:696"
   },
   {
     "fact": "偏好（preferences）属于 Space 持久化同步的载荷类别",
@@ -201,15 +201,15 @@
   },
   {
     "fact": "同步门控先处理退避、待处理工作与失败重试，退避未到期时本轮跳过",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:716"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:754"
   },
   {
     "fact": "未获存储复制授权的成员走 authority_only 分支，不调用 probeRemoteClockSummary，直接继续控制交换",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:731"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:769"
   },
   {
     "fact": "probeRemoteClockSummary 经 PeerSyncMethod::SyncClockDigest 读取对端时钟摘要",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:778"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:800"
   },
   {
     "fact": "同步页单侧一页最多 DEFAULT_SYNC_PAGE_BYTES（4 MiB）",

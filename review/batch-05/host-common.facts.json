@@ -221,7 +221,7 @@
   },
   {
     "fact": "托管运行时 PTY 会话以 `MANAGED_RUNTIME_ROWS` 行、`MANAGED_RUNTIME_COLUMNS` 列创建",
-    "ref": "hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:51"
+    "ref": "hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:56"
   },
   {
     "fact": "托管运行时启动超时为 30 秒",
@@ -293,47 +293,47 @@
   },
   {
     "fact": "`HttpClientPolicy` 由连接超时、读取超时、重定向、忽略证书与代理标识一个连接池",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:39"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:68"
   },
   {
     "fact": "WebSocket 发送队列容量为 64",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:73"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:102"
   },
   {
     "fact": "NativeHttpHost 的 `openWebSocket` 打开原生 WebSocket 并转发打开、消息与关闭回调",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:124"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:152"
   },
   {
     "fact": "NativeHttpHost 的 `closeWebSocket` 移除注册并置位取消信号",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:161"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:188"
   },
   {
     "fact": "NativeHttpHost 的 `imageDelivery` 返回 `HttpImageDelivery::Bytes`",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:417"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:449"
   },
   {
     "fact": "NativeHttpHost 的 `executeHttpRequest` 经共享网络任务执行缓冲请求",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:422"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:454"
   },
   {
     "fact": "NativeHttpHost 的 `downloadToFile` 把响应流式下载到目标文件",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:430"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:462"
   },
   {
     "fact": "NativeHttpHost 的 `downloadFiles` 批量下载多个文件并上报进度",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:441"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:474"
   },
   {
     "fact": "断点续传时下载请求带 `RANGE` 头从已保留字节处继续",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:918"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:951"
   },
   {
     "fact": "`validateContentRange` 校验续传响应的起始位置与总量",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:1082"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:1115"
   },
   {
     "fact": "流式 HTTP 客户端把 `ignoreSsl` 传给 `danger_accept_invalid_certs`",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:819"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:852"
   },
   {
     "fact": "`NativeHttpServerHost` 由 `server` 子模块提供并在 http crate 入口重导出",
@@ -341,7 +341,7 @@
   },
   {
     "fact": "批量下载的并发任务数（并行上限）取 `maxConcurrency` 与文件总数中较小者",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:678"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:711"
   },
   {
     "fact": "`NativeRuntimeStorageHost` 用 `runtimeRoot` 与 `workspaceRoot` 两个物理根构造",
@@ -429,39 +429,39 @@
   },
   {
     "fact": "NativePtyTerminalHost 的 `systemShell` 启动系统 `/bin/sh` 终端",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:223"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:261"
   },
   {
     "fact": "NativePtyTerminalHost 的 `customShell` 用 `NativePtyShellCommand` 配置启动一个显式 POSIX shell",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:231"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:269"
   },
   {
     "fact": "NativePtyTerminalHost 的 `loginShell` 创建带登录启动参数的原生 shell",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:251"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:289"
   },
   {
     "fact": "NativePtyTerminalHost 的 `withControllingTty` 选择 PTY 是否成为子进程的控制终端",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:245"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:283"
   },
   {
     "fact": "NativePtyTerminalHost 的 `probe` 以 1 行 1 列启动并关闭会话验证能力",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:272"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:310"
   },
   {
     "fact": "NativePtyTerminalHost 的 `executeHiddenCommand` 按执行器键复用隐藏会话",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:601"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:628"
   },
   {
     "fact": "NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:676"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:703"
   },
   {
     "fact": "`requireNativeTerminal` 只接受 `TERMINAL` 终端实现",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1602"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1690"
   },
   {
     "fact": "`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:848"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:935"
   },
   {
     "fact": "超时取消的安顿等待为 3000 毫秒",
@@ -513,63 +513,63 @@
   },
   {
     "fact": "StorageLease 的 `acquire` 在维护模式取独占锁、在普通模式取共享锁",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:29"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:28"
   },
   {
     "fact": "普通启动时若 `data-rescue/commit.json` 存在则拒绝启动",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:39"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:38"
   },
   {
     "fact": "NativeRescueSession 的 `open` 不解析启动配置即取得独占维护访问",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:71"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:70"
   },
   {
     "fact": "NativeRescueSession 的 `open_file_secrets` 启用 CLI profile-file 密钥契约",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:78"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:77"
   },
   {
     "fact": "启动描述返回体中标注布局 `operit.files.v1`",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:119"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:118"
   },
   {
     "fact": "`NativeRescueHost` 的 `layout` 返回 `operit.files.v1`",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:601"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:588"
   },
   {
     "fact": "`RescueRoots` 包含 `runtime_root`、`workspace_root` 与可选的 `cli_config_root`",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:49"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:48"
   },
   {
     "fact": "`SECRET_KEYS` 只注册两项密钥",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:22"
+    "ref": "core/crates/persistence/rescue/src/secrets.rs:9"
   },
   {
     "fact": "NativeRescueHost 的 `commit_restore` 校验清单后写日志再发布",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:715"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:702"
   },
   {
     "fact": "NativeRescueHost 的 `resume_restore` 只恢复已持久化的发布计划",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:809"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:792"
   },
   {
     "fact": "NativeRescueHost 的 `discard_restore` 拒绝丢弃已发布导入的日志",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:855"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:838"
   },
   {
     "fact": "`Journal` 记录 `publications`、`secret_envelope` 与 `verified_files`",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:217"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:216"
   },
   {
     "fact": "`Publication` 记录 `staged`、`retained` 与 `had_original`",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:208"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:207"
   },
   {
     "fact": "`save_journal` 把日志原子写入 `runtime/commit.json`",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:487"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:477"
   },
   {
     "fact": "导出前若存在未完成导入，`list_files` 直接拒绝",
-    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:615"
+    "ref": "hosts/common/operit-host-data-rescue/src/lib.rs:602"
   },
   {
     "fact": "`visit_with_chromium` 分配调试端口、建临时 profile、启动浏览器、跑 CDP 访问后清理",
@@ -745,7 +745,7 @@
   },
   {
     "fact": "原生与浏览器归档在本版本中故意不互通",
-    "ref": "docs/data-rescue.md:30"
+    "ref": "docs/data-rescue.md:34"
   },
   {
     "fact": "CLI rescue 入口不启动 Core、不打开 SQLite",
@@ -789,15 +789,15 @@
   },
   {
     "fact": "`buildHttpStreamClient` 构建 Host 的流式 HTTP 客户端",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:809"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:842"
   },
   {
     "fact": "downloadToFileAsync 写完临时文件后重命名发布到目标路径",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:514"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:547"
   },
   {
     "fact": "downloadToFileAsync 失败时删除临时文件",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:523"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:556"
   },
   {
     "fact": "crate 文档称 data-rescue 为 `Native Host boundary for offline rescue`",

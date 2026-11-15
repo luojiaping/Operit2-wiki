@@ -19,15 +19,15 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - `ToolPkgHookDispatcher` — 按已启用包名集合分发 hook 的 trait（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:211`）
 - `decodeToolPkgHookResult` — hook 输出解码，合法 JSON 解码、其余原样返回字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:226`）
 - `ToolPkgChatRuntimeHookBridge` — 聊天运行时状态 hook 桥（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:20`）
-- `ToolPkgSummaryHookBridge` — 摘要 hook 桥，把 ToolPkg 摘要 hook 接入 Core 摘要管线（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:25`）
-- `SummaryHookRegistry` — Core 侧摘要 hook 注册表（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:58`）
+- `ToolPkgSummaryHookBridge` — 摘要 hook 桥，把 ToolPkg 摘要 hook 接入 Core 摘要管线（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:26`）
+- `SummaryHookRegistry` — Core 侧摘要 hook 注册表（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:61`）
 - `ToolPkgPreHookTimeout` — before-hook 共享截止时间的超时策略（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:12`）
 - 主入口：`dispatchStateChanged` 派发聊天运行时状态变更通知（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:53`）
 - 主入口：`dispatchSummaryGenerateHooks` 在摘要生成三阶段派发摘要 hook（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:81`）
 - 数据流向（聊天运行时）：聊天执行状态变更 → `dispatchStateChanged` → 各注册 hook 的主函数（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:53`）。
 - 数据流向（摘要）：摘要生成三阶段调用 `dispatchSummaryGenerateHooks`（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:81`）。
 - 数据流向（摘要）：`SummaryGenerateBridge` 把 ToolPkg 摘要 hook 接入该管线（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:25`）。
-- 数据流向（摘要）：变更写回 `SummaryHookContext`（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:14`）。
+- 数据流向（摘要）：变更写回 `SummaryHookContext`（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:15`）。
 
 ## 核心机制
 
@@ -77,14 +77,14 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - `syncToolPkgRegistrations` 从已启用容器的 `chatRuntimeHooks` 同步聊天运行时 hook 注册（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:32`）。
 - 同步时每个注册的包名取容器 `packageName`，hook 标识取 hook 的 id，函数名取 hook 的 function（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:39`）。
 - 各桥只注册一次，由 `INSTALLED` 原子标志保证（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:45`）。
-- 注册时订阅包目录变更监听，目录变化时重同步全部桥的注册（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:58`）。
-- 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1130`）。
-- `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1101`）。
+- 注册时订阅包目录变更监听，目录变化时重同步全部桥的注册（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:59`）。
+- 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1170`）。
+- `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1139`）。
 - `dispatchStateChanged` 接收聊天 id、新状态、活跃聊天 id 与三组计数，通知经 `scheduleToolPkgNotification` 异步发出（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:58`）。
 - 异步任务先取已注册的运行时，未注册时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:69`）。
 - 异步任务克隆当前注册列表，注册为空时直接返回，不执行任何 hook（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:74`）。
 - 每个 hook 经 `runToolPkgMainHook` 执行，事件为 `TOOLPKG_EVENT_CHAT_RUNTIME`，事件名是 `CHAT_RUNTIME_EVENT_STATE_CHANGED`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:102`）。
-- `TOOLPKG_EVENT_CHAT_RUNTIME` 的值是 toolpkg_chat_runtime（`core/crates/plugin/sdk/src/toolpkg/ToolPkgCommonPluginConstants.rs:24`）。
+- `TOOLPKG_EVENT_CHAT_RUNTIME` 的值是 toolpkg_chat_runtime（`core/crates/plugin/sdk/src/toolpkg/ToolPkgCommonPluginConstants.rs:29`）。
 - `CHAT_RUNTIME_EVENT_STATE_CHANGED` 的值是 state_changed（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:17`）。
 - 单个 hook 成功记 done 日志，失败记 error 日志，循环继续执行下一个 hook（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:128`）。
 - 载荷的 slot 固定为 main，活跃聊天 id 先排序再装入（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:157`）。
@@ -94,7 +94,7 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - `stateToolName` 只对 ExecutingTool、ToolProgress、ProcessingToolResult 三种状态返回工具名（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:209`）。
 - `stateProgress` 只对 ToolProgress 返回进度值（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:218`）。
 - `stateIsActive` 在 Idle、Completed、Error 时为 false，其余状态为 true（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:229`）。
-- 聊天运行时 hook 用不限时的 `runToolPkgMainHook` 执行，未传入超时预算（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:4870`）。
+- 聊天运行时 hook 用不限时的 `runToolPkgMainHook` 执行，未传入超时预算（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:4927`）。
 
 ### hook 超时
 
@@ -112,28 +112,35 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 
 ### hook 与 SummaryHook 的关系
 
-- `SummaryHookRegistry` 是 Core 侧原生的摘要 hook 注册表，与 ToolPkg hook 注册是两套机制（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:58`）。
-- `SummaryHookContext` 是摘要 hook 的上下文，含阶段、两份历史、系统提示、摘要提示与摘要结果（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:14`）。
-- 摘要 hook 返回的变更经 `apply_mutation` 写回上下文，只写有值的字段（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:100`）。
-- `SummaryGenerateHook` 是摘要生成 hook 的 trait，同步版默认返回 None，异步版默认转调同步版（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:43`）。
-- `registerSummaryGenerateHook` 先按 id 注销同名 hook 再注册，避免重复（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:58`）。
-- `dispatchSummaryGenerateHooks` 先快照当前 hook 列表再按序执行（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:81`）。
-- 任一 hook 执行失败时直接返回错误，成功返回的变更立即应用（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:89`）。
-- 摘要桥的 `register` 把 `SummaryGenerateBridge` 注册进 `SummaryHookRegistry`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:25`）。
-- `SummaryGenerateBridge` 的 id 是 builtin.toolpkg.summary-generate-bridge（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:58`）。
-- ToolPkg 摘要 hook 以一个内置 Rust hook 的身份参与 Core 摘要管线，不是独立的第二条管线（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:25`）。
-- 摘要桥的同步从已启用容器的 `summaryGenerateHooks` 取注册，复用 `ToolPkgPromptHookRegistration` 结构登记（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:37`）。
-- 摘要 hook 的事件名是 `TOOLPKG_EVENT_SUMMARY_GENERATE`，值是 toolpkg_summary_generate（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:95`）。
-- 摘要桥按当前阶段取超时预算，偏好读取失败时直接返回错误（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:77`）。
-- 摘要桥把 hook 返回值解码后只处理对象结果（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:102`）。
-- 对象结果只取系统提示、摘要提示、摘要结果与元数据写回变更（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:153`）。
-- 任一摘要 hook 改了内容就返回 `Some(mutation)`，否则返回 None（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:131`）。
-- 摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:466`）。
-- 摘要生成在 before_send_to_model 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:500`）。
-- 摘要生成在 after_generate_summary 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:571`）。
+- `SummaryHookRegistry` 是 Core 侧原生的摘要 hook 注册表，与 ToolPkg hook 注册是两套机制（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:61`）。
+- `SummaryHookContext` 是摘要 hook 的上下文，含阶段、两份历史、系统提示、摘要提示与摘要结果（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:15`）。
+- 摘要 hook 返回的变更经 `applySummaryHookMutation` 写回上下文，只写有值的字段（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:101`）。
+- `SummaryGenerateHook` 是摘要生成 hook 的 trait，同步版默认返回 None，异步版默认转调同步版（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:46`）。
+- `registerSummaryGenerateHook` 先按 id 注销同名 hook 再注册，避免重复（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:61`）。
+- `dispatchSummaryGenerateHooks` 先快照当前 hook 列表再按序执行（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:84`）。
+- 任一 hook 执行失败时直接返回错误，成功返回的变更立即应用（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:92`）。
+- 摘要桥的 `register` 把 `SummaryGenerateBridge` 注册进 `SummaryHookRegistry`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:26`）。
+- `SummaryGenerateBridge` 的 id 是 builtin.toolpkg.summary-generate-bridge（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:59`）。
+- ToolPkg 摘要 hook 以一个内置 Rust hook 的身份参与 Core 摘要管线，不是独立的第二条管线（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:26`）。
+- 摘要桥的同步从已启用容器的 `summaryGenerateHooks` 取注册，复用 `ToolPkgPromptHookRegistration` 结构登记（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:38`）。
+- 摘要 hook 的事件名是 `TOOLPKG_EVENT_SUMMARY_GENERATE`，值是 toolpkg_summary_generate（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:97`）。
+- 摘要桥按当前阶段取超时预算，偏好读取失败时直接返回错误（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:79`）。
+- 摘要桥把 hook 返回值解码后交 `parse_summary_hook_result` 解析，对象结果反序列化为变更，字符串结果按阶段写入摘要提示或摘要结果（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:104`）。
+- 对象结果按字段名反序列化为变更，覆盖两份历史、系统提示、摘要提示、摘要结果与元数据（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:167`）。
+- ToolPkg 摘要 hook 上下文现含完整 `chatHistory` 与 `preparedHistory`，随每轮 hook 调用传入（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:156`）。
+- 字符串结果按阶段写入变更：`before_prepare_summary_prompt` 与 `before_send_to_model` 写摘要提示，`after_generate_summary` 写摘要结果（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:178`）。
+- 结果为 None 或 null 时 `parse_summary_hook_result` 返回 None，不产生变更（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:171`）。
+- 对象字段类型不对时对象结果反序列化返回错误（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:174`）。
+- 返回布尔、数组等其他类型时解析返回错误（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:184`）。
+- 任一摘要 hook 改了内容就返回 `Some` 包裹的 `SummaryHookMutation`，否则返回 None（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:135`）。
+- 摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:480`）。
+- 摘要生成在 before_send_to_model 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:514`）。
+- 摘要生成在 after_generate_summary 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:558`）。
+- `before_prepare_summary_prompt` 分发前先用 `buildSummaryPreparedHistory` 预生成 `prepared_history`，不再传空历史（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:469`）。
+- 分发后用 `reconcileSummaryPreparedHistory` 对账，取 hook 改动后的 preparedHistory（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:483`）。
 - before_prepare_summary_prompt 与 before_send_to_model 在超时名单内（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:30`）。
 - after_generate_summary 不在名单内、不创建截止时间（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:150`）。
-- JS 侧摘要 hook 对象结果是 `ToolPkgSummaryHookObjectResult`，字段与摘要上下文对应（`core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1047`）。
+- JS 侧摘要 hook 对象结果是 `ToolPkgSummaryHookObjectResult`，字段与摘要上下文对应（`core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1048`）。
 - 摘要机制的完整说明见 [[agent-compaction|上下文压缩与摘要]]。
 
 ## 关键符号
@@ -144,10 +151,10 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - `ToolPkgChatRuntimeHookRegistration` — 聊天运行时状态 hook 的注册结构（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:114`）
 - `ToolPkgPromptHookRegistration` — prompt hook 或 summary hook 的注册结构（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:134`）
 - `ToolPkgChatRuntimeHookBridge` — 聊天运行时状态 hook 桥（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:20`）
-- `ToolPkgSummaryHookBridge` — 摘要 hook 桥（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:20`）
-- `SummaryHookRegistry` — Core 侧摘要 hook 注册表（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:54`）
-- `SummaryHookContext` — 摘要 hook 的上下文（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:9`）
-- `SummaryHookMutation` — 摘要 hook 返回的变更（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:25`）
+- `ToolPkgSummaryHookBridge` — 摘要 hook 桥（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:21`）
+- `SummaryHookRegistry` — Core 侧摘要 hook 注册表（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:57`）
+- `SummaryHookContext` — 摘要 hook 的上下文（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:10`）
+- `SummaryHookMutation` — 摘要 hook 返回的变更（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:27`）
 - `ToolPkgPreHookTimeout` — before-hook 共享截止时间的超时策略（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:6`）
 - `ToolPkgXmlRenderHookObjectResult` — XML 渲染 hook 的对象结果（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs:18`）
 - `ToolPkgPromptHookObjectResult` — prompt hook 的对象结果（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHookModels.rs:62`）
@@ -157,8 +164,8 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 
 ### 聊天运行时状态通知
 
-1. 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1130`）。
-2. `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1101`）。
+1. 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1170`）。
+2. `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1139`）。
 3. `dispatchStateChanged` 经 `scheduleToolPkgNotification` 把通知异步发出（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:58`）。
 4. 异步任务先取已注册的运行时，未注册时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:69`）。
 5. 异步任务克隆当前注册列表，注册为空时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:74`）。
@@ -168,16 +175,16 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 
 ### 摘要生成
 
-1. 摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:466`）。
-2. 摘要生成在 before_send_to_model 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:500`）。
-3. 摘要生成在 after_generate_summary 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:571`）。
-4. `dispatchSummaryGenerateHooks` 先快照当前 hook 列表再按序执行（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:81`）。
-5. 摘要桥按当前阶段取超时预算（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:77`）。
-6. 每个 ToolPkg 摘要 hook 经带预算的执行入口运行，事件为 `TOOLPKG_EVENT_SUMMARY_GENERATE`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:95`）。
-7. hook 返回值经 `decodeToolPkgHookResult` 解码，只处理对象结果（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:102`）。
-8. 对象结果只取系统提示、摘要提示、摘要结果与元数据写回变更（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:153`）。
-9. 有变更返回 `Some(mutation)`，否则返回 None（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:131`）。
-10. 变更经 `apply_mutation` 写回上下文，任一 hook 失败直接返回错误（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:89`）。
+1. 摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:480`）。
+2. 摘要生成在 before_send_to_model 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:514`）。
+3. 摘要生成在 after_generate_summary 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:558`）。
+4. `dispatchSummaryGenerateHooks` 先快照当前 hook 列表再按序执行（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:84`）。
+5. 摘要桥按当前阶段取超时预算（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:79`）。
+6. 每个 ToolPkg 摘要 hook 经带预算的执行入口运行，事件为 `TOOLPKG_EVENT_SUMMARY_GENERATE`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:97`）。
+7. hook 返回值经 `decodeToolPkgHookResult` 解码后交 `parse_summary_hook_result` 解析（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:104`）。
+8. 对象结果按字段名反序列化为变更，覆盖两份历史、系统提示、摘要提示、摘要结果与元数据（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:167`）。
+9. 有变更返回 `Some` 包裹的 `SummaryHookMutation`，否则返回 None（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:135`）。
+10. 变更经 `applySummaryHookMutation` 写回上下文，任一 hook 失败直接返回错误（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:92`）。
 
 ### before-hook 超时
 

@@ -8,7 +8,7 @@ date: 2026-11-11
 
 ## 概述
 
-- 本页只覆盖 Android root shell、iOS 性能定位、TestFlight 反馈排查三份 seed 文档记载的内容，seed 文件是 `docs/android-root-shell.md`、docs/performance-ios-2026-10-27.md、docs/testflight-feedback-investigation-2026-11-09.md。`docs/android-root-shell.md:1`
+- 本页只覆盖 Android root shell、iOS 性能定位、TestFlight 反馈排查三份 seed 文档记载的内容，seed 文件是 docs/android-root-shell.md、docs/performance-ios-2026-10-27.md、docs/testflight-feedback-investigation-2026-11-09.md。`docs/android-root-shell.md:1`
 - 本页的断言全部来自文档记载，文档说法与实现事实分开表述，文档中标注“未关闭”“未宣称”的结论在本页同样保留为未关闭、未宣称。`docs/testflight-feedback-investigation-2026-11-09.md:5`
 - Android 侧的细节见 [[host-android|Android Host]]，iOS 侧的细节见 [[host-ios|iOS Host 与 ARM64 Linux 运行时]]，桌面端排障见 [[troubleshoot-desktop|排障·桌面端（Windows / macOS / Linux）]]。`docs/android-root-shell.md:1`
 
@@ -223,4 +223,5 @@ date: 2026-11-11
 - `docs/performance-ios-2026-10-27.md` — iOS 工具调用与消息接收 CPU 堆栈分析：实测 CPU、工具调用链、消息接收帧工作、回复完成后帧工作、发热结论边界。`docs/performance-ios-2026-10-27.md:1`
 - `docs/testflight-feedback-investigation-2026-11-09.md` — TestFlight 反馈逐项排查（2026-11-09）：验收口径、原始反馈回归、原清单遗漏、排查边界、22 项清单、大字体修复、iOS WASM 引擎修复、市场更新修复、验证限制。`docs/testflight-feedback-investigation-2026-11-09.md:1`
 - 核验方法：2026-11-11 对基线 AAswordman/Operit2 @ 364d1d594 的三份 seed 文件全文 grep“桌面”“对照表”“能力对照”，“桌面”仅在 `docs/testflight-feedback-investigation-2026-11-09.md:85` 命中一次（64 MiB 帧上限按桌面本地传输表述），“对照表”“能力对照”零命中；三份 seed 未提供完整的移动端/桌面端能力对照表，本页的平台差异点只取自 seed 中出现的平台区分表述。`docs/testflight-feedback-investigation-2026-11-09.md:85`
+- 2026-11-15 对新基线 ff5373fb6 复核：三份 seed 文件在 364d1d594..ff5373fb6 间 0 行改动，88 条事实锚行逐字相同，事实文本零改动。`docs/android-root-shell.md:1`
 - 本页 seed 之外未读其他文件，未引用 seed 之外的实现细节。`docs/android-root-shell.md:1`

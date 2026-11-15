@@ -53,7 +53,7 @@ Space 只负责三件事：确定哪些 CoreNode 属于同一个协作范围、�
 
 聊天路由使用现有 `chatId` 作为 key。（docs/core-node-space-binding-architecture.md:171）
 切换工具只需要目标 `nodeId`：`switch_core(nodeId)` 切换目标。（docs/core-node-space-binding-architecture.md:156）
-`list_core_nodes()` 返回本机已经同步的 Space 成员视图。（docs/core-node-space-binding-architecture.md:320）
+`list_core_nodes` 返回本机已经同步的 Space 成员视图。（docs/core-node-space-binding-architecture.md:320）
 `switch_core` 在调用时按同一份路由视图校验目标：目标不是 Space 成员或当前不可达时，工具直接返回失败，而不是让切换在回合结束后异步落空。（docs/core-node-space-binding-architecture.md:164）
 
 按架构文档，`Binding` 比较写入成功后，它就是新的唯一执行位置。（docs/core-node-space-binding-architecture.md:410）
@@ -77,8 +77,8 @@ Space 只负责三件事：确定哪些 CoreNode 属于同一个协作范围、�
 现有 `CoreCallRequest`、`CoreWatchRequest`、`CorePushRequest`、`CoreEvent` 和 `CorePushItem` 保持不变。（docs/core-node-space-binding-architecture.md:285）
 架构文档用四字段图示说明经过 Peer Link 时增加的外层 `RoutedLink`，含 `spaceId`、`targetNodeId`、`ttl`、`payload`。（docs/core-node-space-binding-architecture.md:289）
 四字段图示是概念示意，省略了来源和路由种类。（docs/core-node-space-binding-architecture.md:289）
-实际序列化契约是六字段的 `RoutedCoreRequest<T>`，含 `spaceId`、`originNodeId`、`targetNodeId`、`ttl`、`routeKind`、`payload`。（core/crates/foundation/link/src/protocol.rs:984）
-`peer/dispatch.rs` 的 `encodeRouted` 用完整的 `RoutedCoreRequest<T>` 编码请求。（core/crates/node/runtime/src/peer/dispatch.rs:20）
+实际序列化契约是六字段的 `RoutedCoreRequest<T>`，含 `spaceId`、`originNodeId`、`targetNodeId`、`ttl`、`routeKind`、`payload`。（core/crates/foundation/link/src/protocol.rs:987）
+peer/dispatch.rs 的 `encodeRouted` 用完整的 `RoutedCoreRequest<T>` 编码请求。（core/crates/node/runtime/src/peer/dispatch.rs:20）
 `payload` 是现有 Link 消息或 Space 控制消息，外层不携带 `chatId`、`Binding`、`envId`、文件路径或 Host 配置。（docs/core-node-space-binding-architecture.md:297）
 
 请求路径是 `origin -> next peer -> ... -> target CoreNode`。（docs/core-node-space-binding-architecture.md:303）
@@ -116,7 +116,7 @@ Space 只负责三件事：确定哪些 CoreNode 属于同一个协作范围、�
 
 一条边可用当且仅当两端都是当前 Space 成员、公告未过期、本地源端是活跃直接 Peer Link、边有有效 channel epoch 与 sequence。（docs/device-net-routing-distribution.md:66）
 路由器用 Dijkstra 算法计算有向最短路径树，图包含可用的公告。（docs/device-net-routing-distribution.md:78）
-边代价是 `cost(u, v) = 1000 + 10 * smoothedRttMs + 25 * lossPermille + 10 * congestionPermille`。（docs/device-net-routing-distribution.md:83）
+边代价是 cost(u, v) = 1000 + 10 * smoothedRttMs + 25 * lossPermille + 10 * congestionPermille。（docs/device-net-routing-distribution.md:83）
 边代价的系数是配置常量，不是协议字段。（docs/device-net-routing-distribution.md:91）
 等代价时选择字典序最小的第一跳，使独立路由器收敛到同一条路径。（docs/device-net-routing-distribution.md:102）
 无可用路径的路由查找返回不可达错误，绝不凭成员关系或过期公告凭空造边。（docs/device-net-routing-distribution.md:102）
@@ -124,7 +124,7 @@ Space 只负责三件事：确定哪些 CoreNode 属于同一个协作范围、�
 路由器为新的 call、Watch 打开或 Push 打开重新计算路由；已打开的 Watch 和 Push 在其生命周期内保留已有物理路径。（docs/device-net-routing-distribution.md:110）
 
 承载层与 Operit 路由是两个独立的决策：EasyTier 等承载层选择两个可达虚拟地址之间的物理包路径，Operit 选择下一个已认证 Peer Link 并决定一个实时源在哪里复制。（docs/device-net-routing-distribution.md:10）
-`device-net-routing-distribution.md` 不定义设备角色、执行位置、身份或承载层使用的 NAT 穿透算法。（docs/device-net-routing-distribution.md:7）
+device-net-routing-distribution.md 不定义设备角色、执行位置、身份或承载层使用的 NAT 穿透算法。（docs/device-net-routing-distribution.md:7）
 
 ### Call、Watch、Push 的转发规则
 
@@ -143,8 +143,8 @@ Watch 路由在生成的 Core 路由元数据中声明一个分发类：`Unicast
 生成的声明是该分类的唯一权威；传输不从对象 id、方法名、参数名或事件负载推断。（docs/device-net-routing-distribution.md:133）
 
 每个路由器拥有一个 `SharedWatchHub`。（docs/device-net-routing-distribution.md:139）
-`SnapshotShared` 条目以 `(spaceId, targetNodeId, routeKind, target, propertyName, canonicalArguments, topologyGeneration)` 为键。（docs/device-net-routing-distribution.md:139）
-`SharedWatchEntry` 拥有恰好一个上游 Watch，包含 `latestSnapshot`、`upstreamSubscription`、`downstreamSubscribers`、`routeDecision`。（docs/device-net-routing-distribution.md:150）
+`SnapshotShared` 条目以 (spaceId, targetNodeId, routeKind, target, propertyName, canonicalArguments, topologyGeneration) 为键。（docs/device-net-routing-distribution.md:139）
+`SharedWatchEntry` 拥有恰好一个上游 Watch，包含 `latestSnapshot`、`upstreamSubscription`、`downstreamSubscribers`、`routeDecision`。（docs/device-net-routing-distribution.md:153）
 第一个消费者沿加权路由打开上游 Watch；快照已存储后进入的消费者在其自己的逻辑订阅 id 上收到该快照；变更事件按源顺序复制给每个活跃消费者。（docs/device-net-routing-distribution.md:161）
 完成事件关闭每个消费者并移除条目；最后一个消费者取消时关闭上游 Watch 并移除条目。（docs/device-net-routing-distribution.md:161）
 
@@ -158,18 +158,18 @@ Watch 路由在生成的 Core 路由元数据中声明一个分发类：`Unicast
 
 实际交接按提交调用链进行：先同步目标节点，再比较写入 `Binding`，安装 Binding operation，最后调用 `AfterChangeRoute`。
 
-先同步目标节点：`RuntimeRemoteLinkService` 在提交前调用 `synchronizeReachablePeerForReason` 同步目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1028）
+先同步目标节点：RuntimeRemoteLinkService 在提交前调用 `synchronizeReachablePeerForReason` 同步目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1028）
 比较写入 `Binding`：`bindingStore.compareAndSet` 比较写入，提交后校验新归属等于目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1044）
 安装 Binding operation：`installRouteBindingOnTarget` 把 Binding operation 安装到目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1064）
 调用 `AfterChangeRoute`：`callChatCoreLifecycle` 触发目标节点的 `AfterChangeRoute` 生命周期回调，传入交接上下文。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1083）
-目标接收上下文：`resumeFromRouteContext` 接收 `CoreRouteResumeContext`。（core/crates/runtime/application/src/services/ChatServiceCore.rs:776）
-取得本地执行 lease：目标节点打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatServiceCore.rs:805）
-交给续接：`resumeFromRouteContext` 把执行 lease 和交接上下文交给 `sendRoutedContinuation` 续接。（core/crates/runtime/application/src/services/ChatServiceCore.rs:825）
+目标接收上下文：`resumeFromRouteContext` 接收 `CoreRouteResumeContext`。（core/crates/runtime/application/src/services/ChatServiceCore.rs:831）
+取得本地执行 lease：目标节点打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatServiceCore.rs:860）
+交给续接：目标节点把执行 lease 和交接上下文交给 `sendRoutedContinuation` 续接。（core/crates/runtime/application/src/services/ChatServiceCore.rs:880）
 续接使用上下文历史：目标节点续接时使用交接上下文中的 `runtimeChatHistory` 作为聊天历史发起下一轮。（core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:521）
 续接前校验配置身份：配置身份校验只在 `extensionOwner` 不是 `MODEL_CONFIGURATION_OWNER` 时执行，要求 `extensionOwner` 及 `profile.id` 与交接上下文身份一致，否则返回错误。（core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:496）
 `MODEL_CONFIGURATION_OWNER` 的值是 host.chat.model。（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:37）
 
-实际运输的上下文：`CoreRouteResumeContext` 包含 `runtimeChatHistory`、`workspacePath`、`promptFunctionType`、`participantId` 等字段，没有 `requiredClock` 或 execution generation 参数。（core/crates/tool/services/src/runtime_support.rs:22）
+实际运输的上下文：`CoreRouteResumeContext` 包含 `runtimeChatHistory`、`workspacePath`、`promptFunctionType`、`participantId` 等字段，没有 requiredClock 或 execution generation 参数。（core/crates/tool/services/src/runtime_support.rs:22）
 
 设计约束（架构文档定义，运行时实现尚未确认）：`requiredClock` 是持久化同步屏障，execution generation 来自 `Binding` 比较写入，不复用模型进程内部的 execution 或 round 身份。（docs/core-node-space-binding-architecture.md:407）
 设计约束（架构文档定义，运行时实现尚未确认）：目标节点按 `(chatId, executionGeneration)` 识别 continuation，启动前读取 assistant 消息的 `completedExecutionGeneration`，已经完成相同或更高 generation 时直接返回，不重复调用模型或工具。（docs/core-node-space-binding-architecture.md:420）
@@ -233,19 +233,19 @@ Transport 消息协议和共享 Link 客户端均已覆盖 Call、Watch、Push�
 - `CoreNodeRouter` — 本地请求入口与逐跳转发器（docs/core-node-space-binding-architecture.md:354）
 - `RouteTable` — 运行时内部路由表，不是领域概念（docs/core-node-space-binding-architecture.md:127）
 - `LinkAdvertisement` — 有向链路公告，含往返时延、丢包、拥塞（docs/device-net-routing-distribution.md:38）
-- `RouteDecision` — 路由结果：`destinationNodeId`、`nextHopNodeId`、`totalCost`、`topologyGeneration`（docs/device-net-routing-distribution.md:91）
+- `RouteDecision` — 路由结果：`destinationNodeId`、`nextHopNodeId`、`totalCost`、`topologyGeneration`（docs/device-net-routing-distribution.md:94）
 - `SharedWatchHub` — 共享 Watch 树的所有者（docs/device-net-routing-distribution.md:139）
 - `SharedWatchEntry` — 一条共享上游 Watch 及其下游订阅者（docs/device-net-routing-distribution.md:150）
 - `Binding` — 决定一个 chat 下一步在哪个 CoreNode 执行的不透明 key（docs/core-node-space-binding-architecture.md:481）
 - `requiredClock` — 架构文档定义的持久化同步屏障概念，实际运输的上下文没有该参数（docs/core-node-space-binding-architecture.md:407）
 - `CoreRouteResumeContext` — 交接时实际运输的运行上下文，含 runtimeChatHistory 等字段（core/crates/tool/services/src/runtime_support.rs:22）
 - `effectiveBinding` — 本次请求的有效 Binding 解析，目标不可达时取本机且不改归属（core/crates/node/runtime/src/CoreNodeRouter.rs:451）
-- `resumeFromRouteContext` — 目标节点接收交接上下文并取得本地执行 lease（core/crates/runtime/application/src/services/ChatServiceCore.rs:776）
+- `resumeFromRouteContext` — 目标节点接收交接上下文并取得本地执行 lease（core/crates/runtime/application/src/services/ChatServiceCore.rs:831）
 - `PeerRouter` — 认证会话到执行后端的共同边界（docs/link-access-architecture.md:40）
 - `PeerLink` / `PeerConnection` — 认证连接承载（docs/link-access-architecture.md:176）
 - `#[operit_core_route(...)]` — 真实 Core 方法上的路由声明（docs/core-node-space-binding-architecture.md:371）
 - `list_core_nodes` — 读取本机已同步 Space 成员视图的工具（docs/core-node-space-binding-architecture.md:320）
-- `switch_core` — 切换 Binding 目标节点的工具（docs/core-node-space-binding-architecture.md:387）
+- `switch_core` — 切换 Binding 目标节点的工具（docs/core-node-space-binding-architecture.md:164）
 - `operit-store` — 操作日志、收据、Binding 与各存储 owner 的提交；拓扑记录与确定性路由计算（docs/core-node-space-binding-architecture.md:442）
 - `node/runtime` — 配对与成员策略、CoreNodeRouter、逐跳转发、共享 Watch 与同步调度（docs/core-node-space-binding-architecture.md:445）
 - `space_policy::spaceChannelScope` — Space 回连准入的集中判断入口（docs/link-access-architecture.md:215）
@@ -257,9 +257,9 @@ Transport 消息协议和共享 Link 客户端均已覆盖 Call、Watch、Push�
 ### 一次 Binding 路由的 Call
 
 1. 本地 App 把请求交给本机 `CoreNodeRouter`。（docs/core-node-space-binding-architecture.md:354）
-2. `CoreNodeRouter` 按 `#[operit_core_route(...)]` 声明判断请求类型：普通请求走 `LocalCoreProxy`；标注 Binding 的请求读取 `Binding(key)` 得到目标 CoreNode。（docs/core-node-space-binding-architecture.md:371）
-3. `CoreNodeRouter` 用加权路由（Dijkstra + `LinkAdvertisement`）选出第一跳 `nextPeer`。（docs/device-net-routing-distribution.md:78）
-4. `CoreNodeRouter` 把请求包进 `RoutedLink` 外层发往第一跳。（docs/core-node-space-binding-architecture.md:289）
+2. `CoreNodeRouter` 按 `#[operit_core_route(...)]` 声明判断请求类型：普通请求走 LocalCoreProxy；标注 Binding 的请求读取 Binding(key) 得到目标 CoreNode。（docs/core-node-space-binding-architecture.md:371）
+3. CoreNodeRouter 用加权路由（Dijkstra + LinkAdvertisement）选出第一跳 nextPeer。（docs/device-net-routing-distribution.md:78）
+4. CoreNodeRouter 把请求包进 `RoutedLink` 外层发往第一跳。（docs/core-node-space-binding-architecture.md:289）
 5. 每一跳验证 `spaceId` 成员资格与 `payload` 类型。（docs/core-node-space-binding-architecture.md:463）
 6. 每一跳向下一跳发起下游 call 并等待结果。（docs/core-node-space-binding-architecture.md:329）
 7. 目标节点解开 `RoutedLink`，把原始 `CoreCallRequest` 交给自己的 `LocalCoreProxy` 执行。（docs/core-node-space-binding-architecture.md:329）
@@ -272,19 +272,19 @@ Transport 消息协议和共享 Link 客户端均已覆盖 Call、Watch、Push�
 3. node-A 在一个事务内持久化 assistant 工具调用、工具结果、chat metadata 和同步操作。（docs/core-node-space-binding-architecture.md:397）
 4. 响应业务向 Router 返回只包含目标和不透明 payload 的 route transition。（docs/core-node-space-binding-architecture.md:398）
 5. Router 先同步目标节点，为提交做准备。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1028）
-6. Router 比较写入 `Binding(chat-1) = node-D`，提交成功后得到新的 generation 和 operation。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1044）
+6. Router 比较写入 Binding(chat-1) = node-D，提交成功后得到新的 generation 和 operation。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1044）
 7. Router 把 Binding operation 安装到 node-D。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1064）
 8. Router 调用 `AfterChangeRoute`，把交接上下文交给 node-D。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1083）
-9. node-D 的 `resumeFromRouteContext` 接收 `CoreRouteResumeContext`。（core/crates/runtime/application/src/services/ChatServiceCore.rs:776）
-10. node-D 打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatServiceCore.rs:805）
-11. node-D 把执行 lease 和交接上下文交给 `sendRoutedContinuation` 续接。（core/crates/runtime/application/src/services/ChatServiceCore.rs:825）
-12. `sendRoutedContinuation` 用交接上下文中的 `runtimeChatHistory` 作为聊天历史发起下一轮模型请求。（core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:521）
+9. node-D 的 `resumeFromRouteContext` 接收 `CoreRouteResumeContext`。（core/crates/runtime/application/src/services/ChatServiceCore.rs:831）
+10. node-D 打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatServiceCore.rs:860）
+11. node-D 把执行 lease 和交接上下文交给 `sendRoutedContinuation` 续接。（core/crates/runtime/application/src/services/ChatServiceCore.rs:880）
+12. sendRoutedContinuation 用交接上下文中的 `runtimeChatHistory` 作为聊天历史发起下一轮模型请求。（core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:521）
 13. node-D 的输出事件继续写入原来的逻辑响应流。（docs/core-node-space-binding-architecture.md:404）
 
 ### 一次共享 Watch 的打开
 
 1. 路由器按生成的 Core 路由元数据确认该 Watch 属于 `SnapshotShared` 类。（docs/device-net-routing-distribution.md:118）
-2. 第一个消费者沿加权路由打开上游 Watch，`SharedWatchHub` 创建 `SharedWatchEntry`。（docs/device-net-routing-distribution.md:139）
+2. 第一个消费者沿加权路由打开上游 Watch，`SharedWatchHub` 创建 SharedWatchEntry。（docs/device-net-routing-distribution.md:139）
 3. 后进入的消费者在自己的逻辑订阅 id 上先收到最新缓存快照，再收到后续变更事件。（docs/device-net-routing-distribution.md:161）
 4. 变更事件按源顺序复制给每个活跃消费者；完成事件关闭每个消费者并移除条目。（docs/device-net-routing-distribution.md:161）
 5. 最后一个消费者取消时关闭上游 Watch 并移除条目；任一下游订阅者队列达到上限时只关闭该订阅，不拖延源或其他消费者。（docs/device-net-routing-distribution.md:168）

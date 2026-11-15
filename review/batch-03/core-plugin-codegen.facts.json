@@ -44,7 +44,7 @@
     "ref": "core/crates/plugin/codegen/src/declarations.rs:29"
   },
   {
-    "fact": "storage 模块是唯一带 additional_rust_file（foundation/host-api/src/PluginStorage.rs）且 nullable_wire_fields 为 true 的模块，输出 storage.generated.d.ts。",
+    "fact": "storage 模块是唯一带 additional_rust_file（foundation/host-contract/src/PluginStorage.rs）且 nullable_wire_fields 为 true 的模块，输出 storage.generated.d.ts。",
     "ref": "core/crates/plugin/codegen/src/declarations.rs:34"
   },
   {
@@ -238,6 +238,10 @@
   {
     "fact": "infer_declaration 把 FilesHost、NetHost、SystemHost 等 Host trait 按命名空间映射。",
     "ref": "core/crates/plugin/codegen/src/declarations.rs:1700"
+  },
+  {
+    "fact": "infer_declaration 把 UIAgentHost 与 UIHost 一同映射到 UI 命名空间。",
+    "ref": "core/crates/plugin/codegen/src/declarations.rs:1718"
   },
   {
     "fact": "infer_declaration 把 ChatHost、StorageHost、StorageFacadeHost 映射到 Chat 与 Storage 命名空间。",
@@ -880,120 +884,120 @@
     "ref": "core/crates/plugin/sdk-ipc-bridge/src/lib.rs:31"
   },
   {
-    "fact": "HOST_TRAITS 列出 17 组 (Rust 文件, Host trait, 命名空间) 映射，覆盖 Files、Net、Net.cookies、System、System.bluetooth、System.bluetooth.ble、System.terminal、System.music、SoftwareSettings、Models、Tts、Stt、Theme、Catalog、Media、Chat、Storage。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:12"
+    "fact": "HOST_TRAITS 列出 18 组 (Rust 文件, Host trait, 命名空间) 映射，覆盖 UI、Files、Net、Net.cookies、System、System.bluetooth、System.bluetooth.ble、System.terminal、System.music、SoftwareSettings、Models、Tts、Stt、Theme、Catalog、Media、Chat、Storage。",
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:13"
   },
   {
     "fact": "parse_rust_tool_bindings 读取 JS_TOOL_BINDINGS 常量数组。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:62"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:63"
   },
   {
     "fact": "每条 JsToolBinding 含 strict_arguments、facade 与 fixed_parameters 字段。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:45"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:46"
   },
   {
     "fact": "JsToolBinding 的目标必须是 BuiltinToolName 变体。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:104"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:105"
   },
   {
     "fact": "JS_TOOL_API_VARIANTS 引用不存在的绑定时报错。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:196"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:197"
   },
   {
     "fact": "JS_TOOL_API_VARIANTS 同一版本号重复声明时报错。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:206"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:207"
   },
   {
     "fact": "generate_js_tools_runtime 先校验 Host trait 声明的方法集合与绑定表完全一致，缺失或多余时返回 Rust Tools bindings differ from active host traits 错误。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:298"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:299"
   },
   {
     "fact": "generate_js_tools_runtime 生成的 JavaScript 先输出 __operitToolParameterRules，再定义 Tools 命名空间。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:312"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:313"
   },
   {
     "fact": "生成的 JavaScript 内嵌 chat_runtime.js、terminal_runtime.js 与 storage_runtime.js 三个手写运行时。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:400"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:401"
   },
   {
     "fact": "Chat 命名空间的方法挂在 __operitToolPkgApi.namespace(\"Tools.Chat\") 下。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:471"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:472"
   },
   {
     "fact": "生成输出末尾追加 compat/v1 的 9 个手写适配器与 DeviceTools.script.js。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:504"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:505"
   },
   {
     "fact": "生成输出在写入前用 tree-sitter 校验 JavaScript 语法。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:513"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:514"
   },
   {
     "fact": "生成输出以 __operitCanonicalTools 保存 Tools 命名空间的深拷贝。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:495"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:496"
   },
   {
     "fact": "AsyncIterator facade 经 __operitCreateToolStream 建流，并要求恰好一个请求参数。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:443"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:444"
   },
   {
     "fact": "TerminalCallback 走 __operitExecTerminalStreaming，TerminalRun 走 __operitRunTerminal，TerminalWait 走 __operitWaitTerminal。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:445"
-  },
-  {
-    "fact": "Promise 与 Storage facade 走生成的 JS 函数。",
     "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:446"
   },
   {
+    "fact": "Promise 与 Storage facade 走生成的 JS 函数。",
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:447"
+  },
+  {
     "fact": "未知 facade 返回 Unknown result facade 错误。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:452"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:453"
   },
   {
     "fact": "带 API 版本变体的方法经 __operitToolPkgApi.method().since() 或 .between() 生成版本门控函数。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:461"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:462"
   },
   {
     "fact": "非 Chat 的版本变体方法再调 .build(\"Tools.<命名空间>.<方法>\")。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:478"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:479"
   },
   {
     "fact": "__operitInvokeToolsBinding 先构造参数，带设备上下文时调用 __operitDeviceToolCall，否则调用 toolCall。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:389"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:390"
   },
   {
     "fact": "__operitToolsSelectOverload 在唯一重载时直接选它，首参为对象且存在扁平化重载时选扁平化重载，否则选参数最多的重载。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:348"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:349"
   },
   {
     "fact": "__operitToolsBuildParameters 按选定重载映射参数：扁平化参数展开对象字段，标量联合后缀参数映射为标量字段，最后追加固定参数。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:361"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:362"
   },
   {
     "fact": "除 preserve_object_namespaces（Net、Media）内的命名空间外，扁平化参数展开对象字段时经 `__operitToolsSnakeCase` 转 snake_case；Net 与 Media 保留原字段名。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:371"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:372"
   },
   {
     "fact": "generate_parameter_rules 读取 JS_TOOL_PARAMETER_RULES 常量，要求恰好 4 个字段：flatten_arguments、scalar_union_suffixes、preserve_object_namespaces、argument_names。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:560"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:561"
   },
   {
     "fact": "generate_parameter_rules 要求每个参数别名是四元组且引用已声明的方法与参数，重复别名报错。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:586"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:587"
   },
   {
     "fact": "argument_checks 为 strict_arguments 的方法生成参数校验：String 参数要求非空且首尾无空白，其他路径类型用 __operitSnapshotJsonObject 快照，不支持的类型报错。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:537"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:538"
   },
   {
     "fact": "read_host_method_arguments 从 HOST_TRAITS 的 trait 中读取每个重载的有序参数名。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:640"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:641"
   },
   {
     "fact": "validate_javascript_syntax 用 tree-sitter 解析生成的 JavaScript，含错误节点时返回 generated JavaScript Tools runtime contains a syntax error 错误。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:680"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:681"
   },
   {
     "fact": "runtime_method_name 去掉方法名前的 r# 前缀与 _overload_ 后缀。",
-    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:726"
+    "ref": "core/crates/plugin/codegen/src/runtime_bindings.rs:727"
   },
   {
     "fact": "plugin/sdk 的 build.rs 在构建时依次运行 generate_js_tools_runtime（输出 OUT_DIR/js_tools.js）、generate_declaration_tree（输出 OUT_DIR/types）、generate_builtin_tool_names（输出 OUT_DIR/builtin_tool_names.rs）。",

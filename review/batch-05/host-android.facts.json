@@ -29,15 +29,19 @@
  },
  {
   "fact": "Android Host crate 依赖 operit-host-api",
-  "ref": "hosts/android/Cargo.toml:11"
- },
- {
-  "fact": "Android Host crate 依赖 operit-host-native-common，并启用 tcp、serial、fs、http、scheduler、storage 特性",
   "ref": "hosts/android/Cargo.toml:12"
  },
  {
+  "fact": "Android Host crate 依赖 operit-host-native-common，并启用 tcp、serial、fs、http、scheduler、storage 特性",
+  "ref": "hosts/android/Cargo.toml:13"
+ },
+ {
   "fact": "jni 0.21 只在 target_os 为 android 时作为依赖引入",
-  "ref": "hosts/android/Cargo.toml:19"
+  "ref": "hosts/android/Cargo.toml:20"
+ },
+ {
+  "fact": "Android Host crate 依赖 `operit-host-local-inference`（本地推理共享实现）",
+  "ref": "hosts/android/Cargo.toml:9"
  },
  {
   "fact": "createRuntimeHostManager 组装 Android 自有的运行时 HostManager",
@@ -48,7 +52,7 @@
   "ref": "hosts/android/src/lib.rs:79"
  },
  {
-  "fact": "运行时组合注册 AndroidLocalInferenceHost",
+  "fact": "运行时组合以 `NativeLocalInferenceHost::withSpeech` 包装 `AndroidLocalInferenceHost` 注册本地推理 Host",
   "ref": "hosts/android/src/lib.rs:94"
  },
  {
@@ -321,55 +325,51 @@
  },
  {
   "fact": "AndroidManagedRuntimeHost 的 runtimeWorkspaceDir 位于 OPERIT_ANDROID_INTERNAL_ROOT 下的 managed_runtime",
-  "ref": "hosts/android/src/managed_runtime.rs:113"
+  "ref": "hosts/android/src/managed_runtime.rs:28"
  },
  {
   "fact": "resolveRuntimeExecutable 在 executablePath 非空时使用该路径，否则按程序取默认值",
-  "ref": "hosts/android/src/managed_runtime.rs:126"
+  "ref": "hosts/android/src/managed_runtime.rs:36"
  },
  {
   "fact": "默认可执行文件为 Node 的 /usr/bin/node、Python 的 /usr/bin/python3、Uv 的 /usr/bin/uv、Pnpm 的 /usr/bin/pnpm",
-  "ref": "hosts/android/src/managed_runtime.rs:129"
+  "ref": "hosts/android/src/managed_runtime.rs:44"
  },
  {
   "fact": "ManagedRuntimeProgram::Command 按名字原样作可执行文件",
-  "ref": "hosts/android/src/managed_runtime.rs:132"
+  "ref": "hosts/android/src/managed_runtime.rs:48"
  },
  {
   "fact": "解析出的可执行文件经 validateRootfsExecutable 校验",
-  "ref": "hosts/android/src/managed_runtime.rs:137"
+  "ref": "hosts/android/src/managed_runtime.rs:51"
  },
  {
   "fact": "托管运行时进程经 buildAndroidProotCommand 构建并设置 PROOT_NO_SECCOMP 为 1",
-  "ref": "hosts/android/src/managed_runtime.rs:150"
- },
- {
-  "fact": "托管运行时 stderr 缓冲超过 400 行时丢弃最旧行",
-  "ref": "hosts/android/src/managed_runtime.rs:188"
- },
- {
-  "fact": "两个管道读取任务经 scheduleServiceTasks 以 managed-runtime-pipes 调度，调度失败时杀死子进程并返回错误",
-  "ref": "hosts/android/src/managed_runtime.rs:196"
- },
- {
-  "fact": "一次性运行时命令以 PROOT_NO_SECCOMP 为 1 执行并返回 RuntimeCommandOutput",
-  "ref": "hosts/android/src/managed_runtime.rs:220"
- },
- {
-  "fact": "readStdoutLine 用 recv_timeout 等待一行，超时或断开时返回 None",
   "ref": "hosts/android/src/managed_runtime.rs:62"
  },
  {
+  "fact": "托管运行时 stderr 缓冲超过 400 行时丢弃最旧行",
+  "ref": "hosts/common/managed_runtime_process.rs:57"
+ },
+ {
+  "fact": "两个管道读取任务经 `scheduleNativeServiceTasks` 以 managed-runtime-pipes 调度，调度失败时 start 返回错误、析构杀死子进程",
+  "ref": "hosts/common/managed_runtime_process.rs:65"
+ },
+ {
+  "fact": "一次性运行时命令以 PROOT_NO_SECCOMP 为 1 执行并返回 RuntimeCommandOutput",
+  "ref": "hosts/android/src/managed_runtime.rs:80"
+ },
+ {
+  "fact": "readStdoutLine 用 recv_timeout 等待一行，超时或断开时返回 None",
+  "ref": "hosts/common/managed_runtime_process.rs:125"
+ },
+ {
   "fact": "kill 在 try_wait 显示进程仍在运行时调用 child.kill",
-  "ref": "hosts/android/src/managed_runtime.rs:99"
+  "ref": "hosts/common/managed_runtime_process.rs:153"
  },
  {
-  "fact": "writeManagedRuntimeLine 按 MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES 分发大小帧写入",
-  "ref": "hosts/android/src/managed_runtime.rs:234"
- },
- {
-  "fact": "MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES 为 4 KiB",
-  "ref": "hosts/android/src/managed_runtime.rs:15"
+  "fact": "`writeLine` 与 `writeLines` 经 `writeFrames` 拼成一帧写入 stdin",
+  "ref": "hosts/common/managed_runtime_process.rs:119"
  },
  {
   "fact": "AndroidFileSystemHost 内部包装 PosixFileSystemHost",
@@ -405,19 +405,23 @@
  },
  {
   "fact": "文档字节响应经 decodeBytes 做 base64 解码",
-  "ref": "hosts/android/src/filesystem.rs:245"
+  "ref": "hosts/android/src/filesystem.rs:251"
  },
  {
-  "fact": "appendFileBytes 直接调用 inner 的 appendFileBytes，不经过文档资源分支",
-  "ref": "hosts/android/src/filesystem.rs:129"
+  "fact": "`appendFileBytes` 对资源路径经文档调用写文件，内容 base64 编码、`append` 为 true",
+  "ref": "hosts/android/src/filesystem.rs:130"
+ },
+ {
+  "fact": "`appendFileBytes` 对非资源路径直接调用 inner 的 `appendFileBytes`",
+  "ref": "hosts/android/src/filesystem.rs:136"
  },
  {
   "fact": "openFile 先校验路径，无 presentation 回调时走文档调用",
-  "ref": "hosts/android/src/filesystem.rs:217"
+  "ref": "hosts/android/src/filesystem.rs:223"
  },
  {
   "fact": "shareFile 先校验路径，有 presentation 回调时转交给回调",
-  "ref": "hosts/android/src/filesystem.rs:232"
+  "ref": "hosts/android/src/filesystem.rs:238"
  },
  {
   "fact": "文档文件系统调用经 JNI fileSystemResourceOperation 发给 Java 侧已拥有的运行时 Host",
@@ -537,11 +541,15 @@
  },
  {
   "fact": "captureScreenshot 返回错误，要求 Android screen capture host bridge",
-  "ref": "hosts/android/src/system_operation.rs:195"
+  "ref": "hosts/android/src/system_operation.rs:202"
+ },
+ {
+  "fact": "`captureScreenshotTo` 经 VFS 能力写截图字节并删除原生暂存文件",
+  "ref": "hosts/android/src/system_operation.rs:194"
  },
  {
   "fact": "recognizeText 返回错误，要求 Android OCR host bridge",
-  "ref": "hosts/android/src/system_operation.rs:203"
+  "ref": "hosts/android/src/system_operation.rs:208"
  },
  {
   "fact": "installApp 要求 Immediate 时机，再以 install_app 请求包操作",
@@ -601,7 +609,11 @@
  },
  {
   "fact": "synthesizeSpeech 把请求转交给所有者提供的合成器回调",
-  "ref": "hosts/android/src/tts_synthesis.rs:20"
+  "ref": "hosts/android/src/tts_synthesis.rs:28"
+ },
+ {
+  "fact": "`synthesizeSpeechBytes` 合成音频后读回字节并删除原生临时文件",
+  "ref": "hosts/android/src/tts_synthesis.rs:21"
  },
  {
   "fact": "AndroidWebVisitHost 的 visitWeb 返回错误，要求 Android WebView host bridge",
@@ -701,7 +713,7 @@
  },
  {
   "fact": "AndroidManagedRuntimeHost 是 Android 托管运行时 Host",
-  "ref": "hosts/android/src/managed_runtime.rs:20"
+  "ref": "hosts/android/src/managed_runtime.rs:17"
  },
  {
   "fact": "AndroidSystemOperationHost 是 Android 系统操作 Host",

@@ -127,7 +127,7 @@ date: 2026-11-11
 - 每批从 `next` 起取 64 条文本（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:47`）。
 - 最多用 4 个并发 worker（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:67`）。
 - 请求向端点加 `/embeddings` 后缀发 POST（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:51`）。
-- 返回的向量会归一化为单位长度（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:35`）。
+- 返回的向量会归一化为单位长度（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:28`）。
 - 嵌入批次内向量维度不一致时抛错（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:69`）。
 - 向量重建交给仓库的 `rebuildMemoryEmbeddings`（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:75`）。
 

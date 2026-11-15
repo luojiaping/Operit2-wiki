@@ -12,10 +12,11 @@ date: 2026-11-11
 crate 名为 `operit-host-ohos-native`（`hosts/ohos/Cargo.toml:2`）。
 版本为 0.1.0（`hosts/ohos/Cargo.toml:3`）。
 声明 `publish = false`，不对外发布（`hosts/ohos/Cargo.toml:6`）。
-依赖项包括 `operit-host-api`（`hosts/ohos/Cargo.toml:9`）。
-依赖项包括 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage、terminal 特性（`hosts/ohos/Cargo.toml:10`）。
-依赖项包括 `operit-local-models`（`hosts/ohos/Cargo.toml:11`）。
-依赖项包括 `libloading` 0.8（`hosts/ohos/Cargo.toml:13`）。
+依赖项包括 `operit-host-local-inference`（`hosts/ohos/Cargo.toml:9`）。
+依赖项包括 `operit-host-api`（`hosts/ohos/Cargo.toml:10`）。
+依赖项包括 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage、terminal 特性（`hosts/ohos/Cargo.toml:11`）。
+依赖项包括 `operit-local-models`（`hosts/ohos/Cargo.toml:12`）。
+依赖项包括 `libloading` 0.8（`hosts/ohos/Cargo.toml:14`）。
 README 列出的初始能力包括 POSIX 应用文件访问（`hosts/ohos/README.md:9`）。
 README 列出的初始能力包括原生 HTTP（`hosts/ohos/README.md:10`）。
 README 列出的初始能力包括 runtime storage（`hosts/ohos/README.md:11`）。
@@ -72,7 +73,7 @@ OpenHarmony 应用存储根目录须传给 `operit_flutter_bridge_create_with_st
 `context.serialPortHost` 是 `NativeSerialPortHost`（`hosts/ohos/src/lib.rs:81`）。
 `context.webSocketHost` 是 `OhosHttpHost` 的 new 结果（`hosts/ohos/src/lib.rs:82`）。
 `context.managedRuntimeHost` 取调用方传入的 `managedRuntimeHost`（`hosts/ohos/src/lib.rs:83`）。
-运行时组合以 `withLocalInferenceHost` 注册 `OhosLocalInferenceHost` 的 new 结果（`hosts/ohos/src/lib.rs:88`）。
+运行时组合以 `withLocalInferenceHost` 注册 `NativeLocalInferenceHost::withSpeech` 包装的 `OhosLocalInferenceHost` 的 new 结果（`hosts/ohos/src/lib.rs:88`）。
 服务发现 Host 是 `ServiceDiscoveryProvider` 的 default 结果（`hosts/ohos/src/lib.rs:93`）。
 `OhosHostJavaScriptRuntimeHost` 是 `NativeHostJavaScriptRuntimeHost` 的重导出（`hosts/ohos/src/lib.rs:26`）。
 `OhosHostRuntimeTaskSchedulerHost` 是 `NativeHostRuntimeTaskSchedulerHost` 的重导出（`hosts/ohos/src/lib.rs:28`）。
@@ -209,8 +210,9 @@ TTS 提供方经 Core 生成 runtime storage 音频，一个 ArkTS `AVPlayer` �
 `OhosSystemOperationHost` 由 `fromOwnerCallbacks` 从四个所有者回调构造（`hosts/ohos/src/system_operation.rs:27`）。
 OhosSystemOperationHost 的 `execute` 把操作名与参数交给 controller 回调（`hosts/ohos/src/system_operation.rs:41`）。
 `getSystemLanguageCode` 经 languageReader 读取系统语言代码（`hosts/ohos/src/system_operation.rs:250`）。
-`captureScreenshot` 经 screenshotCapturer 截图（`hosts/ohos/src/system_operation.rs:368`）。
-`recognizeText` 经文本识别回调执行（`hosts/ohos/src/system_operation.rs:373`）。
+`captureScreenshotTo` 经选定的 VFS 能力写入截图字节并删除原生暂存文件（`hosts/ohos/src/system_operation.rs:369`）。
+`captureScreenshot` 经 screenshotCapturer 截图（`hosts/ohos/src/system_operation.rs:377`）。
+`recognizeText` 接受 `FileSource` 图片参数，取原生路径后交文本识别回调执行（`hosts/ohos/src/system_operation.rs:382`）。
 `installApp` 要求 Immediate 安装时机（`hosts/ohos/src/system_operation.rs:290`）。
 `sendNotification` 以 `send_notification` 操作执行（`hosts/ohos/src/system_operation.rs:255`）。
 `getDeviceInfo` 以 `device_info` 操作执行（`hosts/ohos/src/system_operation.rs:363`）。
@@ -300,7 +302,7 @@ OhosBluetoothHost 的 `execute` 把命令与参数交给 controller 回调并解
 
 1. `createRuntimeHostManager` 接受显式的 `runtimeRoot` 与 `workspaceRoot`（`hosts/ohos/src/lib.rs:44`）。
 2. `HostManager` 由 `withFileSystemWebVisitAndSystemOperationHosts` 组装文件系统、网页访问与系统操作 Host（`hosts/ohos/src/lib.rs:71`）。
-3. 运行时组合以 `withLocalInferenceHost` 注册 `OhosLocalInferenceHost` 的 new 结果（`hosts/ohos/src/lib.rs:88`）。
+3. 运行时组合以 `withLocalInferenceHost` 注册 `NativeLocalInferenceHost::withSpeech` 包装的 `OhosLocalInferenceHost` 的 new 结果（`hosts/ohos/src/lib.rs:88`）。
 4. 服务发现 Host 是 `ServiceDiscoveryProvider` 的 default 结果（`hosts/ohos/src/lib.rs:93`）。
 
 ## 来源

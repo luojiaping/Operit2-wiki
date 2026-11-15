@@ -13,15 +13,15 @@
  },
  {
   "fact": "Windows Host 依赖 `operit-host-native-common`，启用 tcp、serial、fs、http、scheduler、storage 与 app-install 特性",
-  "ref": "hosts/windows/Cargo.toml:21"
+  "ref": "hosts/windows/Cargo.toml:22"
  },
  {
   "fact": "Windows 终端 PTY 依赖 `portable-pty` 0.9.0",
-  "ref": "hosts/windows/Cargo.toml:23"
+  "ref": "hosts/windows/Cargo.toml:24"
  },
  {
   "fact": "Windows Host 依赖 `windows-sys` 0.59，特性含 Win32_Devices_Bluetooth、Win32_Media_Multimedia 与 Win32_System_Pipes",
-  "ref": "hosts/windows/Cargo.toml:31"
+  "ref": "hosts/windows/Cargo.toml:32"
  },
  {
   "fact": "daemon 模块只在 `daemon` 特性启用时编译",
@@ -29,43 +29,51 @@
  },
  {
   "fact": "`createRuntimeHostManager` 组装 Windows 自有的运行时 `HostManager`",
-  "ref": "hosts/windows/src/lib.rs:34"
+  "ref": "hosts/windows/src/lib.rs:36"
  },
  {
   "fact": "运行时存储 Host 由 `WindowsRuntimeStorageHost` 创建",
-  "ref": "hosts/windows/src/lib.rs:42"
+  "ref": "hosts/windows/src/lib.rs:44"
  },
  {
   "fact": "运行时存储 Host 经 `withHostSecretStore` 注册为 Host 密钥库",
-  "ref": "hosts/windows/src/lib.rs:55"
- },
- {
-  "fact": "运行时组合注册 `WindowsFileSystemHost`、`WindowsHttpHost`、`WindowsSystemOperationHost` 与 `WindowsManagedRuntimeHost`",
-  "ref": "hosts/windows/src/lib.rs:47"
- },
- {
-  "fact": "`WindowsHttpHost` 同时注册为 WebSocket Host",
-  "ref": "hosts/windows/src/lib.rs:56"
- },
- {
-  "fact": "运行时组合注册 `NativeHttpServerHost`、`NativeTcpHost` 与 `NativeSerialPortHost`",
-  "ref": "hosts/windows/src/lib.rs:57"
- },
- {
-  "fact": "运行时组合注册 `WindowsAudioPlaybackHost`、`WindowsBluetoothHost`、`WindowsTtsSynthesisHost` 与 `WindowsTtsPlaybackHost`",
   "ref": "hosts/windows/src/lib.rs:62"
  },
  {
+  "fact": "运行时组合注册 `WindowsFileSystemHost`、`WindowsHttpHost`、`WindowsSystemOperationHost` 与 `WindowsManagedRuntimeHost`",
+  "ref": "hosts/windows/src/lib.rs:48"
+ },
+ {
+  "fact": "`WindowsHttpHost` 同时注册为 WebSocket Host",
+  "ref": "hosts/windows/src/lib.rs:63"
+ },
+ {
+  "fact": "运行时组合注册 `NativeHttpServerHost`、`NativeTcpHost` 与 `NativeSerialPortHost`",
+  "ref": "hosts/windows/src/lib.rs:64"
+ },
+ {
+  "fact": "运行时组合注册 `WindowsAudioPlaybackHost`、`WindowsBluetoothHost`、`WindowsTtsSynthesisHost` 与 `WindowsTtsPlaybackHost`",
+  "ref": "hosts/windows/src/lib.rs:69"
+ },
+ {
   "fact": "运行时组合注册 `WindowsPluginSdkIpcHost`",
-  "ref": "hosts/windows/src/lib.rs:68"
+  "ref": "hosts/windows/src/lib.rs:75"
  },
  {
   "fact": "运行时组合注册 `ServiceDiscoveryProvider` 作服务发现 Host",
-  "ref": "hosts/windows/src/lib.rs:70"
+  "ref": "hosts/windows/src/lib.rs:77"
  },
  {
   "fact": "运行时组合注册 `WindowsHostRuntimeEventHost`",
-  "ref": "hosts/windows/src/lib.rs:66"
+  "ref": "hosts/windows/src/lib.rs:73"
+ },
+ {
+  "fact": "运行时组合注册 `NativeLocalInferenceHost` 作本地推理 Host",
+  "ref": "hosts/windows/src/lib.rs:57"
+ },
+ {
+  "fact": "运行时组合注册 `ScriptUiAutomationHost` 作 UI 自动化 Host，经 powershell.exe 执行 ui_automation.ps1 脚本",
+  "ref": "hosts/windows/src/lib.rs:58"
  },
  {
   "fact": "`control_endpoint` 把身份控制端点解析为命名管道路径，不使用文件系统 socket 探测",
@@ -301,35 +309,35 @@
  },
  {
   "fact": "Reveal 动作调用 `explorer.exe`，非目录目标附加 /select, 参数",
-  "ref": "hosts/windows/src/tools/runtime/mod.rs:122"
+  "ref": "hosts/windows/src/tools/runtime/mod.rs:43"
  },
  {
   "fact": "Terminal 动作启动 `cmd.exe` 加 /k",
-  "ref": "hosts/windows/src/tools/runtime/mod.rs:129"
+  "ref": "hosts/windows/src/tools/runtime/mod.rs:51"
  },
  {
   "fact": "托管运行时工作目录位于 `LOCALAPPDATA` 下的 app.operit/Operit2/managed-runtime",
-  "ref": "hosts/windows/src/tools/runtime/mod.rs:149"
+  "ref": "hosts/windows/src/tools/runtime/mod.rs:80"
  },
  {
   "fact": "托管运行时按程序名解析 `node.exe`、`python.exe`、`uv.exe` 或 `pnpm.cmd`",
-  "ref": "hosts/windows/src/tools/runtime/mod.rs:174"
+  "ref": "hosts/windows/src/tools/runtime/mod.rs:105"
  },
  {
   "fact": "托管运行时子进程的 stdin、stdout、stderr 均以 `Stdio` 的 piped 模式连接",
-  "ref": "hosts/windows/src/tools/runtime/mod.rs:201"
+  "ref": "hosts/windows/src/tools/runtime/mod.rs:127"
  },
  {
   "fact": "托管运行时 stderr 缓冲上限 400 行，超限丢弃旧行",
-  "ref": "hosts/windows/src/tools/runtime/mod.rs:238"
+  "ref": "hosts/common/managed_runtime_process.rs:57"
  },
  {
   "fact": "`runRuntimeCommand` 运行一次性托管运行时命令并捕获输出",
-  "ref": "hosts/windows/src/tools/runtime/mod.rs:261"
+  "ref": "hosts/windows/src/tools/runtime/mod.rs:135"
  },
  {
-  "fact": "`writeManagedRuntimeLine` 按 4 KiB 阈值区分大小帧写入",
-  "ref": "hosts/windows/src/tools/runtime/mod.rs:286"
+  "fact": "托管运行时写 stdin 时 `writeFrames` 把多行拼成一个连续帧一次写出",
+  "ref": "hosts/common/managed_runtime_process.rs:78"
  },
  {
   "fact": "默认运行时根目录为 `APPDATA` 下的 Operit2/runtime",
@@ -373,67 +381,71 @@
  },
  {
   "fact": "`request_windows_install_app` 先尝试 `installPortableApp` 安装便携应用",
-  "ref": "hosts/windows/src/tools/system/mod.rs:570"
+  "ref": "hosts/windows/src/tools/system/mod.rs:578"
  },
  {
   "fact": ".msix 与 .appx 包经 `Add-AppxPackage` 安装，.msi 包经 msiexec 安装并接受退出码 0、1641 与 3010",
-  "ref": "hosts/windows/src/tools/system/mod.rs:588"
+  "ref": "hosts/windows/src/tools/system/mod.rs:597"
  },
  {
   "fact": ".exe 安装只打开安装程序，状态记为 `installer_opened`，安装结果未经验证",
-  "ref": "hosts/windows/src/tools/system/mod.rs:594"
+  "ref": "hosts/windows/src/tools/system/mod.rs:603"
  },
  {
   "fact": "通知经 `ToastNotificationManager` 以 app.operit.operit2 为 ID 创建通知器发出",
-  "ref": "hosts/windows/src/tools/system/mod.rs:150"
+  "ref": "hosts/windows/src/tools/system/mod.rs:159"
  },
  {
   "fact": "通知激活地址为 operit2://notification/open-app，打开指定会话时带 chatId 参数",
-  "ref": "hosts/windows/src/tools/system/mod.rs:165"
+  "ref": "hosts/windows/src/tools/system/mod.rs:173"
  },
  {
   "fact": "系统语言经 `GetUserDefaultLocaleName` 读取",
-  "ref": "hosts/windows/src/tools/system/mod.rs:468"
+  "ref": "hosts/windows/src/tools/system/mod.rs:477"
  },
  {
   "fact": "系统设置命名空间 system、secure、global 映射到 `HKCU` 下 Software\\Operit2 的子键",
-  "ref": "hosts/windows/src/tools/system/mod.rs:543"
+  "ref": "hosts/windows/src/tools/system/mod.rs:555"
  },
  {
   "fact": "Windows Host 明确表示不暴露历史前台使用时长且未配置使用记录器",
-  "ref": "hosts/windows/src/tools/system/mod.rs:779"
+  "ref": "hosts/windows/src/tools/system/mod.rs:788"
  },
  {
   "fact": "定位用 WinRT `Geolocator` 完成",
-  "ref": "hosts/windows/src/tools/system/mod.rs:791"
+  "ref": "hosts/windows/src/tools/system/mod.rs:800"
  },
  {
   "fact": "定位结果的 provider 为 `windows-geolocator`",
-  "ref": "hosts/windows/src/tools/system/mod.rs:853"
+  "ref": "hosts/windows/src/tools/system/mod.rs:862"
  },
  {
   "fact": "截图用 PowerShell 的 `CopyFromScreen` 截取整个虚拟桌面",
-  "ref": "hosts/windows/src/tools/system/mod.rs:214"
+  "ref": "hosts/windows/src/tools/system/mod.rs:223"
+ },
+ {
+  "fact": "`captureScreenshotTo` 把截图字节经选定的 VFS 能力写入目标并删除原生暂存文件",
+  "ref": "hosts/windows/src/tools/system/mod.rs:117"
  },
  {
   "fact": "文本识别用 Windows.Media.Ocr 的 `OcrEngine` 的 `TryCreateFromLanguage` 创建引擎",
-  "ref": "hosts/windows/src/tools/system/mod.rs:296"
+  "ref": "hosts/windows/src/tools/system/mod.rs:305"
  },
  {
   "fact": "OCR 语言映射为 en-US、zh-Hans、ja、ko 四种标签",
-  "ref": "hosts/windows/src/tools/system/mod.rs:391"
+  "ref": "hosts/windows/src/tools/system/mod.rs:399"
  },
  {
   "fact": "OCR 高质量模式把图片放大 2 倍，但放大后宽或高超过 4096 时不放大",
-  "ref": "hosts/windows/src/tools/system/mod.rs:353"
+  "ref": "hosts/windows/src/tools/system/mod.rs:362"
  },
  {
   "fact": "通知历史通过 `UserNotificationListener` 的 Current 实例读取",
-  "ref": "hosts/windows/src/tools/system/mod.rs:684"
+  "ref": "hosts/windows/src/tools/system/mod.rs:693"
  },
  {
   "fact": "读取通知历史前须请求监听权限，未获 Allowed 即报错",
-  "ref": "hosts/windows/src/tools/system/mod.rs:690"
+  "ref": "hosts/windows/src/tools/system/mod.rs:699"
  },
  {
   "fact": "`listInstalledApps` 调用 packages 的 `list` 枚举已安装应用",
@@ -645,23 +657,27 @@
  },
  {
   "fact": "合成只支持 wav 输出格式",
-  "ref": "hosts/windows/src/tools/tts/mod.rs:202"
+  "ref": "hosts/windows/src/tools/tts/mod.rs:210"
  },
  {
   "fact": "合成经 PowerShell 调用 System.Speech 的 `SpeechSynthesizer` 完成",
-  "ref": "hosts/windows/src/tools/tts/mod.rs:272"
+  "ref": "hosts/windows/src/tools/tts/mod.rs:280"
  },
  {
   "fact": "合成输出由 `SetOutputToWaveFile` 写为 WAV 文件",
-  "ref": "hosts/windows/src/tools/tts/mod.rs:291"
+  "ref": "hosts/windows/src/tools/tts/mod.rs:299"
+ },
+ {
+  "fact": "`synthesizeSpeechBytes` 导出合成音频字节并删除临时原生文件",
+  "ref": "hosts/windows/src/tools/tts/mod.rs:196"
  },
  {
   "fact": "语速换算为 System.Speech 的 Rate：(speed 减 1) 乘 10，范围负 10 到 10",
-  "ref": "hosts/windows/src/tools/tts/mod.rs:443"
+  "ref": "hosts/windows/src/tools/tts/mod.rs:450"
  },
  {
   "fact": "Windows System.Speech 合成只支持 pitch 1.0",
-  "ref": "hosts/windows/src/tools/tts/mod.rs:456"
+  "ref": "hosts/windows/src/tools/tts/mod.rs:464"
  },
  {
   "fact": "新的朗读请求在已有合成或播放进行中且未指定 interrupt 时返回 busy 错误",
@@ -673,11 +689,11 @@
  },
  {
   "fact": "TTS 播放以 operit_tts_ 加 UUID 为 MCI 别名",
-  "ref": "hosts/windows/src/tools/tts/mod.rs:369"
+  "ref": "hosts/windows/src/tools/tts/mod.rs:377"
  },
  {
   "fact": "TTS 临时文件位于系统临时目录下的 operit_tts 目录",
-  "ref": "hosts/windows/src/tools/tts/mod.rs:421"
+  "ref": "hosts/windows/src/tools/tts/mod.rs:429"
  },
  {
   "fact": "TTS 播放 Host 的 `playAudio` 直接播放已生成的语音音频文件",

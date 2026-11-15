@@ -148,20 +148,20 @@ watch 方法经 bridge.watchStream 发起请求，并过滤掉 `Completed` 事�
 - 组装时用共享客户端、应用客户端、运行时存储宿主与 `generatedTargetForSchema` 组装 `CoreNodeLocalRuntime`（`core/crates/proxy/local/src/lib.rs:272`）。
 - 组装时挂接 `peerServices`，并把绑定闭包与 `openPush` 闭包传入（`core/crates/proxy/local/src/lib.rs:278`）。
 - `runtimeStorageHost` 在未设置 `RuntimeStorageHost` 时 panic（`core/crates/proxy/local/src/lib.rs:230`）
-- 截至基线 364d1d594，fileSystemHost() 在未设置 `FileSystemHost` 时 panic（`core/crates/proxy/local/src/lib.rs:283`）；上游 053c6686 已改成 filesystem() -> `Arc<VisualFileSystem>`（同文件 :283），调用 hostManager.vfs().expect("LocalCoreProxy requires VFS")。
-- CoreLinkSharedClient::call 经 `dispatchCall` 分发，成功返回 `CoreCallResponse::ok`，失败返回 `CoreCallResponse::err`（`core/crates/proxy/local/src/lib.rs:320`）
-- `dispatchCall` 把请求交给生成的 `generated_dispatch_core_proxy_call`，在 `isolation::future` 中执行，并把捕获的流附件收养进流池（`core/crates/proxy/local/src/lib.rs:429`）
-- 异步 watch 快照在 `withCoreStreamCapture` 与 `isolation::future` 中调用生成的 `generated_dispatch_core_proxy_watch_snapshot_async`，错误消息后追加请求上下文（`core/crates/proxy/local/src/lib.rs:336`）。
-- `watch` 目标为 `CORE_STREAM_TARGET` 时从流池打开匿名流源，否则走生成的 watch 分发（`core/crates/proxy/local/src/lib.rs:350`）
-- `dispatchWatchSnapshot` 是同步分发器，调用生成的 `generated_dispatch_core_proxy_watch_snapshot`（`core/crates/proxy/local/src/lib.rs:448`）
-- `dispatchWatch` 是同步分发器，目标为 `CORE_STREAM_TARGET` 时从流池打开，否则调用生成的 `generated_dispatch_core_proxy_watch`（`core/crates/proxy/local/src/lib.rs:458`）
-- `watchSnapshotSync` 对外暴露同步 watch 快照分发（`core/crates/proxy/local/src/lib.rs:437`）
-- `watchSync` 对外暴露同步 watch 流分发（`core/crates/proxy/local/src/lib.rs:443`）
+- `filesystem` 返回 `Arc<operit_vfs::VisualFileSystem::VisualFileSystem>`，由 `hostManager.vfs()` 构建；VFS 未设置时 panic，消息为 `LocalCoreProxy requires VFS`；旧的 fileSystemHost 已删除（`core/crates/proxy/local/src/lib.rs:283`）。
+- CoreLinkSharedClient::call 经 `dispatchCall` 分发，成功返回 `CoreCallResponse::ok`，失败返回 `CoreCallResponse::err`（`core/crates/proxy/local/src/lib.rs:317`）
+- `dispatchCall` 把请求交给生成的 `generated_dispatch_core_proxy_call`，在 `isolation::future` 中执行，并把捕获的流附件收养进流池（`core/crates/proxy/local/src/lib.rs:426`）
+- 异步 watch 快照在 `withCoreStreamCapture` 与 `isolation::future` 中调用生成的 `generated_dispatch_core_proxy_watch_snapshot_async`，错误消息后追加请求上下文（`core/crates/proxy/local/src/lib.rs:333`）。
+- `watch` 目标为 `CORE_STREAM_TARGET` 时从流池打开匿名流源，否则走生成的 watch 分发（`core/crates/proxy/local/src/lib.rs:347`）
+- `dispatchWatchSnapshot` 是同步分发器，调用生成的 `generated_dispatch_core_proxy_watch_snapshot`（`core/crates/proxy/local/src/lib.rs:445`）
+- `dispatchWatch` 是同步分发器，目标为 `CORE_STREAM_TARGET` 时从流池打开，否则调用生成的 `generated_dispatch_core_proxy_watch`（`core/crates/proxy/local/src/lib.rs:455`）
+- `watchSnapshotSync` 对外暴露同步 watch 快照分发（`core/crates/proxy/local/src/lib.rs:434`）
+- `watchSync` 对外暴露同步 watch 流分发（`core/crates/proxy/local/src/lib.rs:440`）
 - `openPushLocal` 直接在本地 Core 代理上打开调用方拥有的输入流（`core/crates/proxy/local/src/lib.rs:107`）
 - `isReverseStreamRequest` 判断一次 push 请求是否为生成的反向流方法（`core/crates/proxy/local/src/lib.rs:116`）
 - `openReverseStream` 委托给生成的 `generated_open_reverse_stream`（`core/crates/proxy/local/src/lib.rs:121`）
-- `adoptCoreStreamAttachments` 把序列化流源转交给代理自有的流池（`core/crates/proxy/local/src/lib.rs:467`）
-- `openCoreStreamWatch` 从流池打开匿名流源（`core/crates/proxy/local/src/lib.rs:472`）
+- `adoptCoreStreamAttachments` 把序列化流源转交给代理自有的流池（`core/crates/proxy/local/src/lib.rs:464`）
+- `openCoreStreamWatch` 从流池打开匿名流源（`core/crates/proxy/local/src/lib.rs:469`）
 - `shutdownToolPkgExecutionEngines` 调用 `toolPkgShutdown` 释放容器拥有的执行引擎 worker，不占用异步应用锁（`core/crates/proxy/local/src/lib.rs:158`）
 
 ### 桥：应用自有请求的分发边界
@@ -175,10 +175,10 @@ watch 方法经 bridge.watchStream 发起请求，并过滤掉 `Completed` 事�
 - `watchSnapshot` 先校验 target，不一致返回 `targetError`，否则委托给桥目标的 `watchLocalApplicationSnapshot`（`core/crates/proxy/bridge/src/lib.rs:77`）
 - `watch` 先校验 target，不一致返回 `targetError`，否则委托给桥目标的 `watchLocalApplication`（`core/crates/proxy/bridge/src/lib.rs:85`）
 - `openPush` 先校验 target，不一致返回 `targetError`，否则委托给桥目标的 `openLocalApplicationPush`（`core/crates/proxy/bridge/src/lib.rs:96`）
-- `LocalCoreProxy` 的 `callLocalApplication` 经 `dispatchCall` 分发，不重新进入服务端服务对象路由（`core/crates/proxy/local/src/lib.rs:374`）
-- `watchLocalApplicationSnapshot` 加锁后用生成的 `generated_dispatch_application_watch_snapshot` 读取快照，不经过代理分发器（`core/crates/proxy/local/src/lib.rs:390`）
-- `watchLocalApplication` 加锁后用生成的 `generated_dispatch_application_watch` 打开 watch，并传入流附件收养器（`core/crates/proxy/local/src/lib.rs:408`）
-- `openLocalApplicationPush` 经 `openPushLocal` 打开生成的应用输入流（`core/crates/proxy/local/src/lib.rs:416`）
+- `LocalCoreProxy` 的 `callLocalApplication` 经 `dispatchCall` 分发，不重新进入服务端服务对象路由（`core/crates/proxy/local/src/lib.rs:371`）
+- `watchLocalApplicationSnapshot` 加锁后用生成的 `generated_dispatch_application_watch_snapshot` 读取快照，不经过代理分发器（`core/crates/proxy/local/src/lib.rs:387`）
+- `watchLocalApplication` 加锁后用生成的 `generated_dispatch_application_watch` 打开 watch，并传入流附件收养器（`core/crates/proxy/local/src/lib.rs:405`）
+- `openLocalApplicationPush` 经 `openPushLocal` 打开生成的应用输入流（`core/crates/proxy/local/src/lib.rs:413`）
 
 ## 关键符号
 
@@ -197,7 +197,7 @@ watch 方法经 bridge.watchStream 发起请求，并过滤掉 `Completed` 事�
 - `CoreProxyErrorDetails`：生成的 Dart 错误详情模型（`core/crates/proxy/dart-codegen/src/lib.rs:126`）
 - `dart_type`：Rust 类型到 Dart 类型的映射（`core/crates/proxy/dart-codegen/src/lib.rs:1512`）
 - `control_call_registry`：必须走控制调用的登记表（`core/crates/proxy/dart-codegen/src/lib.rs:518`）
-- `dispatchCall`：本地调用分发的统一入口（`core/crates/proxy/local/src/lib.rs:426`）
+- `dispatchCall`：本地调用分发的统一入口（`core/crates/proxy/local/src/lib.rs:423`）
 - `generatedTargetForSchema`：schema 键到稳定目标字符串的映射（`core/crates/proxy/local/src/lib.rs:76`）
 
 ## 调用链
@@ -217,8 +217,8 @@ watch 方法经 bridge.watchStream 发起请求，并过滤掉 `Completed` 事�
 13. `write_dart_proxy_artifacts` 写出生成的 Dart 产物（`core/crates/proxy/dart-codegen/src/lib.rs:44`）。
 14. `new` 接收 `OperitApplication`，建成运行时（`core/crates/proxy/local/src/lib.rs:128`）。
 15. Dart 客户端经 bridge.callBytes 发送 `CoreCallRequest`（`core/crates/proxy/dart-codegen/src/lib.rs:494`）
-16. `dispatchCall` 把请求交给生成的 `generated_dispatch_core_proxy_call`（`core/crates/proxy/local/src/lib.rs:429`）。
-17. watch 请求经生成的 watch 分发打开流，流附件由 `adoptCoreStreamAttachments` 收养进 `coreStreamPool`（`core/crates/proxy/local/src/lib.rs:467`）
+16. `dispatchCall` 把请求交给生成的 `generated_dispatch_core_proxy_call`（`core/crates/proxy/local/src/lib.rs:426`）。
+17. watch 请求经生成的 watch 分发打开流，流附件由 `adoptCoreStreamAttachments` 收养进 `coreStreamPool`（`core/crates/proxy/local/src/lib.rs:464`）
 
 ## 来源
 

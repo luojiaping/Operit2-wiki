@@ -43,26 +43,26 @@ date: 2026-11-11
 
 ### 预览内核如何构建为不可变的 rendererReleaseId 目录
 
-- `build_preview.py` 构建一个不可变的预览/校验发布，永不安装 SDK 组件；失败的构建留在输出目录中，不删除。`tools/theme/build_preview.py:2`
+- build_preview.py 构建一个不可变的预览/校验发布，永不安装 SDK 组件；失败的构建留在输出目录中，不删除。`tools/theme/build_preview.py:2`
 - 三个必需参数是 `--renderer-release-id`、`--flutter-sdk`、`--wasm-bindgen`，`--base-prefix` 默认为空字符串。`tools/theme/build_preview.py:34`
 - `--base-prefix` 必须以 `/` 开头，且不得包含 `..` 或 `//`。`tools/theme/build_preview.py:41`
 - `renderer-release-id` 必须是 1–128 字符的单一规范路径组件，匹配 `[A-Za-z0-9._-]{1,128}`，且不是 `.` 或 `..`。`tools/theme/build_preview.py:33` `tools/theme/build_preview.py:42`
-- 构建选用 SDK 声明的可执行文件 `sdk/bin/flutter`（Windows 上为 `flutter.bat`），而不是 PATH 上发现的其他 SDK。`tools/theme/build_preview.py:46`
+- 构建选用 SDK 声明的可执行文件 sdk/bin/flutter（Windows 上为 `flutter.bat`），而不是 PATH 上发现的其他 SDK。`tools/theme/build_preview.py:46`
 - `wasm-bindgen` CLI 必须与 `core/Cargo.lock` 中锁定的 crate 版本完全一致，且锁文件中只能有一个该版本。`tools/theme/build_preview.py:50`
 - 发布目标是 `build/theme-preview` 下以 `release_id` 命名的目录，且必须留在仓库构建目录内。`tools/theme/build_preview.py:52`
 - 目标目录已存在时构建抛出 `FileExistsError`，拒绝复用渲染器发布目录。`tools/theme/build_preview.py:56`
 - 夹具源包括 `operit_ui/lib/src` 下全部 `.dart` 文件、`tools/theme/preview/lib/main.dart`、`theme_studio_message_port.dart` 与 `theme_contract_client.dart`。`tools/theme/build_preview.py:60`
 - `fixture_source_sha256` 是对各夹具源按（相对路径 + NUL + 字节 + NUL）逐项做 SHA-256。`tools/theme/build_preview.py:68`
-- 构建用 `cargo build` 以 `--features wasm`、`--target wasm32-unknown-unknown`、`--release`、`--locked` 编译 `operit-plugin-theme`。`tools/theme/build_preview.py:73`
+- 构建用 cargo build 以 --features wasm、--target wasm32-unknown-unknown、`--release`、`--locked` 编译 `operit-plugin-theme`。`tools/theme/build_preview.py:73`
 - 编译产物是 `workspace["target_directory"]` 下的 `wasm32-unknown-unknown/release/operit_plugin_theme.wasm`。`tools/theme/build_preview.py:75`
-- 构建运行 `tools/prepare_flutter_web_fonts.py`，输出到 `tools/theme/preview/web/fonts`。`tools/theme/build_preview.py:76`
-- Flutter 构建命令是 `flutter build web --release --no-pub --no-web-resources-cdn`，输出到发布目录，`base-href` 为 `<base-prefix>/theme-preview/<release-id>/`。`tools/theme/build_preview.py:80`
+- 构建运行 `tools/prepare_flutter_web_fonts.py`，输出到 tools/theme/preview/web/fonts。`tools/theme/build_preview.py:76`
+- Flutter 构建命令是 flutter build web --release --no-pub --no-web-resources-cdn，输出到发布目录，`base-href` 为 `<base-prefix>/theme-preview/<release-id>/`。`tools/theme/build_preview.py:80`
 - Flutter 构建注入两个 `dart-define`：`OPERIT_THEME_RENDERER_RELEASE_ID` 与 `OPERIT_THEME_FIXTURE_SOURCE_SHA256`。`tools/theme/build_preview.py:82`
 - `wasm-bindgen` 的版本须与锁定的 crate 版本完全一致，否则报错。`tools/theme/build_preview.py:50`
-- 以 `--target web`、`--out-name operit_plugin_theme` 把 WASM 绑定输出到发布目录下的 `validator` 子目录。`tools/theme/build_preview.py:84` `tools/theme/build_preview.py:85`
+- 以 --target web、--out-name operit_plugin_theme 把 WASM 绑定输出到发布目录下的 `validator` 子目录。`tools/theme/build_preview.py:84` `tools/theme/build_preview.py:85`
 - `renderer-release.json` 除自身外为发布目录下每个文件记录相对路径、字节数与 SHA-256。`tools/theme/build_preview.py:91`
 - 描述符含 `rendererReleaseId`、`validatorVersion` 1、`fixtureSourceSha256`、`flutterRevision`、`engineRevision`、`coreCommit`、`sourceDirty` 与 `files`。`tools/theme/build_preview.py:96`
-- `coreCommit` 取自 `git rev-parse HEAD`，`sourceDirty` 取自 `git status --porcelain` 是否非空。`tools/theme/build_preview.py:97`
+- `coreCommit` 取自 git rev-parse HEAD，`sourceDirty` 取自 git status --porcelain 是否非空。`tools/theme/build_preview.py:97`
 - `renderer-release.json` 以排序键、2 空格缩进写入发布目录。`tools/theme/build_preview.py:101`
 - 构建成功打印 `"Built renderer release (not parity-accepted): {destination}"`，即该发布未经一致性验收。`tools/theme/build_preview.py:103`
 
@@ -78,7 +78,7 @@ date: 2026-11-11
 - `normalizeDraft` 方法直接委托给工作器客户端。`tools/theme/studio_contract_bridge.ts:34`
 - `validatePreview` 与 `exportPackage` 方法直接委托给工作器客户端。`tools/theme/studio_contract_bridge.ts:41`
 - `validatePackage` 要求最终合并档案中的每个模板都通过共享 Rust 校验器；响应 `ok` 不为 `true` 时抛出 `response.errors`。`tools/theme/studio_contract_bridge.ts:50`
-- `exportWithContract` 先调用 `normalizeDraft` 并要求返回 `ok === true`，否则抛出 `draft-invalid`，再调用 `bridge.exportPackage`。`tools/theme/studio_message_port.ts:431`
+- `exportWithContract` 先调用 `normalizeDraft` 并要求返回 ok === true，否则抛出 `draft-invalid`，再调用 `bridge.exportPackage`。`tools/theme/studio_message_port.ts:431`
 - 注释明确指出 `client-shell` 收据不是跨平台 1:1 截图，也不是整场景一致性/导出授权；最终 UI 需要两者。`tools/theme/studio_message_port.ts:427`
 - 订阅须在导航 iframe 之前完成；可用性只在预览自身的校验工作器启动后通告；`"loaded"` 不是一帧。`tools/theme/studio_message_port.ts:55`
 - 预览通道是单次使用的；重复连接抛出 `already-connected`。`tools/theme/studio_message_port.ts:107`
@@ -86,7 +86,7 @@ date: 2026-11-11
 
 ### 内置字体子集化配方
 
-- `prepare_builtin_fonts.py` 制备已钉住的静态主题字体数据，不是应用构建；不执行 `pip install`，不修改 SDK，不安装系统字体。`tools/theme/prepare_builtin_fonts.py:3`
+- prepare_builtin_fonts.py 制备已钉住的静态主题字体数据，不是应用构建；不执行 `pip install`，不修改 SDK，不安装系统字体。`tools/theme/prepare_builtin_fonts.py:3`
 - 已有资产字节永不被不同内容覆盖；`write_new_or_identical` 遇不同字节拒绝写入。`tools/theme/prepare_builtin_fonts.py:56`
 - FontTools wheel 钉住版本 4.61.1，SHA-256 为 `17d2bf5d541add43822bcf0c43d7d847b160c9bb01d15d5007d84e2217aaa371`。`tools/theme/prepare_builtin_fonts.py:21`
 - 脚本下载 FontTools wheel 后先验哈希再使用，限 2 MiB，写入 `.venv/theme-font-tools/fonttools-4.61.1-py3-none-any.whl`。`tools/theme/prepare_builtin_fonts.py:134`
@@ -98,7 +98,7 @@ date: 2026-11-11
 - 输出禁止含 `fvar`、`gvar`、`avar`、`cvar`、`HVAR`、`MVAR`、`CFF`、`COLR` 等动态/彩色表，必须是静态单色 TrueType。`tools/theme/prepare_builtin_fonts.py:83`
 - 输出必须含 `head`、`hhea`、`hmtx`、`maxp`、`loca`、`glyf`、`cmap` 七个表。`tools/theme/prepare_builtin_fonts.py:85`
 - 输出表数上限 64，`font["maxp"].numGlyphs` 上限 65535。`tools/theme/prepare_builtin_fonts.py:87`
-- 衍生字体重写 name ID 1、2、3、4、6、16、17，避免使用原始保留字体名；`OS/2.usWeightClass` 设为 400。`tools/theme/prepare_builtin_fonts.py:95`
+- 衍生字体重写 name ID 1、2、3、4、6、16、17，避免使用原始保留字体名；`font["OS/2"].usWeightClass` 设为 400。`tools/theme/prepare_builtin_fonts.py:95`
 - 许可证文本必须含 `"SIL OPEN FONT LICENSE"`，否则拒绝。`tools/theme/prepare_builtin_fonts.py:108`
 - 捆绑的许可证以 `Operit static derivative: {family}` 开头，记录原始字体、来源、许可证来源、FontTools 版本与静态轴。`tools/theme/prepare_builtin_fonts.py:112`
 - 输出写到 `apps/flutter/packages/operit_ui` 下的 `assets/fonts/{font_id}.ttf` 与 `assets/licenses/{font_id}.txt`。`tools/theme/prepare_builtin_fonts.py:17` `tools/theme/prepare_builtin_fonts.py:118`
@@ -143,7 +143,7 @@ date: 2026-11-11
 
 - Studio 的「导出 Figma」按钮创建可编辑的原生组件板，保留完整主题、资产与原始 ToolPkg 上下文。`tools/theme/README.md:43`
 - 通过「导入 / Figma 回传」导入返回的 `.operit-design.json` 后，用 Flutter 预览并经现有 Rust 校验器导出。`tools/theme/README.md:43`
-- 实际页面、展开的工具结果、Compose DSL 插件屏与 WebView UI 使用 opt-in 的运行时捕获工具；插件安装、捕获命令与映射边界见 `tools/figma/README.md`。`tools/theme/README.md:45`
+- 实际页面、展开的工具结果、Compose DSL 插件屏与 WebView UI 使用 opt-in 的运行时捕获工具；插件安装、捕获命令与映射边界见 tools/figma/README.md。`tools/theme/README.md:45`
 
 ## 关键符号
 
@@ -166,11 +166,11 @@ date: 2026-11-11
 ## 调用链
 
 1. 仓库根目录运行 `tools/theme/build_preview.py --renderer-release-id <id> --flutter-sdk <sdk> --wasm-bindgen <path>`，构建不可变的预览发布。`tools/theme/README.md:18`
-2. `build_preview.py` 用 `cargo build` 以 `--features wasm`、`--target wasm32-unknown-unknown`、`--release`、`--locked` 编译 `operit-plugin-theme`。`tools/theme/build_preview.py:73`
-3. `build_preview.py` 运行 `tools/prepare_flutter_web_fonts.py`，输出到 `tools/theme/preview/web/fonts`。`tools/theme/build_preview.py:76`
-4. `build_preview.py` 用 `flutter build web` 构建预览内核，`base-href` 为 `<base-prefix>/theme-preview/<release-id>/`。`tools/theme/build_preview.py:80`
-5. `build_preview.py` 用 wasm-bindgen 把 WASM 绑定输出到发布目录下的 `validator` 子目录。`tools/theme/build_preview.py:84` `tools/theme/build_preview.py:85`
-6. `build_preview.py` 为发布目录下每个文件（除 `renderer-release.json` 自身外）记录相对路径、字节数与 SHA-256，写入 `renderer-release.json`。`tools/theme/build_preview.py:91`
+2. build_preview.py 用 cargo build 以 --features wasm、--target wasm32-unknown-unknown、`--release`、`--locked` 编译 `operit-plugin-theme`。`tools/theme/build_preview.py:73`
+3. build_preview.py 运行 `tools/prepare_flutter_web_fonts.py`，输出到 tools/theme/preview/web/fonts。`tools/theme/build_preview.py:76`
+4. build_preview.py 用 flutter build web 构建预览内核，`base-href` 为 `<base-prefix>/theme-preview/<release-id>/`。`tools/theme/build_preview.py:80`
+5. build_preview.py 用 wasm-bindgen 把 WASM 绑定输出到发布目录下的 `validator` 子目录。`tools/theme/build_preview.py:84` `tools/theme/build_preview.py:85`
+6. build_preview.py 为发布目录下每个文件（除 `renderer-release.json` 自身外）记录相对路径、字节数与 SHA-256，写入 `renderer-release.json`。`tools/theme/build_preview.py:91`
 7. 本地在 `tools/theme/studio` 下执行 `npm ci` 与 `npm run dev`。`tools/theme/README.md:27`
 8. 本地 Studio 打开 `http://127.0.0.1:7474/`，同源挂载已钉住的预览发布并渲染实时帧。`tools/theme/README.md:31`
 9. 点击「导出 ToolPkg」时自动确保渲染一帧新的 1280×800 浅色模式正常会话帧，从 Flutter `RepaintBoundary` 捕获 `preview.png`，再下载确定性的 `.toolpkg` 档案。`tools/theme/studio/README.md:26`
@@ -178,7 +178,7 @@ date: 2026-11-11
 
 ## 来源
 
-- 本页 seed 文件 100% 已读：`tools/theme/README.md`（45 行）、`tools/theme/studio/README.md`（60 行）、`tools/theme/build_preview.py`（107 行）、`tools/theme/studio_message_port.ts`（449 行），基线 AAswordman/Operit2 @ 364d1d594。
+- 本页 seed 文件 100% 已读：`tools/theme/README.md`（45 行）、`tools/theme/studio/README.md`（60 行）、`tools/theme/build_preview.py`（107 行）、`tools/theme/studio_message_port.ts`（449 行），基线 AAswordman/Operit2 @ ff5373fb6。
 - 同一目录下直接相关的两个文件也已读：`tools/theme/prepare_builtin_fonts.py`（158 行，内置字体子集化配方）与 `tools/theme/studio_contract_bridge.ts`（55 行，校验工作器桥接）。
 - 预览协议的完整细节由 [[theme-studio|Theme Studio 预览协议 v1]] 覆盖，本页只写工具侧接入摘要。
 - 本页无全仓零命中类断言，无需写核验方法。

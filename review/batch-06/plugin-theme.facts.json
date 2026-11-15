@@ -56,7 +56,7 @@
   "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:32"
  },
  {
-  "fact": "模板资源路径只允许 `theme.json`、`preview.png`、`licenses/*.txt`、`assets/images/*` 图片与 `assets/fonts/*.ttf` 五类",
+  "fact": "模板资源路径只允许 theme.json、preview.png、licenses/*.txt、assets/images/* 图片与 assets/fonts/*.ttf 五类",
   "ref": "core/crates/plugin/theme/schema/theme-template.schema.json:17"
  },
  {
@@ -197,15 +197,15 @@
  },
  {
   "fact": "外观资源或配色加载失败时，客户端展示明确错误及“重试”“重置外观”操作，重试读取原有值",
-  "ref": "docs/theme-v1-contract.md:55"
+  "ref": "docs/theme-v1-contract.md:57"
  },
  {
   "fact": "重置外观只由用户点击触发，保留头像与已保存配置，并显式选中自定义外观，错误不会触发自动替换",
-  "ref": "docs/theme-v1-contract.md:55"
+  "ref": "docs/theme-v1-contract.md:57"
  },
  {
   "fact": "应用旧版配置时清除其没有声明的新增外观字段，避免沿用此前模板的输入框样式",
-  "ref": "docs/theme-v1-contract.md:55"
+  "ref": "docs/theme-v1-contract.md:57"
  },
  {
   "fact": "主题作者只提供声明式 JSON、PNG/JPEG、受限静态 SVG 和静态 TrueType（`.ttf`）字节，不含任何可执行脚本",
@@ -366,5 +366,25 @@
  {
   "fact": "第二套模板的资源清单也是 `theme.json`、`preview.png`、`assets/images/ambient.png` 三项",
   "ref": "plugins/packages/external/moss_atelier/manifest.json:56"
+ },
+ {
+  "fact": "气泡贴图编辑以完整原图为固定编辑区，支持缩放、平移和恢复完整显示",
+  "ref": "docs/theme-v1-contract.md:55"
+ },
+ {
+  "fact": "气泡贴图编辑用白框标出裁切边界，框外保留原图并压暗；蓝色两横两竖按渲染器实际像素切片分出九宫格",
+  "ref": "docs/theme-v1-contract.md:55"
+ },
+ {
+  "fact": "九宫格四角保留，上下边、左右边及中间区域按所选模式分别平铺或拉伸",
+  "ref": "docs/theme-v1-contract.md:55"
+ },
+ {
+  "fact": "裁切、九宫格、缩放和效果预览分为独立页签，手机上参数保持两列，原图不随参数滚走；宽屏在原图旁显示参数",
+  "ref": "docs/theme-v1-contract.md:55"
+ },
+ {
+  "fact": "效果预览不叠加切线；关闭取消草稿，保存沿用既有气泡图片字段",
+  "ref": "docs/theme-v1-contract.md:55"
  }
 ]

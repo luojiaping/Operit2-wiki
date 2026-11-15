@@ -8,8 +8,8 @@ date: 2026-11-11
 
 ## 概述
 
-- 本页讲 Operit2 从仓库根构建、运行与打包，seed 文件是 `BUILDING.md`。`BUILDING.md:3`
-- `BUILDING.md` 写明 Rust 构建警告目前是预期的，以命令退出状态作为构建成功信号。`BUILDING.md:5`
+- 本页讲 Operit2 从仓库根构建、运行与打包，seed 文件是 BUILDING.md。`BUILDING.md:3`
+- BUILDING.md 写明 Rust 构建警告目前是预期的，以命令退出状态作为构建成功信号。`BUILDING.md:5`
 - 仓库布局：`apps/cli` 是 Rust CLI/TUI 入口。`BUILDING.md:10`
 - 仓库布局：`apps/flutter/app` 是 Flutter 应用入口。`BUILDING.md:11`
 - 仓库布局：`core/crates` 是共享 Rust 运行时 crate。`BUILDING.md:12`
@@ -49,7 +49,7 @@ date: 2026-11-11
 - Windows 桌面 CLI 构建要求 Visual Studio 2022 C++ 构建工具。`BUILDING.md:33`
 - Windows 桌面 CLI 构建要求 MSVC x64 与 ARM64 组件。`BUILDING.md:34`
 - Windows 桌面 CLI 构建要求 LLVM clang，位于 `C:\Program Files\LLVM\bin\clang.exe`。`BUILDING.md:35`
-- `BUILDING.md` 写明 GNU 工具链不是受支持的替代方案。`BUILDING.md:38`
+- BUILDING.md 写明 GNU 工具链不是受支持的替代方案。`BUILDING.md:38`
 - Linux 桌面 App 构建要求 CMake、Ninja、pkg-config、clang 与 GTK 开发头文件。`BUILDING.md:44`
 - Linux 桌面 App 构建的 GStreamer 开发头文件通过 pkg-config 提供 `gstreamer-1.0`、`gstreamer-app-1.0` 与 `gstreamer-audio-1.0`。`BUILDING.md:45`
 - Linux 桌面 App 构建的 WebKitGTK 4.1 开发头文件提供 pkg-config 包 `webkit2gtk-4.1`。`BUILDING.md:47`
@@ -61,7 +61,7 @@ date: 2026-11-11
 
 ### 钉死的构建输入
 
-- `BUILDING.md` 把下列值称为仓库构建契约（repository build contract），基线于 2026 年 9 月 27 日验证通过；后续依赖变更仍需各自的平台构建与运行时冒烟测试。`BUILDING.md:131`
+- BUILDING.md 把下列值称为仓库构建契约（repository build contract），基线于 2026 年 9 月 27 日验证通过；后续依赖变更仍需各自的平台构建与运行时冒烟测试。`BUILDING.md:131`
 - 钉死的 Flutter SDK 是 AAswordman/flutter-ohos 的 3.41.10-ohos-0.0.2-beta.operit.1，来源是 `apps/flutter/app/.fvmrc`，经 FVM 安装。`BUILDING.md:137`
 - 钉死的 FVM 是 4.3.0，来源是 Flutter CI 工作流中的 `FVM_VERSION`。`BUILDING.md:138`
 - 钉死的 Dart SDK 是 `^3.10.8`，来源是 `apps/flutter/app/pubspec.yaml`，由钉死的 Flutter SDK 提供。`BUILDING.md:139`
@@ -166,7 +166,7 @@ date: 2026-11-11
 
 ### Flutter 应用
 
-- 构建发布脚本通过 Flutter 构建应用包；本地检查在 `apps/flutter/app` 下运行 `fvm install --skip-pub-get` 与 `fvm dart pub get --enforce-lockfile`。`BUILDING.md:552`
+- 构建发布脚本通过 Flutter 构建应用包；本地检查在 apps/flutter/app 下运行 `fvm install --skip-pub-get` 与 `fvm dart pub get --enforce-lockfile`。`BUILDING.md:552`
 - `lib/core/proxy/generated/*.g.dart` 在构建时生成且被 git 忽略。`BUILDING.md:558`
 - 应用构建脚本 `build_flutter_android.py`、`build_flutter_ios.py` 与 `build_flutter_macos.py` 在 `pub get` 之前重新生成代理代码。`BUILDING.md:559`
 - 直接的 Windows 与 macOS Flutter 构建在 Flutter 组装 Dart 之前先构建 Rust 桥，因此 `flutter run -d macos` 与 `flutter build macos` 自动生成代理代码。`BUILDING.md:561`
@@ -250,7 +250,7 @@ date: 2026-11-11
 - 修复方法是复制匹配的 MSYS2 包提供的运行时 DLL（`mingw-w64-x86_64-gettext-runtime`、`mingw-w64-x86_64-libiconv`、`mingw-w64-x86_64-zlib`、`mingw-w64-x86_64-zstd`），包括 `libcharset-1.dll` 与 `libasprintf-0.dll` 等传递依赖。`BUILDING.md:117`
 - 枚举二进制 DLL 导入的方法是运行 `llvm-objdump --private-headers <file>`；rustup 工具链在 self-contained 上一级目录提供 `llvm-objdump.exe`。`BUILDING.md:121`
 - DLL 修复同样在每次 `rustup update` 后重新应用。`BUILDING.md:122`
-- `BUILDING.md` 写明 MSVC 工具链避免整类问题，仍是 Windows 构建受支持的配置。`BUILDING.md:125`
+- BUILDING.md 写明 MSVC 工具链避免整类问题，仍是 Windows 构建受支持的配置。`BUILDING.md:125`
 
 ### 清理
 
@@ -260,15 +260,15 @@ date: 2026-11-11
 
 ## 关键符号
 
-- `build_release.py` — 直接构建发布脚本，见 `tools/release/build_release.py`。`BUILDING.md:343`
-- `release_interactive.py` — 交互式发布助手，见 `tools/release/release_interactive.py`。`BUILDING.md:337`
-- `build_local.py` — 当前宿主构建，见 `tools/build_scripts/build_local.py`。`BUILDING.md:349`
-- `publish_dist.py` — 发布 staging 文件到 GitHub Release，见 `tools/release/publish_dist.py`。`BUILDING.md:517`
-- `download_action_artifacts.py` — 收集云端成功运行的发布归档，见 `tools/release/download_action_artifacts.py`。`BUILDING.md:465`
+- `build_release.py` — 直接构建发布脚本，见 tools/release/build_release.py。`BUILDING.md:343`
+- `release_interactive.py` — 交互式发布助手，见 tools/release/release_interactive.py。`BUILDING.md:337`
+- `build_local.py` — 当前宿主构建，见 tools/build_scripts/build_local.py。`BUILDING.md:349`
+- `publish_dist.py` — 发布 staging 文件到 GitHub Release，见 tools/release/publish_dist.py。`BUILDING.md:517`
+- `download_action_artifacts.py` — 收集云端成功运行的发布归档，见 tools/release/download_action_artifacts.py。`BUILDING.md:465`
 - `sync_plugin_packages.py` — 重新生成插件资产，见 `plugins/tools/sync_plugin_packages.py`。`BUILDING.md:213`
 - `build_cli_linux_debian12.py` — Debian 12 容器内 Linux CLI 构建，见 `tools/build_scripts/build_cli_linux_debian12.py`。`BUILDING.md:286`
-- `build_flutter_android.py` — Android 构建，见 `tools/build_scripts/build_flutter_android.py`。`BUILDING.md:643`
-- `build_flutter_ohos.py` — OpenHarmony HAP 构建，见 `tools/build_scripts/build_flutter_ohos.py`。`BUILDING.md:828`
+- `build_flutter_android.py` — Android 构建，见 tools/build_scripts/build_flutter_android.py。`BUILDING.md:643`
+- `build_flutter_ohos.py` — OpenHarmony HAP 构建，见 tools/build_scripts/build_flutter_ohos.py。`BUILDING.md:828`
 - `build_flutter_android.py`、`build_flutter_ios.py`、`build_flutter_macos.py` — 应用构建脚本，在 `pub get` 前重新生成 Dart 代理代码。`BUILDING.md:559`
 - `tools/ios-runtime/arm64/build.sh` — iOS 运行时构建脚本。`BUILDING.md:182`
 - `build_arm64_runtime.sh` — Runner 调用 iOS 运行时构建的脚本，见 `apps/flutter/app/ios/build_arm64_runtime.sh`。`BUILDING.md:182`

@@ -34,7 +34,9 @@ date: 2026-11-11
 
 ### 展示声明由谁写
 
-- 内置工具的展示声明写在 SDK 的 `ToolResultMap` 字段上，`list_files` 的声明为 `action = "list"`、`icon = "folder"`、`target = "path"`、`result = "directory"`。`core/crates/plugin/sdk/src/js_sdk/tool_types.rs:10`
+- 内置工具的展示声明写在 SDK 的 `ToolResultMap` 字段上。`core/crates/plugin/sdk/src/js_sdk/tool_types.rs:7`
+- `list_files` 的声明为 `action = "list"`、`icon = "folder"`、`target = "path"`、`result = "directory"`。`core/crates/plugin/sdk/src/js_sdk/tool_types.rs:19`
+- `ToolResultMap` 新增九个 UI 工具字段：`list_windows`、`focus_window`、`get_page_info`、`tap`、`long_press`、`click_element`、`set_input_text`、`press_key`、`swipe`，均未标注展示声明。`core/crates/plugin/sdk/src/js_sdk/tool_types.rs:12`
 - `tool_display` 是 `operit_plugin_sdk_macros` 的过程宏属性，标注在 `ToolResultMap` 上。`core/crates/plugin/sdk/src/js_sdk/tool_types.rs:8`
 - 宏生成的 `BuiltinToolName` 的 `display` 方法按工具名字符串精确匹配，未声明展示的工具返回 `None`。`core/crates/plugin/sdk-macros/src/lib.rs:118`
 - `tool_display` 宏遇到未知的 `result` 取值时返回编译错误 `unknown result renderer`。`core/crates/plugin/sdk-macros/src/lib.rs:106`
@@ -47,7 +49,7 @@ date: 2026-11-11
 ### 内置声明与本地化资源的配合
 
 - `ToolDisplayDeclaration` 的 `builtin` 方法从 `tool_display_labels.json` 加载本地化资源，`action` 是该文件的键。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:34`
-- `tool_display_labels.json` 为 `list` 提供英文 `List` 与中文 `列出`。`core/crates/plugin/sdk/src/js_sdk/tool_display_labels.json:19`
+- tool_display_labels.json 为 `list` 提供英文 `List` 与中文 `列出`。`core/crates/plugin/sdk/src/js_sdk/tool_display_labels.json:19`
 - `tool_display_labels.json` 缺少 `action` 对应的资源时触发 panic。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:44`
 - 测试断言 `ReadFile` 的 `display()` 结果 `target_parameter` 为 `path`、`icon` 为 `file`、`result_renderer` 为 `Text`。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:69`
 - `ListFiles` 的 `display` 的 `result_renderer` 为 `Directory`。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:75`
@@ -63,6 +65,7 @@ date: 2026-11-11
 - 目录视图读取含 `path` 与 `entries` 数组的结构，条目含 `name`、`isDirectory`、`size`。`docs/tool-display-semantics.md:44`
 - 文件差异视图读取含 `operation` 与 `diffContent` 的结构，`operation` 含 `path` 与 `details`。`docs/tool-display-semantics.md:44`
 - `icon` 支持 `file`、`folder`、`edit`、`delete`、`search`、`terminal`、`web`、`download`、`package`、`time`、`notification`、`clipboard`、`audio`。`docs/tool-display-semantics.md:46`
+- Flutter 侧图标映射新增 `info`、`screen`、`tap`、`double_tap`、`long_press`、`swipe`、`keyboard` 七个图标。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302`
 - `icon` 缺省时 Flutter 侧解析为通用工具图标 `tool`。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:143`
 - `icon` 不改变执行行为或权限。`docs/tool-display-semantics.md:46`
 
@@ -113,21 +116,21 @@ date: 2026-11-11
 
 ### Windows 复合与 iOS 几何
 
-- Windows 上 WebView2 直接向 Windows 引擎提供 composition visual，原生浏览器显示使用 composition visual，不用 Flutter Texture 或连续截屏。`docs/webview-rendering.md:45`
-- Windows 后端存储使用预乘 alpha 的 DXGI swapchain。`docs/webview-rendering.md:44`
-- DirectComposition 用 `AddVisual(visual, FALSE, nullptr)` 按 Flutter 由后向前的绘制顺序追加图层。`docs/webview-rendering.md:48`
-- Flutter 对话框与模态屏障必须覆盖浏览器并拦截指针输入。`docs/webview-rendering.md:49`
-- SDK 版本钉在 `apps/flutter/app/.fvmrc`。`docs/webview-rendering.md:51`
-- iOS 后端用 `OperitSafeWebView` 在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:63`
+- Windows 上 WebView2 直接向 Windows 引擎提供 composition visual，原生浏览器显示使用 composition visual，不用 Flutter Texture 或连续截屏。`docs/webview-rendering.md:64`
+- Windows 后端存储使用预乘 alpha 的 DXGI swapchain。`docs/webview-rendering.md:63`
+- DirectComposition 用 `AddVisual(visual, FALSE, nullptr)` 按 Flutter 由后向前的绘制顺序追加图层。`docs/webview-rendering.md:67`
+- Flutter 对话框与模态屏障必须覆盖浏览器并拦截指针输入。`docs/webview-rendering.md:68`
+- SDK 版本钉在 `apps/flutter/app/.fvmrc`。`docs/webview-rendering.md:70`
+- iOS 后端用 `OperitSafeWebView` 在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:82`
 - `OperitSafeWebView` 是 `WKWebView` 的子类。`apps/flutter/thirdparty/webview_flutter_wkwebview/darwin/webview_flutter_wkwebview/Sources/OperitWebViewSafety/include/OperitSafeWebView.h:11`
-- 非法几何停用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，布局调用结束后经现有导航错误通道上报一次。`docs/webview-rendering.md:65`
-- 失败的视图不再布局或复用。`docs/webview-rendering.md:67`
+- 非法几何停用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，布局调用结束后经现有导航错误通道上报一次。`docs/webview-rendering.md:84`
+- 失败的视图不再布局或复用。`docs/webview-rendering.md:86`
 
 ### 维护检查
 
-- 维护检查从 `apps/flutter/app` 运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。`docs/webview-rendering.md:74`
-- `windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。`docs/webview-rendering.md:78`
-- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:80`
+- 维护检查从 `apps/flutter/app` 运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。`docs/webview-rendering.md:93`
+- `windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。`docs/webview-rendering.md:97`
+- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:99`
 
 ## 关键符号
 
@@ -141,7 +144,7 @@ date: 2026-11-11
 - `WebViewScaleScope` — 应用缩放作用域，不改变 host DPR。`docs/webview-rendering.md:10`
 - `requiresNativeApplicationZoom` — 后端能力开关，默认 `false`。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:360`
 - `NativeWebViewZoom` — 双因子缩放组合器，校验输入并串行化原生更新。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:6`
-- `OperitSafeWebView` — iOS 安全 WebView，布局前校验几何值。`docs/webview-rendering.md:63`
+- `OperitSafeWebView` — iOS 安全 WebView，布局前校验几何值。`docs/webview-rendering.md:82`
 
 ## 调用链
 
@@ -151,7 +154,7 @@ date: 2026-11-11
 4. 模型侧：提供给模型的工具结果及历史序列化排除 `display` 和 `result_data`。`docs/tool-display-semantics.md:58`
 5. WebView 缩放：`WebViewScaleScope` 提供应用缩放 `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:24` → `WebViewWidget` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:67` 的 `build` 按 `requiresNativeApplicationZoom` 决定是否包 `_NativeZoomWebViewViewport` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:151`。
 6. 乘积发给原生页面 API：原生覆盖后端经 `NativeWebViewZoom` 把 `applicationZoom * pageZoom` 发给原生页面 API `docs/webview-rendering.md:26`，复合后端保留应用绘制缩放。
-7. iOS 几何：`OperitSafeWebView` 在 UIKit 布局前校验 frame 与 bounds → 非法几何停用原生视图，`CALayerInvalidGeometry` 经导航错误通道上报一次。`docs/webview-rendering.md:65`
+7. iOS 几何：`OperitSafeWebView` 在 UIKit 布局前校验 frame 与 bounds → 非法几何停用原生视图，`CALayerInvalidGeometry` 经导航错误通道上报一次。`docs/webview-rendering.md:84`
 
 ## 来源
 
@@ -169,3 +172,4 @@ date: 2026-11-11
 - `apps/flutter/thirdparty/webview_all_ohos/lib/src/ohos_webview_controller.dart`（核验：OHOS 只发页面缩放）
 - `apps/flutter/thirdparty/webview_flutter_wkwebview/darwin/webview_flutter_wkwebview/Sources/OperitWebViewSafety/include/OperitSafeWebView.h`（核验：`OperitSafeWebView` 为 `WKWebView` 子类）
 - 本页不涉及主题快照字段数，未写任何快照字段数字；大纲问的三个问题（展示信息由谁声明、内置声明与 `tool_display_labels.json` 如何配合、应用缩放与页面缩放为何独立）均在正文回答。
+- docs/webview-rendering.md 在新基线新增「Android legacy WebView scripts」一节（新 :41–:59），讲 Android 旧版 WebView 的用户脚本注入，与本页三问无关，未立事实。

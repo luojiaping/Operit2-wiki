@@ -31,7 +31,7 @@ Space 不表达执行位置，也不表达数据归属；业务副本由具备 `
 - `RuntimeRemoteLinkService` — 加入和退出走的普通 service call 宿主。`docs/core-node-space-binding-architecture.md:94`
 - `node.space/reconcileSharedSpace` — 成员表分裂收敛的共享空间对账入口。`docs/core-node-space-binding-architecture.md:104`
 - `storage.provide` — 参与业务副本同步所需的授权；内置 admin、user、relay 角色均具有该授权。`docs/core-node-space-binding-architecture.md:185`
-- `syncClockDigest` — 常量大小探针，本机写出操作的时钟摘要；只有具备存储复制授权、处于正常变更门控状态的可达成员才用它判断是否需要完整交换。`docs/core-node-space-binding-architecture.md:218` `core/crates/node/runtime/src/SpacePersistenceSyncService.rs:734`
+- `syncClockDigest` — 常量大小探针，本机写出操作的时钟摘要；只有具备存储复制授权、处于正常变更门控状态的可达成员才用它判断是否需要完整交换。`docs/core-node-space-binding-architecture.md:218` `core/crates/node/runtime/src/SpacePersistenceSyncService.rs:772`
 
 主入口：加入 Space 没有单独的协议入口，加入和退出是 `RuntimeRemoteLinkService` 上的普通 service call。`docs/core-node-space-binding-architecture.md:94`
 
@@ -73,11 +73,11 @@ TXT 元数据必须包含 `nodeId`、`displayName` 和 `transports`；不完整�
 
 本地设备和已配对设备有意排除在添加设备结果之外，包括当前离线的已配对设备；已解析的端点仍可供连接层使用。`docs/device-space-lan-discovery.md:14`
 
-发现的宿主实现按平台划分：Windows、Linux、Android 和 OHOS 使用共享原生 mDNS 提供方，守护进程及其浏览器工作线程归 Host 所有；Android 在守护进程打开套接字前获取 Wi-Fi 组播锁，关闭后释放。`docs/device-space-lan-discovery.md:32`
+发现的宿主实现按平台划分：Windows、Linux、Android 和 OHOS 使用共享原生 mDNS 提供方，守护进程及其浏览器工作线程归 Host 所有；Android 在守护进程打开套接字前获取 Wi-Fi 组播锁，关闭后释放。`docs/device-space-lan-discovery.md:38`
 
-iOS 和 macOS 使用系统 Bonjour DNS-SD 守护进程，不使用应用自有的 UDP 组播套接字；浏览、SRV/TXT 解析、地址监听、注册与取消都留在 Apple Host 内。`docs/device-space-lan-discovery.md:37`
+iOS 和 macOS 使用系统 Bonjour DNS-SD 守护进程，不使用应用自有的 UDP 组播套接字；浏览、SRV/TXT 解析、地址监听、注册与取消都留在 Apple Host 内。`docs/device-space-lan-discovery.md:43`
 
-两端都必须允许本地组播 DNS 流量（UDP 5353 到 `224.0.0.251` / `ff02::fb`）以及到广播监听端口的入站连接；AP 隔离、组播过滤和防火墙策略是网络配置问题，不由另一套发现协议绕过。`docs/device-space-lan-discovery.md:55`
+两端都必须允许本地组播 DNS 流量（UDP 5353 到 `224.0.0.251` / `ff02::fb`）以及到广播监听端口的入站连接；AP 隔离、组播过滤和防火墙策略是网络配置问题，不由另一套发现协议绕过。`docs/device-space-lan-discovery.md:61`
 
 发现、配对和加入设备空间按以下顺序进行：发现一个可连接的 Operit，使用现有配对握手建立直接信任，用户明确选择是否加入对方设备空间，双方通过普通 Link call 采用同一个 Space 投影，双方开始交换成员可达信息和持久化同步操作。`docs/core-node-space-binding-architecture.md:86`
 
@@ -152,7 +152,7 @@ Space 成员关系使请求可以经过其他成员逐跳到达目标节点，�
 - `PreferencesDataStore` — 单数据集工作副本与原子提交。`docs/sync-architecture.md:20`
 - `RuntimeRemoteLinkService` — 加入和退出走的普通 service call 宿主。`docs/core-node-space-binding-architecture.md:94`
 - `node.space/reconcileSharedSpace` — 成员表分裂收敛的共享空间对账入口。`docs/core-node-space-binding-architecture.md:104`
-- `syncClockDigest` — 常量大小探针，本机写出操作的时钟摘要；只有具备存储复制授权、处于正常变更门控状态的可达成员才用它判断是否需要完整交换。`docs/core-node-space-binding-architecture.md:218` `core/crates/node/runtime/src/SpacePersistenceSyncService.rs:734`
+- `syncClockDigest` — 常量大小探针，本机写出操作的时钟摘要；只有具备存储复制授权、处于正常变更门控状态的可达成员才用它判断是否需要完整交换。`docs/core-node-space-binding-architecture.md:218` `core/crates/node/runtime/src/SpacePersistenceSyncService.rs:772`
 - `storage.provide` — 参与业务副本同步所需的授权。`docs/core-node-space-binding-architecture.md:185`
 
 ## 调用链
@@ -162,8 +162,8 @@ Space 成员关系使请求可以经过其他成员逐跳到达目标节点，�
 3. 加入：用户明确选择是否加入对方设备空间。`docs/core-node-space-binding-architecture.md:88`
 4. 采用同一个 Space 投影：双方通过普通 Link call 采用同一个 Space 投影。`docs/core-node-space-binding-architecture.md:89`
 5. 开始交换：双方开始交换成员可达信息和持久化同步操作。`docs/core-node-space-binding-architecture.md:90`
-6. 同步门控：`backoffElapsed` 未到期时不执行完整同步；`pendingWork` 存在或 `consecutiveFailures` 大于 0 时直接判定需要完整同步，不经过摘要探针。`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:716`
-7. 摘要探针：只有正常存储复制门控分支才调用 `probeRemoteClockSummary` 探针判断是否需要完整交换；未获授权的成员走 `authority_only` 分支直接继续控制交换。`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:734`
+6. 同步门控：`backoffElapsed` 未到期时不执行完整同步；`pendingWork` 存在或 `consecutiveFailures` 大于 0 时直接判定需要完整同步，不经过摘要探针。`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:754`
+7. 摘要探针：只有正常存储复制门控分支才调用 `probeRemoteClockSummary` 探针判断是否需要完整交换；未获授权的成员走 `authority_only` 分支直接继续控制交换。`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:772`
 8. 同步业务数据：本地业务变更 → 数据集原子提交 → 持久 outbox → 操作日志 → Router / PeerSync → 对端解码与重放 → 原子提交 → 通知。`docs/sync-architecture.md:8`
 9. 成员表分裂时：双方交换各自持有的该空间控制操作 → 只接受对方自源且属于该空间的操作 → 去重后并入本地日志 → 各自重放合并日志得到一致的策略状态。`docs/core-node-space-binding-architecture.md:104`
 10. 退出时：只重写本机成员记录 → 保留完整业务数据和直接配对记录 → 创建新的单设备空间。`docs/core-node-space-binding-architecture.md:111`
@@ -172,5 +172,5 @@ Space 成员关系使请求可以经过其他成员逐跳到达目标节点，�
 
 - `docs/core-node-space-binding-architecture.md`（494 行，100% 已读）
 - `docs/sync-architecture.md`（131 行，100% 已读）
-- `docs/device-space-lan-discovery.md`（139 行，100% 已读）
-- `core/crates/node/runtime/src/SpacePersistenceSyncService.rs`（1907 行，门控与同步区段已读）
+- `docs/device-space-lan-discovery.md`（146 行，100% 已读）
+- `core/crates/node/runtime/src/SpacePersistenceSyncService.rs`（1818 行，门控与同步区段已读）

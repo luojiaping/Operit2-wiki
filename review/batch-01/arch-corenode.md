@@ -36,7 +36,7 @@ date: 2026-11-11
 - `SpacePersistenceSyncService` — CoreNode 启动后长期运行的持久化同步服务（`docs/core-node-space-binding-architecture.md:202`）
 - `RoutedLink` — 经过 Peer Link 时附加的外层（`docs/core-node-space-binding-architecture.md:289`）
 
-主入口（组装）：`CoreApplication::start`（`core/crates/application/core/src/lib.rs:81`）。
+主入口（组装）：`CoreApplication` 的 `start`（`core/crates/application/core/src/lib.rs:81`）。
 
 主入口（请求）：本机 `CoreNodeRouter`（`docs/core-node-space-binding-architecture.md:348`）。
 
@@ -114,11 +114,11 @@ date: 2026-11-11
 
 `Agent` 通过 `list_core_nodes()` 获得节点列表，通过 `switch_core(nodeId)` 切换执行节点（`docs/core-node-space-binding-architecture.md:155`）。
 
-list_core_nodes 返回 `{ currentNodeId, nodes }`（`core/crates/tool/services/src/tools/ToolRegistration.rs:179`）。
+list_core_nodes 返回包含 `currentNodeId` 与 `nodes` 的对象（`core/crates/tool/services/src/tools/ToolRegistration.rs:187`）。
 
-`nodes` 是对象数组，每项有 `nodeId`、`displayName`、`userName`、`platform`、`model`、`reachable`、`canExecute`（`core/crates/tool/services/src/tools/ToolRegistration.rs:185`）。
+`nodes` 是对象数组，每项有 `nodeId`、`displayName`、`userName`、`platform`、`model`、`reachable`、`canExecute`（`core/crates/tool/services/src/tools/ToolRegistration.rs:192`）。
 
-只有 `relayHops` 或 `relayPath` 有值时才出现在每项里（`core/crates/tool/services/src/tools/ToolRegistration.rs:190`）。
+只有 `relayHops` 或 `relayPath` 有值时才出现在每项里（`core/crates/tool/services/src/tools/ToolRegistration.rs:197`）。
 
 `list_core_nodes` 只读取本机已经同步的 `Space` 成员视图（`docs/core-node-space-binding-architecture.md:159`）。
 
@@ -146,11 +146,11 @@ list_core_nodes 返回 `{ currentNodeId, nodes }`（`core/crates/tool/services/s
 
 全量交换由变更门控调度，空闲设备不重复搬运未变化的状态（`docs/core-node-space-binding-architecture.md:217`）。
 
-同步门控先检查 `backoffElapsed`：退避未到期时本周期不做完整交换；`pendingWork` 或 `consecutiveFailures` 大于 0 时直接安排完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:716`）。
+同步门控先检查 `backoffElapsed`：退避未到期时本周期不做完整交换；`pendingWork` 或 `consecutiveFailures` 大于 0 时直接安排完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:754`）。
 
-未获存储复制授权的成员走 `authority_only` 分支，直接继续控制交换，不发摘要探针（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:728`）。
+未获存储复制授权的成员走 `authority_only` 分支，直接继续控制交换，不发摘要探针（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:766`）。
 
-只有具备存储复制授权、处于正常变更门控状态的可达成员，才用 `syncClockDigest` 判断是否需要完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:67`）。
+只有具备存储复制授权、处于正常变更门控状态的可达成员，才用 `syncClockDigest` 判断是否需要完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:68`）。
 
 失败按对端指数退避（2 秒起、60 秒封顶），成功后复位（`docs/core-node-space-binding-architecture.md:230`）。
 
@@ -330,7 +330,7 @@ Router 在比较写入前验证目标属于 `Space` 且 `Link` 路由可达（`d
 
 ### 组装一棵 Core 树
 
-1. `CoreApplication::start` 从 `CoreApplicationConfig` 启动一棵 Core 树（`core/crates/application/core/src/lib.rs:81`）。
+1. `CoreApplication` 的 `start` 从 `CoreApplicationConfig` 启动一棵 Core 树（`core/crates/application/core/src/lib.rs:81`）。
 2. 先用 `config.hostManager` 创建 `OperitApplication` 并调用 `onCreate`，再由 `LocalCoreProxy::new` 包起它（`core/crates/application/core/src/lib.rs:84`）。
 3. 从 `localClient` 取出 `coreNodeLocalRuntime`，据此新建 `CoreNodeRouter`，并把 `deviceToolService` 绑定到 `CoreNodeRouter`（`core/crates/application/core/src/lib.rs:131`）。
 4. 用 `nodeRuntime` 与 `nodeRouter` 创建 `RuntimeRemoteLinkService` 作为访问服务（`core/crates/application/core/src/lib.rs:141`）。

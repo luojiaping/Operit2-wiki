@@ -34,10 +34,10 @@ date: 2026-11-11
 - `operit2 cli backup inspect-operit1-snapshot <snapshot-zip-path>` 调用 `inspectOperit1Snapshot` 做导入前预检。`apps/cli/src/cli/transfer.rs:153`
 - `operit2 cli import operit1-snapshot <snapshot-zip-path>` 由 `import_operit1_snapshot` 处理。`apps/cli/src/cli/transfer.rs:106`
 - 导入时先调 `inspectOperit1Snapshot` 预览，再调 `importOperit1Snapshot` 写入。`apps/cli/src/cli/transfer.rs:263`
-- CLI 的 import 子命令分发到 `run_import_command`，backup 子命令分发到 `run_backup_command`。`apps/cli/src/cli/mod.rs:173`
+- CLI 的 import 子命令分发到 `run_import_command`，backup 子命令分发到 `run_backup_command`。`apps/cli/src/cli/mod.rs:180`
 - 预检输出打印 Package、Chats、Messages 三项计数。`apps/cli/src/cli/transfer.rs:160`
 - 预检输出打印 `Detected domains`，即源快照中检测到的数据域。`apps/cli/src/cli/transfer.rs:168`
-- Detected domains 收集 `model_configs`、`chat_history` 等数据域。`core/crates/runtime/application/src/data/backup/operit1/Operit1ModelMigration.rs:156`
+- Detected domains 收集 `model_configs`、`chat_history` 等数据域。`core/crates/runtime/application/src/data/backup/operit1/Operit1ModelMigration.rs:162`
 - 预检输出打印模型配置数，逐个列出模型配置名与 configId。`apps/cli/src/cli/transfer.rs:170`
 - 预检输出逐个打印 datastore 文件名与 key 数。`apps/cli/src/cli/transfer.rs:175`
 - 导入输出打印 Imported chats、Imported messages、Imported memories、Imported files、Imported external files、Imported workspaces 六项计数。`apps/cli/src/cli/transfer.rs:276`
@@ -67,9 +67,9 @@ date: 2026-11-11
 - 三个聊天桥接变体的 Operit2 目标 SQLite schema 版本均为 29。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:40`
 - Room V10 走 `buildChatArchiveFromOperit1RoomV10Database` 构建，Room V20 与 V21 走 `buildChatArchiveFromOperit1RoomV20Database` 构建。`core/crates/runtime/application/src/data/backup/operit1/Operit1ChatMigration.rs:13`
 - `buildOperit2CharacterCards` 从解析后的快照构建 Operit2 角色卡。`core/crates/runtime/application/src/data/backup/operit1/Operit1CharacterCards.rs:44`
-- `buildOperit2CharacterGroups` 构建 Operit2 角色组。`core/crates/runtime/application/src/data/backup/operit1/Operit1CharacterCards.rs:539`
-- `buildOperit2TtsConfig` 从解析后的快照构建 TTS 配置。`core/crates/runtime/application/src/data/backup/operit1/Operit1CharacterCards.rs:592`
-- `buildOperit1ProviderProfile` 构建模型提供方档案。`core/crates/runtime/application/src/data/backup/operit1/Operit1ModelMigration.rs:64`
+- `buildOperit2CharacterGroups` 构建 Operit2 角色组。`core/crates/runtime/application/src/data/backup/operit1/Operit1CharacterCards.rs:569`
+- `buildOperit2TtsConfig` 从解析后的快照构建 TTS 配置。`core/crates/runtime/application/src/data/backup/operit1/Operit1CharacterCards.rs:622`
+- `buildOperit1ProviderProfile` 构建模型提供方档案。`core/crates/runtime/application/src/data/backup/operit1/Operit1ModelMigration.rs:67`
 - `buildOperit1PluginMemoryRecords` 构建角色插件记忆记录。`core/crates/runtime/application/src/data/backup/operit1/Operit1MemoryStorage.rs:162`
 - 导入后计数含 `importedChats`、`importedMessages`、`importedMemories`、`importedMemoryLinks`。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:148`
 - 导入后计数含 `importedFiles`、`importedExternalFiles`、`importedWorkspaces`、`importedWorkspaceFiles`。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:154`
@@ -89,14 +89,14 @@ date: 2026-11-11
 - rescue 帮助列出 describe、export、inspect、import、resume 五条命令，import 与 resume 带 --confirm。`apps/cli/src/rescue.rs:85`
 - rescue 的 export、inspect、import、resume 接受公共的 `--runtime-root` 与 `--workspace-root` 选项。`apps/cli/src/rescue.rs:22`
 - `--confirm` 仅对 import 与 resume 有效，export 或 inspect 传 `--confirm` 报错。`apps/cli/src/rescue.rs:35`
-- 顶层帮助把 `operit2 rescue <command>` 列为导出、检查、导入或恢复数据救援的入口。`apps/cli/src/cli/mod.rs:1785`
+- 顶层帮助把 `operit2 rescue <command>` 列为导出、检查、导入或恢复数据救援的入口。`apps/cli/src/cli/mod.rs:1800`
 - Flutter 维护界面是独立路由，不构造 `CoreApplicationService`、`RuntimeBootstrapManager`、常规日志路径与常规业务 UI。`docs/data-rescue.md:16`
-- 原生平台用 `operit.files.v1` 归档布局，浏览器用 `operit.browser.v1` 归档布局；归档是普通 ZIP 文件，不需要密码；每次恢复前按声明大小与 SHA-256 校验每个 payload。`docs/data-rescue.md:20`
-- 恢复先暂存校验再发布，原目录保留在生成的 `.operit-retained-*` 路径（原生平台）与 `data-rescue/retained-*`（浏览器）。`docs/data-rescue.md:24`
-- 正常进程持有租约时维护界面报告具体锁错误，Android 提供停止正常进程的命令，iOS 须冷启动。`docs/data-rescue.md:26`
-- 导入保留被置换的原生根与应用自有条目，持久的中断发布阻塞正常启动，仅由显式 `resume` 推进。`docs/data-rescue.md:28`
-- 原生与浏览器归档在本版本中故意不互通。`docs/data-rescue.md:30`
-- 恢复入口标签为 从备份恢复，导出、源读取、清单检查、完整性校验、暂存恢复、恢复文件验证、发布、中断导入完成、目标保存均报告实测阶段计数。`docs/data-rescue.md:34`
+- 原生平台用 `operit.files.v1` 归档布局，浏览器用 `operit.browser.v1` 归档布局；归档是普通 ZIP 文件，不需要密码；每次恢复前按声明大小与 SHA-256 校验每个 payload。`docs/data-rescue.md:24`
+- 恢复先暂存校验再发布，原目录保留在生成的 `.operit-retained-*` 路径（原生平台）与 `data-rescue/retained-*`（浏览器）。`docs/data-rescue.md:28`
+- 正常进程持有租约时维护界面报告具体锁错误，Android 提供停止正常进程的命令，iOS 须冷启动。`docs/data-rescue.md:30`
+- 导入保留被置换的原生根与应用自有条目，持久的中断发布阻塞正常启动，仅由显式 `resume` 推进。`docs/data-rescue.md:32`
+- 原生与浏览器归档在本版本中故意不互通。`docs/data-rescue.md:34`
+- 恢复入口标签为 从备份恢复，导出、源读取、清单检查、完整性校验、暂存恢复、恢复文件验证、发布、中断导入完成、目标保存均报告实测阶段计数。`docs/data-rescue.md:38`
 
 ## 关键符号
 
@@ -127,8 +127,9 @@ date: 2026-11-11
 
 - seed 文件：README.md，全文已读；docs/data-rescue.md，全文已读。`README.md:1`
 - 直接相关的 Operit2 文件：apps/cli/src/cli/transfer.rs、apps/cli/src/cli/mod.rs、apps/cli/src/rescue.rs、core/crates/runtime/application/src/services/SnapshotImportManager.rs、core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs、core/crates/runtime/application/src/data/backup/operit1/Operit1SnapshotArchive.rs、core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs、core/crates/runtime/application/src/data/backup/operit1/Operit1ChatMigration.rs、core/crates/runtime/application/src/data/backup/operit1/Operit1PreferenceMigration.rs、core/crates/runtime/application/src/data/backup/operit1/Operit1DataStorePreferences.rs、core/crates/runtime/application/src/data/backup/operit1/Operit1CharacterCards.rs、core/crates/runtime/application/src/data/backup/operit1/Operit1ModelMigration.rs、core/crates/runtime/application/src/data/backup/operit1/Operit1MemoryStorage.rs、core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs，以上均已按引用行核验。`README.md:1`
+- docs/data-rescue.md 在 ff5373fb6 新增两段：常规运行时快照与数据救援共享 `operit-data-rescue::archive` 与 `operit-data-rescue::secrets` 模块，旧 raw 快照读取器已移除；属常规快照内容，不在本页四问范围内，未立事实。`docs/data-rescue.md:22`
 - 直接相关的一代文件（来源仓库：一代，AAswordman/Operit @ dbf71916）：app/src/main/java/com/ai/assistance/operit/data/backup/RawSnapshotBackupManager.kt、app/src/main/java/com/ai/assistance/operit/ui/features/settings/screens/ChatBackupSettingsScreen.kt，均已按引用行核验。`README.md:1`
 - 详细的 Operit1→Operit2 FAQ 在 Operit-wiki 附录草稿里，本页不重写。wiki-drafts/appendix-operit1-to-operit2-faq.md:2
-- 源码基线：AAswordman/Operit2 @ 364d1d594；一代 AAswordman/Operit @ dbf71916。`README.md:1`
-- 否定性核验方法（2026-11-12，对基线 364d1d594）：在 Operit2 仓库内对 docs/*.md 与 README.md 执行 grep -i faq，零命中，Operit2 仓库内无迁移 FAQ 正文；对 core/crates/runtime/application/src/data/backup/operit1/ 执行 ls 与 grep -i thinking，思考过程无独立迁移文件，全局思考开关见 Operit1PreferenceMigration.rs:245-247 的不采纳注释。`core/crates/runtime/application/src/data/backup/operit1/Operit1PreferenceMigration.rs:245`
-- 草稿勘误：wiki-drafts 附录草稿所写的聊天桥接目标为 SQLite V27、含独立思考过程迁移文件，两处在基线 364d1d594 上均已过时：桥接目标为 V29，思考过程无独立迁移文件，全局思考开关不迁移。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:40`
+- 源码基线：AAswordman/Operit2 @ ff5373fb6；一代 AAswordman/Operit @ dbf71916。`README.md:1`
+- 否定性核验方法（2026-11-12 对基线 364d1d594；2026-11-15 在 ff5373fb6 上重核，结论不变）：在 Operit2 仓库内对 docs/*.md 与 README.md 执行 grep -i faq，零命中，Operit2 仓库内无迁移 FAQ 正文；对 core/crates/runtime/application/src/data/backup/operit1/ 执行 ls 与 grep -i thinking，思考过程无独立迁移文件，全局思考开关见 Operit1PreferenceMigration.rs:245-247 的不采纳注释。`core/crates/runtime/application/src/data/backup/operit1/Operit1PreferenceMigration.rs:245`
+- 草稿勘误：wiki-drafts 附录草稿所写的聊天桥接目标为 SQLite V27、含独立思考过程迁移文件，两处在基线 364d1d594 上已过时，ff5373fb6 上重核仍成立：桥接目标为 V29，思考过程无独立迁移文件，全局思考开关不迁移。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:40`

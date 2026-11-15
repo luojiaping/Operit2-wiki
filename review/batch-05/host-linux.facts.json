@@ -13,23 +13,27 @@
  },
  {
   "fact": "Linux Host crate 依赖 operit-host-api",
-  "ref": "hosts/linux/Cargo.toml:20"
- },
- {
-  "fact": "Linux Host crate 依赖 operit-host-native-common，并启用 tcp、serial、fs、http、scheduler、storage、app-install 特性",
   "ref": "hosts/linux/Cargo.toml:21"
  },
  {
-  "fact": "Linux Host crate 依赖 operit-host-native-plugin-sdk-ipc",
+  "fact": "Linux Host crate 依赖 operit-host-native-common，并启用 tcp、serial、fs、http、scheduler、storage、app-install 特性",
   "ref": "hosts/linux/Cargo.toml:22"
  },
  {
-  "fact": "Linux Host crate 依赖 portable-pty 0.9.0",
+  "fact": "Linux Host crate 依赖 operit-host-native-plugin-sdk-ipc",
   "ref": "hosts/linux/Cargo.toml:23"
  },
  {
+  "fact": "Linux Host crate 依赖 operit-host-local-inference",
+  "ref": "hosts/linux/Cargo.toml:13"
+ },
+ {
+  "fact": "Linux Host crate 依赖 portable-pty 0.9.0",
+  "ref": "hosts/linux/Cargo.toml:24"
+ },
+ {
   "fact": "libc 与 zbus 只在 target_os 为 linux 时作为依赖引入",
-  "ref": "hosts/linux/Cargo.toml:33"
+  "ref": "hosts/linux/Cargo.toml:34"
  },
  {
   "fact": "daemon 模块只在启用 daemon 特性且目标为 Linux 时编译",
@@ -41,39 +45,47 @@
  },
  {
   "fact": "createRuntimeHostManager 接收 runtimeRoot、workspaceRoot 与 webVisitHost 三个参数",
-  "ref": "hosts/linux/src/lib.rs:51"
+  "ref": "hosts/linux/src/lib.rs:54"
  },
  {
   "fact": "HostManager 用 LinuxFileSystemHost、LinuxHttpHost、LinuxSystemOperationHost 与 LinuxManagedRuntimeHost 装配",
-  "ref": "hosts/linux/src/lib.rs:63"
+  "ref": "hosts/linux/src/lib.rs:69"
  },
  {
   "fact": "同一份 LinuxRuntimeStorageHost 实例兼任 Host 密钥库与 runtimeSqliteHost",
-  "ref": "hosts/linux/src/lib.rs:60"
+  "ref": "hosts/linux/src/lib.rs:63"
  },
  {
   "fact": "第二个 LinuxHttpHost 实例注册为 WebSocket Host",
-  "ref": "hosts/linux/src/lib.rs:73"
+  "ref": "hosts/linux/src/lib.rs:80"
  },
  {
-  "fact": "HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common",
+  "fact": "运行时组合注册 NativeLocalInferenceHost 为本地推理 Host",
   "ref": "hosts/linux/src/lib.rs:75"
  },
  {
+  "fact": "运行时组合注册 ScriptUiAutomationHost 为 UI 自动化 Host，经 python3 执行 ui_automation.py",
+  "ref": "hosts/linux/src/lib.rs:76"
+ },
+ {
+  "fact": "HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common",
+  "ref": "hosts/linux/src/lib.rs:82"
+ },
+ {
   "fact": "LinuxHostJavaScriptRuntimeHost 是 operit-host-native-common 的 NativeHostJavaScriptRuntimeHost 的重导出",
-  "ref": "hosts/linux/src/lib.rs:29"
+  "ref": "hosts/linux/src/lib.rs:32"
  },
  {
   "fact": "LinuxHostRuntimeEventSchedulerHost 与 LinuxHostRuntimeTaskSchedulerHost 是 operit-host-native-common 的重导出",
-  "ref": "hosts/linux/src/lib.rs:31"
+  "ref": "hosts/linux/src/lib.rs:34"
  },
  {
   "fact": "服务发现 Host 使用 operit-host-native-common 的 ServiceDiscoveryProvider",
-  "ref": "hosts/linux/src/lib.rs:86"
+  "ref": "hosts/linux/src/lib.rs:93"
  },
  {
   "fact": "LinuxPluginSdkIpcHost 注册为插件 SDK IPC Host",
-  "ref": "hosts/linux/src/lib.rs:88"
+  "ref": "hosts/linux/src/lib.rs:95"
  },
  {
   "fact": "LinuxTerminalHost 是 Linux PTY 终端 Host",
@@ -213,47 +225,43 @@
  },
  {
   "fact": "LinuxManagedRuntimeHost 是 Linux 托管运行时 Host",
-  "ref": "hosts/linux/src/tools/runtime/mod.rs:20"
- },
- {
-  "fact": "Reveal 动作对目录调用 xdg-open",
-  "ref": "hosts/linux/src/tools/runtime/mod.rs:118"
- },
- {
-  "fact": "Terminal 动作启动 x-terminal-emulator",
-  "ref": "hosts/linux/src/tools/runtime/mod.rs:123"
- },
- {
-  "fact": "runtimeWorkspaceDir 为 $HOME/.local/share/operit2/managed_runtime",
-  "ref": "hosts/linux/src/tools/runtime/mod.rs:143"
- },
- {
-  "fact": "Node 映射为 node、Python 映射为 python3、Uv 映射为 uv、Pnpm 映射为 pnpm",
-  "ref": "hosts/linux/src/tools/runtime/mod.rs:166"
- },
- {
-  "fact": "startRuntimeProcess 启动带管道 stdio 的托管运行时子进程",
-  "ref": "hosts/linux/src/tools/runtime/mod.rs:180"
- },
- {
-  "fact": "托管运行时 stdout 与 stderr 读取任务以 managed-runtime-pipes 调度",
-  "ref": "hosts/linux/src/tools/runtime/mod.rs:237"
- },
- {
-  "fact": "托管运行时 stderr 缓冲上限为 400 行",
-  "ref": "hosts/linux/src/tools/runtime/mod.rs:229"
- },
- {
-  "fact": "runRuntimeCommand 执行一次性托管运行时命令",
-  "ref": "hosts/linux/src/tools/runtime/mod.rs:252"
- },
- {
-  "fact": "MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES 为 4 * 1024",
   "ref": "hosts/linux/src/tools/runtime/mod.rs:17"
  },
  {
-  "fact": "单行达到 MANAGED_RUNTIME_SINGLE_FRAME_MIN_BYTES 时按整帧写入",
-  "ref": "hosts/linux/src/tools/runtime/mod.rs:277"
+  "fact": "Reveal 动作对目录调用 xdg-open",
+  "ref": "hosts/linux/src/tools/runtime/mod.rs:39"
+ },
+ {
+  "fact": "Terminal 动作启动 x-terminal-emulator",
+  "ref": "hosts/linux/src/tools/runtime/mod.rs:44"
+ },
+ {
+  "fact": "runtimeWorkspaceDir 为 $HOME/.local/share/operit2/managed_runtime",
+  "ref": "hosts/linux/src/tools/runtime/mod.rs:65"
+ },
+ {
+  "fact": "Node 映射为 node、Python 映射为 python3、Uv 映射为 uv、Pnpm 映射为 pnpm",
+  "ref": "hosts/linux/src/tools/runtime/mod.rs:91"
+ },
+ {
+  "fact": "startRuntimeProcess 启动带管道 stdio 的托管运行时子进程",
+  "ref": "hosts/linux/src/tools/runtime/mod.rs:106"
+ },
+ {
+  "fact": "托管运行时 stdout 与 stderr 读取任务以 managed-runtime-pipes 调度",
+  "ref": "hosts/common/managed_runtime_process.rs:65"
+ },
+ {
+  "fact": "托管运行时 stderr 缓冲上限为 400 行",
+  "ref": "hosts/common/managed_runtime_process.rs:57"
+ },
+ {
+  "fact": "runRuntimeCommand 执行一次性托管运行时命令",
+  "ref": "hosts/linux/src/tools/runtime/mod.rs:121"
+ },
+ {
+  "fact": "writeFrames 把多行拼成一个连续帧一次写出",
+  "ref": "hosts/common/managed_runtime_process.rs:78"
  },
  {
   "fact": "LinuxRuntimeStorageHost 持有 NativeRuntimeStorageHost 与 secretRoot",
@@ -301,7 +309,7 @@
  },
  {
   "fact": "系统语言按 LC_ALL、LC_MESSAGES、LANG 的顺序取",
-  "ref": "hosts/linux/src/tools/system/mod.rs:323"
+  "ref": "hosts/linux/src/tools/system/mod.rs:332"
  },
  {
   "fact": "通知发送调用 notify-send",
@@ -309,15 +317,15 @@
  },
  {
   "fact": "修改系统设置经 gsettings set 执行",
-  "ref": "hosts/linux/src/tools/system/mod.rs:434"
+  "ref": "hosts/linux/src/tools/system/mod.rs:443"
  },
  {
   "fact": "读取系统设置经 gsettings get 执行",
-  "ref": "hosts/linux/src/tools/system/mod.rs:452"
+  "ref": "hosts/linux/src/tools/system/mod.rs:461"
  },
  {
   "fact": "setting 须为 schema:key 形式",
-  "ref": "hosts/linux/src/tools/system/mod.rs:483"
+  "ref": "hosts/linux/src/tools/system/mod.rs:492"
  },
  {
   "fact": "installApp 要求安装时序为 Immediate",
@@ -345,51 +353,59 @@
  },
  {
   "fact": "通知查询调用 dunstctl history",
-  "ref": "hosts/linux/src/tools/system/mod.rs:343"
+  "ref": "hosts/linux/src/tools/system/mod.rs:352"
  },
  {
   "fact": "Linux 不提供历史前台使用时长",
-  "ref": "hosts/linux/src/tools/system/mod.rs:508"
+  "ref": "hosts/linux/src/tools/system/mod.rs:517"
  },
  {
   "fact": "高精度定位请求精度等级 8，否则请求 6",
-  "ref": "hosts/linux/src/tools/system/mod.rs:519"
+  "ref": "hosts/linux/src/tools/system/mod.rs:528"
  },
  {
   "fact": "定位结果的 provider 为 geoclue2",
-  "ref": "hosts/linux/src/tools/system/mod.rs:575"
+  "ref": "hosts/linux/src/tools/system/mod.rs:584"
  },
  {
   "fact": "定位不提供 civic 地址，city 与 province 为空",
-  "ref": "hosts/linux/src/tools/system/mod.rs:579"
+  "ref": "hosts/linux/src/tools/system/mod.rs:588"
  },
  {
   "fact": "设备 ID 取自 /etc/machine-id，系统名取自 /etc/os-release 的 PRETTY_NAME",
-  "ref": "hosts/linux/src/tools/system/mod.rs:591"
+  "ref": "hosts/linux/src/tools/system/mod.rs:600"
  },
  {
   "fact": "发行版名与内核版本拼进 androidVersion 字段",
-  "ref": "hosts/linux/src/tools/system/mod.rs:622"
+  "ref": "hosts/linux/src/tools/system/mod.rs:631"
  },
  {
   "fact": "sdkVersion 为 0，screenDensity 为 1.0",
-  "ref": "hosts/linux/src/tools/system/mod.rs:623"
+  "ref": "hosts/linux/src/tools/system/mod.rs:632"
  },
  {
   "fact": "无电池设备返回电池电量 -1 与未充电",
-  "ref": "hosts/linux/src/tools/system/mod.rs:756"
+  "ref": "hosts/linux/src/tools/system/mod.rs:765"
  },
  {
   "fact": "截图调用 gnome-screenshot -f",
-  "ref": "hosts/linux/src/tools/system/mod.rs:163"
+  "ref": "hosts/linux/src/tools/system/mod.rs:172"
+ },
+ {
+  "fact": "captureScreenshotTo 把截图字节经选定的 VFS 能力写出并删除原生暂存文件",
+  "ref": "hosts/linux/src/tools/system/mod.rs:135"
+ },
+ {
+  "fact": "recognizeText 的 imagePath 参数改走 FileSource",
+  "ref": "hosts/linux/src/tools/system/mod.rs:149"
  },
  {
   "fact": "文字识别调用 tesseract",
-  "ref": "hosts/linux/src/tools/system/mod.rs:187"
+  "ref": "hosts/linux/src/tools/system/mod.rs:196"
  },
  {
   "fact": "tesseract 语言映射为 Latin 对 eng、Chinese 对 chi_sim、Japanese 对 jpn、Korean 对 kor",
-  "ref": "hosts/linux/src/tools/system/mod.rs:281"
+  "ref": "hosts/linux/src/tools/system/mod.rs:290"
  },
  {
   "fact": "应用扫描根目录包含用户 applications 目录、XDG_DATA_DIRS、flatpak 与 snapd 的 desktop 目录",
@@ -482,6 +498,10 @@
  {
   "fact": "executeHttpRequest 转发给 inner",
   "ref": "hosts/linux/src/tools/http/mod.rs:68"
+ },
+ {
+  "fact": "downloadToFile 的目标参数改走 FileTarget",
+  "ref": "hosts/linux/src/tools/http/mod.rs:73"
  },
  {
   "fact": "openWebSocket 由 LinuxHttpHost 的 WebSocketHost 实现提供",
@@ -613,31 +633,35 @@
  },
  {
   "fact": "Linux 系统 TTS 只支持 wav 输出",
-  "ref": "hosts/linux/src/tools/tts/mod.rs:207"
- },
- {
-  "fact": "语音合成调用 espeak-ng",
   "ref": "hosts/linux/src/tools/tts/mod.rs:215"
  },
  {
+  "fact": "语音合成调用 espeak-ng",
+  "ref": "hosts/linux/src/tools/tts/mod.rs:221"
+ },
+ {
+  "fact": "synthesizeSpeechBytes 导出合成音频字节并删除临时原生文件",
+  "ref": "hosts/linux/src/tools/tts/mod.rs:199"
+ },
+ {
   "fact": "语速换算为 175.0 * speed 词每分钟，范围 80 到 450",
-  "ref": "hosts/linux/src/tools/tts/mod.rs:257"
+  "ref": "hosts/linux/src/tools/tts/mod.rs:265"
  },
  {
   "fact": "音调换算为 50.0 * pitch，范围 0 到 99",
-  "ref": "hosts/linux/src/tools/tts/mod.rs:271"
+  "ref": "hosts/linux/src/tools/tts/mod.rs:279"
  },
  {
   "fact": "voice 与 locale 不可同时指定",
-  "ref": "hosts/linux/src/tools/tts/mod.rs:287"
+  "ref": "hosts/linux/src/tools/tts/mod.rs:295"
  },
  {
   "fact": "合成输出路径位于系统临时目录下的 operit_tts",
-  "ref": "hosts/linux/src/tools/tts/mod.rs:246"
+  "ref": "hosts/linux/src/tools/tts/mod.rs:254"
  },
  {
   "fact": "播放用 aplay 播放音频文件",
-  "ref": "hosts/linux/src/tools/tts/mod.rs:374"
+  "ref": "hosts/linux/src/tools/tts/mod.rs:382"
  },
  {
   "fact": "暂停向播放进程发 -STOP 信号",
