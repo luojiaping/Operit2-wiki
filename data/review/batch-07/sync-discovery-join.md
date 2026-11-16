@@ -14,8 +14,8 @@ date: 2026-11-11
 - 默认监听器为 HTTP 与 WebSocket，监听 OS 分配的端口并绑定 `0.0.0.0`。`docs/device-space-lan-discovery.md:8`
 - 已发现的 `nodeId` 只是拨号提示，不是授权依据。`docs/device-space-lan-discovery.md:27`
 - 配对本身不授予 Space 成员资格与业务权限：配对授权方向、Space 成员准入、业务权限分别检查，单向配对不产生反向授权。`docs/link-access-architecture.md:99`
-- 加入复用任一方向的当前配对，配对建立方向只是传输历史，不是申请人权限；配对侧的批准仍是唯一的成员同意。`core/crates/node/runtime/src/peer/space_join.rs:172`
-- 加入成功后成员关系进入 Space 同步，见 [[sync-overview|同步总览：Space 持久化同步]]。`core/crates/node/runtime/src/peer/space_join.rs:1332`
+- 加入复用任一方向的当前配对，配对建立方向只是传输历史，不是申请人权限；配对侧的批准仍是唯一的成员同意。`core/crates/node/runtime/src/peer/space_join.rs:173`
+- 加入成功后成员关系进入 Space 同步，见 [[sync-overview|同步总览：Space 持久化同步]]。`core/crates/node/runtime/src/peer/space_join.rs:1333`
 
 ## AI 速览
 
@@ -32,21 +32,21 @@ date: 2026-11-11
 - `CoreLinkClient` — Link 客户端，入口为 `call`、`watchSnapshot`、`watch`、`openPush`。`docs/link-access-architecture.md:69`
 - `CoreLinkSharedClient` — 共享 Link 客户端，入口与 `CoreLinkClient` 相同。`docs/link-access-architecture.md:69`
 - `RoutedCoreRequest<T>` — 带 Space 路由元数据的请求，字段含 `spaceId`、`originNodeId`、`targetNodeId`、`ttl`、`routeKind`、`payload`。`docs/link-access-architecture.md:126`
-- `refresh` — 加入请求的轮询入口：提交、查状态、采纳已批准的成员关系。`core/crates/node/runtime/src/peer/space_join.rs:1306`
-- `request` — 加入请求入口，先执行 `prepareRequest`，再执行 `refresh`。`core/crates/node/runtime/src/peer/space_join.rs:555`
-- `prepareSubmission` — 新建加入请求并保存到 OUTBOUND。`core/crates/node/runtime/src/peer/space_join.rs:614`
-- `receive` — 网关侧接收加入命令的入口，接受 `requestJoin`、`cancelJoin` 与 `joinStatus`。`core/crates/node/runtime/src/peer/space_join.rs:744`
-- `reconcile` — 加入记录的对账入口，依次执行 `expire`、`recoverCommittedApproval` 与 `assign`。`core/crates/node/runtime/src/peer/space_join.rs:313`
-- `assignReviewer` — 评审员指派，本地节点有评审能力时优先选本地节点。`core/crates/node/runtime/src/peer/space_join.rs:232`
-- `canReview` — 评审能力判定，要求节点未断开且同时具备加入与批准能力。`core/crates/node/runtime/src/peer/space_join.rs:166`
-- `joinSnapshot` — 读取对端 Space 快照。`core/crates/node/runtime/src/peer/space_join.rs:1438`
-- `callPeerSpace` — 在直接配对的对端上调用一个明确的 Space 方法。`core/crates/node/runtime/src/peer/space_join.rs:1471`
-- `adoptApprovedMembership` — 采纳已批准的成员关系。`core/crates/node/runtime/src/peer/space_join.rs:1328`
-- `cancel` — 取消加入请求，先持久化取消意图再发送取消。`core/crates/node/runtime/src/peer/space_join.rs:1422`
-- `purgeDevice` — 配对被遗忘时退役加入申请与评审状态。`core/crates/node/runtime/src/peer/space_join.rs:686`
-- `decide` — 评审员决策入口，要求本设备具备评审能力。`core/crates/node/runtime/src/peer/space_join.rs:1222`
-- 主入口函数：`request`。`core/crates/node/runtime/src/peer/space_join.rs:555`
-- 数据流向一句话：mDNS 发现提供拨号提示，配对建立已认证会话，`refresh` 轮询加入请求直至采纳已批准的成员关系。`core/crates/node/runtime/src/peer/space_join.rs:1306`
+- `refresh` — 加入请求的轮询入口：提交、查状态、采纳已批准的成员关系。`core/crates/node/runtime/src/peer/space_join.rs:1307`
+- `request` — 加入请求入口，先执行 `prepareRequest`，再执行 `refresh`。`core/crates/node/runtime/src/peer/space_join.rs:556`
+- `prepareSubmission` — 新建加入请求并保存到 OUTBOUND。`core/crates/node/runtime/src/peer/space_join.rs:615`
+- `receive` — 网关侧接收加入命令的入口，接受 `requestJoin`、`cancelJoin` 与 `joinStatus`。`core/crates/node/runtime/src/peer/space_join.rs:745`
+- `reconcile` — 加入记录的对账入口，依次执行 `expire`、`recoverCommittedApproval` 与 `assign`。`core/crates/node/runtime/src/peer/space_join.rs:314`
+- `assignReviewer` — 评审员指派，本地节点有评审能力时优先选本地节点。`core/crates/node/runtime/src/peer/space_join.rs:233`
+- `canReview` — 评审能力判定，要求节点未断开且同时具备加入与批准能力。`core/crates/node/runtime/src/peer/space_join.rs:167`
+- `joinSnapshot` — 读取对端 Space 快照。`core/crates/node/runtime/src/peer/space_join.rs:1439`
+- `callPeerSpace` — 在直接配对的对端上调用一个明确的 Space 方法。`core/crates/node/runtime/src/peer/space_projection.rs:314`
+- `adoptApprovedMembership` — 采纳已批准的成员关系。`core/crates/node/runtime/src/peer/space_join.rs:1329`
+- `cancel` — 取消加入请求，先持久化取消意图再发送取消。`core/crates/node/runtime/src/peer/space_join.rs:1423`
+- `purgeDevice` — 配对被遗忘时退役加入申请与评审状态。`core/crates/node/runtime/src/peer/space_join.rs:687`
+- `decide` — 评审员决策入口，要求本设备具备评审能力。`core/crates/node/runtime/src/peer/space_join.rs:1223`
+- 主入口函数：`request`。`core/crates/node/runtime/src/peer/space_join.rs:556`
+- 数据流向一句话：mDNS 发现提供拨号提示，配对建立已认证会话，`refresh` 轮询加入请求直至采纳已批准的成员关系。`core/crates/node/runtime/src/peer/space_join.rs:1307`
 
 ## 核心机制
 
@@ -136,43 +136,43 @@ date: 2026-11-11
 - `refreshDiscovery` 并行刷新 LAN 与目录两路，交互与后台调用方用同一来源与部分失败语义。`core/crates/node/runtime/src/peer/discovery.rs:121`
 - 目录通告记入缓存时过期时间取通告 TTL 与 `LEASE_MS` 的较小值。`core/crates/node/runtime/src/peer/discovery.rs:83`
 - 目录缓存的未过期条目数达到 `MAX_PEERS` 时跳过新通告。`core/crates/node/runtime/src/peer/discovery.rs:74`
-- 加入请求的存活期常量 `LIFETIME_MS` 为 15 分钟。`core/crates/node/runtime/src/peer/space_join.rs:21`
-- 评审员离线宽限期常量 `OFFLINE_GRACE_MS` 为 30000 毫秒。`core/crates/node/runtime/src/peer/space_join.rs:22`
-- 入站、出站、收件箱与结果四类加入记录分别由 `INBOUND`、`OUTBOUND`、`INBOX`、`RESULTS` 四个常量指向各自的运行时路径。`core/crates/node/runtime/src/peer/space_join.rs:17`
-- `prepareRequest` 先以 `PairingDirection` 的 Either 校验与目标设备的当前配对。`core/crates/node/runtime/src/peer/space_join.rs:564`
-- `prepareRequest` 在存在到同一设备的活动出站请求时直接返回该请求的 requestId，不新建请求。`core/crates/node/runtime/src/peer/space_join.rs:565`
-- 新建的 `SpaceJoinRequest` 状态为 Pending，`expiresAt` 为当前时间加 `LIFETIME_MS`。`core/crates/node/runtime/src/peer/space_join.rs:635`
-- 新建记录经 `saveRecord` 保存到 OUTBOUND。`core/crates/node/runtime/src/peer/space_join.rs:640`
-- `prepareSubmission` 持 `MUTATION` 锁重校配对，要求源 Space 的 spaceId 与 spaceRevision 未变，并复用已有的活动出站请求。`core/crates/node/runtime/src/peer/space_join.rs:617`
-- 在 `cancelRequested` 为真时先执行 `cancelRemote`，结果非活动时直接返回该结果。`core/crates/node/runtime/src/peer/space_join.rs:1308`
-- 调用对端前以 `PairingDirection` 的 Either 重新校验与目标设备的配对。`core/crates/node/runtime/src/peer/space_join.rs:1314`
-- 已提交时调用 `joinStatus` 并传入请求 id，未提交时调用 `requestJoin` 并传入 `submissionValue` 的提交内容。`core/crates/node/runtime/src/peer/space_join.rs:1316`
-- 经 `callPeerSpace` 调用目标设备，并用 `remote.validate` 校验远端回复。`core/crates/node/runtime/src/peer/space_join.rs:1320`
-- 重读最新本地记录，本地状态已非活动、已请求取消或状态已变化时直接返回最新本地请求，不应用远端回复。`core/crates/node/runtime/src/peer/space_join.rs:1322`
-- 远端状态为 Approved 时要求附带成员收据，经 `adoptApprovedMembership` 采纳成员关系后把状态置为 Joined。`core/crates/node/runtime/src/peer/space_join.rs:1328`
-- 发布前把远端请求的 `canApprove` 置为 false。`core/crates/node/runtime/src/peer/space_join.rs:1331`
-- 经 `publishOutgoingResponse` 发布状态，发布结果为 Joined 时调用 `afterJoined`，其失败只记警告日志，不让刷新失败。`core/crates/node/runtime/src/peer/space_join.rs:1332`
-- 收据的 Space id 须等于目标 Space id，且本地设备与目标设备都是该 Space 成员。`core/crates/node/runtime/src/peer/space_join.rs:1345`
-- 采纳前经 `joinSnapshot` 重读当前目标快照，不用过时的批准快照，并校验目标 Space 仍包含申请人。`core/crates/node/runtime/src/peer/space_join.rs:1354`
-- 源 Space 于批准后新增成员时（`currentMembers` 不是 `approvedMembers` 的子集）拒绝采纳，要求提交新的合并请求。`core/crates/node/runtime/src/peer/space_join.rs:1362`
-- 采纳时导入设备画像与拓扑记录，应用控制操作后执行 `adopt` 采纳快照的 Space。`core/crates/node/runtime/src/peer/space_join.rs:1367`
-- `receive` 在分派前以 `PairingDirection` 的 Either 校验与对端的当前配对。`core/crates/node/runtime/src/peer/space_join.rs:741`
-- 入站待处理加入请求达到 64 个活动未过期请求时返回 Too many pending join requests 错误。`core/crates/node/runtime/src/peer/space_join.rs:881`
-- 同一申请人到同一目标已有活动加入请求时返回 An active join request already exists 错误。`core/crates/node/runtime/src/peer/space_join.rs:884`
-- `expire` 把目标 Space id 与当前 Space id 不符的 Pending 请求置为 Cancelled，把 `expiresAt` 已到的 Pending 请求置为 Expired。`core/crates/node/runtime/src/peer/space_join.rs:89`
-- `canReview` 要求节点未断开，且同时具备 `network.members.join` 与 `network.approval` 能力。`core/crates/node/runtime/src/peer/space_join.rs:166`
-- 当前评审员有能力且可达时保持指派并清空 `unavailableSince`，不在同等接近的对端之间来回切换。`core/crates/node/runtime/src/peer/space_join.rs:241`
-- 评审员不可达且未满 `OFFLINE_GRACE_MS` 时保持原指派。`core/crates/node/runtime/src/peer/space_join.rs:247`
-- 本地节点有评审能力时优先选本地节点，跳数为 0。`core/crates/node/runtime/src/peer/space_join.rs:250`
-- 评审员变更时 `assignmentVersion` 加一。`core/crates/node/runtime/src/peer/space_join.rs:269`
-- `reviewerHops` 等于所选节点的跳数加一。`core/crates/node/runtime/src/peer/space_join.rs:277`
-- 快照读取要求对端支持快照分页，否则返回 `SPACE_PROTOCOL_INCOMPATIBLE` 错误。`core/crates/node/runtime/src/peer/space_join.rs:1445`
-- 导出读取最多尝试 3 次（`0..3`）。`core/crates/node/runtime/src/peer/space_join.rs:1449`
-- 仅在导出变化（`SPACE_EXPORT_CHANGED`）时重读，否则返回当次结果。`core/crates/node/runtime/src/peer/space_join.rs:1462`
-- 取消发送后请求仍活动时调用 `refresh` 继续轮询。`core/crates/node/runtime/src/peer/space_join.rs:1428`
-- purgePeerRecords 删除该设备的 INBOUND、OUTBOUND 与 INBOX 三类加入记录。`core/crates/node/runtime/src/peer/space_join.rs:706`
-- `decide` 要求本设备具备评审能力，否则返回 This device cannot approve Space join requests 错误。`core/crates/node/runtime/src/peer/space_join.rs:1222`
-- 网关在本地评审员有能力且 `qrJoinConsent` 匹配当前 Space 且未过期时直接批准该加入请求。`core/crates/node/runtime/src/peer/space_join.rs:829`
+- 加入请求的存活期常量 `LIFETIME_MS` 为 15 分钟。`core/crates/node/runtime/src/peer/space_join.rs:22`
+- 评审员离线宽限期常量 `OFFLINE_GRACE_MS` 为 30000 毫秒。`core/crates/node/runtime/src/peer/space_join.rs:23`
+- 入站、出站、收件箱与结果四类加入记录分别由 `INBOUND`、`OUTBOUND`、`INBOX`、`RESULTS` 四个常量指向各自的运行时路径。`core/crates/node/runtime/src/peer/space_join.rs:18`
+- `prepareRequest` 先以 `PairingDirection` 的 Either 校验与目标设备的当前配对。`core/crates/node/runtime/src/peer/space_join.rs:565`
+- `prepareRequest` 在存在到同一设备的活动出站请求时直接返回该请求的 requestId，不新建请求。`core/crates/node/runtime/src/peer/space_join.rs:566`
+- 新建的 `SpaceJoinRequest` 状态为 Pending，`expiresAt` 为当前时间加 `LIFETIME_MS`。`core/crates/node/runtime/src/peer/space_join.rs:636`
+- 新建记录经 `saveRecord` 保存到 OUTBOUND。`core/crates/node/runtime/src/peer/space_join.rs:641`
+- `prepareSubmission` 持 `MUTATION` 锁重校配对，要求源 Space 的 spaceId 与 spaceRevision 未变，并复用已有的活动出站请求。`core/crates/node/runtime/src/peer/space_join.rs:618`
+- 在 `cancelRequested` 为真时先执行 `cancelRemote`，结果非活动时直接返回该结果。`core/crates/node/runtime/src/peer/space_join.rs:1309`
+- 调用对端前以 `PairingDirection` 的 Either 重新校验与目标设备的配对。`core/crates/node/runtime/src/peer/space_join.rs:1315`
+- 已提交时调用 `joinStatus` 并传入请求 id，未提交时调用 `requestJoin` 并传入 `submissionValue` 的提交内容。`core/crates/node/runtime/src/peer/space_join.rs:1317`
+- 经 `callPeerSpace` 调用目标设备，并用 `remote.validate` 校验远端回复。`core/crates/node/runtime/src/peer/space_join.rs:1321`
+- 重读最新本地记录，本地状态已非活动、已请求取消或状态已变化时直接返回最新本地请求，不应用远端回复。`core/crates/node/runtime/src/peer/space_join.rs:1323`
+- 远端状态为 Approved 时要求附带成员收据，经 `adoptApprovedMembership` 采纳成员关系后把状态置为 Joined。`core/crates/node/runtime/src/peer/space_join.rs:1329`
+- 发布前把远端请求的 `canApprove` 置为 false。`core/crates/node/runtime/src/peer/space_join.rs:1332`
+- 经 `publishOutgoingResponse` 发布状态，发布结果为 Joined 时调用 `afterJoined`，其失败只记警告日志，不让刷新失败。`core/crates/node/runtime/src/peer/space_join.rs:1333`
+- 收据的 Space id 须等于目标 Space id，且本地设备与目标设备都是该 Space 成员。`core/crates/node/runtime/src/peer/space_join.rs:1346`
+- 采纳前经 `joinSnapshot` 重读当前目标快照，不用过时的批准快照，并校验目标 Space 仍包含申请人。`core/crates/node/runtime/src/peer/space_join.rs:1355`
+- 源 Space 于批准后新增成员时（`currentMembers` 不是 `approvedMembers` 的子集）拒绝采纳，要求提交新的合并请求。`core/crates/node/runtime/src/peer/space_join.rs:1363`
+- 采纳时导入设备画像与拓扑记录，应用控制操作后执行 `adopt` 采纳快照的 Space。`core/crates/node/runtime/src/peer/space_join.rs:1368`
+- `receive` 在分派前以 `PairingDirection` 的 Either 校验与对端的当前配对。`core/crates/node/runtime/src/peer/space_join.rs:742`
+- 入站待处理加入请求达到 64 个活动未过期请求时返回 Too many pending join requests 错误。`core/crates/node/runtime/src/peer/space_join.rs:882`
+- 同一申请人到同一目标已有活动加入请求时返回 An active join request already exists 错误。`core/crates/node/runtime/src/peer/space_join.rs:885`
+- `expire` 把目标 Space id 与当前 Space id 不符的 Pending 请求置为 Cancelled，把 `expiresAt` 已到的 Pending 请求置为 Expired。`core/crates/node/runtime/src/peer/space_join.rs:90`
+- `canReview` 要求节点未断开，且同时具备 `network.members.join` 与 `network.approval` 能力。`core/crates/node/runtime/src/peer/space_join.rs:167`
+- 当前评审员有能力且可达时保持指派并清空 `unavailableSince`，不在同等接近的对端之间来回切换。`core/crates/node/runtime/src/peer/space_join.rs:242`
+- 评审员不可达且未满 `OFFLINE_GRACE_MS` 时保持原指派。`core/crates/node/runtime/src/peer/space_join.rs:248`
+- 本地节点有评审能力时优先选本地节点，跳数为 0。`core/crates/node/runtime/src/peer/space_join.rs:251`
+- 评审员变更时 `assignmentVersion` 加一。`core/crates/node/runtime/src/peer/space_join.rs:270`
+- `reviewerHops` 等于所选节点的跳数加一。`core/crates/node/runtime/src/peer/space_join.rs:278`
+- 快照读取要求对端支持快照分页，否则返回 `SPACE_PROTOCOL_INCOMPATIBLE` 错误。`core/crates/node/runtime/src/peer/space_join.rs:1446`
+- 导出读取最多尝试 3 次（`0..3`）。`core/crates/node/runtime/src/peer/space_projection.rs:292`
+- 仅在导出变化（`SPACE_EXPORT_CHANGED`）时重读，否则返回当次结果。`core/crates/node/runtime/src/peer/space_projection.rs:306`
+- 取消发送后请求仍活动时调用 `refresh` 继续轮询。`core/crates/node/runtime/src/peer/space_join.rs:1429`
+- purgePeerRecords 删除该设备的 INBOUND、OUTBOUND 与 INBOX 三类加入记录。`core/crates/node/runtime/src/peer/space_join.rs:707`
+- `decide` 要求本设备具备评审能力，否则返回 This device cannot approve Space join requests 错误。`core/crates/node/runtime/src/peer/space_join.rs:1223`
+- 网关在本地评审员有能力且 `qrJoinConsent` 匹配当前 Space 且未过期时直接批准该加入请求。`core/crates/node/runtime/src/peer/space_join.rs:830`
 
 ## 关键符号
 
@@ -192,29 +192,29 @@ date: 2026-11-11
 - `RoutedCoreRequest<T>` — 带 Space 路由元数据的请求，字段含 `spaceId`、`originNodeId`、`targetNodeId`、`ttl`、`routeKind`、`payload`。`docs/link-access-architecture.md:126`
 - `FramedPeerConnection` — 五种 transport 共用的消息层。`docs/link-access-architecture.md:155`
 - `PAIRING_SERVICE_VERSION` — `PeerStateStore` 的持久化凭据格式版本，值为 1。`docs/link-access-architecture.md:103`
-- `LIFETIME_MS` — 加入请求的存活期常量，为 15 分钟。`core/crates/node/runtime/src/peer/space_join.rs:21`
-- `OFFLINE_GRACE_MS` — 评审员离线宽限期常量，为 30000 毫秒。`core/crates/node/runtime/src/peer/space_join.rs:22`
-- `INBOUND` — 入站加入记录的运行时路径常量。`core/crates/node/runtime/src/peer/space_join.rs:17`
-- `OUTBOUND` — 出站加入记录的运行时路径常量。`core/crates/node/runtime/src/peer/space_join.rs:17`
-- `INBOX` — 收件箱加入记录的运行时路径常量。`core/crates/node/runtime/src/peer/space_join.rs:17`
-- `RESULTS` — 结果加入记录的运行时路径常量。`core/crates/node/runtime/src/peer/space_join.rs:17`
-- `request` — 加入请求入口，先执行 `prepareRequest`，再执行 `refresh`。`core/crates/node/runtime/src/peer/space_join.rs:555`
-- `refresh` — 加入请求的轮询入口。`core/crates/node/runtime/src/peer/space_join.rs:1306`
-- `prepareRequest` — 加入请求准备入口，先校验当前配对。`core/crates/node/runtime/src/peer/space_join.rs:564`
-- `prepareSubmission` — 新建加入请求并保存到 OUTBOUND。`core/crates/node/runtime/src/peer/space_join.rs:614`
-- `prepareSubmission` — 持 `MUTATION` 锁重校配对与源 Space，复用已有活动出站请求。`core/crates/node/runtime/src/peer/space_join.rs:617`
-- `receive` — 网关侧接收加入命令的入口。`core/crates/node/runtime/src/peer/space_join.rs:744`
-- `reconcile` — 加入记录的对账入口。`core/crates/node/runtime/src/peer/space_join.rs:313`
-- `expire` — Pending 请求的过期与取消处理。`core/crates/node/runtime/src/peer/space_join.rs:89`
-- `canReview` — 评审能力判定。`core/crates/node/runtime/src/peer/space_join.rs:166`
-- `assignReviewer` — 评审员指派。`core/crates/node/runtime/src/peer/space_join.rs:232`
-- `paired` — 任一方向当前配对的校验。`core/crates/node/runtime/src/peer/space_join.rs:172`
-- `joinSnapshot` — 读取对端 Space 快照。`core/crates/node/runtime/src/peer/space_join.rs:1438`
-- `callPeerSpace` — 在直接配对的对端上调用一个明确的 Space 方法。`core/crates/node/runtime/src/peer/space_join.rs:1471`
-- `adoptApprovedMembership` — 采纳已批准的成员关系。`core/crates/node/runtime/src/peer/space_join.rs:1328`
-- `cancel` — 取消加入请求。`core/crates/node/runtime/src/peer/space_join.rs:1415`
-- `purgeDevice` — 配对被遗忘时退役加入申请与评审状态。`core/crates/node/runtime/src/peer/space_join.rs:686`
-- `decide` — 评审员决策入口。`core/crates/node/runtime/src/peer/space_join.rs:1222`
+- `LIFETIME_MS` — 加入请求的存活期常量，为 15 分钟。`core/crates/node/runtime/src/peer/space_join.rs:22`
+- `OFFLINE_GRACE_MS` — 评审员离线宽限期常量，为 30000 毫秒。`core/crates/node/runtime/src/peer/space_join.rs:23`
+- `INBOUND` — 入站加入记录的运行时路径常量。`core/crates/node/runtime/src/peer/space_join.rs:18`
+- `OUTBOUND` — 出站加入记录的运行时路径常量。`core/crates/node/runtime/src/peer/space_join.rs:18`
+- `INBOX` — 收件箱加入记录的运行时路径常量。`core/crates/node/runtime/src/peer/space_join.rs:18`
+- `RESULTS` — 结果加入记录的运行时路径常量。`core/crates/node/runtime/src/peer/space_join.rs:18`
+- `request` — 加入请求入口，先执行 `prepareRequest`，再执行 `refresh`。`core/crates/node/runtime/src/peer/space_join.rs:556`
+- `refresh` — 加入请求的轮询入口。`core/crates/node/runtime/src/peer/space_join.rs:1307`
+- `prepareRequest` — 加入请求准备入口，先校验当前配对。`core/crates/node/runtime/src/peer/space_join.rs:565`
+- `prepareSubmission` — 新建加入请求并保存到 OUTBOUND。`core/crates/node/runtime/src/peer/space_join.rs:615`
+- `prepareSubmission` — 持 `MUTATION` 锁重校配对与源 Space，复用已有活动出站请求。`core/crates/node/runtime/src/peer/space_join.rs:618`
+- `receive` — 网关侧接收加入命令的入口。`core/crates/node/runtime/src/peer/space_join.rs:745`
+- `reconcile` — 加入记录的对账入口。`core/crates/node/runtime/src/peer/space_join.rs:314`
+- `expire` — Pending 请求的过期与取消处理。`core/crates/node/runtime/src/peer/space_join.rs:90`
+- `canReview` — 评审能力判定。`core/crates/node/runtime/src/peer/space_join.rs:167`
+- `assignReviewer` — 评审员指派。`core/crates/node/runtime/src/peer/space_join.rs:233`
+- `paired` — 任一方向当前配对的校验。`core/crates/node/runtime/src/peer/space_join.rs:173`
+- `joinSnapshot` — 读取对端 Space 快照。`core/crates/node/runtime/src/peer/space_join.rs:1439`
+- `callPeerSpace` — 在直接配对的对端上调用一个明确的 Space 方法。`core/crates/node/runtime/src/peer/space_projection.rs:314`
+- `adoptApprovedMembership` — 采纳已批准的成员关系。`core/crates/node/runtime/src/peer/space_join.rs:1329`
+- `cancel` — 取消加入请求。`core/crates/node/runtime/src/peer/space_join.rs:1416`
+- `purgeDevice` — 配对被遗忘时退役加入申请与评审状态。`core/crates/node/runtime/src/peer/space_join.rs:687`
+- `decide` — 评审员决策入口。`core/crates/node/runtime/src/peer/space_join.rs:1223`
 
 ## 调用链
 
@@ -223,21 +223,21 @@ date: 2026-11-11
 3. 后台刷新：可用性工作线程在出站网络对端离线时经 `refreshDiscovery` 并行刷新 LAN 与目录。`core/crates/node/runtime/src/peer/discovery.rs:121`
 4. 重连选址：reconnectionEndpoints 在已保存端点之前尝试新发现的地址，已保存端点作为后备追加到末尾。`core/crates/node/runtime/src/peer/discovery.rs:217`
 5. 地址提交：握手认证成功后 saveAuthenticatedEndpoint 经 `updateOutboundEndpointLocked` 写回新端点与 transport。`core/crates/node/runtime/src/peer/discovery.rs:233`
-6. 发起加入：`request` 先执行 `prepareRequest`，再执行 `refresh`。`core/crates/node/runtime/src/peer/space_join.rs:555`
-7. 准备提交：`prepareRequest` 先以 `PairingDirection` 的 Either 校验与目标设备的当前配对。`core/crates/node/runtime/src/peer/space_join.rs:564`
-8. 新建记录：新建的 `SpaceJoinRequest` 状态为 Pending，`expiresAt` 为当前时间加 `LIFETIME_MS`，经 `saveRecord` 保存到 OUTBOUND。`core/crates/node/runtime/src/peer/space_join.rs:635`
-9. 轮询入口：从 OUTBOUND 读取同意投影，状态非活动时直接返回本地请求。`core/crates/node/runtime/src/peer/space_join.rs:1306`
-10. 取消优先：在 `cancelRequested` 为真时先执行 `cancelRemote`，结果非活动时直接返回该结果。`core/crates/node/runtime/src/peer/space_join.rs:1308`
-11. 配对重校：调用对端前以 `PairingDirection` 的 Either 重新校验与目标设备的配对。`core/crates/node/runtime/src/peer/space_join.rs:1314`
-12. 提交或查状态：已提交时调用 `joinStatus` 并传入请求 id，未提交时调用 `requestJoin` 并传入 `submissionValue` 的提交内容。`core/crates/node/runtime/src/peer/space_join.rs:1316`
-13. 远端调用与校验：经 `callPeerSpace` 调用目标设备，并用 `remote.validate` 校验远端回复。`core/crates/node/runtime/src/peer/space_join.rs:1320`
-14. 本地优先：重读最新本地记录，本地状态已非活动、已请求取消或状态已变化时直接返回最新本地请求，不应用远端回复。`core/crates/node/runtime/src/peer/space_join.rs:1322`
-15. 批准采纳：远端状态为 Approved 时要求附带成员收据，经 `adoptApprovedMembership` 采纳成员关系后把状态置为 Joined。`core/crates/node/runtime/src/peer/space_join.rs:1328`
-16. 发布状态：经 `publishOutgoingResponse` 发布状态，发布结果为 Joined 时调用 `afterJoined`，其失败只记警告日志，不让刷新失败。`core/crates/node/runtime/src/peer/space_join.rs:1332`
-17. 网关接收：`receive` 接受 `requestJoin`、`cancelJoin` 与 `joinStatus` 三种方法。`core/crates/node/runtime/src/peer/space_join.rs:744`
-18. 网关对账：`reconcile` 依次执行 `expire`、`recoverCommittedApproval` 与 `assign`。`core/crates/node/runtime/src/peer/space_join.rs:313`
-19. 评审指派：当前评审员有能力且可达时保持指派并清空 `unavailableSince`。`core/crates/node/runtime/src/peer/space_join.rs:241`
-20. 评审决策：`decide` 要求本设备具备评审能力，否则返回 This device cannot approve Space join requests 错误。`core/crates/node/runtime/src/peer/space_join.rs:1222`
+6. 发起加入：`request` 先执行 `prepareRequest`，再执行 `refresh`。`core/crates/node/runtime/src/peer/space_join.rs:556`
+7. 准备提交：`prepareRequest` 先以 `PairingDirection` 的 Either 校验与目标设备的当前配对。`core/crates/node/runtime/src/peer/space_join.rs:565`
+8. 新建记录：新建的 `SpaceJoinRequest` 状态为 Pending，`expiresAt` 为当前时间加 `LIFETIME_MS`，经 `saveRecord` 保存到 OUTBOUND。`core/crates/node/runtime/src/peer/space_join.rs:635``core/crates/node/runtime/src/peer/space_join.rs:641`
+9. 轮询入口：从 OUTBOUND 读取同意投影，状态非活动时直接返回本地请求。`core/crates/node/runtime/src/peer/space_join.rs:1307`
+10. 取消优先：在 `cancelRequested` 为真时先执行 `cancelRemote`，结果非活动时直接返回该结果。`core/crates/node/runtime/src/peer/space_join.rs:1309`
+11. 配对重校：调用对端前以 `PairingDirection` 的 Either 重新校验与目标设备的配对。`core/crates/node/runtime/src/peer/space_join.rs:1315`
+12. 提交或查状态：已提交时调用 `joinStatus` 并传入请求 id，未提交时调用 `requestJoin` 并传入 `submissionValue` 的提交内容。`core/crates/node/runtime/src/peer/space_join.rs:1317`
+13. 远端调用与校验：经 `callPeerSpace` 调用目标设备，并用 `remote.validate` 校验远端回复。`core/crates/node/runtime/src/peer/space_join.rs:1321`
+14. 本地优先：重读最新本地记录，本地状态已非活动、已请求取消或状态已变化时直接返回最新本地请求，不应用远端回复。`core/crates/node/runtime/src/peer/space_join.rs:1323`
+15. 批准采纳：远端状态为 Approved 时要求附带成员收据，经 `adoptApprovedMembership` 采纳成员关系后把状态置为 Joined。`core/crates/node/runtime/src/peer/space_join.rs:1329`
+16. 发布状态：经 `publishOutgoingResponse` 发布状态，发布结果为 Joined 时调用 `afterJoined`，其失败只记警告日志，不让刷新失败。`core/crates/node/runtime/src/peer/space_join.rs:1333`
+17. 网关接收：`receive` 接受 `requestJoin`、`cancelJoin` 与 `joinStatus` 三种方法。`core/crates/node/runtime/src/peer/space_join.rs:745`
+18. 网关对账：`reconcile` 依次执行 `expire`、`recoverCommittedApproval` 与 `assign`。`core/crates/node/runtime/src/peer/space_join.rs:314`
+19. 评审指派：当前评审员有能力且可达时保持指派并清空 `unavailableSince`。`core/crates/node/runtime/src/peer/space_join.rs:242`
+20. 评审决策：`decide` 要求本设备具备评审能力，否则返回 This device cannot approve Space join requests 错误。`core/crates/node/runtime/src/peer/space_join.rs:1223`
 
 ## 来源
 

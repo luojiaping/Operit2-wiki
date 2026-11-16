@@ -213,35 +213,35 @@
   },
   {
     "fact": "CoreNodeBindingStore::applySyncedOperation 应用已同步的 Binding 操作，不产生新的本地操作。",
-    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:215"
+    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:227"
   },
   {
     "fact": "CoreNodeBindingStore::applyBootstrapOperation 应用 Space 引导的 Binding 操作，跳过本地冲突过滤。",
-    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:221"
+    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:233"
   },
   {
     "fact": "CoreNodeBindingStore::applyImmediateOperation 用 appendUnobservedOperation 追加直接传输的操作，不推进持久化时钟。",
-    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:271"
+    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:283"
   },
   {
     "fact": "materializeBindingRecords 按 bindingOperationOrder 取每个实体的最新操作。",
-    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:303"
+    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:315"
   },
   {
     "fact": "只有 upsert 操作能成为当前 Binding 记录，delete 操作不产生记录。",
-    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:312"
+    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:324"
   },
   {
     "fact": "validateBindingOperation 要求域、实体类型、操作名与 EntityState 语义四者一致。",
-    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:441"
+    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:453"
   },
   {
     "fact": "Binding 的 delete 操作载荷必须为 null。",
-    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:451"
+    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:463"
   },
   {
     "fact": "Binding 的 generation 必须为正数。",
-    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:462"
+    "ref": "core/crates/persistence/store/src/CoreNodeBindingStore.rs:474"
   },
   {
     "fact": "同一 storage host 与同步根路径上的 Binding store 共享一份进程内缓存。",
@@ -305,11 +305,11 @@
   },
   {
     "fact": "新 Space 的初始显示名是 Operit。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1602"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1613"
   },
   {
     "fact": "新 Space 的 id 格式是 space-{uuid}。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1608"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1619"
   },
   {
     "fact": "CoreSpaceStore::initializeNamed 创建 spaceRevision 为 1 的成员记录。",
@@ -369,143 +369,143 @@
   },
   {
     "fact": "CoreSpaceStore::importDeviceProfiles 跳过 updatedAt 不比已有记录新的 profile。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:756"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:767"
   },
   {
     "fact": "CoreSpaceStore::deviceProfilesForCurrentSpace 在成员缺少 profile 时报错。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:722"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:733"
   },
   {
     "fact": "CoreSpaceStore::setDirectPeers 拒绝把本设备登记为直接对端。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:807"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:818"
   },
   {
     "fact": "CoreSpaceStore::publishLocalLinkAdvertisement 拒绝向非活跃直接对端发布链路广告。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:848"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:859"
   },
   {
     "fact": "CoreSpaceStore::publishLocalAdjacency 在对端集合与未过期链路都未变时返回 false，不写记录。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:910"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:921"
   },
   {
     "fact": "新对端的初始链路广告 sequence 为 1，channelEpoch 为 direct-adjacency。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:938"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:949"
   },
   {
     "fact": "reachableNextHopThroughPeers 用 Dijkstra 在未过期的有向链路度量上解析首跳。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1001"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1012"
   },
   {
     "fact": "无度量的直连对端在选路时代价为 1_000_000_000。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1061"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1072"
   },
   {
     "fact": "linkCost 等于 1000 加 smoothedRttMs 乘 10、lossPermille 乘 25、congestionPermille 乘 10。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1686"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1697"
   },
   {
     "fact": "routePlanThroughPeers 拒绝以本设备为目标、拒绝非成员目标。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1029"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1040"
   },
   {
     "fact": "deviceConnections 只返回当前 Space 成员之间的有向直连。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:961"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:972"
   },
   {
     "fact": "拓扑记录不允许重复对端。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1642"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1653"
   },
   {
     "fact": "拓扑记录不允许自环。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1647"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1658"
   },
   {
     "fact": "链路广告的目标必须是直接对端。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1657"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1668"
   },
   {
     "fact": "拓扑记录不允许重复有向链路。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1660"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1671"
   },
   {
     "fact": "链路广告要求 sequence 为正、expiresAt 大于 measuredAt、loss 与 congestion 各不超过 1000。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1675"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1686"
   },
   {
     "fact": "validateSpaceName 要求名非空、不超过 80 字符、不含控制字符。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1628"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1639"
   },
   {
     "fact": "validateDeviceProfileField 要求字段非空、不超过 160 字符、不含控制字符。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1585"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1596"
   },
   {
     "fact": "validateDeviceUserName 要求用户名不超过 80 字符、不含控制字符。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1570"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1581"
   },
   {
     "fact": "validateDevicePresence 只在 active 为 true 时要求 baseUrl 与 version 非空。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1533"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1544"
   },
   {
     "fact": "readRecords 读坏的非本地记录时只记警告并跳过，读坏的本地记录时返回错误。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1181"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1192"
   },
   {
     "fact": "preferenceSyncStore 只认 members、profiles、presence、topology 四个目录下的 .preferences.json 记录。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1411"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1422"
   },
   {
     "fact": "migrateRecord 把 schema 2 下以字符串存放的记录解码为对象。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1428"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1439"
   },
   {
     "fact": "migrateRecord 在记录版本已不低于 3 时返回 SchemaVersionTooNew。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1424"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1435"
   },
   {
     "fact": "节点本地端点在 nodeLocalApplicationHistoryLimit 存在时用 topologyV1 紧凑编码存拓扑。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1321"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1332"
   },
   {
     "fact": "coreSpaceFromRecords 的记录为空时报错 Device space is not initialized。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1461"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1472"
   },
   {
     "fact": "coreSpaceFromRecords 在本地身份无成员记录时报错。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1465"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1476"
   },
   {
     "fact": "coreSpaceFromRecords 只取与本地身份同一 spaceId 的记录作为成员。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1468"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1479"
   },
   {
     "fact": "hasSameMembershipAs 比较除 updatedAt 外的全部成员字段。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1448"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1459"
   },
   {
     "fact": "writeSpaceProjectionAt 拒绝 revision 小于等于 0 的投影。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1223"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1234"
   },
   {
     "fact": "writeMemberRecord 用 replaceRecoverably 写成员记录。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1203"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1214"
   },
   {
     "fact": "importTopologyRecords 跳过本地记录与 updatedAt 不比已有记录新的公告。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1257"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1268"
   },
   {
     "fact": "导入的拓扑记录不产生本地同步操作。",
-    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1266"
+    "ref": "core/crates/persistence/store/src/CoreSpaceStore.rs:1277"
   },
   {
     "fact": "PreferencesDataStore 的字段含 path、storagePath、storageHost、encryption、syncOperationStore、syncDescriptor。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1842"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1853"
   },
   {
     "fact": "PreferencesDataStore 的字段含 changeSignal、sharedState、schema。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1847"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1858"
   },
   {
     "fact": "PreferencesDataStore::new 创建同步偏好 store。",
@@ -537,35 +537,35 @@
   },
   {
     "fact": "PreferencesSyncDescriptor::forStoragePath 由存储路径推导同步描述符。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2426"
-  },
-  {
-    "fact": "同步描述符的域固定为 preferences，实体类型取自文件名去掉 .preferences.json 与 .json 后缀。",
     "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2437"
   },
   {
+    "fact": "同步描述符的域固定为 preferences，实体类型取自文件名去掉 .preferences.json 与 .json 后缀。",
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2448"
+  },
+  {
     "fact": "Preferences::set 在值不变时直接返回，不记变更。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1635"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1646"
   },
   {
     "fact": "Preferences::set 把每次写记为一条 set 变更。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1641"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1652"
   },
   {
     "fact": "增量写记为 increment 操作，存增量而非绝对值。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1680"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1691"
   },
   {
     "fact": "Preferences::setObjectField 只改对象的一个字段。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1715"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1726"
   },
   {
     "fact": "对象字段的变更记为 patch_object 操作。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1751"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1762"
   },
   {
     "fact": "Preferences 的 PartialEq 只比较持久化值，不比较待提交变更。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1586"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1587"
   },
   {
     "fact": "偏好 schema 版本键是 __operit_preferences_schema_version，复制元数据键是 __operit_preferences_replication。",
@@ -641,23 +641,23 @@
   },
   {
     "fact": "CoreNodeStateStore::typedEntry 只解码请求的记录，不展开无关 JSON。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1883"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1894"
   },
   {
     "fact": "CoreNodeStateStore::delete 同时删除文件与共享快照，避免后续相同导入被缓存跳过。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2141"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2152"
   },
   {
     "fact": "CoreNodeSecretStore 存节点本地凭证与密钥，接受旧版加密文件。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2350"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2361"
   },
   {
     "fact": "encodeStoredPreferences 的 bounded 模式指无同步描述符且存储宿主不保留偏好缓存。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3524"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3529"
   },
   {
     "fact": "encodeStoredPreferences 在 bounded 模式下写紧凑 JSON，否则写 pretty JSON。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3530"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3535"
   },
   {
     "fact": "读取偏好文件不改写文件，不创建新解密密钥。",
@@ -665,7 +665,7 @@
   },
   {
     "fact": "加密偏好文件以 format 字段 operit.preferences.encrypted 标识。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3602"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3607"
   },
   {
     "fact": "PreferencesSyncedEntry::fromOperation 要求同步操作的域为 preferences。",
@@ -701,27 +701,27 @@
   },
   {
     "fact": "prepareSync、isSyncPrepared、syncSnapshot、repairSyncedSnapshot 四个同步入口委托给 Transaction::preference。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3904"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3909"
   },
   {
     "fact": "同步的插件偏好路径必须以 .preferences.json 结尾。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3712"
-  },
-  {
-    "fact": "同步的插件偏好路径必须归 Space 所有，节点本地与临时存储不许同步偏好。",
     "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3717"
   },
   {
+    "fact": "同步的插件偏好路径必须归 Space 所有，节点本地与临时存储不许同步偏好。",
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3722"
+  },
+  {
     "fact": "同一 storage host 与路径的偏好 store 共享同一份 shared state。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3778"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3783"
   },
   {
     "fact": "同一 storage host 与路径的偏好 store 共享同一个 change signal。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3806"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3811"
   },
   {
     "fact": "notifyChanged 递增版本号、唤醒等待者并调度订阅者回调。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3584"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3589"
   },
   {
     "fact": "UNMEASURED_DIRECT_PEER_COST 的值是 1_000_000_000。",

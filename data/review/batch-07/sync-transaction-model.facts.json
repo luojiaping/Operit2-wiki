@@ -209,63 +209,63 @@
   },
   {
     "fact": "History 的 insert 拒绝空身份，同身份事务须与已存原文一致",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1045"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1075"
   },
   {
     "fact": "高阶事务只允许修改目标事务的 edits 字段，其余元数据不可变",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1081"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1111"
   },
   {
     "fact": "History 的 effective 在高阶事务依赖成环时返回错误",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1063"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1093"
   },
   {
     "fact": "root 沿事务目标链追溯到一阶事务",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1100"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1130"
   },
   {
     "fact": "History 的 materialize 先对基线做 migrate_data 再重放事务",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1114"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1144"
   },
   {
     "fact": "目标为 Target::Data 但 owner 与当前数据不一致的事务被当作独立数据集跳过",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1138"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1168"
   },
   {
     "fact": "求有效视图或迁移失败的事务记入 pending",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1140"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1170"
   },
   {
     "fact": "应用失败的事务记入 pending",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1156"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1186"
   },
   {
     "fact": "Replay 含 data、applied 与 pending 三个字段",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1169"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1199"
   },
   {
     "fact": "Data 的 apply 要求事务目标等于当前 owner，否则返回 Transaction owner/version is not ready 错误",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:423"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:448"
   },
   {
     "fact": "Data 的 apply 先在副本上应用全部 edits，全部成功后才整体提交",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:423"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:448"
   },
   {
     "fact": "整体 revision 只在新事务的 revision 更新时才推进",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:456"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:482"
   },
   {
     "fact": "Data 的 apply_edit 对 ReplaceRecords，较旧的整组替换直接跳过",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:472"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:497"
   },
   {
     "fact": "Data 的 apply_edit 对 ReplaceRecords 按整组命名空间保存范围版本",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:506"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:531"
   },
   {
     "fact": "已有更新的祖先范围版本时，较旧的写入被跳过",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:529"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:557"
   },
   {
     "fact": "Increment 要求整数且不溢出，否则返回错误",
@@ -273,47 +273,47 @@
   },
   {
     "fact": "Rule 含 RenameKey 与 RenameField 两种重命名规则",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:631"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:661"
   },
   {
     "fact": "Rule 含 SplitObject、DropKey 与 SplitRecords 三种结构规则",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:646"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:676"
   },
   {
     "fact": "rename_field 在目标字段已存在时返回 Field destination exists 错误",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:656"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:686"
   },
   {
     "fact": "Migrations 含 owners、layouts 与 formats 三张表",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:976"
-  },
-  {
-    "fact": "Migrations 的 resolve_path 沿 layout 路由链解析当前路径，成环时返回 Layout migration cycle 错误",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:983"
-  },
-  {
-    "fact": "Migrations 的 migrate_data 按步骤应用格式规则并迁移数据",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:995"
-  },
-  {
-    "fact": "migrate_data 在应用规则后经 relocate 改写路径并替换 owner",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:996"
-  },
-  {
-    "fact": "Migrations 的 migrate_transaction 只对 Target::Data 的事务做迁移",
     "ref": "core/crates/persistence/store/src/Transaction.rs:1006"
   },
   {
-    "fact": "Migrations 的 steps 在归属未知时返回 Pending layout owner 错误",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1019"
+    "fact": "Migrations 的 resolve_path 沿 layout 路由链解析当前路径，成环时返回 Layout migration cycle 错误",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1013"
   },
   {
-    "fact": "来源版本高于当前版本时返回 Pending future layout/format 错误",
+    "fact": "Migrations 的 migrate_data 按步骤应用格式规则并迁移数据",
     "ref": "core/crates/persistence/store/src/Transaction.rs:1025"
   },
   {
+    "fact": "migrate_data 在应用规则后经 relocate 改写路径并替换 owner",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1026"
+  },
+  {
+    "fact": "Migrations 的 migrate_transaction 只对 Target::Data 的事务做迁移",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1036"
+  },
+  {
+    "fact": "Migrations 的 steps 在归属未知时返回 Pending layout owner 错误",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1049"
+  },
+  {
+    "fact": "来源版本高于当前版本时返回 Pending future layout/format 错误",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1055"
+  },
+  {
     "fact": "格式迁移规则按来源 format 到当前 format 逐版本选取",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1029"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1059"
   },
   {
     "fact": "Data 的 relocate 按新路径改写 aliases 中的身份映射并替换 owner.path",
@@ -321,123 +321,123 @@
   },
   {
     "fact": "Snapshot 的字段为 node、data、covered 与 generation",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1197"
-  },
-  {
-    "fact": "Snapshot 含 damage 字段，记录损坏证据",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1204"
-  },
-  {
-    "fact": "Snapshot 的 token 是整份快照的摘要",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1208"
-  },
-  {
-    "fact": "Snapshot 的 content_digest 只对数据值做摘要，与重放账本无关",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1212"
-  },
-  {
-    "fact": "Snapshot 的 replace 以 token 做 CAS，期望 token 不符时返回 false",
     "ref": "core/crates/persistence/store/src/Transaction.rs:1232"
   },
   {
+    "fact": "Snapshot 含 damage 字段，记录损坏证据",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1239"
+  },
+  {
+    "fact": "Snapshot 的 token 是整份快照的摘要",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1243"
+  },
+  {
+    "fact": "Snapshot 的 content_digest 只对数据值做摘要，与重放账本无关",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1247"
+  },
+  {
+    "fact": "Snapshot 的 replace 以 token 做 CAS，期望 token 不符时返回 false",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1267"
+  },
+  {
     "fact": "替换成功时 generation 加一",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1240"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1275"
   },
   {
     "fact": "替换成功时合并来源与本地的 covered",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1248"
-  },
-  {
-    "fact": "Snapshot 的 replay 只重放未被 covered 覆盖的事务",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1252"
-  },
-  {
-    "fact": "Manifest 的字段为 owner、node、revision、token 与 digest",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1266"
-  },
-  {
-    "fact": "Manifest 含 damaged 标记",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1273"
-  },
-  {
-    "fact": "compare_manifests 在两端 owner 不一致时返回错误",
     "ref": "core/crates/persistence/store/src/Transaction.rs:1283"
   },
   {
-    "fact": "compare_manifests 在一端损坏而另一端完好时选完好一方为权威，两端都损坏时返回错误",
+    "fact": "Snapshot 的 replay 只重放未被 covered 覆盖的事务",
     "ref": "core/crates/persistence/store/src/Transaction.rs:1287"
   },
   {
+    "fact": "Manifest 的字段为 owner、node、revision、token 与 digest",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1301"
+  },
+  {
+    "fact": "Manifest 含 damaged 标记",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1308"
+  },
+  {
+    "fact": "compare_manifests 在两端 owner 不一致时返回错误",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1318"
+  },
+  {
+    "fact": "compare_manifests 在一端损坏而另一端完好时选完好一方为权威，两端都损坏时返回错误",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1322"
+  },
+  {
     "fact": "摘要相等时判定 Equal",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1294"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1329"
   },
   {
     "fact": "摘要不等时按 revision 再按 node 的字典序选权威方",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1298"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1333"
   },
   {
     "fact": "compare 在摘要相等时返回 None",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1330"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1365"
   },
   {
     "fact": "Correction 合并两端 covered",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1338"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1373"
   },
   {
     "fact": "serialized_digest 用 Sha256 对序列化形式做摘要，digest 返回其哈希",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1180"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1210"
   },
   {
     "fact": "SqlDataset 的 domain 在聊天数据库路径下为 chat，否则为 plugin_storage",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1468"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1503"
   },
   {
     "fact": "SqlDataset 的 coverage 合并已提交事务身份、初始化覆盖与初始化事务操作身份",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1478"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1513"
   },
   {
     "fact": "SqlDataset 的 initialization 返回当前已保存的初始化事务操作",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1472"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1507"
   },
   {
     "fact": "SqlDataset 的 receive_initialization 在操作身份已被覆盖时返回 false，不重复接收",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1546"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1581"
   },
   {
     "fact": "receive_validated_initialization 在初始化数据的 owner 或 domain 不符时返回 Initialization owner differs 错误",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1555"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1590"
   },
   {
     "fact": "提交快照时以 token 做 CAS，当前 token 与期望不符时返回 false",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1597"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1632"
   },
   {
     "fact": "提交快照时在定义给出时经 restore_schema 恢复表结构声明",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1605"
-  },
-  {
-    "fact": "covered_by_initialization 按初始化覆盖表判断操作是否已被封存",
     "ref": "core/crates/persistence/store/src/Transaction.rs:1640"
   },
   {
+    "fact": "covered_by_initialization 按初始化覆盖表判断操作是否已被封存",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1675"
+  },
+  {
     "fact": "Form 要求实现 migrate 与 apply_rule",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1649"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1684"
   },
   {
     "fact": "Data 实现 Form",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1653"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1688"
   },
   {
     "fact": "Transaction 实现 Form",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1661"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1696"
   },
   {
     "fact": "Migrations 的 migrate 先在副本上迁移，成功后才替换原文",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1670"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1705"
   },
   {
     "fact": "Rule 的 apply 先在副本上应用规则，成功后才替换原文",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1678"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1713"
   },
   {
     "fact": "operation_digest 对事务引用返回其内容哈希，否则对事务操作做摘要",
@@ -445,11 +445,11 @@
   },
   {
     "fact": "Snapshot 的 projected_content_digest 允许 owner 把本地 SQL 账本列投影出内容比较",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1216"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1251"
   },
   {
     "fact": "project_sql_table 把声明的本地列投影出 SQL 内容比较，并按行排序去重",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1410"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1445"
   },
   {
     "fact": "Transaction.rs 声明 transaction/Compaction.rs 为 compaction 模块",

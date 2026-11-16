@@ -185,15 +185,15 @@
   },
   {
     "fact": "具备存储复制授权、处于正常变更门控状态的可达成员使用 syncClockDigest 判断是否需要完整交换。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:71"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:70"
   },
   {
     "fact": "同步门控先检查 backoffElapsed：退避未到期时本周期不做完整交换；pendingWork 或 consecutiveFailures 大于 0 时直接安排完整交换。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:759"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:767"
   },
   {
     "fact": "未获存储复制授权的成员走 authority_only 分支，直接继续控制交换，不发摘要探针。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:772"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:780"
   },
   {
     "fact": "失败按对端指数退避（2 秒起、60 秒封顶），成功后复位。",

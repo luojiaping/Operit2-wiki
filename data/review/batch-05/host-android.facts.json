@@ -37,7 +37,7 @@
  },
  {
   "fact": "jni 0.21 只在 target_os 为 android 时作为依赖引入",
-  "ref": "hosts/android/Cargo.toml:20"
+  "ref": "hosts/android/Cargo.toml:21"
  },
  {
   "fact": "Android Host crate 依赖 `operit-host-local-inference`（本地推理共享实现）",
@@ -517,63 +517,63 @@
  },
  {
   "fact": "应用更新目标按架构选 APK：aarch64 取 arm64-v8a，arm 取 armeabi-v7a，安装时机为 Immediate",
-  "ref": "hosts/android/src/system_operation.rs:78"
+  "ref": "hosts/android/src/system_operation.rs:91"
  },
  {
   "fact": "getSystemLanguageCode 优先返回构造时给定的 language，否则调用 androidHostSystemLanguageCode",
-  "ref": "hosts/android/src/system_operation.rs:95"
+  "ref": "hosts/android/src/system_operation.rs:108"
  },
  {
   "fact": "sendNotification 返回错误，要求 Android UI host bridge",
-  "ref": "hosts/android/src/system_operation.rs:107"
+  "ref": "hosts/android/src/system_operation.rs:120"
  },
  {
   "fact": "getNotifications 返回错误，要求 Android notification host bridge",
-  "ref": "hosts/android/src/system_operation.rs:169"
+  "ref": "hosts/android/src/system_operation.rs:182"
  },
  {
   "fact": "getDeviceLocation 返回错误，要求 Android location host bridge",
-  "ref": "hosts/android/src/system_operation.rs:185"
+  "ref": "hosts/android/src/system_operation.rs:198"
  },
  {
   "fact": "getDeviceInfo 返回错误，要求 Android device info host bridge",
-  "ref": "hosts/android/src/system_operation.rs:197"
+  "ref": "hosts/android/src/system_operation.rs:210"
  },
  {
   "fact": "captureScreenshot 返回错误，要求 Android screen capture host bridge",
-  "ref": "hosts/android/src/system_operation.rs:212"
+  "ref": "hosts/android/src/system_operation.rs:225"
  },
  {
   "fact": "`captureScreenshotTo` 经 VFS 能力写截图字节并删除原生暂存文件",
-  "ref": "hosts/android/src/system_operation.rs:204"
+  "ref": "hosts/android/src/system_operation.rs:217"
  },
  {
   "fact": "recognizeText 返回错误，要求 Android OCR host bridge",
-  "ref": "hosts/android/src/system_operation.rs:218"
+  "ref": "hosts/android/src/system_operation.rs:231"
  },
  {
   "fact": "installApp 要求 Immediate 时机，再以 install_app 请求包操作",
-  "ref": "hosts/android/src/system_operation.rs:130"
- },
- {
-  "fact": "startApp 转交给 startAppWithActivity 且 activity 为 None",
-  "ref": "hosts/android/src/system_operation.rs:152"
- },
- {
-  "fact": "listInstalledApps 以 list_installed_apps 请求包操作",
   "ref": "hosts/android/src/system_operation.rs:143"
  },
  {
-  "fact": "uninstallApp 以 uninstall_app 请求包操作",
-  "ref": "hosts/android/src/system_operation.rs:136"
- },
- {
-  "fact": "stopApp 以 stop_app 请求包操作",
+  "fact": "startApp 转交给 startAppWithActivity 且 activity 为 None",
   "ref": "hosts/android/src/system_operation.rs:165"
  },
  {
+  "fact": "listInstalledApps 以 list_installed_apps 请求包操作",
+  "ref": "hosts/android/src/system_operation.rs:156"
+ },
+ {
+  "fact": "uninstallApp 以 uninstall_app 请求包操作",
+  "ref": "hosts/android/src/system_operation.rs:149"
+ },
+ {
+  "fact": "stopApp 以 stop_app 请求包操作",
+  "ref": "hosts/android/src/system_operation.rs:178"
+ },
+ {
   "fact": "应用使用时长查询以 get_app_usage_time 请求包操作",
-  "ref": "hosts/android/src/system_operation.rs:182"
+  "ref": "hosts/android/src/system_operation.rs:195"
  },
  {
   "fact": "AndroidTtsPlaybackHost 由所有者应用的控制器驱动",

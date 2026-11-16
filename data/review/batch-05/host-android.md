@@ -59,7 +59,7 @@ Host crate 不拥有 Flutter UI 状态与 WebView 控件（`hosts/README.md:49`�
 Android Host crate 依赖 `operit-host-api`（`hosts/android/Cargo.toml:12`）。
 Android Host crate 依赖 `operit-host-local-inference`（本地推理共享实现）（`hosts/android/Cargo.toml:9`）。
 Android Host crate 依赖 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage 特性（`hosts/android/Cargo.toml:13`）。
-`jni` 0.21 只在 `target_os` 为 android 时作为依赖引入（`hosts/android/Cargo.toml:20`）。
+`jni` 0.21 只在 `target_os` 为 android 时作为依赖引入（`hosts/android/Cargo.toml:21`）。
 
 ### 终端：两种实现
 
@@ -183,21 +183,21 @@ Root 进程的 `android.fileManagement`、`android.root`、`android.shizuku`、`
 
 系统操作 Host 的 `new` 接受 `settingReader`、`settingWriter` 与 `packageOperation` 三个所有者回调（`hosts/android/src/system_operation.rs:28`）。
 `forPrivilegedRuntime` 以显式启动时语言构造独立 Host（`hosts/android/src/system_operation.rs:40`）。
-应用更新目标按架构选 APK：aarch64 取 arm64-v8a，arm 取 armeabi-v7a，安装时机为 Immediate（`hosts/android/src/system_operation.rs:78`）。
-`getSystemLanguageCode` 优先返回构造时给定的 language，否则调用 `androidHostSystemLanguageCode`（`hosts/android/src/system_operation.rs:95`）。
-`sendNotification` 返回错误，要求 Android UI host bridge（`hosts/android/src/system_operation.rs:107`）。
-`getNotifications` 返回错误，要求 Android notification host bridge（`hosts/android/src/system_operation.rs:169`）。
-`getDeviceLocation` 返回错误，要求 Android location host bridge（`hosts/android/src/system_operation.rs:185`）。
-`getDeviceInfo` 返回错误，要求 Android device info host bridge（`hosts/android/src/system_operation.rs:197`）。
-`captureScreenshot` 返回错误，要求 Android screen capture host bridge（`hosts/android/src/system_operation.rs:212`）。
-`captureScreenshotTo` 经 VFS 能力写截图字节并删除原生暂存文件（`hosts/android/src/system_operation.rs:204`）。
-`recognizeText` 返回错误，要求 Android OCR host bridge（`hosts/android/src/system_operation.rs:218`）。
-`installApp` 要求 Immediate 时机，再以 install_app 请求包操作（`hosts/android/src/system_operation.rs:130`）。
-`startApp` 转交给 `startAppWithActivity` 且 activity 为 None（`hosts/android/src/system_operation.rs:152`）。
-`listInstalledApps` 以 list_installed_apps 请求包操作（`hosts/android/src/system_operation.rs:143`）。
-`uninstallApp` 以 uninstall_app 请求包操作（`hosts/android/src/system_operation.rs:136`）。
-`stopApp` 以 stop_app 请求包操作（`hosts/android/src/system_operation.rs:165`）。
-应用使用时长查询以 get_app_usage_time 请求包操作（`hosts/android/src/system_operation.rs:182`）。
+应用更新目标按架构选 APK：aarch64 取 arm64-v8a，arm 取 armeabi-v7a，安装时机为 Immediate（`hosts/android/src/system_operation.rs:91`）。
+`getSystemLanguageCode` 优先返回构造时给定的 language，否则调用 `androidHostSystemLanguageCode`（`hosts/android/src/system_operation.rs:108`）。
+`sendNotification` 返回错误，要求 Android UI host bridge（`hosts/android/src/system_operation.rs:120`）。
+`getNotifications` 返回错误，要求 Android notification host bridge（`hosts/android/src/system_operation.rs:182`）。
+`getDeviceLocation` 返回错误，要求 Android location host bridge（`hosts/android/src/system_operation.rs:198`）。
+`getDeviceInfo` 返回错误，要求 Android device info host bridge（`hosts/android/src/system_operation.rs:210`）。
+`captureScreenshot` 返回错误，要求 Android screen capture host bridge（`hosts/android/src/system_operation.rs:225`）。
+`captureScreenshotTo` 经 VFS 能力写截图字节并删除原生暂存文件（`hosts/android/src/system_operation.rs:217`）。
+`recognizeText` 返回错误，要求 Android OCR host bridge（`hosts/android/src/system_operation.rs:231`）。
+`installApp` 要求 Immediate 时机，再以 install_app 请求包操作（`hosts/android/src/system_operation.rs:143`）。
+`startApp` 转交给 `startAppWithActivity` 且 activity 为 None（`hosts/android/src/system_operation.rs:165`）。
+`listInstalledApps` 以 list_installed_apps 请求包操作（`hosts/android/src/system_operation.rs:156`）。
+`uninstallApp` 以 uninstall_app 请求包操作（`hosts/android/src/system_operation.rs:149`）。
+`stopApp` 以 stop_app 请求包操作（`hosts/android/src/system_operation.rs:178`）。
+应用使用时长查询以 get_app_usage_time 请求包操作（`hosts/android/src/system_operation.rs:195`）。
 
 ### 语音、网页访问与蓝牙
 

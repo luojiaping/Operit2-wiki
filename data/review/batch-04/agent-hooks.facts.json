@@ -261,7 +261,7 @@
   },
   {
     "fact": "`runToolPkgMainHook` 是不限时的主 hook 入口。",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:4927"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:4643"
   },
   {
     "fact": "摘要桥用 `ToolPkgPreHookTimeout::forStage` 按当前阶段取预算，偏好读取失败时直接返回错误。",

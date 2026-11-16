@@ -21,35 +21,35 @@
   },
   {
     "fact": "parseProviderRow 要求供应商目录行切分为 11 个字段，否则返回 invalid tts provider catalog row 错误",
-    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:84"
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:89"
   },
   {
     "fact": "TtsCatalog::voicesForProvider 返回指定供应商的预置音色列表",
-    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:60"
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:58"
   },
   {
     "fact": "预置音色行按 providerType 忽略大小写过滤后返回",
-    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:68"
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:66"
   },
   {
     "fact": "parseVoiceRow 要求预置音色行切分为 5 个字段",
-    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:187"
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:192"
   },
   {
     "fact": "catalogModel 在音色行模型非空时用行内模型，否则用传入的 `providerModel` 参数",
-    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:200"
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:205"
   },
   {
     "fact": "供应商操作行只接受 list_voices 操作类型，其他类型返回 invalid tts provider operation type 错误",
-    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:133"
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:138"
   },
   {
     "fact": "parseOperation 要求供应商操作行切分为 12 个 ^ 分隔字段，否则返回 invalid tts provider operation row 错误",
-    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:129"
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:134"
   },
   {
     "fact": "list_voices 操作的 handlerId 固定为 http_json",
-    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:138"
+    "ref": "core/crates/foundation/model/src/TtsCatalog.rs:145"
   },
   {
     "fact": "QWEN_TTS 默认模型为 qwen3-tts-flash，默认音频格式为 wav，默认 endpoint 为 https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation",
@@ -116,7 +116,7 @@
     "ref": "core/crates/foundation/model/src/TtsCatalog.rs:30"
   },
   {
-    "fact": "TTS_CATALOG_VOICE_ROWS 中无 SPEECHIFY_TTS 行（2026-11-15 于基线 ff5373fb6 对 collects/TtsCatalog.rs 执行 grep SPEECHIFY_TTS 零命中）",
+    "fact": "TTS_CATALOG_VOICE_ROWS 中无 SPEECHIFY_TTS 行（2026-11-16 于基线 59de537f6 对 collects/TtsCatalog.rs 执行 grep SPEECHIFY_TTS 零命中）",
     "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:1"
   },
   {
@@ -164,7 +164,7 @@
     "ref": "core/crates/foundation/model/src/TtsCatalog.rs:32"
   },
   {
-    "fact": "TTS_CATALOG_VOICE_ROWS 中无 HUME_TTS 行（2026-11-15 于基线 ff5373fb6 对 collects/TtsCatalog.rs 执行 grep HUME_TTS 零命中）",
+    "fact": "TTS_CATALOG_VOICE_ROWS 中无 HUME_TTS 行（2026-11-16 于基线 59de537f6 对 collects/TtsCatalog.rs 执行 grep HUME_TTS 零命中）",
     "ref": "core/crates/foundation/model/collects/TtsCatalog.rs:1"
   },
   {

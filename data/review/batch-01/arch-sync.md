@@ -119,8 +119,8 @@ date: 2026-11-11
 - 内容相同时仍会生成完整校正计划：correctionPlans 在 `Source::Equal` 且该 owner 在失败清单中，或任一端仍有该 owner 的 `pending` 或 `skipped` 原文时，按业务修订与节点优先序选权威端（`core/crates/node/runtime/src/SyncConsistency.rs:150`）。
 - 确定的能力／数据失败记录日志并封存为 `skip`，在本次任务的最终检查中强制复制该 `owner` 的完整快照；内容已经相同但有失败原件时仍重建该 owner 的初始化基线，健康 owner 不因其他文件失败而重导（`docs/sync-architecture.md:121`）。
 - 内容已经相同但仍有 `skip` 时也完成封存，矫正携带双方当次捕获的 `pending`／`skip` ID 与文件覆盖范围写入初始化事务，然后清理对应旧原文（`docs/sync-architecture.md:123`）。
-- 一致性校正由失败操作清单驱动：本轮失败操作 ID 收集进 `failed` 映射，传入 `synchronizeConsistency`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:977`）。
-- 交换中出现待处理操作或错误时，recordPendingWork 置对端 gate 的 `pendingWork` 为真（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:890`）；整轮同步完成时 pendingWork 清零（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:984`）。
+- 一致性校正由失败操作清单驱动：本轮失败操作 ID 收集进 `failed` 映射，传入 `synchronizeConsistency`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:991`）。
+- 交换中出现待处理操作或错误时，recordPendingWork 置对端 gate 的 `pendingWork` 为真（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:901`）；整轮同步完成时 pendingWork 清零（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:998`）。
 - 权威内容按业务修订、节点优先序依次比较选出，直接复制权威方的完整同步文件，并在两端保存相同初始化事务（`docs/transaction-model.md:146`、`docs/transaction-model.md:150`）。
 - 校正后的覆盖集合取双方已处理身份的并集，校正结果以事务合并封存（`docs/transaction-model.md:153`、`docs/transaction-model.md:160`）。
 - 故障恢复是人为规定的权威替换，允许权威内容不同于损坏历史的重放结果（`docs/transaction-model.md:166`、`docs/transaction-model.md:173`）。
@@ -162,6 +162,6 @@ date: 2026-11-11
 - docs/transaction-model.md（189 行，全文已读）
 - docs/transaction-sync-contract.md（75 行，全文已读）
 - core/crates/node/runtime/src/SyncConsistency.rs（260 行，全文已读）
-- core/crates/node/runtime/src/SpacePersistenceSyncService.rs（1818 行，节选已读：第 874–890 行 recordPendingWork、第 977–984 行 failed 清单与 pendingWork 清零）
+- core/crates/node/runtime/src/SpacePersistenceSyncService.rs（1860 行，节选已读：第 885–910 行 recordPendingWork、第 991–998 行 failed 清单与 pendingWork 清零）
 
 注：`docs/sync-architecture.md:3` 引用了 `docs/edge-architecture.md`，该文件在基线 364d1d594 与 ff5373fb6 上均不存在，本页未采用其中关于 Edge 控制状态边界的说法。
