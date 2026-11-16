@@ -393,182 +393,182 @@
   },
   {
     "fact": "加入请求的存活期常量 `LIFETIME_MS` 为 15 分钟",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:21"
-  },
-  {
-    "fact": "评审员离线宽限期常量 `OFFLINE_GRACE_MS` 为 30000 毫秒",
     "ref": "core/crates/node/runtime/src/peer/space_join.rs:22"
   },
   {
+    "fact": "评审员离线宽限期常量 `OFFLINE_GRACE_MS` 为 30000 毫秒",
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:23"
+  },
+  {
     "fact": "入站、出站、收件箱与结果四类加入记录分别由 `INBOUND`、`OUTBOUND`、`INBOX`、`RESULTS` 四个常量指向各自的运行时路径",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:17"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:18"
   },
   {
     "fact": "`request` 先执行 `prepareRequest`，再执行 `refresh`",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:555"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:556"
   },
   {
     "fact": "`prepareRequest` 先以 `PairingDirection` 的 Either 校验与目标设备的当前配对",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:564"
-  },
-  {
-    "fact": "`prepareRequest` 在存在到同一设备的活动出站请求时直接返回该请求的 requestId，不新建请求",
     "ref": "core/crates/node/runtime/src/peer/space_join.rs:565"
   },
   {
+    "fact": "`prepareRequest` 在存在到同一设备的活动出站请求时直接返回该请求的 requestId，不新建请求",
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:566"
+  },
+  {
     "fact": "新建的 `SpaceJoinRequest` 状态为 Pending，`expiresAt` 为当前时间加 `LIFETIME_MS`",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:635"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:636"
   },
   {
     "fact": "新建记录经 `saveRecord` 保存到 OUTBOUND",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:640"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:641"
   },
   {
     "fact": "`prepareSubmission` 持 `MUTATION` 锁重校配对，要求源 Space 的 spaceId 与 spaceRevision 未变，并复用已有的活动出站请求",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:617"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:618"
   },
   {
     "fact": "从 OUTBOUND 读取同意投影，状态非活动时直接返回本地请求",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1306"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1307"
   },
   {
     "fact": "在 `cancelRequested` 为真时先执行 `cancelRemote`，结果非活动时直接返回该结果",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1308"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1309"
   },
   {
     "fact": "调用对端前以 `PairingDirection` 的 Either 重新校验与目标设备的配对",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1314"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1315"
   },
   {
     "fact": "已提交时调用 `joinStatus` 并传入请求 id，未提交时调用 `requestJoin` 并传入 `submissionValue` 的提交内容",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1316"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1317"
   },
   {
     "fact": "经 `callPeerSpace` 调用目标设备，并用 `remote.validate` 校验远端回复",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1320"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1321"
   },
   {
     "fact": "重读最新本地记录，本地状态已非活动、已请求取消或状态已变化时直接返回最新本地请求，不应用远端回复",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1322"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1323"
   },
   {
     "fact": "远端状态为 Approved 时要求附带成员收据，经 `adoptApprovedMembership` 采纳成员关系后把状态置为 Joined",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1328"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1329"
   },
   {
     "fact": "发布前把远端请求的 `canApprove` 置为 false",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1331"
-  },
-  {
-    "fact": "经 `publishOutgoingResponse` 发布状态，发布结果为 Joined 时调用 `afterJoined`，其失败只记警告日志，不让刷新失败",
     "ref": "core/crates/node/runtime/src/peer/space_join.rs:1332"
   },
   {
+    "fact": "经 `publishOutgoingResponse` 发布状态，发布结果为 Joined 时调用 `afterJoined`，其失败只记警告日志，不让刷新失败",
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1333"
+  },
+  {
     "fact": "收据的 Space id 须等于目标 Space id，且本地设备与目标设备都是该 Space 成员",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1345"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1346"
   },
   {
     "fact": "采纳前经 `joinSnapshot` 重读当前目标快照，不用过时的批准快照，并校验目标 Space 仍包含申请人",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1354"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1355"
   },
   {
     "fact": "源 Space 于批准后新增成员时（`currentMembers` 不是 `approvedMembers` 的子集）拒绝采纳，要求提交新的合并请求",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1362"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1363"
   },
   {
     "fact": "采纳时导入设备画像与拓扑记录，应用控制操作后执行 `adopt` 采纳快照的 Space",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1367"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1368"
   },
   {
     "fact": "`receive` 接受 `requestJoin`、`cancelJoin` 与 `joinStatus` 三种方法，未知方法返回 Unknown Space join method 错误",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:744"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:745"
   },
   {
     "fact": "`receive` 在分派前以 `PairingDirection` 的 Either 校验与对端的当前配对",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:741"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:742"
   },
   {
     "fact": "入站待处理加入请求达到 64 个活动未过期请求时返回 Too many pending join requests 错误",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:881"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:882"
   },
   {
     "fact": "同一申请人到同一目标已有活动加入请求时返回 An active join request already exists 错误",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:884"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:885"
   },
   {
     "fact": "`reconcile` 依次执行 `expire`、`recoverCommittedApproval` 与 `assign`",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:313"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:314"
   },
   {
     "fact": "`expire` 把目标 Space id 与当前 Space id 不符的 Pending 请求置为 Cancelled，把 `expiresAt` 已到的 Pending 请求置为 Expired",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:89"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:90"
   },
   {
     "fact": "`canReview` 要求节点未断开，且同时具备 `network.members.join` 与 `network.approval` 能力",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:166"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:167"
   },
   {
     "fact": "`paired` 校验任一方向的当前配对：配对建立方向只是传输历史，不是申请人权限；配对侧的批准仍是唯一的成员同意",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:172"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:173"
   },
   {
     "fact": "当前评审员有能力且可达时保持指派并清空 `unavailableSince`，不在同等接近的对端之间来回切换",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:241"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:242"
   },
   {
     "fact": "评审员不可达且未满 `OFFLINE_GRACE_MS` 时保持原指派",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:247"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:248"
   },
   {
     "fact": "本地节点有评审能力时优先选本地节点，跳数为 0",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:250"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:251"
   },
   {
     "fact": "评审员变更时 `assignmentVersion` 加一",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:269"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:270"
   },
   {
     "fact": "`reviewerHops` 等于所选节点的跳数加一",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:277"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:278"
   },
   {
     "fact": "快照读取要求对端支持快照分页，否则返回 `SPACE_PROTOCOL_INCOMPATIBLE` 错误",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1445"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1446"
   },
   {
     "fact": "导出读取最多尝试 3 次（`0..3`）",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1449"
+    "ref": "core/crates/node/runtime/src/peer/space_projection.rs:292"
   },
   {
     "fact": "仅在导出变化（`SPACE_EXPORT_CHANGED`）时重读，否则返回当次结果",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1462"
+    "ref": "core/crates/node/runtime/src/peer/space_projection.rs:306"
   },
   {
     "fact": "`callPeerSpace` 经 `callNode` 在直接配对的对端上调用一个明确的 Space 方法",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1471"
+    "ref": "core/crates/node/runtime/src/peer/space_projection.rs:314"
   },
   {
     "fact": "取消时先把 `cancelRequested` 置为 true 并持久化，再发送取消",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1422"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1423"
   },
   {
     "fact": "取消发送后请求仍活动时调用 `refresh` 继续轮询",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1428"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1429"
   },
   {
     "fact": "purgePeerRecords 删除该设备的 INBOUND、OUTBOUND 与 INBOX 三类加入记录",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:706"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:707"
   },
   {
     "fact": "`decide` 要求本设备具备评审能力，否则返回 This device cannot approve Space join requests 错误",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1222"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:1223"
   },
   {
     "fact": "网关在本地评审员有能力且 `qrJoinConsent` 匹配当前 Space 且未过期时直接批准该加入请求",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:829"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:830"
   },
   {
     "fact": "`purgeDevice` 在配对被遗忘时退役加入申请与评审状态，重新配对的对端必须提交新请求，不得复用旧的准入",
-    "ref": "core/crates/node/runtime/src/peer/space_join.rs:686"
+    "ref": "core/crates/node/runtime/src/peer/space_join.rs:687"
   }
 ]

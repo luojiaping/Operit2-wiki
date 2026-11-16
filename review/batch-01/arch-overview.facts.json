@@ -113,7 +113,7 @@
   },
   {
     "fact": "localStateSummary 调用 publishPreferenceOutboxes 发布偏好同步 outbox",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:702"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:710"
   },
   {
     "fact": "偏好（preferences）属于 Space 持久化同步的载荷类别",
@@ -201,15 +201,15 @@
   },
   {
     "fact": "同步门控先处理退避、待处理工作与失败重试，退避未到期时本轮跳过",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:757"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:765"
   },
   {
     "fact": "未获存储复制授权的成员走 authority_only 分支，不调用 probeRemoteClockSummary，直接继续控制交换",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:772"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:780"
   },
   {
     "fact": "probeRemoteClockSummary 经 PeerSyncMethod::SyncClockDigest 读取对端时钟摘要",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:803"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:811"
   },
   {
     "fact": "同步页单侧一页最多 DEFAULT_SYNC_PAGE_BYTES（4 MiB）",

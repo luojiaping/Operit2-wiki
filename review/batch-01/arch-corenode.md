@@ -146,11 +146,11 @@ list_core_nodes 返回包含 `currentNodeId` 与 `nodes` 的对象（`core/crate
 
 全量交换由变更门控调度，空闲设备不重复搬运未变化的状态（`docs/core-node-space-binding-architecture.md:217`）。
 
-同步门控先检查 `backoffElapsed`：退避未到期时本周期不做完整交换；`pendingWork` 或 `consecutiveFailures` 大于 0 时直接安排完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:759`）。
+同步门控先检查 `backoffElapsed`：退避未到期时本周期不做完整交换；`pendingWork` 或 `consecutiveFailures` 大于 0 时直接安排完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:767`）。
 
-未获存储复制授权的成员走 `authority_only` 分支，直接继续控制交换，不发摘要探针（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:772`）。
+未获存储复制授权的成员走 `authority_only` 分支，直接继续控制交换，不发摘要探针（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:780`）。
 
-只有具备存储复制授权、处于正常变更门控状态的可达成员，才用 `syncClockDigest` 判断是否需要完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:71`）。
+只有具备存储复制授权、处于正常变更门控状态的可达成员，才用 `syncClockDigest` 判断是否需要完整交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:70`）。
 
 失败按对端指数退避（2 秒起、60 秒封顶），成功后复位（`docs/core-node-space-binding-architecture.md:230`）。
 

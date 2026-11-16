@@ -497,10 +497,10 @@
   },
   {
     "fact": "命中技能时，激活返回 `getSkillSystemPrompt` 生成的指令提示词。",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1021"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1047"
   },
   {
     "fact": "激活经 `usePackage` 执行。",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1084"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1110"
   }
 ]

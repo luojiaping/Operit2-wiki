@@ -1,10 +1,10 @@
 {
   "issue": 63,
-  "source_commit": "a119411ce",
+  "source_commit": "59de537f6",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Skills 机制：SKILL.md 目录包、device/space 双位置扫描、随包/zip/GitHub/直接输入四种导入、激活时 SKILL.md 全文拼进系统提示，PackageBuilder 为随包 Skill。",
-  "updated": "2026-11-15",
+  "updated": "2026-11-16",
   "approved_by_comment_id": 6854359515,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-13 13:33 UTC"

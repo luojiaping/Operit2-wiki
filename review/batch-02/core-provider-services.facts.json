@@ -129,11 +129,11 @@
   },
   {
     "fact": "fit_max_tokens_to_thinking_budget 在思考预算不小于 max_tokens 时，若用户显式设置了 max_tokens 则返回错误，否则把 max_tokens 扩为 budget 加 DEFAULT_MAX_TOKENS。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1296"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1277"
   },
   {
     "fact": "DEFAULT_MAX_TOKENS 是 4096。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1272"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1250"
   },
   {
     "fact": "build_serialized_history 先经 StructuredToolCallBridge::compileHistoryForProvider 编译历史。",
@@ -261,47 +261,47 @@
   },
   {
     "fact": "非流式响应按有无 choices 字段区分 OpenAI 兼容与 Anthropic 两种解析：有 choices 按 OpenAI 口径算 usage，否则按 Anthropic 口径。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:964"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:959"
   },
   {
-    "fact": "非流式响应把 text 与 tool_use 内容块经 StructuredToolCallBridge 转为 XML 工具调用文本。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:975"
+    "fact": "非流式响应由 parse_anthropic_non_streaming 生成内容，包成单块流返回。",
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:965"
   },
   {
     "fact": "process_streaming_response 对 JSON 媒体类型直接按非流式解析，否则按 SSE 解码。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1000"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:981"
   },
   {
     "fact": "\"[DONE]\" 事件标志流式响应完成。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1078"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1060"
   },
   {
     "fact": "message_stop 事件标志流式响应完成。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1210"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1186"
   },
   {
     "fact": "流在完成前结束时返回 ConnectionFailed。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1044"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1042"
   },
   {
     "fact": "content_block_start 的 tool_use 块仅在 enable_tool_call 为真时处理，转为随机标签名的 XML 工具调用标记。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1133"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1114"
   },
   {
     "fact": "thinking 内容块转为 <think> 标记包裹的思考文本。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1155"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1124"
   },
   {
     "fact": "parse_anthropic_non_streaming 把 text 与 thinking 块拼成文本，thinking 包在 <think> 标记内。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1229"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1210"
   },
   {
     "fact": "parse_anthropic_non_streaming 的 tool_use 块仅在 enable_tool_call 为真时转为随机标签名的 XML 标记。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1239"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1220"
   },
   {
     "fact": "无 content 数组时，parse_anthropic_non_streaming 回退读取 choices/0/message/content。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1213"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1198"
   },
   {
     "fact": "EnhancedAIService 持有 multi_service_manager、conversation_service、tool_handler。",

@@ -17,15 +17,15 @@ date: 2026-11-11
 
 ## AI 速览
 
-- `WorkspaceFileSyncStore` — 受管工作区文件的扫描、发布与接收。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:42`
+- `WorkspaceFileSyncStore` — 受管工作区文件的扫描、发布与接收。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:44`
 - `FileSyncPolicy` — 一份 `.operit/sync.json` 策略，含 `version`、`ignoreFiles`、`exclude`、`maxFileBytes` 与 `maxTotalBytes` 五个字段。`core/crates/persistence/store/src/FileSyncPolicy.rs:20` `core/crates/persistence/store/src/FileSyncPolicy.rs:11`
 - `FileReference` — 超限原件的定位文件，含 `nodeId`、`path`、`fileName`、`fileSize` 与可选的 `modifiedAt`。`core/crates/persistence/store/src/FileSyncPolicy.rs:240`
 - `MANAGED_ROOTS` — 三个受管根：`workspaces`、产出目录与旧附件目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:21`
 - `POLICY_PATH` — 策略文件相对路径 `.operit/sync.json`。`core/crates/persistence/store/src/FileSyncPolicy.rs:11`
-- 主入口函数：WorkspaceFileSyncStore 的 `scan`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:94`
-- 主入口函数：WorkspaceFileSyncStore 的 `trackPaths`，在应用修改前后各扫描一次。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:121`
+- 主入口函数：WorkspaceFileSyncStore 的 `scan`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:96`
+- 主入口函数：WorkspaceFileSyncStore 的 `trackPaths`，在应用修改前后各扫描一次。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:123`
 - 数据流向一句话：受管目录文件经扫描比对修改时间与大小，变化生成 `upsert` 或 `delete`。`docs/workspace-file-sync.md:45`
-- 数据流向一句话：接收端按本地策略接受或推迟入站文件，推迟的文件进入 `deferred`，策略放宽后重新变得可传输。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:429`
+- 数据流向一句话：接收端按本地策略接受或推迟入站文件，推迟的文件进入 `deferred`，策略放宽后重新变得可传输。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:478`
 
 ## 核心机制
 
@@ -33,16 +33,16 @@ date: 2026-11-11
 - 产出目录 VFS 入口 `/operitapp/outputs/<父对话创建时间>` 对应存储位置 `runtime/data/chat_outputs/<父对话创建时间>`。`docs/workspace-file-sync.md:8`
 - 旧附件 VFS 入口 `/operitapp/data/data/chat_attachments/<chatId>` 对应存储位置 `runtime/data/chat_attachments/<chatId>`。`docs/workspace-file-sync.md:9`
 - `MANAGED_ROOTS` 由 `workspaces`、`RUNTIME_CHAT_OUTPUTS_DIR_PATH` 与 `LEGACY_CHAT_ATTACHMENTS_DIR_PATH` 三个受管根组成。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:21`
-- WorkspaceFileSyncStore 的 `manages` 在路径以受管根加斜杠开头时返回真。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:82`
-- WorkspaceFileSyncStore 的 `affectedBy` 覆盖受管路径与其祖先路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:88`
-- WorkspaceFileSyncStore 的 `owns` 在操作域为 `RUNTIME_FILE_SYNC_DOMAIN` 且 `manages` 覆盖 `entityId` 时判定归属。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:77`
-- scanUnlocked 对每个受管根下的目录条目调用 FileSyncPolicy 的 `loadForScan` 加载该目录的策略。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:192`
-- `managedDirectory` 取受管根下第一段作为拥有该文件的受管目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:589`
-- `managedVfsPath` 把 `workspaces/` 前缀映射为 `/operitapp/workspaces/`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:599`
-- `managedVfsPath` 把 chat_outputs 前缀映射为 `/operitapp/outputs/`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:600`
-- `managedVfsPath` 把其余 `runtime/` 前缀映射为 `/operitapp/data/`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:601`
-- `validatePath` 要求路径属于受管路径且所有权为 `Space`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:605`
-- `validateFilePath` 要求受管文件属于某个受管目录，不接受目录本身作为文件路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:610`
+- WorkspaceFileSyncStore 的 `manages` 在路径以受管根加斜杠开头时返回真。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:84`
+- WorkspaceFileSyncStore 的 `affectedBy` 覆盖受管路径与其祖先路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:90`
+- WorkspaceFileSyncStore 的 `owns` 在操作域为 `RUNTIME_FILE_SYNC_DOMAIN` 且 `manages` 覆盖 `entityId` 时判定归属。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:79`
+- scanUnlocked 对每个受管根下的目录条目调用 FileSyncPolicy 的 `loadForScan` 加载该目录的策略。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:198`
+- `managedDirectory` 取受管根下第一段作为拥有该文件的受管目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:640`
+- `managedVfsPath` 把 `workspaces/` 前缀映射为 `/operitapp/workspaces/`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:650`
+- `managedVfsPath` 把 chat_outputs 前缀映射为 `/operitapp/outputs/`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:651`
+- `managedVfsPath` 把其余 `runtime/` 前缀映射为 `/operitapp/data/`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:652`
+- `validatePath` 要求路径属于受管路径且所有权为 `Space`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:656`
+- `validateFilePath` 要求受管文件属于某个受管目录，不接受目录本身作为文件路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:661`
 - FileSyncPolicy 的默认 `version` 为 1。`core/crates/persistence/store/src/FileSyncPolicy.rs:27`
 - FileSyncPolicy 的默认 `ignoreFiles` 为 [`.gitignore`]。`core/crates/persistence/store/src/FileSyncPolicy.rs:28`
 - FileSyncPolicy 的默认 `exclude` 含 `.git/`、`node_modules/`、`target/` 与 `build/`。`core/crates/persistence/store/src/FileSyncPolicy.rs:30`
@@ -65,17 +65,17 @@ date: 2026-11-11
 - `ignoreFiles` 含 `.gitignore` 时，includesForScan 沿路径的各级父目录读取 `.gitignore` 并追加规则。`core/crates/persistence/store/src/FileSyncPolicy.rs:135`
 - `ignored` 按规则顺序求值，后出现的白名单反选推翻前面的忽略。`core/crates/persistence/store/src/FileSyncPolicy.rs:220`
 - `isControl` 判定路径等于受管目录下的 .operit/sync.json 或 `.operit` 目录本身。`core/crates/persistence/store/src/FileSyncPolicy.rs:229`
-- scanUnlocked 中控制路径与定位文件不计入单文件限额与总量预算，直接进入待同步清单。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:201`
-- scanUnlocked 在扫描开始时忽略已有非便携路径的操作记录，并从文件清单、定位文件清单与推迟清单中剔除非便携路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:156`
+- scanUnlocked 中控制路径与定位文件不计入单文件限额与总量预算，直接进入待同步清单。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:207`
+- scanUnlocked 在扫描开始时忽略已有非便携路径的操作记录，并从文件清单、定位文件清单与推迟清单中剔除非便携路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:162`
 - 被排除的目录在遍历前剪枝，不复制内容，也不逐文件生成定位索引。`docs/workspace-file-sync.md:78`
 - 不得整体排除存放附件和定位文件的 `.operit/`。`docs/workspace-file-sync.md:78`
 - 外部挂载目录 `/virtual/...` 与 `/data/...` 不会被扫描。`docs/workspace-file-sync.md:13`
-- WorkspaceFileSyncStore 的 `scan` 只扫描受管根，不查挂载的 VFS 目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:94`
+- WorkspaceFileSyncStore 的 `scan` 只扫描受管根，不查挂载的 VFS 目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:96`
 - 软链接、链接目录、失效链接、在 Windows 上的 junction/reparse point 以及非普通文件跳过，不跟随目标。`docs/workspace-file-sync.md:13`
 - 接收端也不通过已有链接读写文件。`docs/workspace-file-sync.md:13`
 - 所有平台共用文件名兼容规则：任一目录名或文件名含禁用字符、设备保留名、末尾空格/句点或超过 255 UTF-8 字节时，整个路径直接排除，不上传、下载或落盘；旧同步记录和待写入状态也忽略，不改名、不迁移引用、不生成删除通知。`docs/workspace-file-sync.md:56`
-- 目标路径上某组件已存在但不在目录列表中时，接收端报错 `Workspace synchronization will not follow a link`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:563`
-- checkDestination 在目标路径出现文件与目录类型冲突时报错 `Workspace file/directory conflict`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:561`
+- 目标路径上某组件已存在但不在目录列表中时，接收端报错 `Workspace synchronization will not follow a link`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:614`
+- checkDestination 在目标路径出现文件与目录类型冲突时报错 `Workspace file/directory conflict`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:612`
 - 排除文件继续保留在原设备，已有副本不会因为策略收紧而自动删除。`docs/workspace-file-sync.md:54`
 - 新增忽略规则、文件变大或超过总量预算只会停止自动复制，不会作为删除广播，也不清理其他设备已有副本。`docs/workspace-file-sync.md:36`
 - 取消忽略或放宽限额后，保留的远端最新状态可重新应用。`docs/workspace-file-sync.md:36`
@@ -83,29 +83,29 @@ date: 2026-11-11
 - 超限原件保留在本机，分享 `<原文件名>.operit-ref.json` 定位文件。`docs/workspace-file-sync.md:34`
 - FileReference 的 `format` 为 `operit_file_reference`，`version` 为 1。`core/crates/persistence/store/src/FileSyncPolicy.rs:257`
 - FileReference 的 `validate` 要求 `path` 以 `/app/`、`/operitapp/`、`/mnt/`、`/virtual/` 之一开头。`core/crates/persistence/store/src/FileSyncPolicy.rs:271`
-- `wantsBlob` 在申请 Blob 之前检查本地策略，避免先下载大文件再排除。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:422`
-- `wantsBlob` 对非便携路径直接返回假，不申请 Blob。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:423`
-- 被策略推迟的文件进入 `deferred`，策略放宽后 `deferredBlobs` 重新变得可传输。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:429`
-- `acceptsForScan` 对待接收文件用本地策略的 `maxFileBytes` 核对单文件上限。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:456`
-- acceptsForScan 把待接收文件大小与同目录下已收文件大小相加后与 `maxTotalBytes` 比较。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:474`
-- `acceptsForScan` 对非便携路径直接返回假，不核对本地策略限额。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:456`
-- materializeOperations 对非便携操作记为未应用，不校验路径、不落盘。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:369`
-- captureReference 在定位文件路径已被占用且内容与新定位不符时报错 `Reference path is occupied`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:293`
-- `removeLocalReference` 只删除本节点自己生成的定位文件。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:303`
+- `wantsBlob` 在申请 Blob 之前检查本地策略，避免先下载大文件再排除。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:471`
+- `wantsBlob` 对非便携路径直接返回假，不申请 Blob。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:472`
+- 被策略推迟的文件进入 `deferred`，策略放宽后 `deferredBlobs` 重新变得可传输。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:478`
+- `acceptsForScan` 对待接收文件用本地策略的 `maxFileBytes` 核对单文件上限。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:505`
+- acceptsForScan 把待接收文件大小与同目录下已收文件大小相加后与 `maxTotalBytes` 比较。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:524`
+- `acceptsForScan` 对非便携路径直接返回假，不核对本地策略限额。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:505`
+- materializeOperations 对非便携操作记为未应用，不校验路径、不落盘。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:364`
+- captureReference 在定位文件路径已被占用且内容与新定位不符时报错 `Reference path is occupied`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:299`
+- `removeLocalReference` 只删除本节点自己生成的定位文件。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:309`
 - 文件只按修改时间和大小判同，没有创建时间或定期内容哈希检查。`docs/workspace-file-sync.md:43`
 - 未变化的文件不读内容，文件有变化时只读取一次。`docs/workspace-file-sync.md:43`
 - `upsert` 携带源文件修改时间（Unix 微秒），接收端写入字节后恢复该时间。`docs/workspace-file-sync.md:44`
-- `writePending` 写入字节后按快照的 `modifiedAt` 调用 `setModifiedAt` 恢复修改时间。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:517`
+- `writePending` 写入字节后按快照的 `modifiedAt` 调用 `setModifiedAt` 恢复修改时间。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:568`
 - 文件内容改变生成 `upsert`，消失生成 `delete`，重命名表示旧路径删除、新路径写入。`docs/workspace-file-sync.md:45`
 - 删除优先于新增，以支持文件与目录之间切换。`docs/workspace-file-sync.md:45`
-- 扫描时先为被替换路径记 `tombstone` 再发布 `upsert`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:247`
+- 扫描时先为被替换路径记 `tombstone` 再发布 `upsert`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:253`
 - 收到文件后更新清单，不把远端内容当成新本地修改再次广播。`docs/workspace-file-sync.md:47`
 - 接收前先持久化待应用内容，异常退出后重放待应用写入。`docs/workspace-file-sync.md:48`
 - 扫描失败不发布缺失文件删除。`docs/workspace-file-sync.md:48`
-- 受管根不可用且清单中仍有该根下文件时，scanUnlocked 报错拒绝批量删除。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:185`
-- `scanRead` 对 `NotFound` 与 `PermissionDenied` 跳过该路径并保留先前清单。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:271`
+- 受管根不可用且清单中仍有该根下文件时，scanUnlocked 报错拒绝批量删除。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:191`
+- `scanRead` 对 `NotFound` 与 `PermissionDenied` 跳过该路径并保留先前清单。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:277`
 - 首次加入 Space 后重新登记设备已有的本体文件，避免旧操作日志不再导出而使本地文件无法分享。`docs/workspace-file-sync.md:49`
-- `trackPaths` 在应用修改前后各扫描一次，即时捕获应用内写入。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:121`
+- `trackPaths` 在应用修改前后各扫描一次，即时捕获应用内写入。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:123`
 - 定时扫描稳定空闲时以指数退避拉长轮询间隔，2 秒起，上限 60 秒，发现变更立即回到 2 秒。`docs/workspace-file-sync.md:42`
 - 关闭 Core 后不后台运行，重新启动时补扫。`docs/workspace-file-sync.md:42`
 - 停止 Space 同步服务时停止定时扫描。`docs/workspace-file-sync.md:50`
@@ -128,31 +128,31 @@ date: 2026-11-11
 
 ## 关键符号
 
-- `WorkspaceFileSyncStore` — 受管工作区文件的扫描、发布与接收。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:42`
+- `WorkspaceFileSyncStore` — 受管工作区文件的扫描、发布与接收。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:44`
 - `MANAGED_ROOTS` — 三个受管根：`workspaces`、产出目录与旧附件目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:21`
-- WorkspaceFileSyncStore 的 `manages` — 判断路径是否属于受管根。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:82`
-- WorkspaceFileSyncStore 的 `affectedBy` — 覆盖受管路径与其祖先路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:88`
-- WorkspaceFileSyncStore 的 `owns` — 操作域为 `RUNTIME_FILE_SYNC_DOMAIN` 且 `manages` 覆盖 `entityId` 时判定归属。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:77`
-- WorkspaceFileSyncStore 的 `scan` — 只扫描受管根，不查挂载的 VFS 目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:94`
-- WorkspaceFileSyncStore 的 `scanUnlocked` — 执行一次完整扫描并返回变化数。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:153`
-- WorkspaceFileSyncStore 的 `collect` — 遍历每个受管子目录并按策略收集文件。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:318`
-- WorkspaceFileSyncStore 的 `trackPaths` — 在应用修改前后各扫描一次，即时捕获应用内写入。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:121`
-- WorkspaceFileSyncStore 的 `applyOperation` — 落盘操作并追加操作记录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:343`
-- WorkspaceFileSyncStore 的 `materializeOperations` — 按批应用操作。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:358`
-- WorkspaceFileSyncStore 的 `applyUnlocked` — 按 `upsert` 或 `delete` 落盘待应用状态。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:398`
-- WorkspaceFileSyncStore 的 `wantsBlob` — 在申请 Blob 之前检查本地策略。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:422`
-- WorkspaceFileSyncStore 的 `deferredBlobs` — 被策略推迟的文件在策略放宽后重新变得可传输。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:429`
-- WorkspaceFileSyncStore 的 `acceptsForScan` — 对待接收文件核对单文件上限与总量上限。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:456`
-- WorkspaceFileSyncStore 的 `finishPending` — 完成待应用写入并提交清单。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:491`
-- WorkspaceFileSyncStore 的 `writePending` — 写入字节后按快照的 `modifiedAt` 恢复修改时间。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:517`
-- WorkspaceFileSyncStore 的 `removeEmptyParents` — 删除后清理空的父目录，保留工作区根目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:536`
-- WorkspaceFileSyncStore 的 `checkDestination` — 在目标路径出现文件与目录类型冲突时报错。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:553`
-- WorkspaceFileSyncStore 的 `captureReference` — 在定位文件路径被占用且内容不符时报错。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:286`
-- WorkspaceFileSyncStore 的 `removeLocalReference` — 只删除本节点自己生成的定位文件。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:303`
-- `managedDirectory` — 取受管根下第一段作为拥有该文件的受管目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:589`
-- `managedVfsPath` — 把受管存储路径映射为 VFS 路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:599`
-- `validatePath` — 要求路径属于受管路径且所有权为 `Space`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:605`
-- `validateFilePath` — 要求受管文件属于某个受管目录，不接受目录本身作为文件路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:610`
+- WorkspaceFileSyncStore 的 `manages` — 判断路径是否属于受管根。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:84`
+- WorkspaceFileSyncStore 的 `affectedBy` — 覆盖受管路径与其祖先路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:90`
+- WorkspaceFileSyncStore 的 `owns` — 操作域为 `RUNTIME_FILE_SYNC_DOMAIN` 且 `manages` 覆盖 `entityId` 时判定归属。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:79`
+- WorkspaceFileSyncStore 的 `scan` — 只扫描受管根，不查挂载的 VFS 目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:96`
+- WorkspaceFileSyncStore 的 `scanUnlocked` — 执行一次完整扫描并返回变化数。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:159`
+- WorkspaceFileSyncStore 的 `collect` — 遍历每个受管子目录并按策略收集文件。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:324`
+- WorkspaceFileSyncStore 的 `trackPaths` — 在应用修改前后各扫描一次，即时捕获应用内写入。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:123`
+- WorkspaceFileSyncStore 的 `applyOperation` — 落盘操作并追加操作记录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:349`
+- WorkspaceFileSyncStore 的 `materializeOperations` — 按批应用操作。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:364`
+- WorkspaceFileSyncStore 的 `applyUnlocked` — 按 `upsert` 或 `delete` 落盘待应用状态。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:448`
+- WorkspaceFileSyncStore 的 `wantsBlob` — 在申请 Blob 之前检查本地策略。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:471`
+- WorkspaceFileSyncStore 的 `deferredBlobs` — 被策略推迟的文件在策略放宽后重新变得可传输。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:478`
+- WorkspaceFileSyncStore 的 `acceptsForScan` — 对待接收文件核对单文件上限与总量上限。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:505`
+- WorkspaceFileSyncStore 的 `finishPending` — 完成待应用写入并提交清单。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:542`
+- WorkspaceFileSyncStore 的 `writePending` — 写入字节后按快照的 `modifiedAt` 恢复修改时间。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:568`
+- WorkspaceFileSyncStore 的 `removeEmptyParents` — 删除后清理空的父目录，保留工作区根目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:587`
+- WorkspaceFileSyncStore 的 `checkDestination` — 在目标路径出现文件与目录类型冲突时报错。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:604`
+- WorkspaceFileSyncStore 的 `captureReference` — 在定位文件路径被占用且内容不符时报错。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:292`
+- WorkspaceFileSyncStore 的 `removeLocalReference` — 只删除本节点自己生成的定位文件。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:309`
+- `managedDirectory` — 取受管根下第一段作为拥有该文件的受管目录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:640`
+- `managedVfsPath` — 把受管存储路径映射为 VFS 路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:649`
+- `validatePath` — 要求路径属于受管路径且所有权为 `Space`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:656`
+- `validateFilePath` — 要求受管文件属于某个受管目录，不接受目录本身作为文件路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:661`
 - `isPortableFileName` — 判定单个文件名是否便携：非空、不超 255 字节、不以空格或句点结尾、不含禁用字符且词干不是设备保留名。`core/crates/foundation/util/src/FileUtils.rs:7`
 - `isPortableFilePath` — 要求路径每一段都通过 `isPortableFileName` 检查。`core/crates/foundation/util/src/FileUtils.rs:19`
 - `FileSyncPolicy` — 一份 `.operit/sync.json` 策略，含 `version`、`ignoreFiles`、`exclude`、`maxFileBytes` 与 `maxTotalBytes` 五个字段。`core/crates/persistence/store/src/FileSyncPolicy.rs:20` `core/crates/persistence/store/src/FileSyncPolicy.rs:11`
@@ -175,17 +175,17 @@ date: 2026-11-11
 
 ## 调用链
 
-1. 应用内写入：WorkspaceFileSyncStore 的 `trackPaths` 在修改前扫描一次，写入后立即再扫描一次。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:121`
+1. 应用内写入：WorkspaceFileSyncStore 的 `trackPaths` 在修改前扫描一次，写入后立即再扫描一次。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:123`
 2. 定时扫描：Core 运行时定时扫描覆盖终端、外部编辑器和其它绕过应用入口的写入，稳定空闲时从 2 秒起指数退避、上限 60 秒，发现变更立即回到 2 秒。`docs/workspace-file-sync.md:42`
-3. 扫描执行：WorkspaceFileSyncStore 的 `scanUnlocked` 执行一次完整扫描并返回变化数，开始时先忽略并剔除非便携路径的记录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:153`
-4. 策略加载：scanUnlocked 对每个受管根下的目录条目调用 FileSyncPolicy 的 `loadForScan` 加载该目录的策略。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:192`
-5. 收集文件：WorkspaceFileSyncStore 的 `collect` 遍历每个受管子目录并按策略收集文件。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:318`
-6. 预算判定：控制路径与定位文件直接进入待同步清单，其余文件按单文件限额与总量预算分流。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:201`
+3. 扫描执行：WorkspaceFileSyncStore 的 `scanUnlocked` 执行一次完整扫描并返回变化数，开始时先忽略并剔除非便携路径的记录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:159`
+4. 策略加载：scanUnlocked 对每个受管根下的目录条目调用 FileSyncPolicy 的 `loadForScan` 加载该目录的策略。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:198`
+5. 收集文件：WorkspaceFileSyncStore 的 `collect` 遍历每个受管子目录并按策略收集文件。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:324`
+6. 预算判定：控制路径与定位文件直接进入待同步清单，其余文件按单文件限额与总量预算分流。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:207`
 7. 发布变化：文件内容改变生成 `upsert`，消失生成 `delete`，重命名表示旧路径删除、新路径写入。`docs/workspace-file-sync.md:45`
-8. 接收检查：`wantsBlob` 在申请 Blob 之前检查本地策略，避免先下载大文件再排除。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:422`
-9. 接收落盘：WorkspaceFileSyncStore 的 `applyOperation` 落盘操作并追加操作记录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:343`
-10. 写入恢复：`writePending` 写入字节后按快照的 `modifiedAt` 调用 `setModifiedAt` 恢复修改时间。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:517`
-11. 清单提交：`finishPending` 完成待应用写入并提交清单。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:491`
+8. 接收检查：`wantsBlob` 在申请 Blob 之前检查本地策略，避免先下载大文件再排除。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:471`
+9. 接收落盘：WorkspaceFileSyncStore 的 `applyOperation` 落盘操作并追加操作记录。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:349`
+10. 写入恢复：`writePending` 写入字节后按快照的 `modifiedAt` 调用 `setModifiedAt` 恢复修改时间。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:568`
+11. 清单提交：`finishPending` 完成待应用写入并提交清单。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:542`
 12. 首次加入：首次加入 Space 后重新登记设备已有的本体文件，避免旧操作日志不再导出而使本地文件无法分享。`docs/workspace-file-sync.md:49`
 
 ## 来源

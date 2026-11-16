@@ -28,7 +28,7 @@ hosts/tests/daemon.rs 只有 Unix daemon 传输的测试脚手架，没有独立
 - `PosixFileSystemHost` — 共享 POSIX 文件系统实现（`hosts/common/operit-host-native-filesystem/src/lib.rs:93`）
 - `NativeHttpHost` — 共享原生 HTTP、WebSocket 与下载实现（`hosts/common/operit-host-native-http/src/lib.rs:31`）
 - `NativeRuntimeStorageHost` — 共享运行时存储实现（`hosts/common/operit-host-native-storage/src/lib.rs:21`）
-- `NativeArchiveStagingHost` — 共享归档暂存实现（`hosts/common/operit-host-native-storage/src/lib.rs:367`）
+- `NativeArchiveStagingHost` — 共享归档暂存实现（`hosts/common/operit-host-native-storage/src/lib.rs:372`）
 - `NativePtyTerminalHost` — 共享 POSIX PTY 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:26`）
 - `NativeHostRuntimeTaskSchedulerHost` — 共享原生任务调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）
 - `MemoryPluginSdkIpcHost` — 共享插件 SDK 内存 IPC 实现（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:9`）
@@ -101,23 +101,23 @@ NativeHttpHost 的 `downloadFiles` 批量下载多个文件并上报进度（`ho
 ### 存储、归档暂存与 SQLite
 
 `NativeRuntimeStorageHost` 用 `runtimeRoot` 与 `workspaceRoot` 两个物理根构造（`hosts/common/operit-host-native-storage/src/lib.rs:21`）。
-NativeRuntimeStorageHost 的 `resolve` 把虚拟前缀映射到物理根（`hosts/common/operit-host-native-storage/src/lib.rs:524`）。
-运行时存储路径必须以 `runtime/`、`workspaces/` 或 `secure/` 开头（`hosts/common/operit-host-native-storage/src/lib.rs:532`）。
-`managedRoot` 把 `workspaces` 与三条 `runtime/data` 聊天目录划为托管根（`hosts/common/operit-host-native-storage/src/lib.rs:542`）。
+NativeRuntimeStorageHost 的 `resolve` 把虚拟前缀映射到物理根（`hosts/common/operit-host-native-storage/src/lib.rs:529`）。
+运行时存储路径必须以 `runtime/`、`workspaces/` 或 `secure/` 开头（`hosts/common/operit-host-native-storage/src/lib.rs:537`）。
+`managedRoot` 把 `workspaces` 与三条 `runtime/data` 聊天目录划为托管根（`hosts/common/operit-host-native-storage/src/lib.rs:547`）。
 NativeRuntimeStorageWriteSession 的 `commitInternal` 关闭文件后原子重命名发布（`hosts/common/operit-host-native-storage/src/lib.rs:35`）。
-`commit` 提交时强制设备刷盘，`commitFast` 提交时不强制刷盘（`hosts/common/operit-host-native-storage/src/lib.rs:71`）。
-`publishStagedFile` 先原子替换、同步时再同步父目录（`hosts/common/operit-host-native-storage/src/lib.rs:843`）。
-Windows 原子发布用 `MoveFileExW` 加 `MOVEFILE_REPLACE_EXISTING` 与 `MOVEFILE_WRITE_THROUGH`（`hosts/common/operit-host-native-storage/src/lib.rs:885`）。
-`ARCHIVE_STAGING_DIRECTORY_NAME` 的值是 `archive_staging`（`hosts/common/operit-host-native-storage/src/lib.rs:91`）。
-`stagingRootForRuntimeRoot` 把 staging 根放在运行时父目录下的 `ARCHIVE_STAGING_DIRECTORY_NAME` 命名空间（`hosts/common/operit-host-native-storage/src/lib.rs:190`）。
-遗留归档保留期为 7 天（`hosts/common/operit-host-native-storage/src/lib.rs:94`）。
-NativeArchiveStagingHost 的 `createArchive` 创建带声明字节长度的待上传归档（`hosts/common/operit-host-native-storage/src/lib.rs:367`）。
-NativeArchiveStagingHost 的 `appendArchive` 追加分块时不允许超过声明字节长度（`hosts/common/operit-host-native-storage/src/lib.rs:423`）。
-NativeArchiveStagingHost 的 `sealArchive` 校验实际长度等于声明长度后把上传文件重命名为密封文件（`hosts/common/operit-host-native-storage/src/lib.rs:457`）。
-NativeArchiveStagingHost 的 `writeExportArchive` 单块写入上限为 64 KiB（`hosts/common/operit-host-native-storage/src/lib.rs:378`）。
-NativeArchiveStagingHost 的 `archiveFileReference` 只对已密封归档返回文件引用（`hosts/common/operit-host-native-storage/src/lib.rs:405`）。
-NativeRuntimeStorageHost 的 `openSqliteDatabase` 在存储根下打开 SQLite 数据库（`hosts/common/operit-host-native-storage/src/lib.rs:1009`）。
-SQLite 事务用 `Immediate` 行为先占写锁再读（`hosts/common/operit-host-native-storage/src/lib.rs:1082`）。
+`commit` 提交时强制设备刷盘，`commitFast` 提交时不强制刷盘（`hosts/common/operit-host-native-storage/src/lib.rs:76`）。
+`publishStagedFile` 先原子替换、同步时再同步父目录（`hosts/common/operit-host-native-storage/src/lib.rs:864`）。
+Windows 原子发布用 `MoveFileExW` 加 `MOVEFILE_REPLACE_EXISTING` 与 `MOVEFILE_WRITE_THROUGH`（`hosts/common/operit-host-native-storage/src/lib.rs:906`）。
+`ARCHIVE_STAGING_DIRECTORY_NAME` 的值是 `archive_staging`（`hosts/common/operit-host-native-storage/src/lib.rs:96`）。
+`stagingRootForRuntimeRoot` 把 staging 根放在运行时父目录下的 `ARCHIVE_STAGING_DIRECTORY_NAME` 命名空间（`hosts/common/operit-host-native-storage/src/lib.rs:195`）。
+遗留归档保留期为 7 天（`hosts/common/operit-host-native-storage/src/lib.rs:99`）。
+NativeArchiveStagingHost 的 `createArchive` 创建带声明字节长度的待上传归档（`hosts/common/operit-host-native-storage/src/lib.rs:372`）。
+NativeArchiveStagingHost 的 `appendArchive` 追加分块时不允许超过声明字节长度（`hosts/common/operit-host-native-storage/src/lib.rs:428`）。
+NativeArchiveStagingHost 的 `sealArchive` 校验实际长度等于声明长度后把上传文件重命名为密封文件（`hosts/common/operit-host-native-storage/src/lib.rs:462`）。
+NativeArchiveStagingHost 的 `writeExportArchive` 单块写入上限为 64 KiB（`hosts/common/operit-host-native-storage/src/lib.rs:383`）。
+NativeArchiveStagingHost 的 `archiveFileReference` 只对已密封归档返回文件引用（`hosts/common/operit-host-native-storage/src/lib.rs:410`）。
+NativeRuntimeStorageHost 的 `openSqliteDatabase` 在存储根下打开 SQLite 数据库（`hosts/common/operit-host-native-storage/src/lib.rs:1030`）。
+SQLite 事务用 `Immediate` 行为先占写锁再读（`hosts/common/operit-host-native-storage/src/lib.rs:1103`）。
 `NativeFileSecretStore` 由 storage crate 从 `secrets` 子模块重导出（`hosts/common/operit-host-native-storage/src/lib.rs:2`）。
 
 ### 终端与托管运行时
@@ -165,7 +165,7 @@ scheduler crate 默认启用 `javascript` feature（`hosts/common/operit-host-na
 NativeTcpHost 的 `connect` 用 `TcpStream::connect` 建立连接（`hosts/common/operit-host-native-common/src/Tcp.rs:13`）。
 NativeTcpHost 的 `bind` 绑定监听地址并返回实际本地地址（`hosts/common/operit-host-native-common/src/Tcp.rs:20`）。
 `NativeTcpConnection` 持有拆分后的读半部、写半部与关闭信号（`hosts/common/operit-host-native-common/src/Tcp.rs:37`）。
-TCP 读取用 1024 字节暂存并只分配已接收的字节（`hosts/common/operit-host-native-common/src/Tcp.rs:85`）。
+TCP 读取用 16 KiB 暂存并只分配已接收的字节（`hosts/common/operit-host-native-common/src/Tcp.rs:88`）。
 NativeSerialPortHost 的 `open` 要求端口非空且波特率非零（`hosts/common/operit-host-native-common/src/SerialPort.rs:19`）。
 NativeSerialPortHost 的 `open` 打开串口时不主动拉高 DTR（`hosts/common/operit-host-native-common/src/SerialPort.rs:21`）。
 Windows 打开串口时把波特率写入 DCB 的 `BaudRate`（`hosts/common/operit-host-native-common/src/SerialPort.rs:90`）。
@@ -285,7 +285,7 @@ operit-host-data-rescue 的 crate 文档称其为 `Native Host boundary for offl
 - `NativeHttpServerHost` — 共享 HTTP 服务端实现（`hosts/common/operit-host-native-http/src/lib.rs:5`）
 - `HttpClientPolicy` — HTTP 连接池策略标识（`hosts/common/operit-host-native-http/src/lib.rs:68`）
 - `NativeRuntimeStorageHost` — 共享运行时存储实现（`hosts/common/operit-host-native-storage/src/lib.rs:21`）
-- `NativeArchiveStagingHost` — 共享归档暂存实现（`hosts/common/operit-host-native-storage/src/lib.rs:367`）
+- `NativeArchiveStagingHost` — 共享归档暂存实现（`hosts/common/operit-host-native-storage/src/lib.rs:372`）
 - `NativeFileSecretStore` — 共享文件密钥库实现（`hosts/common/operit-host-native-storage/src/lib.rs:2`）
 - `NativePtyTerminalHost` — 共享 POSIX PTY 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:26`）
 - `NativePtyShellCommand` — 显式 POSIX shell 配置（`hosts/common/operit-host-native-terminal/src/lib.rs:269`）

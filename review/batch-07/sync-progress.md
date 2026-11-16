@@ -66,14 +66,14 @@ date: 2026-11-11
 - 小同步的开始、批次和完成均不产生界面事件，也不额外统计全部待同步数据。`docs/device-space-large-sync-progress.md:20`
 - 进度显示后跨轮次保留，完成后保留 3 秒；界面由根部 `RuntimeActivityOverlay` 统一订阅，页面切换不影响任务展示；仅完成收起使用定时器。`docs/device-space-large-sync-progress.md:20`
 - 权限撤销、成员退出或空间切换时清除不再适用的进度。`docs/device-space-large-sync-progress.md:21`
-- 结束时，在 `pending` 为真、有 `error` 或 `pendingRecords` 大于 0 时状态置为 `Waiting`，否则置为 `Completed`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:314`
-- 结束时状态为 `Completed` 的会话清除 `error`，并把 `totalRecords` 置为 `completedRecords`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:321`
-- 快速成功的不可见已完成会话在结束后从会话列表中移除，不产生可观察的生命周期。`core/crates/node/runtime/src/SpaceSyncProgress.rs:329`
-- 测试：连续 20 次小同步只收到 1 次初始空快照事件，`flow` 为空。`core/crates/node/runtime/src/SpaceSyncProgress.rs:398`
-- 测试：慢小同步在延迟届满后调用 `reveal` 仍不产生可见进度，`flow` 为空。`core/crates/node/runtime/src/SpaceSyncProgress.rs:413`
-- 测试：大库存同步在延迟届满前不揭示，延迟届满后 `reveal` 才让进度可见，`flow` 长度为 1。`core/crates/node/runtime/src/SpaceSyncProgress.rs:431`
-- 测试：延迟届满后，记录数、当前文件大小或累计传输量任一跨过门槛，`flow` 长度变为 1。`core/crates/node/runtime/src/SpaceSyncProgress.rs:464`
-- 测试：待处理轮次与重试共用同一会话，`startedAt` 不变，`exchangedRecords` 跨轮次累加到 522。`core/crates/node/runtime/src/SpaceSyncProgress.rs:482`
+- 结束时，在 `pending` 为真、有 `error` 或 `pendingRecords` 大于 0 时状态置为 `Waiting`，否则置为 `Completed`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:323`
+- 结束时状态为 `Completed` 的会话清除 `error`，并把 `totalRecords` 置为 `completedRecords`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:330`
+- 快速成功的不可见已完成会话在结束后从会话列表中移除，不产生可观察的生命周期。`core/crates/node/runtime/src/SpaceSyncProgress.rs:338`
+- 测试：连续 20 次小同步只收到 1 次初始空快照事件，`flow` 为空。`core/crates/node/runtime/src/SpaceSyncProgress.rs:425`
+- 测试：慢小同步在延迟届满后调用 `reveal` 仍不产生可见进度，`flow` 为空。`core/crates/node/runtime/src/SpaceSyncProgress.rs:440`
+- 测试：大库存同步在延迟届满前不揭示，延迟届满后 `reveal` 才让进度可见，`flow` 长度为 1。`core/crates/node/runtime/src/SpaceSyncProgress.rs:458`
+- 测试：延迟届满后，记录数、当前文件大小或累计传输量任一跨过门槛，`flow` 长度变为 1。`core/crates/node/runtime/src/SpaceSyncProgress.rs:491`
+- 测试：待处理轮次与重试共用同一会话，`startedAt` 不变，`exchangedRecords` 跨轮次累加到 522。`core/crates/node/runtime/src/SpaceSyncProgress.rs:509`
 
 ### 接收成功为什么不等于业务应用成功
 
@@ -85,10 +85,10 @@ date: 2026-11-11
 - `confirmRecords` 只在两端都不再把某条原始记录报为未应用后才计入 `completedRecords`，每条原始记录只计一次。`core/crates/node/runtime/src/SpaceSyncProgress.rs:261`
 - 计入已完成记录后，`totalRecords` 取原值与已见原始记录数（`workIds` 长度）的较大值。`core/crates/node/runtime/src/SpaceSyncProgress.rs:263`
 - `backlog` 从实际导出清单刷新总量：`totalRecords` 等于 `completedRecords` 加剩余数再加共享待处理数。`core/crates/node/runtime/src/SpaceSyncProgress.rs:231`
-- 测试：同一失败在两端各报一次只计 1 条 `pendingRecords`；512 条原始记录中有 1 条失败时 `completedRecords` 为 511、`totalRecords` 为 10000、`pendingRecords` 为 1。`core/crates/node/runtime/src/SpaceSyncProgress.rs:355`
-- 测试：结束时 `pending` 为真则状态为 `Waiting`，并保留应用错误。`core/crates/node/runtime/src/SpaceSyncProgress.rs:358`
-- 测试：缺失清单时 `totalRecords` 为 `None`，不凭页面大小编造总量；小错误仍可见，结束时状态为 `Waiting`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:378`
-- 测试：失败的原始记录在后续轮次重新上报为空后，`completedRecords` 升到 512，`pendingRecords` 归零。`core/crates/node/runtime/src/SpaceSyncProgress.rs:367`
+- 测试：同一失败在两端各报一次只计 1 条 `pendingRecords`；512 条原始记录中有 1 条失败时 `completedRecords` 为 511、`totalRecords` 为 10000、`pendingRecords` 为 1。`core/crates/node/runtime/src/SpaceSyncProgress.rs:382`
+- 测试：结束时 `pending` 为真则状态为 `Waiting`，并保留应用错误。`core/crates/node/runtime/src/SpaceSyncProgress.rs:385`
+- 测试：缺失清单时 `totalRecords` 为 `None`，不凭页面大小编造总量；小错误仍可见，结束时状态为 `Waiting`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:405`
+- 测试：失败的原始记录在后续轮次重新上报为空后，`completedRecords` 升到 512，`pendingRecords` 归零。`core/crates/node/runtime/src/SpaceSyncProgress.rs:394`
 - 验证范围要求 Rust 检查共享服务、任务跨轮次与重试、真实批次和文件统计、分页退出的 `pending` 语义。`docs/device-space-large-sync-progress.md:25`
 
 ### 文件传输与字节统计
@@ -96,12 +96,12 @@ date: 2026-11-11
 - 双向文件传输共用一段分块循环，保留逐块权限检查和落盘校验。`docs/device-space-large-sync-progress.md:19`
 - 统计已确认交换的记录与实际发送的文件字节；当前文件有真实大小才能显示比例，没有总量时不构造总体百分比。`docs/device-space-large-sync-progress.md:19`
 - 字节统计表示传输量，重传也计入。`docs/device-space-large-sync-progress.md:19`
-- `records` 把阶段切到 `Records`，`exchangedRecords` 累加传入条数，并把 `fileBytes` 与 `fileSize` 清零。`core/crates/node/runtime/src/SpaceSyncProgress.rs:270`
-- `beginFile` 把阶段切到 `Files`，`fileBytes` 清零，`fileSize` 记为传入大小。`core/crates/node/runtime/src/SpaceSyncProgress.rs:280`
-- `fileOffset` 每秒最多发布 5 次文件偏移更新（200 毫秒节流），但始终发布最终偏移。`core/crates/node/runtime/src/SpaceSyncProgress.rs:291`
-- `fileOffset` 把偏移夹在 `fileBytes` 与 `fileSize` 之间，`transferredBytes` 累加偏移增量，重传计入传输量。`core/crates/node/runtime/src/SpaceSyncProgress.rs:294`
-- 测试：两个 1024 字节文件传完后 `fileSize` 为 1024、`fileBytes` 为 1024、`transferredBytes` 为 2048，重传计入传输量。`core/crates/node/runtime/src/SpaceSyncProgress.rs:517`
-- 测试：收到一条新记录后，`fileSize` 被清零。`core/crates/node/runtime/src/SpaceSyncProgress.rs:519`
+- `records` 把阶段切到 `Records`，`exchangedRecords` 累加传入条数，并把 `fileBytes` 与 `fileSize` 清零。`core/crates/node/runtime/src/SpaceSyncProgress.rs:279`
+- `beginFile` 把阶段切到 `Files`，`fileBytes` 清零，`fileSize` 记为传入大小。`core/crates/node/runtime/src/SpaceSyncProgress.rs:289`
+- `fileOffset` 每秒最多发布 5 次文件偏移更新（200 毫秒节流），但始终发布最终偏移。`core/crates/node/runtime/src/SpaceSyncProgress.rs:300`
+- `fileOffset` 把偏移夹在 `fileBytes` 与 `fileSize` 之间，`transferredBytes` 累加偏移增量，重传计入传输量。`core/crates/node/runtime/src/SpaceSyncProgress.rs:303`
+- 测试：两个 1024 字节文件传完后 `fileSize` 为 1024、`fileBytes` 为 1024、`transferredBytes` 为 2048，重传计入传输量。`core/crates/node/runtime/src/SpaceSyncProgress.rs:544`
+- 测试：收到一条新记录后，`fileSize` 被清零。`core/crates/node/runtime/src/SpaceSyncProgress.rs:546`
 
 ### 全局任务浮层与代理复用
 
@@ -113,8 +113,8 @@ date: 2026-11-11
 - `LocalCoreProxy` 现在通过共享 `Weak` 缓存复用仍存活的应用客户端，避免强引用环，同时保留不同应用实例的隔离；原生双端测试实际经过这条代理链路。`docs/device-space-large-sync-progress.md:78`
 - `mirror` 把协调方的实际进度镜像到本端会话，并保留原 `startedAt`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:124`
 - 镜像后的会话置为可见（`visible` 为 `true`）。`core/crates/node/runtime/src/SpaceSyncProgress.rs:132`
-- 测试：镜像到不同空间的会话不进入 `flow`，`flow` 为空。`core/crates/node/runtime/src/SpaceSyncProgress.rs:534`
-- 测试：`retain` 以空成员列表清理后，`flow` 为空。`core/crates/node/runtime/src/SpaceSyncProgress.rs:548`
+- 测试：镜像到不同空间的会话不进入 `flow`，`flow` 为空。`core/crates/node/runtime/src/SpaceSyncProgress.rs:561`
+- 测试：`retain` 以空成员列表清理后，`flow` 为空。`core/crates/node/runtime/src/SpaceSyncProgress.rs:575`
 - `retain` 只保留属于指定 `spaceId` 且对端在给定成员列表中的会话。`core/crates/node/runtime/src/SpaceSyncProgress.rs:107`
 - 测试协调器仅负责阶段屏障与系统截图，不提供业务响应或注入同步进度。`docs/device-space-large-sync-progress.md:42`
 - 包加载预览单独使用示例包状态，文件名以 `package-*-preview` 标注；同步进度与拓扑订阅始终使用原生 Core。`docs/device-space-large-sync-progress.md:43`
@@ -231,12 +231,12 @@ date: 2026-11-11
 - SyncProgressTracker 的 `backlog` — 从实际导出清单刷新总量。`core/crates/node/runtime/src/SpaceSyncProgress.rs:231`
 - SyncProgressTracker 的 `report` — 按端记录未应用标识与错误。`core/crates/node/runtime/src/SpaceSyncProgress.rs:240`
 - SyncProgressTracker 的 `confirmRecords` — 只在两端都不再报未应用后才计入已完成。`core/crates/node/runtime/src/SpaceSyncProgress.rs:261`
-- SyncProgressTracker 的 `records` — 阶段切到 `Records` 并累加交换记录。`core/crates/node/runtime/src/SpaceSyncProgress.rs:270`
-- SyncProgressTracker 的 `beginFile` — 阶段切到 `Files` 并记录当前文件大小。`core/crates/node/runtime/src/SpaceSyncProgress.rs:280`
-- SyncProgressTracker 的 `fileOffset` — 节流发布文件偏移并累加传输字节。`core/crates/node/runtime/src/SpaceSyncProgress.rs:291`
-- 结束时按 `pending`、`error`、`pendingRecords` 决定 `Waiting` 或 `Completed`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:314`
+- SyncProgressTracker 的 `records` — 阶段切到 `Records` 并累加交换记录。`core/crates/node/runtime/src/SpaceSyncProgress.rs:279`
+- SyncProgressTracker 的 `beginFile` — 阶段切到 `Files` 并记录当前文件大小。`core/crates/node/runtime/src/SpaceSyncProgress.rs:289`
+- SyncProgressTracker 的 `fileOffset` — 节流发布文件偏移并累加传输字节。`core/crates/node/runtime/src/SpaceSyncProgress.rs:300`
+- 结束时按 `pending`、`error`、`pendingRecords` 决定 `Waiting` 或 `Completed`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:323`
 - `space_join::refresh` — 校验审批结果并导入成员、身份和拓扑，发布 `Joined`。`docs/device-space-large-sync-progress.md:5`
-- RuntimeRemoteLinkService 的 `afterJoined` — 只调度后台同步（`scheduleSynchronization("space_joined")`），不等待业务同步。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1389`
+- RuntimeRemoteLinkService 的 `afterJoined` — 只调度后台同步（`scheduleSynchronization("space_joined")`），不等待业务同步。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1393`
 - `synchronizeOnce` — 先交换空间投影，再通过 change gate 做权限交换、设备偏好交换、版本检查和业务同步。`docs/device-space-large-sync-progress.md:7`
 - `synchronizeDomains` — 比较 `receipt`，合并双向差异，按操作数和传输字节分页。`docs/device-space-large-sync-progress.md:8`
 - `deviceSpaceSnapshotFlow` — 只有成员和拓扑，没有同步执行信息。`docs/device-space-large-sync-progress.md:10`
@@ -250,7 +250,7 @@ date: 2026-11-11
 ## 调用链
 
 1. 加入：`space_join::refresh` 校验审批结果并导入成员、身份和拓扑，发布 `Joined`。`docs/device-space-large-sync-progress.md:5`
-2. 加入后：RuntimeRemoteLinkService 的 `afterJoined` 只调度后台同步（`scheduleSynchronization("space_joined")`），不等待业务数据同步。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1389`
+2. 加入后：RuntimeRemoteLinkService 的 `afterJoined` 只调度后台同步（`scheduleSynchronization("space_joined")`），不等待业务数据同步。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1393`
 3. 加入完成只唤醒原有后台调度，不等待业务数据全部同步后才向界面返回。`docs/device-space-large-sync-progress.md:16`
 4. 常驻同步由持久化变更、连接变化、每两秒的文件扫描唤醒。`docs/device-space-large-sync-progress.md:6`
 5. 常驻服务 `synchronizeOnce` 先交换空间投影，再通过 change gate 对可达成员执行权限交换、设备偏好交换、版本检查和业务同步；业务同步要求两端都有存储权限。`docs/device-space-large-sync-progress.md:7`
@@ -259,18 +259,18 @@ date: 2026-11-11
 8. 每轮最多 64 页；接收成功不等于业务应用成功，`receipt` 中的 `pending`、`errors` 和缺失文件留给后续轮次。`docs/device-space-large-sync-progress.md:9`
 9. 进度产生：新建会话时 `visible` 为 `false`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:159`
 10. 新建会话的状态为 `Syncing`、阶段为 `Checking`，`exchangedRecords`、`completedRecords`、`pendingRecords` 归零，`totalRecords` 为 `None`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:168`
-11. `records` 把阶段切到 `Records`，`exchangedRecords` 累加传入条数。`core/crates/node/runtime/src/SpaceSyncProgress.rs:270`
-12. `beginFile` 把阶段切到 `Files`，`fileBytes` 清零，`fileSize` 记为传入大小。`core/crates/node/runtime/src/SpaceSyncProgress.rs:280`
-13. `fileOffset` 每秒最多发布 5 次文件偏移更新（200 毫秒节流），但始终发布最终偏移。`core/crates/node/runtime/src/SpaceSyncProgress.rs:291`
-14. `fileOffset` 把偏移夹在 `fileBytes` 与 `fileSize` 之间，`transferredBytes` 累加偏移增量，重传计入传输量。`core/crates/node/runtime/src/SpaceSyncProgress.rs:294`
+11. `records` 把阶段切到 `Records`，`exchangedRecords` 累加传入条数。`core/crates/node/runtime/src/SpaceSyncProgress.rs:279`
+12. `beginFile` 把阶段切到 `Files`，`fileBytes` 清零，`fileSize` 记为传入大小。`core/crates/node/runtime/src/SpaceSyncProgress.rs:289`
+13. `fileOffset` 每秒最多发布 5 次文件偏移更新（200 毫秒节流），但始终发布最终偏移。`core/crates/node/runtime/src/SpaceSyncProgress.rs:300`
+14. `fileOffset` 把偏移夹在 `fileBytes` 与 `fileSize` 之间，`transferredBytes` 累加偏移增量，重传计入传输量。`core/crates/node/runtime/src/SpaceSyncProgress.rs:303`
 15. `report` 按端（`side`）记录未应用标识与错误。`core/crates/node/runtime/src/SpaceSyncProgress.rs:240`
 16. `pendingRecords` 取各端待处理标识集合的并集大小；错误非空时会话置为可见。`core/crates/node/runtime/src/SpaceSyncProgress.rs:247`
 17. `confirmRecords` 只在两端都不再把某条原始记录报为未应用后才计入 `completedRecords`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:261`
 18. `backlog` 从实际导出清单刷新总量。`core/crates/node/runtime/src/SpaceSyncProgress.rs:231`
 19. 可见性门禁：仅在会话已有实质工作量（`hasSubstantialWork`）且已满 3 秒、或出现 `error` 时，会话变为可见。`core/crates/node/runtime/src/SpaceSyncProgress.rs:224`
-20. 结束时，在 `pending` 为真、有 `error` 或 `pendingRecords` 大于 0 时状态置为 `Waiting`，否则置为 `Completed`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:314`
-21. 结束时状态为 `Completed` 的会话清除 `error`，并把 `totalRecords` 置为 `completedRecords`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:321`
-22. 快速成功的不可见已完成会话在结束后从会话列表中移除，不产生可观察的生命周期。`core/crates/node/runtime/src/SpaceSyncProgress.rs:329`
+20. 结束时，在 `pending` 为真、有 `error` 或 `pendingRecords` 大于 0 时状态置为 `Waiting`，否则置为 `Completed`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:323`
+21. 结束时状态为 `Completed` 的会话清除 `error`，并把 `totalRecords` 置为 `completedRecords`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:330`
+22. 快速成功的不可见已完成会话在结束后从会话列表中移除，不产生可观察的生命周期。`core/crates/node/runtime/src/SpaceSyncProgress.rs:338`
 23. 界面：根部 `RuntimeActivityOverlay` 统一订阅，页面切换不影响任务展示；进度显示后跨轮次保留，完成后保留 3 秒收起。`docs/device-space-large-sync-progress.md:20`
 24. 联调验证：协调器启动命令为 `python3 apps/flutter/app/integration_test/device_space_sync_coordinator.py` `--output docs/assets/sync-progress-2026-10-25`。`docs/device-space-large-sync-progress.md:49`
 25. 联调验证：两端分别运行 `fvm flutter test integration_test/device_space_sync_native_test.dart -d macos --reporter expanded` 与同一命令的 -d iOS 模拟器 UDID 变体。`docs/device-space-large-sync-progress.md:56`

@@ -16,7 +16,7 @@ date: 2026-11-11
 
 技能不走冒号命名：调用方用 use_package 工具传 `package_name` 参数激活（core/crates/tool/services/src/tools/ToolRegistration.rs:84）。
 
-命中技能时，激活返回 `getSkillSystemPrompt` 生成的指令提示词（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1021）。
+命中技能时，激活返回 `getSkillSystemPrompt` 生成的指令提示词（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1047）。
 
 JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_execution_provider()` 创建（core/crates/tool/services/src/tools/PackageToolExecutor.rs:81），具体 JS 引擎随 Host 而异；Core 侧的适配与调度逻辑本身是平台无关的 Rust 代码。
 
@@ -211,8 +211,8 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 1. SkillManager 的 `refreshAvailableSkills` 扫描 device 与 space 两个位置（core/crates/tool/services/src/tools/skill/SkillManager.rs:53）
 2. 扫描按 `SKILL.md` 优先、`skill.md` 兜底解析元数据，冲突与缺失记入错误集合（core/crates/tool/services/src/tools/skill/SkillManager.rs:122）
 3. 模型调用 use_package 工具，`package_name` 参数指定技能名（core/crates/tool/services/src/tools/ToolRegistration.rs:84）
-4. `executeUsePackageTool` 调 `usePackage` 执行激活（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1038）（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1084）
-5. 命中技能时返回 `getSkillSystemPrompt` 生成的提示词（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1021）
+4. `executeUsePackageTool` 调 `usePackage` 执行激活（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1064）（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1110）
+5. 命中技能时返回 `getSkillSystemPrompt` 生成的提示词（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1047）
 6. `getSkillSystemPrompt` 生成含目录树与 `SKILL.md` 全文的激活提示词（core/crates/tool/services/src/tools/skill/SkillManager.rs:429）（core/crates/tool/services/src/tools/skill/SkillManager.rs:460）
 
 ### MCP 工具调用

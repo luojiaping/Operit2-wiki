@@ -46,10 +46,10 @@ date: 2026-11-11
 - `UNMEASURED_DIRECT_PEER_COST` — 无度量直连对端的选路代价，值为 1_000_000_000。`core/crates/persistence/store/src/CoreSpaceStore.rs:19`
 - `COMPACT_TOPOLOGY_V1` — 拓扑紧凑编码名，值为 topologyV1。`core/crates/persistence/store/src/CoreSpaceStore.rs:127`
 - `PreferencesDataStore` — 偏好存储，new 创建同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2909`
-- `Preferences` — 偏好快照，PartialEq 只比较持久化值。`core/crates/persistence/store/src/PreferencesDataStore.rs:1586`
-- `CoreNodeStateStore` — typedEntry 只解码请求的记录，不展开无关 JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:1868`
-- `CoreNodeSecretStore` — 存节点本地凭证与密钥，接受旧版加密文件。`core/crates/persistence/store/src/PreferencesDataStore.rs:2350`
-- `PreferencesSyncDescriptor` — forStoragePath 由存储路径推导同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2410`
+- `Preferences` — 偏好快照，PartialEq 只比较持久化值。`core/crates/persistence/store/src/PreferencesDataStore.rs:1587`
+- `CoreNodeStateStore` — typedEntry 只解码请求的记录，不展开无关 JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:1879`
+- `CoreNodeSecretStore` — 存节点本地凭证与密钥，接受旧版加密文件。`core/crates/persistence/store/src/PreferencesDataStore.rs:2361`
+- `PreferencesSyncDescriptor` — forStoragePath 由存储路径推导同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2421`
 - `PreferencesSyncedEntry` — fromOperation 要求同步操作的域为 preferences。`core/crates/persistence/store/src/PreferencesDataStore.rs:2573`
 - `Flow` — collectWithCancellation 先发出当前值，再在 waitChanged 报告变化后发出新值。`core/crates/persistence/store/src/PreferencesDataStore.rs:352`
 - `StateFlow` — set_value 在值不变时不通知订阅者。`core/crates/persistence/store/src/PreferencesDataStore.rs:752`
@@ -167,21 +167,21 @@ CoreNodeBindingStore::compareAndSet 在目标与当前相同时直接返回当�
 
 CoreNodeBindingStore::delete 追加 `delete` 操作并清进程缓存，不要求目标执行节点在场。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:168`
 
-CoreNodeBindingStore::applySyncedOperation 应用已同步的 Binding 操作，不产生新的本地操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:215`
+CoreNodeBindingStore::applySyncedOperation 应用已同步的 Binding 操作，不产生新的本地操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:227`
 
-CoreNodeBindingStore::applyBootstrapOperation 应用 Space 引导的 Binding 操作，跳过本地冲突过滤。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:221`
+CoreNodeBindingStore::applyBootstrapOperation 应用 Space 引导的 Binding 操作，跳过本地冲突过滤。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:233`
 
-CoreNodeBindingStore::applyImmediateOperation 用 `appendUnobservedOperation` 追加直接传输的操作，不推进持久化时钟。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:271`
+CoreNodeBindingStore::applyImmediateOperation 用 `appendUnobservedOperation` 追加直接传输的操作，不推进持久化时钟。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:283`
 
-`materializeBindingRecords` 按 `bindingOperationOrder` 取每个实体的最新操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:302`
+`materializeBindingRecords` 按 `bindingOperationOrder` 取每个实体的最新操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:314`
 
-只有 `upsert` 操作能成为当前 Binding 记录，delete 操作不产生记录。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:312`
+只有 `upsert` 操作能成为当前 Binding 记录，delete 操作不产生记录。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:324`
 
-`validateBindingOperation` 要求域、实体类型、操作名与 `EntityState` 语义四者一致。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:441`
+`validateBindingOperation` 要求域、实体类型、操作名与 `EntityState` 语义四者一致。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:453`
 
-Binding 的 `delete` 操作载荷必须为 `null`。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:451`
+Binding 的 `delete` 操作载荷必须为 `null`。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:463`
 
-Binding 的 `generation` 必须为正数。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:462`
+Binding 的 `generation` 必须为正数。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:474`
 
 同一 storage host 与同步根路径上的 Binding store 共享一份进程内缓存。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:61`
 
@@ -197,9 +197,9 @@ CoreSpaceStore::new 创建的 store 记录同步操作。`core/crates/persistenc
 
 CoreSpaceStore::newNodeLocal 创建的端点 store 不记录同步操作、业务复制时钟与日志。`core/crates/persistence/store/src/CoreSpaceStore.rs:166`
 
-新 Space 的初始显示名是 `Operit`。`core/crates/persistence/store/src/CoreSpaceStore.rs:1602`
+新 Space 的初始显示名是 `Operit`。`core/crates/persistence/store/src/CoreSpaceStore.rs:1613`
 
-新 Space 的 id 格式是 space-{uuid}。`core/crates/persistence/store/src/CoreSpaceStore.rs:1608`
+新 Space 的 id 格式是 space-{uuid}。`core/crates/persistence/store/src/CoreSpaceStore.rs:1619`
 
 CoreSpaceStore::initializeNamed 创建 `spaceRevision` 为 1 的成员记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:193`
 
@@ -229,27 +229,27 @@ CoreSpaceStore::writeLocalDeviceProfile 在展示字段不变时直接返回已�
 
 CoreSpaceStore::writeLocalDeviceProfile 写本地设备档案时，若 Space 仍是 revision 1 的初始单成员 Space 且名仍为默认名，则把 Space 重命名为设备显示名。`core/crates/persistence/store/src/CoreSpaceStore.rs:641`
 
-CoreSpaceStore::importDeviceProfiles 跳过 `updatedAt` 不比已有记录新的 profile。`core/crates/persistence/store/src/CoreSpaceStore.rs:756`
+CoreSpaceStore::importDeviceProfiles 跳过 `updatedAt` 不比已有记录新的 profile。`core/crates/persistence/store/src/CoreSpaceStore.rs:767`
 
-CoreSpaceStore::deviceProfilesForCurrentSpace 在成员缺少 profile 时报错。`core/crates/persistence/store/src/CoreSpaceStore.rs:722`
+CoreSpaceStore::deviceProfilesForCurrentSpace 在成员缺少 profile 时报错。`core/crates/persistence/store/src/CoreSpaceStore.rs:733`
 
-readRecords 读坏的非本地记录时只记警告并跳过，读坏的本地记录时返回错误。`core/crates/persistence/store/src/CoreSpaceStore.rs:1181`
+readRecords 读坏的非本地记录时只记警告并跳过，读坏的本地记录时返回错误。`core/crates/persistence/store/src/CoreSpaceStore.rs:1192`
 
-`coreSpaceFromRecords` 的记录为空时报错 `Device space is not initialized`。`core/crates/persistence/store/src/CoreSpaceStore.rs:1461`
+`coreSpaceFromRecords` 的记录为空时报错 `Device space is not initialized`。`core/crates/persistence/store/src/CoreSpaceStore.rs:1472`
 
-`coreSpaceFromRecords` 在本地身份无成员记录时报错。`core/crates/persistence/store/src/CoreSpaceStore.rs:1456`
+`coreSpaceFromRecords` 在本地身份无成员记录时报错。`core/crates/persistence/store/src/CoreSpaceStore.rs:1467`
 
-coreSpaceFromRecords 只取与本地身份同一 `spaceId` 的记录作为成员。`core/crates/persistence/store/src/CoreSpaceStore.rs:1468`
+coreSpaceFromRecords 只取与本地身份同一 `spaceId` 的记录作为成员。`core/crates/persistence/store/src/CoreSpaceStore.rs:1479`
 
-`hasSameMembershipAs` 比较除 updatedAt 外的全部成员字段。`core/crates/persistence/store/src/CoreSpaceStore.rs:1448`
+`hasSameMembershipAs` 比较除 updatedAt 外的全部成员字段。`core/crates/persistence/store/src/CoreSpaceStore.rs:1459`
 
-`writeSpaceProjectionAt` 拒绝 revision 小于等于 0 的投影。`core/crates/persistence/store/src/CoreSpaceStore.rs:1223`
+`writeSpaceProjectionAt` 拒绝 revision 小于等于 0 的投影。`core/crates/persistence/store/src/CoreSpaceStore.rs:1234`
 
-`writeMemberRecord` 用 `replaceRecoverably` 写成员记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:1200`
+`writeMemberRecord` 用 `replaceRecoverably` 写成员记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:1211`
 
-`importTopologyRecords` 跳过本地记录与 `updatedAt` 不比已有记录新的公告。`core/crates/persistence/store/src/CoreSpaceStore.rs:1257`
+`importTopologyRecords` 跳过本地记录与 `updatedAt` 不比已有记录新的公告。`core/crates/persistence/store/src/CoreSpaceStore.rs:1268`
 
-导入的拓扑记录不产生本地同步操作。`core/crates/persistence/store/src/CoreSpaceStore.rs:1266`
+导入的拓扑记录不产生本地同步操作。`core/crates/persistence/store/src/CoreSpaceStore.rs:1277`
 
 ### 链路、拓扑与选路
 
@@ -271,59 +271,59 @@ coreSpaceFromRecords 只取与本地身份同一 `spaceId` 的记录作为成员
 
 `CoreSpaceRoutePlan` 的 `hops` 返回路径的跳数。`core/crates/persistence/store/src/CoreSpaceStore.rs:107`
 
-CoreSpaceStore::setDirectPeers 拒绝把本设备登记为直接对端。`core/crates/persistence/store/src/CoreSpaceStore.rs:807`
+CoreSpaceStore::setDirectPeers 拒绝把本设备登记为直接对端。`core/crates/persistence/store/src/CoreSpaceStore.rs:818`
 
-CoreSpaceStore::publishLocalLinkAdvertisement 拒绝向非活跃直接对端发布链路广告。`core/crates/persistence/store/src/CoreSpaceStore.rs:848`
+CoreSpaceStore::publishLocalLinkAdvertisement 拒绝向非活跃直接对端发布链路广告。`core/crates/persistence/store/src/CoreSpaceStore.rs:859`
 
-CoreSpaceStore::publishLocalAdjacency 在对端集合与未过期链路都未变时返回 `false`，不写记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:910`
+CoreSpaceStore::publishLocalAdjacency 在对端集合与未过期链路都未变时返回 `false`，不写记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:921`
 
-新对端的初始链路广告 `sequence` 为 1，`channelEpoch` 为 direct-adjacency。`core/crates/persistence/store/src/CoreSpaceStore.rs:938`
+新对端的初始链路广告 `sequence` 为 1，`channelEpoch` 为 direct-adjacency。`core/crates/persistence/store/src/CoreSpaceStore.rs:949`
 
-`reachableNextHopThroughPeers` 用 Dijkstra 在未过期的有向链路度量上解析首跳。`core/crates/persistence/store/src/CoreSpaceStore.rs:1001`
+`reachableNextHopThroughPeers` 用 Dijkstra 在未过期的有向链路度量上解析首跳。`core/crates/persistence/store/src/CoreSpaceStore.rs:1012`
 
 无度量的直连对端在选路时代价为 `1_000_000_000`。`core/crates/persistence/store/src/CoreSpaceStore.rs:19`
 
 `UNMEASURED_DIRECT_PEER_COST` 的值是 `1_000_000_000`。`core/crates/persistence/store/src/CoreSpaceStore.rs:19`
 
-`linkCost` 等于 1000 加 `smoothedRttMs` 乘 10、`lossPermille` 乘 25、`congestionPermille` 乘 10。`core/crates/persistence/store/src/CoreSpaceStore.rs:1686`
+`linkCost` 等于 1000 加 `smoothedRttMs` 乘 10、`lossPermille` 乘 25、`congestionPermille` 乘 10。`core/crates/persistence/store/src/CoreSpaceStore.rs:1697`
 
-routePlanThroughPeers 拒绝以本设备为目标、拒绝非成员目标。`core/crates/persistence/store/src/CoreSpaceStore.rs:1029`
+routePlanThroughPeers 拒绝以本设备为目标、拒绝非成员目标。`core/crates/persistence/store/src/CoreSpaceStore.rs:1040`
 
-`deviceConnections` 只返回当前 Space 成员之间的有向直连。`core/crates/persistence/store/src/CoreSpaceStore.rs:961`
+`deviceConnections` 只返回当前 Space 成员之间的有向直连。`core/crates/persistence/store/src/CoreSpaceStore.rs:972`
 
-拓扑记录不允许重复对端。`core/crates/persistence/store/src/CoreSpaceStore.rs:1642`
+拓扑记录不允许重复对端。`core/crates/persistence/store/src/CoreSpaceStore.rs:1653`
 
-拓扑记录不允许自环。`core/crates/persistence/store/src/CoreSpaceStore.rs:1647`
+拓扑记录不允许自环。`core/crates/persistence/store/src/CoreSpaceStore.rs:1658`
 
-链路广告的目标必须是直接对端。`core/crates/persistence/store/src/CoreSpaceStore.rs:1657`
+链路广告的目标必须是直接对端。`core/crates/persistence/store/src/CoreSpaceStore.rs:1668`
 
-拓扑记录不允许重复有向链路。`core/crates/persistence/store/src/CoreSpaceStore.rs:1660`
+拓扑记录不允许重复有向链路。`core/crates/persistence/store/src/CoreSpaceStore.rs:1671`
 
-链路广告要求 `sequence` 为正、`expiresAt` 大于 `measuredAt`、`loss` 与 `congestion` 各不超过 1000。`core/crates/persistence/store/src/CoreSpaceStore.rs:1675`
+链路广告要求 `sequence` 为正、`expiresAt` 大于 `measuredAt`、`loss` 与 `congestion` 各不超过 1000。`core/crates/persistence/store/src/CoreSpaceStore.rs:1686`
 
-`migrateRecord` 把 schema 2 下以字符串存放的记录解码为对象。`core/crates/persistence/store/src/CoreSpaceStore.rs:1422`
+`migrateRecord` 把 schema 2 下以字符串存放的记录解码为对象。`core/crates/persistence/store/src/CoreSpaceStore.rs:1433`
 
-`migrateRecord` 在记录版本已不低于 3 时返回 `SchemaVersionTooNew`。`core/crates/persistence/store/src/CoreSpaceStore.rs:1424`
+`migrateRecord` 在记录版本已不低于 3 时返回 `SchemaVersionTooNew`。`core/crates/persistence/store/src/CoreSpaceStore.rs:1435`
 
-节点本地端点在 `nodeLocalApplicationHistoryLimit` 存在时用 topologyV1 紧凑编码存拓扑。`core/crates/persistence/store/src/CoreSpaceStore.rs:1321`
+节点本地端点在 `nodeLocalApplicationHistoryLimit` 存在时用 topologyV1 紧凑编码存拓扑。`core/crates/persistence/store/src/CoreSpaceStore.rs:1332`
 
 `COMPACT_TOPOLOGY_V1` 的值是 `topologyV1`。`core/crates/persistence/store/src/CoreSpaceStore.rs:127`
 
 ### 校验规则
 
-`validateSpaceName` 要求名非空、不超过 80 字符、不含控制字符。`core/crates/persistence/store/src/CoreSpaceStore.rs:1628`
+`validateSpaceName` 要求名非空、不超过 80 字符、不含控制字符。`core/crates/persistence/store/src/CoreSpaceStore.rs:1639`
 
-`validateDeviceProfileField` 要求字段非空、不超过 160 字符、不含控制字符。`core/crates/persistence/store/src/CoreSpaceStore.rs:1585`
+`validateDeviceProfileField` 要求字段非空、不超过 160 字符、不含控制字符。`core/crates/persistence/store/src/CoreSpaceStore.rs:1596`
 
-`validateDeviceUserName` 要求用户名不超过 80 字符、不含控制字符。`core/crates/persistence/store/src/CoreSpaceStore.rs:1570`
+`validateDeviceUserName` 要求用户名不超过 80 字符、不含控制字符。`core/crates/persistence/store/src/CoreSpaceStore.rs:1581`
 
-`validateDevicePresence` 只在 `active` 为 true 时要求 `baseUrl` 与 `version` 非空。`core/crates/persistence/store/src/CoreSpaceStore.rs:1534`
+`validateDevicePresence` 只在 `active` 为 true 时要求 `baseUrl` 与 `version` 非空。`core/crates/persistence/store/src/CoreSpaceStore.rs:1545`
 
 ### 偏好存储的两种形态
 
-`PreferencesDataStore` 的字段含 `path`、`storagePath`、`storageHost`、`encryption`、`syncOperationStore`、`syncDescriptor`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1842`
+`PreferencesDataStore` 的字段含 `path`、`storagePath`、`storageHost`、`encryption`、`syncOperationStore`、`syncDescriptor`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1853`
 
-`PreferencesDataStore` 的字段含 `changeSignal`、`sharedState`、`schema`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1847`
+`PreferencesDataStore` 的字段含 `changeSignal`、`sharedState`、`schema`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1858`
 
 PreferencesDataStore::new 创建同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2909`
 
@@ -339,39 +339,39 @@ PreferencesDataStore::newNodeLocalWithStorage 创建节点本地 store。`core/c
 
 节点本地 store 的 `syncOperationStore` 与 `syncDescriptor` 均为 `None`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3001`
 
-PreferencesSyncDescriptor::forStoragePath 由存储路径推导同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2426`
+PreferencesSyncDescriptor::forStoragePath 由存储路径推导同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2437`
 
-同步描述符的域固定为 `preferences`，实体类型取自文件名去掉 `.preferences.json` 与 `.json` 后缀。`core/crates/persistence/store/src/PreferencesDataStore.rs:2437`
+同步描述符的域固定为 `preferences`，实体类型取自文件名去掉 `.preferences.json` 与 `.json` 后缀。`core/crates/persistence/store/src/PreferencesDataStore.rs:2448`
 
-`preferenceSyncStore` 只认 members、profiles、presence、topology 四个目录下的 `.preferences.json` 记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:1411`
+`preferenceSyncStore` 只认 members、profiles、presence、topology 四个目录下的 `.preferences.json` 记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:1422`
 
-CoreNodeStateStore::typedEntry 只解码请求的记录，不展开无关 JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:1883`
+CoreNodeStateStore::typedEntry 只解码请求的记录，不展开无关 JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:1894`
 
-CoreNodeStateStore::delete 同时删除文件与共享快照，避免后续相同导入被缓存跳过。`core/crates/persistence/store/src/PreferencesDataStore.rs:2141`
+CoreNodeStateStore::delete 同时删除文件与共享快照，避免后续相同导入被缓存跳过。`core/crates/persistence/store/src/PreferencesDataStore.rs:2152`
 
-`CoreNodeSecretStore` 存节点本地凭证与密钥，接受旧版加密文件。`core/crates/persistence/store/src/PreferencesDataStore.rs:2350`
+`CoreNodeSecretStore` 存节点本地凭证与密钥，接受旧版加密文件。`core/crates/persistence/store/src/PreferencesDataStore.rs:2361`
 
-encodeStoredPreferences 的 `bounded` 模式指无同步描述符且存储宿主不保留偏好缓存。`core/crates/persistence/store/src/PreferencesDataStore.rs:3524`
+encodeStoredPreferences 的 `bounded` 模式指无同步描述符且存储宿主不保留偏好缓存。`core/crates/persistence/store/src/PreferencesDataStore.rs:3529`
 
-encodeStoredPreferences 在 `bounded` 模式下写紧凑 JSON，否则写 pretty JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:3530`
+encodeStoredPreferences 在 `bounded` 模式下写紧凑 JSON，否则写 pretty JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:3535`
 
 读取偏好文件不改写文件，不创建新解密密钥。`core/crates/persistence/store/src/PreferencesDataStore.rs:3238`
 
-加密偏好文件以 `format` 字段 `operit.preferences.encrypted` 标识。`core/crates/persistence/store/src/PreferencesDataStore.rs:3602`
+加密偏好文件以 `format` 字段 `operit.preferences.encrypted` 标识。`core/crates/persistence/store/src/PreferencesDataStore.rs:3607`
 
 ### 偏好条目与变更
 
-`Preferences` 的 `set` 在值不变时直接返回，不记变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1633`
+`Preferences` 的 `set` 在值不变时直接返回，不记变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1644`
 
-`Preferences` 的 `set` 把每次写记为一条 `set` 变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1633`
+`Preferences` 的 `set` 把每次写记为一条 `set` 变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1644`
 
-增量写记为 `increment` 操作，存增量而非绝对值。`core/crates/persistence/store/src/PreferencesDataStore.rs:1680`
+增量写记为 `increment` 操作，存增量而非绝对值。`core/crates/persistence/store/src/PreferencesDataStore.rs:1691`
 
-`Preferences` 的 `setObjectField` 只改对象的一个字段。`core/crates/persistence/store/src/PreferencesDataStore.rs:1715`
+`Preferences` 的 `setObjectField` 只改对象的一个字段。`core/crates/persistence/store/src/PreferencesDataStore.rs:1726`
 
-对象字段的变更记为 `patch_object` 操作。`core/crates/persistence/store/src/PreferencesDataStore.rs:1751`
+对象字段的变更记为 `patch_object` 操作。`core/crates/persistence/store/src/PreferencesDataStore.rs:1762`
 
-`Preferences` 的 `PartialEq` 只比较持久化值，不比较待提交变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1586`
+`Preferences` 的 `PartialEq` 只比较持久化值，不比较待提交变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1587`
 
 ### Schema 与迁移
 
@@ -433,17 +433,17 @@ schema 元数据键不许作为业务条目同步。`core/crates/persistence/sto
 
 PreferencesSyncedEntry::requireSchemaVersion 在远端 schema 版本高于本地时返回 `SchemaVersionTooNew`。`core/crates/persistence/store/src/PreferencesDataStore.rs:2752`
 
-`prepareSync`、`isSyncPrepared`、`syncSnapshot`、`repairSyncedSnapshot` 四个同步入口委托给 `Transaction::preference`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3904`
+`prepareSync`、`isSyncPrepared`、`syncSnapshot`、`repairSyncedSnapshot` 四个同步入口委托给 `Transaction::preference`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3909`
 
-同步的插件偏好路径必须以 `.preferences.json` 结尾。`core/crates/persistence/store/src/PreferencesDataStore.rs:3712`
+同步的插件偏好路径必须以 `.preferences.json` 结尾。`core/crates/persistence/store/src/PreferencesDataStore.rs:3717`
 
-同步的插件偏好路径必须归 Space 所有，节点本地与临时存储不许同步偏好。`core/crates/persistence/store/src/PreferencesDataStore.rs:3717`
+同步的插件偏好路径必须归 Space 所有，节点本地与临时存储不许同步偏好。`core/crates/persistence/store/src/PreferencesDataStore.rs:3722`
 
-同一 storage host 与路径的偏好 store 共享同一份 shared state。`core/crates/persistence/store/src/PreferencesDataStore.rs:3778`
+同一 storage host 与路径的偏好 store 共享同一份 shared state。`core/crates/persistence/store/src/PreferencesDataStore.rs:3783`
 
-同一 storage host 与路径的偏好 store 共享同一个 change signal。`core/crates/persistence/store/src/PreferencesDataStore.rs:3806`
+同一 storage host 与路径的偏好 store 共享同一个 change signal。`core/crates/persistence/store/src/PreferencesDataStore.rs:3811`
 
-`notifyChanged` 递增版本号、唤醒等待者并调度订阅者回调。`core/crates/persistence/store/src/PreferencesDataStore.rs:3584`
+`notifyChanged` 递增版本号、唤醒等待者并调度订阅者回调。`core/crates/persistence/store/src/PreferencesDataStore.rs:3589`
 
 ## 关键符号
 
@@ -491,13 +491,13 @@ sqliteParams! — 值转 `SqliteValue` 参数向量。`core/crates/persistence/s
 
 `PreferencesDataStore` — 偏好存储，同步与节点本地两种形态。`core/crates/persistence/store/src/PreferencesDataStore.rs:2909`
 
-`Preferences` — 偏好快照。`core/crates/persistence/store/src/PreferencesDataStore.rs:1586`
+`Preferences` — 偏好快照。`core/crates/persistence/store/src/PreferencesDataStore.rs:1587`
 
-`CoreNodeStateStore` — 节点本地状态存储。`core/crates/persistence/store/src/PreferencesDataStore.rs:1868`
+`CoreNodeStateStore` — 节点本地状态存储。`core/crates/persistence/store/src/PreferencesDataStore.rs:1879`
 
-`CoreNodeSecretStore` — 节点本地凭证与密钥存储。`core/crates/persistence/store/src/PreferencesDataStore.rs:2350`
+`CoreNodeSecretStore` — 节点本地凭证与密钥存储。`core/crates/persistence/store/src/PreferencesDataStore.rs:2361`
 
-`PreferencesSyncDescriptor` — 偏好同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2410`
+`PreferencesSyncDescriptor` — 偏好同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2421`
 
 `PreferencesSyncedEntry` — 已同步的偏好条目。`core/crates/persistence/store/src/PreferencesDataStore.rs:2573`
 
@@ -525,15 +525,15 @@ merge 经 `mergedProjection` 合并本地与对端成员，新 revision 取两�
 
 `adoptAt` 拒绝 revision 更旧的加入投影。`core/crates/persistence/store/src/CoreSpaceStore.rs:246`
 
-`writeMemberRecord` 用 `replaceRecoverably` 写成员记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:1200`
+`writeMemberRecord` 用 `replaceRecoverably` 写成员记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:1211`
 
 `PreferencesDataStore` 的 `edit` 在内存中改偏好并持久化。`core/crates/persistence/store/src/PreferencesDataStore.rs:3328`
 
 `data` 在同步 store 或宿主保留偏好缓存的前提下，已缓存快照且 schema 已是最新时直接返回缓存。`core/crates/persistence/store/src/PreferencesDataStore.rs:3069`
 
-`prepareSync`、`isSyncPrepared`、`syncSnapshot`、`repairSyncedSnapshot` 四个同步入口委托给 `Transaction::preference`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3904`
+`prepareSync`、`isSyncPrepared`、`syncSnapshot`、`repairSyncedSnapshot` 四个同步入口委托给 `Transaction::preference`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3909`
 
-`notifyChanged` 递增版本号、唤醒等待者并调度订阅者回调。`core/crates/persistence/store/src/PreferencesDataStore.rs:3584`
+`notifyChanged` 递增版本号、唤醒等待者并调度订阅者回调。`core/crates/persistence/store/src/PreferencesDataStore.rs:3589`
 
 ## 来源
 

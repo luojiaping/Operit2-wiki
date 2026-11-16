@@ -94,7 +94,7 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - `stateToolName` 只对 ExecutingTool、ToolProgress、ProcessingToolResult 三种状态返回工具名（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:209`）。
 - `stateProgress` 只对 ToolProgress 返回进度值（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:218`）。
 - `stateIsActive` 在 Idle、Completed、Error 时为 false，其余状态为 true（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:229`）。
-- 聊天运行时 hook 用不限时的 `runToolPkgMainHook` 执行，未传入超时预算（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:4927`）。
+- 聊天运行时 hook 用不限时的 `runToolPkgMainHook` 执行，未传入超时预算（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:4643`）。
 
 ### hook 超时
 

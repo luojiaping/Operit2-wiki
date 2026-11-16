@@ -21,7 +21,7 @@ date: 2026-11-11
 
 - TtsCatalog 的 `providers` — 解析全部目录行并返回供应商条目列表。(core/crates/foundation/model/src/TtsCatalog.rs:53)
 - TtsCatalog 的 `provider` — 按类型 ID 忽略大小写取单个供应商条目，找不到返回错误。(core/crates/foundation/model/src/TtsCatalog.rs:46)
-- TtsCatalog 的 `voicesForProvider` — 返回指定供应商的预置音色列表。(core/crates/foundation/model/src/TtsCatalog.rs:60)
+- TtsCatalog 的 `voicesForProvider` — 返回指定供应商的预置音色列表。(core/crates/foundation/model/src/TtsCatalog.rs:58)
 - `TTS_CATALOG_PROVIDER_ROWS` — 供应商目录常量，共 22 行。(core/crates/foundation/model/src/TtsCatalog.rs:12)
 - `TTS_CATALOG_VOICE_ROWS` — 预置音色表常量，位于 collects/TtsCatalog.rs。(core/crates/foundation/model/collects/TtsCatalog.rs:1)
 - VoiceServiceFactory 的 `createVoiceService` — 按供应商类型创建语音服务。(core/crates/provider/services/src/tts/VoiceServiceFactory.rs:13)
@@ -33,11 +33,11 @@ date: 2026-11-11
 
 ### 目录格式
 
-- 供应商目录行以 `|` 分隔为 11 个字段，字段不足返回错误。(core/crates/foundation/model/src/TtsCatalog.rs:84)
-- 供应商操作行以 `^` 分隔为 12 个字段，只接受 `list_voices` 操作类型。(core/crates/foundation/model/src/TtsCatalog.rs:133)
-- `list_voices` 操作的 handlerId 固定为 `http_json`。(core/crates/foundation/model/src/TtsCatalog.rs:138)
-- 预置音色行以 `|` 分隔为 5 个字段。(core/crates/foundation/model/src/TtsCatalog.rs:187)
-- 音色行模型非空时用行内模型，否则用传入的 `providerModel` 参数。(core/crates/foundation/model/src/TtsCatalog.rs:200)
+- 供应商目录行以 `|` 分隔为 11 个字段，字段不足返回错误。(core/crates/foundation/model/src/TtsCatalog.rs:89)
+- 供应商操作行以 `^` 分隔为 12 个字段，只接受 `list_voices` 操作类型。(core/crates/foundation/model/src/TtsCatalog.rs:138)
+- `list_voices` 操作的 handlerId 固定为 `http_json`。(core/crates/foundation/model/src/TtsCatalog.rs:138``core/crates/foundation/model/src/TtsCatalog.rs:145)
+- 预置音色行以 `|` 分隔为 5 个字段。(core/crates/foundation/model/src/TtsCatalog.rs:192)
+- 音色行模型非空时用行内模型，否则用传入的 `providerModel` 参数。(core/crates/foundation/model/src/TtsCatalog.rs:205)
 
 ### 七家供应商
 
@@ -94,12 +94,12 @@ date: 2026-11-11
 - `TtsCatalog` — 无字段结构体，供应商目录的唯一入口。(core/crates/foundation/model/src/TtsCatalog.rs:10)
 - TtsCatalog 的 `providers` — 解析全部目录行并返回供应商条目列表。(core/crates/foundation/model/src/TtsCatalog.rs:53)
 - TtsCatalog 的 `provider` — 按类型 ID 忽略大小写取单个供应商条目。(core/crates/foundation/model/src/TtsCatalog.rs:46)
-- TtsCatalog 的 `voicesForProvider` — 返回指定供应商的预置音色列表。(core/crates/foundation/model/src/TtsCatalog.rs:60)
+- TtsCatalog 的 `voicesForProvider` — 返回指定供应商的预置音色列表。(core/crates/foundation/model/src/TtsCatalog.rs:58)
 - `TtsProviderCatalogEntry` — 单个供应商条目的解析结果。(core/crates/foundation/model/src/TtsCatalog.rs:87)
-- `parseProviderRow` — 把一行目录文本解析为供应商条目，字段不足 11 个时返回错误。(core/crates/foundation/model/src/TtsCatalog.rs:84)
-- `parseOperation` — 把操作文本解析为供应商操作定义，只接受 `list_voices`。(core/crates/foundation/model/src/TtsCatalog.rs:129)
-- `parseVoiceRow` — 把一行预置音色文本解析为音色行，字段不足 5 个时返回错误。(core/crates/foundation/model/src/TtsCatalog.rs:187)
-- `catalogModel` — 音色行模型非空时用行内模型，否则用传入的 `providerModel` 参数。(core/crates/foundation/model/src/TtsCatalog.rs:200)
+- `parseProviderRow` — 把一行目录文本解析为供应商条目，字段不足 11 个时返回错误。(core/crates/foundation/model/src/TtsCatalog.rs:89)
+- `parseOperation` — 把操作文本解析为供应商操作定义，只接受 `list_voices`。(core/crates/foundation/model/src/TtsCatalog.rs:132``core/crates/foundation/model/src/TtsCatalog.rs:138)
+- `parseVoiceRow` — 把一行预置音色文本解析为音色行，字段不足 5 个时返回错误。(core/crates/foundation/model/src/TtsCatalog.rs:192)
+- `catalogModel` — 音色行模型非空时用行内模型，否则用传入的 `providerModel` 参数。(core/crates/foundation/model/src/TtsCatalog.rs:205)
 - VoiceServiceFactory 的 `createVoiceService` — 按供应商类型创建语音服务。(core/crates/provider/services/src/tts/VoiceServiceFactory.rs:13)
 - `HttpVoiceProvider` — 非系统、非本地模型供应商的语音服务实现。(core/crates/provider/services/src/tts/VoiceServiceFactory.rs:30)
 - `SystemVoiceProvider` — SYSTEM_TTS 的语音服务实现。(core/crates/provider/services/src/tts/VoiceServiceFactory.rs:23)
@@ -115,14 +115,14 @@ date: 2026-11-11
 7. LOCAL_MODEL 返回错误，要求由 runtime local model service 创建。(core/crates/provider/services/src/tts/VoiceServiceFactory.rs:25)
 8. 其余供应商类型先经 TtsCatalog 的 `provider` 校验，再创建 `HttpVoiceProvider`。(core/crates/provider/services/src/tts/VoiceServiceFactory.rs:29)
 9. 文档称合成请求和音色查询通过现有 Host HTTP 接口执行。(docs/tts-providers.md:3)
-10. 在线音色查询走 `list_voices` 操作，handlerId 固定为 `http_json`。(core/crates/foundation/model/src/TtsCatalog.rs:138)
+10. 在线音色查询走 `list_voices` 操作，handlerId 固定为 `http_json`。(core/crates/foundation/model/src/TtsCatalog.rs:138``core/crates/foundation/model/src/TtsCatalog.rs:145)
 
 ## 来源
 
 - `docs/tts-providers.md`（41 行）：供应商目录的说明文档，七家供应商的默认模型、音频格式、音色来源与在线查询页数均先见于此，代码逐行核验后写入正文；文档说法与代码未验证处已在正文“文档说法、未在代码验证”小节标明。
-- `core/crates/foundation/model/src/TtsCatalog.rs`（207 行）：供应商目录常量 `TTS_CATALOG_PROVIDER_ROWS` 与解析函数，七家供应商的默认模型、音频格式、请求模板、鉴权头、响应管道与 `list_voices` 定义均出自此文件。
+- `core/crates/foundation/model/src/TtsCatalog.rs`（212 行）：供应商目录常量 `TTS_CATALOG_PROVIDER_ROWS` 与解析函数，七家供应商的默认模型、音频格式、请求模板、鉴权头、响应管道与 `list_voices` 定义均出自此文件。
 - `core/crates/foundation/model/collects/TtsCatalog.rs`（155 行）：预置音色表常量 `TTS_CATALOG_VOICE_ROWS`，由 `TtsCatalog.rs` 第 1–2 行以 `#[path]` 引入；七家供应商的预置音色行数与音色名均出自此文件。
 - `core/crates/provider/services/src/tts/VoiceServiceFactory.rs`（34 行）：按供应商类型创建语音服务的工厂，SYSTEM_TTS、LOCAL_MODEL 与其余类型的分发逻辑均出自此文件。
-- 否定性结论核验方法：2026-11-15 于基线 AAswordman/Operit2 @ ff5373fb6，对 `core/crates/foundation/model/collects/TtsCatalog.rs` 执行 `grep SPEECHIFY_TTS` 与 `grep HUME_TTS`，两者均为零命中，SPEECHIFY_TTS 与 HUME_TTS 在预置音色表中无行（该文件在 364d1d594..ff5373fb6 间 0 行 diff）；“22 行供应商行”为数 `TtsCatalog.rs` 第 13–34 行的目录行所得。
+- 否定性结论核验方法：2026-11-16 于基线 AAswordman/Operit2 @ 59de537f6，对 `core/crates/foundation/model/collects/TtsCatalog.rs` 执行 `grep SPEECHIFY_TTS` 与 `grep HUME_TTS`，两者均为零命中，SPEECHIFY_TTS 与 HUME_TTS 在预置音色表中无行（该文件在 a119411ce..59de537f6 间 0 行 diff）；“22 行供应商行”为数 `TtsCatalog.rs` 第 13–34 行的目录行所得。
 - 文档提及的 `HttpVoiceProviderTests.rs` 与 `TtsVoiceListFetcherTests.rs` 不在 seed 文件清单内，本页未读这两个文件，正文只记录文档称其覆盖测试，不作代码验证结论。
 - Flutter 设置界面本身不在 seed 文件清单内，正文关于设置界面的断言均为文档说法。

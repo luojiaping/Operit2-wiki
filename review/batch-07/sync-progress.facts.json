@@ -105,83 +105,83 @@
   },
   {
     "fact": "`records` 把阶段切到 `Records`，`exchangedRecords` 累加传入条数，并把 `fileBytes` 与 `fileSize` 清零。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:270"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:279"
   },
   {
     "fact": "`beginFile` 把阶段切到 `Files`，`fileBytes` 清零，`fileSize` 记为传入大小。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:280"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:289"
   },
   {
     "fact": "`fileOffset` 每秒最多发布 5 次文件偏移更新（200 毫秒节流），但始终发布最终偏移。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:291"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:300"
   },
   {
     "fact": "`fileOffset` 把偏移夹在 `fileBytes` 与 `fileSize` 之间，`transferredBytes` 累加偏移增量，重传计入传输量。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:294"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:303"
   },
   {
     "fact": "结束时，在 `pending` 为真、有 `error` 或 `pendingRecords` 大于 0 时状态置为 `Waiting`，否则置为 `Completed`。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:314"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:323"
   },
   {
     "fact": "结束时状态为 `Completed` 的会话清除 `error`，并把 `totalRecords` 置为 `completedRecords`。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:321"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:330"
   },
   {
     "fact": "快速成功的不可见已完成会话在结束后从会话列表中移除，不产生可观察的生命周期。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:329"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:338"
   },
   {
     "fact": "测试：连续 20 次小同步只收到 1 次初始空快照事件，`flow` 为空。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:398"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:425"
   },
   {
     "fact": "测试：慢小同步在延迟届满后调用 `reveal` 仍不产生可见进度，`flow` 为空。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:413"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:440"
   },
   {
     "fact": "测试：大库存同步在延迟届满前不揭示，延迟届满后 `reveal` 才让进度可见，`flow` 长度为 1。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:431"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:458"
   },
   {
     "fact": "测试：延迟届满后，记录数、当前文件大小或累计传输量任一跨过门槛，`flow` 长度变为 1。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:464"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:491"
   },
   {
     "fact": "测试：待处理轮次与重试共用同一会话，`startedAt` 不变，`exchangedRecords` 跨轮次累加到 522。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:482"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:509"
   },
   {
     "fact": "测试：同一失败在两端各报一次只计 1 条 `pendingRecords`；512 条原始记录中有 1 条失败时 `completedRecords` 为 511、`totalRecords` 为 10000、`pendingRecords` 为 1。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:355"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:382"
   },
   {
     "fact": "测试：结束时 `pending` 为真则状态为 `Waiting`，并保留应用错误。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:358"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:385"
   },
   {
     "fact": "测试：缺失清单时 `totalRecords` 为 `None`，不凭页面大小编造总量；小错误仍可见，结束时状态为 `Waiting`。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:378"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:405"
   },
   {
     "fact": "测试：两个 1024 字节文件传完后 `fileSize` 为 1024、`fileBytes` 为 1024、`transferredBytes` 为 2048，重传计入传输量。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:517"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:544"
   },
   {
     "fact": "测试：收到一条新记录后，`fileSize` 被清零。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:519"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:546"
   },
   {
     "fact": "测试：镜像到不同空间的会话不进入 `flow`，`flow` 为空。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:534"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:561"
   },
   {
     "fact": "测试：`retain` 以空成员列表清理后，`flow` 为空。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:548"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:575"
   },
   {
     "fact": "测试：失败的原始记录在后续轮次重新上报为空后，`completedRecords` 升到 512，`pendingRecords` 归零。",
-    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:367"
+    "ref": "core/crates/node/runtime/src/SpaceSyncProgress.rs:394"
   },
   {
     "fact": "文档写明：`space_join::refresh` 校验审批结果并导入成员、身份和拓扑，发布 `Joined`。",
@@ -637,6 +637,6 @@
   },
   {
     "fact": "RuntimeRemoteLinkService 的 `afterJoined` 只调度后台同步（`scheduleSynchronization(\"space_joined\")`），不等待业务同步。",
-    "ref": "core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1389"
+    "ref": "core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1393"
   }
 ]

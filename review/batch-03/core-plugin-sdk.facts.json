@@ -40,7 +40,7 @@
     "ref": "core/crates/plugin/sdk/src/PackageManager.rs:24"
   },
   {
-    "fact": "PluginPackageManager::new 接收执行引擎工厂、资源源、文件系统与包状态解析器四组宿主接口，第三组输入为 filesystem: Arc<VisualFileSystem>（PackageManager.rs:37），并将同一 VFS 实例传给 ToolPkgManager（ToolPkgManager.rs:95、103），直接传入旧 Arc<dyn FileSystemHost> 与当前签名不匹配。",
+    "fact": "PluginPackageManager::new 接收执行引擎工厂、资源源、文件系统与包状态解析器四组宿主接口，第三组输入为 filesystem: Arc<VisualFileSystem>（PackageManager.rs:37），并将同一 VFS 实例传给 ToolPkgManager（ToolPkgManager.rs:102、110），直接传入旧 Arc<dyn FileSystemHost> 与当前签名不匹配。",
     "ref": "core/crates/plugin/sdk/src/PackageManager.rs:34"
   },
   {
@@ -57,43 +57,43 @@
   },
   {
     "fact": "removePackage 删一个包或整个 ToolPkg 容器，并同步清理启用、激活与状态记录。",
-    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:156"
+    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:154"
   },
   {
     "fact": "setEnabledPackageNames 整体替换启用包集合，空名被过滤。",
-    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:182"
+    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:180"
   },
   {
     "fact": "enablePackage 只在内存中标记启用。",
-    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:205"
+    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:203"
   },
   {
     "fact": "disablePackage 同时移除激活记录与启用标记。",
-    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:211"
+    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:209"
   },
   {
     "fact": "activatePackage 标记包在当前请求或提示会话内激活。",
-    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:219"
+    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:217"
   },
   {
     "fact": "selectPackageState 用包状态解析器选定条件状态并记录状态 id，返回应用状态后的包。",
-    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:244"
+    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:242"
   },
   {
     "fact": "effectivePackage 返回当前可解析条件状态应用后的包定义。",
-    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:254"
+    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:252"
   },
   {
     "fact": "effectiveTool 只选调用方指定的可执行项，其余脚本借用不复制。",
-    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:264"
+    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:262"
   },
   {
     "fact": "mergeToolRefsForState 按 inherit_tools 继承基础工具、按 exclude_tools 剔除、再按状态自带 tools 覆盖。",
-    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:310"
+    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:308"
   },
   {
     "fact": "normalizePackageName 只做 trim，不做大小写折叠。",
-    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:323"
+    "ref": "core/crates/plugin/sdk/src/PackageManager.rs:321"
   },
   {
     "fact": "ToolPkgSourceType 只有 ASSET、MARKET、EXTERNAL 三种，默认 ASSET。",
@@ -293,147 +293,147 @@
   },
   {
     "fact": "ToolPkgManager 持有容器运行时表、子包运行时表、运行时修订表、变更监听器、执行引擎注册表与三组宿主接口。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:91"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:98"
   },
   {
     "fact": "updateExecutionEngineFactory 更换引擎工厂并销毁全部缓存引擎。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:119"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:126"
   },
   {
     "fact": "shutdownExecutionEngines 结束 Core 生命周期内的全部引擎，包括在途与容器持有的 realm，并拒绝此后调度的旧工作。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:130"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:137"
   },
   {
-    "fact": "容器名为空、已是容器或已是可用包时不可注册。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:230"
+    "fact": "普通注册时，容器名为空、已是容器或已是可用包时不可注册。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:295"
   },
   {
-    "fact": "子包名为空、与容器冲突、与可用包冲突或与已注册子包冲突时不可注册。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:239"
+    "fact": "普通注册时，子包名为空、与容器冲突、与可用包冲突或与已注册子包冲突时不可注册。",
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:320"
   },
   {
     "fact": "registerToolPkg 登记容器运行时、记录修订指纹并返回可执行子包。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:251"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:331"
   },
   {
     "fact": "registerToolPkg 先发布替换再撤销容器执行上下文，避免竞态创建者绑定旧元数据。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:269"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:349"
   },
   {
     "fact": "isEnabledToolPkgContainer 只在容器及其传递前置都可执行时返回真。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:362"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:468"
   },
   {
     "fact": "resolveToolPkgDependencies 把前置排在依赖方之前，并为每个未满足依赖标注问题。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:373"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:479"
   },
   {
     "fact": "依赖不存在时问题码为 missing。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:385"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:491"
   },
   {
     "fact": "版本越界时问题码为 version_incompatible。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:391"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:497"
   },
   {
     "fact": "依赖未启用时问题码为 disabled。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:392"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:498"
   },
   {
     "fact": "循环或自依赖等无法解析时问题码为 unresolved。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:423"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:529"
   },
   {
     "fact": "getEnabledToolPkgContainerRuntimes 只返回无依赖问题且自身或任一子包已启用的容器。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:442"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:543"
   },
   {
     "fact": "addToolPkgRuntimeChangeListener 注册监听器后立即推送一次当前活跃容器。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:455"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:561"
   },
   {
     "fact": "notifyToolPkgRuntimeChangeListeners 向全部已注册监听器推送活跃容器列表。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:472"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:578"
   },
   {
     "fact": "getToolPkgMainScriptInternal 只返回已启用容器的 main 脚本，未启用或 main 入口为空时返回 None。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:495"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:601"
   },
   {
     "fact": "getRegisteredToolPkgMainScript 不检查启用状态，只要求 main 入口非空。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:504"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:610"
   },
   {
     "fact": "readToolPkgTextResource 先按容器名找运行时，找不到再按子包 id 找所属容器。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:521"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:620"
   },
   {
     "fact": "readToolPkgTextResource 要求容器本身或其任一子包在启用名集合中，否则返回 None。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:530"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:641"
   },
   {
     "fact": "getToolPkgExecutionEngine 取缓存引擎或新建一个，不计租约。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:542"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:648"
   },
   {
     "fact": "acquireToolPkgExecutionEngine 为一个执行上下文计一次租约。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:552"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:658"
   },
   {
     "fact": "leaseToolPkgExecutionEngine 取引擎与租约对象，租约 Drop 时释放。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:558"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:664"
   },
   {
     "fact": "leaseToolPkgMainExecutionEngine 以 toolpkg_main:{包名} 为上下文键租用容器持有的 main realm。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:568"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:674"
   },
   {
     "fact": "revokeContainerExecutionContexts 撤销一个容器的全部上下文，包括已租出的上下文。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:778"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:884"
   },
   {
     "fact": "EXTERNAL 与 MARKET 来源的目录源直接读文件。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:864"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:980"
   },
   {
     "fact": ".toolpkg 文件源先读整个归档文件，再按条目名取资源。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:881"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:992"
   },
   {
     "fact": "ASSET 来源从内嵌归档字节中按条目名读资源。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:893"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1007"
   },
   {
     "fact": "dispatchToolPkgHook 有 timeoutMillis 时走带超时的执行入口。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:943"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1059"
   },
   {
     "fact": "dispatchToolPkgHook 无 timeoutMillis 时走普通执行入口。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:957"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1073"
   },
   {
     "fact": "dispatchToolPkgHookAsync 是 dispatchToolPkgHook 的异步包装。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:977"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1093"
   },
   {
     "fact": "hook 参数含 event 与 eventName，eventName 省略时取 event。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1011"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1134"
   },
   {
     "fact": "hook 参数含 eventPayload、timestampMs 与 functionName。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1025"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1141"
   },
   {
     "fact": "hook 参数含 toolPkgId、containerPackageName 与 __operit_toolpkg_api_version。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1036"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1153"
   },
   {
     "fact": "resolveToolPkgExecutionContextKey 未指定执行上下文键时默认 toolpkg_main:{容器包名}。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1129"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1238"
   },
   {
     "fact": "normalizeToolPkgEntryPath 拒绝空路径、绝对路径与含 .. 的路径。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1142"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1253"
   },
   {
     "fact": "ToolPkgAppLifecycleHookRegistration 含容器包名、hookId、事件名、函数名与可选函数源码。",

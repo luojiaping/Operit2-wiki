@@ -152,8 +152,8 @@
     "ref": "hosts/common/operit-host-native-common/src/Tcp.rs:37"
   },
   {
-    "fact": "TCP 读取用 1024 字节暂存并只分配已接收的字节",
-    "ref": "hosts/common/operit-host-native-common/src/Tcp.rs:85"
+    "fact": "TCP 读取用 16 KiB 暂存并只分配已接收的字节",
+    "ref": "hosts/common/operit-host-native-common/src/Tcp.rs:88"
   },
   {
     "fact": "NativeSerialPortHost 的 `open` 要求端口非空且波特率非零",
@@ -349,15 +349,15 @@
   },
   {
     "fact": "NativeRuntimeStorageHost 的 `resolve` 把虚拟前缀映射到物理根",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:524"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:529"
   },
   {
     "fact": "运行时存储路径必须以 `runtime/`、`workspaces/` 或 `secure/` 开头",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:532"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:537"
   },
   {
     "fact": "`managedRoot` 把 `workspaces` 与三条 `runtime/data` 聊天目录划为托管根",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:542"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:547"
   },
   {
     "fact": "NativeRuntimeStorageWriteSession 的 `commitInternal` 关闭文件后原子重命名发布",
@@ -365,55 +365,55 @@
   },
   {
     "fact": "`commit` 提交时强制设备刷盘，`commitFast` 提交时不强制刷盘",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:71"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:76"
   },
   {
     "fact": "`ARCHIVE_STAGING_DIRECTORY_NAME` 的值是 `archive_staging`",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:91"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:96"
   },
   {
     "fact": "遗留归档保留期为 7 天",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:94"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:99"
   },
   {
     "fact": "`stagingRootForRuntimeRoot` 把 staging 根放在运行时父目录下的 `ARCHIVE_STAGING_DIRECTORY_NAME` 命名空间",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:190"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:195"
   },
   {
     "fact": "NativeArchiveStagingHost 的 `createArchive` 创建带声明字节长度的待上传归档",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:367"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:372"
   },
   {
     "fact": "NativeArchiveStagingHost 的 `appendArchive` 追加分块时不允许超过声明字节长度",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:423"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:428"
   },
   {
     "fact": "NativeArchiveStagingHost 的 `sealArchive` 校验实际长度等于声明长度后把上传文件重命名为密封文件",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:457"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:462"
   },
   {
     "fact": "NativeArchiveStagingHost 的 `writeExportArchive` 单块写入上限为 64 KiB",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:378"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:383"
   },
   {
     "fact": "NativeArchiveStagingHost 的 `archiveFileReference` 只对已密封归档返回文件引用",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:405"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:410"
   },
   {
     "fact": "NativeRuntimeStorageHost 的 `openSqliteDatabase` 在存储根下打开 SQLite 数据库",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:1009"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:1030"
   },
   {
     "fact": "SQLite 事务用 `Immediate` 行为先占写锁再读",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:1082"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:1103"
   },
   {
     "fact": "Windows 原子发布用 `MoveFileExW` 加 `MOVEFILE_REPLACE_EXISTING` 与 `MOVEFILE_WRITE_THROUGH`",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:885"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:906"
   },
   {
     "fact": "`publishStagedFile` 先原子替换、同步时再同步父目录",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:843"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:864"
   },
   {
     "fact": "`NativeFileSecretStore` 由 storage crate 从 `secrets` 子模块重导出",

@@ -35,8 +35,8 @@ Binding 是 [[arch-corenode|CoreNode]] 与 [[arch-space|Space]] 之间的执行�
 - `compareAndSet` — 以当前值比较写入的方式原子切换 Binding。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:180`
 - `binding` — 读取一个 key 的当前 Binding 记录，不存在时报错。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:125`
 - `delete` — 退役一个 key，即使其 Binding 尚未到达。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:168`
-- `applySyncedOperation` — 应用已同步的 Binding 操作，不产生新的本地操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:215`
-- `applyImmediateOperation` — 应用直接传输的 Binding 操作，不推进持久化同步时钟。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:261`
+- `applySyncedOperation` — 应用已同步的 Binding 操作，不产生新的本地操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:227`
+- `applyImmediateOperation` — 应用直接传输的 Binding 操作，不推进持久化同步时钟。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:273`
 - `changeRoute` — 交接主线：校验目标、同步目标、比较写入提交 Binding、安装 Binding 到目标、调用 AfterChangeRoute。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:944`
 - `requestChangeRoute` — 提交 Binding 变更、在目标安装 Binding 并在目标恢复执行。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:922`
 - `CoreRouteResumeContext` — 交接运输的上下文，包含 runtimeChatHistory 等字段。`core/crates/tool/services/src/runtime_support.rs:21`
@@ -68,7 +68,7 @@ Binding 不表示业务数据位于目标节点；Agent、聊天、消息、记�
 
 存储层印证这一规则：初始 Binding 的 `generation` 为 1。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:157`
 
-校验规则要求 Binding 的 `generation` 必须为正数。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:461`
+校验规则要求 Binding 的 `generation` 必须为正数。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:473`
 
 架构文档要求目标节点按 `(chatId, executionGeneration)` 识别 `continuation`；已完成相同或更高 `generation` 时直接返回，不重复调用模型或工具。`docs/core-node-space-binding-architecture.md:420`
 
@@ -82,9 +82,9 @@ Binding 不表示业务数据位于目标节点；Agent、聊天、消息、记�
 
 Binding 的冲突顺序复用持久化同步操作的设备序列和向量时钟；同步元数据不是 Binding 的业务字段。`docs/core-node-space-binding-architecture.md:178`
 
-物化时，每个 `entityId` 只取按 `bindingOperationOrder` 排序的最新操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:301`
+物化时，每个 `entityId` 只取按 `bindingOperationOrder` 排序的最新操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:313`
 
-只有 `operation` 为 `upsert` 的操作才成为当前 Binding 记录。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:312`
+只有 `operation` 为 `upsert` 的操作才成为当前 Binding 记录。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:324`
 
 每个需要路由的业务 key 必须有一条 Binding。Binding 缺失或指向非 Space 成员时，请求返回明确错误。`docs/core-node-space-binding-architecture.md:172`
 
@@ -142,17 +142,17 @@ link-access-architecture.md 要求目标不可达必须保持目标语义并明�
 
 `delete` 退役一个 key，即使其 Binding 尚未到达，也不需要其执行节点。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:168`
 
-`applyBootstrapOperation` 应用 Space 启动引导的 Binding 操作且不做本地冲突过滤。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:221`
+`applyBootstrapOperation` 应用 Space 启动引导的 Binding 操作且不做本地冲突过滤。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:233`
 
-`validateBindingOperation` 要求 `domain` 为 binding、`entityType` 为 binding、`operation` 为 `upsert` 或 `delete`、`semantics` 为 `EntityState`。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:441`
+`validateBindingOperation` 要求 `domain` 为 binding、`entityType` 为 binding、`operation` 为 `upsert` 或 `delete`、`semantics` 为 `EntityState`。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:453`
 
-`delete` 操作的 `payload` 必须为 null。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:449`
+`delete` 操作的 `payload` 必须为 null。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:461`
 
-upsert 操作的 `payload` 中 `binding.key` 必须与 `entityId` 一致。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:457`
+upsert 操作的 `payload` 中 `binding.key` 必须与 `entityId` 一致。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:469`
 
-`validateBindingKey` 要求 `key` 去空白后非空。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:470`
+`validateBindingKey` 要求 `key` 去空白后非空。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:482`
 
-`validateBindingNodeId` 要求 `nodeId` 去空白后非空。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:478`
+`validateBindingNodeId` 要求 `nodeId` 去空白后非空。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:490`
 
 ## 关键符号
 
@@ -168,11 +168,11 @@ upsert 操作的 `payload` 中 `binding.key` 必须与 `entityId` 一致。`core
 - `contains` — 报告一个 key 是否已有持久化的当前记录。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:140`
 - `compareAndSet` — 以当前值比较写入的方式原子切换 Binding。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:180`
 - `delete` — 退役一个 key。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:168`
-- `applySyncedOperation` — 应用已同步的 Binding 操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:215`
-- `applyBootstrapOperation` — 应用 Space 启动引导的 Binding 操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:221`
-- `applyImmediateOperation` — 应用直接传输的 Binding 操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:261`
-- `materializeBindingRecords` — 从公共同步日志物化全部当前 Binding。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:297`
-- `validateBindingOperation` — 校验 Binding 操作的完整契约。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:440`
+- `applySyncedOperation` — 应用已同步的 Binding 操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:227`
+- `applyBootstrapOperation` — 应用 Space 启动引导的 Binding 操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:233`
+- `applyImmediateOperation` — 应用直接传输的 Binding 操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:273`
+- `materializeBindingRecords` — 从公共同步日志物化全部当前 Binding。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:309`
+- `validateBindingOperation` — 校验 Binding 操作的完整契约。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:452`
 - `list_core_nodes` — Agent 获取精确节点 ID 的工具，只读本机已同步的成员视图。`docs/core-node-space-binding-architecture.md:159`
 - `switch_core` — Agent 切换执行节点的工具，调用时校验目标。`docs/core-node-space-binding-architecture.md:164`
 - `BindingRouteStatus` — 对话执行节点的提示来源。`docs/core-node-space-binding-architecture.md:175`
