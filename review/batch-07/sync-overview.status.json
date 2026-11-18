@@ -1,6 +1,6 @@
 {
   "issue": 69,
-  "source_commit": "f9b755545",
+  "source_commit": "6192d22e3",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "同步总览：Space 内具备 storage.provide 的节点经 SpacePersistenceSyncService 交换持久化操作与 Blob，四类校验分工与授权、交换、分页、Blob、调度机制。",

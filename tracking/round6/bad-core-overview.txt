@@ -1,0 +1,6 @@
+page: core-overview batch: batch-02 facts: 102 bad: 5
+core-overview.md:29 `ToolRuntimeSupport` not within ±5 of any ref ['core/crates/tool/services/src/runtime_support.rs:389']
+core-overview.md:105 `ToolRuntimeSupport` not within ±5 of any ref ['core/crates/tool/services/src/runtime_support.rs:389', 'core/crates/tool/services/src/runtime_support.rs:389']
+core-overview.md:112 `AIToolHandler` not within ±5 of any ref ['core/crates/tool/services/src/tools/AIToolHandler.rs:1144', 'core/crates/tool/services/Cargo.toml:2']
+core-overview.md:112 `JsExecutionHost` not within ±5 of any ref ['core/crates/tool/services/src/tools/AIToolHandler.rs:1144', 'core/crates/tool/services/Cargo.toml:2']
+core-overview.md:173 `ToolRuntimeSupport` not within ±5 of any ref ['core/crates/tool/services/src/runtime_support.rs:389']

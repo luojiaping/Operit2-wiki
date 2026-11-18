@@ -23,7 +23,7 @@ date: 2026-11-11
 - `BuiltinToolName` 的 `display` — 按工具名字符串精确查找展示声明，未声明的工具返回 `None`。`core/crates/plugin/sdk-macros/src/lib.rs:118`
 - `ToolDisplayDeclaration` — 展示声明，含本地化 `label`、语义 `icon`、可选 `target_parameter` 与 `result_renderer`。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:21`
 - `ToolResultRenderer` — 结果视图选择器，取值为 `Directory`、`FileDiff` 与默认的 `Text`。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:9`
-- `PackageTool` — 插件工具声明，`display` 为可选字段。`core/crates/plugin/sdk/src/package.rs:106`
+- `PackageTool` — 插件工具声明，`display` 为可选字段。`core/crates/plugin/sdk/src/package.rs:127`
 - `WebViewScaleScope` — 提供应用缩放的 `InheritedWidget`。`apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:24`
 - `requiresNativeApplicationZoom` — 按后端能力选择缩放策略的开关，默认 `false`。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:360`
 - `NativeWebViewZoom` — 组合页面缩放与应用缩放，用于无原生绘制缩放的视图。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:6`
@@ -40,8 +40,8 @@ date: 2026-11-11
 - `tool_display` 是 `operit_plugin_sdk_macros` 的过程宏属性，标注在 `ToolResultMap` 上。`core/crates/plugin/sdk/src/js_sdk/tool_types.rs:8`
 - 宏生成的 `BuiltinToolName` 的 `display` 方法按工具名字符串精确匹配，未声明展示的工具返回 `None`。`core/crates/plugin/sdk-macros/src/lib.rs:118`
 - `tool_display` 宏遇到未知的 `result` 取值时返回编译错误 `unknown result renderer`。`core/crates/plugin/sdk-macros/src/lib.rs:106`
-- 插件工具的 `display` 是 `PackageTool` 的可选字段，类型为 `Option<ToolDisplayDeclaration>`。`core/crates/plugin/sdk/src/package.rs:106`
-- 条件状态 `ToolPackageState` 的工具列表同样是 `Vec<PackageTool>`，与普通工具共用同一 `display` 声明格式。`core/crates/plugin/sdk/src/package.rs:104` `core/crates/plugin/sdk/src/package.rs:94`
+- 插件工具的 `display` 是 `PackageTool` 的可选字段，类型为 `Option<ToolDisplayDeclaration>`。`core/crates/plugin/sdk/src/package.rs:127`
+- 条件状态 `ToolPackageState` 的工具列表同样是 `Vec<PackageTool>`，与普通工具共用同一 `display` 声明格式。`core/crates/plugin/sdk/src/package.rs:125` `core/crates/plugin/sdk/src/package.rs:115`
 - 没有 `display` 的工具使用通用展示。`docs/tool-display-semantics.md:48`
 - 非法的 `display` 声明使元数据加载返回错误，不会静默丢弃对应工具。`docs/tool-display-semantics.md:48`
 - Core 从当前运行时的有效插件声明读取展示信息，不向其他身份、节点或 Host 查询展示信息。`docs/tool-display-semantics.md:48`
@@ -139,7 +139,7 @@ date: 2026-11-11
 - `BuiltinToolName` 的 `display` — 精确查找展示声明，未声明者返回 `None`。`core/crates/plugin/sdk-macros/src/lib.rs:118`
 - `ToolDisplayDeclaration` — 展示声明，含本地化 `label`、语义 `icon`、可选 `target_parameter` 与 `result_renderer`。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:21`
 - `ToolResultRenderer` — 结果视图枚举，`Directory` / `FileDiff` / 默认 `Text`。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:9`
-- `PackageTool` 的 `display` — 插件工具的可选展示声明。`core/crates/plugin/sdk/src/package.rs:106`
+- `PackageTool` 的 `display` — 插件工具的可选展示声明。`core/crates/plugin/sdk/src/package.rs:127`
 - `labelFor` — Flutter 侧标签回退解析，依次试完整语言标签、语言代码、`default`、`en`、首个声明文本。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:160`
 - `WebViewScaleScope` — 应用缩放作用域，不改变 host DPR。`docs/webview-rendering.md:10`
 - `requiresNativeApplicationZoom` — 后端能力开关，默认 `false`。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:360`
@@ -149,7 +149,7 @@ date: 2026-11-11
 ## 调用链
 
 1. 内置工具：`ToolResultMap` 字段的 `display` 属性 `core/crates/plugin/sdk/src/js_sdk/tool_types.rs:10` → `tool_display` 宏生成 `BuiltinToolName` 的 `display` 方法 `core/crates/plugin/sdk-macros/src/lib.rs:118` → `ToolDisplayDeclaration` 的 `builtin` 方法按 `action` 从 `tool_display_labels.json` 取本地化文本 `core/crates/plugin/sdk/src/js_sdk/tool_display.rs:34`
-2. 插件工具：插件元数据的工具声明带可选 `display` → `PackageTool` 的 `display` 字段解析为 `ToolDisplayDeclaration` → Core 从当前运行时声明读取，不跨身份、节点或 Host 查询。`core/crates/plugin/sdk/src/package.rs:106`
+2. 插件工具：插件元数据的工具声明带可选 `display` → `PackageTool` 的 `display` 字段解析为 `ToolDisplayDeclaration` → Core 从当前运行时声明读取，不跨身份、节点或 Host 查询。`core/crates/plugin/sdk/src/package.rs:127`
 3. 展示：Core 在消息展示投影中传递声明并保留原生 `ToolResultData` → Flutter 按声明的 `resultRenderer` 选视图并校验数据结构 → 实时调用的声明附加在 Markdown XML 事件的 `display` 属性中。`docs/tool-display-semantics.md:54`
 4. 模型侧：提供给模型的工具结果及历史序列化排除 `display` 和 `result_data`。`docs/tool-display-semantics.md:58`
 5. WebView 缩放：`WebViewScaleScope` 提供应用缩放 `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:24` → `WebViewWidget` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:67` 的 `build` 按 `requiresNativeApplicationZoom` 决定是否包 `_NativeZoomWebViewViewport` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:151`。

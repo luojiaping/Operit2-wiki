@@ -372,112 +372,112 @@
     "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:77"
   },
   {
-    "fact": "select_tool 返回工具定义、激活状态 id 与 ToolPkg 子包运行时。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:83"
+    "fact": "select_tool 返回工具定义、激活状态 id、包 API 版本与 ToolPkg 子包运行时；取不到包 API 版本时报错 Package not registered。",
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:85"
   },
   {
     "fact": "ToolPkg 执行引擎在注册表锁外创建，避免创建过程重入包目录。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:100"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:102"
   },
   {
     "fact": "materializeToolPkgResource 把 ToolPkg 资源物化为文件，返回 /operitapp/data 下的 VFS 路径。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:176"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:178"
   },
   {
     "fact": "资源输出文件名取请求指定值，否则取包声明值，并只保留 basename。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:129"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:131"
   },
   {
     "fact": "有容器运行时直接从容器复制资源，否则解析子包运行时复制。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:145"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:147"
   },
   {
     "fact": "三种路径都找不到目标时报错 ToolPkg resource target not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:155"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:162"
   },
   {
     "fact": "resolveJsToolName 中工具名已含冒号时原样返回。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:184"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:186"
   },
   {
     "fact": "按 package_name 解析时包不存在报错 Package not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:198"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:200"
   },
   {
     "fact": "package_name 与 subpackage_id 同时给出时报错。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:210"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:212"
   },
   {
     "fact": "按 subpackage_id 解析时找首选包名，找不到报错 ToolPkg subpackage not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:203"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:205"
   },
   {
     "fact": "ToolPkg IPC 计时只在 OPERIT_PROFILE_COMPOSE_STAGES 环境变量存在时启用。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:247"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:249"
   },
   {
     "fact": "未给目标上下文键且运行时为 main 时，默认上下文键为 toolpkg_main:{目标}。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:304"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:306"
   },
   {
     "fact": "请求的运行时与上下文键推断的运行时不一致时报错。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:321"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:323"
   },
   {
     "fact": "main 目标的上下文键必须等于 toolpkg_main:{目标}。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:328"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:330"
   },
   {
     "fact": "依赖调用要求被调用的提供方目标为 main 运行时，且提供方包不同于调用方包。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:345"
-  },
-  {
-    "fact": "IPC 目标的 ToolPkg 容器不存在时报错 ToolPkg container not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:340"
-  },
-  {
-    "fact": "IPC 目标包被禁用时报错 ToolPkg package is disabled。",
     "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:347"
   },
   {
+    "fact": "IPC 目标的 ToolPkg 容器不存在时报错 ToolPkg container not found。",
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:342"
+  },
+  {
+    "fact": "IPC 目标包被禁用时报错 ToolPkg package is disabled。",
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:349"
+  },
+  {
     "fact": "非 main 目标取不到已激活的执行引擎时报错 ToolPkg runtime is not active。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:385"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:387"
   },
   {
     "fact": "执行前校验引擎仍是当前引擎，否则报错执行上下文已被释放或替换。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:399"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:401"
   },
   {
     "fact": "依赖调用要求调用方与提供方都启用。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:504"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:506"
   },
   {
     "fact": "调用方必须在 requires 或 optionalRequires 中声明对提供方的依赖。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:508"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:510"
   },
   {
     "fact": "提供方版本必须落在调用方声明的 minVersion 与 maxVersion 范围内，否则报错 Dependency version mismatch。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:525"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:527"
   },
   {
     "fact": "提供方必须发布 public_api，否则报错。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:536"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:538"
   },
   {
     "fact": "依赖方法必须在提供方的 publicApis 中，否则报错 Public API not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:545"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:547"
   },
   {
     "fact": "上下文键 toolpkg_main: 前缀对应 main 运行时，toolpkg_provider: 对应 provider 运行时。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:552"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:554"
   },
   {
     "fact": "上下文键 toolpkg_compose:、toolpkg_compose_dsl: 与 toolpkg_xml_render: 前缀对应 ui 运行时，toolpkg_sandbox: 对应 sandbox 运行时。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:559"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:566"
   },
   {
     "fact": "requiredText 要求非空字符串。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:576"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:578"
   },
   {
     "fact": "指定子目录导入时找不到 SKILL.md，报错 No SKILL.md found in the selected import path。",
@@ -489,7 +489,7 @@
   },
   {
     "fact": "依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 main。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2071"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2092"
   },
   {
     "fact": "`package_name` 参数指定要激活的包。",

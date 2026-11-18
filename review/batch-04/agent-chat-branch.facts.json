@@ -85,7 +85,7 @@
   },
   {
     "fact": "新用户消息把会话顶到列表最前：`displayOrder` 取 -updatedAt 与全库最小值减 1 的较小者（通常为 -updatedAt）",
-    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:862"
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:868"
   },
   {
     "fact": "新建的非用户消息只更新会话的 updatedAt，不改 displayOrder",
@@ -129,7 +129,7 @@
   },
   {
     "fact": "deleteMessage 委托同步 store（`recordMessageDeletion`），在同一 SQLite 事务中删除本地消息、变体及 parts，并记录同步删除操作",
-    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1066"
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1073"
   },
   {
     "fact": "deleteMessagesFrom 删除从指定时间戳起的全部消息（recordMessagesFromDeletion）",
@@ -185,7 +185,7 @@
   },
   {
     "fact": "loadChatMessagesRange 读取上限为 end - start + 1（`LIMIT`，历史不足时返回更少）",
-    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1601"
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1607"
   },
   {
     "fact": "loadRuntimeChatMessages 从最新一条 summary 消息起（含该摘要）加载消息，供模型上下文",
@@ -209,7 +209,7 @@
   },
   {
     "fact": "loadChatMessageLocatorPreviews 经 `getMessageLocatorIndex` 读全局消息索引返回有界预览，不水合消息体",
-    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1735"
+    "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1745"
   },
   {
     "fact": "loadChatMessageDepths 只计数指定时间戳后已持久化的消息数，不水合预览、part 或变体",

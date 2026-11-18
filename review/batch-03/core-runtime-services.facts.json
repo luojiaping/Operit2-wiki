@@ -373,15 +373,15 @@
   },
   {
     "fact": "chatMessagesWindowFlow 按消息索引分页显示窗口，不传输完整历史或工具负载",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2732"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2698"
   },
   {
     "fact": "chatMessagesWindowFlow 向前翻页时一次加载 14 条消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2736"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2702"
   },
   {
     "fact": "chatImagePreviewChunk 先校验图片归属再返回图像预览分块，格式仅支持 rgb565le",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2762"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2728"
   },
   {
     "fact": "registerChatImage 注册校验过的图像输入并把池 id 投影为聊天标记",
@@ -393,11 +393,11 @@
   },
   {
     "fact": "chatAvailablePlugins 只列出已启用且包名不超过 108 字符的插件容器",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2874"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2840"
   },
   {
     "fact": "chatAvailablePlugins 的 items 用 take(6) 截取，每页返回 6 个插件",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2888"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2854"
   },
   {
     "fact": "chatPluginDetails 只返回插件的有界元数据与工具清单",
@@ -405,15 +405,15 @@
   },
   {
     "fact": "chatPluginDetails 的 tools 用 take(3) 截取，每页返回 3 个工具名",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2919"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2885"
   },
   {
     "fact": "chatPluginStatus 只运行插件自有的诊断导出，不做只读模块存在检查",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2927"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2893"
   },
   {
     "fact": "chatPluginStatus 的 testKind 缺省为 connection，对应 test_connection；tool 对应 test_tool_call",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2939"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2904"
   },
   {
     "fact": "chatInputMenuSettings 从聊天执行 Core 读取全部输入框行为设置",
@@ -445,7 +445,7 @@
   },
   {
     "fact": "localChatStateFlow 用 combine5 合并执行状态、显示窗口状态、文件上下文、待发队列与工具权限请求五路流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3141"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3107"
   },
   {
     "fact": "showChatHistorySelector 返回聊天历史选择器是否可见",
@@ -513,11 +513,11 @@
   },
   {
     "fact": "getMimeTypeFromPath 按文件扩展名返回 MIME 类型，未知扩展名返回 application/octet-stream",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3540"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3474"
   },
   {
     "fact": "authorizeChatImage 仅当图片 id 被本聊天的消息引用且长度不超过 80 字符时才授权",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3632"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3551"
   },
   {
     "fact": "ProviderRuntimeSupportService 是创建 provider 运行时服务的工厂结构",

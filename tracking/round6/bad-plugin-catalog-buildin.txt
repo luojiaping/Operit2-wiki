@@ -1,0 +1,10 @@
+page: plugin-catalog-buildin batch: batch-06 facts: 97 bad: 9
+plugin-catalog-buildin.md:21 `bool_field` not within ±5 of any ref ['core/crates/plugin/sdk/src/JsPackageLoader.rs:160']
+plugin-catalog-buildin.md:21 `false` not within ±5 of any ref ['core/crates/plugin/sdk/src/JsPackageLoader.rs:160']
+plugin-catalog-buildin.md:50 `enabled_by_default` not within ±5 of any ref ['core/crates/plugin/sdk/src/JsPackageLoader.rs:98']
+plugin-catalog-buildin.md:50 `enabledByDefault` not within ±5 of any ref ['core/crates/plugin/sdk/src/JsPackageLoader.rs:98']
+plugin-catalog-buildin.md:50 `enabled_by_default` not within ±5 of any ref ['core/crates/plugin/sdk/src/JsPackageLoader.rs:98']
+plugin-catalog-buildin.md:51 `bool_field` not within ±5 of any ref ['core/crates/plugin/sdk/src/JsPackageLoader.rs:160']
+plugin-catalog-buildin.md:51 `false` not within ±5 of any ref ['core/crates/plugin/sdk/src/JsPackageLoader.rs:160']
+plugin-catalog-buildin.md:58 `extract_metadata` not within ±5 of any ref ['core/crates/plugin/sdk/src/JsPackageLoader.rs:124']
+plugin-catalog-buildin.md:108 `bool_field` not within ±5 of any ref ['core/crates/plugin/sdk/src/JsPackageLoader.rs:155']

@@ -1,0 +1,20 @@
+page: agent-compaction batch: batch-04 facts: 90 bad: 19
+agent-compaction.facts.json#16 `summaryTaskForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3841 (ref 行号越界)
+agent-compaction.facts.json#18 `maxContextLength` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3071
+agent-compaction.facts.json#18 `config.context.maxContextLength` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3071
+agent-compaction.facts.json#19 `currentWindowSizeFlow` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3212
+agent-compaction.facts.json#20 `inputTokenCountFlow` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3220
+agent-compaction.facts.json#21 `outputTokenCountFlow` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3228
+agent-compaction.facts.json#52 `addSummaryMessage` not within ±5 of core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2437
+agent-compaction.facts.json#53 `findProperSummaryPosition` not within ±5 of core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2468
+agent-compaction.md:36 `chatInputMenuSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3049']
+agent-compaction.md:89 `addSummaryMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2437']
+agent-compaction.md:90 `findProperSummaryPosition` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2468']
+agent-compaction.md:139 `maxContextLength` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3071']
+agent-compaction.md:139 `config.context.maxContextLength` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3071']
+agent-compaction.md:140 `currentWindowSizeFlow` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3212']
+agent-compaction.md:141 `inputTokenCountFlow` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3220']
+agent-compaction.md:142 `outputTokenCountFlow` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3228']
+agent-compaction.md:153 `summaryTaskForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3841']
+agent-compaction.md:176 `chatInputMenuSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3049']
+agent-compaction.md:202 `addSummaryMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2437']

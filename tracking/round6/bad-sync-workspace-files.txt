@@ -1,0 +1,3 @@
+page: sync-workspace-files batch: batch-07 facts: 115 bad: 2
+sync-workspace-files.md:150 `isPortableFileName` not within ±5 of any ref ['core/crates/foundation/util/src/FileUtils.rs:7']
+sync-workspace-files.md:151 `isPortableFilePath` not within ±5 of any ref ['core/crates/foundation/util/src/FileUtils.rs:19']

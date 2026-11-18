@@ -153,8 +153,8 @@ date: 2026-11-11
 - `managedVfsPath` — 把受管存储路径映射为 VFS 路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:685`
 - `validatePath` — 要求路径属于受管路径且所有权为 `Space`。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:692`
 - `validateFilePath` — 要求受管文件属于某个受管目录，不接受目录本身作为文件路径。`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:697`
-- `isPortableFileName` — 判定单个文件名是否便携：非空、不超 255 字节、不以空格或句点结尾、不含禁用字符且词干不是设备保留名。`core/crates/foundation/util/src/FileUtils.rs:7`
-- `isPortableFilePath` — 要求路径每一段都通过 `isPortableFileName` 检查。`core/crates/foundation/util/src/FileUtils.rs:19`
+- `isPortableFileName` — 判定单个文件名是否便携：非空、不超 255 字节、不以空格或句点结尾、不含禁用字符且词干不是设备保留名。`core/crates/foundation/util/src/FileUtils.rs:22`
+- `isPortableFilePath` — 要求路径每一段都通过 `isPortableFileName` 检查。`core/crates/foundation/util/src/FileUtils.rs:34`
 - `FileSyncPolicy` — 一份 `.operit/sync.json` 策略，含 `version`、`ignoreFiles`、`exclude`、`maxFileBytes` 与 `maxTotalBytes` 五个字段。`core/crates/persistence/store/src/FileSyncPolicy.rs:20` `core/crates/persistence/store/src/FileSyncPolicy.rs:11`
 - FileSyncPolicy 的 `ensure` — 只在策略文件不存在时写入默认策略。`core/crates/persistence/store/src/FileSyncPolicy.rs:71`
 - FileSyncPolicy 的 `loadForScan` — 策略文件缺失时返回默认策略。`core/crates/persistence/store/src/FileSyncPolicy.rs:57`

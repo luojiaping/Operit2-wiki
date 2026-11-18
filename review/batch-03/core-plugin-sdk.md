@@ -46,7 +46,7 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 - 省略 `api_version` 的清单按 1.0.0 解析（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:663`；缺省值函数见 `core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs:65`）。
 - enabled_by_default 省略时默认 true（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2777`）。
 - `ToolPkgSourceType` 只有 `ASSET`、`MARKET`、`EXTERNAL` 三种，默认 `ASSET`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:19`）。
-- `findManifestEntry` 先找根目录的 `manifest.hjson`，找不到再找 `manifest.json`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2674`）。
+- `findManifestEntry` 先找根目录的 `manifest.hjson`，找不到再找 `manifest.json`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2676`）。
 - 根目录没有清单时，findManifestEntry 再按子目录 `manifest.hjson`、子目录 manifest.json 的顺序找（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2687`）。
 - `readToolPkgManifest` 只读归档清单并校验 toolpkg_id 非空，不触碰可执行条目（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:820`）。
 - `readToolPkgCatalog` 只读清单、子包元数据与资源路径，产出 `ToolPkgLoadResult`，不评估脚本（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:836`）。

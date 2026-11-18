@@ -1,6 +1,6 @@
 {
   "issue": 96,
-  "source_commit": "f9b755545",
+  "source_commit": "6192d22e3",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "ESP32 模拟器 Rust 堆 262,144 字节固定预算与 252,208 字节峰值分项实测，附严格栈预算复验与 Peer/IPC 清理后验证。",

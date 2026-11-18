@@ -1,0 +1,7 @@
+page: plugin-toolpkg-overview batch: batch-06 facts: 69 bad: 6
+plugin-toolpkg-overview.md:49 `packages/buildin/` not within ±5 of any ref ['plugins/README.md:8']
+plugin-toolpkg-overview.md:50 `packages/external/` not within ±5 of any ref ['plugins/README.md:9']
+plugin-toolpkg-overview.md:51 `packages/examples/` not within ±5 of any ref ['plugins/README.md:10']
+plugin-toolpkg-overview.md:53 `packages/external/image_workbench/` not within ±5 of any ref ['plugins/README.md:15']
+plugin-toolpkg-overview.md:137 `types/` not within ±5 of any ref ['plugins/README.md:3']
+plugin-toolpkg-overview.md:138 `types-v1/` not within ±5 of any ref ['plugins/README.md:6']

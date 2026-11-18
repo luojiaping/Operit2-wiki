@@ -1,0 +1,2 @@
+page: core-plugin-sdk batch: batch-03 facts: 154 bad: 1
+core-plugin-sdk.md:43 `manifest.json` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2674']

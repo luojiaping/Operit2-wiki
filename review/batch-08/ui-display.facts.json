@@ -57,15 +57,15 @@
   },
   {
     "fact": "插件工具的 `display` 是 `PackageTool` 的可选字段，类型为 `Option<ToolDisplayDeclaration>`。",
-    "ref": "core/crates/plugin/sdk/src/package.rs:106"
+    "ref": "core/crates/plugin/sdk/src/package.rs:127"
   },
   {
     "fact": "条件状态 `ToolPackageState` 的工具列表是 `Vec<PackageTool>`。",
-    "ref": "core/crates/plugin/sdk/src/package.rs:99"
+    "ref": "core/crates/plugin/sdk/src/package.rs:120"
   },
   {
     "fact": "条件状态工具与普通工具共用同一 `display` 声明格式。",
-    "ref": "core/crates/plugin/sdk/src/package.rs:104"
+    "ref": "core/crates/plugin/sdk/src/package.rs:125"
   },
   {
     "fact": "客户端解析 `label` 时依次选择完整语言标签、语言代码、`default`、`en`、首个声明文本。",

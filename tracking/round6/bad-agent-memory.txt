@@ -1,0 +1,3 @@
+page: agent-memory batch: batch-04 facts: 143 bad: 2
+agent-memory.facts.json#1 `candidates` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:393
+agent-memory.facts.json#2 `rebuildTask` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:398

@@ -1,0 +1,8 @@
+page: plugin-packagebuilder batch: batch-06 facts: 223 bad: 7
+plugin-packagebuilder.md:49 `/operitapp/data/cache/toolpkg/` not within ±5 of any ref ['plugins/skills/buildin/PackageBuilder/SKILL.md:43']
+plugin-packagebuilder.md:82 `Other` not within ±5 of any ref ['plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:325']
+plugin-packagebuilder.md:92 `tools[].description` not within ±5 of any ref ['plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:227']
+plugin-packagebuilder.md:105 `await Tools.UI.getPageInfo()` not within ±5 of any ref ['plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:364']
+plugin-packagebuilder.md:177 `ctx.getModuleSpec()` not within ±5 of any ref ['plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1201']
+plugin-packagebuilder.md:183 `["log", "package"]` not within ±5 of any ref ['plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:102']
+plugin-packagebuilder.md:272 `Network` not within ±5 of any ref ['plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:353']

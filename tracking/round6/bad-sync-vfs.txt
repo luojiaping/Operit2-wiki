@@ -1,0 +1,15 @@
+page: sync-vfs batch: batch-07 facts: 159 bad: 14
+sync-vfs.facts.json#89 `grepCode` not within ±5 of core/crates/foundation/vfs/src/VisualFileSystem.rs:400
+sync-vfs.facts.json#95 `virtualDirectoryInfo` not within ±5 of core/crates/foundation/vfs/src/VisualFileSystem.rs:480
+sync-vfs.facts.json#97 `/app` not within ±5 of core/crates/foundation/vfs/src/VisualFileSystem.rs:706
+sync-vfs.facts.json#98 `/operitapp` not within ±5 of core/crates/foundation/vfs/src/VisualFileSystem.rs:751
+sync-vfs.facts.json#99 `fileInfo` not within ±5 of core/crates/foundation/vfs/src/VisualFileSystem.rs:762
+sync-vfs.facts.json#100 `mnt` not within ±5 of core/crates/foundation/vfs/src/VisualFileSystem.rs:773
+sync-vfs.facts.json#100 `sdcard` not within ±5 of core/crates/foundation/vfs/src/VisualFileSystem.rs:773
+sync-vfs.facts.json#100 `data` not within ±5 of core/crates/foundation/vfs/src/VisualFileSystem.rs:773
+sync-vfs.md:35 `/operitapp` not within ±5 of any ref ['core/crates/foundation/vfs/src/VisualFileSystem.rs:751']
+sync-vfs.md:36 `fileInfo` not within ±5 of any ref ['core/crates/foundation/vfs/src/VisualFileSystem.rs:762']
+sync-vfs.md:37 `mnt` not within ±5 of any ref ['core/crates/foundation/vfs/src/VisualFileSystem.rs:773']
+sync-vfs.md:37 `sdcard` not within ±5 of any ref ['core/crates/foundation/vfs/src/VisualFileSystem.rs:773']
+sync-vfs.md:37 `data` not within ±5 of any ref ['core/crates/foundation/vfs/src/VisualFileSystem.rs:773']
+sync-vfs.md:161 `virtualDirectoryInfo` not within ±5 of any ref ['core/crates/foundation/vfs/src/VisualFileSystem.rs:480']

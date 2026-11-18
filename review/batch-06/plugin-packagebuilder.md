@@ -52,7 +52,7 @@ date: 2026-11-11
 - SKILL.md 自述：本 Skill 只携带文档和当前 API 类型定义，不生成插件文件索引，也不复制或解压所有 toolpkg 作为示例。`plugins/skills/buildin/PackageBuilder/SKILL.md:39`
 - 文档声明：本套件为内置 Skill，自动安装，默认对 AI 隐藏；用户可在插件管理中开启；“快速创作你的插件”入口也会明确开启本套件。`plugins/skills/buildin/PackageBuilder/SKILL.md:11`
 - 文档声明：显示名称为“Operit 插件开发套件”；Skill 标识、目录名和命令参数保持为 `PackageBuilder`。`plugins/skills/buildin/PackageBuilder/SKILL.md:13`
-- 文档声明：按需查阅已安装插件通过 `Tools.Files.list` 或系统文件工具浏览 VFS 路径：`/operitapp/data/extensions/device/packages/`（本设备）、`/operitapp/data/extensions/space/packages/`（当前空间）、`/operitapp/data/cache/toolpkg/`（运行时已按需解压的缓存）。`plugins/skills/buildin/PackageBuilder/SKILL.md:43`
+- 文档声明：按需查阅已安装插件通过 `Tools.Files.list` 或系统文件工具浏览 VFS 路径：`/operitapp/data/extensions/device/packages/`（本设备）、`/operitapp/data/extensions/space/packages/`（当前空间）、`/operitapp/data/cache/toolpkg/`（运行时已按需解压的缓存）。`plugins/skills/buildin/PackageBuilder/SKILL.md:45`
 - 文档声明：缓存缺失或残留旧版本时，不能据此认定安装状态或版本，也不要按包名猜缓存子目录；内置插件不保证在安装目录有独立文件。`plugins/skills/buildin/PackageBuilder/SKILL.md:49`
 - 文档声明：skill.include.json 把 `PLUGIN_CREATION_WORKFLOW.md`、`SCRIPT_DEV_GUIDE.md`、`TOOLPKG_FORMAT_GUIDE.md` 三份开发文档映射到 Skill 内的 `references/` 路径。`plugins/skills/buildin/PackageBuilder/skill.include.json:8`
 - 文档声明：skill.include.json 把 `../../../types` 映射到 Skill 内的 `types` 目录。`plugins/skills/buildin/PackageBuilder/skill.include.json:16`
@@ -85,7 +85,7 @@ date: 2026-11-11
 - 文档声明：脚本主要使用 TypeScript 编写，以利用其强大的类型系统，但也可以使用原生 JavaScript (ES6+)。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:7`
 - 文档声明：每个脚本文件的开头都必须包含一个 `/* METADATA ... */` 注释块；这块元数据是 Operit AI 理解并调用所编写功能的唯一途径；AI 会解析 `METADATA` 中的信息，将其作为可用的"工具"呈现给大语言模型。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:118`
 - 文档声明：`category` 为可选字段；未填写或为空时，系统会自动归类为 `Other`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:159`
-- 文档声明：`category` 缺失、为空字符串或仅包含空白字符时，解析阶段会自动归类为 `Other`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:325`
+- 文档声明：`category` 缺失、为空字符串或仅包含空白字符时，解析阶段会自动归类为 `Other`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:328`
 - 文档声明：`category` 建议直接复用当前已安装插件中已使用的分类，避免创建语义重复的新分类。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:319`
 - 文档声明：`advice` 字段标记"仅提示/说明"的工具；`advice: true` 时，该工具不要求在脚本中有同名函数实现；运行时会跳过"工具不存在"的校验。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:165`
 - 文档声明：`states` 为一个数组，每个元素是一个"状态"（State）；系统会根据运行时能力按顺序评估每个 state 的 `condition`，选择第一个为 `true` 的 state 并激活。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:173`
@@ -95,8 +95,8 @@ date: 2026-11-11
 - 文档声明：条件可用的 capability key 包括 `android.permission_level`，表示权限等级，以字符串形式参与比较。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:213`
 - 文档声明：运行时会向脚本环境提供全局函数 `getState(): string`，返回当前激活的 state 的 `id`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:219`
 - 文档声明：运行时会向脚本环境提供全局函数 `getLang(): string`，返回当前使用的语言代码，如 `zh`、`en`；语言不可用时返回 `en`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:223`
-- 文档声明：`METADATA` 中的 `display_name`、`description`、`tools[].description` 与参数 `description` 支持单语字符串或多语对象两种写法。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:227`
-- 文档声明：全局 `Tools` 对象分命名空间提供 API：`Tools.System` 提供 `sleep`、`startApp`、`stopApp` 等系统级操作；`Tools.UI` 提供 `getPageInfo`、`pressKey`、`swipe`、`setText` 等 UI 自动化操作。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:353`
+- 文档声明：`METADATA` 中的 `display_name`、`description`、`tools[].description` 与参数 `description` 支持单语字符串或多语对象两种写法。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:229`
+- 文档声明：全局 `Tools` 对象分命名空间提供 API：`Tools.System` 提供 `sleep`、`startApp`、`stopApp` 等系统级操作；`Tools.UI` 提供 `getPageInfo`、`pressKey`、`swipe`、`setText` 等 UI 自动化操作。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:359`
 - 文档声明：`Tools.Files` 提供 `read`、`write`、`list` 等文件操作；`Tools.Network` 提供 `httpGet`、`httpPost` 等网络请求；另有 `UINode` 类表示 UI 元素。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:355`
 - 文档声明：所有工具函数都是异步的，调用时必须使用 `await`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:359`
 - 文档声明：`Java` 与 `Kotlin` 的桥接是需要对应 host 实现支持的专用能力，类型声明不代表每个平台都能调用 Java 或 Android 类；全平台插件的文件、网络和终端操作应使用统一 `Tools` 与 host API，不要用 Java Bridge 替代这些抽象。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:375`
@@ -108,7 +108,7 @@ date: 2026-11-11
 - 文档声明：`UINode` 查找子元素可用 `findById`、`findByText`、`findByClass`、`findAllBy...`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:558`
 - 文档声明：`UINode` 示例按资源 ID 查找搜索框：`page.findById('com.example:id/search_box')`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:571`
 - 文档声明：示例按文本查找登录按钮：`page.findByText("登录")`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:574`；按类名查找全部文本视图：`page.findAllByClass('TextView')`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:577`；按内容描述查找返回按钮：`page.findByContentDesc("返回")`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:580`
-- 文档声明：工具调用示例为 `await Tools.System.sleep(3000)` 等待 3 秒，`await Tools.UI.getPageInfo()` 获取当前页面信息。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:364`
+- 文档声明：工具调用示例为 `await Tools.System.sleep(3000)` 等待 3 秒，`await Tools.UI.getPageInfo()` 获取当前页面信息。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:367`
 - 文档声明：工具调用示例为在屏幕上滑动用 `await Tools.UI.swipe(540, 1800, 540, 900)`。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:370`
 
 ### 清单 manifest 字段
@@ -180,13 +180,13 @@ date: 2026-11-11
 - 文档声明：该 API 通过 Flutter `file_selector` 在 Android、iOS、Linux、macOS、Windows、Web 和 OpenHarmony 使用各平台的文件选择器；不适用该 `picker` 的选项会直接报错；结果提供平台文件路径或浏览器对象 URL。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1173`
 - 文档声明：`ctx.saveFile(options)` 将 UTF-8 文本交给宿主的跨平台文件保存服务，由用户在系统保存界面选择位置。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1177`
 - 文档声明：`ToolPkg.registerToolboxUiModule(...)` 仍然保留；宿主内部把它自动映射为注册一个 `compose_dsl` UI route 与自动挂载一个 `toolbox` 导航入口；旧接口不会自动创建主侧边栏插件入口，需要主侧边栏插件入口时额外调用 `ToolPkg.registerNavigationEntry(...)` 并使用 `surface` 为 `main_sidebar_plugins`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1193`
-- 文档声明：UI 模块可用 `getLang()` 取当前语言，返回 `zh` 或 `en`；可用 `ctx.getCurrentPackageName()`、`ctx.getCurrentToolPkgId()`、`ctx.getCurrentUiModuleId()`、`ctx.getModuleSpec()` 取当前包与模块信息。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1201`
+- 文档声明：UI 模块可用 `getLang()` 取当前语言，返回 `zh` 或 `en`；可用 `ctx.getCurrentPackageName()`、`ctx.getCurrentToolPkgId()`、`ctx.getCurrentUiModuleId()`、`ctx.getModuleSpec()` 取当前包与模块信息。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1202`
 - 文档声明：子包环境变量声明示例中，`TIMEOUT` 为可选环境变量，`defaultValue` 为 `30000`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:930`
 - 文档声明：命名规范为 `toolpkg_id` 使用反向域名格式，如 `com.operit.windows_bundle`；子包 id 使用小写字母和下划线，如 `windows_control`；资源 key 使用小写字母和下划线，如 `pc_agent_zip`；UI 模块 id 使用小写字母和下划线，如 `windows_setup`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1274`
 
 ### 首次安装与测试
 
-- 文档声明：首次安装命令包括 `["package", "list"]`、`["package", "import", "<artifact_host_path>"]`、`["package", "enable", "<package_id>"]`、`["package", "show", "<runtime_package_name>"]`、`["package", "exec", "<runtime_package_name>:<tool_name>", "{}"]`、`["log", "package"]`。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:102`
+- 文档声明：首次安装命令包括 `["package", "list"]`、`["package", "import", "<artifact_host_path>"]`、`["package", "enable", "<package_id>"]`、`["package", "show", "<runtime_package_name>"]`、`["package", "exec", "<runtime_package_name>:<tool_name>", "{}"]`、`["log", "package"]`。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:104`
 - 文档声明：导入结果给出 `packageName`、`packageFormat` 和 `storedPath`；以实际解析结果确认身份，不根据文件名猜包 id。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:110`
 - 文档声明：ToolPkg 容器 id 与可执行子包名不同；从 `package list` 和 `package show` 读取实际工具名；只注册 UI、hook 或 provider 的包不一定有可执行工具。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:111`
 - 文档声明：启用后重新读取 `package list` 的真实 `enabled` 状态；不能把启用命令自身的文字或请求参数当作状态证明。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:112`
@@ -222,7 +222,7 @@ date: 2026-11-11
 
 - 文档声明：为 Operit2 新建 ToolPkg 要显式声明 `"api_version": "2.0.0"`，使用本 Skill 的当前版本类型；不能把旧版兼容加载当作完整支持，也不能只修改旧包版本号就宣称完成迁移。`plugins/skills/buildin/PackageBuilder/SKILL.md:19`
 - 文档声明：解析器接受旧版本号不等于完整实现旧接口；旧包需要逐项验证所用能力，不能仅凭导入成功宣称兼容；迁移旧包需要同步检查接口、路径和平台语义，不能只修改版本号。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:7`
-- 文档声明：不能通过仅改 manifest 版本号把旧 Android 插件视为已完成迁移；需要检查实际接口与平台行为；`api_version` 是 ToolPkg 清单字段，不是单文件脚本的元数据字段。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:13`
+- 文档声明：在 Operit2 创建插件时显式填写 `"api_version": "2.0.0"`：ToolPkg 写在 manifest 中，独立脚本包写在 `METADATA` 根对象中（JSON/HJSON 脚本包写在元数据根对象中）；接口以随 Operit 插件开发套件携带的当前版本类型为准；省略该字段的脚本包与 ToolPkg 一律按 `1.0.0` 兼容契约解析和执行；支持显式声明 `1.0.0`、`1.0.1`、`2.0.0`，其他版本或非字符串值会被拒绝；ToolPkg 内的子包使用所属 manifest 的版本；不能通过仅改 manifest 版本号把旧 Android 插件视为已完成迁移；需要检查实际接口与平台行为。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:13`
 - 文档声明：接受某个版本号、成功导入包和完整支持该版本的接口是不同的事情；旧包迁移不能只改版本号，还需检查接口、路径与平台行为。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:38`
 - 文档声明：省略 `api_version` 时按旧版 `1.0.0` 契约加载，启用对应适配和运行依赖；`1.0.0`、`1.0.1` 的兼容加载支持并不完整。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:173`
 
@@ -275,7 +275,7 @@ date: 2026-11-11
 - `states` — 动态工具集。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:173`
 - `getState` — 返回当前激活 state 的 id。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:219`
 - `getLang` — 返回当前语言代码。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:223`
-- `Tools` — 全局工具对象，分 `System`、`UI`、`Files`、`Network` 命名空间。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:353`
+- `Tools` — 全局工具对象，分 `System`、`UI`、`Files`、`Network` 命名空间。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:359`
 - `UINode` — UI 元素对象树节点。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:557`
 - `operit_editor` — 包管理工具。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:19`
 - `execute_cli_command` — 系统工具，与 `operit_editor` 使用同一 core command 执行入口。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:19`

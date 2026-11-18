@@ -417,7 +417,7 @@
   },
   {
     "fact": "同步收据的 `protocolVersion` 为 1，`consistencyVersion` 为 7。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:942"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:948"
   },
   {
     "fact": "`SpacePersistenceSyncService` 通过 Router 与可达的 Space 成员同步持久化数据，不拥有配对、发现或传输。",

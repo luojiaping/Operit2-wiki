@@ -1,0 +1,21 @@
+total facts checked: 13608, bad: 532, pages with bad: 20
+  batch-03/core-plugin-js-bridge: 208 bad / 160 facts
+  batch-04/agent-chat-branch: 81 bad / 119 facts
+  batch-06/plugin-compose-dsl: 58 bad / 71 facts
+  batch-02/core-tool-execution: 37 bad / 124 facts
+  batch-06/plugin-manifest: 29 bad / 80 facts
+  batch-02/core-foundation-util: 19 bad / 153 facts
+  batch-04/agent-compaction: 19 bad / 90 facts
+  batch-03/core-runtime-services: 17 bad / 261 facts
+  batch-07/sync-vfs: 14 bad / 159 facts
+  batch-06/plugin-catalog-buildin: 9 bad / 97 facts
+  batch-08/ui-display: 8 bad / 86 facts
+  batch-06/plugin-packagebuilder: 7 bad / 223 facts
+  batch-06/plugin-toolpkg-overview: 6 bad / 69 facts
+  batch-02/core-overview: 5 bad / 102 facts
+  batch-02/core-tool-packages-mcp: 4 bad / 126 facts
+  batch-04/agent-loop-overview: 4 bad / 135 facts
+  batch-04/agent-memory: 2 bad / 143 facts
+  batch-07/sync-overview: 2 bad / 225 facts
+  batch-07/sync-workspace-files: 2 bad / 115 facts
+  batch-03/core-plugin-sdk: 1 bad / 154 facts

@@ -245,7 +245,7 @@
   },
   {
     "fact": "findManifestEntry 先找根目录的 manifest.hjson，找不到再找 manifest.json。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2674"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2676"
   },
   {
     "fact": "根目录没有清单时，findManifestEntry 再按子目录 manifest.hjson、子目录 manifest.json 的顺序找。",

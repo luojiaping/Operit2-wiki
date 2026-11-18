@@ -1,0 +1,5 @@
+page: core-tool-packages-mcp batch: batch-02 facts: 126 bad: 4
+core-tool-packages-mcp.md:155 `ToolPkg resource target not found` not within ±5 of any ref ['core/crates/tool/services/src/tools/ToolJsRuntime.rs:155']
+core-tool-packages-mcp.md:165 `main` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2071']
+core-tool-packages-mcp.md:176 `toolpkg_sandbox:` not within ±5 of any ref ['core/crates/tool/services/src/tools/ToolJsRuntime.rs:559']
+core-tool-packages-mcp.md:176 `sandbox` not within ±5 of any ref ['core/crates/tool/services/src/tools/ToolJsRuntime.rs:559']

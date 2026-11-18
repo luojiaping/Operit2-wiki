@@ -169,39 +169,39 @@
   },
   {
     "fact": "FileUtils::isTextLike 对整段字节判断是否为文本。",
-    "ref": "core/crates/foundation/util/src/FileUtils.rs:24"
+    "ref": "core/crates/foundation/util/src/FileUtils.rs:39"
   },
   {
     "fact": "FileUtils::isTextLikeSample 只采样前 sampleSize 个字节。",
-    "ref": "core/crates/foundation/util/src/FileUtils.rs:29"
+    "ref": "core/crates/foundation/util/src/FileUtils.rs:44"
   },
   {
     "fact": "FileUtils::isTextLikeSample 对空输入返回 true。",
-    "ref": "core/crates/foundation/util/src/FileUtils.rs:31"
+    "ref": "core/crates/foundation/util/src/FileUtils.rs:46"
   },
   {
     "fact": "非文本字节占比低于 10% 时判定为文本。",
-    "ref": "core/crates/foundation/util/src/FileUtils.rs:60"
+    "ref": "core/crates/foundation/util/src/FileUtils.rs:75"
   },
   {
     "fact": "FileUtils::isTextBasedExtension 按去空白转小写后的扩展名匹配已知文本扩展名集合。",
-    "ref": "core/crates/foundation/util/src/FileUtils.rs:64"
+    "ref": "core/crates/foundation/util/src/FileUtils.rs:79"
   },
   {
     "fact": "FileUtils::isTextBasedFileName 在无扩展名时按 readme、makefile 等裸文件名判定。",
-    "ref": "core/crates/foundation/util/src/FileUtils.rs:181"
+    "ref": "core/crates/foundation/util/src/FileUtils.rs:196"
   },
   {
     "fact": "isAsciiTextByte 把可打印 ASCII（32..=126）与制表符、换行、回车当作文本字节。",
-    "ref": "core/crates/foundation/util/src/FileUtils.rs:216"
+    "ref": "core/crates/foundation/util/src/FileUtils.rs:231"
   },
   {
     "fact": "utf8SequenceLength 只接受首字节 0xC2 至 0xF4 开头的 2/3/4 字节序列。",
-    "ref": "core/crates/foundation/util/src/FileUtils.rs:224"
+    "ref": "core/crates/foundation/util/src/FileUtils.rs:239"
   },
   {
     "fact": "utf8SequenceLength 要求后续字节高两位为 10（`(byte & 0xC0) == 0x80`），否则返回 0。",
-    "ref": "core/crates/foundation/util/src/FileUtils.rs:234"
+    "ref": "core/crates/foundation/util/src/FileUtils.rs:249"
   },
   {
     "fact": "AppLogger 的 VERBOSE=2、DEBUG=3、INFO=4 采用 Android 兼容的日志优先级。",

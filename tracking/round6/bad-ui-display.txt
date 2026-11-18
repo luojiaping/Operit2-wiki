@@ -1,0 +1,9 @@
+page: ui-display batch: batch-08 facts: 86 bad: 8
+ui-display.facts.json#15 `PackageTool` not within ±5 of core/crates/plugin/sdk/src/package.rs:106
+ui-display.facts.json#16 `ToolPackageState` not within ±5 of core/crates/plugin/sdk/src/package.rs:99
+ui-display.md:20 `PackageTool` not within ±5 of any ref ['core/crates/plugin/sdk/src/package.rs:106']
+ui-display.md:37 `PackageTool` not within ±5 of any ref ['core/crates/plugin/sdk/src/package.rs:106']
+ui-display.md:38 `ToolPackageState` not within ±5 of any ref ['core/crates/plugin/sdk/src/package.rs:104', 'core/crates/plugin/sdk/src/package.rs:94']
+ui-display.md:136 `PackageTool` not within ±5 of any ref ['core/crates/plugin/sdk/src/package.rs:106']
+ui-display.md:146 `PackageTool` not within ±5 of any ref ['core/crates/plugin/sdk/src/package.rs:106']
+ui-display.md:146 `ToolDisplayDeclaration` not within ±5 of any ref ['core/crates/plugin/sdk/src/package.rs:106']

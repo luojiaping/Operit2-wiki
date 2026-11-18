@@ -38,9 +38,9 @@ date: 2026-11-11
 - 文件结果保留调用者使用的 VFS 根目录。`docs/vfs-mounts.md:7`
 - 应用新生成的地址使用 `/operitapp` 与 `/virtual`，已有地址继续有效。`docs/vfs-mounts.md:7`
 - 根入口映射仅存在于应用内，不移动物理文件，也不修改终端中的实际挂载点。`docs/vfs-mounts.md:7`
-- 测试断言经 `/app` 写入的文件可经 `/operitapp` 读出同一内容。`core/crates/foundation/vfs/src/VisualFileSystem.rs:751`
-- 测试断言 `fileInfo` 回显调用者使用的 VFS 根路径。`core/crates/foundation/vfs/src/VisualFileSystem.rs:762`
-- 测试断言根目录列表含 `operitapp`，不含 `app`、`mnt`、`sdcard`、`data`。`core/crates/foundation/vfs/src/VisualFileSystem.rs:773`
+- 测试断言经 `/app` 写入的文件可经 `/operitapp` 读出同一内容。`core/crates/foundation/vfs/src/VisualFileSystem.rs:756`
+- 测试断言 `fileInfo` 回显调用者使用的 VFS 根路径。`core/crates/foundation/vfs/src/VisualFileSystem.rs:767`
+- 测试断言根目录列表含 `operitapp`，不含 `app`、`mnt`、`sdcard`、`data`。`core/crates/foundation/vfs/src/VisualFileSystem.rs:778`
 - 用 `VisualFileSystem` 的 `fromContext` 构造 VFS，或向服务构造器注入必需的 `VisualFileSystem`。`docs/filesystem-access-boundary.md:5`
 - VFS 使用所属运行时的存储根与已注册挂载。`docs/filesystem-access-boundary.md:5`
 - 不得把 mapper 设为可选，也不得在 VFS 初始化失败时回退到原生 I/O。`docs/filesystem-access-boundary.md:5`
@@ -153,8 +153,8 @@ date: 2026-11-11
 - VisualFileSystem 的 `writeFileBytes` — 解析路径后写原始字节。`core/crates/foundation/vfs/src/VisualFileSystem.rs:269`
 - VisualFileSystem 的 `deleteFile` — 解析路径后删除映射的宿主文件或目录，`recursive` 控制递归。`core/crates/foundation/vfs/src/VisualFileSystem.rs:288`
 - VisualFileSystem 的 `fileExists` — 对虚拟目录直接返回存在、目录、大小 0，其余路径解析后委托宿主 `fileExists`。`core/crates/foundation/vfs/src/VisualFileSystem.rs:298`
-- VisualFileSystem 的 `moveFile` — 解析源与目标后委托宿主 `moveFile`。`core/crates/foundation/vfs/src/VisualFileSystem.rs:326`
-- VisualFileSystem 的 `copyFile` — 解析源与目标后委托宿主 `copyFile`，`recursive` 控制递归。`core/crates/foundation/vfs/src/VisualFileSystem.rs:337`
+- VisualFileSystem 的 `moveFile` — 先经 `validateTransfer` 校验（拒绝自身或自身子目录转移），再解析路径委托宿主 `moveFile`。`core/crates/foundation/vfs/src/VisualFileSystem.rs:320`
+- VisualFileSystem 的 `copyFile` — 先经 `validateTransfer` 校验（拒绝自身或自身子目录转移），再解析路径委托宿主 `copyFile`，`recursive` 控制递归。`core/crates/foundation/vfs/src/VisualFileSystem.rs:332`
 - VisualFileSystem 的 `makeDirectory` — 解析路径后委托宿主 `makeDirectory`，`createParents` 控制建父目录。`core/crates/foundation/vfs/src/VisualFileSystem.rs:348`
 - VisualFileSystem 的 `findFiles` — 把请求路径解析为物理路径后调用宿主 `findFiles`，结果经 mapPhysicalChildToVfs 映回 VFS 路径。`core/crates/foundation/vfs/src/VisualFileSystem.rs:357`
 - VisualFileSystem 的 `fileInfo` — 对虚拟目录返回 `virtualDirectoryInfo` 生成的元数据，否则把宿主元数据的 `path` 改写为解析出的 vfsPath。`core/crates/foundation/vfs/src/VisualFileSystem.rs:374`
@@ -164,7 +164,7 @@ date: 2026-11-11
 - VisualFileSystem 的 `openFile` — 解析路径后用平台文件打开器打开映射的宿主文件。`core/crates/foundation/vfs/src/VisualFileSystem.rs:437`
 - VisualFileSystem 的 `shareFile` — 解析路径后经宿主分享映射的文件，`title` 为分享标题。`core/crates/foundation/vfs/src/VisualFileSystem.rs:446`
 - `hostErrorMessage` — 把 `HostError` 转为桥接侧消息字符串，取 `error.message`。`core/crates/foundation/vfs/src/VisualFileSystem.rs:470`
-- `virtualDirectoryInfo` — 生成合成虚拟目录元数据：存在、类型 `directory`、大小 0、权限 `rwx`。`core/crates/foundation/vfs/src/VisualFileSystem.rs:480`
+- `virtualDirectoryInfo` — 生成合成虚拟目录元数据：存在、类型 `directory`、大小 0、权限 `rwx`。`core/crates/foundation/vfs/src/VisualFileSystem.rs:478`
 - `PathMapper` — 规范化 VFS 路径并映射到宿主可见存储根。`core/crates/foundation/vfs/src/PathMapper.rs:72`
 - PathMapper 的 `workspaceCollectionPath` — 返回 `/operitapp/workspaces`。`core/crates/foundation/vfs/src/PathMapper.rs:128`
 - PathMapper 的 `workspacePath` — 在工作区集合根下为工作区 id 构建 VFS 路径。`core/crates/foundation/vfs/src/PathMapper.rs:135`

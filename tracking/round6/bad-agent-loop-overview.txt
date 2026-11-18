@@ -1,0 +1,5 @@
+page: agent-loop-overview batch: batch-04 facts: 135 bad: 4
+agent-loop-overview.facts.json#32 `beforeChangeRoute` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3791
+agent-loop-overview.facts.json#33 `summaryTaskForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3837 (ref 行号越界)
+agent-loop-overview.md:91 `beforeChangeRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3791']
+agent-loop-overview.md:113 `summaryTaskForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3837']

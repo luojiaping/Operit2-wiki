@@ -1,0 +1,3 @@
+page: sync-overview batch: batch-07 facts: 225 bad: 2
+sync-overview.facts.json#105 `consistencyVersion` not within ±5 of core/crates/runtime/application/src/core/application/OperitApplication.rs:942
+sync-overview.md:17 `consistencyVersion` not within ±5 of any ref ['core/crates/runtime/application/src/core/application/OperitApplication.rs:942']

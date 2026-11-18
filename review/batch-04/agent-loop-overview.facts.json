@@ -125,11 +125,11 @@
   },
   {
     "fact": "路由变更测试断言：执行中的会话拒绝切换，`beforeChangeRoute` 返回含 Conversation is executing 的错误",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3791"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3714"
   },
   {
     "fact": "路由变更测试断言：切换不总结、不改写会话，且切换后该会话无待处理总结任务（`summaryTaskForChat` 为空）",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3837"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3760"
   },
   {
     "fact": "`insertSummary` 只在用户或 AI 消息处插入总结",
