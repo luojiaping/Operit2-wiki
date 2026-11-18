@@ -9,7 +9,7 @@ date: 2026-11-11
 ## 概述
 
 ToolPkg 是 Operit 项目中用于打包和分发工具包的标准格式（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:11`）。
-`.toolpkg` 文件本质上是一个标准的 ZIP 压缩包，内含一个清单文件（`manifest`）和相关的资源文件（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:15`）。
+`.toolpkg` 文件本质上是一个标准的 ZIP 压缩包，内含一个清单文件（`manifest`）和相关的资源文件（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:11`）。
 ToolPkg 支持将多个功能相关的子包（`subpackages`）组织在一起，支持打包二进制资源、脚本文件和 UI 模块（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:13`）。
 本指南中的包名和目录树是格式示例，具体 API 以 Operit 插件开发套件的当前版本 `types/` 为准（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:5`）。
 对照说明：Agent Plugins 1.0 的可移植子集（`plugin.json`、`mcp.json`）在 Operit2 基线全仓无对应实现，本页仅作对照，不将其写作 Operit2 已实现的功能；核验方法见“来源”小节。
@@ -34,9 +34,9 @@ ToolPkg 支持将多个功能相关的子包（`subpackages`）组织在一起�
 
 ### API 版本关系
 
-Operit2 当前支持的 ToolPkg API 版本是 `2.0.0`，面向多平台开发（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:27`）。
-Operit2 对 `1.0.0`、`1.0.1` 的旧版兼容加载支持并不完整，需要逐项验证（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:28`）。
-Operit1 完整支持 ToolPkg API `1.0.0` 和 `1.0.1`，这两个版本主要面向 Android，是旧版 API 形式（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:29`）。
+Operit2 当前支持的 ToolPkg API 版本是 `2.0.0`，面向多平台开发（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:32`）。
+Operit2 对 `1.0.0`、`1.0.1` 的旧版兼容加载支持并不完整，需要逐项验证（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:33`）。
+Operit1 完整支持 ToolPkg API `1.0.0` 和 `1.0.1`，这两个版本主要面向 Android，是旧版 API 形式（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:34`）。
 接受某个版本号、成功导入包和完整支持该版本的接口是不同的事情（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:38`）。
 旧包迁移不能只改版本号，还需检查接口、路径与平台行为（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:38`）。
 解析器接受旧版本号不等于完整实现旧接口，旧包需要逐项验证所用能力，不能仅凭导入成功宣称兼容（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:9`）。
@@ -48,15 +48,15 @@ ToolPkg API `2.0.0` 基本所有公共接口都通过统一 host 能力提供跨
 `schema_version` 是清单格式版本，当前为 `1`，不是 ToolPkg API 版本（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:172`）。
 `api_version` 是 ToolPkg API 契约版本，Operit2 新建包显式填写 `2.0.0`，省略时按旧版 `1.0.0` 契约加载，启用对应适配和运行依赖（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:173`）。
 `version` 是插件自身的发布版本，建议使用语义化版本，与 `api_version`、`schema_version` 分别声明（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:175`）。
-`schema_version` 表示清单格式版本，`api_version` 表示 ToolPkg API 契约，`version` 表示插件自身的发布版本，三者不能混用（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:13`）。
+`schema_version` 表示清单格式版本，`api_version` 表示 ToolPkg API 契约，`version` 表示插件自身的发布版本，三者不能混用（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:15`）。
 
 ### 三类包的打包区别
 
-`packages/buildin/` 是打包为内置插件的 ToolPkg 源码（`plugins/README.md:8`）。
-`packages/external/` 是随应用打包、由用户从 "more plugins" 加载的官方捆绑 ToolPkg 源码（`plugins/README.md:9`）。
-`packages/examples/` 是用于开发和手动测试的示例 ToolPkg 源码（`plugins/README.md:10`）。
-`packages/buildin/`、`packages/external/`、`packages/examples/` 使用相同的源码布局，区别是打包方式：`buildin` 作为当前内置插件加载，`external` 作为可选官方插件捆绑，`examples` 保留为开发示例（`plugins/README.md:18`）。
-`packages/external/image_workbench/` 提供可选的官方 Image Workbench，从 "more plugins" 提供，默认禁用（`plugins/README.md:15`）。
+`packages/buildin/` 是打包为内置插件的 ToolPkg 源码（`plugins/README.md:18`）。
+`packages/external/` 是随应用打包、由用户从 "more plugins" 加载的官方捆绑 ToolPkg 源码（`plugins/README.md:19`）。
+`packages/examples/` 是用于开发和手动测试的示例 ToolPkg 源码（`plugins/README.md:20`）。
+`packages/buildin/`、`packages/external/`、`packages/examples/` 使用相同的源码布局，区别是打包方式：`buildin` 作为当前内置插件加载，`external` 作为可选官方插件捆绑，`examples` 保留为开发示例（`plugins/README.md:30`）。
+`packages/external/image_workbench/` 提供可选的官方 Image Workbench，从 "more plugins" 提供，默认禁用（`plugins/README.md:28`）。
 主仓库内置与 external 资源同步脚本是 `plugins/tools/sync_plugin_packages.py`，同步更新 `core/crates/runtime/application/assets/plugins/buildin/` 与 `external/`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:830`）。
 内置资源同步服务于应用资源构建，不等于向正在运行的应用安装插件（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:830`）。
 
@@ -77,7 +77,7 @@ ToolPkg API `2.0.0` 基本所有公共接口都通过统一 host 能力提供跨
 `ToolPkg.registerNavigationEntry` 的挂载面 `surface` 支持 `toolbox`、`main_sidebar_plugins`、`app_bar`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:486`）。
 `ToolPkg.registerAppLifecycleHook` 的 `event` 字段是生命周期事件名（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:499`）。
 `ToolPkg.registerAppLifecycleHook` 支持的 `event` 包括 `application_on_create`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:513`）。
-`ToolPkg.registerDesktopWidget` 是桌面小部件注册接口（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1413`）。
+`ToolPkg.registerDesktopWidget` 是桌面小部件注册接口（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1414`）。
 ToolPkg 运行时按执行来源分为 `main`、`ui`、`sandbox`、`provider` 四类上下文（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:538`）。
 同一个 ToolPkg 容器共用一个包级 JS engine，`main` 上下文的内部 context key 形如 `toolpkg_main:<toolpkg_id>`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:538`）。
 每个 UI route、widget、XML render 实例有自己的 JS engine（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:539`）。
@@ -89,7 +89,7 @@ UI 模块通过 `ToolPkg.readResource(key)` 访问资源（`plugins/docs/package
 目录资源在 `ToolPkg.readResource(key)` 时先被压缩成 zip，再返回这个 zip 的临时文件路径（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:669`）。
 `ToolPkg.wasm.call(moduleId, exportName, args)` 已接入 native WASM runtime，当前 ABI 支持 `i32`、`i64`、`f32`、`f64` 标量参数和返回值（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`）。
 `i64` 结果以字符串返回，JS 传入 `i64` 时建议使用字符串，避免超过 JS safe integer 后丢精度（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:310`）。
-Java/Kotlin Bridge 仅适用于已提供 Java Bridge 的 host，不代表所有宿主都具备 Java 或 Android 类（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:937`）。
+Java/Kotlin Bridge 仅适用于已提供 Java Bridge 的 host，不代表所有宿主都具备 Java 或 Android 类（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:938`）。
 
 ### 安装范围与远程路由
 
@@ -107,9 +107,9 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 ### 同 ID 更新与打包
 
 通过 `Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 创建不含外层目录的归档，第三个参数 `false` 保证 manifest 位于归档根目录（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:814`）。
-普通本地外部 .toolpkg 可用同一个 `package import` 命令原地更新，不提供任意同名包覆盖或通用热更新（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1372`）。
-普通本地外部 .toolpkg 可通过相同 `toolpkg_id` 再次执行 `package import` 原地更新；新归档完整校验通过后替换旧归档，保留安装位置、配置和既有容器及子包的启用状态；新增子包默认关闭；更新仍是用户明确授权的修改操作（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:119`）。
-同 ID 更新第三步是直接调用 `["package", "import", "<artifact_host_path>"]`，不先卸载；导入失败时核对旧归档和安装状态的回滚结果，保留错误并停止；恢复失败也必须如实报告，不自动改 id 或执行删除重装（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:123`）。
+普通本地外部 .toolpkg 可用同一个 `package import` 命令原地更新，不提供任意同名包覆盖或通用热更新（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1373`）。
+普通本地外部 .toolpkg 可通过相同 `toolpkg_id` 再次执行 `package import` 原地更新；新归档完整校验通过后替换旧归档，保留安装位置、配置和既有容器及子包的启用状态；新增子包默认关闭；更新仍是用户明确授权的修改操作（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:121`）。
+同 ID 更新第三步是直接调用 `["package", "import", "<artifact_host_path>"]`，不先卸载；导入失败时核对旧归档和安装状态的回滚结果，保留错误并停止；恢复失败也必须如实报告，不自动改 id 或执行删除重装（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:125`）。
 
 ## 关键符号
 
@@ -140,14 +140,14 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 - `FileApplyResultData` — 文件写回执（`docs/toolpkg-runtime.md:85`）
 - `submit_requested` — 与 pre-hooks 共享总期限的提交事件（`docs/toolpkg-runtime.md:144`）
 - `sync_plugin_packages.py` — 主仓库内置与 external 资源同步脚本（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:818`）
-- `types/` — 从 Rust SDK 生成的当前 v2 TypeScript 声明（`plugins/README.md:3`）
-- `types-v1/` — 独立手写的 v1 声明快照（`plugins/README.md:6`）
+- `types/` — 从 Rust SDK 生成的当前 v2 TypeScript 声明（`plugins/README.md:15`）
+- `types-v1/` — 独立手写的 v1 声明快照（`plugins/README.md:16`）
 
 ## 调用链
 
 1. 具体 API 以 Operit 插件开发套件的当前版本 `types/` 为准，包名和目录树是格式示例（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:5`）。
 2. `Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 创建不含外层目录的 .toolpkg 归档，`manifest` 位于归档根目录（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:814`）。
-3. 用户在包管理中执行 package import 导入成品，再执行 package enable 启用包（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:102`）。
+3. 用户在包管理中执行 package import 导入成品，再执行 package enable 启用包（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:104`）。
 4. `registerToolPkg()` 在独立的临时 JavaScript engine 中执行注册，60 秒期限仅为格式指南要求，注册链路实际不执行该期限，详见“注册与执行上下文”一节（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
 5. 子包工具按 `<subpackage_id>:<tool_name>` 注册（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:243`）。
 6. `ToolPkg.registerToolboxUiModule` 与 `ToolPkg.registerUiRoute` 注册 UI 模块与路由（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:473`）。

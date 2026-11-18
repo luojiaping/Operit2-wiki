@@ -320,12 +320,12 @@
 "ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:305"
 },
 {
-"fact": "VisualFileSystem 的 `moveFile` 解析源与目标后委托宿主 `moveFile`",
-"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:326"
+"fact": "VisualFileSystem 的 `moveFile` 先经 `validateTransfer` 校验（拒绝自身或自身子目录转移），再解析路径委托宿主 `moveFile`",
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:320"
 },
 {
-"fact": "VisualFileSystem 的 `copyFile` 解析源与目标后委托宿主 `copyFile`，`recursive` 控制递归",
-"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:337"
+"fact": "VisualFileSystem 的 `copyFile` 先经 `validateTransfer` 校验（拒绝自身或自身子目录转移），再解析路径委托宿主 `copyFile`，`recursive` 控制递归",
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:332"
 },
 {
 "fact": "VisualFileSystem 的 `makeDirectory` 解析路径后委托宿主 `makeDirectory`，`createParents` 控制建父目录",
@@ -353,7 +353,7 @@
 },
 {
 "fact": "`grepCode` 的每个匹配文件路径经 `mapPhysicalChildToVfs` 改写为 VFS 路径",
-"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:400"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:398"
 },
 {
 "fact": "VisualFileSystem 的 `zipFiles` 解析源与目标后委托宿主 `zipFiles`",
@@ -377,7 +377,7 @@
 },
 {
 "fact": "`virtualDirectoryInfo` 生成合成虚拟目录元数据：存在、类型 `directory`、大小 0、权限 `rwx`",
-"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:480"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:478"
 },
 {
 "fact": "测试断言下载与读取共享同一 VFS 路径，未知路径下载返回错误",
@@ -385,19 +385,19 @@
 },
 {
 "fact": "测试断言同一资源经 `/operitapp` 路径、`/app` 路径与相对路径解析后读出同一内容",
-"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:706"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:711"
 },
 {
 "fact": "测试断言经 `/app` 写入的文件可经 `/operitapp` 读出同一内容",
-"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:751"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:756"
 },
 {
 "fact": "测试断言 `fileInfo` 回显调用者使用的 VFS 根路径",
-"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:762"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:767"
 },
 {
 "fact": "测试断言根目录列表含 `operitapp`，不含 `app`、`mnt`、`sdcard`、`data`",
-"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:773"
+"ref": "core/crates/foundation/vfs/src/VisualFileSystem.rs:778"
 },
 {
 "fact": "测试经 `storageLocationPath` 把临时目录解析为当前 host 挂载根下的 VFS 路径，写入后断言 `fileInfo` 回显同一路径",

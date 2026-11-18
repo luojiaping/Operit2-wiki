@@ -94,7 +94,7 @@ switch_core 的实际 Binding 移动发生在当前模型轮次结束后，工�
 switch_core 调用成功时返回规范节点 id（`stringResultData`、`targetNodeId`）（`core/crates/tool/services/src/tools/ToolRegistration.rs:266`）。
 `beforeChangeRoute` 在 Binding 移动前检查执行归属，保留当前上下文（`core/crates/runtime/application/src/services/ChatServiceCore.rs:896`）。
 beforeChangeRoute 先申请执行租约（`beginChatExecution`）再释放它（`core/crates/runtime/application/src/services/ChatServiceCore.rs:863`）。
-路由变更测试断言：执行中的会话拒绝切换，`beforeChangeRoute` 返回含 Conversation is executing 的错误（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3791`）。
+路由变更测试断言：执行中的会话拒绝切换，`beforeChangeRoute` 返回含 Conversation is executing 的错误（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3714`）。
 `afterChangeRoute` 在路由变更到达目标 Core 后恢复目标会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:915`）。
 
 ### Binding 路由与模型工具循环的配合
@@ -116,7 +116,7 @@ beforeChangeRoute 先申请执行租约（`beginChatExecution`）再释放它（
 
 ### 切换与总结压缩
 
-路由变更测试断言：切换不总结、不改写会话，且切换后该会话无待处理总结任务（`summaryTaskForChat` 为空）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3837`）。
+路由变更测试断言：切换不总结、不改写会话，且切换后该会话无待处理总结任务（`summaryTaskForChat` 为空）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3760`）。
 `sendRoutedContinuation` 直接调用消息处理委托发送续发，不先做总结检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:486`）。
 `prepareSummaryForSend` 在发送前启动快照压缩且不延迟发送（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）。
 快照压缩只在发送前检查开启且该会话无进行中总结任务时启动（`checkBeforeSend`、`summaryTaskForChat`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:805`）。

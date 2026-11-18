@@ -453,10 +453,10 @@
  },
  {
   "fact": "isPortableFileName 要求文件名非空、不超 255 字节、不以空格或句点结尾、不含控制字符与 < > : \" / \\ | ? *，词干不是 CON、PRN、AUX、NUL、CONIN$、CONOUT$、COM1-9 或 LPT1-9 等设备保留名",
-  "ref": "core/crates/foundation/util/src/FileUtils.rs:7"
+  "ref": "core/crates/foundation/util/src/FileUtils.rs:22"
  },
  {
   "fact": "isPortableFilePath 要求路径的每一段都通过 isPortableFileName 检查",
-  "ref": "core/crates/foundation/util/src/FileUtils.rs:19"
+  "ref": "core/crates/foundation/util/src/FileUtils.rs:34"
  }
 ]

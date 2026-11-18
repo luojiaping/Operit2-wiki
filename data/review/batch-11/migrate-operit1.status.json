@@ -1,6 +1,6 @@
 {
   "issue": 117,
-  "source_commit": "f9b755545",
+  "source_commit": "6192d22e3",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "从 Operit1 迁移：快照预检与导入 CLI 入口、可迁移与不可迁移数据、数据救援流程，详细 FAQ 指到 Operit-wiki 附录草稿。",

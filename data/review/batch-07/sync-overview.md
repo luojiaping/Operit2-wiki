@@ -20,7 +20,7 @@ date: 2026-11-11
 - `PreferencesDataStore` 管单数据集工作副本与原子提交。`docs/sync-architecture.md:20`
 - 各业务 owner 管历史编码转换、业务验证与提交后运行时更新。`docs/sync-architecture.md:21`
 - `SYNC_DOMAINS` 含 preferences、chat、binding、runtime_file、network_control、plugin_storage 六个域。`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:26`
-- 同步收据的 `protocolVersion` 为 1，`consistencyVersion` 为 7。`core/crates/runtime/application/src/core/application/OperitApplication.rs:942`
+- 同步收据的 `protocolVersion` 为 1，`consistencyVersion` 为 7。`core/crates/runtime/application/src/core/application/OperitApplication.rs:948`
 - 所有同步设备需一起更新到 `consistencyVersion: 7`，旧协议不能完成同步。`docs/sync-architecture.md:86`
 
 ## AI 速览

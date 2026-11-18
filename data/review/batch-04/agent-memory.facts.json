@@ -1,11 +1,11 @@
 [
  {
   "fact": "`MemorySpace` 的 `memories`、`links`、`chunks`、`candidates` 四个集合与 `ownerKey` 同属一个按 owner 划分的记忆空间。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:393"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:399"
  },
  {
   "fact": "`MemorySpace` 还包含 `settings`、`searchConfig`、`userDocumentPath`、`rebuildProgress`、`rebuildTask`。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:398"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:404"
  },
  {
   "fact": "记忆空间的 `embeddings` 字段保存记忆向量。",

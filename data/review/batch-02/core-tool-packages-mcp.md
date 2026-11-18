@@ -29,9 +29,9 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - `MCPManager` — 进程内全局单例，注册 MCP 服务器并缓存桥接客户端（core/crates/tool/services/src/tools/mcp/MCPManager.rs:20）
 - `MCPToolExecutor` — 按 `server_name:tool_name` 把调用发往 MCP 服务器并转换结果（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:67）（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:345）
 - `MCPBridgeClient` — `mcp_runtime::plugins` 的桥接客户端，承载与 MCP 服务器的通信（core/crates/tool/services/src/tools/mcp/MCPManager.rs:5）
-- `materializeToolPkgResource` — 把 ToolPkg 资源物化为文件并返回 VFS 路径（core/crates/tool/services/src/tools/ToolJsRuntime.rs:108）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:176）
-- `invokeToolPkgIpc` — 调用 ToolPkg IPC 目标，带分阶段计时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:241）
-- `inferToolPkgRuntime` — 按上下文键前缀推断 ToolPkg 运行时种类（core/crates/tool/services/src/tools/ToolJsRuntime.rs:550）
+- `materializeToolPkgResource` — 把 ToolPkg 资源物化为文件并返回 VFS 路径（core/crates/tool/services/src/tools/ToolJsRuntime.rs:110）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:178）
+- `invokeToolPkgIpc` — 调用 ToolPkg IPC 目标，带分阶段计时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:243）
+- `inferToolPkgRuntime` — 按上下文键前缀推断 ToolPkg 运行时种类（core/crates/tool/services/src/tools/ToolJsRuntime.rs:552）
 - 主入口函数：包工具 PackageToolExecutor 的 `invokeAndStreamAsync`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:80），技能 SkillManager 的 `refreshAvailableSkills`（core/crates/tool/services/src/tools/skill/SkillManager.rs:53），MCP MCPToolExecutor 的 `invoke`（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:337）
 - 数据流向一句话：模型发 `packageName:toolName` 或 `server_name:tool_name` 调用 → 对应执行器校验 → 包调用进 Host JS 执行器或技能提示词进上下文、MCP 调用经桥接客户端发往服务器 → 结构化结果转回 `ToolResult`。
 
@@ -151,36 +151,36 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - `PackageManagerJsRuntime` 把 `RuntimePackageManager` 适配为 SDK 的 `JsPackageRuntime` 契约（core/crates/tool/services/src/tools/ToolJsRuntime.rs:35）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:52）
 - 包语言取 Host 系统语言码并解析为支持的语言码（core/crates/tool/services/src/tools/ToolJsRuntime.rs:57）
 - `select_tool` 先要求注册表就绪，再检查包已启用，否则报错 `Package is disabled`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:67）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:78）
-- `select_tool` 返回工具定义、激活状态 `id` 与 ToolPkg 子包运行时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:67）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:83）
-- ToolPkg 执行引擎在注册表锁外创建，避免创建过程重入包目录（core/crates/tool/services/src/tools/ToolJsRuntime.rs:100）
+- `select_tool` 返回工具定义、激活状态 `id`、包 API 版本与 ToolPkg 子包运行时；取不到包 API 版本时报错 `Package not registered`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:67）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:85）
+- ToolPkg 执行引擎在注册表锁外创建，避免创建过程重入包目录（core/crates/tool/services/src/tools/ToolJsRuntime.rs:102）
 - ToolPkg IPC 分发函数名为 `__operit_toolpkg_runtime_dispatch__`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:21）
 - 分发函数在 `channel` 为 `$route` 时走 `__operitInvokeToolPkgRouteLocal`，否则走 `__operitInvokeToolPkgIpcLocal`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:26）
-- `materializeToolPkgResource` 把 ToolPkg 资源物化为文件，返回 `/operitapp/data` 下的 VFS 路径（core/crates/tool/services/src/tools/ToolJsRuntime.rs:108）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:176）
-- 资源输出文件名取请求指定值，否则取包声明值，并只保留最后一段路径（core/crates/tool/services/src/tools/ToolJsRuntime.rs:129）
-- 有容器运行时直接从容器复制资源，否则解析子包运行时复制（core/crates/tool/services/src/tools/ToolJsRuntime.rs:145）
-- 三种路径都找不到目标时报错 `ToolPkg resource target not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:155）
-- `resolveJsToolName` 中工具名已含冒号时原样返回（core/crates/tool/services/src/tools/ToolJsRuntime.rs:184）
-- 按 `package_name` 解析时包不存在报错 `Package not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:194）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:200）
-- `package_name` 与 `subpackage_id` 同时给出时报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:210）
-- 按 `subpackage_id` 解析时找首选包名，找不到报错 `ToolPkg subpackage not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:188）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:209）
-- ToolPkg IPC 计时只在 `OPERIT_PROFILE_COMPOSE_STAGES` 环境变量存在时启用（core/crates/tool/services/src/tools/ToolJsRuntime.rs:247）
-- 未给目标上下文键且运行时为 `main` 时，默认上下文键为 `toolpkg_main:` 后跟目标名（core/crates/tool/services/src/tools/ToolJsRuntime.rs:304）
-- 请求的运行时与上下文键推断的运行时不一致时报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:321）
-- `main` 目标的上下文键必须等于 `toolpkg_main:` 后跟目标名（core/crates/tool/services/src/tools/ToolJsRuntime.rs:328）
-- 依赖调用要求被调用的提供方目标为 `main` 运行时，且提供方包不同于调用方包（core/crates/tool/services/src/tools/ToolJsRuntime.rs:345）
-- 依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 `main`（core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2071）
-- IPC 目标的 ToolPkg 容器不存在时报错 `ToolPkg container not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:340）
-- IPC 目标包被禁用时报错 `ToolPkg package is disabled`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:347）
-- 非 `main` 目标取不到已激活的执行引擎时报错 `ToolPkg runtime is not active`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:326）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:385）
-- 执行前校验引擎仍是当前引擎，否则报错执行上下文已被释放或替换（core/crates/tool/services/src/tools/ToolJsRuntime.rs:399）
-- 依赖调用要求调用方与提供方都启用（core/crates/tool/services/src/tools/ToolJsRuntime.rs:504）
-- 调用方必须在 `requires` 或 `optionalRequires` 中声明对提供方的依赖（core/crates/tool/services/src/tools/ToolJsRuntime.rs:508）
-- 提供方版本必须落在调用方声明的 `minVersion` 与 `maxVersion` 范围内，否则报错 `Dependency version mismatch`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:518）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:528）
-- 提供方必须发布 `public_api`，否则报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:536）
-- 依赖方法必须在提供方的 `publicApis` 中，否则报错 `Public API not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:545）
-- 上下文键 `toolpkg_main:` 前缀对应 `main` 运行时，`toolpkg_provider:` 对应 `provider` 运行时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:552）
-- 上下文键 `toolpkg_compose:`、`toolpkg_compose_dsl:` 与 `toolpkg_xml_render:` 前缀对应 `ui` 运行时，`toolpkg_sandbox:` 对应 `sandbox` 运行时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:559）
-- `requiredText` 要求非空字符串（core/crates/tool/services/src/tools/ToolJsRuntime.rs:576）
+- `materializeToolPkgResource` 把 ToolPkg 资源物化为文件，返回 `/operitapp/data` 下的 VFS 路径（core/crates/tool/services/src/tools/ToolJsRuntime.rs:110）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:178）
+- 资源输出文件名取请求指定值，否则取包声明值，并只保留最后一段路径（core/crates/tool/services/src/tools/ToolJsRuntime.rs:131）
+- 有容器运行时直接从容器复制资源，否则解析子包运行时复制（core/crates/tool/services/src/tools/ToolJsRuntime.rs:147）
+- 三种路径都找不到目标时报错 `ToolPkg resource target not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:162）
+- `resolveJsToolName` 中工具名已含冒号时原样返回（core/crates/tool/services/src/tools/ToolJsRuntime.rs:186）
+- 按 `package_name` 解析时包不存在报错 `Package not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:196）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:202）
+- `package_name` 与 `subpackage_id` 同时给出时报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:212）
+- 按 `subpackage_id` 解析时找首选包名，找不到报错 `ToolPkg subpackage not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:190）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:211）
+- ToolPkg IPC 计时只在 `OPERIT_PROFILE_COMPOSE_STAGES` 环境变量存在时启用（core/crates/tool/services/src/tools/ToolJsRuntime.rs:249）
+- 未给目标上下文键且运行时为 `main` 时，默认上下文键为 `toolpkg_main:` 后跟目标名（core/crates/tool/services/src/tools/ToolJsRuntime.rs:306）
+- 请求的运行时与上下文键推断的运行时不一致时报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:323）
+- `main` 目标的上下文键必须等于 `toolpkg_main:` 后跟目标名（core/crates/tool/services/src/tools/ToolJsRuntime.rs:330）
+- 依赖调用要求被调用的提供方目标为 `main` 运行时，且提供方包不同于调用方包（core/crates/tool/services/src/tools/ToolJsRuntime.rs:347）
+- 依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 `main`（core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2092）
+- IPC 目标的 ToolPkg 容器不存在时报错 `ToolPkg container not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:342）
+- IPC 目标包被禁用时报错 `ToolPkg package is disabled`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:349）
+- 非 `main` 目标取不到已激活的执行引擎时报错 `ToolPkg runtime is not active`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:328）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:387）
+- 执行前校验引擎仍是当前引擎，否则报错执行上下文已被释放或替换（core/crates/tool/services/src/tools/ToolJsRuntime.rs:401）
+- 依赖调用要求调用方与提供方都启用（core/crates/tool/services/src/tools/ToolJsRuntime.rs:506）
+- 调用方必须在 `requires` 或 `optionalRequires` 中声明对提供方的依赖（core/crates/tool/services/src/tools/ToolJsRuntime.rs:510）
+- 提供方版本必须落在调用方声明的 `minVersion` 与 `maxVersion` 范围内，否则报错 `Dependency version mismatch`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:520）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:530）
+- 提供方必须发布 `public_api`，否则报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:538）
+- 依赖方法必须在提供方的 `publicApis` 中，否则报错 `Public API not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:547）
+- 上下文键 `toolpkg_main:` 前缀对应 `main` 运行时，`toolpkg_provider:` 对应 `provider` 运行时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:554）
+- 上下文键 `toolpkg_compose:`、`toolpkg_compose_dsl:` 与 `toolpkg_xml_render:` 前缀对应 `ui` 运行时，`toolpkg_sandbox:` 对应 `sandbox` 运行时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:560）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:566）
+- `requiredText` 要求非空字符串（core/crates/tool/services/src/tools/ToolJsRuntime.rs:578）
 
 ## 关键符号
 
@@ -226,11 +226,11 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 
 ### ToolPkg IPC 调用
 
-1. `invokeToolPkgIpc` 确认上下文键与运行时种类一致（core/crates/tool/services/src/tools/ToolJsRuntime.rs:241）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:321）
-2. 校验容器存在且包已启用，依赖调用须过 `validateDependencyCall`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:340）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:354）
-3. `main` 目标租用主执行引擎并读主入口脚本，非 `main` 目标取已激活引擎（core/crates/tool/services/src/tools/ToolJsRuntime.rs:326）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:385）
-4. 执行前校验引擎仍是当前引擎（core/crates/tool/services/src/tools/ToolJsRuntime.rs:399）
-5. 引擎执行分发函数，结果经 `decode_js_execution_result_value` 解码（core/crates/tool/services/src/tools/ToolJsRuntime.rs:489）
+1. `invokeToolPkgIpc` 确认上下文键与运行时种类一致（core/crates/tool/services/src/tools/ToolJsRuntime.rs:243）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:323）
+2. 校验容器存在且包已启用，依赖调用须过 `validateDependencyCall`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:342）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:356）
+3. `main` 目标租用主执行引擎并读主入口脚本，非 `main` 目标取已激活引擎（core/crates/tool/services/src/tools/ToolJsRuntime.rs:328）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:387）
+4. 执行前校验引擎仍是当前引擎（core/crates/tool/services/src/tools/ToolJsRuntime.rs:401）
+5. 引擎执行分发函数，结果经 `decode_js_execution_result_value` 解码（core/crates/tool/services/src/tools/ToolJsRuntime.rs:491）
 
 ## 来源
 

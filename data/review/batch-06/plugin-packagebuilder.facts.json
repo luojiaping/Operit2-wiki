@@ -101,7 +101,7 @@
 },
 {
 "fact": "按需查阅已安装插件通过 Tools.Files.list 或系统文件工具自行浏览以下 VFS 路径，设备范围和空间范围都要查看，包含已启用和未启用的安装包。",
-"ref": "plugins/skills/buildin/PackageBuilder/SKILL.md:43"
+"ref": "plugins/skills/buildin/PackageBuilder/SKILL.md:45"
 },
 {
 "fact": "/operitapp/data/extensions/device/packages/ 是本设备安装的插件文件。",
@@ -209,7 +209,7 @@
 },
 {
 "fact": "首次安装命令包括 [\"package\", \"import\", \"<artifact_host_path>\"]。",
-"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:102"
+"ref": "plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:104"
 },
 {
 "fact": "首次安装命令包括 [\"package\", \"enable\", \"<package_id>\"]。",
@@ -296,7 +296,7 @@
 "ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:7"
 },
 {
-"fact": "在 Operit2 创建 ToolPkg 时显式填写 \"api_version\": \"2.0.0\"，接口以随 Operit 插件开发套件携带的当前版本类型为准；不能通过仅改 manifest 版本号把旧 Android 插件视为已完成迁移；需要检查实际接口与平台行为；api_version 是 ToolPkg 清单字段，不是单文件脚本的元数据字段。",
+"fact": "在 Operit2 创建插件时显式填写 \"api_version\": \"2.0.0\"：ToolPkg 写在 manifest 中，独立脚本包写在 METADATA 根对象中（JSON/HJSON 脚本包写在元数据根对象中）；接口以随 Operit 插件开发套件携带的当前版本类型为准；省略该字段的脚本包与 ToolPkg 一律按 1.0.0 兼容契约解析和执行；支持显式声明 1.0.0、1.0.1、2.0.0，其他版本或非字符串值会被拒绝；ToolPkg 内的子包使用所属 manifest 的版本；不能通过仅改 manifest 版本号把旧 Android 插件视为已完成迁移；需要检查实际接口与平台行为。",
 "ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:13"
 },
 {
@@ -381,7 +381,7 @@
 },
 {
 "fact": "METADATA 中的 display_name、description、tools[].description 与参数 description 支持单语字符串或多语对象两种写法。",
-"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:227"
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:229"
 },
 {
 "fact": "category 建议直接复用当前已安装插件中已使用的分类，避免创建语义重复的新分类。",
@@ -389,11 +389,11 @@
 },
 {
 "fact": "category 缺失、为空字符串或仅包含空白字符时，解析阶段会自动归类为 Other。",
-"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:325"
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:328"
 },
 {
 "fact": "全局 Tools 对象分命名空间提供 API：Tools.System 提供 sleep、startApp、stopApp 等系统级操作；Tools.UI 提供 getPageInfo、pressKey、swipe、setText 等 UI 自动化操作。",
-"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:353"
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:359"
 },
 {
 "fact": "Tools.Files 提供 read、write、list 等文件操作；Tools.Network 提供 httpGet、httpPost 等网络请求；另有 UINode 类表示 UI 元素。",
@@ -461,7 +461,7 @@
 },
 {
 "fact": "工具调用示例：await Tools.System.sleep(3000) 等待 3 秒；await Tools.UI.getPageInfo() 获取当前页面信息。",
-"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:364"
+"ref": "plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:367"
 },
 {
 "fact": "工具调用示例：在屏幕上滑动用 await Tools.UI.swipe(540, 1800, 540, 900)。",
@@ -801,7 +801,7 @@
 },
 {
 "fact": "UI 模块可用 getLang() 取当前语言，返回 'zh' 或 'en'；可用 ctx.getCurrentPackageName()、ctx.getCurrentToolPkgId()、ctx.getCurrentUiModuleId()、ctx.getModuleSpec() 取当前包与模块信息。",
-"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1201"
+"ref": "plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1202"
 },
 {
 "fact": "贡献主项目时，通过第 4.2 节的同步脚本生成 core/crates/runtime/application/assets/plugins/buildin/ 和 external/ 中的资源；应用构建会嵌入这些资源；内置资源同步不是运行时安装命令。",
