@@ -81,11 +81,11 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 
 ### character_cards 为什么这么大
 
-角色卡的 src/ 共 102 个文件，其中 .ts 文件 99 个、合计 15830 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
+角色卡的 src/ 共 102 个文件，其中 .ts 文件 99 个、合计 15865 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
 对照：工作流的 src/ 共 14 个 .ts 文件、合计 2966 行（`plugins/packages/buildin/workflow/src/main.ts:1`）。
-角色卡另有 web/ 前端 3 个文件，其中 .ts 文件 2 个、合计 229 行（`plugins/packages/buildin/character_cards/web/app.ts:1`）。
-注：角色卡 src/ 的统计按上游 0f08fd43 清点，2026-11-15 对 ff5373fb6 复核无变化（102 个文件、99 个 .ts、15830 行）；web/ 按 ff5373fb6 重清点为 3 个文件、2 个 .ts、229 行；行数只计 .ts 文件（src/ 另有 3 个 .json 文件不计）。
-角色卡的记忆查询结果类型是 `MemoryQueryResult`（`plugins/packages/buildin/character_cards/src/api.ts:222`）。
+角色卡另有 web/ 前端 3 个文件，其中 .ts 文件 2 个、合计 236 行（`plugins/packages/buildin/character_cards/web/app.ts:1`）。
+注：角色卡 src/ 的统计按上游 0f08fd43 清点，2026-11-15 对 ff5373fb6 复核无变化（102 个文件、99 个 .ts、15830 行）；web/ 按 ff5373fb6 重清点为 3 个文件、2 个 .ts、229 行；2026-11-18 对 753366ff4 复核：src/ 仍 102 个文件、99 个 .ts、合计 15865 行，web/ 仍 3 个文件、2 个 .ts、合计 236 行；行数只计 .ts 文件（src/ 另有 3 个 .json 文件不计）。
+角色卡的记忆查询结果类型是 `MemoryQueryResult`（`plugins/packages/buildin/character_cards/src/api.ts:223`）。
 角色卡的聊天存储类 `CharacterChatStore` 定义在存储层（`plugins/packages/buildin/character_cards/src/storage/chats.ts:10`）。
 角色卡有群聊执行代码，executor.ts 引用 `ToolPkg` 类型（`plugins/packages/buildin/character_cards/src/group-execution/executor.ts:1`）。
 角色卡有向量检索代码，`VectorIndex` 基于 `ToolPkg.WasmInstance`（`plugins/packages/buildin/character_cards/src/search/usearch.ts:3`）。
@@ -108,7 +108,7 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 - `METADATA` — 单文件包元数据注释块（`plugins/packages/buildin/ai_chat.ts:1`）。
 - `enabledByDefault` — 单文件包是否默认启用（`plugins/packages/buildin/automatic_ui_base.ts:13`）。
 - `VectorIndex` — 向量索引类（`plugins/packages/buildin/character_cards/src/search/usearch.ts:3`）。
-- `MemoryQueryResult` — 记忆查询结果类型（`plugins/packages/buildin/character_cards/src/api.ts:222`）。
+- `MemoryQueryResult` — 记忆查询结果类型（`plugins/packages/buildin/character_cards/src/api.ts:223`）。
 - `CharacterChatStore` — 角色聊天存储（`plugins/packages/buildin/character_cards/src/storage/chats.ts:10`）。
 - `defaultEnabledByDefault` — 清单默认启用值来源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2752`）。
 - `bool_field` — 单文件包布尔字段解析（`core/crates/plugin/sdk/src/JsPackageLoader.rs:155`）。
@@ -148,5 +148,6 @@ Seed 文件（100% 读完）：
 
 磁盘清点方法见 tracking/read-batch-06/plugin-catalog-buildin.txt。
 2026-11-15 基线前移至 ff5373fb6：12306.ts 已删除（buildin 内无此文件），新增 automatic_ui_base.ts（迁移自 Operit 1 的 Automatic_ui_base 设备自动化包）；operit_editor.ts 的 enabledByDefault 由 false 改为 true；character_cards 的 web/ 由 54 个文件缩减为 3 个；ToolPkgParser.rs 相关行号重映射（:668→:680、:2593→:2752）。
+2026-11-18 基线前移至 753366ff4：character_cards 的 version 由 0.2.0 改为 0.2.2；src/ 行数 15830→15865、web/ 行数 229→236（均按 find + wc -l 重清点）；api.ts 新增一行致 MemoryQueryResult 行号 222→223；database.ts 的 readMemorySettings 改由 normalizeMemorySettings 处理设置（本页无相关事实，未立新事实）。
 
 相关页：[[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]]、[[plugin-manifest|清单 manifest 与安装作用域]]。

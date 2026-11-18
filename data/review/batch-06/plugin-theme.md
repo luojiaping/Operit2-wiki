@@ -95,9 +95,9 @@ date: 2026-11-11
 - 后续渲染读取配置与外观资源，不再依赖来源插件是否安装，也不会随来源模板更新而改写配置。(docs/theme-v1-contract.md:51)
 - 主题没有独立主题库、共享模板选择、只读锁定、主题专用卸载约束或模板恢复页面。(docs/theme-v1-contract.md:51)
 - 普通 ToolPkg 的 `themes` 声明、模板校验、共享 Flutter 渲染，以及 Studio 编辑和导出继续保留。(docs/theme-v1-contract.md:53)
-- 外观资源或配色加载失败时，客户端展示明确错误及“重试”“重置外观”操作，重试读取原有值。(docs/theme-v1-contract.md:57)
-- 重置外观只由用户点击触发，保留头像与已保存配置，并显式选中自定义外观，错误不会触发自动替换。(docs/theme-v1-contract.md:57)
-- 应用旧版配置时清除其没有声明的新增外观字段，避免沿用此前模板的输入框样式。(docs/theme-v1-contract.md:57)
+- 运行时单张背景、气泡图片或背景视频加载失败时，只降级对应资源：同类资源切换期间保留上一张成功图片或媒体，没有可用旧资源时显示默认背景或可读的气泡颜色；其它主题设置、文字、输入草稿和当前配置不被清空，客户端显示资源提示并提供“重试”，重试重新读取失败资源的原路径，不写入外观偏好，也不重新选择配置。(docs/theme-v1-contract.md:57)
+- 配色、字体或外观偏好无法准备时，客户端仍展示明确错误及“重试”“重置外观”操作，重试读取原有值；重置只由用户点击触发，保留头像与已保存配置，并显式选中自定义外观，运行时的临时图层回退不会自动改写保存值。(docs/theme-v1-contract.md:59)
+- 应用旧版配置时清除其没有声明的新增外观字段，避免沿用此前模板的输入框样式。(docs/theme-v1-contract.md:59)
 
 ### 气泡贴图编辑
 
@@ -186,6 +186,6 @@ date: 2026-11-11
 
 - `core/crates/plugin/theme/schema/theme-v1.schema.json`（1247 行）
 - `core/crates/plugin/theme/schema/theme-template.schema.json`（58 行）
-- `docs/theme-v1-contract.md`（57 行）
+- `docs/theme-v1-contract.md`（61 行）
 - `docs/theme-studio-protocol-v1.md`（93 行）
 - `plugins/packages/external/moss_atelier/manifest.json`（66 行）

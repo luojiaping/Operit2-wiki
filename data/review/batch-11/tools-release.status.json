@@ -1,10 +1,10 @@
 {
   "issue": 103,
-  "source_commit": "59de537f6",
+  "source_commit": "753366ff4",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "发布流程：版本、tag、通道与包资产规则由 docs/release-versioning.md 定义，build_release.py 构建资产，download_action_artifacts.py 收集云端产物，publish_dist.py 发布，release_interactive.py 提供交互入口。",
-  "updated": "2026-11-16",
+  "updated": "2026-11-18",
   "approved_by_comment_id": 6854427794,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-13 13:35 UTC"

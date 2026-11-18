@@ -16,7 +16,7 @@
     "ref": "core/crates/tool/services/src/tools/PackageToolExecutor.rs:53"
   },
   {
-    "fact": "包工具的 accessSpec 声明 effect 为 READ、boundary 为 None。",
+    "fact": "包工具的 accessSpec 声明 effect 为 WRITE、boundary 为 None。",
     "ref": "core/crates/tool/services/src/tools/PackageToolExecutor.rs:68"
   },
   {
@@ -37,59 +37,59 @@
   },
   {
     "fact": "SkillManager 在 device 与 space 两个位置扫描技能。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:64"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:65"
   },
   {
     "fact": "同一技能名在另一 scope 已有属主记录时，该 scope 的扫描结果被跳过。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:78"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:83"
   },
   {
     "fact": "device 位置的技能会登记到 ExtensionStore，元数据 visible 为 true。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:85"
-  },
-  {
-    "fact": "登记记录的 sourceName 与扫描结果不一致时，技能不予加载并报错 `Skill content does not match its registered location`。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:82"
-  },
-  {
-    "fact": "扫描某位置时，属主记录的 scope 与该位置不一致的技能会被跳过。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:78"
-  },
-  {
-    "fact": "space 位置磁盘上有目录但不在记录中的技能会被跳过。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:68"
-  },
-  {
-    "fact": "技能文件优先取 SKILL.md，不存在时改用 skill.md。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:122"
-  },
-  {
-    "fact": "两个文件都不存在时报错 Missing SKILL.md in {目录}。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:129"
-  },
-  {
-    "fact": "SKILL.md 前置元数据中 name 为空时，用目录名作为技能名。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:132"
-  },
-  {
-    "fact": "同名技能重复扫描时报错 Duplicate scanned skill name。",
     "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:94"
   },
   {
+    "fact": "登记记录的 sourceName 与扫描结果不一致时，技能不予加载并报错 `Skill content does not match its registered location`。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:87"
+  },
+  {
+    "fact": "扫描某位置时，属主记录的 scope 与该位置不一致的技能会被跳过。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:83"
+  },
+  {
+    "fact": "space 位置磁盘上有目录但不在记录中的技能会被跳过。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:69"
+  },
+  {
+    "fact": "技能文件优先取 SKILL.md，不存在时改用 skill.md。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:127"
+  },
+  {
+    "fact": "两个文件都不存在时报错 Missing SKILL.md in {目录}。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:134"
+  },
+  {
+    "fact": "SKILL.md 前置元数据中 name 为空时，用目录名作为技能名。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:137"
+  },
+  {
+    "fact": "同名技能重复扫描时报错 Duplicate scanned skill name。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:99"
+  },
+  {
     "fact": "getAvailableSkills 返回 refreshAvailableSkills 扫描到的有效技能包集合。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:170"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:174"
   },
   {
     "fact": "getSkillLoadErrors 返回扫描过程的错误集合。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:184"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:188"
   },
   {
     "fact": "getBundledExternalSkillCandidates 列出已打包但尚未安装的外部技能。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:208"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:212"
   },
   {
     "fact": "importBundledExternalSkill 导入已安装的技能时就地更新：新版先写入暂存目录，旧版移入 previous 备份后再替换，并保留原有设置。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:296"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:301"
   },
   {
     "fact": "快速插件创建所用的内置技能名为 PackageBuilder。",
@@ -97,95 +97,95 @@
   },
   {
     "fact": "ensureQuickPluginCreatorBundledSkill 在 PackageBuilder 技能不存在时导入它，已存在则直接返回。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:404"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:409"
   },
   {
     "fact": "readSkillContent 读取已安装技能的 SKILL.md 文件内容。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:419"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:424"
   },
   {
     "fact": "getSkillSystemPrompt 生成的提示词以 Using package (Skill): {技能名} 与 Use Time 开头，并写明执行策略与描述。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:437"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:442"
   },
   {
     "fact": "提示词包含 SKILL.md 路径与技能目录。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:446"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:450"
   },
   {
     "fact": "提示词包含技能目录的目录树与 SKILL.md 全文。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:453"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:458"
   },
   {
     "fact": "deleteSkill 删除 ExtensionStore 中的 skill 记录，返回删除是否成功。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:471"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:476"
   },
   {
-    "fact": "导入技能压缩包时先解压到 .import_tmp_{毫秒时间戳} 临时目录。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:489"
+    "fact": "导入技能压缩包时先解压到技能根目录父目录下的 .import_tmp_{uuid} 暂存目录。",
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:498"
   },
   {
     "fact": "导入完成后删除临时目录。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:505"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:514"
   },
   {
     "fact": "导入时压缩包内只有一个子目录，则以它为搜索根。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:527"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:536"
   },
   {
     "fact": "导入时可指定压缩包内的子目录作为搜索起点。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:532"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:541"
   },
   {
     "fact": "safeChildPath 只接受 Normal 路径组件，其他组件报错 Invalid import path。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:887"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:908"
   },
   {
     "fact": "导入时先找搜索根下的直接 SKILL.md，找不到则递归查找整个子树。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:857"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:878"
   },
   {
     "fact": "递归查找不到 SKILL.md 时，导入报错 No SKILL.md found in the imported zip。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:549"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:558"
   },
   {
     "fact": "导入的技能名优先取 SKILL.md 元数据的 name。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:601"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:615"
   },
   {
     "fact": "导入命名都为空时用 skill 作为目录名。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:620"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:634"
   },
   {
     "fact": "导入目标已存在同名技能时报错 Skill already exists in an installation location。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:627"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:641"
   },
   {
     "fact": "解析技能元数据时先读开头的 --- frontmatter 块。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:684"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:710"
   },
   {
     "fact": "frontmatter 中 name 或 description 缺失时，扫描文件前 40 行补齐。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:693"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:719"
   },
   {
     "fact": "导入打包技能资产时，相对路径只接受 Normal 组件，否则报错 Invalid plugin type asset path。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:736"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:762"
   },
   {
     "fact": "写入打包技能前，先把旧技能目录移入 previous 备份，再把准备好的新目录移入原位。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:341"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:346"
   },
   {
     "fact": "目录树文本按目录在前、文件在后排序，同类按名称不区分大小写排序。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:767"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:793"
   },
   {
     "fact": "解压 zip 时拒绝 enclosed_name 为空的条目，报错 Zip entry is outside target dir。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:804"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:825"
   },
   {
     "fact": "技能根目录取自 paths.skills_dir()。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:658"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:684"
   },
   {
     "fact": "MCPManager 是进程内全局单例，INSTANCE 为 OnceLock。",
@@ -481,7 +481,7 @@
   },
   {
     "fact": "指定子目录导入时找不到 SKILL.md，报错 No SKILL.md found in the selected import path。",
-    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:547"
+    "ref": "core/crates/tool/services/src/tools/skill/SkillManager.rs:556"
   },
   {
     "fact": "MCPManager 使用 mcp_runtime::plugins 的 MCPBridgeClient 与 MCP 服务器通信。",

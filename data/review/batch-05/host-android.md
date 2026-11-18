@@ -69,13 +69,13 @@ Android Host 只接受 `PROOT_TERMINAL` 与 bash、`ANDROID_SYSTEM_TERMINAL` 与
 `normalizeAndroidTerminalType` 只接受 bash 与 shell 两种终端类型（`hosts/android/src/terminal.rs:1524`）。
 bash 会话的初始工作目录是 /root（`hosts/android/src/terminal.rs:1557`）。
 shell 会话的初始工作目录取自 `OPERIT_ANDROID_INTERNAL_ROOT`（`hosts/android/src/terminal.rs:1558`）。
-bash 会话执行 `source $HOME/common.sh && start_shell`（`hosts/android/src/terminal.rs:1655`）。
-bash 会话设置 `PROOT_LOADER`、TERM 为 xterm-256color、LANG 为 en_US.UTF-8（`hosts/android/src/terminal.rs:1671`）。
-shell 会话执行 `exec /system/bin/sh -i`（`hosts/android/src/terminal.rs:1756`）。
-Root 传输的系统 shell 脚本先校验 id -u 为 0，否则 exit 126（`hosts/android/src/terminal.rs:1782`）。
-shell 会话的启动输入内嵌 `system_shell_init.sh` 的内容（`hosts/android/src/terminal.rs:1828`）。
+bash 会话执行 `source $HOME/common.sh && start_shell`（`hosts/android/src/terminal.rs:1656`）。
+bash 会话设置 `PROOT_LOADER`、TERM 为 xterm-256color、LANG 为 en_US.UTF-8（`hosts/android/src/terminal.rs:1672`）。
+shell 会话执行 `exec /system/bin/sh -i`（`hosts/android/src/terminal.rs:1758`）。
+Root 传输的系统 shell 脚本先校验 id -u 为 0，否则 exit 126（`hosts/android/src/terminal.rs:1784`）。
+shell 会话的启动输入内嵌 `system_shell_init.sh` 的内容（`hosts/android/src/terminal.rs:1831`）。
 PTY 提示标记前缀是 `\x1b]133;OperitPrompt=`（`hosts/android/src/terminal.rs:27`）。
-`androidPtyPromptCommand` 在每次提示时输出 base64 编码的 $PWD 与退出码（`hosts/android/src/terminal.rs:1838`）。
+`androidPtyPromptCommand` 在每次提示时输出 base64 编码的 $PWD 与退出码（`hosts/android/src/terminal.rs:1841`）。
 PTY 输出缓冲上限 `PTY_OUTPUT_LIMIT` 为 16 MiB（`hosts/android/src/terminal.rs:26`）。
 PTY 输出缓冲超过 `PTY_OUTPUT_LIMIT` 时从队首丢弃旧字节（`hosts/android/src/terminal.rs:759`）。
 新建 PTY 会话时 `waitForInitialAndroidPtyPrompt` 等待初始提示最长 10000 毫秒（`hosts/android/src/terminal.rs:691`）。
@@ -92,18 +92,18 @@ PTY 读取器收到 `\x1b[6n` 光标位置查询时回写当前行列（`hosts/a
 PTY 读取器先经 `stripAndroidPtyDeviceStatusReports` 得命令块，再经 `stripAndroidPtyPromptMarkers` 得可见块（`hosts/android/src/terminal.rs:739`）。
 bash 工作目录用 `TerminalWorkingDirectory` 的 `resolveLinuxGuestDirectory` 解析（`hosts/android/src/terminal.rs:244`）。
 shell 工作目录解析先调用 `terminal_privilege` 的 `privileges`，再经 `androidSystemShellWorkingDirectory` 映射（`hosts/android/src/terminal.rs:251`）。
-Shizuku 系统 shell 把应用私有目录下的工作目录映射到 /sdcard（`hosts/android/src/terminal.rs:1725`）。
+Shizuku 系统 shell 把应用私有目录下的工作目录映射到 /sdcard（`hosts/android/src/terminal.rs:1727`）。
 `android_documents` 资源的工作目录经文档提供方的 `resolveNativeDirectory` 解析为原生目录（`hosts/android/src/terminal.rs:46`）。
 非 `android_documents` 后端的终端文件系统后端被拒绝（`hosts/android/src/terminal.rs:42`）。
-本地 PTY 子进程在 Android 上以 `forkpty` 创建（`hosts/android/src/terminal.rs:2020`）。
-非 Android 目标上返回 Android PTY is only available on Android target 错误（`hosts/android/src/terminal.rs:2005`）。
+本地 PTY 子进程在 Android 上以 `forkpty` 创建（`hosts/android/src/terminal.rs:2079`）。
+非 Android 目标上返回 Android PTY is only available on Android target 错误（`hosts/android/src/terminal.rs:2064`）。
 lib.rs 导出 `androidPrivilegedPtyOperation`（`hosts/android/src/lib.rs:37`）。
-`androidPrivilegedPtyOperation` 为特权 Binder 服务提供 PTY 原语，不调用应用运行时（`hosts/android/src/terminal.rs:2231`）。
-特权 PTY 支持 start 操作（`hosts/android/src/terminal.rs:2243`）。
-特权 PTY 的 poll 操作调用 `pollPidExitCode` 返回 exitCode（`hosts/android/src/terminal.rs:2282`）。
-特权 PTY 的 close 操作调用 `terminateAndroidPtyProcess` 终止本地进程（`hosts/android/src/terminal.rs:2285`）。
-特权 PTY 调整窗口时调用 `setPtyWindowSize`（`hosts/android/src/terminal.rs:2297`）。
-特权 PTY 启动以 `forkPtyExecve` 创建进程，响应含 pid 与 fd（`hosts/android/src/terminal.rs:2279`）。
+`androidPrivilegedPtyOperation` 为特权 Binder 服务提供 PTY 原语，不调用应用运行时（`hosts/android/src/terminal.rs:2416`）。
+特权 PTY 支持 start 操作（`hosts/android/src/terminal.rs:2427`）。
+特权 PTY 的 poll 操作调用 `pollPidExitCode` 返回 exitCode（`hosts/android/src/terminal.rs:2441`）。
+特权 PTY 的 close 操作调用 `terminateAndroidPtyProcess` 终止本地进程（`hosts/android/src/terminal.rs:2444`）。
+特权 PTY 调整窗口时调用 `setPtyWindowSize`（`hosts/android/src/terminal.rs:2456`）。
+特权 PTY 启动以 `forkPtyExecve` 创建进程，响应含 pid 与 fd（`hosts/android/src/terminal.rs:2433`）。
 
 ### 终端特权：Root、Shizuku、App 的边界
 
@@ -116,12 +116,12 @@ Root 的 su 参数为空或首项为空时 `select` 返回 Android Root terminal
 模块已拥有 Root 进程时不需要应用 JVM 或 su 子进程（`hosts/android/src/terminal_privilege.rs:37`）。
 特权查询经 JNI 方法 `terminalPrivilegeOperation` 发给 Java 侧桥接对象（`hosts/android/src/terminal_privilege.rs:60`）。
 非 Android 目标上特权调用返回 Android terminal privileges require Android 错误（`hosts/android/src/terminal_privilege.rs:90`）。
-Shizuku PTY 以 operation start 请求创建，响应给出 pid、readFd 与 writeFd（`hosts/android/src/terminal.rs:1913`）。
-Shizuku 进程退出码经 `terminal_privilege` 的 `call` 发 operation poll 查询（`hosts/android/src/terminal.rs:2187`）。
-本地 PTY 进程退出码用 `waitpid` 加 WNOHANG 轮询（`hosts/android/src/terminal.rs:2213`）。
-终止本地 PTY 进程时先发 SIGHUP 再发 SIGKILL（`hosts/android/src/terminal.rs:1966`）。
-终止 Shizuku 会话经 `terminal_privilege` 的 `call` 发 operation close（`hosts/android/src/terminal.rs:1952`）。
-调整 Shizuku 会话窗口大小经 `terminal_privilege` 的 `call` 发 operation resize（`hosts/android/src/terminal.rs:1989`）。
+Shizuku PTY 以 operation start 请求创建，响应给出 pid、readFd 与 writeFd（`hosts/android/src/terminal.rs:1916`）。
+Shizuku 进程退出码经 `terminal_privilege` 的 `call` 发 operation poll 查询（`hosts/android/src/terminal.rs:2332`）。
+本地 PTY 进程退出码用 `waitpid` 加 WNOHANG 轮询（`hosts/android/src/terminal.rs:2358`）。
+终止本地 PTY 进程时先发 SIGHUP 再发 SIGKILL（`hosts/android/src/terminal.rs:1969`）。
+终止 Shizuku 会话经 `terminal_privilege` 的 `call` 发 operation close（`hosts/android/src/terminal.rs:1955`）。
+调整 Shizuku 会话窗口大小经 `terminal_privilege` 的 `call` 发 operation resize（`hosts/android/src/terminal.rs:1992`）。
 
 ### 托管运行时
 
@@ -260,11 +260,11 @@ Android Host 的能力由应用与独立模块所有者共享，模块应用侧�
 - `ShellTransport` — 为一次系统 shell 会话选择一种传输（`hosts/android/src/terminal_privilege.rs:11`）
 - `AndroidPtyProcess` — 区分本地子进程与 Shizuku 远程进程（`hosts/android/src/terminal.rs:99`）
 - `terminalInfo` — 把 `PROOT_TERMINAL` 列为默认终端、`PRIMARY_TERMINAL_TYPE` 列为默认终端类型（`hosts/android/src/terminal.rs:267`）
-- `androidPrivilegedPtyOperation` — 为特权 Binder 服务提供 PTY 原语，不调用应用运行时（`hosts/android/src/terminal.rs:2231`）
+- `androidPrivilegedPtyOperation` — 为特权 Binder 服务提供 PTY 原语，不调用应用运行时（`hosts/android/src/terminal.rs:2416`）
 - `setAndroidHostSecretStoreBridge` — 注册 `JavaVM` 与 host 引用（`hosts/android/src/secret_store.rs:39`）
 - `clearAndroidHostSecretStoreBridge` — 清空桥接并清除运行时事件调度接收端（`hosts/android/src/secret_store.rs:48`）
 - `acquireMulticastLease` — 在共享守护进程建 socket 前获取 Wi-Fi 组播访问（`hosts/android/src/service_discovery.rs:14`）
-- `AndroidPtyProcess` 的 Shizuku 进程退出码经 `terminal_privilege` 的 `call` 发 operation poll 查询（`hosts/android/src/terminal.rs:2187`）
+- `AndroidPtyProcess` 的 Shizuku 进程退出码经 `terminal_privilege` 的 `call` 发 operation poll 查询（`hosts/android/src/terminal.rs:2332`）
 
 ## 调用链
 
@@ -281,7 +281,7 @@ Android Host 的能力由应用与独立模块所有者共享，模块应用侧�
 2. 否则特权查询经 JNI 方法 `terminalPrivilegeOperation` 发给 Java 侧桥接对象（`hosts/android/src/terminal_privilege.rs:60`）。
 3. `ShellPrivileges` 的 `select` 按 Root、Shizuku、App 顺序选择传输（`hosts/android/src/terminal_privilege.rs:24`）。
 4. 无 Root 参数且 Shizuku 未授权时选择 `ShellTransport::App`（`hosts/android/src/terminal_privilege.rs:29`）。
-5. Shizuku PTY 以 operation start 请求创建，响应给出 pid、readFd 与 writeFd（`hosts/android/src/terminal.rs:1913`）。
+5. Shizuku PTY 以 operation start 请求创建，响应给出 pid、readFd 与 writeFd（`hosts/android/src/terminal.rs:1916`）。
 
 ### 文档资源读写
 
