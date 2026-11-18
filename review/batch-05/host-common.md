@@ -106,8 +106,8 @@ NativeRuntimeStorageHost 的 `resolve` 把虚拟前缀映射到物理根（`host
 `managedRoot` 把 `workspaces` 与三条 `runtime/data` 聊天目录划为托管根（`hosts/common/operit-host-native-storage/src/lib.rs:547`）。
 NativeRuntimeStorageWriteSession 的 `commitInternal` 关闭文件后原子重命名发布（`hosts/common/operit-host-native-storage/src/lib.rs:35`）。
 `commit` 提交时强制设备刷盘，`commitFast` 提交时不强制刷盘（`hosts/common/operit-host-native-storage/src/lib.rs:76`）。
-`publishStagedFile` 先原子替换、同步时再同步父目录（`hosts/common/operit-host-native-storage/src/lib.rs:864`）。
-Windows 原子发布用 `MoveFileExW` 加 `MOVEFILE_REPLACE_EXISTING` 与 `MOVEFILE_WRITE_THROUGH`（`hosts/common/operit-host-native-storage/src/lib.rs:906`）。
+`publishStagedFile` 先原子替换、同步时再同步父目录（`hosts/common/operit-host-native-storage/src/lib.rs:849`）。
+Windows 原子发布用 `MoveFileExW` 加 `MOVEFILE_REPLACE_EXISTING` 与 `MOVEFILE_WRITE_THROUGH`（`hosts/common/operit-host-native-storage/src/lib.rs:891`）。
 `ARCHIVE_STAGING_DIRECTORY_NAME` 的值是 `archive_staging`（`hosts/common/operit-host-native-storage/src/lib.rs:96`）。
 `stagingRootForRuntimeRoot` 把 staging 根放在运行时父目录下的 `ARCHIVE_STAGING_DIRECTORY_NAME` 命名空间（`hosts/common/operit-host-native-storage/src/lib.rs:195`）。
 遗留归档保留期为 7 天（`hosts/common/operit-host-native-storage/src/lib.rs:99`）。
@@ -116,8 +116,8 @@ NativeArchiveStagingHost 的 `appendArchive` 追加分块时不允许超过声�
 NativeArchiveStagingHost 的 `sealArchive` 校验实际长度等于声明长度后把上传文件重命名为密封文件（`hosts/common/operit-host-native-storage/src/lib.rs:462`）。
 NativeArchiveStagingHost 的 `writeExportArchive` 单块写入上限为 64 KiB（`hosts/common/operit-host-native-storage/src/lib.rs:383`）。
 NativeArchiveStagingHost 的 `archiveFileReference` 只对已密封归档返回文件引用（`hosts/common/operit-host-native-storage/src/lib.rs:410`）。
-NativeRuntimeStorageHost 的 `openSqliteDatabase` 在存储根下打开 SQLite 数据库（`hosts/common/operit-host-native-storage/src/lib.rs:1030`）。
-SQLite 事务用 `Immediate` 行为先占写锁再读（`hosts/common/operit-host-native-storage/src/lib.rs:1103`）。
+NativeRuntimeStorageHost 的 `openSqliteDatabase` 在存储根下打开 SQLite 数据库（`hosts/common/operit-host-native-storage/src/lib.rs:1015`）。
+SQLite 事务用 `Immediate` 行为先占写锁再读（`hosts/common/operit-host-native-storage/src/lib.rs:1088`）。
 `NativeFileSecretStore` 由 storage crate 从 `secrets` 子模块重导出（`hosts/common/operit-host-native-storage/src/lib.rs:2`）。
 
 ### 终端与托管运行时
@@ -130,9 +130,9 @@ NativePtyTerminalHost 的 `loginShell` 创建带登录启动参数的原生 shel
 NativePtyTerminalHost 的 `withControllingTty` 选择 PTY 是否成为子进程的控制终端（`hosts/common/operit-host-native-terminal/src/lib.rs:283`）。
 NativePtyTerminalHost 的 `probe` 以 1 行 1 列启动并关闭会话验证能力（`hosts/common/operit-host-native-terminal/src/lib.rs:310`）。
 NativePtyTerminalHost 的 `executeHiddenCommand` 按执行器键复用隐藏会话（`hosts/common/operit-host-native-terminal/src/lib.rs:628`）。
-NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数（`hosts/common/operit-host-native-terminal/src/lib.rs:703`）。
-`requireNativeTerminal` 只接受 `TERMINAL` 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:1690`）。
-`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:935`）。
+NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数（`hosts/common/operit-host-native-terminal/src/lib.rs:720`）。
+`requireNativeTerminal` 只接受 `TERMINAL` 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:1730`）。
+`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:975`）。
 超时取消的安顿等待为 3000 毫秒（`hosts/common/operit-host-native-terminal/src/lib.rs:25`）。
 `TerminalManagedRuntimeLaunch` 描述经指定终端启动的托管运行时程序（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:17`）。
 `TerminalManagedRuntimeProcess` 把终端 PTY 会话适配为 `ManagedRuntimeProcess`（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:29`）。
@@ -215,7 +215,7 @@ Windows 终端工具以 #[path] 把 `../../../../common/terminal_command.rs` 编
 terminal crate 以 #[path] 把 `../../terminal_command.rs` 编为 `terminal_command` 模块（`hosts/common/operit-host-native-terminal/src/lib.rs:1`）。
 `posixCommandLine` 只在命令含控制字符或 `!` 时才编码（`hosts/common/terminal_command.rs:7`）。
 编码后的命令以 `eval` 加 `printf '%b'` 的形式提交（`hosts/common/terminal_command.rs:29`）。
-`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:935`）。
+`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:975`）。
 
 ### Chromium 浏览器自动化
 

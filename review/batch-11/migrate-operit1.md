@@ -22,7 +22,7 @@ date: 2026-11-11
 - `importOperit1Snapshot` — 服务层导入入口，导入一份密封快照并发布进度事件。`core/crates/runtime/application/src/services/SnapshotImportManager.rs:152`
 - `Operit1SnapshotPreview` — 导入前预览，含聊天数、消息数与文件数。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:120`
 - `Operit1SnapshotImportResult` — 导入后计数，含聊天、消息、记忆与文件数。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:145`
-- `Operit1ToOperit2ChatArchiveBridge` — 聊天桥接枚举，Room V10/V20/V21 桥接到 Operit2 SQLite V29。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:31`
+- `Operit1ToOperit2ChatArchiveBridge` — 聊天桥接枚举，Room V10/V20/V21 桥接到 Operit2 SQLite V30。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:32`
 - `exportToBackupDir` — Operit1 侧导出快照的入口。（一代）app/src/main/java/com/ai/assistance/operit/data/backup/RawSnapshotBackupManager.kt:105
 - 主入口函数：`import_operit1_snapshot`。`apps/cli/src/cli/transfer.rs:257`
 - 数据流向：Operit1 快照包 → 预检 → 模型配置 → 语音、偏好、文件、聊天、统计 → Operit2 运行时存储。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:410`
@@ -63,8 +63,8 @@ date: 2026-11-11
 - 导入随后执行 `importSnapshotFiles`，复制快照文件。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:450`
 - 导入随后执行 `importChatDatabase`，导入聊天数据库。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:458`
 - 导入最后执行 `importTokenStatistics`，导入 token 统计。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:460`
-- 聊天桥接枚举 `Operit1ToOperit2ChatArchiveBridge` 含 `Operit1RoomV10ToOperit2SqliteV29`、`Operit1RoomV20ToOperit2SqliteV29`、`Operit1RoomV21ToOperit2SqliteV29` 三个变体。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:31`
-- 三个聊天桥接变体的 Operit2 目标 SQLite schema 版本均为 29。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:40`
+- 聊天桥接枚举 `Operit1ToOperit2ChatArchiveBridge` 含 `Operit1RoomV10ToOperit2SqliteV30`、`Operit1RoomV20ToOperit2SqliteV30`、`Operit1RoomV21ToOperit2SqliteV30` 三个变体。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:32`
+- 三个聊天桥接变体的 Operit2 目标 SQLite schema 版本均为 30。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:41`
 - Room V10 走 `buildChatArchiveFromOperit1RoomV10Database` 构建，Room V20 与 V21 走 `buildChatArchiveFromOperit1RoomV20Database` 构建。`core/crates/runtime/application/src/data/backup/operit1/Operit1ChatMigration.rs:13`
 - `buildOperit2CharacterCards` 从解析后的快照构建 Operit2 角色卡。`core/crates/runtime/application/src/data/backup/operit1/Operit1CharacterCards.rs:44`
 - `buildOperit2CharacterGroups` 构建 Operit2 角色组。`core/crates/runtime/application/src/data/backup/operit1/Operit1CharacterCards.rs:569`
@@ -105,7 +105,7 @@ date: 2026-11-11
 - `importOperit1Snapshot` — 服务层导入入口，导入一份密封快照并发布进度事件。`core/crates/runtime/application/src/services/SnapshotImportManager.rs:152`
 - `Operit1SnapshotPreview` — 导入前预览，含 formatVersion、packageName、createdAt、chatCount、messageCount。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:120`
 - `Operit1SnapshotImportResult` — 导入后计数，含聊天、消息、记忆与文件数。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:145`
-- `Operit1ToOperit2ChatArchiveBridge` — 聊天桥接枚举，Room V10/V20/V21 桥接到 Operit2 SQLite V29。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:31`
+- `Operit1ToOperit2ChatArchiveBridge` — 聊天桥接枚举，Room V10/V20/V21 桥接到 Operit2 SQLite V30。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:32`
 - `FORMAT_VERSION` — Operit1 快照格式版本，值为 1。`core/crates/runtime/application/src/data/backup/operit1/Operit1SnapshotArchive.rs:13`
 - `ENTRY_MANIFEST` — 快照清单条目，为 manifest.json。`core/crates/runtime/application/src/data/backup/operit1/Operit1SnapshotArchive.rs:14`
 - `isDataStoreEntry` — 判定条目是否为 Operit1 DataStore 偏好 payload。`core/crates/runtime/application/src/data/backup/operit1/Operit1DataStorePreferences.rs:31`
@@ -132,4 +132,4 @@ date: 2026-11-11
 - 详细的 Operit1→Operit2 FAQ 在 Operit-wiki 附录草稿里，本页不重写。wiki-drafts/appendix-operit1-to-operit2-faq.md:2
 - 源码基线：AAswordman/Operit2 @ ff5373fb6；一代 AAswordman/Operit @ dbf71916。`README.md:1`
 - 否定性核验方法（2026-11-12 对基线 364d1d594；2026-11-15 在 ff5373fb6 上重核，结论不变）：在 Operit2 仓库内对 docs/*.md 与 README.md 执行 grep -i faq，零命中，Operit2 仓库内无迁移 FAQ 正文；对 core/crates/runtime/application/src/data/backup/operit1/ 执行 ls 与 grep -i thinking，思考过程无独立迁移文件，全局思考开关见 Operit1PreferenceMigration.rs:245-247 的不采纳注释。`core/crates/runtime/application/src/data/backup/operit1/Operit1PreferenceMigration.rs:245`
-- 草稿勘误：wiki-drafts 附录草稿所写的聊天桥接目标为 SQLite V27、含独立思考过程迁移文件，两处在基线 364d1d594 上已过时，ff5373fb6 上重核仍成立：桥接目标为 V29，思考过程无独立迁移文件，全局思考开关不迁移。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:40`
+- 草稿勘误：wiki-drafts 附录草稿所写的聊天桥接目标为 SQLite V27、含独立思考过程迁移文件，两处在基线 364d1d594 上已过时，ff5373fb6 上重核仍成立：桥接目标为 V30，思考过程无独立迁移文件，全局思考开关不迁移。`core/crates/runtime/application/src/data/backup/Operit1RoomSchemaMigration.rs:41`

@@ -441,167 +441,167 @@
   },
   {
     "fact": "Core 路由 `__operitNativeCallCoreRoute` 以 `registerCoreRoute` 注册为 Host 异步 JSON 函数。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2097"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2109"
   },
   {
-    "fact": "Core 路由共 7 个名字，均以 `registerCoreRoute` 注册为 Host 异步 JSON 函数。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2097"
+    "fact": "Core 路由共 8 个名字，均以 `registerCoreRoute` 注册为 Host 异步 JSON 函数。",
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2109"
   },
   {
     "fact": "异步宿主绑定数组 `asyncNames` 共 12 个名字。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2132"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2144"
   },
   {
     "fact": "12 个异步宿主绑定以 `executeHostOperation` 的结果结算 Promise。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2153"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2165"
   },
   {
     "fact": "`exactHostJavaScriptJsonArguments` 校验结构化宿主绑定的参数个数，不符时返回 `\"{name} requires {N} arguments, received {count}\"`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2188"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2200"
   },
   {
     "fact": "结构化工具调用接受类型、名称、参数与归属调用 ID 四个参数，另可附第 5 个设备元数据参数。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2223"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2235"
   },
   {
     "fact": "结构化工具调用在 Host 调度器的阻塞池上执行，工具执行器可做阻塞宿主调用。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2282"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2294"
   },
   {
     "fact": "JS 定时器通过 `scheduleDelayedHostRuntimeTask` 安排延迟任务，到时回调结算 Promise。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2321"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2333"
   },
   {
     "fact": "包间 IPC 通过执行宿主的 `invoke_toolpkg_ipc_async` 提交，成功时以含 `success` 与 `value` 的 JSON 结算 Promise，失败时以 `buildToolPkgIpcFailure` 生成失败信封。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2361"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2373"
   },
   {
     "fact": "Core 路由调用在 Host 调度器上异步执行，引擎生命周期结束时通过 `lifetime.changed()` 取消等待。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2396"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2408"
   },
   {
     "fact": "调用身份从绑定上下文或 `__operit_ui_package_name` 参数推导 `packageTarget`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2423"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2435"
   },
   {
     "fact": "调用身份从绑定上下文或 `__operit_execution_context_key` 参数推导 `contextKey`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2426"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2438"
   },
   {
     "fact": "上下文键以 `toolpkg_provider:` 开头时运行时为 `provider`，以 `toolpkg_compose:` 等开头时为 `ui`，含子包 ID 时为 `sandbox`，其余为 `main`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2446"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2458"
   },
   {
     "fact": "运行时取值只接受 `main`、`ui`、`sandbox`、`provider`，其他值返回 `ToolPkg execution runtime is invalid` 错误。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2456"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2468"
   },
   {
     "fact": "IPC 请求要求 channel 非空，否则返回 `\"ToolPkg.ipc channel is required\"`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2481"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2493"
   },
   {
     "fact": "IPC 请求的目标运行时只接受 `main`、`ui`、`sandbox`、`provider` 或空。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2487"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2499"
   },
   {
     "fact": "`clearThreadLocalCallState` 清空当前脚本归属、活跃调用上下文、执行宿主、中间回调、监听器、环境覆盖与文本资源来源。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2507"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2519"
   },
   {
     "fact": "`installThreadLocalCallContext` 把一次调用的执行宿主、中间回调、监听器、环境覆盖与文本资源来源装入线程局部状态。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2529"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2541"
   },
   {
     "fact": "`packageTextResourceSource` 在有包上下文时用包的文本资源宿主，否则用执行宿主。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2556"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2568"
   },
   {
     "fact": "`JsEngine` 实现 SDK 的 `JsExecutionEngine` trait。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2648"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2660"
   },
   {
     "fact": "中间结果要求有活跃的归属调用，先调监听器的 `on_intermediate_result` 再调中间结果回调。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2798"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2810"
   },
   {
     "fact": "`textScriptCompletion` 把结构化脚本结果适配为文本结果。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2806"
-  },
-  {
-    "fact": "普通脚本只接受字符串结果，非字符串的结构化结果返回序列化错误。",
     "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2818"
   },
   {
+    "fact": "普通脚本只接受字符串结果，非字符串的结构化结果返回序列化错误。",
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2830"
+  },
+  {
     "fact": "文本中间结果回调收到非文本值时直接 `panic`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2825"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2837"
   },
   {
     "fact": "`sendStructuredIntermediate` 优先发给活跃调用的回调，活跃调用不存在时发给已分离调用的回调，两者都不存在时静默丢弃。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2834"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2846"
   },
   {
     "fact": "文本资源读取按 Snapshot、Package、ExecutionHost 三种来源分发。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2956"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2968"
   },
   {
     "fact": "插件数据目录路径必须是绝对 VFS 路径，否则返回 `\"Plugin data directory must be an absolute VFS path\"`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2912"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2924"
   },
   {
     "fact": "`__operitNativeJavaGetCurrentActivity` 恒返回 `\"current activity is null\"` 错误。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3179"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3191"
   },
   {
     "fact": "`__operitNativeJavaCallStaticSuspend`、`__operitNativeJavaGetStaticField`、`__operitNativeJavaSetStaticField` 返回 `\"Java host operation is not implemented: {name}\"` 错误。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3209"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3221"
   },
   {
     "fact": "`requireHostObject` 要求宿主载荷是结构化对象，不接受序列化 JSON 文本。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3299"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3311"
   },
   {
     "fact": "`storeExecutionResult` 要求结果归属的调用仍活跃，否则返回 `\"Completion requires an active owning call\"`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3336"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3348"
   },
   {
     "fact": "`storeExecutionError` 先调执行监听器的 `on_failed`，再把错误存入原生调用会话。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3353"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3365"
   },
   {
     "fact": "调用方上下文的 participantId、extensionOwner 与 chatId 写入 `__operit_package_caller_participant_id` 等参数。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3381"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3393"
   },
   {
     "fact": "注册模式下环境归属取自参数 `toolPkgId`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3407"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3419"
   },
   {
     "fact": "非注册模式下优先取绑定包上下文的包名，否则取 `__operit_package_name` 参数。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3437"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3449"
   },
   {
     "fact": "`setHostEnvironmentValue` 要求环境变量名非空，否则返回 `\"Environment variable name is required\"`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3456"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3468"
   },
   {
     "fact": "解析出的配置目录必须是绝对 VFS 路径，否则报错。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3509"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3521"
   },
   {
     "fact": "`currentExecutionHost` 从线程局部 `CURRENT_EXECUTION_HOST` 取当前调用绑定的执行宿主，不存在时报错 `\"JavaScript execution host is unavailable\"`。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3517"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3529"
   },
   {
     "fact": "注册结果的 `success` 字段为假时返回其 `message` 作为错误。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3579"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3591"
   },
   {
     "fact": "`__operitNativePrepareJavaScript` 把源码交给 `JsAsyncCompiler::compile` 编译，返回编译后的源码字符串。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2918"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2930"
   },
   {
     "fact": "`__operitNativeAsyncMethodKind` 把方法源码交给 `JsAsyncCompiler::method_kind`，返回 function 或 generator。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2923"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2935"
   },
   {
     "fact": "`JsAsyncCompiler` 是 javascript 模块新增的子模块。",

@@ -73,8 +73,8 @@ date: 2026-11-11
 - `configure_android_flutter_sdk` 把 FVM 选定的 Flutter SDK 写入 `ANDROID_LOCAL_PROPERTIES`。`tools/build_scripts/build_flutter_android.py:45`
 - Windows Flutter 构建执行 flutter build windows --release --no-pub。`tools/build_scripts/build_flutter_windows.py:53`
 - Windows 构建以 `cmake` 的 `--install` 把 `build/windows/x64` 的 `Runtime` 组件装进临时 staging 目录。`tools/build_scripts/build_flutter_windows.py:30`
-- Windows App 归档默认名为 `release_asset_name("app", "windows", "x86_64", "zip")`。`tools/build_scripts/build_flutter_windows.py:59`
-- Windows MSI 路径缺省为归档路径换 `.msi` 后缀。`tools/build_scripts/build_flutter_windows.py:60`
+- Windows App 安装器默认名为 `release_asset_name("app", "windows", "x86_64", "msi")`，不再产出 ZIP 归档。`tools/build_scripts/build_flutter_windows.py:56`
+- Windows MSI 安装器路径缺省为 `DIST_DIR` 下 `release_asset_name("app", "windows", "x86_64", "msi")`。`tools/build_scripts/build_flutter_windows.py:56`
 - Windows Flutter 构建的打包阶段调用 `build_windows_msi` 生成安装器。`tools/build_scripts/build_flutter_windows.py:34`
 
 ### CLI 构建入口
@@ -118,7 +118,7 @@ date: 2026-11-11
 - build_local.py 的 `--products` 缺省为 `all`。`tools/build_scripts/build_local.py:22`
 - build_local.py 的 `--macos-type` 缺省为 `sandbox`。`tools/build_scripts/build_local.py:24`
 - `build_script` 按 `{name}_{platform_name}.py` 拼出平台构建脚本路径。`tools/build_scripts/build_local.py:32`
-- Windows 本地 App 归档为 `release_asset_name("app", "windows", architecture, "zip")`。`tools/build_scripts/build_local.py:39`
+- Windows 本地 App 包为 `release_asset_name("app", "windows", architecture, "msi")`。`tools/build_scripts/build_local.py:39`
 - Linux 本地 App 归档为 `release_asset_name("app", "linux", architecture, "tar.gz")`。`tools/build_scripts/build_local.py:41`
 - macOS 本地 App 归档为 `release_asset_name("app", "macos", "universal", "zip", macos_type)`。`tools/build_scripts/build_local.py:43`
 - `--include-ios` 只在 macOS 宿主上可用。`tools/build_scripts/build_local.py:100`
@@ -140,7 +140,7 @@ date: 2026-11-11
 - `flutter_command` 返回 FVM 配置锁定的 Flutter SDK 中的 `flutter`。`tools/build_scripts/common.py:157`
 - `prepare_plugin_assets` 先调用 `prepare_python_command` 再执行同步脚本。`tools/build_scripts/common.py:286`
 - `PLUGIN_SYNC_SCRIPT` 以 --source runtime --no-hot-reload 参数运行。`tools/build_scripts/common.py:294`
-- `prepare_plugin_assets` 在 `common.py` 中运行，CLI 入口在 `cargo build` 前调用它，Flutter 构建从原生钩子触发它。`tools/build_scripts/README.md:72`
+- `prepare_plugin_assets` 在 `common.py` 中运行，CLI 入口在 `cargo build` 前调用它，Flutter 构建从原生钩子触发它。`tools/build_scripts/README.md:88`
 - `verify_cli_plugin_assets` 在打包的 CLI 二进制缺失已生成插件资产时抛错。`tools/build_scripts/common.py:327`
 - `compress_zip` 把目录压缩为 ZIP。`tools/build_scripts/common.py:92`
 - `compress_tar_gz` 以 `"w:gz"` 模式把目录压缩为 tar.gz 归档。`tools/build_scripts/common.py:104`

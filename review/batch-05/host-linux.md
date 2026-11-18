@@ -68,26 +68,26 @@ TTS 由 Linux 自有实现提供（`hosts/linux/src/lib.rs:50`）。
 `LinuxTerminalHost` 是 Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:28`）。
 `PLATFORM` 为 linux，`TERMINAL` 为 native，`PRIMARY_TERMINAL_TYPE` 为 bash（`hosts/linux/src/tools/terminal/mod.rs:24`）。
 `terminalInfo` 的 `types` 只含一项，`terminalType` 为 bash，描述为 Linux bash terminal（`hosts/linux/src/tools/terminal/mod.rs:94`）。
-`normalizeTerminalType` 只接受 `PRIMARY_TERMINAL_TYPE`（`hosts/linux/src/tools/terminal/mod.rs:1251`）。
-`requireNativeTerminal` 只接受 `TERMINAL` 这一种终端实现（`hosts/linux/src/tools/terminal/mod.rs:1259`）。
-`linuxPtyCommand` 构造 bash `--noprofile` `--norc` -i 子进程（`hosts/linux/src/tools/terminal/mod.rs:584`）。
-PTY 环境设置 `TERM` 为 xterm-256color、`COLORTERM` 为 truecolor、`LANG` 为 C.UTF-8、`PS1` 为 $PWD $ （`hosts/linux/src/tools/terminal/mod.rs:590`）。
-`PROMPT_COMMAND` 在每次提示时输出 base64 编码的工作目录与退出码（`hosts/linux/src/tools/terminal/mod.rs:593`）。
+`normalizeTerminalType` 只接受 `PRIMARY_TERMINAL_TYPE`（`hosts/linux/src/tools/terminal/mod.rs:1268`）。
+`requireNativeTerminal` 只接受 `TERMINAL` 这一种终端实现（`hosts/linux/src/tools/terminal/mod.rs:1276`）。
+`linuxPtyCommand` 构造 bash `--noprofile` `--norc` -i 子进程（`hosts/linux/src/tools/terminal/mod.rs:601`）。
+PTY 环境设置 `TERM` 为 xterm-256color、`COLORTERM` 为 truecolor、`LANG` 为 C.UTF-8、`PS1` 为 $PWD $ （`hosts/linux/src/tools/terminal/mod.rs:607`）。
+`PROMPT_COMMAND` 在每次提示时输出 base64 编码的工作目录与退出码（`hosts/linux/src/tools/terminal/mod.rs:610`）。
 PTY 输出缓冲上限 `PTY_OUTPUT_LIMIT` 为 1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:19`）。
-PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:613`）。
-新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:561`）。
+PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:630`）。
+新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:578`）。
 同一个终端会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:309`）。
-命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:785`）。
-取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:800`）。
+命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:802`）。
+取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:817`）。
 取消超时命令的等待上限 `COMMAND_CANCEL_SETTLE_TIMEOUT_MS` 为 3000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:22`）。
 `listSessions` 遍历全部 PTY 会话并刷新退出码（`hosts/linux/src/tools/terminal/mod.rs:202`）。
 会话列表条目的 `sessionKind` 为 pty（`hosts/linux/src/tools/terminal/mod.rs:220`）。
 新建终端会话默认尺寸为 24 行 80 列（`hosts/linux/src/tools/terminal/mod.rs:264`）。
 `executorKey` 为空时默认取 default（`hosts/linux/src/tools/terminal/mod.rs:367`）。
-隐藏会话名形如 `hidden:{executorLabel}`（`hosts/linux/src/tools/terminal/mod.rs:491`）。
-`hiddenPtySessionId` 按 `executorKey` 复用已存在的隐藏会话（`hosts/linux/src/tools/terminal/mod.rs:472`）。
+隐藏会话名形如 `hidden:{executorLabel}`（`hosts/linux/src/tools/terminal/mod.rs:508`）。
+`hiddenPtySessionId` 按 `executorKey` 复用已存在的隐藏会话（`hosts/linux/src/tools/terminal/mod.rs:489`）。
 input 与 control 至少一个非空（`hosts/linux/src/tools/terminal/mod.rs:399`）。
-`getSessionScreen` 返回会话当前屏幕内容与行列数（`hosts/linux/src/tools/terminal/mod.rs:433`）。
+`getSessionScreen` 返回会话当前屏幕内容与行列数（`hosts/linux/src/tools/terminal/mod.rs:450`）。
 PTY 提示标记前缀为 \x1b]133;OperitPrompt=（`hosts/linux/src/tools/terminal/mod.rs:20`）。
 
 ### 文件系统：绝对路径与桌面工具
@@ -297,10 +297,10 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 
 1. `createOrGetSession` 新建或复用 bash 会话（`hosts/linux/src/tools/terminal/mod.rs:229`）
 2. 同一会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:309`）
-3. 新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:561`）
-4. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:785`）
-5. 取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:800`）
-6. PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:613`）
+3. 新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:578`）
+4. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:802`）
+5. 取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:817`）
+6. PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:630`）
 
 ### 安装一个应用
 

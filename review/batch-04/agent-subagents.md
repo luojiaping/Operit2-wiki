@@ -33,7 +33,7 @@ date: 2026-11-11
 - 主入口（模型工具）：`spawn_agent` 创建子代理。(plugins/packages/external/subagents/src/tools.ts:13)
 - 主入口（分发）：`request` 按 action 分发五种操作。(plugins/packages/external/subagents/src/manager.ts:85)
 - 数据流向：模型工具 → `Agents` 经 IPC 发到主运行时。(plugins/packages/external/subagents/src/client.ts:6)
-- `receive` 校验后交给 manager 执行。(plugins/packages/external/subagents/src/service.ts:70)
+- `receive` 校验后交给 manager 执行。(plugins/packages/external/subagents/src/service.ts:76)
 - `Repository` 把记录落到 `subagents.sqlite`。(plugins/packages/external/subagents/src/storage.ts:15)
 - `watchParent` 订阅父会话快照推给 UI。(plugins/packages/external/subagents/src/storage.ts:63)
 - `watchAgent` 订阅单个代理快照推给 UI。(plugins/packages/external/subagents/src/storage.ts:81)
@@ -68,13 +68,13 @@ date: 2026-11-11
 ### 等待语义
 
 默认等待 30 秒，由 `DEFAULT_WAIT_MS` 定义。(plugins/packages/external/subagents/src/model.ts:7)
-`wait` 要求 `agent_ids` 为 1 到 16 个不重复 ID。(plugins/packages/external/subagents/src/manager.ts:337)
-`wait` 要求 `timeoutMs` 为 1 到 30000 的整数。(plugins/packages/external/subagents/src/manager.ts:338)
-任一目标轮次不活跃时立即返回，`timed_out` 为 false。(plugins/packages/external/subagents/src/manager.ts:344)
+`wait` 要求 `agent_ids` 为 1 到 16 个不重复 ID。(plugins/packages/external/subagents/src/manager.ts:370)
+`wait` 要求 `timeoutMs` 为 1 到 30000 的整数。(plugins/packages/external/subagents/src/manager.ts:371)
+任一目标轮次不活跃时立即返回，`timed_out` 为 false。(plugins/packages/external/subagents/src/manager.ts:377)
 超时只结束本次等待，任务继续执行，可继续调用 `wait_agent`。(plugins/packages/external/subagents/src/tools.ts:21)
-超时回调调用 `finishWait`，以超时标记结束本次等待。(plugins/packages/external/subagents/src/manager.ts:351)
-`finishWait` 用观察到的轮次快照结束等待，`timed_out` 只属于本次等待。(plugins/packages/external/subagents/src/manager.ts:360)
-`publish` 按 `runNumber` 匹配等待目标，不匹配的轮次不结束等待。(plugins/packages/external/subagents/src/manager.ts:366)
+超时回调调用 `finishWait`，以超时标记结束本次等待。(plugins/packages/external/subagents/src/manager.ts:384)
+`finishWait` 用观察到的轮次快照结束等待，`timed_out` 只属于本次等待。(plugins/packages/external/subagents/src/manager.ts:390)
+`publish` 按 `runNumber` 匹配等待目标，不匹配的轮次不结束等待。(plugins/packages/external/subagents/src/manager.ts:399)
 `publish` 只在目标轮次结算为非活跃状态时结束等待。(plugins/packages/external/subagents/src/manager.ts:368)
 `wait_agent` 观察的是调用时的轮次，打断启动新轮次后旧 wait 返回旧轮次的取消回执。(plugins/packages/external/subagents/README.md:29)
 多选等待采用任一结束语义。(plugins/packages/external/subagents/README.md:29)
@@ -92,7 +92,7 @@ date: 2026-11-11
 错误文本写明观察已丢失，原生执行仍在运行。(plugins/packages/external/subagents/src/manager.ts:77)
 重启后改写的记录会重新保存。(plugins/packages/external/subagents/src/manager.ts:80)
 非活跃记录在重启后保持原状态。(plugins/packages/external/subagents/src/manager.ts:78)
-`isActive` 把 starting、running、closing 视为活跃。(plugins/packages/external/subagents/src/model.ts:88)
+`isActive` 把 starting、running、closing 视为活跃。(plugins/packages/external/subagents/src/model.ts:100)
 SDK 当前没有重新附着到已有执行流或直接向生成中模型注入指令的接口。(plugins/packages/external/subagents/README.md:41)
 重新发送前会核对原生会话是否仍在执行。(plugins/packages/external/subagents/README.md:41)
 
@@ -105,7 +105,7 @@ SDK 当前没有重新附着到已有执行流或直接向生成中模型注入�
 `watchParent` 用 exact-key watch 订阅父会话快照。(plugins/packages/external/subagents/src/storage.ts:63)
 `watchAgent` 订阅单个代理的快照，记录不存在时抛错。(plugins/packages/external/subagents/src/storage.ts:81)
 `summary` 去掉 messages 后返回摘要。(plugins/packages/external/subagents/src/model.ts:82)
-`parseAgent` 拒绝 schemaVersion 不是 1 的记录。(plugins/packages/external/subagents/src/model.ts:95)
+`parseAgent` 拒绝 schemaVersion 不是 1 的记录。(plugins/packages/external/subagents/src/model.ts:105)
 
 ### 创建与身份
 
@@ -147,7 +147,7 @@ README 说明工具子包的默认启用声明在 tools.ts 的 METADATA，容器
 - `WaitResult` — 只有 `timed_out` 与 agents 两个字段。(plugins/packages/external/subagents/src/model.ts:56)
 - `Repository` — SQLite 持久化，串行化写操作。(plugins/packages/external/subagents/src/storage.ts:20)
 - `Agents` — 工具与 UI 调主运行时 manager 的类型化入口。(plugins/packages/external/subagents/src/client.ts:10)
-- `registerService` — 把 `receive` 挂到 `CHANNEL` 通道。(plugins/packages/external/subagents/src/service.ts:75)
+- `registerService` — 把 `receive` 挂到 `CHANNEL` 通道。(plugins/packages/external/subagents/src/service.ts:81)
 - `CHANNEL` — IPC 通道，值是 subagents.control。(plugins/packages/external/subagents/src/model.ts:5)
 - `SCHEMA_VERSION` — 持久化记录版本 1。(plugins/packages/external/subagents/src/model.ts:6)
 - `registerToolPkg` — 注册会话路由、导航入口与输入框上方插槽。(plugins/packages/external/subagents/src/main.ts:8)
@@ -159,7 +159,7 @@ README 说明工具子包的默认启用声明在 tools.ts 的 METADATA，容器
 1. 模型调用 `spawn_agent`，传入 `name` 与 `task`。(plugins/packages/external/subagents/src/tools.ts:58)
 2. 工具层用 `parentChat` 取宿主认证的聊天 ID，并取调用者参与者 ID。(plugins/packages/external/subagents/src/tools.ts:60)
 3. `Agents` 经 `ToolPkg.ipc.call` 把请求发到 targetRuntime 为 main 的主运行时。(plugins/packages/external/subagents/src/client.ts:6)
-4. `receive` 先 `decodeRequest` 校验再交给 manager。(plugins/packages/external/subagents/src/service.ts:70)
+4. `receive` 先 `decodeRequest` 校验再交给 manager。(plugins/packages/external/subagents/src/service.ts:76)
 5. `request` 按 action 分发到 `spawn`。(plugins/packages/external/subagents/src/manager.ts:89)
 6. 创建前调用 `reserveStart` 占位。(plugins/packages/external/subagents/src/manager.ts:132)
 7. 原生创建子会话，状态为 `starting`，`runNumber` 为 1。(plugins/packages/external/subagents/src/manager.ts:142)
@@ -172,9 +172,9 @@ README 说明工具子包的默认启用声明在 tools.ts 的 METADATA，容器
 ### 等待子代理
 
 1. 模型调用 `wait_agent`，传入 `agent_ids` 与可选的 `timeout_ms`。(plugins/packages/external/subagents/src/tools.ts:65)
-2. `wait` 校验 ID 数量与超时范围。(plugins/packages/external/subagents/src/manager.ts:337)
-3. 任一目标轮次不活跃时立即返回，`timed_out` 为 false。(plugins/packages/external/subagents/src/manager.ts:344)
-4. 否则订阅等待，超时回调调用 `finishWait`。(plugins/packages/external/subagents/src/manager.ts:351)
+2. `wait` 校验 ID 数量与超时范围。(plugins/packages/external/subagents/src/manager.ts:370)
+3. 任一目标轮次不活跃时立即返回，`timed_out` 为 false。(plugins/packages/external/subagents/src/manager.ts:377)
+4. 否则订阅等待，超时回调调用 `finishWait`。(plugins/packages/external/subagents/src/manager.ts:384)
 5. 目标轮次结算时 `publish` 结束等待。(plugins/packages/external/subagents/src/manager.ts:368)
 
 ### 发送新指令
@@ -189,7 +189,7 @@ README 说明工具子包的默认启用声明在 tools.ts 的 METADATA，容器
 
 1. 模型调用 `close_agent`，传入 `agent_id`。(plugins/packages/external/subagents/src/tools.ts:77)
 2. 关闭先递归调用 `close` 关闭未关闭的子任务。(plugins/packages/external/subagents/src/manager.ts:317)
-3. 运行中的执行先存为 `closing` 再取消。(plugins/packages/external/subagents/src/manager.ts:320)
+3. 运行中的执行先存为 `closing` 再取消。(plugins/packages/external/subagents/src/manager.ts:353)
 4. 原生仍在执行时请求取消并每 100 毫秒轮询直到空闲。(plugins/packages/external/subagents/src/manager.ts:327)
 5. 关闭完成存为 `closed` 并发布。(plugins/packages/external/subagents/src/manager.ts:329)
 

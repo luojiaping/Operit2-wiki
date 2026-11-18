@@ -76,7 +76,7 @@ date: 2026-11-11
 - 归档绑定由 `resolveOperit1ArchiveBindings` 解析（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:718`）。
 - 归档绑定由 `publishOperit1ArchiveBindings` 发布（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:759`）。
 - 聊天归档经 ChatHistoryManager 的 `importChatArchiveWithProgress` 写入并带进度回调（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:743`）。
-- `importTokenStatistics` 仅当桥为 `Operit1RoomV21ToOperit2SqliteV29` 时导入，否则返回 (0, 0)（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:783`）。
+- `importTokenStatistics` 仅当桥为 `Operit1RoomV21ToOperit2SqliteV30` 时导入，否则返回 (0, 0)（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:783`）。
 - token 用量从 `token_usage_records` 表读取（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:794`）。
 - 定价模型从 `token_stats_models` 表读取（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:806`）。
 - 文件复制按 `buildSnapshotFileCopyPlan` 逐条进行（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:870`）。

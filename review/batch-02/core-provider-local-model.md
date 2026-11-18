@@ -42,29 +42,29 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 ### 注册表快照
 
 - 快照 `LocalModelRegistrySnapshot` 由 installedModels、installedEngines、preferredSourceKind、customModels 四组数据组成（core/crates/provider/local-model/src/LocalModelRegistry.rs:49）。
-- 快照 `LocalModelRegistrySnapshot` 的 `empty()` 生成四组数据全空、preferredSourceKind 为 None 的快照（core/crates/provider/local-model/src/LocalModelRegistry.rs:53）。
+- 快照 `LocalModelRegistrySnapshot` 的 `empty()` 生成四组数据全空、preferredSourceKind 为 None 的快照（core/crates/provider/local-model/src/LocalModelRegistry.rs:56 core/crates/provider/local-model/src/LocalModelRegistry.rs:84）。
 - 快照反序列化时 installedEngines、preferredSourceKind、customModels 缺失时取默认值（core/crates/provider/local-model/src/LocalModelRegistry.rs:51）。
 - 一条已装模型记录 `InstalledLocalModel` 含 manifest、storagePath、installedAtMs 与 verifiedAtMs（core/crates/provider/local-model/src/LocalModelRegistry.rs:10）。
 - 一条已装引擎记录 `InstalledLocalEngine` 除上述四项外还记录 artifact（core/crates/provider/local-model/src/LocalModelRegistry.rs:19）。
 - 已装模型的 registryKey 直接复用其 manifest 的 registryKey（core/crates/provider/local-model/src/LocalModelRegistry.rs:39）。
 - 已装引擎的 registryKey 形如 {manifest.id}@{manifest.version}#{target.storageSegment()}（core/crates/provider/local-model/src/LocalModelRegistry.rs:29）。
-- `getInstalledModel` 按 trim 后的 modelId 与 version 精确匹配已装模型（core/crates/provider/local-model/src/LocalModelRegistry.rs:106）。
-- `modelsByKind` 按 manifest.kind 过滤已装模型（core/crates/provider/local-model/src/LocalModelRegistry.rs:114）。
-- `getInstalledEngine` 按 engineId、version 与 LocalPlatformTarget 三者精确匹配已装引擎（core/crates/provider/local-model/src/LocalModelRegistry.rs:122）。
-- `upsert` 按 modelId 与 version 替换同键已装模型，不存在时追加（core/crates/provider/local-model/src/LocalModelRegistry.rs:139）。
-- `upsertEngine` 按 id、version 与 target 替换同键已装引擎（core/crates/provider/local-model/src/LocalModelRegistry.rs:149）。
-- `remove` 按 modelId 与 version 删除已装模型，删到返回 true、未删到返回 false（core/crates/provider/local-model/src/LocalModelRegistry.rs:160）。
-- `removeEngine` 按 id、version 与 target 删除已装引擎，返回值含义与 remove 相同（core/crates/provider/local-model/src/LocalModelRegistry.rs:167）。
-- `getCustomModel` 按 id 与 version 在 customModels 中查找自定义导入的模型清单（core/crates/provider/local-model/src/LocalModelRegistry.rs:68）。
-- `upsertCustomModel` 按 id 与 version 替换或追加自定义模型清单（core/crates/provider/local-model/src/LocalModelRegistry.rs:77）。
-- `removeCustomModel` 按 id 与 version 删除自定义模型清单，删到返回 true（core/crates/provider/local-model/src/LocalModelRegistry.rs:87）。
+- `getInstalledModel` 按 trim 后的 modelId 与 version 精确匹配已装模型（core/crates/provider/local-model/src/LocalModelRegistry.rs:132）。
+- `modelsByKind` 按 manifest.kind 过滤已装模型（core/crates/provider/local-model/src/LocalModelRegistry.rs:140）。
+- `getInstalledEngine` 按 engineId、version 与 LocalPlatformTarget 三者精确匹配已装引擎（core/crates/provider/local-model/src/LocalModelRegistry.rs:148）。
+- `upsert` 按 modelId 与 version 替换同键已装模型，不存在时追加（core/crates/provider/local-model/src/LocalModelRegistry.rs:165）。
+- `upsertEngine` 按 id、version 与 target 替换同键已装引擎（core/crates/provider/local-model/src/LocalModelRegistry.rs:175）。
+- `remove` 按 modelId 与 version 删除已装模型，删到返回 true、未删到返回 false（core/crates/provider/local-model/src/LocalModelRegistry.rs:186）。
+- `removeEngine` 按 id、version 与 target 删除已装引擎，返回值含义与 remove 相同（core/crates/provider/local-model/src/LocalModelRegistry.rs:193）。
+- `getCustomModel` 按 id 与 version 在 customModels 中查找自定义导入的模型清单（core/crates/provider/local-model/src/LocalModelRegistry.rs:94）。
+- `upsertCustomModel` 按 id 与 version 替换或追加自定义模型清单（core/crates/provider/local-model/src/LocalModelRegistry.rs:103）。
+- `removeCustomModel` 按 id 与 version 删除自定义模型清单，删到返回 true（core/crates/provider/local-model/src/LocalModelRegistry.rs:113）。
 
 ### 模型清单与下载来源
 
-- 模型清单的每条下载来源记录 id、kind、repository、revision 与 baseUrl（core/crates/provider/local-model/src/LocalModelRegistry.rs:246）。
-- 模型清单的每条文件记录 relativePath、sha256、byteSize 与 sourceId（core/crates/provider/local-model/src/LocalModelRegistry.rs:253）。
-- `preferredSource` 在未设置 preferredSourceKind 时返回 LocalModelSourceKind::HuggingFace（core/crates/provider/local-model/src/LocalModelRegistry.rs:95）。
-- `setPreferredSource` 把 preferredSourceKind 写成给定的 LocalModelSourceKind（core/crates/provider/local-model/src/LocalModelRegistry.rs:100）。
+- 模型清单的每条下载来源记录 id、kind、repository、revision 与 baseUrl（core/crates/provider/local-model/src/LocalModelRegistry.rs:323）。
+- 模型清单的每条文件记录 relativePath、sha256、byteSize 与 sourceId（core/crates/provider/local-model/src/LocalModelRegistry.rs:330）。
+- `preferredSource` 在未设置 preferredSourceKind 时返回 LocalModelSourceKind::HuggingFace（core/crates/provider/local-model/src/LocalModelRegistry.rs:121）。
+- `setPreferredSource` 把 preferredSourceKind 写成给定的 LocalModelSourceKind（core/crates/provider/local-model/src/LocalModelRegistry.rs:126）。
 - `LocalModelDownload` 与 `LocalModelHub` 只在 lib.rs 中声明（core/crates/provider/local-model/src/lib.rs:16），实现不在本页 seed 内。
 
 ### 解析：resolve
@@ -77,9 +77,9 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 - `resolve` 要求 manifest 有 engineRequirement，缺失返回 EngineRequirementMissing（core/crates/provider/local-model/src/LocalModelProvider.rs:85）（core/crates/provider/local-model/src/LocalModelProvider.rs:110）。
 - `resolve` 用 `LocalPlatformTarget::current()` 取当前平台目标，模型不支持该平台时返回 UnsupportedDriver（core/crates/provider/local-model/src/LocalModelProvider.rs:85）（core/crates/provider/local-model/src/LocalModelProvider.rs:117）。
 - `resolve` 按 engineRequirement 的 engineId、version 与当前目标查已装引擎，未装返回 EngineNotInstalled（core/crates/provider/local-model/src/LocalModelProvider.rs:85）（core/crates/provider/local-model/src/LocalModelProvider.rs:127）。
-- `resolve` 的 engineRuntimeDirectory 是 engineDirectory 接引擎的 artifact.archiveRoot（经 VfsPath::joinVfsPath 拼接）（core/crates/provider/local-model/src/LocalModelProvider.rs:85）（core/crates/provider/local-model/src/LocalModelProvider.rs:134）。
+- `resolve` 的 engineRuntimeDirectory 是 engineDirectory 接引擎归一化后的 artifact.archiveRoot（经 VfsPath::joinVfsPath 拼接），archiveRoot 为“.”时按空串处理、此时即 engineDirectory 本身（core/crates/provider/local-model/src/LocalModelProvider.rs:85）（core/crates/provider/local-model/src/LocalModelProvider.rs:141）。
 - `ResolvedLocalModelRuntime` 含 model、engine、modelDirectory、engineDirectory 与 engineRuntimeDirectory（core/crates/provider/local-model/src/LocalModelProvider.rs:59）。
-- `runtimeLayoutPath` 经 VfsPath::runtimeDataPath 把 storagePath 映射为运行时数据 VFS 路径（core/crates/provider/local-model/src/LocalModelProvider.rs:148）。
+- `runtimeLayoutPath` 经 VfsPath::runtimeDataPath 把 storagePath 映射为运行时数据 VFS 路径（core/crates/provider/local-model/src/LocalModelProvider.rs:153）。
 - `LocalModelProviderError` 含 Registry、ModelNotInstalled、ModelKindMismatch、DriverMissing、EngineRequirementMissing（core/crates/provider/local-model/src/LocalModelProvider.rs:21）（core/crates/provider/local-model/src/LocalModelProvider.rs:27）。
 - `LocalModelProviderError` 含 EngineNotInstalled、EngineExecutableMissing、RuntimeFileMissing、UnsupportedDriver、Process（core/crates/provider/local-model/src/LocalModelProvider.rs:21）（core/crates/provider/local-model/src/LocalModelProvider.rs:37）。
 - `LocalModelProviderError` 含 InvalidOutput、InvalidRequest 与 Storage（core/crates/provider/local-model/src/LocalModelProvider.rs:21）（core/crates/provider/local-model/src/LocalModelProvider.rs:45）。
@@ -144,8 +144,8 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 - `LocalModelRuntimeContext` 以 Arc 持有 LocalModelRuntimeSupport 实现（core/crates/provider/local-model/src/runtime_support.rs:22）。
 - LocalModelRuntimeContext 的 `new` 接收调用方拥有的 support 实现（core/crates/provider/local-model/src/runtime_support.rs:28）。
 - LocalModelRuntimeContext 的 `support` 返回实现引用，`sharedSupport` 返回共享的 Arc（core/crates/provider/local-model/src/runtime_support.rs:33）。
-- `localDriverOptions` 把模型清单的 driver 序列化为 BTreeMap<String, Value> 键值映射（core/crates/provider/local-model/src/LocalModelProvider.rs:164）。
-- `modelKindName` 把 LocalModelKind 映射为 SpeechToText、TextToSpeech、Chat、Embedding 四个显示名（core/crates/provider/local-model/src/LocalModelProvider.rs:154）。
+- `localDriverOptions` 把模型清单的 driver 序列化为 BTreeMap<String, Value> 键值映射（core/crates/provider/local-model/src/LocalModelProvider.rs:169）。
+- `modelKindName` 把 LocalModelKind 映射为 SpeechToText、TextToSpeech、Chat、Embedding 四个显示名（core/crates/provider/local-model/src/LocalModelProvider.rs:159）。
 
 ## 关键符号
 

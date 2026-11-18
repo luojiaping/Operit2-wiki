@@ -280,7 +280,7 @@
     "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:775"
   },
   {
-    "fact": "importTokenStatistics 仅当桥为 Operit1RoomV21ToOperit2SqliteV29 时导入，否则返回 (0, 0)。",
+    "fact": "importTokenStatistics 仅当桥为 Operit1RoomV21ToOperit2SqliteV30 时导入，否则返回 (0, 0)。",
     "ref": "core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:783"
   },
   {

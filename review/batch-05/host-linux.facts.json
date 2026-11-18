@@ -101,23 +101,23 @@
  },
  {
   "fact": "normalizeTerminalType 只接受 PRIMARY_TERMINAL_TYPE",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:1251"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:1268"
  },
  {
   "fact": "requireNativeTerminal 只接受 TERMINAL 这一种终端实现",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:1259"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:1276"
  },
  {
   "fact": "linuxPtyCommand 构造 bash --noprofile --norc -i 子进程",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:584"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:601"
  },
  {
   "fact": "PTY 环境设置 TERM 为 xterm-256color、COLORTERM 为 truecolor、LANG 为 C.UTF-8、PS1 为 $PWD $ ",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:590"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:607"
  },
  {
   "fact": "PROMPT_COMMAND 在每次提示时输出 base64 编码的工作目录与退出码",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:593"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:610"
  },
  {
   "fact": "PTY 输出缓冲上限 PTY_OUTPUT_LIMIT 为 1024 * 1024 字节",
@@ -125,11 +125,11 @@
  },
  {
   "fact": "PTY 输出缓冲超限时从队首丢弃旧字节",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:613"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:630"
  },
  {
   "fact": "新建会话等待初始提示最长 10000 毫秒",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:561"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:578"
  },
  {
   "fact": "同一个终端会话同一时间只允许一条命令在执行",
@@ -137,11 +137,11 @@
  },
  {
   "fact": "命令超时时返回 exitCode -1 与 timedOut true",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:785"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:802"
  },
  {
   "fact": "取消超时命令时写入 \\x03",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:800"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:817"
  },
  {
   "fact": "取消超时命令的等待上限 COMMAND_CANCEL_SETTLE_TIMEOUT_MS 为 3000 毫秒",
@@ -157,7 +157,7 @@
  },
  {
   "fact": "隐藏会话名形如 hidden:{executorLabel}",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:491"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:508"
  },
  {
   "fact": "input 与 control 至少一个非空",
@@ -165,7 +165,7 @@
  },
  {
   "fact": "getSessionScreen 返回会话当前屏幕内容与行列数",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:433"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:450"
  },
  {
   "fact": "PTY 提示标记前缀为 \\x1b]133;OperitPrompt=",
@@ -729,6 +729,6 @@
  },
  {
   "fact": "hiddenPtySessionId 按 executorKey 复用已存在的隐藏会话",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:472"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:489"
  }
 ]

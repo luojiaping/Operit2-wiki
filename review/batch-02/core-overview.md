@@ -32,7 +32,7 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 - `operit-edge-contract` — 共享的 Edge 服务地址与属性名（`core/CRATE_BOUNDARIES.md:49`）
 - `operit-node-edge` — 轻量设备侧 Edge Core 节点（`core/CRATE_BOUNDARIES.md:51`）
 - `operit-command-core` — CLI 命令层（`core/CRATE_BOUNDARIES.md:56`）
-- `ToolRuntimeSupport` — 工具侧对父级运行时的请求 trait（`core/crates/tool/services/src/runtime_support.rs:417`）
+- `ToolRuntimeSupport` — 工具侧对父级运行时的请求 trait（`core/crates/tool/services/src/runtime_support.rs:389`）
 - `ProviderRuntimeSupport` — Provider 侧对父级运行时的请求 trait（`core/crates/provider/services/src/runtime_support.rs:281`）
 - `LocalModelRuntimeSupport` — 本地模型侧对父级运行时的请求 trait（`core/crates/provider/local-model/src/runtime_support.rs:7`）
 - `HostManager` — 活动宿主能力集与面向生命周期的宿主句柄（`core/crates/foundation/host-api/src/HostManager.rs:139`）
@@ -108,18 +108,18 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 ### 父级行为机制
 
 - 子 crate 需要父级行为时，子 crate 定义 trait 并消费 trait 对象，父级 runtime 实现并安装该 trait（`core/CRATE_BOUNDARIES.md:98`）
-- `ToolRuntimeSupport` trait 定义在 `core/crates/tool/services/src/runtime_support.rs:417`（`core/crates/tool/services/src/runtime_support.rs:417`）
-- `operit-runtime` 在 services/ToolRuntimeSupportService.rs 中以 `RuntimeToolSupport` 实现 `ToolRuntimeSupport`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:137` `core/crates/runtime/application/Cargo.toml:2`）
+- `ToolRuntimeSupport` trait 定义在 `core/crates/tool/services/src/runtime_support.rs:389`（`core/crates/tool/services/src/runtime_support.rs:389`）
+- `operit-runtime` 在 services/ToolRuntimeSupportService.rs 中以 `RuntimeToolSupport` 实现 `ToolRuntimeSupport`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:159` `core/crates/runtime/application/Cargo.toml:2`）
 - `ProviderRuntimeSupport` trait 定义在 `core/crates/provider/services/src/runtime_support.rs:281`（`core/crates/provider/services/src/runtime_support.rs:281`）
 - `operit-runtime` 在 services/ProviderRuntimeSupportService.rs 中以 `RuntimeProviderSupport` 实现 `ProviderRuntimeSupport`（`core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:443` `core/crates/runtime/application/Cargo.toml:2`）
 - `LocalModelRuntimeSupport` trait 定义在 `core/crates/provider/local-model/src/runtime_support.rs:7`（`core/crates/provider/local-model/src/runtime_support.rs:7`）
 - `GitHubTokenSource` trait 定义在 `core/crates/provider/services/src/market/MarketStatsApiService.rs:512`，请求已登录 GitHub 账号的访问令牌（`core/crates/provider/services/src/market/MarketStatsApiService.rs:512`）
 - `JsExecutionHost` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:213`（`core/crates/plugin/sdk/src/javascript.rs:213`）
 - `operit-tools` 在 tools/AIToolHandler.rs 中以 `AIToolHandler` 实现 `JsExecutionHost`（`core/crates/tool/services/src/tools/AIToolHandler.rs:1144` `core/crates/tool/services/Cargo.toml:2`）
-- `JsExecutionProvider` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:435`（`core/crates/plugin/sdk/src/javascript.rs:435`）
+- `JsExecutionProvider` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:440`（`core/crates/plugin/sdk/src/javascript.rs:440`）
 - `operit-js-bridge` 在 javascript/JsExecutionProvider.rs 中以 `HostJsExecutionProvider` 实现 `JsExecutionProvider`（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:91` `core/crates/plugin/javascript-bridge/Cargo.toml:2`）
-- `JsPackageExecutor` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:426`（`core/crates/plugin/sdk/src/javascript.rs:426`）
-- `JsExecutionEngine` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:659`（`core/crates/plugin/sdk/src/javascript.rs:659`）
+- `JsPackageExecutor` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:431`（`core/crates/plugin/sdk/src/javascript.rs:431`）
+- `JsExecutionEngine` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:664`（`core/crates/plugin/sdk/src/javascript.rs:664`）
 
 ### 各边界归属
 
@@ -176,21 +176,21 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 - `operit-proxy-edge` — edge/sdk/proxy — Edge 服务的类型化投影（`core/CRATE_BOUNDARIES.md:181`）
 - `operit-host-contract` — 新基线新增的 foundation 领域 crate，宿主能力 trait 定义所在地（`core/crates/foundation/host-contract/Cargo.toml:2`）
 - `operit-vfs` — 新基线新增的 foundation 领域 crate，共享虚拟文件系统（`core/crates/foundation/vfs/Cargo.toml:2`）
-- `ToolRuntimeSupport` — 工具侧对父级运行时的请求 trait（`core/crates/tool/services/src/runtime_support.rs:417`）
+- `ToolRuntimeSupport` — 工具侧对父级运行时的请求 trait（`core/crates/tool/services/src/runtime_support.rs:389`）
 - `ProviderRuntimeSupport` — Provider 侧对父级运行时的请求 trait（`core/crates/provider/services/src/runtime_support.rs:281`）
 - `LocalModelRuntimeSupport` — 本地模型侧对父级运行时的请求 trait（`core/crates/provider/local-model/src/runtime_support.rs:7`）
 - `GitHubTokenSource` — 请求已登录 GitHub 账号访问令牌的 trait（`core/crates/provider/services/src/market/MarketStatsApiService.rs:512`）
 - `JsExecutionHost` — JavaScript 到应用的执行边界 trait（`core/crates/plugin/sdk/src/javascript.rs:213`）
-- `JsExecutionProvider` — 引擎 Provider 边界 trait（`core/crates/plugin/sdk/src/javascript.rs:435`）
-- `JsPackageExecutor` — 绑定一个包运行时与执行宿主的 trait（`core/crates/plugin/sdk/src/javascript.rs:426`）
-- `JsExecutionEngine` — ToolPkg 引擎操作 trait（`core/crates/plugin/sdk/src/javascript.rs:659`）
+- `JsExecutionProvider` — 引擎 Provider 边界 trait（`core/crates/plugin/sdk/src/javascript.rs:440`）
+- `JsPackageExecutor` — 绑定一个包运行时与执行宿主的 trait（`core/crates/plugin/sdk/src/javascript.rs:431`）
+- `JsExecutionEngine` — ToolPkg 引擎操作 trait（`core/crates/plugin/sdk/src/javascript.rs:664`）
 - `HostJsExecutionProvider` — `operit-js-bridge` 实现 `JsExecutionProvider` 的结构体（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:16` `core/crates/plugin/javascript-bridge/Cargo.toml:2`）
 - `HostManager` — 活动宿主能力集与面向生命周期的宿主句柄（`core/crates/foundation/host-api/src/HostManager.rs:139`）
 
 ## 调用链
 
 1. 子 crate 需要父级行为时，子 crate 定义 trait 并消费 trait 对象（`core/CRATE_BOUNDARIES.md:98`）
-2. 父级 `operit-runtime` 实现该 trait，例如 `RuntimeToolSupport` 实现 `ToolRuntimeSupport`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:137` `core/crates/runtime/application/Cargo.toml:2`）
+2. 父级 `operit-runtime` 实现该 trait，例如 `RuntimeToolSupport` 实现 `ToolRuntimeSupport`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:159` `core/crates/runtime/application/Cargo.toml:2`）
 3. 父级 `operit-runtime` 安装该 trait，例如 `RuntimeProviderSupport` 实现 `ProviderRuntimeSupport`（`core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:443` `core/crates/runtime/application/Cargo.toml:2`）
 4. 按 trait 机制，子 crate 通过 trait 对象调用父级服务，不直接依赖 `operit-runtime` 的内部实现（`operit-node-runtime` 的 javascript 可选依赖除外，见不一致小节）（`core/CRATE_BOUNDARIES.md:98` `core/crates/node/runtime/Cargo.toml:2` `core/crates/node/runtime/Cargo.toml:38`）
 5. 修改协议相关源码后运行 Cargo 构建，构建扫描带 `operit_core_route` 注解的方法算路由契约指纹（`docs/peer-protocol-versioning.md:10`）

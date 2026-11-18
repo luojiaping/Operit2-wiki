@@ -105,27 +105,27 @@
   },
   {
     "fact": "`wait` 要求 `agent_ids` 为 1 到 16 个不重复 ID",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:337"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:370"
   },
   {
     "fact": "`wait` 要求 `timeoutMs` 为 1 到 30000 的整数",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:338"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:371"
   },
   {
     "fact": "等待任一目标轮次不活跃时立即返回，`timed_out` 为 false",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:344"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:377"
   },
   {
     "fact": "超时回调调用 `finishWait`，以超时标记结束本次等待",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:351"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:384"
   },
   {
     "fact": "`finishWait` 用观察到的轮次快照结束等待，`timed_out` 只属于本次等待",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:360"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:390"
   },
   {
     "fact": "`publish` 按 `runNumber` 匹配等待目标，不匹配的轮次不结束等待",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:366"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:399"
   },
   {
     "fact": "`publish` 只在目标轮次结算为非活跃状态时结束等待",
@@ -165,7 +165,7 @@
   },
   {
     "fact": "`isActive` 把 starting、running、closing 视为活跃",
-    "ref": "plugins/packages/external/subagents/src/model.ts:88"
+    "ref": "plugins/packages/external/subagents/src/model.ts:100"
   },
   {
     "fact": "SDK 当前没有重新附着到已有执行流或直接向生成中模型注入指令的接口",
@@ -177,7 +177,7 @@
   },
   {
     "fact": "AgentSummary 含 `runNumber`、`lastInput`、`error` 与 `result` 字段",
-    "ref": "plugins/packages/external/subagents/src/model.ts:36"
+    "ref": "plugins/packages/external/subagents/src/model.ts:38"
   },
   {
     "fact": "`Agent` 在摘要之外多一个 messages 快照数组",
@@ -189,7 +189,7 @@
   },
   {
     "fact": "`parseAgent` 拒绝 schemaVersion 不是 1 的记录",
-    "ref": "plugins/packages/external/subagents/src/model.ts:95"
+    "ref": "plugins/packages/external/subagents/src/model.ts:105"
   },
   {
     "fact": "`WaitResult` 只有 `timed_out` 与 agents 两个字段",
@@ -257,7 +257,7 @@
   },
   {
     "fact": "关闭运行中的执行时先把状态存为 `closing` 再取消",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:320"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:353"
   },
   {
     "fact": "关闭时原生仍在执行就请求取消并每 100 毫秒轮询直到空闲",
@@ -325,11 +325,11 @@
   },
   {
     "fact": "`registerService` 把 `receive` 挂到 `CHANNEL` 通道",
-    "ref": "plugins/packages/external/subagents/src/service.ts:75"
+    "ref": "plugins/packages/external/subagents/src/service.ts:81"
   },
   {
     "fact": "`receive` 先 `decodeRequest` 校验再交给 manager",
-    "ref": "plugins/packages/external/subagents/src/service.ts:70"
+    "ref": "plugins/packages/external/subagents/src/service.ts:76"
   },
   {
     "fact": "manager 由 `owner()` 懒加载创建",
@@ -337,7 +337,7 @@
   },
   {
     "fact": "`registerService` 只注册 IPC 处理器，不创建 manager",
-    "ref": "plugins/packages/external/subagents/src/service.ts:75"
+    "ref": "plugins/packages/external/subagents/src/service.ts:80"
   },
   {
     "fact": "`decodeRequest` 校验 parentChatId 为非空文本",

@@ -32,8 +32,8 @@ date: 2026-11-11
 - PreferenceMergeSchema 的 `owner` — 按路径解析偏好 owner。`core/crates/persistence/store/src/PreferenceMerge.rs:76`
 - `declarePlugin` — 登记插件偏好合并声明。`core/crates/persistence/store/src/PreferenceMerge.rs:92`
 - `applyDeclaredOperations` — 重放一个数据集并提交业务状态。`core/crates/persistence/store/src/PreferenceMerge.rs:466`
-- `rewriteReferences` — 按规范身份映射重写已声明引用。`core/crates/persistence/store/src/PreferenceMerge.rs:620`
-- `resolveIdentity` — 沿别名映射传递解析身份。`core/crates/persistence/store/src/PreferenceMerge.rs:809`
+- `rewriteReferences` — 按规范身份映射重写已声明引用。`core/crates/persistence/store/src/PreferenceMerge.rs:671`
+- `resolveIdentity` — 沿别名映射传递解析身份。`core/crates/persistence/store/src/PreferenceMerge.rs:860`
 - 主入口（外观创建）：`previewToolPkgTheme` → `ThemeTemplateService` → `ThemeConfigManager.create` 和 `apply`。`docs/theme-v1-contract.md:47`
 - 主入口（偏好合并）：`applyOperations` 接受 history 与 incoming 操作，返回引用映射或错误字符串。`core/crates/persistence/store/src/PreferenceMerge.rs:407`
 - 数据流向（外观）：模板 → 复制到外观资源池 → 独立配置 → Space 同步。`docs/theme-v1-contract.md:51`
@@ -85,16 +85,16 @@ date: 2026-11-11
 - 合并声明冲突时返回 Conflicting preference merge declarations 错误。`core/crates/persistence/store/src/PreferenceMerge.rs:254`
 - `isMergeMetadata` 把 domain 为 `preferences` 且 operation 为 `alias` 的操作，或 payload key 为 `PLUGIN_MERGE_DECLARATION_KEY` 或 `PluginPreferenceSchema::KEY` 的操作判定为合并元数据。`core/crates/persistence/store/src/PreferenceMerge.rs:23`
 - `applyDeclaredOperations` 重放一个数据集，并把业务状态、原始身份与归档意图一起提交。`core/crates/persistence/store/src/PreferenceMerge.rs:466`
-- 重放前调用 `store.migrateSyncedEntries(version, preferences, &mut entries)` 对同步条目执行迁移。`core/crates/persistence/store/src/PreferenceMerge.rs:516`
+- 重放前调用 `store.migrateSyncedEntries(version, preferences, &mut entries)` 对同步条目执行迁移。`core/crates/persistence/store/src/PreferenceMerge.rs:537`
 - `PreferenceMergeOutcome` 记录 `paths`、`operations`、`skipped` 与 `result`；`skipped` 表示布局已显式退役该目标，原始记录仍留在日志中。`core/crates/persistence/store/src/PreferenceMerge.rs:262`
 - `applyIndependentOperations` 对每个数据集独立应用；稳定引用不合并提交或失败边界。`core/crates/persistence/store/src/PreferenceMerge.rs:269`
 - `registry` 构造的注册表由普通同步与最终比较/纠正共享。`core/crates/persistence/store/src/PreferenceMerge.rs:308`
 - `applyOperations` 接受 `history` 与 `incoming` 操作，返回引用映射或错误字符串。`core/crates/persistence/store/src/PreferenceMerge.rs:407`
 - `declaredAliases` 只解析已显式记录的别名决定，绝不从内容推断身份。`core/crates/persistence/store/src/PreferenceMerge.rs:435`
-- `rewriteReferences` 按执行器的规范身份映射重写已声明的引用。`core/crates/persistence/store/src/PreferenceMerge.rs:620`
-- 引用路径走完时，被引用的值必须是字符串或 null，否则返回 Declared preference reference must be a string or null 错误。`core/crates/persistence/store/src/PreferenceMerge.rs:764`
-- `resolveIdentity` 沿别名映射传递解析身份。`core/crates/persistence/store/src/PreferenceMerge.rs:809`
-- 别名映射成环时返回 Cyclic preference identity mapping 错误。`core/crates/persistence/store/src/PreferenceMerge.rs:818`
+- `rewriteReferences` 按执行器的规范身份映射重写已声明的引用。`core/crates/persistence/store/src/PreferenceMerge.rs:671`
+- 引用路径走完时，被引用的值必须是字符串或 null，否则返回 Declared preference reference must be a string or null 错误。`core/crates/persistence/store/src/PreferenceMerge.rs:815`
+- `resolveIdentity` 沿别名映射传递解析身份。`core/crates/persistence/store/src/PreferenceMerge.rs:860`
+- 别名映射成环时返回 Cyclic preference identity mapping 错误。`core/crates/persistence/store/src/PreferenceMerge.rs:869`
 - 合并把一个身份别名到存活的规范身份时，该决定持久化在数据库的合并映射里，对插件不可见：别名根键或子键下的本地提交被重定向到规范行，打开已合并数据库时会把旧写入者留在退役键下的行移回规范身份。`docs/plugin-storage.md:34`
 - 每个偏好文件与内存数据库各有自己的事务边界；跨这些文件与内存引擎的多 owner 业务操作不是单个原子事务。`docs/plugin-storage.md:57`
 
@@ -172,11 +172,11 @@ date: 2026-11-11
 - `applyOperations` — 汇总各数据集的合并执行结果。`core/crates/persistence/store/src/PreferenceMerge.rs:407`
 - `declaredAliases` — 只解析已显式记录的别名决定。`core/crates/persistence/store/src/PreferenceMerge.rs:435`
 - `applyDeclaredOperations` — 重放一个数据集并提交业务状态。`core/crates/persistence/store/src/PreferenceMerge.rs:466`
-- `migrateSyncedEntries` — 对同步条目执行迁移。`core/crates/persistence/store/src/PreferenceMerge.rs:516`
-- `rewriteReferences` — 按规范身份映射重写已声明引用。`core/crates/persistence/store/src/PreferenceMerge.rs:620`
-- `rewriteReferenceValue` — 按有界显式选择器重写已声明引用值。`core/crates/persistence/store/src/PreferenceMerge.rs:750`
-- `resolveIdentity` — 沿别名映射传递解析身份。`core/crates/persistence/store/src/PreferenceMerge.rs:809`
-- `referenceKey` — 为规范身份映射构造带命名空间的键。`core/crates/persistence/store/src/PreferenceMerge.rs:826`
+- `migrateSyncedEntries` — 对同步条目执行迁移。`core/crates/persistence/store/src/PreferenceMerge.rs:537`
+- `rewriteReferences` — 按规范身份映射重写已声明引用。`core/crates/persistence/store/src/PreferenceMerge.rs:671`
+- `rewriteReferenceValue` — 按有界显式选择器重写已声明引用值。`core/crates/persistence/store/src/PreferenceMerge.rs:801`
+- `resolveIdentity` — 沿别名映射传递解析身份。`core/crates/persistence/store/src/PreferenceMerge.rs:860`
+- `referenceKey` — 为规范身份映射构造带命名空间的键。`core/crates/persistence/store/src/PreferenceMerge.rs:877`
 
 ## 调用链
 
@@ -194,9 +194,9 @@ date: 2026-11-11
 1. 插件 `edit()` 回调通过原生偏好事务发布变更；回调抛异常时不发布任何偏好变更。`docs/plugin-storage.md:20`
 2. `withSchema(version, steps)` 声明持久化在引擎自有元数据里，包含在导出的初始化事务中，由后台同步恢复，无需启动插件。`docs/plugin-storage.md:22`
 3. 文档写明原生引擎通过 `Transaction::migration::Context` 对完整数据与旧原子事务执行同一套规则。`docs/plugin-storage.md:26`
-4. 重放前调用 `store.migrateSyncedEntries(version, preferences, &mut entries)` 对同步条目执行迁移。`core/crates/persistence/store/src/PreferenceMerge.rs:516`
+4. 重放前调用 `store.migrateSyncedEntries(version, preferences, &mut entries)` 对同步条目执行迁移。`core/crates/persistence/store/src/PreferenceMerge.rs:537`
 5. `declaredAliases` 只解析已显式记录的别名决定，绝不从内容推断身份。`core/crates/persistence/store/src/PreferenceMerge.rs:435`
-6. `rewriteReferences` 按执行器的规范身份映射重写已声明的引用。`core/crates/persistence/store/src/PreferenceMerge.rs:620`
+6. `rewriteReferences` 按执行器的规范身份映射重写已声明的引用。`core/crates/persistence/store/src/PreferenceMerge.rs:671`
 7. `applyIndependentOperations` 对每个数据集独立应用；稳定引用不合并提交或失败边界。`core/crates/persistence/store/src/PreferenceMerge.rs:269`
 
 ## 来源
@@ -205,6 +205,7 @@ date: 2026-11-11
 - 复核（2026-11-15，新基线 ff5373fb6）：`docs/theme-v1-contract.md` 新增气泡贴图编辑段（:54–55，旧 :55 行下移至 :57），不在大纲四问范围内，未立事实；`RuntimePackageManager.rs` 的 `withSchema(3, …)` 锚点 :338→:388，2 分支仍删 `bundled_external_imports`；其余 5 份 seed 文件 0 行改动，56 条事实锚行逐字相同；seed 合计行数 2084→2086。
 - 复核（2026-11-16，新基线 59de537f6）：`RuntimePackageManager.rs` 的 `withSchema(3, …)` 锚点 :388→:413，2 分支仍删 `bundled_external_imports`；其余 5 份 seed 文件 0 行改动，56 条事实锚行逐字相同；seed 合计行数不变（2086 行）。
 - 复核（2026-11-18，新基线 753366ff4）：`docs/theme-v1-contract.md` 旧 :57 整段改写为新 :57（单张背景/气泡图片/背景视频加载失败只降级对应资源，其余设置不清空）、:59（配色/字体/外观偏好无法准备仍展示错误及“重试”“重置外观”，应用旧版配置清除新增字段）与 :61（局部回退不放宽模板校验要求）；事实 #11 已按新 :57/:59 改写，事实条数不变（56 条）；其余 5 份 seed 文件及 `RuntimePackageManager.rs`、`PreferenceSpaceMerge.rs` 0 行改动，锚点 :413/:196 不变；seed 合计行数 2086→2090。
+- 复核（2026-11-19，新基线 f9b7555）：`PreferenceMerge.rs` 在 `applyDeclaredOperations` 内新增 incoming 为空时复用已提交状态的 early-return（新 :472–492）与新函数 `aliasesAbsorbed`（新 :638–667）；`migrateSyncedEntries` 调用点 :516→:537，`rewriteReferences` :620→:671，`rewriteReferenceValue` :750→:801，`resolveIdentity` :809→:860，`referenceKey` :826→:877；无反引号的 :764（引用值须为字符串或 null）→:815、:818（别名成环）→:869；其余 4 份 seed 文件 0 行改动，`RuntimePackageManager.rs:413`、`PreferenceSpaceMerge.rs:196` 锚点不变，2 分支仍删 `bundled_external_imports`（新 :416）；seed 合计行数 2090→2141；事实条数不变（56 条）。
 - 主题契约见 [[core-plugin-theme|插件——主题 v1 契约]]；主题即插件见 [[plugin-theme|主题即插件（theme-as-ToolPkg）]]。
 - “主题偏好 schema 3→4 迁移”已定位（2026-11-12，基线 `364d1d594`）：`UserPreferencesManager.rs:36` 的 `store` 以 `.withMigration(5, Self::migration)` 打开 `USER_PREFERENCES_PATH`；`migratePreferences` 的 3 分支（`:89`–`:103`）调用 `migrateLegacyThemePreferences`（`ThemePreferenceSnapshot.rs:643`）解码旧主题偏好，再逐条对 `theme_config_*` 配置做 `migrateLegacyThemeSnapshot`（`ThemePreferenceSnapshot.rs:656`）并 `validateConfig`；4 分支（`:104` 起）把 `chat_style` 拆分为 `user_chat_style` / `ai_chat_style`。原 grep 只搜 `withSchema` 未覆盖 `withMigration`，因而漏检；`withSchema(3` 的生产代码命中另有所指：`PreferenceSpaceMerge.rs:196`（同步偏好布局，`core/crates/runtime/application/src/data/preferences/PreferenceSpaceMerge.rs`）与 `RuntimePackageManager.rs:413`（包管理器偏好，`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs`），均非主题偏好迁移。
 - 结论：大纲备注的“主题偏好 schema 3→4 迁移”已有实现，本页按上述锚点写该迁移；插件 schema（当前 v1）与用户偏好文件 format 0–5 是两套体系。

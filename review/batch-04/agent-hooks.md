@@ -136,8 +136,8 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - 摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:480`）。
 - 摘要生成在 before_send_to_model 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:514`）。
 - 摘要生成在 after_generate_summary 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:558`）。
-- `before_prepare_summary_prompt` 分发前先用 `buildSummaryPreparedHistory` 预生成 `prepared_history`，不再传空历史（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:469`）。
-- 分发后用 `reconcileSummaryPreparedHistory` 对账，取 hook 改动后的 preparedHistory（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:483`）。
+- `before_prepare_summary_prompt` 分发前先用 `buildSummaryPreparedHistory` 预生成 `prepared_history`，不再传空历史（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:503`）。
+- 分发后用 `reconcileSummaryPreparedHistory` 对账，取 hook 改动后的 preparedHistory（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:517`）。
 - before_prepare_summary_prompt 与 before_send_to_model 在超时名单内（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:30`）。
 - after_generate_summary 不在名单内、不创建截止时间（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:150`）。
 - JS 侧摘要 hook 对象结果是 `ToolPkgSummaryHookObjectResult`，字段与摘要上下文对应（`core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1048`）。

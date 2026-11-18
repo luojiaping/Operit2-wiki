@@ -721,15 +721,15 @@
   },
   {
     "fact": "bindRuntimeServices 绑定工具处理器与 provider 运行时上下文，重复绑定返回错误",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:90"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:112"
   },
   {
     "fact": "bindChatHistoryManager 捕获与聊天 delegate 共享的规范记录管理器，重复绑定返回错误",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:104"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:126"
   },
   {
     "fact": "bindDeviceToolRuntime 安装设备工具运行时，重复初始化返回错误",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:138"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:165"
   },
   {
     "fact": "closeDeviceTransports 关闭指定归属的设备传输",
@@ -737,23 +737,23 @@
   },
   {
     "fact": "executeDeviceTool 在设备工具路由未初始化时返回失败结果而不 panic",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:145"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:172"
   },
   {
     "fact": "bindCoreNodeToolRuntime 安装外部 Core 代理提供的实时路由能力",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:155"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:182"
   },
   {
     "fact": "coreNodeRouteState 从已安装的外部 Core 代理读取当前路由状态，未安装时返回错误",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:166"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:193"
   },
   {
     "fact": "bindCoreRouteChangeHandler 安装归属 Core 应用提供的路由变更控制器，重复绑定返回错误",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:178"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:205"
   },
   {
     "fact": "requestCoreRouteChange 经已安装的控制器请求路由变更，未绑定时返回错误",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:192"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:219"
   },
   {
     "fact": "listModelSummaries 读取全部真实配置模型记录并校验公开 SDK 形状",
@@ -761,23 +761,23 @@
   },
   {
     "fact": "synthesizeSpeech 经 TtsSynthesisService 按配置合成语音，未指定配置时用当前 TTS 配置",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:229"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:256"
   },
   {
     "fact": "speakSpeech 按解析出的系统语音配置朗读，interrupt 缺省为 true，pitch 缺省为 1.0",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:245"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:277"
   },
   {
-    "fact": "speakSpeech 经 TtsPlaybackService 播放，播放前用 TtsCleaner 清洗文本",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:249"
+    "fact": "speakSpeech 经 TtsPlaybackService 的 speakConfigured 异步播放，播放前由其用 TtsCleaner 清洗文本",
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:262"
   },
   {
     "fact": "transcribeSpeech 经 SttRecognitionService 转录语音，未指定配置时用当前配置",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:266"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:302"
   },
   {
     "fact": "listTtsConfigs 读取全部真实配置语音记录，不参考角色偏好",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:276"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:312"
   },
   {
     "fact": "listThemeConfigs 从规范普通偏好账本读取全部命名外观记录",
@@ -785,7 +785,7 @@
   },
   {
     "fact": "applyThemeConfig 只应用确切存在的命名主题，id 为空或含首尾空白时返回错误",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:295"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:331"
   },
   {
     "fact": "getCurrentTtsConfigId 读取当前规范语音 id",
@@ -793,7 +793,7 @@
   },
   {
     "fact": "setCurrentTtsConfigId 写入当前语音 id，要求 id 为确切非空文本",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:312"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:348"
   },
   {
     "fact": "filterToolCatalog 把同样的实际工具提示词注册应用到 CLI 面向模型的隐藏工具目录",
@@ -801,7 +801,7 @@
   },
   {
     "fact": "readToolSourceCatalog 读取四类真实工具来源注册表：内置工具、包、技能、MCP 服务器",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:333"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:369"
   },
   {
     "fact": "readEnvironmentVariable 读取一个已存储环境变量",
@@ -857,11 +857,11 @@
   },
   {
     "fact": "startChatServices 启动父级聊天服务，取 MAIN 与 FLOATING 两个核心",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:630"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:661"
   },
   {
     "fact": "stopChatServices 停止父级聊天服务并清空核心与计数器",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:638"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:674"
   },
   {
     "fact": "isChatProcessing 判断指定聊天是否正在处理",
@@ -889,19 +889,19 @@
   },
   {
     "fact": "openPluginChatMessage 准入恰好一次已认证发送并拥有其生成、最终收据与清理",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:772"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:827"
   },
   {
     "fact": "requestPluginChatCancellation 同步捕获归属以便排队取消不指向后续执行",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:815"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:870"
   },
   {
     "fact": "sendChatMessage 在 Holder 之外调用权威提交钩子，只等待发起回合的实际提交收据",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:843"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:898"
   },
   {
     "fact": "callChatModel 直接调用配置的功能模型，不记入聊天历史",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:907"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:962"
   },
   {
     "fact": "processFileBindingOperations 对文件内容应用结构化编辑",
@@ -1037,7 +1037,7 @@
   },
   {
     "fact": "builtinSkillNames 返回无需启用 AI 可见性的内置技能名",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:558"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:594"
   },
   {
     "fact": "RuntimeProviderSupport 的 dataDir 接口已删除，modelBindingForFunction、resolvedModelConfig、providerProfile 三函数改用默认配置管理器，不再接收 rootDir 参数",

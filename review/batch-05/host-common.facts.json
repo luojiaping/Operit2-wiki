@@ -401,19 +401,19 @@
   },
   {
     "fact": "NativeRuntimeStorageHost 的 `openSqliteDatabase` 在存储根下打开 SQLite 数据库",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:1030"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:1015"
   },
   {
     "fact": "SQLite 事务用 `Immediate` 行为先占写锁再读",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:1103"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:1088"
   },
   {
     "fact": "Windows 原子发布用 `MoveFileExW` 加 `MOVEFILE_REPLACE_EXISTING` 与 `MOVEFILE_WRITE_THROUGH`",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:906"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:891"
   },
   {
     "fact": "`publishStagedFile` 先原子替换、同步时再同步父目录",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:864"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:849"
   },
   {
     "fact": "`NativeFileSecretStore` 由 storage crate 从 `secrets` 子模块重导出",
@@ -453,15 +453,15 @@
   },
   {
     "fact": "NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:703"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:720"
   },
   {
     "fact": "`requireNativeTerminal` 只接受 `TERMINAL` 终端实现",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1690"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1730"
   },
   {
     "fact": "`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:935"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:975"
   },
   {
     "fact": "超时取消的安顿等待为 3000 毫秒",
