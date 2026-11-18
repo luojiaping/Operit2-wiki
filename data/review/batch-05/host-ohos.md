@@ -104,7 +104,7 @@ qemu-vroot 工作目录解析把原生目录映射为 `VROOT_HOST_MOUNT_ROOT` �
 Host 根挂载点 `VROOT_HOST_MOUNT_ROOT` 为 `/mnt/host-root`（`hosts/ohos/src/terminal.rs:30`）。
 `ensureReady` 在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs（`hosts/ohos/src/terminal.rs:88`）。
 归档安装前由 `verifyRootfsArchiveSha256` 校验归档 SHA-256（`hosts/ohos/src/terminal.rs:114`）。
-`readRootfsSha256` 要求校验和为 64 位十六进制字符并转小写（`hosts/ohos/src/terminal.rs:623`）。
+`readRootfsSha256` 要求校验和为 64 位十六进制字符并转小写（`hosts/ohos/src/terminal.rs:631`）。
 终端从 checksum 验证的离线 Alpine 仓库安装打包的包（`hosts/ohos/README.md:32`）。
 打包安装经 apk 以 `--no-network` 离线运行（`hosts/ohos/src/terminal.rs:169`）。
 rootfs 不存在时 payload 直接改名为 rootfs（`hosts/ohos/src/terminal.rs:156`）。
@@ -115,10 +115,10 @@ rootfs 不存在时 payload 直接改名为 rootfs（`hosts/ohos/src/terminal.rs
 Guest DNS 由活动 OHOS 所有者网络提供（`hosts/ohos/README.md:34`）。
 安装完成时把校验和写入 `VROOT_INSTALL_MARKER` 的 installing 临时文件再改名为安装标记（`hosts/ohos/src/terminal.rs:218`）。
 安装期间校验归档哈希与包载荷，就绪结果由当前进程的终端实例共享（`hosts/ohos/README.md:35`）。
-`verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:690`）。
-`createVrootShell` 为 QEMU-vroot Alpine 创建 PTY 启动器（`hosts/ohos/src/terminal.rs:530`）。
-vroot shell 在 guest 内执行 cd "$OPERIT_OHOS_HOST_WORKING_DIR" && exec /bin/sh -i（`hosts/ohos/src/terminal.rs:546`）。
-vroot 会话默认工作目录为 `VROOT_HOST_MOUNT_ROOT` 拼接 workspaceRoot（`hosts/ohos/src/terminal.rs:550`）。
+`verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:698`）。
+`createVrootShell` 为 QEMU-vroot Alpine 创建 PTY 启动器（`hosts/ohos/src/terminal.rs:538`）。
+vroot shell 在 guest 内执行 cd "$OPERIT_OHOS_HOST_WORKING_DIR" && exec /bin/sh -i（`hosts/ohos/src/terminal.rs:554`）。
+vroot 会话默认工作目录为 `VROOT_HOST_MOUNT_ROOT` 拼接 workspaceRoot（`hosts/ohos/src/terminal.rs:558`）。
 
 ### 托管运行时：路径映射
 
@@ -245,9 +245,9 @@ OhosBluetoothHost 的 `execute` 把命令与参数交给 controller 回调并解
 - `OhosBluetoothHost` — OpenHarmony 蓝牙 Host（`hosts/ohos/src/bluetooth.rs:17`）
 - `ensureReady` — 在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs（`hosts/ohos/src/terminal.rs:88`）
 - `verifyRootfsArchiveSha256` — 归档安装前校验归档 SHA-256（`hosts/ohos/src/terminal.rs:114`）
-- `readRootfsSha256` — 要求校验和为 64 位十六进制字符并转小写（`hosts/ohos/src/terminal.rs:623`）
-- `verifyRootfsPayload` — 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:690`）
-- `createVrootShell` — 为 QEMU-vroot Alpine 创建 PTY 启动器（`hosts/ohos/src/terminal.rs:530`）
+- `readRootfsSha256` — 要求校验和为 64 位十六进制字符并转小写（`hosts/ohos/src/terminal.rs:631`）
+- `verifyRootfsPayload` — 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:698`）
+- `createVrootShell` — 为 QEMU-vroot Alpine 创建 PTY 启动器（`hosts/ohos/src/terminal.rs:538`）
 - `terminalInfo` — 把 qemu-vroot 列为默认终端（`hosts/ohos/src/terminal.rs:343`）
 - `resolveRuntimeExecutable` — 在显式 executablePath 非空时使用该路径（`hosts/ohos/src/managed_runtime.rs:122`）
 - `runRuntimeCommand` — 在 QEMU-vroot Alpine 内运行一次性命令并等待退出（`hosts/ohos/src/managed_runtime.rs:151`）
@@ -271,7 +271,7 @@ OhosBluetoothHost 的 `execute` 把命令与参数交给 controller 回调并解
 3. 归档安装前由 `verifyRootfsArchiveSha256` 校验归档 SHA-256（`hosts/ohos/src/terminal.rs:114`）。
 4. rootfs 不存在时 payload 直接改名为 rootfs（`hosts/ohos/src/terminal.rs:156`）。
 5. 已存在 rootfs 时安装经 apk 做 add --upgrade，不替换用户 rootfs（`hosts/ohos/src/terminal.rs:180`）。
-6. `verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:690`）。
+6. `verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:698`）。
 7. 安装完成时把校验和写入 `VROOT_INSTALL_MARKER` 的 installing 临时文件再改名为安装标记（`hosts/ohos/src/terminal.rs:218`）。
 
 ### 托管运行时启动

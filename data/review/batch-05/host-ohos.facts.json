@@ -237,7 +237,7 @@
   },
   {
     "fact": "`readRootfsSha256` 要求校验和为 64 位十六进制字符并转小写。",
-    "ref": "hosts/ohos/src/terminal.rs:623"
+    "ref": "hosts/ohos/src/terminal.rs:631"
   },
   {
     "fact": "打包安装经 apk 以 `--no-network` 离线运行。",
@@ -265,7 +265,7 @@
   },
   {
     "fact": "`verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`。",
-    "ref": "hosts/ohos/src/terminal.rs:690"
+    "ref": "hosts/ohos/src/terminal.rs:698"
   },
   {
     "fact": "`OhosTerminalHost` 的 `new` 接受显式的 runtimeRoot 与 workspaceRoot。",
@@ -277,15 +277,15 @@
   },
   {
     "fact": "`createVrootShell` 为 QEMU-vroot Alpine 创建 PTY 启动器。",
-    "ref": "hosts/ohos/src/terminal.rs:530"
+    "ref": "hosts/ohos/src/terminal.rs:538"
   },
   {
     "fact": "vroot shell 在 guest 内执行 cd \"$OPERIT_OHOS_HOST_WORKING_DIR\" && exec /bin/sh -i。",
-    "ref": "hosts/ohos/src/terminal.rs:546"
+    "ref": "hosts/ohos/src/terminal.rs:554"
   },
   {
     "fact": "vroot 会话默认工作目录为 `VROOT_HOST_MOUNT_ROOT` 拼接 workspaceRoot。",
-    "ref": "hosts/ohos/src/terminal.rs:550"
+    "ref": "hosts/ohos/src/terminal.rs:558"
   },
   {
     "fact": "`terminalInfo` 把 qemu-vroot 列为默认终端。",

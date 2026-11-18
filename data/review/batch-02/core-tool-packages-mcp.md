@@ -31,7 +31,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - `MCPBridgeClient` — `mcp_runtime::plugins` 的桥接客户端，承载与 MCP 服务器的通信（core/crates/tool/services/src/tools/mcp/MCPManager.rs:5）
 - `materializeToolPkgResource` — 把 ToolPkg 资源物化为文件并返回 VFS 路径（core/crates/tool/services/src/tools/ToolJsRuntime.rs:108）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:176）
 - `invokeToolPkgIpc` — 调用 ToolPkg IPC 目标，带分阶段计时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:241）
-- `inferToolPkgRuntime` — 按上下文键前缀推断 ToolPkg 运行时种类（core/crates/tool/services/src/tools/ToolJsRuntime.rs:549）
+- `inferToolPkgRuntime` — 按上下文键前缀推断 ToolPkg 运行时种类（core/crates/tool/services/src/tools/ToolJsRuntime.rs:550）
 - 主入口函数：包工具 PackageToolExecutor 的 `invokeAndStreamAsync`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:80），技能 SkillManager 的 `refreshAvailableSkills`（core/crates/tool/services/src/tools/skill/SkillManager.rs:53），MCP MCPToolExecutor 的 `invoke`（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:337）
 - 数据流向一句话：模型发 `packageName:toolName` 或 `server_name:tool_name` 调用 → 对应执行器校验 → 包调用进 Host JS 执行器或技能提示词进上下文、MCP 调用经桥接客户端发往服务器 → 结构化结果转回 `ToolResult`。
 
@@ -174,13 +174,13 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - 非 `main` 目标取不到已激活的执行引擎时报错 `ToolPkg runtime is not active`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:326）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:385）
 - 执行前校验引擎仍是当前引擎，否则报错执行上下文已被释放或替换（core/crates/tool/services/src/tools/ToolJsRuntime.rs:399）
 - 依赖调用要求调用方与提供方都启用（core/crates/tool/services/src/tools/ToolJsRuntime.rs:504）
-- 调用方必须在 `requires` 中声明对提供方的依赖（core/crates/tool/services/src/tools/ToolJsRuntime.rs:512）
-- 提供方版本必须落在调用方声明的 `minVersion` 与 `maxVersion` 范围内，否则报错 `Dependency version mismatch`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:517）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:527）
-- 提供方必须发布 `public_api`，否则报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:535）
-- 依赖方法必须在提供方的 `publicApis` 中，否则报错 `Public API not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:544）
-- 上下文键 `toolpkg_main:` 前缀对应 `main` 运行时，`toolpkg_provider:` 对应 `provider` 运行时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:551）
-- 上下文键 `toolpkg_compose:`、`toolpkg_compose_dsl:` 与 `toolpkg_xml_render:` 前缀对应 `ui` 运行时，`toolpkg_sandbox:` 对应 `sandbox` 运行时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:558）
-- `requiredText` 要求非空字符串（core/crates/tool/services/src/tools/ToolJsRuntime.rs:575）
+- 调用方必须在 `requires` 或 `optionalRequires` 中声明对提供方的依赖（core/crates/tool/services/src/tools/ToolJsRuntime.rs:508）
+- 提供方版本必须落在调用方声明的 `minVersion` 与 `maxVersion` 范围内，否则报错 `Dependency version mismatch`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:518）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:528）
+- 提供方必须发布 `public_api`，否则报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:536）
+- 依赖方法必须在提供方的 `publicApis` 中，否则报错 `Public API not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:545）
+- 上下文键 `toolpkg_main:` 前缀对应 `main` 运行时，`toolpkg_provider:` 对应 `provider` 运行时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:552）
+- 上下文键 `toolpkg_compose:`、`toolpkg_compose_dsl:` 与 `toolpkg_xml_render:` 前缀对应 `ui` 运行时，`toolpkg_sandbox:` 对应 `sandbox` 运行时（core/crates/tool/services/src/tools/ToolJsRuntime.rs:559）
+- `requiredText` 要求非空字符串（core/crates/tool/services/src/tools/ToolJsRuntime.rs:576）
 
 ## 关键符号
 

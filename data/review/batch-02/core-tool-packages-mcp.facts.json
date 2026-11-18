@@ -452,32 +452,32 @@
     "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:504"
   },
   {
-    "fact": "调用方必须在 requires 中声明对提供方的依赖。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:512"
+    "fact": "调用方必须在 requires 或 optionalRequires 中声明对提供方的依赖。",
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:508"
   },
   {
     "fact": "提供方版本必须落在调用方声明的 minVersion 与 maxVersion 范围内，否则报错 Dependency version mismatch。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:524"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:525"
   },
   {
     "fact": "提供方必须发布 public_api，否则报错。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:535"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:536"
   },
   {
     "fact": "依赖方法必须在提供方的 publicApis 中，否则报错 Public API not found。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:544"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:545"
   },
   {
     "fact": "上下文键 toolpkg_main: 前缀对应 main 运行时，toolpkg_provider: 对应 provider 运行时。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:551"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:552"
   },
   {
     "fact": "上下文键 toolpkg_compose:、toolpkg_compose_dsl: 与 toolpkg_xml_render: 前缀对应 ui 运行时，toolpkg_sandbox: 对应 sandbox 运行时。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:558"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:559"
   },
   {
     "fact": "requiredText 要求非空字符串。",
-    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:575"
+    "ref": "core/crates/tool/services/src/tools/ToolJsRuntime.rs:576"
   },
   {
     "fact": "指定子目录导入时找不到 SKILL.md，报错 No SKILL.md found in the selected import path。",

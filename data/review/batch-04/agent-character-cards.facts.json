@@ -213,15 +213,15 @@
   },
   {
     "fact": "公开解析 API 先按 chatId 读取插件自己的绑定，再临时构造 {version: 1, selection} 写入内部 `request.chatExtension`，交给领域解析；执行侧再从聊天扩展解码标记并用 `parseChatSelection` 解析选择串。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:396"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:380"
   },
   {
     "fact": "单卡解析出的提示词直接作为参与者的 `introPrompt`。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:376"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:359"
   },
   {
     "fact": "`withGroupParticipantPrompt` 为群组成员的执行档案追加角色规划提示与有序成员名。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:428"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:411"
   },
   {
     "fact": "群组追加提示直接拼在参与者原 `introPrompt` 之后返回新档案。",
@@ -241,11 +241,11 @@
   },
   {
     "fact": "`userPreferencesText` 只在全局记忆偏好开启用户描述时才读，否则为空串。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:372"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:355"
   },
   {
     "fact": "记忆主 owner：CHARACTER 模式为 `character:` 加卡片 id，SHARED 模式为 `shared:` 加共享库 id。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:355"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:338"
   },
   {
     "fact": "主记忆 owner 在资源表里可读可写。",

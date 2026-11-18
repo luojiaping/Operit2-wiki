@@ -196,12 +196,12 @@
     "ref": "tools/build_scripts/build_flutter_windows.py:30"
   },
   {
-    "fact": "Windows App 归档默认名为 `release_asset_name(\"app\", \"windows\", \"x86_64\", \"zip\")`。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:59"
+    "fact": "Windows App 安装器默认名为 `release_asset_name(\"app\", \"windows\", \"x86_64\", \"msi\")`，不再产出 ZIP 归档。",
+    "ref": "tools/build_scripts/build_flutter_windows.py:56"
   },
   {
-    "fact": "Windows MSI 路径缺省为归档路径换 `.msi` 后缀。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:60"
+    "fact": "Windows MSI 安装器路径缺省为 `DIST_DIR` 下 `release_asset_name(\"app\", \"windows\", \"x86_64\", \"msi\")`。",
+    "ref": "tools/build_scripts/build_flutter_windows.py:56"
   },
   {
     "fact": "Windows Flutter 构建的打包阶段调用 `build_windows_msi` 生成安装器。",
@@ -308,7 +308,7 @@
     "ref": "tools/build_scripts/build_local.py:32"
   },
   {
-    "fact": "Windows 本地 App 归档为 `release_asset_name(\"app\", \"windows\", architecture, \"zip\")`。",
+    "fact": "Windows 本地 App 包为 `release_asset_name(\"app\", \"windows\", architecture, \"msi\")`。",
     "ref": "tools/build_scripts/build_local.py:39"
   },
   {
@@ -369,7 +369,7 @@
   },
   {
     "fact": "`prepare_plugin_assets` 在 `common.py` 中运行，CLI 入口在 `cargo build` 前调用它，Flutter 构建从原生钩子触发它。",
-    "ref": "tools/build_scripts/README.md:72"
+    "ref": "tools/build_scripts/README.md:88"
   },
   {
     "fact": "`verify_cli_plugin_assets` 在打包的 CLI 二进制缺失已生成插件资产时抛错。",

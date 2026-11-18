@@ -33,7 +33,7 @@ README 的 Target Split 规划把 services 聚合拆为 contracts、runtime、bu
 `RegisteredToolExecutor` — 四种执行契约：`Alias`、`Synchronous`、`Asynchronous`、`Shared`。`core/crates/tool/services/src/ToolExecutionManager.rs:732`
 `ToolAccessSpec` — 访问声明：效果与边界。`core/crates/tool/services/src/ToolExecutionManager.rs:798`
 `registerAllTools` — 先注册公开工具，再注册内部工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:62`
-`get_tool_catalog` — 工具目录入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1207`
+`get_tool_catalog` — 工具目录入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1219`
 数据流向：模型响应 → 解析 → 批处理 → 逐个执行 → 结果回填，步骤见 ## 调用链。
 
 ## 核心机制
@@ -136,7 +136,7 @@ hook 拦截产生的失败结果 `error` 为 hook 给出的原因。`core/crates
 `getPublicToolNames` 只返回可见性为 `PUBLIC` 的工具名。`core/crates/tool/services/src/tools/AIToolHandler.rs:486`
 `getInternalToolNames` 只返回可见性为 `INTERNAL` 的工具名。`core/crates/tool/services/src/tools/AIToolHandler.rs:498`
 `getAllToolNames` 返回全部已注册工具名，不论可见性。`core/crates/tool/services/src/tools/AIToolHandler.rs:393`
-`BuiltinToolName::PackageProxy` 以 `Alias` 契约注册为内部工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:943`
+`BuiltinToolName::PackageProxy` 以 `Alias` 契约注册为内部工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:962`
 包工具按 `包名:工具名` 的格式注册。`core/crates/tool/services/src/tools/AIToolHandler.rs:770`
 A2A 包的工具用 `A2AToolExecutor` 执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:772`
 MCP 包的工具用 `MCPToolExecutor` 执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:776`
@@ -145,8 +145,8 @@ MCP 包的工具用 `MCPToolExecutor` 执行。`core/crates/tool/services/src/to
 `BuiltinToolName::UsePackage` 执行时先准备 MCP 包。`core/crates/tool/services/src/tools/ToolRegistration.rs:72` `core/crates/tool/services/src/tools/ToolRegistration.rs:85`
 use_package 激活包成功后调用 `registerPackageTools` 注册该包的工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:104`
 `sleep` 工具无 `duration_ms` 参数时默认等待 1000 毫秒。`core/crates/tool/services/src/tools/ToolRegistration.rs:115`
-文件工具以异步契约注册为 `PUBLIC` 工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:1541`
-跨节点文件传输端点注册为内部异步工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:1515`
+文件工具以异步契约注册为 `PUBLIC` 工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:1560`
+跨节点文件传输端点注册为内部异步工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:1534`
 `unregisterTool` 删除工具注册与其可见性记录。`core/crates/tool/services/src/tools/AIToolHandler.rs:210`
 `unregisterMcpServerTools` 按 `服务器名:` 前缀批量删除该 MCP 服务器的工具。`core/crates/tool/services/src/tools/AIToolHandler.rs:218` `core/crates/tool/services/src/tools/AIToolHandler.rs:224`
 
@@ -180,9 +180,9 @@ use_package 激活包成功后调用 `registerPackageTools` 注册该包的工�
 ### 展示名与目录
 
 `resolveDisplayToolName` 对代理工具显示目标工具名。`core/crates/tool/services/src/ToolExecutionManager.rs:531`
-工具目录中的内置工具 `source` 为 `builtin`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1238`
-工具目录中的包工具 `source` 为 `package`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1278`
-`execute_tool_call` 经 `executeToolInvocation` 以 `ToolExecutionPolicy::Direct` 执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1287` `core/crates/tool/services/src/tools/AIToolHandler.rs:1306`
+工具目录中的内置工具 `source` 为 `builtin`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1250`
+工具目录中的包工具 `source` 为 `package`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1290`
+`execute_tool_call` 经 `executeToolInvocation` 以 `ToolExecutionPolicy::Direct` 执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1299` `core/crates/tool/services/src/tools/AIToolHandler.rs:1318`
 `reset` 清空注册表与可见性，并把 `defaultToolsRegistration` 重置为新的 OnceLock。`core/crates/tool/services/src/tools/AIToolHandler.rs:1127`
 
 ## 关键符号
@@ -213,8 +213,8 @@ use_package 激活包成功后调用 `registerPackageTools` 注册该包的工�
 `executeTool` — `Direct` 策略执行入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1119`
 `registerAllTools` — 注册全部工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:62`
 `registerDefaultTools` — 注册内置工具。`core/crates/tool/services/src/tools/AIToolHandler.rs:658`
-`get_tool_catalog` — 工具目录入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1207`
-`execute_tool_call` — JS 工具调用入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1287`
+`get_tool_catalog` — 工具目录入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1219`
+`execute_tool_call` — JS 工具调用入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1299`
 `reset` — 清空注册表。`core/crates/tool/services/src/tools/AIToolHandler.rs:1127`
 
 ## 调用链
@@ -238,7 +238,7 @@ use_package 激活包成功后调用 `registerPackageTools` 注册该包的工�
 17. `ToolExecutionBatch` 的 `new` 生成回填消息与展示消息。`core/crates/tool/services/src/ToolExecutionManager.rs:273`
 18. 多个原始结果以换行拼接成一个合并字符串。`core/crates/tool/services/src/ToolExecutionManager.rs:466`
 19. 只有显示名为 `switch_core`、结果工具名为 `switch_core` 且成功时，才生成 `RouteChangeIntent`。`core/crates/tool/services/src/ToolExecutionManager.rs:518`
-20. `execute_tool_call` 经 `executeToolInvocation` 以 `ToolExecutionPolicy::Direct` 执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1287` `core/crates/tool/services/src/tools/AIToolHandler.rs:1306`
+20. `execute_tool_call` 经 `executeToolInvocation` 以 `ToolExecutionPolicy::Direct` 执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1299` `core/crates/tool/services/src/tools/AIToolHandler.rs:1318`
 21. `Direct` 策略的调用不经过 AI 生命周期 hook 与权限预检。`core/crates/tool/services/src/ToolExecutionManager.rs:290`
 
 ## 来源

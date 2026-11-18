@@ -30,7 +30,7 @@ date: 2026-11-11
 - `MCPRepository` — MCP 服务器的安装仓库。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:26`
 - `MCPConfig` — 本地 MCP 配置文档，含服务器表与插件元数据表。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:18`
 - `ServerConfig` — 一台服务器的启动命令或远程地址等部署字段。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:26`
-- `ServerStatus` — 一台服务器的运行状态与缓存工具。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:56`
+- `ServerStatus` — 一台服务器的运行状态与缓存工具。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:58`
 - `MCPBridgeClient` — 与一台 MCP 服务器通信的桥接客户端。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:30`
 - 主入口函数：MCPManager 的 `getInstance`。`core/crates/tool/services/src/tools/mcp/MCPManager.rs:25`
 - 数据流向一句话：工具元数据经 `toToolPackage` 转成 `ToolPackage` 供 Agent 调用。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:73`
@@ -46,25 +46,25 @@ date: 2026-11-11
 - MCPManager 的 `registerServer` 注册或替换服务器配置并清除该服务器的失败原因。`core/crates/tool/services/src/tools/mcp/MCPManager.rs:159`
 - 注册服务器时，该服务器的 `clientCache` 缓存客户端被移除。`core/crates/tool/services/src/tools/mcp/MCPManager.rs:165`
 - MCPManager 的 `getInstance` 返回进程内共享的单例管理器。`core/crates/tool/services/src/tools/mcp/MCPManager.rs:25`
-- MCPLocalServer 的 `addOrUpdateMCPServer` 添加或替换命令型服务器条目。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:167`
-- `addOrUpdateMCPServer` 在命令为空时返回错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:172`
-- MCPLocalServer 的 `addOrUpdateMCPServerConfig` 先经 `sanitizeServerConfig` 校验再添加或替换完整服务器配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:211`
-- 在 `command` 为空且 `url` 缺失时判定配置无效。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:596`
-- MCPLocalServer 的 `mergeConfigFromJson` 从 JSON 配置导入服务器条目，`mcpServers` 为空时返回错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:248`
-- 返回 `addedCount` 作为成功写入的服务器条目数（含覆盖同名已有条目）。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:267`
-- MCPLocalServer 的 `getConfigFilePath` 返回配置文件的绝对路径。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:273`
-- MCPLocalServer 的 `getConfigDirectory` 返回本地 MCP 插件运行文件目录。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:279`
-- MCPLocalServer 的 `removeMCPServer` 删除服务器配置、元数据与运行状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:223`
-- 删除服务器时，该服务器的 `pluginDir` 经 `deleteFile` 一并删除。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:235`
-- MCPLocalServer 的 `isServerEnabled` 按 `disabled` 取反，未配置的服务器返回 `true`。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:448`
-- MCPLocalServer 的 `setServerEnabled` 通过改写 `disabled` 启用或禁用服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:457`
-- MCPLocalServer 的 `isServerLikelyRunning` 按 `lastStartTime` 大于 0 且不早于 `lastStopTime` 判断服务器在运行。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:443`
-- 只在 `toolsCachedTime` 距今不足 24 小时时认可缓存。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:414`
-- MCPLocalServer 的 `cacheServerTools` 存储某服务器最新发现的工具。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:381`
-- MCPLocalServer 的 `getCachedTools` 返回某服务器缓存的工具元数据。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:391`
-- 缓存工具时，`toolsCachedTime` 更新为当前时间。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:367`
-- MCPLocalServer 的 `getServerStatus` 返回单个服务器的运行状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:427`
-- MCPLocalServer 的 `getAllServerStatus` 返回全部服务器的运行状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:433`
+- MCPLocalServer 的 `addOrUpdateMCPServer` 添加或替换命令型服务器条目。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:169`
+- `addOrUpdateMCPServer` 在命令为空时返回错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:174`
+- MCPLocalServer 的 `addOrUpdateMCPServerConfig` 先经 `sanitizeServerConfig` 校验再添加或替换完整服务器配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:214`
+- 在 `command` 为空且 `url` 缺失时判定配置无效。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:599`
+- MCPLocalServer 的 `mergeConfigFromJson` 从 JSON 配置导入服务器条目，`mcpServers` 为空时返回错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:251`
+- 返回 `addedCount` 作为成功写入的服务器条目数（含覆盖同名已有条目）。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:270`
+- MCPLocalServer 的 `getConfigFilePath` 返回配置文件的绝对路径。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:276`
+- MCPLocalServer 的 `getConfigDirectory` 返回本地 MCP 插件运行文件目录。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:282`
+- MCPLocalServer 的 `removeMCPServer` 删除服务器配置、元数据与运行状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:226`
+- 删除服务器时，该服务器的 `pluginDir` 经 `deleteFile` 一并删除。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:238`
+- MCPLocalServer 的 `isServerEnabled` 按 `disabled` 取反，未配置的服务器返回 `true`。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:451`
+- MCPLocalServer 的 `setServerEnabled` 通过改写 `disabled` 启用或禁用服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:460`
+- MCPLocalServer 的 `isServerLikelyRunning` 按 `lastStartTime` 大于 0 且不早于 `lastStopTime` 判断服务器在运行。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:446`
+- 只在 `toolsCachedTime` 距今不足 24 小时时认可缓存。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:417`
+- MCPLocalServer 的 `cacheServerTools` 存储某服务器最新发现的工具。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:384`
+- MCPLocalServer 的 `getCachedTools` 返回某服务器缓存的工具元数据。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:394`
+- 缓存工具时，`toolsCachedTime` 更新为当前时间。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:370`
+- MCPLocalServer 的 `getServerStatus` 返回单个服务器的运行状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:430`
+- MCPLocalServer 的 `getAllServerStatus` 返回全部服务器的运行状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:436`
 - MCPManager 的 `getLastConnectionFailureReason` 返回某服务器最近一次连接失败详情。`core/crates/tool/services/src/tools/mcp/MCPManager.rs:65`
 - MCPManager 的 `unregisterServer` 移除服务器配置与失败原因并断开缓存客户端。`core/crates/tool/services/src/tools/mcp/MCPManager.rs:190`
 - MCPManager 的 `shutdown` 断开全部缓存的桥接客户端。`core/crates/tool/services/src/tools/mcp/MCPManager.rs:201`
@@ -85,18 +85,18 @@ date: 2026-11-11
 - `InstallResult` 分 `Success` 与 `Error` 两种结果。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:36`
 - `InstallProgress` 含 `Preparing`、`Downloading`、`Extracting` 进度事件。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:49`
 - `InstallProgress` 含 `Finished` 进度事件。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:49`
-- MCPLocalServer 的 `readMCPConfig` 只读 `ExtensionStore` 中激活的 `mcp` 记录。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:675`
-- `scope` 为 `space` 的记录只接受远程服务器：`url` 缺失或为空、或 `command` 非空时写入均被拒（同时声明 `url` 与 `command` 也会被拒），报错为 `Local MCP can only belong to this device:` 后接记录 id。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:696`
-- 导入的每台服务器恰好声明 `command` 与 `url` 其一，否则返回错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:749`
-- `scope` 为 `space` 时命令型本地服务器导入被拒绝，报错为 `Local MCP can only belong to this device:` 后接服务器 id。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:754`
-- `scope` 为 `space` 的导入完成后调用 `moveScope` 迁移记录归属。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:766`
-- 已存在的服务器 id 重复导入时返回 MCP already exists 错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:742`
-- 缺失元数据的服务器会被补一份默认 `metadata`。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:657`
-- 补全的默认元数据以服务器 id 生成显示名，`author` 为 `Unknown`、`version` 为 `1.0.0`。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:662`
-- MCPLocalServer 的 `exportConfigAsJson` 把 MCP 配置与服务器状态导出为一个 JSON 文档。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:523`
-- MCPLocalServer 的 `importConfigFromJson` 从导出的 JSON 文档导入 MCP 配置与服务器状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:535`
-- MCPLocalServer 的 `getPluginConfig` 把单个插件服务器配置导出为 JSON 文档。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:489`
-- MCPLocalServer 的 `savePluginConfig` 接受完整 MCP 配置 JSON 或单个服务器 JSON 保存插件配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:500`
+- MCPLocalServer 的 `readMCPConfig` 只读 `ExtensionStore` 中激活的 `mcp` 记录。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:679`
+- `scope` 为 `space` 的记录只接受远程服务器：`url` 缺失或为空、或 `command` 非空时写入均被拒（同时声明 `url` 与 `command` 也会被拒），报错为 `Local MCP can only belong to this device:` 后接记录 id。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:700`
+- 导入的每台服务器恰好声明 `command` 与 `url` 其一，否则返回错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:753`
+- `scope` 为 `space` 时命令型本地服务器导入被拒绝，报错为 `Local MCP can only belong to this device:` 后接服务器 id。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:758`
+- `scope` 为 `space` 的导入完成后调用 `moveScope` 迁移记录归属。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:770`
+- 已存在的服务器 id 重复导入时返回 MCP already exists 错误。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:746`
+- 缺失元数据的服务器会被补一份默认 `metadata`。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:661`
+- 补全的默认元数据以服务器 id 生成显示名，`author` 为 `Unknown`、`version` 为 `1.0.0`。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:666`
+- MCPLocalServer 的 `exportConfigAsJson` 把 MCP 配置与服务器状态导出为一个 JSON 文档。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:526`
+- MCPLocalServer 的 `importConfigFromJson` 从导出的 JSON 文档导入 MCP 配置与服务器状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:538`
+- MCPLocalServer 的 `getPluginConfig` 把单个插件服务器配置导出为 JSON 文档。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:492`
+- MCPLocalServer 的 `savePluginConfig` 接受完整 MCP 配置 JSON 或单个服务器 JSON 保存插件配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:503`
 - MCPPackage 的 `loadFromServer` 新建 `MCPBridgeClient` 并连接服务器，连接失败时返回带 `errorMessage` 的 `LoadResult`。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:29`
 - 连接失败时，`errorMessage` 取自桥接客户端的 `getLastConnectionFailureDetail`。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:35`
 - MCPPackage 的 `fromToolMetadata` 不做同步网络 I/O，直接用传入的工具元数据构建包。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:48`
@@ -157,21 +157,21 @@ date: 2026-11-11
 - `MCPLocalServer` — 配置、元数据与运行状态的本地存储。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:12`
 - `MCPConfig` — 本地 MCP 配置文档。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:18`
 - `ServerConfig` — 服务器部署字段。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:26`
-- `PluginMetadata` — 插件展示元数据。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:46`
-- `ServerStatus` — 服务器运行状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:56`
-- `CachedToolInfo` — 缓存的工具元数据。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:72`
-- MCPLocalServer 的 `addOrUpdateMCPServer` — 添加或替换命令型服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:167`
-- MCPLocalServer 的 `addOrUpdateMCPServerConfig` — 添加或替换完整服务器配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:206`
-- MCPLocalServer 的 `removeMCPServer` — 删除服务器及其本地文件。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:223`
-- MCPLocalServer 的 `mergeConfigFromJson` — 从 JSON 导入服务器条目。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:248`
-- MCPLocalServer 的 `mergeConfigFromJsonWithScope` — 按作用域导入服务器条目。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:729`
-- MCPLocalServer 的 `isServerEnabled` — 判断服务器是否启用。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:448`
-- MCPLocalServer 的 `setServerEnabled` — 启用或禁用服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:457`
-- MCPLocalServer 的 `hasValidToolCache` — 判断工具缓存是否有效。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:400`
-- MCPLocalServer 的 `getConfigFilePath` — 返回配置文件路径。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:273`
-- MCPLocalServer 的 `getConfigDirectory` — 返回插件目录。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:279`
-- MCPLocalServer 的 `exportConfigAsJson` — 导出配置与状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:523`
-- MCPLocalServer 的 `importConfigFromJson` — 导入配置与状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:535`
+- `PluginMetadata` — 插件展示元数据。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:48`
+- `ServerStatus` — 服务器运行状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:58`
+- `CachedToolInfo` — 缓存的工具元数据。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:74`
+- MCPLocalServer 的 `addOrUpdateMCPServer` — 添加或替换命令型服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:169`
+- MCPLocalServer 的 `addOrUpdateMCPServerConfig` — 添加或替换完整服务器配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:209`
+- MCPLocalServer 的 `removeMCPServer` — 删除服务器及其本地文件。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:226`
+- MCPLocalServer 的 `mergeConfigFromJson` — 从 JSON 导入服务器条目。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:251`
+- MCPLocalServer 的 `mergeConfigFromJsonWithScope` — 按作用域导入服务器条目。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:733`
+- MCPLocalServer 的 `isServerEnabled` — 判断服务器是否启用。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:451`
+- MCPLocalServer 的 `setServerEnabled` — 启用或禁用服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:460`
+- MCPLocalServer 的 `hasValidToolCache` — 判断工具缓存是否有效。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:403`
+- MCPLocalServer 的 `getConfigFilePath` — 返回配置文件路径。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:276`
+- MCPLocalServer 的 `getConfigDirectory` — 返回插件目录。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:282`
+- MCPLocalServer 的 `exportConfigAsJson` — 导出配置与状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:526`
+- MCPLocalServer 的 `importConfigFromJson` — 导入配置与状态。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:538`
 - `MCPRepository` — MCP 服务器的安装仓库。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:26`
 - MCPRepository 的 `installMCPServerWithObject` — 从仓库 URL 安装。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:77`
 - MCPRepository 的 `installMCPServerFromZip` — 从本地 zip 安装。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:98`
@@ -181,9 +181,9 @@ date: 2026-11-11
 
 ## 调用链
 
-1. 配置写入：MCPLocalServer 的 `addOrUpdateMCPServer` 添加或替换命令型服务器条目。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:167`
-2. 配置读取：`readMCPConfig` 只读 `ExtensionStore` 中激活的 `mcp` 记录。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:675`
-3. 配置写回时，`scope` 为 `space` 的记录只接受远程服务器（`url` 缺失或为空、或 `command` 非空时均被拒）。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:696`
+1. 配置写入：MCPLocalServer 的 `addOrUpdateMCPServer` 添加或替换命令型服务器条目。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:169`
+2. 配置读取：`readMCPConfig` 只读 `ExtensionStore` 中激活的 `mcp` 记录。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:679`
+3. 配置写回时，`scope` 为 `space` 的记录只接受远程服务器（`url` 缺失或为空、或 `command` 非空时均被拒）。`core/crates/tool/services/src/tools/mcp_runtime/MCPLocalServer.rs:700`
 4. 注册：MCPManager 的 `registerServer` 注册或替换服务器配置。`core/crates/tool/services/src/tools/mcp/MCPManager.rs:159`
 5. 发现：MCPPackage 的 `loadFromServer` 连接服务器并取工具元数据。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:29`
 6. 转换：MCPPackage 的 `toToolPackage` 把 MCP 工具转成 `ToolPackage`。`core/crates/tool/services/src/tools/mcp/MCPPackage.rs:73`

@@ -69,7 +69,7 @@ date: 2026-11-11
 - 此后软件版本变化、协议版本不变时，不要求厂商同步升级。`docs/peer-protocol-versioning.md:85`
 - 原有配对安全协议、投影分页协议和同步记录格式的内部版本继续保留，其修改也纳入总指纹。`docs/peer-protocol-versioning.md:86`
 - 任一侧 `consistencyVersion` 不是 7 时，`requireConsistencySupport` 返回错误，消息为“{side} peer cannot verify synchronized contents; a compatible version is required”。`core/crates/node/runtime/src/SyncConsistency.rs:24`
-- 测试确认 `consistencyVersion` 为 0 至 6、缺失或空对象时 `requireConsistencySupport` 均返回错误。`core/crates/node/runtime/src/SyncConsistency.rs:256`
+- 测试确认 `consistencyVersion` 为 0 至 6、缺失或空对象时 `requireConsistencySupport` 均返回错误。`core/crates/node/runtime/src/SyncConsistency.rs:266`
 
 ## 关键符号
 
@@ -85,8 +85,8 @@ date: 2026-11-11
 - `consistencyVersion` — 同步内容一致性校验的内部版本号，当前为 7。`core/crates/node/runtime/src/SyncConsistency.rs:22`
 - `requireConsistencySupport` — 要求本地与远端时钟的 `consistencyVersion` 均为 7。`core/crates/node/runtime/src/SyncConsistency.rs:22`
 - `consistencyReports` — 同时向远端发 `PeerSyncMethod::SyncConsistency` 并在本地调 `syncConsistency`。`core/crates/node/runtime/src/SyncConsistency.rs:37`
-- `reportsAtExchange` — 要求本地与远端报告的 `boundary` 分别等于各自收据的 `digest`。`core/crates/node/runtime/src/SyncConsistency.rs:130`
-- `verifyReports` — 校验两侧报告无错误，返回 `correctionPlans` 是否为空。`core/crates/node/runtime/src/SyncConsistency.rs:164`
+- `reportsAtExchange` — 要求本地与远端报告的 `boundary` 分别等于各自收据的 `digest`。`core/crates/node/runtime/src/SyncConsistency.rs:140`
+- `verifyReports` — 校验两侧报告无错误，返回 `correctionPlans` 是否为空。`core/crates/node/runtime/src/SyncConsistency.rs:174`
 
 ## 调用链
 
@@ -102,9 +102,9 @@ date: 2026-11-11
 10. 缺少声明：缺少协议声明返回 `PEER_PROTOCOL_UPGRADE_REQUIRED`。`docs/peer-protocol-versioning.md:81`
 11. 旧资料兼容：旧资料仍能反序列化，未声明版本显示未知，不会根据软件版本推断协议版本。`docs/peer-protocol-versioning.md:81`
 12. 一致性取数：`consistencyReports` 同时向远端发 `PeerSyncMethod::SyncConsistency` 并在本地调 `syncConsistency`。`core/crates/node/runtime/src/SyncConsistency.rs:37`
-13. 边界校验：`reportsAtExchange` 要求本地与远端报告的 `boundary` 分别等于各自收据的 `digest`。`core/crates/node/runtime/src/SyncConsistency.rs:130`
-14. 完成校验：`verifyReports` 在任一侧有 `errors` 时返回错误。`core/crates/node/runtime/src/SyncConsistency.rs:160`
-15. 完成判定：有未决 `pendingOwners` 时 `verifyReports` 返回未完成。`core/crates/node/runtime/src/SyncConsistency.rs:219`
+13. 边界校验：`reportsAtExchange` 要求本地与远端报告的 `boundary` 分别等于各自收据的 `digest`。`core/crates/node/runtime/src/SyncConsistency.rs:140`
+14. 完成校验：`verifyReports` 在任一侧有 `errors` 时返回错误。`core/crates/node/runtime/src/SyncConsistency.rs:170`
+15. 完成判定：有未决 `pendingOwners` 时 `verifyReports` 返回未完成。`core/crates/node/runtime/src/SyncConsistency.rs:229`
 
 ## 来源
 
