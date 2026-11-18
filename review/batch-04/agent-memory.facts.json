@@ -1,27 +1,27 @@
 [
  {
   "fact": "`MemorySpace` 的 `memories`、`links`、`chunks`、`candidates` 四个集合与 `ownerKey` 同属一个按 owner 划分的记忆空间。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:405"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:393"
  },
  {
   "fact": "`MemorySpace` 还包含 `settings`、`searchConfig`、`userDocumentPath`、`rebuildProgress`、`rebuildTask`。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:408"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:398"
  },
  {
   "fact": "记忆空间的 `embeddings` 字段保存记忆向量。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:414"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:404"
  },
  {
   "fact": "`MemoryJobState` 是 `MemorySpace` 去掉 `memories`、`links`、`chunks`、`embeddings` 后的调度状态类型。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:417"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:407"
  },
  {
   "fact": "`CharacterState` 的注释写明它只拥有本插件的文件模式，不施加全运行时范围的存储模式。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:419"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:409"
  },
  {
   "fact": "角色卡状态的 `owners` 字段是 `MemorySpace` 数组。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:429"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:419"
  },
  {
   "fact": "`CharacterMemoryDatabase` 的注释写明它保存同步化的记忆记录并执行有界数据库查询。",
@@ -41,11 +41,11 @@
  },
  {
   "fact": "`readMemoryJobState` 按 `ownerKey` 读出该记忆空间的任务状态。",
-  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:310"
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:312"
  },
  {
   "fact": "`writeMemoryJobState` 按 `ownerKey` 写回该记忆空间的任务状态。",
-  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:320"
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:322"
  },
  {
   "fact": "`CandidateSource` 只有 `reply_finalized_auto` 与 `selected_user_message` 两种取值。",
@@ -480,24 +480,24 @@
   "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:42"
  },
  {
-  "fact": "每批从 `next` 起取 64 条文本。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:47"
+  "fact": "每批从 `next` 起取 `cloudEmbeddingBatchSize` 条文本。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:45"
  },
  {
   "fact": "向端点加 `/embeddings` 后缀发 POST，请求体为 `input`、模型与 `encoding_format` 为 `float`。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:51"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:53"
  },
  {
   "fact": "嵌入请求返回非 2xx 状态码时抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:54"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:56"
  },
  {
   "fact": "用 `Promise.allSettled` 并行跑最多 4 个 worker。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:67"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:69"
  },
  {
   "fact": "嵌入批次内向量维度不一致时抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:69"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:71"
  },
  {
   "fact": "`normalize` 把提供方返回的向量归一化为单位长度。",
@@ -505,7 +505,7 @@
  },
  {
   "fact": "`rebuildMemoryEmbeddings` 把重建工作交给仓库的 `rebuildMemoryEmbeddings`。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:75"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:77"
  },
  {
   "fact": "`onMemoryMessagePersisted` 只处理 `ai` 或 `assistant` 发送者。",

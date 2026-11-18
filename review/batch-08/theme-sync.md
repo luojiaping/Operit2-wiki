@@ -66,8 +66,9 @@ date: 2026-11-11
 - 配置和复制后的资源沿用原有 Space 同步。`docs/theme-v1-contract.md:51`
 - 后续渲染读取配置与外观资源，不再依赖来源插件是否安装，也不会随来源模板更新而改写配置。`docs/theme-v1-contract.md:51`
 - 没有独立主题库、共享模板选择、只读锁定、主题专用卸载约束或模板恢复页面。`docs/theme-v1-contract.md:51`
-- 外观资源或配色加载失败时，客户端展示明确错误及“重试”“重置外观”操作；重试读取原有值；重置只由用户点击触发，保留头像与已保存配置，并显式选中自定义外观；错误不会触发自动替换。`docs/theme-v1-contract.md:57`
-- 应用旧版配置时清除其没有声明的新增外观字段，避免沿用此前模板的输入框样式。`docs/theme-v1-contract.md:57`
+- 运行时单张背景、气泡图片或背景视频加载失败时，只降级对应资源：同类资源切换期间保留上一张成功图片或媒体；没有可用旧资源时显示默认背景或可读的气泡颜色。其它主题设置、文字、输入草稿和当前配置不被清空。客户端显示资源提示并提供“重试”；重试重新读取失败资源的原路径，不写入外观偏好，也不重新选择配置。`docs/theme-v1-contract.md:57`
+- 配色、字体或外观偏好无法准备时，仍展示明确错误及“重试”“重置外观”操作；重试读取原有值；重置只由用户点击触发，保留头像与已保存配置，并显式选中自定义外观。`docs/theme-v1-contract.md:59`
+- 应用旧版配置时清除其没有声明的新增外观字段，避免沿用此前模板的输入框样式。`docs/theme-v1-contract.md:59`
 - Studio 通过 `export_toolpkg_from_theme_transfer` 创建包含模板的普通 ToolPkg；编辑既有包时保留其他 manifest 能力、其他模板及原有资源；导出只更新所选模板及用户修改的包元数据。`docs/theme-v1-contract.md:39`
 
 ### 偏好 owner 声明与物化协调
@@ -203,6 +204,7 @@ date: 2026-11-11
 - Seed 文件（基线 AAswordman/Operit2 @ `364d1d594`，2026-11-12 全文读完，合计 2084 行）：`docs/theme-v1-contract.md`（55 行）、`docs/plugin-storage.md`（80 行）、`core/crates/persistence/store/src/PreferenceMerge.rs`（828 行）、`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs`（189 行）、`core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs`（932 行）。
 - 复核（2026-11-15，新基线 ff5373fb6）：`docs/theme-v1-contract.md` 新增气泡贴图编辑段（:54–55，旧 :55 行下移至 :57），不在大纲四问范围内，未立事实；`RuntimePackageManager.rs` 的 `withSchema(3, …)` 锚点 :338→:388，2 分支仍删 `bundled_external_imports`；其余 5 份 seed 文件 0 行改动，56 条事实锚行逐字相同；seed 合计行数 2084→2086。
 - 复核（2026-11-16，新基线 59de537f6）：`RuntimePackageManager.rs` 的 `withSchema(3, …)` 锚点 :388→:413，2 分支仍删 `bundled_external_imports`；其余 5 份 seed 文件 0 行改动，56 条事实锚行逐字相同；seed 合计行数不变（2086 行）。
+- 复核（2026-11-18，新基线 753366ff4）：`docs/theme-v1-contract.md` 旧 :57 整段改写为新 :57（单张背景/气泡图片/背景视频加载失败只降级对应资源，其余设置不清空）、:59（配色/字体/外观偏好无法准备仍展示错误及“重试”“重置外观”，应用旧版配置清除新增字段）与 :61（局部回退不放宽模板校验要求）；事实 #11 已按新 :57/:59 改写，事实条数不变（56 条）；其余 5 份 seed 文件及 `RuntimePackageManager.rs`、`PreferenceSpaceMerge.rs` 0 行改动，锚点 :413/:196 不变；seed 合计行数 2086→2090。
 - 主题契约见 [[core-plugin-theme|插件——主题 v1 契约]]；主题即插件见 [[plugin-theme|主题即插件（theme-as-ToolPkg）]]。
 - “主题偏好 schema 3→4 迁移”已定位（2026-11-12，基线 `364d1d594`）：`UserPreferencesManager.rs:36` 的 `store` 以 `.withMigration(5, Self::migration)` 打开 `USER_PREFERENCES_PATH`；`migratePreferences` 的 3 分支（`:89`–`:103`）调用 `migrateLegacyThemePreferences`（`ThemePreferenceSnapshot.rs:643`）解码旧主题偏好，再逐条对 `theme_config_*` 配置做 `migrateLegacyThemeSnapshot`（`ThemePreferenceSnapshot.rs:656`）并 `validateConfig`；4 分支（`:104` 起）把 `chat_style` 拆分为 `user_chat_style` / `ai_chat_style`。原 grep 只搜 `withSchema` 未覆盖 `withMigration`，因而漏检；`withSchema(3` 的生产代码命中另有所指：`PreferenceSpaceMerge.rs:196`（同步偏好布局，`core/crates/runtime/application/src/data/preferences/PreferenceSpaceMerge.rs`）与 `RuntimePackageManager.rs:413`（包管理器偏好，`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs`），均非主题偏好迁移。
 - 结论：大纲备注的“主题偏好 schema 3→4 迁移”已有实现，本页按上述锚点写该迁移；插件 schema（当前 v1）与用户偏好文件 format 0–5 是两套体系。

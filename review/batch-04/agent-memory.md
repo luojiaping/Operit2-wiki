@@ -35,10 +35,10 @@ date: 2026-11-11
 
 ### 记忆位于哪里
 
-- 一个 owner 的完整记忆空间是 `MemorySpace`，含记忆、关系、分块、候选、设置、重建进度与向量（`plugins/packages/buildin/character_cards/src/model.ts:405`）。
-- 调度只读写 `MemoryJobState`，即记忆空间去掉记忆、关系、分块与向量后的部分（`plugins/packages/buildin/character_cards/src/model.ts:417`）。
-- 全部 owner 的记忆空间收在 CharacterState 的 `owners` 数组里（`plugins/packages/buildin/character_cards/src/model.ts:429`）。
-- `CharacterState` 的注释写明它只拥有本插件的文件模式，不施加全运行时范围的存储模式（`plugins/packages/buildin/character_cards/src/model.ts:419`）。
+- 一个 owner 的完整记忆空间是 `MemorySpace`，含记忆、关系、分块、候选、设置、重建进度与向量（`plugins/packages/buildin/character_cards/src/model.ts:393`）。
+- 调度只读写 `MemoryJobState`，即记忆空间去掉记忆、关系、分块与向量后的部分（`plugins/packages/buildin/character_cards/src/model.ts:407`）。
+- 全部 owner 的记忆空间收在 CharacterState 的 `owners` 数组里（`plugins/packages/buildin/character_cards/src/model.ts:419`）。
+- `CharacterState` 的注释写明它只拥有本插件的文件模式，不施加全运行时范围的存储模式（`plugins/packages/buildin/character_cards/src/model.ts:409`）。
 - 记忆数据库文件是 Space 数据目录下的 `memory.sqlite`（`plugins/packages/buildin/character_cards/src/storage/memory.ts:20`）。
 - 记忆操作作用于同步化的数据库记录，检索索引是 owner 本地的派生索引（`plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:41`）。
 - 源记录与向量在一次同步化事务里一起发布（`plugins/packages/buildin/character_cards/src/storage/memory.ts:76`）。
@@ -46,8 +46,8 @@ date: 2026-11-11
 ### 记忆如何进入 Space 同步
 
 - 记忆数据库在 Space 数据目录下打开，文件名为 `memory.sqlite`（`plugins/packages/buildin/character_cards/src/storage/memory.ts:20`）。
-- 候选与重建任务随任务状态进入同一同步数据库，读出用 `readMemoryJobState`（`plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:310`）。
-- 任务状态写回用 `writeMemoryJobState`（`plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:320`）。
+- 候选与重建任务随任务状态进入同一同步数据库，读出用 `readMemoryJobState`（`plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:312`）。
+- 任务状态写回用 `writeMemoryJobState`（`plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:322`）。
 - 任务认领只认本设备：一个 owner 只有在本设备的重建仍在活动、或本设备有待处理候选时才会被推进（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:331`）。
 - 任务的生产设备标识是当前 CoreNode id，由 `memoryJobProducer` 经 `list_core_nodes` 读出（`plugins/packages/buildin/character_cards/src/memory-jobs/producer.ts:5`）。
 - 没有生产设备标识的历史候选会被标为失败，提示在应处理它的设备上重试（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:319`）。
@@ -124,12 +124,12 @@ date: 2026-11-11
 ### 向量嵌入
 
 - 云端嵌入要求开启且端点为绝对 HTTP 地址，空间标识为端点、模型与 `unit-v1` 的组合（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:22`）。
-- 每批从 `next` 起取 64 条文本（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:47`）。
-- 最多用 4 个并发 worker（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:67`）。
-- 请求向端点加 `/embeddings` 后缀发 POST（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:51`）。
+- 每批从 `next` 起取 `cloudEmbeddingBatchSize` 条文本（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:45`）。
+- 最多用 4 个并发 worker（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:69`）。
+- 请求向端点加 `/embeddings` 后缀发 POST（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:53`）。
 - 返回的向量会归一化为单位长度（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:28`）。
-- 嵌入批次内向量维度不一致时抛错（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:69`）。
-- 向量重建交给仓库的 `rebuildMemoryEmbeddings`（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:75`）。
+- 嵌入批次内向量维度不一致时抛错（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:71`）。
+- 向量重建交给仓库的 `rebuildMemoryEmbeddings`（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:77`）。
 
 ### 记忆与聊天摘要的关系
 
@@ -178,14 +178,14 @@ date: 2026-11-11
 - `planWindows` — 切重建窗口（`plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:193`）
 - `embedTexts` — 云端嵌入批量请求（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:38`）
 - `embeddingSpace` — 嵌入空间标识（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:20`）
-- `rebuildMemoryEmbeddings` — 向量重建（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:75`）
+- `rebuildMemoryEmbeddings` — 向量重建（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:77`）
 - `onMemoryMessagePersisted` — 助手回复落库后入队（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:5`）
 - `onMemoryInterval` — 间隔推进（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:18`）
 - `registerMemoryJobHooks` — 注册两个钩子（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:23`）
 - `memoryJobProducer` — 读当前 CoreNode id（`plugins/packages/buildin/character_cards/src/memory-jobs/producer.ts:4`）
 - `extractionTemplate` — 提取提示词策略（`plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts:2`）
-- `MemorySpace` — 一个 owner 的完整记忆空间（`plugins/packages/buildin/character_cards/src/model.ts:403`）
-- `MemoryJobState` — 调度状态（`plugins/packages/buildin/character_cards/src/model.ts:417`）
+- `MemorySpace` — 一个 owner 的完整记忆空间（`plugins/packages/buildin/character_cards/src/model.ts:393`）
+- `MemoryJobState` — 调度状态（`plugins/packages/buildin/character_cards/src/model.ts:407`）
 - `CharacterMemoryDatabase` — 同步化的记忆数据库（`plugins/packages/buildin/character_cards/src/storage/memory.ts:12`）
 - `DatabaseMemoryRepository` — 同步数据库记录上的记忆操作（`plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:41`）
 

@@ -117,23 +117,23 @@
  },
  {
   "fact": "文档记载，普通 sh 身份在两项授权均不可用时以应用自身 UID 启动 /system/bin/sh",
-  "ref": "docs/android-root-shell.md:62"
+  "ref": "docs/android-root-shell.md:71"
  },
  {
   "fact": "文档记载，终端创建不会主动发起新的授权申请，身份在会话创建时确定，后续命令不重新路由",
-  "ref": "docs/android-root-shell.md:64"
+  "ref": "docs/android-root-shell.md:73"
  },
  {
   "fact": "文档记载，Shizuku 的默认工作目录从应用私有目录调整为 /sdcard，不携带应用私有动态库路径",
-  "ref": "docs/android-root-shell.md:67"
+  "ref": "docs/android-root-shell.md:76"
  },
  {
   "fact": "文档记载，没有 Kotlin 编译器时 Python 测试显式报告 skipped，不将其视为行为验证通过",
-  "ref": "docs/android-root-shell.md:91"
+  "ref": "docs/android-root-shell.md:110"
  },
  {
   "fact": "文档记载，Magisk / KernelSU / APatch 真机验证仍需进行，JVM 测试不能替代设备级兼容性验证",
-  "ref": "docs/android-root-shell.md:95"
+  "ref": "docs/android-root-shell.md:112"
  },
  {
   "fact": "文档记载，iOS 性能采样对象是 iPhone 18 Pro Max / iOS 27 模拟器，进程 PID 31239，沿用 lib/main.dart 与 deepseek-flash 配置",

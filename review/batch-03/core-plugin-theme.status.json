@@ -3,9 +3,9 @@
   "approved_by": "luojiaping",
   "approved_by_comment_id": 6795386576,
   "issue": 24,
-  "source_commit": "59de537f6",
+  "source_commit": "753366ff4",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "主题 v1 契约：纯契约 crate，只做内存内校验，校验通过不等于安装与渲染安全",
-  "updated": "2026-11-16"
+  "updated": "2026-11-18"
 }

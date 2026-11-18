@@ -129,23 +129,23 @@
  },
  {
   "fact": "bash 会话执行 source $HOME/common.sh && start_shell",
-  "ref": "hosts/android/src/terminal.rs:1655"
+  "ref": "hosts/android/src/terminal.rs:1656"
  },
  {
   "fact": "bash 会话设置 PROOT_LOADER、TERM 为 xterm-256color、LANG 为 en_US.UTF-8",
-  "ref": "hosts/android/src/terminal.rs:1671"
+  "ref": "hosts/android/src/terminal.rs:1672"
  },
  {
   "fact": "shell 会话执行 exec /system/bin/sh -i",
-  "ref": "hosts/android/src/terminal.rs:1756"
+  "ref": "hosts/android/src/terminal.rs:1758"
  },
  {
   "fact": "Root 传输的系统 shell 脚本先校验 id -u 为 0，否则 exit 126",
-  "ref": "hosts/android/src/terminal.rs:1782"
+  "ref": "hosts/android/src/terminal.rs:1784"
  },
  {
   "fact": "shell 会话的启动输入内嵌 system_shell_init.sh 的内容",
-  "ref": "hosts/android/src/terminal.rs:1828"
+  "ref": "hosts/android/src/terminal.rs:1831"
  },
  {
   "fact": "PTY 提示标记前缀是 `\\x1b]133;OperitPrompt=`",
@@ -153,7 +153,7 @@
  },
  {
   "fact": "androidPtyPromptCommand 在每次提示时输出 base64 编码的 $PWD 与退出码",
-  "ref": "hosts/android/src/terminal.rs:1838"
+  "ref": "hosts/android/src/terminal.rs:1841"
  },
  {
   "fact": "PTY 输出缓冲上限 PTY_OUTPUT_LIMIT 为 16 MiB",
@@ -205,59 +205,59 @@
  },
  {
   "fact": "Shizuku PTY 以 operation start 请求创建，响应给出 pid、readFd 与 writeFd",
-  "ref": "hosts/android/src/terminal.rs:1913"
+  "ref": "hosts/android/src/terminal.rs:1916"
  },
  {
   "fact": "本地 PTY 子进程在 Android 上以 forkpty 创建",
-  "ref": "hosts/android/src/terminal.rs:2020"
+  "ref": "hosts/android/src/terminal.rs:2079"
  },
  {
   "fact": "非 Android 目标上返回 Android PTY is only available on Android target 错误",
-  "ref": "hosts/android/src/terminal.rs:2005"
+  "ref": "hosts/android/src/terminal.rs:2064"
  },
  {
   "fact": "Shizuku 进程退出码经 terminal_privilege 的 call 发 operation poll 查询",
-  "ref": "hosts/android/src/terminal.rs:2187"
+  "ref": "hosts/android/src/terminal.rs:2332"
  },
  {
   "fact": "本地 PTY 进程退出码用 waitpid 加 WNOHANG 轮询",
-  "ref": "hosts/android/src/terminal.rs:2213"
+  "ref": "hosts/android/src/terminal.rs:2358"
  },
  {
   "fact": "终止本地 PTY 进程时先发 SIGHUP 再发 SIGKILL",
-  "ref": "hosts/android/src/terminal.rs:1966"
+  "ref": "hosts/android/src/terminal.rs:1969"
  },
  {
   "fact": "终止 Shizuku 会话经 terminal_privilege 的 call 发 operation close",
-  "ref": "hosts/android/src/terminal.rs:1952"
+  "ref": "hosts/android/src/terminal.rs:1955"
  },
  {
   "fact": "调整 Shizuku 会话窗口大小经 terminal_privilege 的 call 发 operation resize",
-  "ref": "hosts/android/src/terminal.rs:1989"
+  "ref": "hosts/android/src/terminal.rs:1992"
  },
  {
   "fact": "androidPrivilegedPtyOperation 为特权 Binder 服务提供 PTY 原语，不调用应用运行时",
-  "ref": "hosts/android/src/terminal.rs:2231"
+  "ref": "hosts/android/src/terminal.rs:2416"
  },
  {
   "fact": "特权 PTY 支持 start 操作",
-  "ref": "hosts/android/src/terminal.rs:2243"
+  "ref": "hosts/android/src/terminal.rs:2427"
  },
  {
   "fact": "特权 PTY 的 poll 操作调用 pollPidExitCode 返回 exitCode",
-  "ref": "hosts/android/src/terminal.rs:2282"
+  "ref": "hosts/android/src/terminal.rs:2441"
  },
  {
   "fact": "特权 PTY 的 close 操作调用 terminateAndroidPtyProcess 终止本地进程",
-  "ref": "hosts/android/src/terminal.rs:2285"
+  "ref": "hosts/android/src/terminal.rs:2444"
  },
  {
   "fact": "特权 PTY 调整窗口时调用 setPtyWindowSize",
-  "ref": "hosts/android/src/terminal.rs:2297"
+  "ref": "hosts/android/src/terminal.rs:2456"
  },
  {
   "fact": "特权 PTY 启动以 forkPtyExecve 创建进程，响应含 pid 与 fd",
-  "ref": "hosts/android/src/terminal.rs:2279"
+  "ref": "hosts/android/src/terminal.rs:2433"
  },
  {
   "fact": "PTY 读取器收到 `\\x1b[6n` 光标位置查询时回写当前行列",
@@ -277,7 +277,7 @@
  },
  {
   "fact": "Shizuku 系统 shell 把应用私有目录下的工作目录映射到 /sdcard",
-  "ref": "hosts/android/src/terminal.rs:1725"
+  "ref": "hosts/android/src/terminal.rs:1727"
  },
  {
   "fact": "android_documents 资源的工作目录经文档提供方的 resolveNativeDirectory 解析为原生目录",

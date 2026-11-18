@@ -14,6 +14,6 @@
 - 禁止向量切块 / embedding 检索；禁止编造，wiki 没写就说没写
 - 每个代码结论标注「页面标题 + 文件:行号」，落笔前 grep 复核行号
 - 输出区分 EXTRACTED（精确引用）/ INFERRED（写明依据）
-- 源码基线：`AAswordman/Operit2 @ 59de537f6`（2026-11-16）；引用超出该基线的新代码必须说明
+- 源码基线：`AAswordman/Operit2 @ 753366ff4`（2026-11-18）；引用超出该基线的新代码必须说明
 - Operit2 是跨平台的：同一能力在不同平台表现可能不同，回答必须注明适用平台（Host），不许把某平台的实现说成全平台
 - 一代 Operit（Android 原生，Kotlin）的问题去 [Operit-wiki](https://luojiaping.github.io/Operit-wiki)，不要用本仓库回答

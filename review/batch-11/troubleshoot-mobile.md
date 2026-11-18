@@ -64,7 +64,7 @@ date: 2026-11-11
 - 文档记载，自定义 su 按参数列表解析，支持带空格的路径、引号、转义，不会作为 shell 表达式执行。`docs/android-root-shell.md:39`
 - 文档记载，修改模式或命令会清除旧的用户同意标志，必须通过本次授权探测确认新配置。`docs/android-root-shell.md:40`
 - 文档记载，授权请求总预算为 30 秒，已同意后的状态复查总预算为 10 秒，并放到后台线程。`docs/android-root-shell.md:48`
-- 文档记载，终端创建不会主动发起新的授权申请，身份在会话创建时确定，后续命令不重新路由。`docs/android-root-shell.md:64`
+- 文档记载，终端创建不会主动发起新的授权申请，身份在会话创建时确定，后续命令不重新路由。`docs/android-root-shell.md:73`
 - 文档记载，Flutter 模式选择/自定义命令的设置界面尚未新增，原生配置入口已提供。`docs/android-root-shell.md:38`
 
 ### Android 系统终端：三身份路由
@@ -72,10 +72,10 @@ date: 2026-11-11
 - 文档记载，Super Admin 的非 Linux/proot 终端走 `hosts/android/src/terminal.rs`，在创建系统 shell 会话时由 Rust 按 Root → Shizuku → 普通 sh 选择身份。`docs/android-root-shell.md:53`
 - 文档记载，Root 身份在已有用户同意后重新用 `id -u` 验证直接 su argv，再通过该 argv 启动持久 PTY。`docs/android-root-shell.md:57`
 - 文档记载，Shizuku 身份在 Root 当前不可用且已有 Shizuku 授权时绑定专用 UserService。`docs/android-root-shell.md:60`
-- 文档记载，普通 sh 身份在两项授权均不可用时以应用自身 UID 启动 `/system/bin/sh`。`docs/android-root-shell.md:62`
-- 文档记载，Shizuku 的默认工作目录从应用私有目录调整为 `/sdcard`，不携带应用私有动态库路径。`docs/android-root-shell.md:67`
-- 文档记载，没有 Kotlin 编译器时 Python 测试显式报告 skipped，不将其视为行为验证通过。`docs/android-root-shell.md:91`
-- 文档记载，Magisk / KernelSU / APatch 真机验证仍需进行，JVM 测试不能替代设备级兼容性验证。`docs/android-root-shell.md:95`
+- 文档记载，普通 sh 身份在两项授权均不可用时以应用自身 UID 启动 `/system/bin/sh`。`docs/android-root-shell.md:71`
+- 文档记载，Shizuku 的默认工作目录从应用私有目录调整为 `/sdcard`，不携带应用私有动态库路径。`docs/android-root-shell.md:76`
+- 文档记载，没有 Kotlin 编译器时 Python 测试显式报告 skipped，不将其视为行为验证通过。`docs/android-root-shell.md:110`
+- 文档记载，Magisk / KernelSU / APatch 真机验证仍需进行，JVM 测试不能替代设备级兼容性验证。`docs/android-root-shell.md:112`
 
 ### iOS 性能定位：采样方法与实测数
 
@@ -193,8 +193,8 @@ date: 2026-11-11
 1. Super Admin 的非 Linux/proot 终端走 `hosts/android/src/terminal.rs`，创建系统 shell 会话时由 Rust 选择身份。`docs/android-root-shell.md:53`
 2. 已有用户同意时重新用 `id -u` 验证直接 su argv，再通过该 argv 启动持久 PTY，走 Root 身份。`docs/android-root-shell.md:57`
 3. Root 当前不可用且已有 Shizuku 授权时绑定专用 UserService，走 Shizuku 身份。`docs/android-root-shell.md:60`
-4. 两项授权均不可用时以应用自身 UID 启动 `/system/bin/sh`，走普通 sh 身份。`docs/android-root-shell.md:62`
-5. 身份在会话创建时确定，后续命令不重新路由，授权变化后需新建会话。`docs/android-root-shell.md:64`
+4. 两项授权均不可用时以应用自身 UID 启动 `/system/bin/sh`，走普通 sh 身份。`docs/android-root-shell.md:71`
+5. 身份在会话创建时确定，后续命令不重新路由，授权变化后需新建会话。`docs/android-root-shell.md:73`
 
 ### iOS 工具调用：调度广播链
 

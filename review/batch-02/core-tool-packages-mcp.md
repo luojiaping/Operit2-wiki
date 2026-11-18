@@ -43,7 +43,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - 包工具名必须是 `packageName:toolName` 的两段形式，两段都不能为空，否则返回 `Invalid package tool format` 错误（core/crates/tool/services/src/tools/PackageToolExecutor.rs:35）
 - 工具名首段必须等于执行器绑定的 `packageName`，否则返回 `Package mismatch` 错误（core/crates/tool/services/src/tools/PackageToolExecutor.rs:44）
 - 参数名重复时校验失败，报错 `Duplicate package tool parameter`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:53）
-- 包工具的 `accessSpec` 声明 `effect` 为 `READ`、`boundary` 为 `None`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:68）
+- 包工具的 `accessSpec` 声明 `effect` 为 `WRITE`、`boundary` 为 `None`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:68）
 - 每次调用都新建一个 `PackageManagerJsRuntime`，并经 Host 的 `js_execution_provider` 创建包执行器（core/crates/tool/services/src/tools/PackageToolExecutor.rs:81）
 - `packageToolCallRequest` 把 `AITool` 转成 `JsPackageToolCallRequest`，参数变为 `name` 到 `value` 的映射（core/crates/tool/services/src/tools/PackageToolExecutor.rs:97）
 - `packageToolResult` 把 `JsPackageToolCallResult` 转成 `ToolResult`，文本结果经 `stringResultData` 包装（core/crates/tool/services/src/tools/PackageToolExecutor.rs:111）
@@ -52,51 +52,51 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 ### 技能加载与管理
 
 - `SkillPackage` 由 `name`、`description`、`directory` 与 `skillFile` 四个字段组成，`directory` 与 `skillFile` 均为 `PathBuf`（core/crates/tool/services/src/tools/skill/SkillPackage.rs:6）（core/crates/tool/services/src/tools/skill/SkillPackage.rs:13）
-- SkillManager 在 device 与 space 两个位置扫描技能（core/crates/tool/services/src/tools/skill/SkillManager.rs:64）
-- 同一技能名在另一 scope 已有属主记录时，该 scope 的扫描结果被跳过（core/crates/tool/services/src/tools/skill/SkillManager.rs:78）
-- device 位置的技能会登记到 ExtensionStore，元数据 `visible` 为 `true`（core/crates/tool/services/src/tools/skill/SkillManager.rs:85）
-- 登记记录的 `sourceName` 与扫描结果不一致时，技能不予加载并报错 `Skill content does not match its registered location`（core/crates/tool/services/src/tools/skill/SkillManager.rs:82）
-- 扫描某位置时，属主记录的 `scope` 与该位置不一致的技能会被跳过（core/crates/tool/services/src/tools/skill/SkillManager.rs:78）
-- space 位置磁盘上有目录但不在记录中的技能会被跳过（core/crates/tool/services/src/tools/skill/SkillManager.rs:68）
-- 技能文件优先取 `SKILL.md`，不存在时改用 `skill.md`（core/crates/tool/services/src/tools/skill/SkillManager.rs:122）
-- 两个文件都不存在时报错 Missing SKILL.md in {目录}（core/crates/tool/services/src/tools/skill/SkillManager.rs:129）
-- `SKILL.md` 前置元数据中 `name` 为空时，用目录名作为技能名（core/crates/tool/services/src/tools/skill/SkillManager.rs:132）
-- 同名技能重复扫描时报错 `Duplicate scanned skill name`（core/crates/tool/services/src/tools/skill/SkillManager.rs:94）
-- `getAvailableSkills` 返回 `refreshAvailableSkills` 扫描到的有效技能包集合（core/crates/tool/services/src/tools/skill/SkillManager.rs:170）
-- `getSkillLoadErrors` 返回扫描过程的错误集合（core/crates/tool/services/src/tools/skill/SkillManager.rs:184）
-- `getBundledExternalSkillCandidates` 列出已打包但尚未安装的外部技能（core/crates/tool/services/src/tools/skill/SkillManager.rs:208）
-- `importBundledExternalSkill` 导入已安装的技能时就地更新：新版先写入暂存目录，旧版移入 previous 备份后再替换，并保留原有设置（core/crates/tool/services/src/tools/skill/SkillManager.rs:283）（core/crates/tool/services/src/tools/skill/SkillManager.rs:296）
+- SkillManager 在 device 与 space 两个位置扫描技能（core/crates/tool/services/src/tools/skill/SkillManager.rs:65）
+- 同一技能名在另一 scope 已有属主记录时，该 scope 的扫描结果被跳过（core/crates/tool/services/src/tools/skill/SkillManager.rs:83）
+- device 位置的技能会登记到 ExtensionStore，元数据 `visible` 为 `true`（core/crates/tool/services/src/tools/skill/SkillManager.rs:94）
+- 登记记录的 `sourceName` 与扫描结果不一致时，技能不予加载并报错 `Skill content does not match its registered location`（core/crates/tool/services/src/tools/skill/SkillManager.rs:87）
+- 扫描某位置时，属主记录的 `scope` 与该位置不一致的技能会被跳过（core/crates/tool/services/src/tools/skill/SkillManager.rs:83）
+- space 位置磁盘上有目录但不在记录中的技能会被跳过（core/crates/tool/services/src/tools/skill/SkillManager.rs:69）
+- 技能文件优先取 `SKILL.md`，不存在时改用 `skill.md`（core/crates/tool/services/src/tools/skill/SkillManager.rs:127）
+- 两个文件都不存在时报错 Missing SKILL.md in {目录}（core/crates/tool/services/src/tools/skill/SkillManager.rs:134）
+- `SKILL.md` 前置元数据中 `name` 为空时，用目录名作为技能名（core/crates/tool/services/src/tools/skill/SkillManager.rs:137）
+- 同名技能重复扫描时报错 `Duplicate scanned skill name`（core/crates/tool/services/src/tools/skill/SkillManager.rs:99）
+- `getAvailableSkills` 返回 `refreshAvailableSkills` 扫描到的有效技能包集合（core/crates/tool/services/src/tools/skill/SkillManager.rs:174）
+- `getSkillLoadErrors` 返回扫描过程的错误集合（core/crates/tool/services/src/tools/skill/SkillManager.rs:188）
+- `getBundledExternalSkillCandidates` 列出已打包但尚未安装的外部技能（core/crates/tool/services/src/tools/skill/SkillManager.rs:212）
+- `importBundledExternalSkill` 导入已安装的技能时就地更新：新版先写入暂存目录，旧版移入 previous 备份后再替换，并保留原有设置（core/crates/tool/services/src/tools/skill/SkillManager.rs:288）（core/crates/tool/services/src/tools/skill/SkillManager.rs:301）
 - 快速插件创建所用的内置技能名为 `PackageBuilder`（core/crates/tool/services/src/tools/skill/SkillManager.rs:15）
-- `ensureQuickPluginCreatorBundledSkill` 在 `PackageBuilder` 技能不存在时导入它，已存在则直接返回（core/crates/tool/services/src/tools/skill/SkillManager.rs:404）（core/crates/tool/services/src/tools/skill/SkillManager.rs:15）
-- `readSkillContent` 读取已安装技能的 `SKILL.md` 文件内容（core/crates/tool/services/src/tools/skill/SkillManager.rs:419）
-- `getSkillSystemPrompt` 生成的提示词以 `Using package (Skill):` 技能名与 `Use Time` 开头，并写明执行策略与描述（core/crates/tool/services/src/tools/skill/SkillManager.rs:429）（core/crates/tool/services/src/tools/skill/SkillManager.rs:440）
-- 提示词包含 `SKILL.md` 路径与技能目录（core/crates/tool/services/src/tools/skill/SkillManager.rs:446）
-- 提示词包含技能目录的目录树与 `SKILL.md` 全文（core/crates/tool/services/src/tools/skill/SkillManager.rs:456）
-- `deleteSkill` 删除 `ExtensionStore` 中的 `skill` 记录，返回删除是否成功（core/crates/tool/services/src/tools/skill/SkillManager.rs:465）
-- 技能根目录取自 `paths.skills_dir()`（core/crates/tool/services/src/tools/skill/SkillManager.rs:658）
+- `ensureQuickPluginCreatorBundledSkill` 在 `PackageBuilder` 技能不存在时导入它，已存在则直接返回（core/crates/tool/services/src/tools/skill/SkillManager.rs:409）（core/crates/tool/services/src/tools/skill/SkillManager.rs:15）
+- `readSkillContent` 读取已安装技能的 `SKILL.md` 文件内容（core/crates/tool/services/src/tools/skill/SkillManager.rs:424）
+- `getSkillSystemPrompt` 生成的提示词以 `Using package (Skill):` 技能名与 `Use Time` 开头，并写明执行策略与描述（core/crates/tool/services/src/tools/skill/SkillManager.rs:434）（core/crates/tool/services/src/tools/skill/SkillManager.rs:445）
+- 提示词包含 `SKILL.md` 路径与技能目录（core/crates/tool/services/src/tools/skill/SkillManager.rs:450）
+- 提示词包含技能目录的目录树与 `SKILL.md` 全文（core/crates/tool/services/src/tools/skill/SkillManager.rs:461）
+- `deleteSkill` 删除 `ExtensionStore` 中的 `skill` 记录，返回删除是否成功（core/crates/tool/services/src/tools/skill/SkillManager.rs:470）
+- 技能根目录取自 `paths.skills_dir()`（core/crates/tool/services/src/tools/skill/SkillManager.rs:684）
 
 ### 技能压缩包导入
 
-- 导入技能压缩包时先解压到 .import_tmp_{毫秒时间戳} 临时目录（core/crates/tool/services/src/tools/skill/SkillManager.rs:489）
-- 导入完成后删除临时目录（core/crates/tool/services/src/tools/skill/SkillManager.rs:505）
-- 导入时压缩包内只有一个子目录，则以它为搜索根（core/crates/tool/services/src/tools/skill/SkillManager.rs:527）
-- 导入时可指定压缩包内的子目录作为搜索起点（core/crates/tool/services/src/tools/skill/SkillManager.rs:532）
-- `safeChildPath` 只接受 `Normal` 路径组件，其他组件报错 `Invalid import path`（core/crates/tool/services/src/tools/skill/SkillManager.rs:887）
-- 导入时先找搜索根下的直接 `SKILL.md`，找不到则递归查找整个子树（core/crates/tool/services/src/tools/skill/SkillManager.rs:839）（core/crates/tool/services/src/tools/skill/SkillManager.rs:857）
-- 递归查找不到 `SKILL.md` 时，导入报错 `No SKILL.md found in the imported zip`（core/crates/tool/services/src/tools/skill/SkillManager.rs:549）
-- 指定子目录导入时找不到 `SKILL.md`，报错 `No SKILL.md found in the selected import path`（core/crates/tool/services/src/tools/skill/SkillManager.rs:547）
-- 导入的技能名优先取 `SKILL.md` 元数据的 `name`（core/crates/tool/services/src/tools/skill/SkillManager.rs:598）（core/crates/tool/services/src/tools/skill/SkillManager.rs:131）
-- 导入命名都为空时用 `skill` 作为目录名（core/crates/tool/services/src/tools/skill/SkillManager.rs:620）
-- 导入目标已存在同名技能时报错 `Skill already exists in an installation location`（core/crates/tool/services/src/tools/skill/SkillManager.rs:627）
+- 导入技能压缩包时先解压到技能根目录父目录下的 .import_tmp_{uuid} 暂存目录（core/crates/tool/services/src/tools/skill/SkillManager.rs:498）
+- 导入完成后删除临时目录（core/crates/tool/services/src/tools/skill/SkillManager.rs:514）
+- 导入时压缩包内只有一个子目录，则以它为搜索根（core/crates/tool/services/src/tools/skill/SkillManager.rs:536）
+- 导入时可指定压缩包内的子目录作为搜索起点（core/crates/tool/services/src/tools/skill/SkillManager.rs:541）
+- `safeChildPath` 只接受 `Normal` 路径组件，其他组件报错 `Invalid import path`（core/crates/tool/services/src/tools/skill/SkillManager.rs:908）
+- 导入时先找搜索根下的直接 `SKILL.md`，找不到则递归查找整个子树（core/crates/tool/services/src/tools/skill/SkillManager.rs:860）（core/crates/tool/services/src/tools/skill/SkillManager.rs:878）
+- 递归查找不到 `SKILL.md` 时，导入报错 `No SKILL.md found in the imported zip`（core/crates/tool/services/src/tools/skill/SkillManager.rs:558）
+- 指定子目录导入时找不到 `SKILL.md`，报错 `No SKILL.md found in the selected import path`（core/crates/tool/services/src/tools/skill/SkillManager.rs:556）
+- 导入的技能名优先取 `SKILL.md` 元数据的 `name`（core/crates/tool/services/src/tools/skill/SkillManager.rs:612）（core/crates/tool/services/src/tools/skill/SkillManager.rs:136）
+- 导入命名都为空时用 `skill` 作为目录名（core/crates/tool/services/src/tools/skill/SkillManager.rs:634）
+- 导入目标已存在同名技能时报错 `Skill already exists in an installation location`（core/crates/tool/services/src/tools/skill/SkillManager.rs:641）
 
 ### 技能元数据解析
 
-- 解析技能元数据时先读开头的 `---` frontmatter 块（core/crates/tool/services/src/tools/skill/SkillManager.rs:684）
-- frontmatter 中 `name` 或 `description` 缺失时，扫描文件前 40 行补齐（core/crates/tool/services/src/tools/skill/SkillManager.rs:693）
-- 导入打包技能资产时，相对路径只接受 `Normal` 组件，否则报错 `Invalid plugin type asset path`（core/crates/tool/services/src/tools/skill/SkillManager.rs:736）
-- 写入打包技能前，先把旧技能目录移入 previous 备份，再把准备好的新目录移入原位（core/crates/tool/services/src/tools/skill/SkillManager.rs:341）
-- 目录树文本按目录在前、文件在后排序，同类按名称不区分大小写排序（core/crates/tool/services/src/tools/skill/SkillManager.rs:767）
-- 解压 zip 时拒绝 `enclosed_name` 为空的条目，报错 `Zip entry is outside target dir`（core/crates/tool/services/src/tools/skill/SkillManager.rs:804）
+- 解析技能元数据时先读开头的 `---` frontmatter 块（core/crates/tool/services/src/tools/skill/SkillManager.rs:710）
+- frontmatter 中 `name` 或 `description` 缺失时，扫描文件前 40 行补齐（core/crates/tool/services/src/tools/skill/SkillManager.rs:719）
+- 导入打包技能资产时，相对路径只接受 `Normal` 组件，否则报错 `Invalid plugin type asset path`（core/crates/tool/services/src/tools/skill/SkillManager.rs:762）
+- 写入打包技能前，先把旧技能目录移入 previous 备份，再把准备好的新目录移入原位（core/crates/tool/services/src/tools/skill/SkillManager.rs:346）
+- 目录树文本按目录在前、文件在后排序，同类按名称不区分大小写排序（core/crates/tool/services/src/tools/skill/SkillManager.rs:793）
+- 解压 zip 时拒绝 `enclosed_name` 为空的条目，报错 `Zip entry is outside target dir`（core/crates/tool/services/src/tools/skill/SkillManager.rs:825）
 
 ### MCP 服务器注册与连接
 
@@ -144,7 +144,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - 含 `U+FFFD` 的参数调用在到达 MCP 服务器前被阻止并报错（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:448）
 - MCP 工具的 `accessSpec` 声明 `effect` 为 `WRITE`、`boundary` 为 `None`（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:468）
 - `invokeAndStreamAsync` 在调用前解析图片保存目标（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:475）
-- 包工具声明 `READ` 而 MCP 工具声明 `WRITE`，两者权限边界声明不对称，见走查记录（core/crates/tool/services/src/tools/PackageToolExecutor.rs:68）（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:468）
+- 包工具与 MCP 工具均声明 `effect` 为 `WRITE`、`boundary` 为 `None`，两者权限边界声明一致（core/crates/tool/services/src/tools/PackageToolExecutor.rs:68）（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:468）
 
 ### JS 运行时与 ToolPkg IPC
 
@@ -209,11 +209,11 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 ### 技能激活
 
 1. SkillManager 的 `refreshAvailableSkills` 扫描 device 与 space 两个位置（core/crates/tool/services/src/tools/skill/SkillManager.rs:53）
-2. 扫描按 `SKILL.md` 优先、`skill.md` 兜底解析元数据，冲突与缺失记入错误集合（core/crates/tool/services/src/tools/skill/SkillManager.rs:122）
+2. 扫描按 `SKILL.md` 优先、`skill.md` 兜底解析元数据，冲突与缺失记入错误集合（core/crates/tool/services/src/tools/skill/SkillManager.rs:127）
 3. 模型调用 use_package 工具，`package_name` 参数指定技能名（core/crates/tool/services/src/tools/ToolRegistration.rs:84）
 4. `executeUsePackageTool` 调 `usePackage` 执行激活（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1064）（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1110）
 5. 命中技能时返回 `getSkillSystemPrompt` 生成的提示词（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1047）
-6. `getSkillSystemPrompt` 生成含目录树与 `SKILL.md` 全文的激活提示词（core/crates/tool/services/src/tools/skill/SkillManager.rs:429）（core/crates/tool/services/src/tools/skill/SkillManager.rs:460）
+6. `getSkillSystemPrompt` 生成含目录树与 `SKILL.md` 全文的激活提示词（core/crates/tool/services/src/tools/skill/SkillManager.rs:434）（core/crates/tool/services/src/tools/skill/SkillManager.rs:465）
 
 ### MCP 工具调用
 
