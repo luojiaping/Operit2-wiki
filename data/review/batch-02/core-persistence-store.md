@@ -25,11 +25,11 @@ date: 2026-11-11
 核心符号：
 
 - `SqliteStore` — 共享 SQLite 连接包装器，连接由注册的 runtime host 提供。`core/crates/persistence/store/src/SqliteStore.rs:33`
-- `SqliteTransaction` — 事务句柄，在事务内执行语句。`core/crates/persistence/store/src/SqliteStore.rs:202`
-- `TransactionRollback` — 事务回滚也失败时同时携带 action 错误与 rollback 错误。`core/crates/persistence/store/src/SqliteStore.rs:184`
-- `FromSqliteValue` — 把 host 的 SqliteValue 转成 Rust 强类型值。`core/crates/persistence/store/src/SqliteStore.rs:284`
-- `ToSqliteValue` — 把 Rust 值转成 host 的 SqliteValue。`core/crates/persistence/store/src/SqliteStore.rs:337`
-- sqliteParams! — 把值转成 SqliteValue 参数向量。`core/crates/persistence/store/src/SqliteStore.rs:407`
+- `SqliteTransaction` — 事务句柄，在事务内执行语句。`core/crates/persistence/store/src/SqliteStore.rs:207`
+- `TransactionRollback` — 事务回滚也失败时同时携带 action 错误与 rollback 错误。`core/crates/persistence/store/src/SqliteStore.rs:189`
+- `FromSqliteValue` — 把 host 的 SqliteValue 转成 Rust 强类型值。`core/crates/persistence/store/src/SqliteStore.rs:289`
+- `ToSqliteValue` — 把 Rust 值转成 host 的 SqliteValue。`core/crates/persistence/store/src/SqliteStore.rs:342`
+- sqliteParams! — 把值转成 SqliteValue 参数向量。`core/crates/persistence/store/src/SqliteStore.rs:412`
 - `CoreNodeIdentity` — 只有一个字段 nodeId。`core/crates/persistence/store/src/CoreNodeIdentityStore.rs:18`
 - `CoreNodeIdentityStore` — 节点身份存储，身份存在 RUNTIME_LINK_ACCESS_IDENTITY_PATH 的 CoreNodeStateStore，schema 版本为 2。`core/crates/persistence/store/src/CoreNodeIdentityStore.rs:45`
 - `CoreNodeBindingRecord` — Binding 的持久化记录：key、nodeId、generation 三个字段。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:84`
@@ -62,13 +62,13 @@ date: 2026-11-11
 
 ### 聚合与 feature 门控
 
-lib.rs 用 `pub use PreferencesDataStore::*` 把偏好存储的公开项重导出到 crate 根。`core/crates/persistence/store/src/lib.rs:53`
+lib.rs 用 `pub use PreferencesDataStore::*` 把偏好存储的公开项重导出到 crate 根。`core/crates/persistence/store/src/lib.rs:56`
 
-lib.rs 用 `pub use SqliteStore::*` 把该模块的公开项重导出到 crate 根。`core/crates/persistence/store/src/lib.rs:59`
+lib.rs 用 `pub use SqliteStore::*` 把该模块的公开项重导出到 crate 根。`core/crates/persistence/store/src/lib.rs:62`
 
-lib.rs 的 `pub use SqliteStore::*;` 重导出本身也在 `#[cfg(feature = "full")]` 门控下。`core/crates/persistence/store/src/lib.rs:58`
+lib.rs 的 `pub use SqliteStore::*;` 重导出本身也在 `#[cfg(feature = "full")]` 门控下。`core/crates/persistence/store/src/lib.rs:61`
 
-lib.rs 的 `repository`、`dao`、`db`、`sync` 四个模块只在 feature full 下公开。`core/crates/persistence/store/src/lib.rs:66`
+lib.rs 的 `repository`、`dao`、`db`、`sync` 四个模块只在 feature full 下公开。`core/crates/persistence/store/src/lib.rs:69`
 
 `SqliteStore` 模块只在 feature full 下公开。`core/crates/persistence/store/src/lib.rs:47`
 
@@ -84,40 +84,40 @@ lib.rs 的 `repository`、`dao`、`db`、`sync` 四个模块只在 feature full 
 
 `SqliteStore` 的 `openWithHost` 打开连接后执行 `PRAGMA foreign_keys = ON`。`core/crates/persistence/store/src/SqliteStore.rs:55`
 
-`SqliteStore` 的 `executeBatch` 执行一段 SQL 批处理。`core/crates/persistence/store/src/SqliteStore.rs:76`
+`SqliteStore` 的 `executeBatch` 执行一段 SQL 批处理。`core/crates/persistence/store/src/SqliteStore.rs:81`
 
-`SqliteStore` 的 `execute` 执行一条 SQL 语句并返回受影响行数。`core/crates/persistence/store/src/SqliteStore.rs:81`
+`SqliteStore` 的 `execute` 执行一条 SQL 语句并返回受影响行数。`core/crates/persistence/store/src/SqliteStore.rs:86`
 
-`SqliteStore` 的 `queryRows` 运行查询并返回全部行。`core/crates/persistence/store/src/SqliteStore.rs:90`
+`SqliteStore` 的 `queryRows` 运行查询并返回全部行。`core/crates/persistence/store/src/SqliteStore.rs:95`
 
-`SqliteStore` 的 `queryOne` 运行查询并返回首行的 `Option`，不存在时为空。`core/crates/persistence/store/src/SqliteStore.rs:103`
+`SqliteStore` 的 `queryOne` 运行查询并返回首行的 `Option`，不存在时为空。`core/crates/persistence/store/src/SqliteStore.rs:104`
 
-`SqliteStore` 的 `queryScalar` 取首行首列并转换类型，无行时报错 sqlite query returned no rows。`core/crates/persistence/store/src/SqliteStore.rs:108`
+`SqliteStore` 的 `queryScalar` 取首行首列并转换类型，无行时报错 sqlite query returned no rows。`core/crates/persistence/store/src/SqliteStore.rs:113`
 
-`SqliteStore` 的 `getUserVersion` 读 `PRAGMA user_version`。`core/crates/persistence/store/src/SqliteStore.rs:121`
+`SqliteStore` 的 `getUserVersion` 读 `PRAGMA user_version`。`core/crates/persistence/store/src/SqliteStore.rs:126`
 
-`SqliteStore` 的 `setUserVersion` 写 `PRAGMA user_version`。`core/crates/persistence/store/src/SqliteStore.rs:127`
+`SqliteStore` 的 `setUserVersion` 写 `PRAGMA user_version`。`core/crates/persistence/store/src/SqliteStore.rs:132`
 
-`SqliteStore` 的 `tableExists` 查 `sqlite_master` 判断指定表是否存在。`core/crates/persistence/store/src/SqliteStore.rs:134`
+`SqliteStore` 的 `tableExists` 查 `sqlite_master` 判断指定表是否存在。`core/crates/persistence/store/src/SqliteStore.rs:139`
 
-`SqliteStore` 的 `addInvalidationObserver` 注册失效回调。`core/crates/persistence/store/src/SqliteStore.rs:143`
-SqliteStore 的 `addInvalidationObserver` 把实时 store 传给失效回调，回调不必持有自己的 store。`core/crates/persistence/store/src/SqliteStore.rs:143`
+`SqliteStore` 的 `addInvalidationObserver` 注册失效回调。`core/crates/persistence/store/src/SqliteStore.rs:148`
+SqliteStore 的 `addInvalidationObserver` 把实时 store 传给失效回调，回调不必持有自己的 store。`core/crates/persistence/store/src/SqliteStore.rs:148`
 
-`SqliteStore` 的 `notifyInvalidated` 依次调用全部已注册失效回调。`core/crates/persistence/store/src/SqliteStore.rs:157`
+`SqliteStore` 的 `notifyInvalidated` 依次调用全部已注册失效回调。`core/crates/persistence/store/src/SqliteStore.rs:162`
 
-`SqliteStore` 的 `transaction` 在 action 成功时提交，失败时显式回滚；回滚也失败时返回同时携带 action 错误与 rollback 错误的 `TransactionRollback`。`core/crates/persistence/store/src/SqliteStore.rs:184`
+`SqliteStore` 的 `transaction` 在 action 成功时提交，失败时显式回滚；回滚也失败时返回同时携带 action 错误与 rollback 错误的 `TransactionRollback`。`core/crates/persistence/store/src/SqliteStore.rs:189`
 
-测试 `failed_action_rolls_back_explicitly_without_destructor_cleanup` 要求失败的 action 恰好显式回滚一次，不依赖析构清理。`core/crates/persistence/store/src/SqliteStore.rs:553`
+测试 `failed_action_rolls_back_explicitly_without_destructor_cleanup` 要求失败的 action 恰好显式回滚一次，不依赖析构清理。`core/crates/persistence/store/src/SqliteStore.rs:558`
 
-`SqliteTransaction` 的 `execute` 在事务内执行语句。`core/crates/persistence/store/src/SqliteStore.rs:202`
+`SqliteTransaction` 的 `execute` 在事务内执行语句。`core/crates/persistence/store/src/SqliteStore.rs:207`
 
-SqliteTransaction::lastInsertRowId 返回事务内最后插入行的 id。`core/crates/persistence/store/src/SqliteStore.rs:235`
+SqliteTransaction::lastInsertRowId 返回事务内最后插入行的 id。`core/crates/persistence/store/src/SqliteStore.rs:240`
 
-`FromSqliteValue` 把 host 的 `SqliteValue` 转成 Rust 强类型值。`core/crates/persistence/store/src/SqliteStore.rs:284`
+`FromSqliteValue` 把 host 的 `SqliteValue` 转成 Rust 强类型值。`core/crates/persistence/store/src/SqliteStore.rs:289`
 
-`ToSqliteValue` 把 Rust 值转成 host 的 `SqliteValue`。`core/crates/persistence/store/src/SqliteStore.rs:337`
+`ToSqliteValue` 把 Rust 值转成 host 的 `SqliteValue`。`core/crates/persistence/store/src/SqliteStore.rs:342`
 
-sqliteParams! 宏把值转成 `SqliteValue` 参数向量。`core/crates/persistence/store/src/SqliteStore.rs:409`
+sqliteParams! 宏把值转成 `SqliteValue` 参数向量。`core/crates/persistence/store/src/SqliteStore.rs:412`
 
 ### 节点身份
 
@@ -449,15 +449,15 @@ PreferencesSyncedEntry::requireSchemaVersion 在远端 schema 版本高于本地
 
 `SqliteStore` — 共享 SQLite 连接包装器。`core/crates/persistence/store/src/SqliteStore.rs:33`
 
-`SqliteTransaction` — 事务内执行语句。`core/crates/persistence/store/src/SqliteStore.rs:202`
+`SqliteTransaction` — 事务内执行语句。`core/crates/persistence/store/src/SqliteStore.rs:207`
 
-`SqliteStoreError` — 含 `TransactionRollback`，回滚失败时同时保留 action 错误与 rollback 错误。`core/crates/persistence/store/src/SqliteStore.rs:184`
+`SqliteStoreError` — 含 `TransactionRollback`，回滚失败时同时保留 action 错误与 rollback 错误。`core/crates/persistence/store/src/SqliteStore.rs:189`
 
-`FromSqliteValue` — host 值转 Rust 强类型。`core/crates/persistence/store/src/SqliteStore.rs:284`
+`FromSqliteValue` — host 值转 Rust 强类型。`core/crates/persistence/store/src/SqliteStore.rs:289`
 
-`ToSqliteValue` — Rust 值转 host 值。`core/crates/persistence/store/src/SqliteStore.rs:337`
+`ToSqliteValue` — Rust 值转 host 值。`core/crates/persistence/store/src/SqliteStore.rs:342`
 
-sqliteParams! — 值转 `SqliteValue` 参数向量。`core/crates/persistence/store/src/SqliteStore.rs:409`
+sqliteParams! — 值转 `SqliteValue` 参数向量。`core/crates/persistence/store/src/SqliteStore.rs:412`
 
 `CoreNodeIdentity` — 只有一个字段 `nodeId`。`core/crates/persistence/store/src/CoreNodeIdentityStore.rs:18`
 
@@ -538,8 +538,8 @@ merge 经 `mergedProjection` 合并本地与对端成员，新 revision 取两�
 ## 来源
 
 - `core/crates/persistence/README.md`（13 行，100% 已读）
-- `core/crates/persistence/store/src/lib.rs`（92 行，100% 已读）
-- `core/crates/persistence/store/src/SqliteStore.rs`（598 行，100% 已读）
+- `core/crates/persistence/store/src/lib.rs`（95 行，100% 已读）
+- `core/crates/persistence/store/src/SqliteStore.rs`（603 行，100% 已读）
 - `core/crates/persistence/store/src/CoreNodeIdentityStore.rs`（163 行，100% 已读）
 - `core/crates/persistence/store/src/CoreNodeBindingStore.rs`（481 行，100% 已读）
 - `core/crates/persistence/store/src/CoreSpaceStore.rs`（2972 行，100% 已读）

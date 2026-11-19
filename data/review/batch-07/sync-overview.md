@@ -20,8 +20,8 @@ date: 2026-11-11
 - `PreferencesDataStore` 管单数据集工作副本与原子提交。`docs/sync-architecture.md:20`
 - 各业务 owner 管历史编码转换、业务验证与提交后运行时更新。`docs/sync-architecture.md:21`
 - `SYNC_DOMAINS` 含 preferences、chat、binding、runtime_file、network_control、plugin_storage 六个域。`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:26`
-- 同步收据的 `protocolVersion` 为 1，`consistencyVersion` 为 7。`core/crates/runtime/application/src/core/application/OperitApplication.rs:948`
-- 所有同步设备需一起更新到 `consistencyVersion: 7`，旧协议不能完成同步。`docs/sync-architecture.md:86`
+- 同步收据的 `protocolVersion` 为 1，`consistencyVersion` 为 8。`core/crates/runtime/application/src/core/application/OperitApplication.rs:948`
+- 所有同步设备需一起更新到 `consistencyVersion: 8`，旧协议不能完成同步。`docs/sync-architecture.md:86`
 
 ## AI 速览
 
@@ -166,7 +166,7 @@ date: 2026-11-11
 - 矫正携带双方当次捕获的 pending／skip ID，与文件覆盖范围一起写入初始化事务，然后清理对应旧原文。`docs/sync-architecture.md:123`
 - 后续事务从矫正后的共同基线正常重放，不再执行已封存的错误历史。`docs/sync-architecture.md:123`
 - 未声明同步归属的文件记录 INFO 并退出同步，原文件保留，已知旧路径通过 layout 退休。`docs/sync-architecture.md:123`
-- 未覆盖的新到原件和权限检查继续生效，并发写入在本次任务内重新捕获和交换。双方需支持一致性协议 7。`docs/sync-architecture.md:123`
+- 未覆盖的新到原件和权限检查继续生效，并发写入在本次任务内重新捕获和交换。双方需支持一致性协议 8。`docs/sync-architecture.md:123`
 - 退避未到期时不跑整轮同步，判定点为 `backoffElapsed`。`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:773`
 - 有待处理工作时要求跑整轮同步，判定点为 `pendingWork`。`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:775`
 - 上轮失败且退避已到期时要求重试，原因记为 `failure_retry`。`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:780`

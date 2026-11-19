@@ -1,6 +1,6 @@
 {
   "issue": 55,
-  "source_commit": "6192d22e3",
+  "source_commit": "d2b9f529",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Host 共享实现：8 个共享 crate、顶层源文件、Unix daemon 与数据救援的共享机制",

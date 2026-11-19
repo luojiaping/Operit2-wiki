@@ -1,6 +1,6 @@
 [
   {
-    "fact": "operit-cli 的版本是 2.0.0-preview.35",
+    "fact": "operit-cli 的版本是 2.0.0-preview.40",
     "ref": "apps/cli/Cargo.toml:3"
   },
   {

@@ -405,7 +405,7 @@
   },
   {
     "fact": "SQLite 事务用 `Immediate` 行为先占写锁再读",
-    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:1088"
+    "ref": "hosts/common/operit-host-native-storage/src/lib.rs:1103"
   },
   {
     "fact": "Windows 原子发布用 `MoveFileExW` 加 `MOVEFILE_REPLACE_EXISTING` 与 `MOVEFILE_WRITE_THROUGH`",

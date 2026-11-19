@@ -1,6 +1,6 @@
 {
   "issue": 5,
-  "source_commit": "6192d22e3",
+  "source_commit": "d2b9f529",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "第一次运行：环境、CLI 入口（以 apps/cli 源码核对）、发现与配对、Web Access、备份与迁移、安全边界",

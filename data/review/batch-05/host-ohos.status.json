@@ -1,6 +1,6 @@
 {
   "issue": 54,
-  "source_commit": "6192d22e3",
+  "source_commit": "d2b9f529",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "OpenHarmony Host：QEMU-vroot Alpine 双终端与托管运行时、Sherpa ONNX 本地推理、AVPlayer TTS 播放、离线 OCR/PDF 与显式存储根",

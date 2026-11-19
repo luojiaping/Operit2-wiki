@@ -305,11 +305,11 @@
  },
  {
   "fact": "`readColumnRange` 把读取长度限制在 64 KiB 以内",
-  "ref": "hosts/web/src/tools/storage/mod.rs:241"
+  "ref": "hosts/web/src/tools/storage/mod.rs:247"
  },
  {
   "fact": "`columnSize` 用 `length` 加 `CAST` 到 `BLOB` 的 SQL 查询列字节数",
-  "ref": "hosts/web/src/tools/storage/mod.rs:237"
+  "ref": "hosts/web/src/tools/storage/mod.rs:242"
  },
  {
   "fact": "`toast` 把消息转发到桥接 `toast` 方法",

@@ -154,8 +154,8 @@ JS 运行时测试命令为从仓库根运行 `node --test tools/tests/web_javas
 `discard` 调用桥接 `discardWriteSession`（`hosts/web/src/tools/storage/mod.rs:175`）。
 桥接值为空或未定义时 `readSecret` 返回 `None`（`hosts/web/src/tools/storage/mod.rs:193`）。
 `openSqliteDatabase` 调用桥接 `open` 并持有返回的连接标识字符串（`hosts/web/src/tools/storage/mod.rs:216`）。
-`readColumnRange` 把读取长度限制在 64 KiB 以内（`hosts/web/src/tools/storage/mod.rs:241`）。
-`columnSize` 用 `length` 加 `CAST` 到 `BLOB` 的 SQL 查询列字节数（`hosts/web/src/tools/storage/mod.rs:237`）。
+`readColumnRange` 把读取长度限制在 64 KiB 以内（`hosts/web/src/tools/storage/mod.rs:247`）。
+`columnSize` 用 `length` 加 `CAST` 到 `BLOB` 的 SQL 查询列字节数（`hosts/web/src/tools/storage/mod.rs:242`）。
 运行时自有文件由专用运行时 Worker 存入 OPFS，host 桥接不把完整运行时树加载到主线程映射里（`hosts/web/README.md:78`）。
 存储 Worker 在 OPFS 句柄整个生命周期持有身份专属的排他 Web Lock 与共享维护访问（`hosts/web/README.md:80`）。
 旧 Worker 仍拥有存储时，新页面打不开同一存储（`hosts/web/README.md:82`）。
