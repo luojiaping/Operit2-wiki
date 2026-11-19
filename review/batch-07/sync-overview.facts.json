@@ -248,7 +248,7 @@
     "ref": "docs/sync-architecture.md:86"
   },
   {
-    "fact": "所有同步设备需一起更新到 `consistencyVersion: 7`，旧协议不能完成同步。",
+    "fact": "所有同步设备需一起更新到 `consistencyVersion: 8`，旧协议不能完成同步。",
     "ref": "docs/sync-architecture.md:86"
   },
   {
@@ -372,7 +372,7 @@
     "ref": "docs/sync-architecture.md:123"
   },
   {
-    "fact": "未覆盖的新到原件和权限检查继续生效，并发写入在本次任务内重新捕获和交换。双方需支持一致性协议 7。",
+    "fact": "未覆盖的新到原件和权限检查继续生效，并发写入在本次任务内重新捕获和交换。双方需支持一致性协议 8。",
     "ref": "docs/sync-architecture.md:123"
   },
   {
@@ -416,7 +416,7 @@
     "ref": "docs/sync-architecture.md:131"
   },
   {
-    "fact": "同步收据的 `protocolVersion` 为 1，`consistencyVersion` 为 7。",
+    "fact": "同步收据的 `protocolVersion` 为 1，`consistencyVersion` 为 8。",
     "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:948"
   },
   {

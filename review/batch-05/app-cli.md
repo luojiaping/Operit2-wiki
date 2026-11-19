@@ -8,7 +8,7 @@ date: 2026-11-11
 
 ## 概述
 
-operit2 是 Operit2 的命令行应用，包名 `operit-cli`，版本是 2.0.0-preview.35（`apps/cli/Cargo.toml:3`）。
+operit2 是 Operit2 的命令行应用，包名 `operit-cli`，版本是 2.0.0-preview.40（`apps/cli/Cargo.toml:3`）。
 CLI 可执行文件名为 `operit2`（`apps/cli/Cargo.toml:12`）。
 无参数启动 operit2 进入 TUI（`apps/cli/src/main.rs:59`）。
 operit2 rescue 把参数交给 `rescue` 的 `run`（`apps/cli/src/main.rs:63`）。
