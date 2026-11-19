@@ -1,10 +1,10 @@
 {
   "issue": 76,
-  "source_commit": "d2b9f529",
+  "source_commit": "a89a7d3",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "设备间路由与实时分发：承载层与 Operit 选路分层、Dijkstra 代价选路、SharedWatchHub 一条边只发一次再分发，及 PeerSync 对端同步调用面。",
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "approved_by_comment_id": 6854382864,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-13 13:34 UTC"

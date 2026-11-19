@@ -1,10 +1,10 @@
 {
   "issue": 104,
-  "source_commit": "d2b9f529",
+  "source_commit": "a89a7d3",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "四个运行时工具包（Android、iOS、OpenHarmony、Web）各准备的内容、iOS 独立 AArch64 Linux 运行时与 V86 的区分，以及各工具包构建说明的位置。",
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "approved_by_comment_id": 6854429614,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-13 13:35 UTC"

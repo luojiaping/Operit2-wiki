@@ -25,7 +25,7 @@ date: 2026-11-11
 - `ToolResultRenderer` — 结果视图选择器，取值为 `Directory`、`FileDiff` 与默认的 `Text`。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:9`
 - `PackageTool` — 插件工具声明，`display` 为可选字段。`core/crates/plugin/sdk/src/package.rs:127`
 - `WebViewScaleScope` — 提供应用缩放的 `InheritedWidget`。`apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:24`
-- `requiresNativeApplicationZoom` — 按后端能力选择缩放策略的开关，默认 `false`。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:360`
+- `requiresNativeApplicationZoom` — 按后端能力选择缩放策略的开关，默认 `false`。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:364`
 - `NativeWebViewZoom` — 组合页面缩放与应用缩放，用于无原生绘制缩放的视图。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:6`
 - `OperitSafeWebView` — iOS 的 `WKWebView` 子类，布局前校验有限几何值。`apps/flutter/thirdparty/webview_flutter_wkwebview/darwin/webview_flutter_wkwebview/Sources/OperitWebViewSafety/include/OperitSafeWebView.h:11`
 - 数据流向：工具所有者声明展示 → Core 传递声明与原生结果 → Flutter 按声明选视图并校验结构后渲染；应用缩放与页面缩放各自独立进入原生页面 API。`docs/tool-display-semantics.md:52`
@@ -87,9 +87,9 @@ date: 2026-11-11
 
 - `WebViewScaleScope` 是 `InheritedWidget`，其 `scale` 必须是祖先总缩放而非屏幕 DPR。`apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:24`
 - `PlatformWebViewController` 的 `requiresNativeApplicationZoom` 按后端能力选择策略，不由共享 widget 的 macOS-only 分支决定。`docs/webview-rendering.md:11`
-- `requiresNativeApplicationZoom` 的默认值为 `false`。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:360`
-- 需要原生内容缩放的后端返回 `true` 并实现 `setApplicationZoomFactor`，复合平台视图保持默认。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:357`
-- `build` 在 `requiresNativeApplicationZoom` 为真时包一层 `_NativeZoomWebViewViewport`，否则直接返回原生视图。`apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:151`
+- `requiresNativeApplicationZoom` 的默认值为 `false`。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:364`
+- 需要原生内容缩放的后端返回 `true` 并实现 `setApplicationZoomFactor`，复合平台视图保持默认。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:361`
+- `_WebViewWidgetState` 的 `build` 在 `requiresNativeApplicationZoom` 为真时包一层 `_NativeZoomWebViewViewport`，否则直接返回原生视图。`apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:167` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:210`
 - `NativeWebViewZoom` 组合页面缩放与应用缩放，用于无原生绘制缩放的视图。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:6`
 - `_apply` 把页面缩放因子与应用缩放因子相乘后交给 `_applyZoom` 发给原生。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:39`
 - `_queue` 把原生缩放更新串行化。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:40`
@@ -142,7 +142,7 @@ date: 2026-11-11
 - `PackageTool` 的 `display` — 插件工具的可选展示声明。`core/crates/plugin/sdk/src/package.rs:127`
 - `labelFor` — Flutter 侧标签回退解析，依次试完整语言标签、语言代码、`default`、`en`、首个声明文本。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:160`
 - `WebViewScaleScope` — 应用缩放作用域，不改变 host DPR。`docs/webview-rendering.md:10`
-- `requiresNativeApplicationZoom` — 后端能力开关，默认 `false`。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:360`
+- `requiresNativeApplicationZoom` — 后端能力开关，默认 `false`。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:364`
 - `NativeWebViewZoom` — 双因子缩放组合器，校验输入并串行化原生更新。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:6`
 - `OperitSafeWebView` — iOS 安全 WebView，布局前校验几何值。`docs/webview-rendering.md:82`
 
@@ -152,7 +152,7 @@ date: 2026-11-11
 2. 插件工具：插件元数据的工具声明带可选 `display` → `PackageTool` 的 `display` 字段解析为 `ToolDisplayDeclaration` → Core 从当前运行时声明读取，不跨身份、节点或 Host 查询。`core/crates/plugin/sdk/src/package.rs:127`
 3. 展示：Core 在消息展示投影中传递声明并保留原生 `ToolResultData` → Flutter 按声明的 `resultRenderer` 选视图并校验数据结构 → 实时调用的声明附加在 Markdown XML 事件的 `display` 属性中。`docs/tool-display-semantics.md:54`
 4. 模型侧：提供给模型的工具结果及历史序列化排除 `display` 和 `result_data`。`docs/tool-display-semantics.md:58`
-5. WebView 缩放：`WebViewScaleScope` 提供应用缩放 `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:24` → `WebViewWidget` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:67` 的 `build` 按 `requiresNativeApplicationZoom` 决定是否包 `_NativeZoomWebViewViewport` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:151`。
+5. WebView 缩放：`WebViewScaleScope` 提供应用缩放 `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:24` → `WebViewWidget` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:67`（现为 `StatefulWidget`，`build` 位于其 state `_WebViewWidgetState` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:167`）按 `requiresNativeApplicationZoom` 决定是否包 `_NativeZoomWebViewViewport` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:210`。
 6. 乘积发给原生页面 API：原生覆盖后端经 `NativeWebViewZoom` 把 `applicationZoom * pageZoom` 发给原生页面 API `docs/webview-rendering.md:26`，复合后端保留应用绘制缩放。
 7. iOS 几何：`OperitSafeWebView` 在 UIKit 布局前校验 frame 与 bounds → 非法几何停用原生视图，`CALayerInvalidGeometry` 经导航错误通道上报一次。`docs/webview-rendering.md:84`
 
