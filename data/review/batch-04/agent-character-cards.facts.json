@@ -209,7 +209,7 @@
   },
   {
     "fact": "`combinePrompts` 先按 id 取卡片，再调 `combineCharacterPrompt` 组装。",
-    "ref": "plugins/packages/buildin/character_cards/src/operations.ts:530"
+    "ref": "plugins/packages/buildin/character_cards/src/operations.ts:521"
   },
   {
     "fact": "公开解析 API 先按 chatId 读取插件自己的绑定，再临时构造 {version: 1, selection} 写入内部 `request.chatExtension`，交给领域解析；执行侧再从聊天扩展解码标记并用 `parseChatSelection` 解析选择串。",

@@ -1,6 +1,6 @@
 {
   "issue": 33,
-  "source_commit": "a89a7d3",
+  "source_commit": "655431d",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "应用组装——CoreApplication 门面：runtime、proxy、node、access 四类 crate 组装成一棵 Core 树，Host 只拿公开句柄",
