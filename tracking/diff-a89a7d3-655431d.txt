@@ -1,0 +1,14 @@
+apps/flutter/app/lib/ui/features/chat/components/ChatArea.dart
+apps/flutter/app/lib/ui/features/chat/components/ChatScrollNavigator.dart
+apps/flutter/app/lib/ui/features/chat/components/ChatScrollRailGeometry.dart
+apps/flutter/app/lib/ui/features/chat/components/TransformedChatMessage.dart
+apps/flutter/app/lib/ui/features/chat/components/style/bubble/BubbleUserMessageComposable.dart
+apps/flutter/app/test/chat_area_streaming_cursor_test.dart
+apps/flutter/app/test/chat_bubble_geometry_test.dart
+apps/flutter/app/test/chat_scroll_navigator_test.dart
+apps/flutter/app/test/transformed_chat_message_test.dart
+docs/performance-chat-bubble-prefetch-2026-11-19.md
+plugins/packages/buildin/character_cards/src/operations.ts
+plugins/packages/buildin/character_cards/src/ui-entity-native.ts
+plugins/packages/buildin/character_cards/tests/entity-native.test.mjs
+plugins/packages/buildin/character_cards/tests/runtime-tools-policy.test.mjs

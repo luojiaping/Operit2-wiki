@@ -1,6 +1,6 @@
 {
   "issue": 31,
-  "source_commit": "a89a7d3",
+  "source_commit": "655431d",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "代理生成：扫描从源码生成代理 IR，Rust 与 Dart 发射器分别生成分发代码与客户端，本地代理运行时分发调用与管理流。",
