@@ -3,9 +3,9 @@
   "approved_by": "luojiaping",
   "approved_by_comment_id": 6796549709,
   "issue": 40,
-  "source_commit": "d2b9f529",
+  "source_commit": "a89a7d3",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "角色卡与聊天绑定、生命周期、提示词组装与主题引用的机制。",
-  "updated": "2026-11-19"
+  "updated": "2026-11-20"
 }
