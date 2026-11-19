@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-18 23:04 UTC",
+  "updated": "2026-11-19 10:45 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -1311,7 +1311,7 @@
       "facts": "review/batch-07/sync-transaction-model.facts.json",
       "lint": "review/batch-07/sync-transaction-model.lint.md",
       "seed_files": [],
-      "facts_count": 114,
+      "facts_count": 115,
       "refs_valid": "",
       "critic": "",
       "summary": "事务模型与同步契约：记号体系、统一顺序合并、三类迁移与强制校正，文档定义与 Transaction.rs 实现逐条对照",
@@ -1494,7 +1494,7 @@
       "facts_count": 79,
       "refs_valid": "",
       "critic": "",
-      "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界；README 引用按上游 0f08fd43 核验（:53→:57），其余内容仍按基线 6192d22e3。",
+      "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界；README 引用按上游 0f08fd43 核验（:53→:57），其余内容仍按基线 d2b9f529。",
       "updated": "2026-11-19"
     },
     {
