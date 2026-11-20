@@ -3,7 +3,7 @@
   "approved_by": "luojiaping",
   "approved_by_comment_id": 6795389650,
   "issue": 32,
-  "source_commit": "7fdb667",
+  "source_commit": "2dafe6b",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "RsLink——Rust 间 Link 协议层：值转换、路由调用、流与 watch、反向流、内嵌流与 codegen 共享 IR/类型解析",
