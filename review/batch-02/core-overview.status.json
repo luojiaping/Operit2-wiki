@@ -1,6 +1,6 @@
 {
   "issue": 12,
-  "source_commit": "655431d",
+  "source_commit": "35cffab",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Core 总览与 crate 边界：11 个领域分组、29 个真 crate、依赖方向、父级行为 trait 机制与 peer-protocol.json",

@@ -14,14 +14,14 @@ date: 2026-11-11
 - `startTurn`、`waitTurn`、`cancelTurn`、`finishSequence`、回调式聊天流与执行句柄不在当前作者契约内。`docs/chat-send-api.md:14`
 - 会话创建、列表、扩展访问与功能性 `Chat.call` 是独立的已有会话与模型能力。`docs/chat-send-api.md:13`
 - Native handles 与 finalization records 是内部运行时支持类型，不是插件 SDK 结果。`docs/chat-send-api.md:19`
-- `ChatHost` trait 定义聊天服务与执行参与者管理接口。`core/crates/plugin/sdk/src/js_sdk/chat.rs:382`
+- `ChatHost` trait 定义聊天服务与执行参与者管理接口。`core/crates/plugin/sdk/src/js_sdk/chat.rs:399`
 
 ## AI 速览
 
-- `sendMessage` — 单次发送，接收 `ChatSendRequest`，返回 `JsFuture<ChatSendMessageResultData>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:461`
-- `sendMessageStreaming` — 流式发送，接收 `ChatSendRequest`，返回 `JsAsyncIterable<ChatSendEvent>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:463`
-- `cancel` — 取消，接收 `chatId`，返回 `JsFuture<ChatCancelResultData>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:465`
-- `call` — 功能模型调用，使用 `ChatCallOptions`，不向聊天历史加一轮。`core/crates/plugin/sdk/src/js_sdk/chat.rs:487`
+- `sendMessage` — 单次发送，接收 `ChatSendRequest`，返回 `JsFuture<ChatSendMessageResultData>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:478`
+- `sendMessageStreaming` — 流式发送，接收 `ChatSendRequest`，返回 `JsAsyncIterable<ChatSendEvent>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:480`
+- `cancel` — 取消，接收 `chatId`，返回 `JsFuture<ChatCancelResultData>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:482`
+- `call` — 功能模型调用，使用 `ChatCallOptions`，不向聊天历史加一轮。`core/crates/plugin/sdk/src/js_sdk/chat.rs:504`
 - `ChatSendRequest` — 以 `kind` 为标签区分请求形态。`core/crates/plugin/sdk/src/js_sdk/chat.rs:229`
 - `ChatTurnInput` — 含 `text`、`attachments` 与 `replyToMessageTimestamp` 三个字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:198`
 - `ChatInitialTurn` — 只有 `record_only` 与 `execute` 两种形态。`core/crates/plugin/sdk/src/js_sdk/chat.rs:206`
@@ -31,10 +31,10 @@ date: 2026-11-11
 - `ChatMessagePartKind` — part 种类枚举，含 `markdown` 与 `thinking`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:300`
 - `ChatSendEvent` — 有 `part` 与 `completed` 两种事件。`core/crates/plugin/sdk/src/js_sdk/chat.rs:317`
 - `ChatCancelResult` — 含 `chatId` 与 `cancelRequested` 两个字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:327`
-- `ChatRuntime` — 只有 `main` 与 `floating` 两种取值。`core/crates/plugin/sdk/src/js_sdk/chat.rs:491`
+- `ChatRuntime` — 只有 `main` 与 `floating` 两种取值。`core/crates/plugin/sdk/src/js_sdk/chat.rs:508`
 - `hide_user_message` — `send_message` 接受该选项时 Core 以 `HIDDEN_PLACEHOLDER` 记录用户消息，原始 parts 保留在持久化历史与模型上下文中。`docs/chat-send-api.md:59`
-- 主入口函数为 `sendMessage`（单次发送）与 `sendMessageStreaming`（流式发送），取消入口为 `cancel`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:463`
-- 数据流向一句话：`ChatSendRequest` 经 `sendMessageStreaming` 以 `ChatSendEvent` 输出 part 快照与终端回执。`core/crates/plugin/sdk/src/js_sdk/chat.rs:463`
+- 主入口函数为 `sendMessage`（单次发送）与 `sendMessageStreaming`（流式发送），取消入口为 `cancel`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:480`
+- 数据流向一句话：`ChatSendRequest` 经 `sendMessageStreaming` 以 `ChatSendEvent` 输出 part 快照与终端回执。`core/crates/plugin/sdk/src/js_sdk/chat.rs:480`
 
 ## 核心机制
 
@@ -69,16 +69,16 @@ date: 2026-11-11
 - 提交附件的 `fileName` 或 `mimeType` 为空、`fileSize` 为负或 `nodeId` 为空字符串时请求被拒绝。`core/crates/plugin/sdk/src/js_sdk/chat.rs:263`
 - `ChatInitialTurn` 的 `Execute` 变体所带的 `participantId` 为空字符串时请求被拒绝。`core/crates/plugin/sdk/src/js_sdk/chat.rs:268`
 - `Continue` 要求 `userMessageTimestamp` 为正且 `participantId` 非空，否则请求被拒绝。`core/crates/plugin/sdk/src/js_sdk/chat.rs:273`
-- 契约测试断言不带 `summaryPolicy` 的基础请求无法解析为 `ChatSendRequest`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:587`
-- 契约测试只接受 `summaryPolicy` 为 `defer` 或 `after_reply` 的值。`core/crates/plugin/sdk/src/js_sdk/chat.rs:588`
-- 契约测试断言 `summaryPolicy` 为 `automatic` 的请求反序列化失败。`core/crates/plugin/sdk/src/js_sdk/chat.rs:596`
+- 契约测试断言不带 `summaryPolicy` 的基础请求无法解析为 `ChatSendRequest`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:604`
+- 契约测试只接受 `summaryPolicy` 为 `defer` 或 `after_reply` 的值。`core/crates/plugin/sdk/src/js_sdk/chat.rs:605`
+- 契约测试断言 `summaryPolicy` 为 `automatic` 的请求反序列化失败。`core/crates/plugin/sdk/src/js_sdk/chat.rs:613`
 
 ### 执行控制划分
 
 - 文档写明两种模式共用一次准入与已有的 `startUserMessage` 管线。`docs/chat-send-api.md:52`
 - 文档写明原生执行拥有规范租约、输入钩子分发、持久化回执、完成发布与租约释放。`docs/chat-send-api.md:53`
 - 文档写明被接受的发送不依赖插件代码最终调用另一个 finish 方法。`docs/chat-send-api.md:54`
-- `sendMessage` 只在真实回执与原生清理完成后才 resolve。`core/crates/plugin/sdk/src/js_sdk/chat.rs:460`
+- `sendMessage` 只在真实回执与原生清理完成后才 resolve。`core/crates/plugin/sdk/src/js_sdk/chat.rs:477`
 
 ### 隐藏自动用户消息
 
@@ -87,8 +87,8 @@ date: 2026-11-11
 
 ### 流式观察
 
-- `sendMessageStreaming` 接收 `ChatSendRequest`，返回 `JsAsyncIterable<ChatSendEvent>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:463`
-- `sendMessageStreaming` 经一个异步迭代器流式输出权威解析 part 快照与真实终端回执。`core/crates/plugin/sdk/src/js_sdk/chat.rs:462`
+- `sendMessageStreaming` 接收 `ChatSendRequest`，返回 `JsAsyncIterable<ChatSendEvent>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:480`
+- `sendMessageStreaming` 经一个异步迭代器流式输出权威解析 part 快照与真实终端回执。`core/crates/plugin/sdk/src/js_sdk/chat.rs:479`
 - `ChatSendEvent` 有 `part` 与 `completed` 两种事件。`core/crates/plugin/sdk/src/js_sdk/chat.rs:317`
 - `ChatSendEvent` 的 `Part` 变体含 `chatId`、`messageTimestamp`、`revision` 与 `parts` 字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:319`
 - `ChatSendEvent` 的 `Completed` 变体携带 `MessageSendResultData` 作为 `result`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:321`
@@ -112,11 +112,11 @@ date: 2026-11-11
 
 ### 取消与释放
 
-- `cancel` 只接收 `chatId`，返回 `JsFuture<ChatCancelResultData>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:465`
-- `cancel` 只取消调用插件在指定会话中已捕获的执行。`core/crates/plugin/sdk/src/js_sdk/chat.rs:464`
+- `cancel` 只接收 `chatId`，返回 `JsFuture<ChatCancelResultData>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:482`
+- `cancel` 只取消调用插件在指定会话中已捕获的执行。`core/crates/plugin/sdk/src/js_sdk/chat.rs:481`
 - `ChatCancelResult` 含 `chatId` 与 `cancelRequested` 两个字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:327`
 - TypeScript 的 `CancelResult` 含 `chatId` 与 `cancelRequested` 字段。`plugins/types/chat.d.ts:243`
-- TypeScript 导出 `cancel(chatId: string)`，返回 `Promise<ChatCancelResultData>`。`plugins/types/chat.d.ts:290`
+- TypeScript 导出 `cancel(chatId: string)`，返回 `Promise<ChatCancelResultData>`。`plugins/types/chat.d.ts:304`
 - 文档写明中断循环、调用迭代器的 `return()` 或消费者抛错都会释放观察，显式释放会唤醒待处理的原生拉取。`docs/chat-send-api.md:158`
 - 文档写明这些释放操作都不取消模型生成，原生发送终结仍会运行。`docs/chat-send-api.md:159`
 - 文档写明 `cancel(chatId)` 在异步访问模型之前捕获调用引擎的已启用已认证包及其在该聊天的确切活动执行。`docs/chat-send-api.md:162`
@@ -181,25 +181,25 @@ date: 2026-11-11
 
 ## 关键符号
 
-- `ChatHost` — 聊天服务与执行参与者管理接口。`core/crates/plugin/sdk/src/js_sdk/chat.rs:382`
-- `sendMessage` — 单次发送，接收 `ChatSendRequest`，返回 `JsFuture<ChatSendMessageResultData>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:461`
-- `sendMessageStreaming` — 流式发送，接收 `ChatSendRequest`，返回 `JsAsyncIterable<ChatSendEvent>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:463`
-- `cancel` — 取消，接收 `chatId`，返回 `JsFuture<ChatCancelResultData>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:465`
-- `call` — 功能模型调用，使用 `ChatCallOptions`，不向聊天历史加一轮。`core/crates/plugin/sdk/src/js_sdk/chat.rs:487`
+- `ChatHost` — 聊天服务与执行参与者管理接口。`core/crates/plugin/sdk/src/js_sdk/chat.rs:399`
+- `sendMessage` — 单次发送，接收 `ChatSendRequest`，返回 `JsFuture<ChatSendMessageResultData>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:478`
+- `sendMessageStreaming` — 流式发送，接收 `ChatSendRequest`，返回 `JsAsyncIterable<ChatSendEvent>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:480`
+- `cancel` — 取消，接收 `chatId`，返回 `JsFuture<ChatCancelResultData>`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:482`
+- `call` — 功能模型调用，使用 `ChatCallOptions`，不向聊天历史加一轮。`core/crates/plugin/sdk/src/js_sdk/chat.rs:504`
 - `ChatSendRequest` — 以 `kind` 为标签区分请求形态。`core/crates/plugin/sdk/src/js_sdk/chat.rs:229`
 - `ChatTurnInput` — 含 `text`、`attachments` 与 `replyToMessageTimestamp` 三个字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:198`
 - `ChatInitialTurn` — 只有 `record_only` 与 `execute` 两种形态。`core/crates/plugin/sdk/src/js_sdk/chat.rs:206`
-- `ChatSendAttachment` — 含 `vfsPath`、`filePath` 与 `nodeId` 字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:525`
-- 附件的 `fileName`、`mimeType`、`fileSize` 与 `content` 分别记录原始文件名、MIME 类型、字节数与原始内联载荷。`core/crates/plugin/sdk/src/js_sdk/chat.rs:532`
-- `ChatSendContinuation` — 只含 `userMessageTimestamp` 一个字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:543`
-- `ChatSendMessageOptions` — 含 `runtime`、`persist_turn` 与 `notify_reply` 字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:555`
-- 发送选项还含 `hide_user_message`、`disable_warning` 与 `timeout_ms` 字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:565`
-- 发送选项的 `continuation` 指向已提交的用户消息，附件、回复与替换文本被禁止。`core/crates/plugin/sdk/src/js_sdk/chat.rs:574`
-- `ChatRuntime` — 只有 `main` 与 `floating` 两种取值。`core/crates/plugin/sdk/src/js_sdk/chat.rs:491`
+- `ChatSendAttachment` — 含 `vfsPath`、`filePath` 与 `nodeId` 字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:542`
+- 附件的 `fileName`、`mimeType`、`fileSize` 与 `content` 分别记录原始文件名、MIME 类型、字节数与原始内联载荷。`core/crates/plugin/sdk/src/js_sdk/chat.rs:549`
+- `ChatSendContinuation` — 只含 `userMessageTimestamp` 一个字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:560`
+- `ChatSendMessageOptions` — 含 `runtime`、`persist_turn` 与 `notify_reply` 字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:572`
+- 发送选项还含 `hide_user_message`、`disable_warning` 与 `timeout_ms` 字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:582`
+- 发送选项的 `continuation` 指向已提交的用户消息，附件、回复与替换文本被禁止。`core/crates/plugin/sdk/src/js_sdk/chat.rs:591`
+- `ChatRuntime` — 只有 `main` 与 `floating` 两种取值。`core/crates/plugin/sdk/src/js_sdk/chat.rs:508`
 - `hide_user_message` — `send_message` 接受该选项时 Core 以 `HIDDEN_PLACEHOLDER` 记录用户消息，原始 parts 保留在持久化历史与模型上下文中。`docs/chat-send-api.md:59`
-- TypeScript 导出 `sendMessage(request: SendRequest)`，返回 `Promise<ChatSendMessageResultData>`。`plugins/types/chat.d.ts:361`
-- TypeScript 导出 `sendMessageStreaming(request: SendRequest)`，返回 `AsyncIterable<SendEvent>`。`plugins/types/chat.d.ts:365`
-- TypeScript 导出的 `call` 调用配置的功能模型且不向聊天历史加一轮。`plugins/types/chat.d.ts:286`
+- TypeScript 导出 `sendMessage(request: SendRequest)`，返回 `Promise<ChatSendMessageResultData>`。`plugins/types/chat.d.ts:375`
+- TypeScript 导出 `sendMessageStreaming(request: SendRequest)`，返回 `AsyncIterable<SendEvent>`。`plugins/types/chat.d.ts:379`
+- TypeScript 导出的 `call` 调用配置的功能模型且不向聊天历史加一轮。`plugins/types/chat.d.ts:300`
 
 ## 调用链
 
@@ -207,10 +207,10 @@ date: 2026-11-11
 2. `Continue` 变体含 `userMessageTimestamp`、`participantId`、`notifyReply` 与 `summaryPolicy` 字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:243`
 3. 校验先行：`ChatSendRequest` 的 `validate` 在 `chatId` 为空或全空白时拒绝请求。`core/crates/plugin/sdk/src/js_sdk/chat.rs:253`
 4. 文档写明两种模式共用一次准入与已有的 `startUserMessage` 管线。`docs/chat-send-api.md:52`
-5. `sendMessage` 只在真实回执与原生清理完成后才 resolve。`core/crates/plugin/sdk/src/js_sdk/chat.rs:460`
-6. `sendMessageStreaming` 经一个异步迭代器流式输出权威解析 part 快照与真实终端回执。`core/crates/plugin/sdk/src/js_sdk/chat.rs:462`
+5. `sendMessage` 只在真实回执与原生清理完成后才 resolve。`core/crates/plugin/sdk/src/js_sdk/chat.rs:477`
+6. `sendMessageStreaming` 经一个异步迭代器流式输出权威解析 part 快照与真实终端回执。`core/crates/plugin/sdk/src/js_sdk/chat.rs:479`
 7. `Completed` 事件携带 `MessageSendResultData` 作为 `result`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:321`
-8. `cancel` 只取消调用插件在指定会话中已捕获的执行。`core/crates/plugin/sdk/src/js_sdk/chat.rs:464`
+8. `cancel` 只取消调用插件在指定会话中已捕获的执行。`core/crates/plugin/sdk/src/js_sdk/chat.rs:481`
 9. 中断循环、调用迭代器的 `return()` 或消费者抛错只释放观察，都不取消模型生成。`docs/chat-send-api.md:159`
 
 ## 来源
@@ -219,6 +219,7 @@ date: 2026-11-11
 - `core/crates/plugin/sdk/src/js_sdk/chat.rs`：Rust 权威实现，全文 606 行。
 - `plugins/types/chat.d.ts`：TypeScript 导出；文档点名该文件，写作时另行读过并逐行核对了 Chat 命名空间内的发送方法签名。
 - 复核（2026-11-19，新基线 f9b7555）：chat.rs 新增预备/排程消息类型与 ChatHost 方法（`deliverPrepared`、`scheduleMessage`、`cancelScheduledMessage`、`listScheduledMessages`），ChatHost trait :330→:382，发送/取消/调用方法 :401–:431→:461–:491，附件与选项结构 :465–:513→:525–:574，契约测试 :527–:536→:587–:596；chat.d.ts 新增 `PreparedMessageRequest`/`ScheduledMessageRequest` 及四个方法导出，`call` :255→:286，`cancel` :260→:290，`sendMessage` :315→:361，`sendMessageStreaming` :319→:365；docs/chat-send-api.md 0 行改动；chat.rs 全文 606→696 行，chat.d.ts 471→517 行；事实条数不变（128 条），未为预备/排程消息新增事实。
+- 复核（2026-11-20，新基线 35cffab）：chat.rs 新增 `ChatScheduledGeneration` 与 `ChatScheduledMessageRequest.generation`（生成式排程回复），ChatHost trait :382→:399，发送/取消/调用方法 :460–:491→:477–:508，附件与选项结构 :525–:574→:542–:591，契约测试 :587–:596→:604–:613；chat.d.ts 新增 `ScheduledGeneration` 接口与 `ScheduledMessageRequest.generation`，`call` :286→:300，`cancel` :290→:304，`sendMessage` :361→:375，`sendMessageStreaming` :365→:379；results.rs 的 `ChatScheduledMessage` 新增 `text` 字段与 `preparing`/`invalidated` 状态（本页未引 results.rs，未立新事实）；docs/chat-send-api.md 0 行改动；chat.rs 全文 696→729 行，chat.d.ts 517→531 行；事实条数不变（128 条），未为生成式排程回复新增事实。
 
 否定性核验方法：2026-11-15 对基线 AAswordman/Operit2 @ ff5373fb6 的本地 checkout 执行 grep -c，`startTurn`、`waitTurn`、`cancelTurn`、`finishSequence` 在 chat.rs 与 chat.d.ts 中均为 0 命中；文档第 14-16 行亦写明四者不在当前作者契约内。
 

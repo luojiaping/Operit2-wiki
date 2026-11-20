@@ -19,15 +19,15 @@ date: 2026-11-11
 ## AI 速览
 
 - `Transaction` — 一条带固定身份、顺序、目标与操作的原子修改。`core/crates/persistence/store/src/Transaction.rs:328`
-- `History` — 保存事务原文的集合，同身份事务须与已存原文一致。`core/crates/persistence/store/src/Transaction.rs:1081`
+- `History` — 保存事务原文的集合，同身份事务须与已存原文一致。`core/crates/persistence/store/src/Transaction.rs:1085`
 - `Data` — 完整业务状态，含 `owner` 与 `values`。`core/crates/persistence/store/src/Transaction.rs:350`
-- `Migrations` — 格式与 layout 迁移表，含 `owners`、`layouts` 与 `formats`。`core/crates/persistence/store/src/Transaction.rs:1012`
-- `Rule` — 含 `RenameKey` 与 `RenameField` 两种重命名规则。`core/crates/persistence/store/src/Transaction.rs:667`
-- Rule — 含 `SplitObject`、`DropKey` 与 `SplitRecords` 三种结构规则。`core/crates/persistence/store/src/Transaction.rs:682`
-- `Snapshot` — 快照，字段为 `node`、`data`、`covered` 与 `generation`。`core/crates/persistence/store/src/Transaction.rs:1238`
-- `Manifest` — 有线比较视图，字段为 `owner`、`node`、`revision`、`token` 与 `digest`。`core/crates/persistence/store/src/Transaction.rs:1311`
-- `Correction` — 合并两端 `covered` 的校正结果。`core/crates/persistence/store/src/Transaction.rs:1388`
-- `Replay` — 重放结果，含 `data`、`applied` 与 `pending` 三个字段。`core/crates/persistence/store/src/Transaction.rs:1205`
+- `Migrations` — 格式与 layout 迁移表，含 `owners`、`layouts` 与 `formats`。`core/crates/persistence/store/src/Transaction.rs:1016`
+- `Rule` — 含 `RenameKey` 与 `RenameField` 两种重命名规则。`core/crates/persistence/store/src/Transaction.rs:671`
+- Rule — 含 `SplitObject`、`DropKey` 与 `SplitRecords` 三种结构规则。`core/crates/persistence/store/src/Transaction.rs:686`
+- `Snapshot` — 快照，字段为 `node`、`data`、`covered` 与 `generation`。`core/crates/persistence/store/src/Transaction.rs:1242`
+- `Manifest` — 有线比较视图，字段为 `owner`、`node`、`revision`、`restoration`、`token` 与 `digest`。`core/crates/persistence/store/src/Transaction.rs:1318`
+- `Correction` — 合并两端 `covered` 的校正结果。`core/crates/persistence/store/src/Transaction.rs:1398`
+- `Replay` — 重放结果，含 `data`、`applied` 与 `pending` 三个字段。`core/crates/persistence/store/src/Transaction.rs:1209`
 - `Edit` 的 `Set` — 按 `key` 与 `path` 写入值。`core/crates/persistence/store/src/Transaction.rs:126`
 - Edit 的 `Delete` — 按 `key` 与 `path` 删除。`core/crates/persistence/store/src/Transaction.rs:131`
 - Edit 的 `Increment` — 按 `key`、`path` 与 `delta` 做增量。`core/crates/persistence/store/src/Transaction.rs:135`
@@ -35,8 +35,8 @@ date: 2026-11-11
 - Edit 的 `ReplaceRecords` — 原子替换一个记录命名空间。`core/crates/persistence/store/src/Transaction.rs:146`
 - `Owner` — 归属，字段为 `backend`、`path`、`format` 与 `layout`。`core/crates/persistence/store/src/Transaction.rs:93`
 - `Revision` — `SyncOperationOrder` 的公开类型别名。`core/crates/persistence/store/src/Transaction.rs:12`
-- 主入口函数：History 的 `materialize`。`core/crates/persistence/store/src/Transaction.rs:1150`
-- 数据流向一句话：事务原文经 `materialize` 迁移基线并重放为 `Data`。`core/crates/persistence/store/src/Transaction.rs:1150`
+- 主入口函数：History 的 `materialize`。`core/crates/persistence/store/src/Transaction.rs:1154`
+- 数据流向一句话：事务原文经 `materialize` 迁移基线并重放为 `Data`。`core/crates/persistence/store/src/Transaction.rs:1154`
 
 ## 核心机制
 
@@ -63,73 +63,73 @@ date: 2026-11-11
 - `verify_original` 在同身份原文不一致时返回 `Conflicting immutable transaction` 错误。`core/crates/persistence/store/src/Transaction.rs:29`
 - `ordered` 按身份去重并按业务顺序排序，返回统一顺序的事务序列。`core/crates/persistence/store/src/Transaction.rs:45`
 - ordered 在同一来源同一 `sequence` 出现两条事务时返回错误。`core/crates/persistence/store/src/Transaction.rs:68`
-- `History` 的 `insert` 拒绝空身份，同身份事务须与已存原文一致。`core/crates/persistence/store/src/Transaction.rs:1081`
-- History 的 `materialize` 先对基线做 `migrate_data` 再重放事务。`core/crates/persistence/store/src/Transaction.rs:1150`
-- 目标为 `Target` 的 `Data` 但 `owner` 与当前数据不一致的事务被当作独立数据集跳过。`core/crates/persistence/store/src/Transaction.rs:1174`
-- 求有效视图或迁移失败的事务记入 `pending`。`core/crates/persistence/store/src/Transaction.rs:1176`
-- 应用失败的事务记入 `pending`。`core/crates/persistence/store/src/Transaction.rs:1192`
-- `Data` 的 `apply` 要求事务目标等于当前 `owner`，否则返回 `Transaction owner/version is not ready` 错误。`core/crates/persistence/store/src/Transaction.rs:454`
-- `Data` 的 `apply` 先在副本上应用全部 `edits`，全部成功后才整体提交。`core/crates/persistence/store/src/Transaction.rs:454`
-- 整体 `revision` 只在新事务的 `revision` 更新时才推进。`core/crates/persistence/store/src/Transaction.rs:488`
-- Data 的 apply_edit 对 ReplaceRecords，较旧的整组替换直接跳过。`core/crates/persistence/store/src/Transaction.rs:503`
-- Data 的 apply_edit 对 ReplaceRecords 按整组命名空间保存范围版本。`core/crates/persistence/store/src/Transaction.rs:537`
-- 已有更新的祖先范围版本时，较旧的写入被跳过。`core/crates/persistence/store/src/Transaction.rs:563`
+- `History` 的 `insert` 拒绝空身份，同身份事务须与已存原文一致。`core/crates/persistence/store/src/Transaction.rs:1085`
+- History 的 `materialize` 先对基线做 `migrate_data` 再重放事务。`core/crates/persistence/store/src/Transaction.rs:1154`
+- 目标为 `Target` 的 `Data` 但 `owner` 与当前数据不一致的事务被当作独立数据集跳过。`core/crates/persistence/store/src/Transaction.rs:1178`
+- 求有效视图或迁移失败的事务记入 `pending`。`core/crates/persistence/store/src/Transaction.rs:1180`
+- 应用失败的事务记入 `pending`。`core/crates/persistence/store/src/Transaction.rs:1196`
+- `Data` 的 `apply` 要求事务目标等于当前 `owner`，否则返回 `Transaction owner/version is not ready` 错误。`core/crates/persistence/store/src/Transaction.rs:458`
+- `Data` 的 `apply` 先在副本上应用全部 `edits`，全部成功后才整体提交。`core/crates/persistence/store/src/Transaction.rs:458`
+- 整体 `revision` 只在新事务的 `revision` 更新时才推进。`core/crates/persistence/store/src/Transaction.rs:492`
+- Data 的 apply_edit 对 ReplaceRecords，较旧的整组替换直接跳过。`core/crates/persistence/store/src/Transaction.rs:507`
+- Data 的 apply_edit 对 ReplaceRecords 按整组命名空间保存范围版本。`core/crates/persistence/store/src/Transaction.rs:541`
+- 已有更新的祖先范围版本时，较旧的写入被跳过。`core/crates/persistence/store/src/Transaction.rs:567`
 - Increment 要求整数且不溢出，否则返回错误。`core/crates/persistence/store/src/Transaction.rs:226`
 - 契约要求乱序、重复到达或离线修改按统一顺序合并，每个事务效果计入一次。`docs/transaction-sync-contract.md:32`
 - 契约要求同一字段先赋值 A 再赋值 AB 时保留 AB 的原身份和顺序，删除被覆盖的 A。`docs/transaction-sync-contract.md:34`
 - 契约要求旧事务同时修改 x、y 而新事务仅覆盖 x 时，y 仍有效，旧事务整体保留。`docs/transaction-sync-contract.md:35`
 - Data 含 `revision`，记录文件最后业务修改的顺序。`core/crates/persistence/store/src/Transaction.rs:356`
-- Data 含 `deleted` 与 `aliases`，`deleted` 记录删除事实，`aliases` 记录身份映射。`core/crates/persistence/store/src/Transaction.rs:357`
-- Data 含 `versions` 与 `additions`，`versions` 记录各修改范围的优先级，`additions` 记录尚需保留的增量贡献。`core/crates/persistence/store/src/Transaction.rs:360`
+- Data 含 `deleted` 与 `aliases`，`deleted` 记录删除事实，`aliases` 记录身份映射。`core/crates/persistence/store/src/Transaction.rs:360`
+- Data 含 `versions` 与 `additions`，`versions` 记录各修改范围的优先级，`additions` 记录尚需保留的增量贡献。`core/crates/persistence/store/src/Transaction.rs:363`
 - 契约定义 preference 迁移为格式迁移，转换同一数据集内部的字段、类型和编码，例如 `name → displayName`。`docs/transaction-sync-contract.md:17`
 - 契约定义 layout 迁移为归属迁移，移动路径、转交模块或明确退休旧来源，本机持有执行进度。`docs/transaction-sync-contract.md:18`
 - 契约定义 SQL 迁移为格式迁移，转换表结构及行的表示，数据库结构版本与业务修改版本分别记录。`docs/transaction-sync-contract.md:19`
-- `rename_field` 在目标字段已存在时返回 `Field destination exists` 错误。`core/crates/persistence/store/src/Transaction.rs:692`
-- `Migrations` 的 `resolve_path` 沿 layout 路由链解析当前路径，成环时返回 `Layout migration cycle` 错误。`core/crates/persistence/store/src/Transaction.rs:1019`
-- Migrations 的 `migrate_data` 按步骤应用格式规则并迁移数据。`core/crates/persistence/store/src/Transaction.rs:1031`
-- `migrate_data` 在应用规则后经 `relocate` 改写路径并替换 `owner`。`core/crates/persistence/store/src/Transaction.rs:1032`
-- Migrations 的 `migrate_transaction` 只对 `Target` 的 `Data` 的事务做迁移。`core/crates/persistence/store/src/Transaction.rs:1042`
-- Migrations 的 `steps` 在归属未知时返回 `Pending layout owner` 错误。`core/crates/persistence/store/src/Transaction.rs:1055`
-- 来源版本高于当前版本时返回 `Pending future layout/format` 错误。`core/crates/persistence/store/src/Transaction.rs:1061`
-- 格式迁移规则按来源 `format` 到当前 `format` 逐版本选取。`core/crates/persistence/store/src/Transaction.rs:1065`
-- Data 的 `relocate` 按新路径改写 `aliases` 中的身份映射并替换 `owner.path`。`core/crates/persistence/store/src/Transaction.rs:408`
+- `rename_field` 在目标字段已存在时返回 `Field destination exists` 错误。`core/crates/persistence/store/src/Transaction.rs:696`
+- `Migrations` 的 `resolve_path` 沿 layout 路由链解析当前路径，成环时返回 `Layout migration cycle` 错误。`core/crates/persistence/store/src/Transaction.rs:1023`
+- Migrations 的 `migrate_data` 按步骤应用格式规则并迁移数据。`core/crates/persistence/store/src/Transaction.rs:1035`
+- `migrate_data` 在应用规则后经 `relocate` 改写路径并替换 `owner`。`core/crates/persistence/store/src/Transaction.rs:1036`
+- Migrations 的 `migrate_transaction` 只对 `Target` 的 `Data` 的事务做迁移。`core/crates/persistence/store/src/Transaction.rs:1046`
+- Migrations 的 `steps` 在归属未知时返回 `Pending layout owner` 错误。`core/crates/persistence/store/src/Transaction.rs:1059`
+- 来源版本高于当前版本时返回 `Pending future layout/format` 错误。`core/crates/persistence/store/src/Transaction.rs:1065`
+- 格式迁移规则按来源 `format` 到当前 `format` 逐版本选取。`core/crates/persistence/store/src/Transaction.rs:1069`
+- Data 的 `relocate` 按新路径改写 `aliases` 中的身份映射并替换 `owner.path`。`core/crates/persistence/store/src/Transaction.rs:412`
 - 契约要求收到未来格式时原文进入待处理，升级就绪后应用。`docs/transaction-sync-contract.md:41`
 - 契约要求旧路径事务晚到时按 layout 映射交给当前归属。`docs/transaction-sync-contract.md:42`
 - 契约要求同一规则通过 f 作用于 DataStore、业务 SQL 及 SQL 事务视图。`docs/transaction-sync-contract.md:67`
-- `Form` 要求实现 `migrate` 与 `apply_rule`。`core/crates/persistence/store/src/Transaction.rs:1699`
-- `Data` 实现 `Form`。`core/crates/persistence/store/src/Transaction.rs:1703`
-- `Transaction` 实现 `Form`。`core/crates/persistence/store/src/Transaction.rs:1711`
-- `Migrations` 的 `migrate` 先在副本上迁移，成功后才替换原文。`core/crates/persistence/store/src/Transaction.rs:1720`
-- `Rule` 的 `apply` 先在副本上应用规则，成功后才替换原文。`core/crates/persistence/store/src/Transaction.rs:1728`
-- SqlDataset 的 `domain` 在聊天数据库路径下为 `chat`，否则为 `plugin_storage`。`core/crates/persistence/store/src/Transaction.rs:1518`
-- SqlDataset 的 `coverage` 合并已提交事务身份、初始化覆盖与初始化事务操作身份。`core/crates/persistence/store/src/Transaction.rs:1528`
-- SqlDataset 的 `initialization` 返回当前已保存的初始化事务操作。`core/crates/persistence/store/src/Transaction.rs:1522`
-- 提交快照时在定义给出时经 `restore_schema` 恢复表结构声明。`core/crates/persistence/store/src/Transaction.rs:1655`
-- Snapshot 的 `projected_content_summary` 允许 `owner` 把本地 SQL 账本列投影出内容比较。`core/crates/persistence/store/src/Transaction.rs:1261`
-- `project_sql_table` 把声明的本地列投影出 SQL 内容比较，并按行排序去重。`core/crates/persistence/store/src/Transaction.rs:1460`
+- `Form` 要求实现 `migrate` 与 `apply_rule`。`core/crates/persistence/store/src/Transaction.rs:1761`
+- `Data` 实现 `Form`。`core/crates/persistence/store/src/Transaction.rs:1765`
+- `Transaction` 实现 `Form`。`core/crates/persistence/store/src/Transaction.rs:1773`
+- `Migrations` 的 `migrate` 先在副本上迁移，成功后才替换原文。`core/crates/persistence/store/src/Transaction.rs:1782`
+- `Rule` 的 `apply` 先在副本上应用规则，成功后才替换原文。`core/crates/persistence/store/src/Transaction.rs:1790`
+- SqlDataset 的 `domain` 在聊天数据库路径下为 `chat`，否则为 `plugin_storage`。`core/crates/persistence/store/src/Transaction.rs:1528`
+- SqlDataset 的 `coverage` 合并已提交事务身份、初始化覆盖与初始化事务操作身份。`core/crates/persistence/store/src/Transaction.rs:1538`
+- SqlDataset 的 `initialization` 返回当前已保存的初始化事务操作。`core/crates/persistence/store/src/Transaction.rs:1532`
+- 提交快照时在定义给出时经 `restore_schema` 恢复表结构声明。`core/crates/persistence/store/src/Transaction.rs:1717`
+- Snapshot 的 `projected_content_summary` 允许 `owner` 把本地 SQL 账本列投影出内容比较。`core/crates/persistence/store/src/Transaction.rs:1265`
+- `project_sql_table` 把声明的本地列投影出 SQL 内容比较，并按行排序去重。`core/crates/persistence/store/src/Transaction.rs:1470`
 - `Target` 分 `Data(Owner)` 与 `Transaction(String)` 两种目标。`core/crates/persistence/store/src/Transaction.rs:101`
-- `root` 沿事务目标链追溯到一阶事务。`core/crates/persistence/store/src/Transaction.rs:1136`
-- 高阶事务只允许修改目标事务的 `edits` 字段，其余元数据不可变。`core/crates/persistence/store/src/Transaction.rs:1117`
-- History 的 `effective` 在高阶事务依赖成环时返回错误。`core/crates/persistence/store/src/Transaction.rs:1099`
-- `Snapshot` 含 `damage` 字段，记录损坏证据。`core/crates/persistence/store/src/Transaction.rs:1245`
-- `Snapshot` 的 `token` 是整份快照的摘要。`core/crates/persistence/store/src/Transaction.rs:1249`
-- `Snapshot` 的 `content_digest` 只对数据值做摘要，与重放账本无关。`core/crates/persistence/store/src/Transaction.rs:1253`
-- Snapshot 的 `replace` 以 `token` 做 CAS，期望 `token` 不符时返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1277`
-- 替换成功时 `generation` 加一。`core/crates/persistence/store/src/Transaction.rs:1285`
-- 替换成功时合并来源与本地的 `covered`。`core/crates/persistence/store/src/Transaction.rs:1293`
-- Snapshot 的 `replay` 只重放未被 `covered` 覆盖的事务。`core/crates/persistence/store/src/Transaction.rs:1297`
-- Manifest 含 `damaged` 标记。`core/crates/persistence/store/src/Transaction.rs:1320`
-- Manifest 含 `contentBytes` 字段，记录同步业务内容字节数。`core/crates/persistence/store/src/Transaction.rs:1318`
-- `compare_manifests` 在两端 `owner` 不一致时返回错误。`core/crates/persistence/store/src/Transaction.rs:1331`
-- `compare_manifests` 在一端损坏而另一端完好时选完好一方为权威，两端都损坏时返回错误。`core/crates/persistence/store/src/Transaction.rs:1335`
-- 摘要相等时判定 `Equal`。`core/crates/persistence/store/src/Transaction.rs:1342`
-- 摘要不等时先按 `contentBytes`、再按 `revision`、`node` 的字典序选权威方。`core/crates/persistence/store/src/Transaction.rs:1346`
-- `compare` 在摘要相等时返回 `None`。`core/crates/persistence/store/src/Transaction.rs:1380`
-- `serialized_digest` 用 `Sha256` 对序列化形式做摘要，`digest` 返回其哈希。`core/crates/persistence/store/src/Transaction.rs:1216`
-- SqlDataset 的 `receive_initialization` 在操作身份已被覆盖时返回 `false`，不重复接收。`core/crates/persistence/store/src/Transaction.rs:1596`
-- `receive_validated_initialization` 在初始化数据的 `owner` 或 `domain` 不符时返回 `Initialization owner differs` 错误。`core/crates/persistence/store/src/Transaction.rs:1605`
-- 提交快照时以 `token` 做 CAS，当前 `token` 与期望不符时返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1647`
-- `covered_by_initialization` 按初始化覆盖表判断操作是否已被封存。`core/crates/persistence/store/src/Transaction.rs:1690`
+- `root` 沿事务目标链追溯到一阶事务。`core/crates/persistence/store/src/Transaction.rs:1140`
+- 高阶事务只允许修改目标事务的 `edits` 字段，其余元数据不可变。`core/crates/persistence/store/src/Transaction.rs:1121`
+- History 的 `effective` 在高阶事务依赖成环时返回错误。`core/crates/persistence/store/src/Transaction.rs:1103`
+- `Snapshot` 含 `damage` 字段，记录损坏证据。`core/crates/persistence/store/src/Transaction.rs:1249`
+- `Snapshot` 的 `token` 是整份快照的摘要。`core/crates/persistence/store/src/Transaction.rs:1253`
+- `Snapshot` 的 `content_digest` 只对数据值做摘要，与重放账本无关。`core/crates/persistence/store/src/Transaction.rs:1257`
+- Snapshot 的 `replace` 以 `token` 做 CAS，期望 `token` 不符时返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1281`
+- 替换成功时 `generation` 加一。`core/crates/persistence/store/src/Transaction.rs:1289`
+- 替换成功时合并来源与本地的 `covered`。`core/crates/persistence/store/src/Transaction.rs:1297`
+- Snapshot 的 `replay` 只重放未被 `covered` 覆盖的事务。`core/crates/persistence/store/src/Transaction.rs:1301`
+- Manifest 含 `damaged` 标记。`core/crates/persistence/store/src/Transaction.rs:1326`
+- Manifest 含 `contentBytes` 字段，记录同步业务内容字节数。`core/crates/persistence/store/src/Transaction.rs:1324`
+- `compare_manifests` 在两端 `owner` 不一致时返回错误。`core/crates/persistence/store/src/Transaction.rs:1337`
+- `compare_manifests` 在一端损坏而另一端完好时选完好一方为权威，两端都损坏时返回错误。`core/crates/persistence/store/src/Transaction.rs:1341`
+- 摘要相等时判定 `Equal`。`core/crates/persistence/store/src/Transaction.rs:1351`
+- 摘要不等时先按 `contentBytes`、再按 `revision`、`node` 的字典序选权威方。`core/crates/persistence/store/src/Transaction.rs:1355`
+- `compare` 在摘要相等时返回 `None`。`core/crates/persistence/store/src/Transaction.rs:1390`
+- `serialized_digest` 用 `Sha256` 对序列化形式做摘要，`digest` 返回其哈希。`core/crates/persistence/store/src/Transaction.rs:1220`
+- SqlDataset 的 `receive_initialization` 在操作身份已被覆盖时返回 `false`，不重复接收。`core/crates/persistence/store/src/Transaction.rs:1656`
+- `receive_validated_initialization` 在初始化数据的 `owner` 或 `domain` 不符时返回 `Initialization owner differs` 错误。`core/crates/persistence/store/src/Transaction.rs:1665`
+- 提交快照时以 `token` 做 CAS，当前 `token` 与期望不符时返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1709`
+- `covered_by_initialization` 按初始化覆盖表判断操作是否已被封存。`core/crates/persistence/store/src/Transaction.rs:1752`
 - `operation_digest` 对事务引用返回其内容哈希，否则对事务操作做摘要。`core/crates/persistence/store/src/Transaction.rs:36`
 - 契约要求同版本、本轮增量已交换且比较未过期、内容仍不同时判为同步错误，选权威快照覆盖并再次比较。`docs/transaction-sync-contract.md:54`
 - Transaction.rs 声明 `transaction/Compaction.rs` 为 `compaction` 模块。`core/crates/persistence/store/src/Transaction.rs:14`
@@ -150,61 +150,61 @@ date: 2026-11-11
 - `Path` — 分 `Field`、`Item` 与 `Records` 三种定位。`core/crates/persistence/store/src/Transaction.rs:108`
 - `Data` — 完整业务状态，含 `owner` 与 `values`。`core/crates/persistence/store/src/Transaction.rs:350`
 - Data 的 `revision` — 文件最后业务修改的顺序。`core/crates/persistence/store/src/Transaction.rs:356`
-- Data 的 `deleted` 与 `aliases` — 删除事实与身份映射。`core/crates/persistence/store/src/Transaction.rs:357`
-- Data 的 `versions` 与 `additions` — 各修改范围的优先级与尚需保留的增量贡献。`core/crates/persistence/store/src/Transaction.rs:360`
-- `History` 的 `insert` — 拒绝空身份，同身份事务须与已存原文一致。`core/crates/persistence/store/src/Transaction.rs:1081`
-- History 的 `materialize` — 先对基线做 `migrate_data` 再重放事务。`core/crates/persistence/store/src/Transaction.rs:1150`
-- History 的 `effective` — 在高阶事务依赖成环时返回错误。`core/crates/persistence/store/src/Transaction.rs:1099`
-- History 的 `root` — 沿事务目标链追溯到一阶事务。`core/crates/persistence/store/src/Transaction.rs:1136`
-- `Replay` — 重放结果，含 `data`、`applied` 与 `pending` 三个字段。`core/crates/persistence/store/src/Transaction.rs:1205`
-- `Migrations` — 格式与 layout 迁移表，含 `owners`、`layouts` 与 `formats`。`core/crates/persistence/store/src/Transaction.rs:1012`
-- `Migrations` 的 `resolve_path` — 沿 layout 路由链解析当前路径，成环时返回错误。`core/crates/persistence/store/src/Transaction.rs:1019`
-- Migrations 的 `migrate_data` — 按步骤应用格式规则并迁移数据。`core/crates/persistence/store/src/Transaction.rs:1031`
-- Migrations 的 `migrate_transaction` — 只对 `Target` 的 `Data` 的事务做迁移。`core/crates/persistence/store/src/Transaction.rs:1042`
-- `Rule` — 含 `RenameKey` 与 `RenameField` 两种重命名规则。`core/crates/persistence/store/src/Transaction.rs:667`
-- Rule — 含 `SplitObject`、`DropKey` 与 `SplitRecords` 三种结构规则。`core/crates/persistence/store/src/Transaction.rs:682`
-- `rename_field` — 在目标字段已存在时返回错误。`core/crates/persistence/store/src/Transaction.rs:692`
-- `Snapshot` — 快照，字段为 `node`、`data`、`covered` 与 `generation`。`core/crates/persistence/store/src/Transaction.rs:1238`
-- `Snapshot` 的 `token` — 整份快照的摘要。`core/crates/persistence/store/src/Transaction.rs:1249`
-- `Snapshot` 的 `content_digest` — 只对数据值做摘要，与重放账本无关。`core/crates/persistence/store/src/Transaction.rs:1253`
-- Snapshot 的 `replace` — 以 `token` 做 CAS，期望 `token` 不符时返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1277`
-- Snapshot 的 `replay` — 只重放未被 `covered` 覆盖的事务。`core/crates/persistence/store/src/Transaction.rs:1297`
-- Snapshot 的 `projected_content_summary` — 允许 `owner` 把本地 SQL 账本列投影出内容比较。`core/crates/persistence/store/src/Transaction.rs:1261`
-- `Manifest` — 有线比较视图，字段为 `owner`、`node`、`revision`、`token` 与 `digest`。`core/crates/persistence/store/src/Transaction.rs:1311`
-- `Correction` — 合并两端 `covered` 的校正结果。`core/crates/persistence/store/src/Transaction.rs:1388`
-- `compare_manifests` — 在两端 `owner` 不一致时返回错误。`core/crates/persistence/store/src/Transaction.rs:1331`
-- `compare` — 在摘要相等时返回 `None`。`core/crates/persistence/store/src/Transaction.rs:1380`
+- Data 的 `deleted` 与 `aliases` — 删除事实与身份映射。`core/crates/persistence/store/src/Transaction.rs:360`
+- Data 的 `versions` 与 `additions` — 各修改范围的优先级与尚需保留的增量贡献。`core/crates/persistence/store/src/Transaction.rs:363`
+- `History` 的 `insert` — 拒绝空身份，同身份事务须与已存原文一致。`core/crates/persistence/store/src/Transaction.rs:1085`
+- History 的 `materialize` — 先对基线做 `migrate_data` 再重放事务。`core/crates/persistence/store/src/Transaction.rs:1154`
+- History 的 `effective` — 在高阶事务依赖成环时返回错误。`core/crates/persistence/store/src/Transaction.rs:1103`
+- History 的 `root` — 沿事务目标链追溯到一阶事务。`core/crates/persistence/store/src/Transaction.rs:1140`
+- `Replay` — 重放结果，含 `data`、`applied` 与 `pending` 三个字段。`core/crates/persistence/store/src/Transaction.rs:1209`
+- `Migrations` — 格式与 layout 迁移表，含 `owners`、`layouts` 与 `formats`。`core/crates/persistence/store/src/Transaction.rs:1016`
+- `Migrations` 的 `resolve_path` — 沿 layout 路由链解析当前路径，成环时返回错误。`core/crates/persistence/store/src/Transaction.rs:1023`
+- Migrations 的 `migrate_data` — 按步骤应用格式规则并迁移数据。`core/crates/persistence/store/src/Transaction.rs:1035`
+- Migrations 的 `migrate_transaction` — 只对 `Target` 的 `Data` 的事务做迁移。`core/crates/persistence/store/src/Transaction.rs:1046`
+- `Rule` — 含 `RenameKey` 与 `RenameField` 两种重命名规则。`core/crates/persistence/store/src/Transaction.rs:671`
+- Rule — 含 `SplitObject`、`DropKey` 与 `SplitRecords` 三种结构规则。`core/crates/persistence/store/src/Transaction.rs:686`
+- `rename_field` — 在目标字段已存在时返回错误。`core/crates/persistence/store/src/Transaction.rs:696`
+- `Snapshot` — 快照，字段为 `node`、`data`、`covered` 与 `generation`。`core/crates/persistence/store/src/Transaction.rs:1242`
+- `Snapshot` 的 `token` — 整份快照的摘要。`core/crates/persistence/store/src/Transaction.rs:1253`
+- `Snapshot` 的 `content_digest` — 只对数据值做摘要，与重放账本无关。`core/crates/persistence/store/src/Transaction.rs:1257`
+- Snapshot 的 `replace` — 以 `token` 做 CAS，期望 `token` 不符时返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1281`
+- Snapshot 的 `replay` — 只重放未被 `covered` 覆盖的事务。`core/crates/persistence/store/src/Transaction.rs:1301`
+- Snapshot 的 `projected_content_summary` — 允许 `owner` 把本地 SQL 账本列投影出内容比较。`core/crates/persistence/store/src/Transaction.rs:1265`
+- `Manifest` — 有线比较视图，字段为 `owner`、`node`、`revision`、`restoration`、`token` 与 `digest`。`core/crates/persistence/store/src/Transaction.rs:1318`
+- `Correction` — 合并两端 `covered` 的校正结果。`core/crates/persistence/store/src/Transaction.rs:1398`
+- `compare_manifests` — 在两端 `owner` 不一致时返回错误。`core/crates/persistence/store/src/Transaction.rs:1337`
+- `compare` — 在摘要相等时返回 `None`。`core/crates/persistence/store/src/Transaction.rs:1390`
 - `ordered` — 按身份去重并按业务顺序排序，返回统一顺序的事务序列。`core/crates/persistence/store/src/Transaction.rs:45`
 - `newer` — 在同一来源设备内比较 `sequence`，否则按 `Revision` 的全序比较。`core/crates/persistence/store/src/Transaction.rs:21`
 - `verify_original` — 在同身份原文不一致时返回错误。`core/crates/persistence/store/src/Transaction.rs:29`
-- SqlDataset 的 `domain` — 在聊天数据库路径下为 `chat`，否则为 `plugin_storage`。`core/crates/persistence/store/src/Transaction.rs:1518`
-- SqlDataset 的 `coverage` — 合并已提交事务身份、初始化覆盖与初始化事务操作身份。`core/crates/persistence/store/src/Transaction.rs:1528`
-- SqlDataset 的 `initialization` — 返回当前已保存的初始化事务操作。`core/crates/persistence/store/src/Transaction.rs:1522`
-- SqlDataset 的 `receive_initialization` — 在操作身份已被覆盖时返回 `false`，不重复接收。`core/crates/persistence/store/src/Transaction.rs:1596`
-- `covered_by_initialization` — 按初始化覆盖表判断操作是否已被封存。`core/crates/persistence/store/src/Transaction.rs:1690`
-- `Form` — 要求实现 `migrate` 与 `apply_rule`。`core/crates/persistence/store/src/Transaction.rs:1699`
-- `serialized_digest` — 用 `Sha256` 对序列化形式做摘要。`core/crates/persistence/store/src/Transaction.rs:1216`
+- SqlDataset 的 `domain` — 在聊天数据库路径下为 `chat`，否则为 `plugin_storage`。`core/crates/persistence/store/src/Transaction.rs:1528`
+- SqlDataset 的 `coverage` — 合并已提交事务身份、初始化覆盖与初始化事务操作身份。`core/crates/persistence/store/src/Transaction.rs:1538`
+- SqlDataset 的 `initialization` — 返回当前已保存的初始化事务操作。`core/crates/persistence/store/src/Transaction.rs:1532`
+- SqlDataset 的 `receive_initialization` — 在操作身份已被覆盖时返回 `false`，不重复接收。`core/crates/persistence/store/src/Transaction.rs:1656`
+- `covered_by_initialization` — 按初始化覆盖表判断操作是否已被封存。`core/crates/persistence/store/src/Transaction.rs:1752`
+- `Form` — 要求实现 `migrate` 与 `apply_rule`。`core/crates/persistence/store/src/Transaction.rs:1761`
+- `serialized_digest` — 用 `Sha256` 对序列化形式做摘要。`core/crates/persistence/store/src/Transaction.rs:1220`
 - `operation_digest` — 对事务引用返回其内容哈希，否则对事务操作做摘要。`core/crates/persistence/store/src/Transaction.rs:36`
-- `project_sql_table` — 把声明的本地列投影出 SQL 内容比较，并按行排序去重。`core/crates/persistence/store/src/Transaction.rs:1460`
+- `project_sql_table` — 把声明的本地列投影出 SQL 内容比较，并按行排序去重。`core/crates/persistence/store/src/Transaction.rs:1470`
 
 ## 调用链
 
-1. `History` 的 `insert` 收录事务原文，同身份事务须与已存原文一致。`core/crates/persistence/store/src/Transaction.rs:1081`
-2. History 的 `materialize` 先对基线做 `migrate_data` 再重放事务。`core/crates/persistence/store/src/Transaction.rs:1150`
-3. 对高阶事务求有效视图，只允许修改目标事务的 `edits` 字段。`core/crates/persistence/store/src/Transaction.rs:1117`
-4. Migrations 的 `migrate_transaction` 只对 `Target` 的 `Data` 的事务做迁移。`core/crates/persistence/store/src/Transaction.rs:1042`
+1. `History` 的 `insert` 收录事务原文，同身份事务须与已存原文一致。`core/crates/persistence/store/src/Transaction.rs:1085`
+2. History 的 `materialize` 先对基线做 `migrate_data` 再重放事务。`core/crates/persistence/store/src/Transaction.rs:1154`
+3. 对高阶事务求有效视图，只允许修改目标事务的 `edits` 字段。`core/crates/persistence/store/src/Transaction.rs:1121`
+4. Migrations 的 `migrate_transaction` 只对 `Target` 的 `Data` 的事务做迁移。`core/crates/persistence/store/src/Transaction.rs:1046`
 5. `ordered` 按身份去重并按业务顺序排序，返回统一顺序的事务序列。`core/crates/persistence/store/src/Transaction.rs:45`
-6. `Data` 的 `apply` 先在副本上应用全部 `edits`，全部成功后才整体提交。`core/crates/persistence/store/src/Transaction.rs:454`
-7. 重放结果记入 `Replay`，含 `data`、`applied` 与 `pending` 三个字段。`core/crates/persistence/store/src/Transaction.rs:1205`
-8. 两端以 `Manifest` 比较，`owner` 不一致时返回错误。`core/crates/persistence/store/src/Transaction.rs:1331`
-9. 摘要相等时判定 `Equal`。`core/crates/persistence/store/src/Transaction.rs:1342`
-10. 摘要不等时先按 `contentBytes`、再按 `revision`、`node` 的字典序选权威方。`core/crates/persistence/store/src/Transaction.rs:1346`
-11. `compare` 在摘要相等时返回 `None`。`core/crates/persistence/store/src/Transaction.rs:1380`
-12. `Correction` 合并两端 `covered`。`core/crates/persistence/store/src/Transaction.rs:1388`
-13. Snapshot 的 `replace` 以 `token` 做 CAS，期望 `token` 不符时返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1277`
-14. Snapshot 的 `replay` 只重放未被 `covered` 覆盖的事务。`core/crates/persistence/store/src/Transaction.rs:1297`
-15. SQL 侧由 SqlDataset 的 `receive_initialization` 接收初始化事务，已覆盖的操作身份返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1596`
-16. 提交快照时以 `token` 做 CAS，当前 `token` 与期望不符时返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1647`
+6. `Data` 的 `apply` 先在副本上应用全部 `edits`，全部成功后才整体提交。`core/crates/persistence/store/src/Transaction.rs:458`
+7. 重放结果记入 `Replay`，含 `data`、`applied` 与 `pending` 三个字段。`core/crates/persistence/store/src/Transaction.rs:1209`
+8. 两端以 `Manifest` 比较，`owner` 不一致时返回错误。`core/crates/persistence/store/src/Transaction.rs:1337`
+9. 摘要相等时判定 `Equal`。`core/crates/persistence/store/src/Transaction.rs:1351`
+10. 摘要不等时先按 `contentBytes`、再按 `revision`、`node` 的字典序选权威方。`core/crates/persistence/store/src/Transaction.rs:1355`
+11. `compare` 在摘要相等时返回 `None`。`core/crates/persistence/store/src/Transaction.rs:1390`
+12. `Correction` 合并两端 `covered`。`core/crates/persistence/store/src/Transaction.rs:1398`
+13. Snapshot 的 `replace` 以 `token` 做 CAS，期望 `token` 不符时返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1281`
+14. Snapshot 的 `replay` 只重放未被 `covered` 覆盖的事务。`core/crates/persistence/store/src/Transaction.rs:1301`
+15. SQL 侧由 SqlDataset 的 `receive_initialization` 接收初始化事务，已覆盖的操作身份返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1656`
+16. 提交快照时以 `token` 做 CAS，当前 `token` 与期望不符时返回 `false`。`core/crates/persistence/store/src/Transaction.rs:1709`
 
 ## 来源
 

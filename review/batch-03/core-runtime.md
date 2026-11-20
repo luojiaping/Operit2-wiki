@@ -190,14 +190,14 @@ cancelAllOperations 把各聊天的取消错误用分号连接后返回（`core/
 
 ### 同步入口
 
-syncClock 返回 protocolVersion 1、consistencyVersion 7 与 stateSummary 摘要（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1003`）。
-syncClock 还返回待处理操作数与 id、待传 blob 与错误列表（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1008`）。
-syncClockDigest 返回 protocolVersion 1 与同步摘要（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1049`）。
-syncOperationsSince 从 clock JSON 读取 includeProgress 标志并校验 receipt（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1058`）。
-syncApplyOperations 先经 RuntimeFileSyncStore 把文件类操作水合为原始操作，失败的记入 errors 并列入 deferred（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1093`）。
-syncApplyOperations 把操作接收进 journal 后应用待处理操作（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1104`）。
-syncApplyOperations 最后发布已应用变更（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1112`）。
-syncApplyImmediateBindingOperation 对单个路由传输的 Binding 操作直接应用，不移动持久同步时钟（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1121`）。
+syncClock 返回 protocolVersion 1、consistencyVersion 9 与 stateSummary 摘要（`core/crates/runtime/application/src/core/application/OperitApplication.rs:948`）。
+syncClock 还返回待处理操作数与 id、待传 blob 与错误列表（`core/crates/runtime/application/src/core/application/OperitApplication.rs:951`）。
+syncClockDigest 返回 protocolVersion 1 与同步摘要（`core/crates/runtime/application/src/core/application/OperitApplication.rs:994`）。
+syncOperationsSince 从 clock JSON 读取 includeProgress 标志并校验 receipt（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1001`）。
+syncApplyOperations 先经 RuntimeFileSyncStore 把文件类操作水合为原始操作，失败的记入 errors 并列入 deferred（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1039`）。
+syncApplyOperations 把操作接收进 journal 后应用待处理操作（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1047`）。
+syncApplyOperations 最后发布已应用变更（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1068`）。
+syncApplyImmediateBindingOperation 对单个路由传输的 Binding 操作直接应用，不移动持久同步时钟（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1085`）。
 refreshSynchronizedChatFlows 对有活跃本地流的聊天记 chat_flow_skip 并跳过（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1214`）。
 refreshSynchronizedChatFlows 对无活跃本地流的聊天调用 refreshChatMessagesFromPersistence 刷新（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1234`）。
 dispatchSynchronizedChatDeletions 在缺少任务调度 Host 时返回错误（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1247`）。

@@ -1,6 +1,6 @@
 {
   "issue": 61,
-  "source_commit": "655431d",
+  "source_commit": "35cffab",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Compose DSL 以 ABI 4 布局程序声明界面，ctx.useEffect 按依赖变化或处置清理，主题与传输快照加事务修订号驱动渲染。",

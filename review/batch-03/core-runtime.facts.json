@@ -336,36 +336,36 @@
     "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1457"
   },
   {
-    "fact": "syncClock 返回 protocolVersion 1、consistencyVersion 7 与 stateSummary 摘要。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1003"
+    "fact": "syncClock 返回 protocolVersion 1、consistencyVersion 9 与 stateSummary 摘要。",
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:948"
   },
   {
     "fact": "syncClock 还返回待处理操作数与 id、待传 blob 与错误列表。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1008"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:951"
   },
   {
     "fact": "syncClockDigest 返回 protocolVersion 1 与同步摘要。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1049"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:994"
   },
   {
     "fact": "syncOperationsSince 从 clock JSON 读取 includeProgress 标志并校验 receipt。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1058"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1001"
   },
   {
     "fact": "syncApplyOperations 先经 RuntimeFileSyncStore 把文件类操作水合为原始操作，失败的记入 errors 并列入 deferred。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1093"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1039"
   },
   {
     "fact": "syncApplyOperations 把操作接收进 journal 后应用待处理操作。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1104"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1047"
   },
   {
     "fact": "syncApplyOperations 最后发布已应用变更。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1112"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1068"
   },
   {
     "fact": "syncApplyImmediateBindingOperation 对单个路由传输的 Binding 操作直接应用，不移动持久同步时钟。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1121"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1085"
   },
   {
     "fact": "refreshSynchronizedChatFlows 对有活跃本地流的聊天记 chat_flow_skip 并跳过。",

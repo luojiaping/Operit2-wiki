@@ -21,9 +21,9 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 
 ## AI 速览
 
-- `LocalModelRegistrySnapshot` — 已装模型与引擎的快照，含 installedModels、installedEngines、preferredSourceKind、customModels（core/crates/provider/local-model/src/LocalModelRegistry.rs:49）
-- `InstalledLocalModel` — 一条已装模型记录：manifest、storagePath、installedAtMs、verifiedAtMs（core/crates/provider/local-model/src/LocalModelRegistry.rs:10）
-- `InstalledLocalEngine` — 一条已装引擎记录，多一个 artifact（core/crates/provider/local-model/src/LocalModelRegistry.rs:19）
+- `LocalModelRegistrySnapshot` — 已装模型与引擎的快照，含 installedModels、installedEngines、preferredSourceKind、customModels（core/crates/provider/local-model/src/LocalModelRegistry.rs:55）
+- `InstalledLocalModel` — 一条已装模型记录：manifest、storagePath、installedAtMs、verifiedAtMs（core/crates/provider/local-model/src/LocalModelRegistry.rs:16）
+- `InstalledLocalEngine` — 一条已装引擎记录，多一个 artifact（core/crates/provider/local-model/src/LocalModelRegistry.rs:25）
 - `LocalModelProvider` — 本地模型解析入口：查快照、校验模型与引擎（core/crates/provider/local-model/src/LocalModelProvider.rs:68）
 - `ResolvedLocalModelRuntime` — resolve 的结果：模型、引擎与三条目录（core/crates/provider/local-model/src/LocalModelProvider.rs:59）
 - `LocalModelRuntimeSupport` — runtime 向实现方索取本地模型能力的 trait（core/crates/provider/local-model/src/runtime_support.rs:9）
@@ -41,30 +41,30 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 
 ### 注册表快照
 
-- 快照 `LocalModelRegistrySnapshot` 由 installedModels、installedEngines、preferredSourceKind、customModels 四组数据组成（core/crates/provider/local-model/src/LocalModelRegistry.rs:49）。
-- 快照 `LocalModelRegistrySnapshot` 的 `empty()` 生成四组数据全空、preferredSourceKind 为 None 的快照（core/crates/provider/local-model/src/LocalModelRegistry.rs:56 core/crates/provider/local-model/src/LocalModelRegistry.rs:84）。
-- 快照反序列化时 installedEngines、preferredSourceKind、customModels 缺失时取默认值（core/crates/provider/local-model/src/LocalModelRegistry.rs:51）。
-- 一条已装模型记录 `InstalledLocalModel` 含 manifest、storagePath、installedAtMs 与 verifiedAtMs（core/crates/provider/local-model/src/LocalModelRegistry.rs:10）。
-- 一条已装引擎记录 `InstalledLocalEngine` 除上述四项外还记录 artifact（core/crates/provider/local-model/src/LocalModelRegistry.rs:19）。
-- 已装模型的 registryKey 直接复用其 manifest 的 registryKey（core/crates/provider/local-model/src/LocalModelRegistry.rs:39）。
-- 已装引擎的 registryKey 形如 {manifest.id}@{manifest.version}#{target.storageSegment()}（core/crates/provider/local-model/src/LocalModelRegistry.rs:29）。
-- `getInstalledModel` 按 trim 后的 modelId 与 version 精确匹配已装模型（core/crates/provider/local-model/src/LocalModelRegistry.rs:132）。
-- `modelsByKind` 按 manifest.kind 过滤已装模型（core/crates/provider/local-model/src/LocalModelRegistry.rs:140）。
-- `getInstalledEngine` 按 engineId、version 与 LocalPlatformTarget 三者精确匹配已装引擎（core/crates/provider/local-model/src/LocalModelRegistry.rs:148）。
-- `upsert` 按 modelId 与 version 替换同键已装模型，不存在时追加（core/crates/provider/local-model/src/LocalModelRegistry.rs:165）。
-- `upsertEngine` 按 id、version 与 target 替换同键已装引擎（core/crates/provider/local-model/src/LocalModelRegistry.rs:175）。
-- `remove` 按 modelId 与 version 删除已装模型，删到返回 true、未删到返回 false（core/crates/provider/local-model/src/LocalModelRegistry.rs:186）。
-- `removeEngine` 按 id、version 与 target 删除已装引擎，返回值含义与 remove 相同（core/crates/provider/local-model/src/LocalModelRegistry.rs:193）。
-- `getCustomModel` 按 id 与 version 在 customModels 中查找自定义导入的模型清单（core/crates/provider/local-model/src/LocalModelRegistry.rs:94）。
-- `upsertCustomModel` 按 id 与 version 替换或追加自定义模型清单（core/crates/provider/local-model/src/LocalModelRegistry.rs:103）。
-- `removeCustomModel` 按 id 与 version 删除自定义模型清单，删到返回 true（core/crates/provider/local-model/src/LocalModelRegistry.rs:113）。
+- 快照 `LocalModelRegistrySnapshot` 由 installedModels、installedEngines、preferredSourceKind、customModels 四组数据组成（core/crates/provider/local-model/src/LocalModelRegistry.rs:55）。
+- 快照 `LocalModelRegistrySnapshot` 的 `empty()` 生成四组数据全空、preferredSourceKind 为 None 的快照（core/crates/provider/local-model/src/LocalModelRegistry.rs:62 core/crates/provider/local-model/src/LocalModelRegistry.rs:151）。
+- 快照反序列化时 installedEngines、preferredSourceKind、customModels 缺失时取默认值（core/crates/provider/local-model/src/LocalModelRegistry.rs:57）。
+- 一条已装模型记录 `InstalledLocalModel` 含 manifest、storagePath、installedAtMs 与 verifiedAtMs（core/crates/provider/local-model/src/LocalModelRegistry.rs:16）。
+- 一条已装引擎记录 `InstalledLocalEngine` 除上述四项外还记录 artifact（core/crates/provider/local-model/src/LocalModelRegistry.rs:25）。
+- 已装模型的 registryKey 直接复用其 manifest 的 registryKey（core/crates/provider/local-model/src/LocalModelRegistry.rs:45）。
+- 已装引擎的 registryKey 形如 {manifest.id}@{manifest.version}#{target.storageSegment()}（core/crates/provider/local-model/src/LocalModelRegistry.rs:35）。
+- `getInstalledModel` 按 trim 后的 modelId 与 version 精确匹配已装模型（core/crates/provider/local-model/src/LocalModelRegistry.rs:198）。
+- `modelsByKind` 按 manifest.kind 过滤已装模型（core/crates/provider/local-model/src/LocalModelRegistry.rs:207）。
+- `getInstalledEngine` 按 engineId、version 与 LocalPlatformTarget 三者精确匹配已装引擎（core/crates/provider/local-model/src/LocalModelRegistry.rs:215）。
+- `upsert` 按 modelId 与 version 替换同键已装模型，不存在时追加（core/crates/provider/local-model/src/LocalModelRegistry.rs:232）。
+- `upsertEngine` 按 id、version 与 target 替换同键已装引擎（core/crates/provider/local-model/src/LocalModelRegistry.rs:242）。
+- `remove` 按 modelId 与 version 删除已装模型，删到返回 true、未删到返回 false（core/crates/provider/local-model/src/LocalModelRegistry.rs:253）。
+- `removeEngine` 按 id、version 与 target 删除已装引擎，返回值含义与 remove 相同（core/crates/provider/local-model/src/LocalModelRegistry.rs:260）。
+- `getCustomModel` 按 id 与 version 在 customModels 中查找自定义导入的模型清单（core/crates/provider/local-model/src/LocalModelRegistry.rs:161）。
+- `upsertCustomModel` 按 id 与 version 替换或追加自定义模型清单（core/crates/provider/local-model/src/LocalModelRegistry.rs:170）。
+- `removeCustomModel` 按 id 与 version 删除自定义模型清单，删到返回 true（core/crates/provider/local-model/src/LocalModelRegistry.rs:177）。
 
 ### 模型清单与下载来源
 
-- 模型清单的每条下载来源记录 id、kind、repository、revision 与 baseUrl（core/crates/provider/local-model/src/LocalModelRegistry.rs:323）。
-- 模型清单的每条文件记录 relativePath、sha256、byteSize 与 sourceId（core/crates/provider/local-model/src/LocalModelRegistry.rs:330）。
-- `preferredSource` 在未设置 preferredSourceKind 时返回 LocalModelSourceKind::HuggingFace（core/crates/provider/local-model/src/LocalModelRegistry.rs:121）。
-- `setPreferredSource` 把 preferredSourceKind 写成给定的 LocalModelSourceKind（core/crates/provider/local-model/src/LocalModelRegistry.rs:126）。
+- 模型清单的每条下载来源记录 id、kind、repository、revision 与 baseUrl（core/crates/provider/local-model/src/LocalModelRegistry.rs:438）。
+- 模型清单的每条文件记录 relativePath、sha256、byteSize 与 sourceId（core/crates/provider/local-model/src/LocalModelRegistry.rs:445）。
+- `preferredSource` 在未设置 preferredSourceKind 时返回 LocalModelSourceKind::HuggingFace（core/crates/provider/local-model/src/LocalModelRegistry.rs:187）。
+- `setPreferredSource` 把 preferredSourceKind 写成给定的 LocalModelSourceKind（core/crates/provider/local-model/src/LocalModelRegistry.rs:193）。
 - `LocalModelDownload` 与 `LocalModelHub` 只在 lib.rs 中声明（core/crates/provider/local-model/src/lib.rs:16），实现不在本页 seed 内。
 
 ### 解析：resolve
@@ -149,9 +149,9 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 
 ## 关键符号
 
-- `LocalModelRegistrySnapshot` — 已装模型与引擎的快照（core/crates/provider/local-model/src/LocalModelRegistry.rs:49）
-- `InstalledLocalModel` — 已装模型记录（core/crates/provider/local-model/src/LocalModelRegistry.rs:10）
-- `InstalledLocalEngine` — 已装引擎记录（core/crates/provider/local-model/src/LocalModelRegistry.rs:19）
+- `LocalModelRegistrySnapshot` — 已装模型与引擎的快照（core/crates/provider/local-model/src/LocalModelRegistry.rs:55）
+- `InstalledLocalModel` — 已装模型记录（core/crates/provider/local-model/src/LocalModelRegistry.rs:16）
+- `InstalledLocalEngine` — 已装引擎记录（core/crates/provider/local-model/src/LocalModelRegistry.rs:25）
 - `LocalModelProvider` — 本地模型解析入口，不再持有 runtimeRoot（core/crates/provider/local-model/src/LocalModelProvider.rs:68）
 - LocalModelProvider 的 `resolve` — 解析已装模型与当前平台引擎（core/crates/provider/local-model/src/LocalModelProvider.rs:85）
 - `transcribeLocalSpeech` — 宿主 STT 入口，未绑定平台宿主时走桌面 Sherpa 转录（hosts/common/operit-host-local-inference/src/lib.rs:78）
