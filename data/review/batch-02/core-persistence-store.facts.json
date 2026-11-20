@@ -17,19 +17,19 @@
   },
   {
     "fact": "lib.rs 用 pub use PreferencesDataStore::* 把偏好存储的公开项重导出到 crate 根。",
-    "ref": "core/crates/persistence/store/src/lib.rs:56"
+    "ref": "core/crates/persistence/store/src/lib.rs:54"
   },
   {
     "fact": "lib.rs 用 pub use SqliteStore::* 把该模块的公开项重导出到 crate 根。",
-    "ref": "core/crates/persistence/store/src/lib.rs:62"
+    "ref": "core/crates/persistence/store/src/lib.rs:60"
   },
   {
     "fact": "lib.rs 的 pub use SqliteStore::*; 重导出本身也在 #[cfg(feature = \"full\")] 门控下。",
-    "ref": "core/crates/persistence/store/src/lib.rs:61"
+    "ref": "core/crates/persistence/store/src/lib.rs:59"
   },
   {
     "fact": "lib.rs 的 repository、dao、db、sync 四个模块只在 feature full 下公开。",
-    "ref": "core/crates/persistence/store/src/lib.rs:69"
+    "ref": "core/crates/persistence/store/src/lib.rs:67"
   },
   {
     "fact": "SqliteStore 模块只在 feature full 下公开。",
@@ -49,79 +49,79 @@
   },
   {
     "fact": "SqliteStore::open 用 runtimeStoragePath 解析逻辑路径后打开数据库。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:47"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:73"
   },
   {
     "fact": "SqliteStore::openWithHost 打开连接后执行 PRAGMA foreign_keys = ON。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:57"
-  },
-  {
-    "fact": "SqliteStore::executeBatch 执行一段 SQL 批处理。",
     "ref": "core/crates/persistence/store/src/SqliteStore.rs:81"
   },
   {
+    "fact": "SqliteStore::executeBatch 执行一段 SQL 批处理。",
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:118"
+  },
+  {
     "fact": "SqliteStore::execute 执行一条 SQL 语句并返回受影响行数。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:86"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:123"
   },
   {
     "fact": "SqliteStore::queryRows 运行查询并返回全部行。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:95"
-  },
-  {
-    "fact": "SqliteStore::queryOne 运行查询并返回首行的 Option，不存在时为空。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:104"
-  },
-  {
-    "fact": "SqliteStore::queryScalar 取首行首列并转换类型，无行时报错 sqlite query returned no rows。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:113"
-  },
-  {
-    "fact": "SqliteStore::getUserVersion 读 PRAGMA user_version。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:126"
-  },
-  {
-    "fact": "SqliteStore::setUserVersion 写 PRAGMA user_version。",
     "ref": "core/crates/persistence/store/src/SqliteStore.rs:132"
   },
   {
+    "fact": "SqliteStore::queryOne 运行查询并返回首行的 Option，不存在时为空。",
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:141"
+  },
+  {
+    "fact": "SqliteStore::queryScalar 取首行首列并转换类型，无行时报错 sqlite query returned no rows。",
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:150"
+  },
+  {
+    "fact": "SqliteStore::getUserVersion 读 PRAGMA user_version。",
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:163"
+  },
+  {
+    "fact": "SqliteStore::setUserVersion 写 PRAGMA user_version。",
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:169"
+  },
+  {
     "fact": "SqliteStore::tableExists 查 sqlite_master 判断指定表是否存在。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:139"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:176"
   },
   {
     "fact": "SqliteStore::addInvalidationObserver 注册失效回调。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:148"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:185"
   },
   {
     "fact": "SqliteStore::notifyInvalidated 依次调用全部已注册失效回调。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:162"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:199"
   },
   {
     "fact": "SqliteStore::transaction 在 action 成功时提交，失败时显式回滚；回滚也失败时返回同时携带 action 错误与 rollback 错误的 TransactionRollback。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:189"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:226"
   },
   {
     "fact": "测试 failed_action_rolls_back_explicitly_without_destructor_cleanup 要求失败的 action 恰好显式回滚一次，不依赖析构清理。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:558"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:609"
   },
   {
     "fact": "SqliteTransaction::execute 在事务内执行语句。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:207"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:244"
   },
   {
     "fact": "SqliteTransaction::lastInsertRowId 返回事务内最后插入行的 id。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:240"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:277"
   },
   {
     "fact": "FromSqliteValue 把 host 的 SqliteValue 转成 Rust 强类型值。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:289"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:326"
   },
   {
     "fact": "ToSqliteValue 把 Rust 值转成 host 的 SqliteValue。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:342"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:379"
   },
   {
     "fact": "sqliteParams! 宏把值转成 SqliteValue 参数向量。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:412"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:449"
   },
   {
     "fact": "CoreNodeIdentity 只有一个字段 nodeId。",
@@ -733,6 +733,6 @@
   },
   {
     "fact": "SqliteStore 的 addInvalidationObserver 把实时 store 传给失效回调，回调不必持有自己的 store。",
-    "ref": "core/crates/persistence/store/src/SqliteStore.rs:148"
+    "ref": "core/crates/persistence/store/src/SqliteStore.rs:185"
   }
 ]

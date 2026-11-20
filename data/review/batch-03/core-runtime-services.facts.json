@@ -889,27 +889,27 @@
   },
   {
     "fact": "openPluginChatMessage 准入恰好一次已认证发送并拥有其生成、最终收据与清理",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:827"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:836"
   },
   {
     "fact": "requestPluginChatCancellation 同步捕获归属以便排队取消不指向后续执行",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:870"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:879"
   },
   {
     "fact": "sendChatMessage 在 Holder 之外调用权威提交钩子，只等待发起回合的实际提交收据",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:898"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:907"
   },
   {
     "fact": "callChatModel 直接调用配置的功能模型，不记入聊天历史",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:962"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:971"
   },
   {
     "fact": "processFileBindingOperations 对文件内容应用结构化编辑",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:983"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1047"
   },
   {
     "fact": "generateUnifiedDiff 为文件应用结果生成统一 diff",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:999"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1063"
   },
   {
     "fact": "runtimeChatSlotToRuntimeSlot 把工具 crate 的 MAIN/FLOATING 槽位映射为运行时 holder 槽位",

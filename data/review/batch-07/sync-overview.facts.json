@@ -248,8 +248,8 @@
     "ref": "docs/sync-architecture.md:86"
   },
   {
-    "fact": "所有同步设备需一起更新到 `consistencyVersion: 8`，旧协议不能完成同步。",
-    "ref": "docs/sync-architecture.md:86"
+    "fact": "所有同步设备需一起更新到 `consistencyVersion` 9，旧协议不能完成同步。",
+    "ref": "core/crates/node/runtime/src/SyncConsistency.rs:22"
   },
   {
     "fact": "聊天 owner 比较时排除 SQLite 本地分配的 `messages.messageId` 和 `message_variants.variantId`，按去掉本地列后的内容重新排序。",
@@ -416,7 +416,7 @@
     "ref": "docs/sync-architecture.md:131"
   },
   {
-    "fact": "同步收据的 `protocolVersion` 为 1，`consistencyVersion` 为 8。",
+    "fact": "同步收据的 `protocolVersion` 为 1，`consistencyVersion` 为 9。",
     "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:948"
   },
   {

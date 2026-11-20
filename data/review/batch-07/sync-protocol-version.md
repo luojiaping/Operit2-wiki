@@ -32,8 +32,8 @@ date: 2026-11-11
 - `PEER_PROTOCOL_MISMATCH` — 协议版本不匹配时返回的错误。`docs/peer-protocol-versioning.md:86`
 - `PEER_PROTOCOL_UPGRADE_REQUIRED` — 缺少协议声明时返回的错误。`docs/peer-protocol-versioning.md:87`
 - `protocolVersion` — 设备资料中的协议版本字段。`docs/peer-protocol-versioning.md:85`
-- `requireConsistencySupport` — 要求本地与远端时钟的 `consistencyVersion` 均为 8 的一致性门。`core/crates/node/runtime/src/SyncConsistency.rs:22`
-- `consistencyVersion` — 同步内容一致性校验的内部版本号，当前为 8。`core/crates/node/runtime/src/SyncConsistency.rs:22`
+- `requireConsistencySupport` — 要求本地与远端时钟的 `consistencyVersion` 均为 9 的一致性门。`core/crates/node/runtime/src/SyncConsistency.rs:22`
+- `consistencyVersion` — 同步内容一致性校验的内部版本号，当前为 9。`core/crates/node/runtime/src/SyncConsistency.rs:22`
 - 主入口函数：`requireConsistencySupport`。`core/crates/node/runtime/src/SyncConsistency.rs:22`
 - 数据流向一句话：构建时扫描 `core/crates/runtime/application/src` 中带 `operit_core_route` 注解的方法，提取签名与路由元数据算 SHA-256 指纹。`docs/peer-protocol-versioning.md:10`
 - 数据流向一句话：业务同步通过 `$node.sync` 的 `protocol` 方法读取最终目标的协议版本。`docs/peer-protocol-versioning.md:84`
@@ -68,8 +68,8 @@ date: 2026-11-11
 - 这是首次引入统一协议版本，此前未声明该版本的 Core 或 Edge 程序需要升级一次，已有设备身份和配对凭据保留。`docs/peer-protocol-versioning.md:90`
 - 此后软件版本变化、协议版本不变时，不要求厂商同步升级。`docs/peer-protocol-versioning.md:91`
 - 原有配对安全协议、投影分页协议和同步记录格式的内部版本继续保留，其修改也纳入总指纹。`docs/peer-protocol-versioning.md:92`
-- 任一侧 `consistencyVersion` 不是 8 时，`requireConsistencySupport` 返回错误，消息为“{side} peer cannot verify synchronized contents; a compatible version is required”。`core/crates/node/runtime/src/SyncConsistency.rs:24`
-- 测试确认 `consistencyVersion` 为 0 至 7、缺失或空对象时 `requireConsistencySupport` 均返回错误。`core/crates/node/runtime/src/SyncConsistency.rs:291`
+- 任一侧 `consistencyVersion` 不是 9 时，`requireConsistencySupport` 返回错误，消息为“{side} peer cannot verify synchronized contents; a compatible version is required”。`core/crates/node/runtime/src/SyncConsistency.rs:24`
+- 测试确认 `consistencyVersion` 为 0 至 8、缺失或空对象时 `requireConsistencySupport` 均返回错误。`core/crates/node/runtime/src/SyncConsistency.rs:291`
 
 ## 关键符号
 
@@ -82,8 +82,8 @@ date: 2026-11-11
 - `PEER_PROTOCOL_UPGRADE_REQUIRED` — 缺少协议声明时返回的错误。`docs/peer-protocol-versioning.md:87`
 - `protocolVersion` — 设备资料中的协议版本字段，拓扑状态比较它。`docs/peer-protocol-versioning.md:85`
 - `$node.sync` 的 `protocol` 方法 — 读取最终目标协议版本的方法，适用于中继路由。`docs/peer-protocol-versioning.md:84`
-- `consistencyVersion` — 同步内容一致性校验的内部版本号，当前为 8。`core/crates/node/runtime/src/SyncConsistency.rs:22`
-- `requireConsistencySupport` — 要求本地与远端时钟的 `consistencyVersion` 均为 8。`core/crates/node/runtime/src/SyncConsistency.rs:22`
+- `consistencyVersion` — 同步内容一致性校验的内部版本号，当前为 9。`core/crates/node/runtime/src/SyncConsistency.rs:22`
+- `requireConsistencySupport` — 要求本地与远端时钟的 `consistencyVersion` 均为 9。`core/crates/node/runtime/src/SyncConsistency.rs:22`
 - `consistencyReports` — 同时向远端发 `PeerSyncMethod::SyncConsistency` 并在本地调 `syncConsistency`。`core/crates/node/runtime/src/SyncConsistency.rs:37`
 - `reportsAtExchange` — 要求本地与远端报告的 `boundary` 分别等于各自收据的 `digest`。`core/crates/node/runtime/src/SyncConsistency.rs:141`
 - `verifyReports` — 校验两侧报告无错误，返回 `correctionPlans` 是否为空。`core/crates/node/runtime/src/SyncConsistency.rs:175`

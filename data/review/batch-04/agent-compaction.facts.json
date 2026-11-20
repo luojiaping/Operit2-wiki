@@ -145,15 +145,15 @@
   },
   {
     "fact": "在已准入回合完成、且回合工作要求回复后摘要（summaryPolicy 为 AfterReply）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1100"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1109"
   },
   {
     "fact": "执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2455"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2484"
   },
   {
     "fact": "超限后调用 `onTokenLimitExceeded` 回调",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2470"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2503"
   },
   {
     "fact": "handleTokenLimitExceeded 先等 `summaryTaskForChat` 返回的进行中摘要任务完成，再调用 `isCurrentChatTurn` 校验回合归属",

@@ -1,6 +1,6 @@
 {
   "issue": 17,
-  "source_commit": "655431d",
+  "source_commit": "35cffab",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "离线便携式数据救援：不启动 Core/数据库，ZIP 归档加 manifest 校验后暂存发布",

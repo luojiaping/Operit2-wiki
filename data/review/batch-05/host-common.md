@@ -117,7 +117,7 @@ NativeArchiveStagingHost 的 `sealArchive` 校验实际长度等于声明长度�
 NativeArchiveStagingHost 的 `writeExportArchive` 单块写入上限为 64 KiB（`hosts/common/operit-host-native-storage/src/lib.rs:383`）。
 NativeArchiveStagingHost 的 `archiveFileReference` 只对已密封归档返回文件引用（`hosts/common/operit-host-native-storage/src/lib.rs:410`）。
 NativeRuntimeStorageHost 的 `openSqliteDatabase` 在存储根下打开 SQLite 数据库（`hosts/common/operit-host-native-storage/src/lib.rs:1015`）。
-SQLite 事务用 `Immediate` 行为先占写锁再读（`hosts/common/operit-host-native-storage/src/lib.rs:1103`）。
+SQLite 事务用 `Immediate` 行为先占写锁再读（`hosts/common/operit-host-native-storage/src/lib.rs:1088`）。
 `NativeFileSecretStore` 由 storage crate 从 `secrets` 子模块重导出（`hosts/common/operit-host-native-storage/src/lib.rs:2`）。
 
 ### 终端与托管运行时

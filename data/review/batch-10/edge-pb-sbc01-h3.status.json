@@ -1,6 +1,6 @@
 {
   "issue": 99,
-  "source_commit": "655431d",
+  "source_commit": "35cffab",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "PB_SBC01_H3 机器人：完整 Core 控制器与本地脸部控制台渲染器，共用机器人脸部状态文件。",

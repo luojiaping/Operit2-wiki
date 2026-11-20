@@ -78,7 +78,7 @@ date: 2026-11-11
 
 ### 一致性比较
 
-- 一致性清单只使用 `digest` 判断内容是否相同，所有同步设备需一起更新到 `consistencyVersion: 8`，旧协议不能完成同步（`docs/sync-architecture.md:86`）。
+- 一致性清单只使用 `digest` 判断内容是否相同，所有同步设备需一起更新到 `consistencyVersion` 9，旧协议不能完成同步（`docs/sync-architecture.md:86` `core/crates/node/runtime/src/SyncConsistency.rs:22`）。
 - 聊天 owner 比较时排除 SQLite 本地分配的 `messages.messageId` 和 `message_variants.variantId`，插件 owner 排除对象存储的本地 CAS `version`（`docs/sync-architecture.md:88`）。
 - 比较范围由各端自己的本轮导出收据确定，无需两端同时采样（`docs/transaction-sync-contract.md:69`）。
 
@@ -143,7 +143,7 @@ date: 2026-11-11
 - `transactions.sqlite` — 生产日志数据库（`docs/sync-architecture.md:72`）
 - `sync_sql_deletions` — 删除事实的沿用表（`docs/sync-architecture.md:61`）
 - `__operit_preferences_replication` — 偏好内部复制字段，保存初始值导入标记、来源 epoch/序号、逻辑时间、已应用指纹及待归档 outbox（`docs/sync-architecture.md:54`）
-- `consistencyVersion: 8` — 一致性协议版本，所有同步设备需一起更新到该版本（`docs/sync-architecture.md:86`）
+- `consistencyVersion` — 一致性协议版本，当前为 9，所有同步设备需一起更新到该版本（`core/crates/node/runtime/src/SyncConsistency.rs:22`）
 - `correctionPlans` — 生成完整校正计划，内容相同时失败清单、`pending` 或 `skipped` 原文仍触发（`core/crates/node/runtime/src/SyncConsistency.rs:146` `core/crates/node/runtime/src/SyncConsistency.rs:163`）
 - `synchronizeConsistency` — 执行一致性校正，输出 correct、applied、done 日志（`core/crates/node/runtime/src/SyncConsistency.rs:47`）
 

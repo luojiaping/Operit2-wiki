@@ -79,9 +79,9 @@ date: 2026-11-11
 - 发送前摘要检查的开关在续跑、自动续跑与 resume 时为假，三个标志是 `isContinuation`、`isAutoContinuation` 与 `isResume`（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:709`）。
 - MessageCoordinationDelegate 的 `checkSummaryAfterReply` 在回复后调用 recalculateStableWindowSize 重算稳定窗口（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:856`）。
 - checkSummaryAfterReply 逐个参与者调用 `shouldGenerateSummary` 核对各自模型的摘要阈值（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:874`）。
-- 在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1100`）。
-- 执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2455`）。
-- 超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2470`）。
+- 在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1109`）。
+- 执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2484`）。
+- 超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2503`）。
 - MessageCoordinationDelegate 的 `handleTokenLimitExceeded` 先等 summaryTaskForChat 返回的进行中摘要任务完成，再调用 isCurrentChatTurn 校验回合归属（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1130`）。
 - handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1168`）。
 - handleTokenLimitExceeded 压缩后调用 `sendMessageInternal` 续跑同一已提交用户回合（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1180`）。
@@ -194,10 +194,10 @@ date: 2026-11-11
 7. 发送前自动压缩：`prepareSummaryForSend` 做摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）。
 8. 发送前自动压缩：`SummarySendPolicy` 决策是否评估窗口占比（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:805`）。
 9. 发送前自动压缩：窗口占比达到阈值时 `shouldGenerateSummary` 判断并启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:821`）。
-10. 回复后自动压缩：在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1100`）。
+10. 回复后自动压缩：在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1109`）。
 11. 回复后自动压缩：checkSummaryAfterReply 逐个参与者核对摘要阈值（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:874`）。
-12. 执行中超限：`usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2455`）。
-13. 执行中超限：超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2470`）。
+12. 执行中超限：`usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2484`）。
+13. 执行中超限：超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2503`）。
 14. 执行中超限：handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1168`）。
 15. 执行中超限：压缩后 `sendMessageInternal` 续跑同一已提交用户回合（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1180`）。
 16. 摘要生成：summarizeMemory 只总结上一次摘要之后的用户与 AI 消息（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:547`）。

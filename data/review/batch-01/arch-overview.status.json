@@ -1,6 +1,6 @@
 {
   "issue": 6,
-  "source_commit": "655431d",
+  "source_commit": "35cffab",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "整体架构总览：CoreNode、Space、Binding 三概念，两条数据路径，Core crate 依赖方向与父级 trait 注入。",

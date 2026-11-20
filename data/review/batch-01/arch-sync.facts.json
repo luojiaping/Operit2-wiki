@@ -35,7 +35,7 @@
   {"fact": "布局状态只属于本节点，不参与 Space 同步，也不能由远端版本推进", "ref": "docs/sync-architecture.md:54"},
   {"fact": "退出后删除、重新加入也遵守删除规则", "ref": "docs/sync-architecture.md:63"},
   {"fact": "当前对话选择属于本机状态，各端独立保存", "ref": "docs/transaction-sync-contract.md:69"},
-  {"fact": "一致性清单只使用 digest 判断内容是否相同，所有同步设备需一起更新到 consistencyVersion: 8，旧协议不能完成同步", "ref": "docs/sync-architecture.md:86"},
+  {"fact": "一致性清单只使用 digest 判断内容是否相同，所有同步设备需一起更新到 consistencyVersion: 9，旧协议不能完成同步", "ref": "core/crates/node/runtime/src/SyncConsistency.rs:22"},
   {"fact": "聊天 owner 比较时排除 SQLite 本地分配的 messages.messageId 和 message_variants.variantId，插件 owner 排除对象存储的本地 CAS version", "ref": "docs/sync-architecture.md:88"},
   {"fact": "同一对已授权存储节点仅由 CoreNode ID 字典序较小的一端协调完整双向交换", "ref": "docs/sync-architecture.md:92"},
   {"fact": "轻量探测和完整收据使用同一个本地创作时钟、投影计数及设备偏好修订摘要", "ref": "docs/sync-architecture.md:94"},

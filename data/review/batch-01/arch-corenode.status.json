@@ -1,6 +1,6 @@
 {
   "issue": 7,
-  "source_commit": "655431d",
+  "source_commit": "35cffab",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "CoreNode 是运行 Operit Core 的应用实例：Space 划定协作范围，Binding 决定聊天的下一步在哪个 CoreNode 执行，持久化同步与实时传输是两条独立路径。",
