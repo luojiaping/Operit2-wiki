@@ -1,6 +1,6 @@
 {
   "issue": 46,
-  "source_commit": "7fdb667",
+  "source_commit": "2dafe6b",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "服务端应用为空目录占位：apps/server 下仅有 1 字节的 .gitkeep，无代码与 README，尚未实现。",

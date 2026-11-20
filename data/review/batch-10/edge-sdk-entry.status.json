@@ -1,6 +1,6 @@
 {
   "issue": 85,
-  "source_commit": "7fdb667",
+  "source_commit": "2dafe6b",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "operit-edge-sdk 入口与功能开关：稳定厂商入口、agent/space/http-agent/scene 四功能、SpaceDevice::assemble 与 EdgeNode::headless 两种装配方式、依赖审计脚本的 8 种功能组合检查",

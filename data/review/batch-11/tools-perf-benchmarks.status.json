@@ -1,6 +1,6 @@
 {
   "issue": 108,
-  "source_commit": "7fdb667",
+  "source_commit": "2dafe6b",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Link 端到端性能场景与 macOS/iOS 基准脚本：跨节点场景链路、报告字段与 trace 测量口径",
