@@ -277,7 +277,7 @@
 },
 {
 "fact": "PreferencesDataStore::newWithStorage 创建 Space 偏好 store",
-"ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2924"
+"ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2968"
 },
 {
 "fact": "newSpaceWithResolvedPath 构建一个同步偏好 store",

@@ -181,7 +181,7 @@
   },
   {
     "fact": "receiveOperations 经 storeOriginals 把接收到的操作以 pending 状态存入当前 Journal。",
-    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1956"
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1954"
   },
   {
     "fact": "publishPreferenceOutboxes 逐个发布已注册偏好数据集的 outbox。",
@@ -205,11 +205,11 @@
   },
   {
     "fact": "导出时跳过序列号不大于导出下限的记录。",
-    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:2088"
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:2084"
   },
   {
     "fact": "导出时非 preferences 域的 EntityState 操作每实体只导出最新一条胜者。",
-    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:2097"
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:2093"
   },
   {
     "fact": "RuntimeFileSyncReference 由 contentHash 与 size 两个字段组成。",
@@ -305,63 +305,63 @@
   },
   {
     "fact": "recordDeletion 只追加 payload 为 null 的 delete 操作，不动本地文件。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:216"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:204"
   },
   {
     "fact": "writeBlob 先校验引用再写 blob。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:417"
-  },
-  {
-    "fact": "readBlob 读完 blob 后校验哈希与大小。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:467"
-  },
-  {
-    "fact": "storeBlob 计算内容的 SHA-256 并写入 blobs/{hash}，返回引用。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:436"
-  },
-  {
-    "fact": "blobPath 校验哈希后返回 {syncRoot}/blobs/{hash}。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:538"
-  },
-  {
-    "fact": "hasBlob 校验引用后查 blob 是否存在，不存在时再查 live 文件源是否能提供，不读内容也不哈希。",
     "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:404"
   },
   {
+    "fact": "readBlob 读完 blob 后校验哈希与大小。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:454"
+  },
+  {
+    "fact": "storeBlob 计算内容的 SHA-256 并写入 blobs/{hash}，返回引用。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:423"
+  },
+  {
+    "fact": "blobPath 校验哈希后返回 {syncRoot}/blobs/{hash}。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:524"
+  },
+  {
+    "fact": "hasBlob 校验引用后查 blob 是否存在，不存在时再查 live 文件源是否能提供，不读内容也不哈希。",
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:391"
+  },
+  {
     "fact": "readBlobChunk 在 offset 或 length 为负时报错。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:410"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:397"
   },
   {
     "fact": "requiredBlob 对任意操作先取 transaction_reference，无引用时非 runtime_file 域或非 Space 所有权返回 None，upsert 从 payload 解析引用，delete 返回 None。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:331"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:318"
   },
   {
     "fact": "非 file 的 entityType 在取 blob 引用时报错。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:345"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:332"
   },
   {
     "fact": "prepareTransactionForTransport 对无 transaction_reference 且序列化后大于 32 KiB 的操作，把载荷换成 transactionBlob 信封。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:358"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:345"
   },
   {
     "fact": "操作大小超过 32 KiB 时 payload 换成只含 transactionBlob 引用的小信封。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:365"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:352"
   },
   {
     "fact": "hydrateTransaction 对无 transaction_reference 的操作原样返回，initialize/initialization 的 chat 与 plugin_storage 域不读 blob，其余带引用的操作从 blob 还原并校验头部。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:370"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:357"
   },
   {
     "fact": "requireSpaceFile 拒绝未注册为 Space 同步的文件进入运行时文件同步。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:551"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:537"
   },
   {
     "fact": "upsert 操作读 blob 写文件、恢复 modifiedAt 并 flush 文件。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:313"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:300"
   },
   {
     "fact": "delete 操作只在文件存在时删除，其他操作报错。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:322"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:309"
   },
   {
     "fact": "writeSnapshot 在 initial 且已有快照时直接返回，不重复写。",
@@ -377,11 +377,11 @@
   },
   {
     "fact": "trackChanges 在变更前后各抓一次文件快照。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:235"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:223"
   },
   {
     "fact": "变化的文件记录新快照，消失的文件记录删除。",
-    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:244"
+    "ref": "core/crates/persistence/store/src/RuntimeFileSyncStore.rs:232"
   },
   {
     "fact": "resetTransactions 重新发布当前字节与删除 tombstone。",
@@ -393,115 +393,115 @@
   },
   {
     "fact": "MANAGED_ROOTS 是 workspaces、聊天输出目录与旧版聊天附件目录三个托管根。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:21"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:22"
   },
   {
     "fact": "WorkspaceFileSyncStore 的 owns 要求 domain 为 runtime_file 且路径被 manages 覆盖。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:78"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:92"
   },
   {
     "fact": "WorkspaceFileSyncStore 的 manages 要求路径以托管根加斜杠开头。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:84"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:98"
   },
   {
     "fact": "affectedBy 覆盖托管路径及其祖先与后代路径。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:90"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:104"
   },
   {
     "fact": "工作区清单存在 {root}/workspace_inventory.json 文件中。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:136"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:188"
   },
   {
     "fact": "ScanState 由 files、references、deferred、pending 四部分组成。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:33"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:47"
   },
   {
     "fact": "prepareSpaceJoin 在加入 Space 前恢复未完成写入。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:114"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:125"
   },
   {
     "fact": "加入 Space 时本地文件保留，只重新清点清单，避免本设备独有的文件被 stranded。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:108"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:124"
   },
   {
     "fact": "加入 Space 时工作区清单重置为 ScanState 的 default()。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:117"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:134"
   },
   {
     "fact": "scan 只遍历托管根，不查挂载的 VFS 目录。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:96"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:110"
   },
   {
-    "fact": "trackPaths 在变更前后各扫描一次工作区。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:130"
+    "fact": "trackPaths 在变更前校验路径属于托管范围并提交重扫意图，不再在变更前后各扫描一次工作区。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:144"
   },
   {
     "fact": "applyOperation 在落库后把操作追加到操作日志。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:382"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:486"
   },
   {
     "fact": "materializeOperations 对非 file 实体或非本页拥有的操作报错。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:398"
-  },
-  {
-    "fact": "materializeOperations 在 bootstrap 时跳过 shouldApplyOperation 判断。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:413"
-  },
-  {
-    "fact": "applyUnlocked 把 upsert 解释为快照、delete 解释为空，其他操作报错。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:479"
-  },
-  {
-    "fact": "策略拒绝或目标检查失败的传入状态存入 deferred，不丢弃。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:487"
-  },
-  {
-    "fact": "wantsBlob 按策略判断一个 upsert 操作是否需要其 blob。",
     "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:502"
   },
   {
-    "fact": "deferredBlobs 返回策略变化后重新符合条件的已延迟文件的引用。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:509"
+    "fact": "materializeOperations 在 bootstrap 时跳过 shouldApplyOperation 判断。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:519"
   },
   {
-    "fact": "recoverPending 在任何扫描前先完成中断的传入写入。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:564"
+    "fact": "applyUnlocked 先标记恢复状态，再经 applyToState 把 upsert 解释为快照、delete 解释为空，其他操作报错。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:597"
   },
   {
-    "fact": "finishPending 先写已验证的字节，再提交清单。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:578"
-  },
-  {
-    "fact": "writePending 的 upsert 写字节、恢复 modifiedAt 并 flush 文件。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:605"
-  },
-  {
-    "fact": "writePending 的 delete 只在文件存在时删除。",
+    "fact": "策略拒绝或目标检查失败的传入状态存入 deferred，不丢弃。",
     "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:613"
   },
   {
+    "fact": "wantsBlob 按策略判断一个 upsert 操作是否需要其 blob。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:628"
+  },
+  {
+    "fact": "deferredBlobs 返回策略变化后重新符合条件的已延迟文件的引用。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:635"
+  },
+  {
+    "fact": "recoverPending 在任何扫描前先完成中断的传入写入。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:690"
+  },
+  {
+    "fact": "finishPending 先写已验证的字节，再提交清单。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:707"
+  },
+  {
+    "fact": "writePending 的 upsert 写字节、恢复 modifiedAt 并 flush 文件。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:734"
+  },
+  {
+    "fact": "writePending 的 delete 只在文件存在时删除。",
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:742"
+  },
+  {
     "fact": "checkDestination 拒绝目标路径上的符号链接与文件/目录类型冲突。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:640"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:769"
   },
   {
     "fact": "managedDirectory 取托管根下的第一段目录作为文件所属目录。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:676"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:810"
   },
   {
     "fact": "managedVfsPath 把 workspaces/ 映射为 /operitapp/workspaces/，聊天输出映射为 /operitapp/outputs/，runtime/ 映射为 /operitapp/data/。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:687"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:821"
   },
   {
     "fact": "validatePath 要求托管路径属于 Space 所有权。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:691"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:825"
   },
   {
     "fact": "captureReference 为超限文件写 .operit-ref.json 边车保存 FileReference。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:323"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:427"
   },
   {
     "fact": "超限大文件只同步边车引用，原始大文件留在来源节点。",
-    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:227"
+    "ref": "core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:294"
   },
   {
     "fact": "POLICY_PATH 是 .operit/sync.json。",

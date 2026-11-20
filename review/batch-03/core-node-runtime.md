@@ -10,7 +10,7 @@ date: 2026-11-11
 
 节点运行时负责 Space 内调用的路由决策、本地执行与持久化同步，`CoreNodeRouter` 是路由决策的持有者（`core/crates/node/runtime/src/CoreNodeRouter.rs:65`）。
 `SpaceRuntime` 持有 Space 侧运行时对象注册表与内嵌流池（`core/crates/node/runtime/src/SpaceRuntime.rs:11`）。
-`SpacePersistenceSyncService` 经 Router 与可达的 Space 成员同步持久化数据，不拥有配对、发现或传输（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:163`）。
+`SpacePersistenceSyncService` 经 Router 与可达的 Space 成员同步持久化数据，不拥有配对、发现或传输（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:161`）。
 `NodeSpaceService` 是无应用执行运行时的设备的轻量组装（`core/crates/node/runtime/src/NodeSpaceService.rs:508`）。
 Node 负责节点间通信、路由解析与执行（`core/crates/node/README.md:3`）。
 节点身份、配对、会话准入与连接生命周期是 node 的职责，不设独立的 `access` 域（`core/crates/node/README.md:4`）。
@@ -28,14 +28,14 @@ README 把 `runtime/src/remote` 列为节点身份与会话持久化、配对、
 - `GeneratedRoutePermissionSubject` — Caller 与 Target 两种权限主体（`core/crates/node/runtime/src/lib.rs:15`）
 - `GeneratedRouteLifecycle` — Normal、BeforeChangeRoute 与 AfterChangeRoute 三种生命周期（`core/crates/node/runtime/src/lib.rs:22`）
 - `SpaceRuntime` — Space 侧运行时对象注册表与内嵌流池（`core/crates/node/runtime/src/SpaceRuntime.rs:11`）
-- `SpacePersistenceSyncService` — 可达成员间的持久化同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:163`）
+- `SpacePersistenceSyncService` — 可达成员间的持久化同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:161`）
 - `PeerSyncMethod` — 16 种对端同步方法（`core/crates/node/runtime/src/PeerSync.rs:14`）
 - `NodeSpaceService` — 无应用执行运行时的设备的轻量组装（`core/crates/node/runtime/src/NodeSpaceService.rs:508`）
 - `SpaceJoinRequest` — 设备入群申请（`core/crates/node/runtime/src/NodeSpaceService.rs:315`）
 - `SpaceJoinStatus` — Pending、Approving、Approved、Rejected、Cancelled、Expired 与 Joined 七种状态（`core/crates/node/runtime/src/NodeSpaceService.rs:310`）
 - 主入口：`callSpaceWithOrigin` 解析路由并取绑定键（`core/crates/node/runtime/src/CoreNodeRouter.rs:978`）
 - 主入口：CoreNodeRouter 的 `routedCall` 处理到达本节点的路由调用（`core/crates/node/runtime/src/CoreNodeRouter.rs:1924`）
-- 主入口：SpacePersistenceSyncService 的 `synchronizeOnce` 执行一轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:371`）
+- 主入口：SpacePersistenceSyncService 的 `synchronizeOnce` 执行一轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:375`）
 - 主入口：NodeSpaceService 的 `dispatchPeerSpaceCall` 分发对端 Space 调用（`core/crates/node/runtime/src/NodeSpaceService.rs:362`）
 - 数据流向：调用 → 路由解析 → 本地执行或跨节点转发 → 持久化操作经同步轮次在可达成员间对账与复制。
 
@@ -154,65 +154,64 @@ README 把 `runtime/src/remote` 列为节点身份与会话持久化、配对、
 - `MAX_SYNC_PAGES_PER_PASS` 为 64 页（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:45`）。
 - `PEER_FULL_SYNC_BACKOFF_BASE_MS` 为 2000 毫秒（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:47`）。
 - `PEER_FULL_SYNC_BACKOFF_MAX_MS` 为 60000 毫秒（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:49`）。
-- `WORKSPACE_SCAN_ACTIVE_INTERVAL_MS` 为 2000 毫秒（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:53`）。
-- `WORKSPACE_SCAN_IDLE_INTERVAL_MS` 上限为 5000 毫秒（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:56`）。
+- `WORKSPACE_SCAN_ACTIVE_INTERVAL_MS` 为 2000 毫秒（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:51`）。
+- `WORKSPACE_SCAN_IDLE_INTERVAL_MS` 上限为 5000 毫秒（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:54`）。
 - `peerFullSyncBackoffMs` 按失败次数翻倍退避，上限 60000 毫秒（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:109`）。
-- 同步服务按 nodeId 在 `persistenceServices` 弱引用表中取单例（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:175`）。
+- 同步服务按 nodeId 在 `persistenceServices` 弱引用表中取单例（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:173`）。
 - `start` 初始化 Space 存储、订阅同步变更并启动工作区扫描器与对端变化 watcher（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:208`）。
 - 启动时经 `subscribeSyncMutations` 订阅同步变更（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:225`）。
-- 启动时同时启动工作区扫描器 `startWorkspaceScanner` 与对端变化 watcher `startPeerChangeWatcher`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:245`）。
+- 启动时同时启动工作区扫描器 `startWorkspaceScanner` 与对端变化 watcher `startPeerChangeWatcher`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:243`）。
 - 启动末尾排队一次 `service_start` 同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:261`）。
 - `stop` 停止工作区扫描器与对端变化 watcher，并丢弃变更订阅（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:276`）。
-- 工作区扫描间隔 `intervalMs` 在有变更的轮次回到 2000 毫秒活动间隔，无变更的轮次逐轮翻倍直至 5000 毫秒空闲上限（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:320`）。
-- `startPeerChangeWatcher` 只消费运行时连接变化，不订阅发现也不读写配对记录（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:339`）。
-- `synchronizeOnce` 先检查被移除设备，再扫描工作区文件、发布本地拓扑并投递离场收据（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:371`）。
-- 一轮同步按 `pairedPeers` 遍历双向配对，监听方也对账入站对端（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:438`）。
-- 一轮同步发布本地拓扑时调用 `publishLocalTopology`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:406`）。
-- 一轮同步投递离场收据时调用 `space_departure::synchronize`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:432`）。
-- 一轮同步把各阶段错误 `errors` 用 " | " 连接后返回（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:493`）。
-- `limit` 为 0 时报错（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:516`）。
+- 工作区扫描间隔 `intervalMs` 在有变更的轮次回到 2000 毫秒活动间隔，无变更的轮次逐轮翻倍直至 5000 毫秒空闲上限（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:322`）。
+- `startPeerChangeWatcher` 只消费运行时连接变化，不订阅发现也不读写配对记录（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:343`）。
+- `synchronizeOnce` 先检查被移除设备，再扫描工作区文件、发布本地拓扑并投递离场收据（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:375`）。
+- 一轮同步按 `pairedPeers` 遍历双向配对，监听方也对账入站对端（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:440`）。
+- 一轮同步发布本地拓扑时调用 `publishLocalTopology`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:408`）。
+- 一轮同步投递离场收据时调用 `space_departure::synchronize`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:434`）。
+- 一轮同步把各阶段错误 `errors` 用 " | " 连接后返回（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:495`）。
+- `limit` 为 0 时报错（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:526`）。
 - 执行互斥锁 `execution` 把同一对端的同步串行化（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:528`）。
-- 目标不可达时返回 `CORE_NODE_UNREACHABLE`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:588`）。
-- 本节点 nodeId 大于目标时由本节点向对方请求 `SyncRequest` 状态（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:600`）。
-- 权威更新送到非存储成员，包括 `grants` 与 `revocations`，且不推进业务复制时钟（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:630`）。
-- 设备偏好 `preferences` 提供给每一个已准入成员，偏好时钟与载荷与业务副本时钟分离（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:656`）。
-- 先算 `businessReplication` 再交换偏好，避免收据确认尚未发送的偏好编辑（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:660`）。
-- 双端不均为存储提供方时，`storageReplicationAllowed` 不通过，返回 Ok(false)，不做业务复制（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:934`）。
-- `storageReplicationAllowed` 在 `requirePeerStorageProviders` 通过时为 true，在 `SPACE_STORAGE_PERMISSION_DENIED` 时为 false，其余错误向上传播（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:704`）。
-- `localStateSummary` 先发布偏好出箱，再发布 `synchronizationSummary` 摘要（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:715`）。
-- `peerPassRequired` 决定一轮同步是否必需（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:743`）。
-- `pairedPeerPassRequired` 先向对端取配对授权的快照头，空间、离场或控制版本不一致时直接要求整轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:723`）。
-- 退避未过时返回 false，pendingWork 或连续失败时返回 true（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:768`）。
-- 只有退避已过、无 pendingWork、无连续失败且 storageReplicationAllowed 为 true 时，才用 `probeRemoteClockSummary` 探针比对摘要决定是否需要一轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:791`）。
-- 非存储成员走 `authority_only` 分支直接返回 true，不探针（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:788`）。
-- `probeRemoteClockSummary` 经 `SyncClockDigest` 取对端时钟摘要，缺失时报错（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:819`）。
-- `recordPeerPassCompleted` 重置失败计数，非业务复制的轮次清掉两端摘要（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:834`）。
-- `synchronizeRequestedPeer` 在本节点 nodeId 大于等于目标时报错，称同步请求指向了错误的协调方（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:845`）。
-- `recordPeerPassFailed` 记录一轮同步失败（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:860`）。
-- `recordPeerFailure` 只对网络故障进指数退避，确定性失败记 `correctionError` 且 `pendingWork` 置 true、下轮仍可立即重试（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:870`）。
-- `recordPendingWork` 记录一轮内待处理的阶段与报告（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:893`）。
-- `synchronizeDomains` 双向对账时钟并复制操作（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:922`）。
-- 对账时经 `SyncClock` 与对端交换时钟（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:937`）。
-- 时钟对账后做一致性校验 `requireConsistencySupport`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:943`）。
-- 取页循环为 `for page in 0..MAX_SYNC_PAGES_PER_PASS`，页取完或取空后进入最终一致性矫正（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:933`）。
-- 按 `syncPageChunks` 把操作拆页以适配对端消息上限（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1035`）。
-- `exchangePairedDeviceSpaceProjection` 先协商 `projectionProtocol`，再取对端快照并观察其 Space 投影（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1077`）。
-- 返回本地与对端 `spaceId` 是否一致（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1115`）。
-- `validateReachableDeviceSpace` 经 DeviceSpace 调用核对双方成员表与 spaceId（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1128`）。
-- `synchronizeRequiredBlobs` 同步缺失的 blob 引用（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1167`）。
-- `synchronizeBlobReferences` 同步 blob 引用列表（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1193`）。
-- `transferBlob` 按 64 KiB 分块传输 blob，完后校验持久化（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1233`）。
-- `scheduleSynchronization` 合并触发原因后经 Host 调度器排队一轮异步同步任务（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1312`）。
-- `callLocal` 经 application 目标调用本地应用方法（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1408`）。
-- `serviceCallRequest` 按目标分发调用请求（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1503`）。
-- 对 `NODE_SPACE_TARGET` 与 `NODE_SPACE_CONTROL_TARGET` 直通，其余目标经 `targetForSchema` 解析（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1539`）。
-- `syncOperationCeiling` 为对端消息上限减 4 KiB 信封余量（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1600`）。
-- `syncPageBudget` 为对端消息上限的四分之三再减 64 KiB 余量（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1607`）。
-- 单个操作超过上限时返回 `SYNC_OPERATION_TOO_LARGE`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1636`）。
-- `validateDomainClock` 要求时钟 `protocolVersion` 为 1（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1435`）。
-- `clockStateSummary` 要求时钟含 `stateSummary` 字段，否则报错（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1448`）。
-- `PeerSyncGate` 持有 `execution`、`lastRemoteClockSummary`、`lastLocalStateSummary` 与 `consecutiveFailures`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:88`）。
-- 还持有 `nextFullSyncAllowedAt`、`pendingWork` 与 `correctionError`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:93`）。
+- 目标不可达时返回 `CORE_NODE_UNREACHABLE`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:590`）。
+- 本节点 nodeId 大于目标时由本节点向对方请求 `SyncRequest` 状态（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:602`）。
+- 权威更新送到非存储成员，包括 `grants` 与 `revocations`，且不推进业务复制时钟（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:632`）。
+- 设备偏好 `preferences` 提供给每一个已准入成员，偏好时钟与载荷与业务副本时钟分离（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:658`）。
+- 先算 `businessReplication` 再交换偏好，避免收据确认尚未发送的偏好编辑（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:662`）。
+- 双端不均为存储提供方时，`storageReplicationAllowed` 不通过，返回 Ok(false)，不做业务复制（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:935`）。
+- `storageReplicationAllowed` 在 `requirePeerStorageProviders` 通过时为 true，在 `SPACE_STORAGE_PERMISSION_DENIED` 时为 false，其余错误向上传播（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:706`）。
+- `localStateSummary` 先发布偏好出箱，再发布 `synchronizationSummary` 摘要（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:717`）。
+- `peerPassRequired` 决定一轮同步是否必需（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:753`）。
+- `pairedPeerPassRequired` 先向对端取配对授权的快照头，空间、离场或控制版本不一致时直接要求整轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:725`）。
+- 退避未过时返回 false，pendingWork 或连续失败时返回 true（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:778`）。
+- 只有退避已过、无 pendingWork、无连续失败且 storageReplicationAllowed 为 true 时，才用 `probeRemoteClockSummary` 探针比对摘要决定是否需要一轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:793`）。
+- 非存储成员走 `authority_only` 分支直接返回 true，不探针（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:790`）。
+- `probeRemoteClockSummary` 经 `SyncClockDigest` 取对端时钟摘要，缺失时报错（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:821`）。
+- `recordPeerPassCompleted` 重置失败计数，非业务复制的轮次清掉两端摘要（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:836`）。
+- `synchronizeRequestedPeer` 在本节点 nodeId 大于等于目标时报错，称同步请求指向了错误的协调方（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:847`）。
+- `recordPeerPassFailed` 记录一轮同步失败（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:862`）。
+- `recordPeerFailure` 只对网络故障进指数退避，确定性失败记 `correctionError` 且 `pendingWork` 置 true、下轮仍可立即重试（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:872`）。
+- `recordPendingWork` 记录一轮内待处理的阶段与报告（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:895`）。
+- `synchronizeDomains` 双向对账时钟并复制操作（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:924`）。
+- 对账时经 `SyncClock` 与对端交换时钟（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:938`）。
+- 取页循环为 `for page in 0..MAX_SYNC_PAGES_PER_PASS`，页取完或取空后进入最终一致性矫正（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:934`）。
+- 按 `syncPageChunks` 把操作拆页以适配对端消息上限（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1032`）。
+- `exchangePairedDeviceSpaceProjection` 先协商 `projectionProtocol`，再取对端快照并观察其 Space 投影（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1074`）。
+- 返回本地与对端 `spaceId` 是否一致（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1112`）。
+- `validateReachableDeviceSpace` 经 DeviceSpace 调用核对双方成员表与 spaceId（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1125`）。
+- `synchronizeRequiredBlobs` 同步缺失的 blob 引用（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1164`）。
+- `synchronizeBlobReferences` 同步 blob 引用列表（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1190`）。
+- `transferBlob` 按 64 KiB 分块传输 blob，完后校验持久化（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1255`）。
+- `scheduleSynchronization` 合并触发原因后经 Host 调度器排队一轮异步同步任务（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1309`）。
+- `callLocal` 经 application 目标调用本地应用方法（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1405`）。
+- `serviceCallRequest` 按目标分发调用请求（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1526`）。
+- 对 `NODE_SPACE_TARGET` 与 `NODE_SPACE_CONTROL_TARGET` 直通，其余目标经 `targetForSchema` 解析（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1533`）。
+- `syncOperationCeiling` 为对端消息上限减 4 KiB 信封余量（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1594`）。
+- `syncPageBudget` 为对端消息上限的四分之三再减 64 KiB 余量（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1601`）。
+- 单个操作超过上限时返回 `SYNC_OPERATION_TOO_LARGE`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1630`）。
+- `validateSyncReceipt` 把时钟解析为 `SyncReceipt` 并校验收据区间（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1432`）。
+- `clockStateSummary` 要求时钟含 `stateSummary` 字段，否则报错（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1442`）。
+- `PeerSyncGate` 持有 `execution`、`lastRemoteClockSummary`、`lastLocalStateSummary` 与 `consecutiveFailures`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:86`）。
+- 还持有 `nextFullSyncAllowedAt`、`pendingWork` 与 `correctionError`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:91`）。
 
 ### 对端同步方法：PeerSync
 
@@ -329,14 +328,14 @@ README 把 `runtime/src/remote` 列为节点身份与会话持久化、配对、
 - `PeerSyncMethod` — 16 种对端同步方法（`core/crates/node/runtime/src/PeerSync.rs:14`）
 - PeerSyncMethod 的 `requiresStorageProvider` — 判断方法是否要求存储提供方（`core/crates/node/runtime/src/PeerSync.rs:37`）
 - PeerSyncMethod 的 `fromRequest` — 解析同步请求并校验参数信封（`core/crates/node/runtime/src/PeerSync.rs:54`）
-- `SpacePersistenceSyncService` — 可达成员间的持久化同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:163`）
-- SpacePersistenceSyncService 的 `synchronizeOnce` — 执行一轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:371`）
-- SpacePersistenceSyncService 的 `synchronizePeer` — 与一个对端同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:586`）
-- SpacePersistenceSyncService 的 `pairedPeerPassRequired` — 先校验配对授权快照头再决定是否探针时钟（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:723`）
-- SpacePersistenceSyncService 的 `synchronizeDomains` — 双向对账时钟并复制操作（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:922`）
-- SpacePersistenceSyncService 的 `exchangePairedDeviceSpaceProjection` — 交换对端 Space 投影（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1077`）
-- SpacePersistenceSyncService 的 `transferBlob` — 按 64 KiB 分块传输 blob（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1233`）
-- SpacePersistenceSyncService 的 `scheduleSynchronization` — 合并触发原因后排队同步任务（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1312`）
+- `SpacePersistenceSyncService` — 可达成员间的持久化同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:161`）
+- SpacePersistenceSyncService 的 `synchronizeOnce` — 执行一轮同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:375`）
+- SpacePersistenceSyncService 的 `synchronizePeer` — 与一个对端同步（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:588`）
+- SpacePersistenceSyncService 的 `pairedPeerPassRequired` — 先校验配对授权快照头再决定是否探针时钟（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:725`）
+- SpacePersistenceSyncService 的 `synchronizeDomains` — 双向对账时钟并复制操作（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:924`）
+- SpacePersistenceSyncService 的 `exchangePairedDeviceSpaceProjection` — 交换对端 Space 投影（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1074`）
+- SpacePersistenceSyncService 的 `transferBlob` — 按 64 KiB 分块传输 blob（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1255`）
+- SpacePersistenceSyncService 的 `scheduleSynchronization` — 合并触发原因后排队同步任务（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1309`）
 - `NodeSpaceService` — 无应用执行运行时的设备的轻量组装（`core/crates/node/runtime/src/NodeSpaceService.rs:508`）
 - NodeSpaceService 的 `initialize` — 校验本地身份并置协议版本（`core/crates/node/runtime/src/NodeSpaceService.rs:525`）
 - NodeSpaceService 的 `dispatchPeerSpaceCall` — 分发对端 Space 调用（`core/crates/node/runtime/src/NodeSpaceService.rs:362`）
@@ -364,12 +363,12 @@ README 把 `runtime/src/remote` 列为节点身份与会话持久化、配对、
 14. 逻辑监听：Binding 目标的 `watch` 经 `watchBindingFlow` 打开绑定流（`core/crates/node/runtime/src/CoreNodeRouter.rs:2305`）。
 15. 泵送：绑定流泵每段开始重新解析 `effectiveBinding`，路由或对端变化时重开底层流（`core/crates/node/runtime/src/CoreNodeRouter.rs:1433`）。
 16. 同步启动：`start` 初始化 Space 存储、订阅同步变更并启动工作区扫描器与对端变化 watcher（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:208`）。
-17. 同步一轮：`synchronizeOnce` 先检查被移除设备，再扫描工作区文件、发布本地拓扑并投递离场收据（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:371`）。
-18. 对端同步：目标不可达时返回 `CORE_NODE_UNREACHABLE`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:588`）。
-19. 权威：权威更新送到非存储成员，包括 `grants` 与 `revocations`，且不推进业务复制时钟（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:630`）。
-20. 偏好：设备偏好 `preferences` 提供给每一个已准入成员，偏好时钟与载荷与业务副本时钟分离（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:656`）。
-21. 业务复制：双端不均为存储提供方时，`storageReplicationAllowed` 不通过，返回 Ok(false)，不做业务复制（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:934`）。
-22. 域同步：`synchronizeDomains` 双向对账时钟并复制操作（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:922`）。
+17. 同步一轮：`synchronizeOnce` 先检查被移除设备，再扫描工作区文件、发布本地拓扑并投递离场收据（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:375`）。
+18. 对端同步：目标不可达时返回 `CORE_NODE_UNREACHABLE`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:590`）。
+19. 权威：权威更新送到非存储成员，包括 `grants` 与 `revocations`，且不推进业务复制时钟（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:632`）。
+20. 偏好：设备偏好 `preferences` 提供给每一个已准入成员，偏好时钟与载荷与业务副本时钟分离（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:658`）。
+21. 业务复制：双端不均为存储提供方时，`storageReplicationAllowed` 不通过，返回 Ok(false)，不做业务复制（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:935`）。
+22. 域同步：`synchronizeDomains` 双向对账时钟并复制操作（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:924`）。
 23. 入群审批：直接调用 join 返回 `SPACE_JOIN_APPROVAL_REQUIRED`，要求先提交入群申请等本地审批（`core/crates/node/runtime/src/NodeSpaceService.rs:385`）。
 24. 准入：`observePeerSpaceSnapshot` 校验对方档案与策略，未授权成员报错（`core/crates/node/runtime/src/NodeSpaceService.rs:421`）。
 25. 控制交换：`acceptSpaceControlCall` 按方法名分发三种控制方法（`core/crates/node/runtime/src/NodeSpaceService.rs:723`）。

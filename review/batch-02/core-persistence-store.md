@@ -45,16 +45,16 @@ date: 2026-11-11
 - `CORE_SPACE_RECORD_VERSION` — Space 记录的 schema 版本，值为 3。`core/crates/persistence/store/src/CoreSpaceStore.rs:18`
 - `UNMEASURED_DIRECT_PEER_COST` — 无度量直连对端的选路代价，值为 1_000_000_000。`core/crates/persistence/store/src/CoreSpaceStore.rs:19`
 - `COMPACT_TOPOLOGY_V1` — 拓扑紧凑编码名，值为 topologyV1。`core/crates/persistence/store/src/CoreSpaceStore.rs:127`
-- `PreferencesDataStore` — 偏好存储，new 创建同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2909`
-- `Preferences` — 偏好快照，PartialEq 只比较持久化值。`core/crates/persistence/store/src/PreferencesDataStore.rs:1587`
-- `CoreNodeStateStore` — typedEntry 只解码请求的记录，不展开无关 JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:1879`
-- `CoreNodeSecretStore` — 存节点本地凭证与密钥，接受旧版加密文件。`core/crates/persistence/store/src/PreferencesDataStore.rs:2361`
-- `PreferencesSyncDescriptor` — forStoragePath 由存储路径推导同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2421`
-- `PreferencesSyncedEntry` — fromOperation 要求同步操作的域为 preferences。`core/crates/persistence/store/src/PreferencesDataStore.rs:2573`
+- `PreferencesDataStore` — 偏好存储，new 创建同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2952`
+- `Preferences` — 偏好快照，PartialEq 只比较持久化值。`core/crates/persistence/store/src/PreferencesDataStore.rs:1630`
+- `CoreNodeStateStore` — typedEntry 只解码请求的记录，不展开无关 JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:1922`
+- `CoreNodeSecretStore` — 存节点本地凭证与密钥，接受旧版加密文件。`core/crates/persistence/store/src/PreferencesDataStore.rs:2404`
+- `PreferencesSyncDescriptor` — forStoragePath 由存储路径推导同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2464`
+- `PreferencesSyncedEntry` — fromOperation 要求同步操作的域为 preferences。`core/crates/persistence/store/src/PreferencesDataStore.rs:2616`
 - `Flow` — collectWithCancellation 先发出当前值，再在 waitChanged 报告变化后发出新值。`core/crates/persistence/store/src/PreferencesDataStore.rs:352`
-- `StateFlow` — set_value 在值不变时不通知订阅者。`core/crates/persistence/store/src/PreferencesDataStore.rs:752`
-- `combine2` — 把两个 StateFlow 合并为一个派生 StateFlow。`core/crates/persistence/store/src/PreferencesDataStore.rs:913`
-- `combine5` — 最多合并五个 StateFlow。`core/crates/persistence/store/src/PreferencesDataStore.rs:1220`
+- `StateFlow` — set_value 在值不变时不通知订阅者。`core/crates/persistence/store/src/PreferencesDataStore.rs:785`
+- `combine2` — 把两个 StateFlow 合并为一个派生 StateFlow。`core/crates/persistence/store/src/PreferencesDataStore.rs:956`
+- `combine5` — 最多合并五个 StateFlow。`core/crates/persistence/store/src/PreferencesDataStore.rs:1263`
 - `PREFERENCES_SCHEMA_VERSION_KEY_NAME` — 偏好 schema 版本键，值为 __operit_preferences_schema_version。`core/crates/persistence/store/src/PreferencesDataStore.rs:71`
 - `PREFERENCES_REPLICATION_KEY` — 复制元数据键，值为 __operit_preferences_replication。`core/crates/persistence/store/src/PreferencesDataStore.rs:69`
 
@@ -62,13 +62,13 @@ date: 2026-11-11
 
 ### 聚合与 feature 门控
 
-lib.rs 用 `pub use PreferencesDataStore::*` 把偏好存储的公开项重导出到 crate 根。`core/crates/persistence/store/src/lib.rs:54`
+lib.rs 用 `pub use PreferencesDataStore::*` 把偏好存储的公开项重导出到 crate 根。`core/crates/persistence/store/src/lib.rs:53`
 
-lib.rs 用 `pub use SqliteStore::*` 把该模块的公开项重导出到 crate 根。`core/crates/persistence/store/src/lib.rs:60`
+lib.rs 用 `pub use SqliteStore::*` 把该模块的公开项重导出到 crate 根。`core/crates/persistence/store/src/lib.rs:59`
 
-lib.rs 的 `pub use SqliteStore::*;` 重导出本身也在 `#[cfg(feature = "full")]` 门控下。`core/crates/persistence/store/src/lib.rs:59`
+lib.rs 的 `pub use SqliteStore::*;` 重导出本身也在 `#[cfg(feature = "full")]` 门控下。`core/crates/persistence/store/src/lib.rs:58`
 
-lib.rs 的 `repository`、`dao`、`db`、`sync` 四个模块只在 feature full 下公开。`core/crates/persistence/store/src/lib.rs:67`
+lib.rs 的 `repository`、`dao`、`db`、`sync` 四个模块只在 feature full 下公开。`core/crates/persistence/store/src/lib.rs:66`
 
 `SqliteStore` 模块只在 feature full 下公开。`core/crates/persistence/store/src/lib.rs:47`
 
@@ -321,129 +321,129 @@ routePlanThroughPeers 拒绝以本设备为目标、拒绝非成员目标。`cor
 
 ### 偏好存储的两种形态
 
-`PreferencesDataStore` 的字段含 `path`、`storagePath`、`storageHost`、`encryption`、`syncOperationStore`、`syncDescriptor`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1853`
+`PreferencesDataStore` 的字段含 `path`、`storagePath`、`storageHost`、`encryption`、`syncOperationStore`、`syncDescriptor`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1896`
 
-`PreferencesDataStore` 的字段含 `changeSignal`、`sharedState`、`schema`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1858`
+`PreferencesDataStore` 的字段含 `changeSignal`、`sharedState`、`schema`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1901`
 
-PreferencesDataStore::new 创建同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2909`
+PreferencesDataStore::new 创建同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2952`
 
-`PreferencesDataStore` 的 `newEncrypted` 创建加密的同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2912`
+`PreferencesDataStore` 的 `newEncrypted` 创建加密的同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2955`
 
-PreferencesDataStore::newWithStorage 创建同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2925`
+PreferencesDataStore::newWithStorage 创建同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2968`
 
-PreferencesDataStore::newEncryptedWithStorage 创建加密的同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2936`
+PreferencesDataStore::newEncryptedWithStorage 创建加密的同步偏好 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2979`
 
-PreferencesDataStore::newNodeLocalWithStorage 创建节点本地 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:2975`
+PreferencesDataStore::newNodeLocalWithStorage 创建节点本地 store。`core/crates/persistence/store/src/PreferencesDataStore.rs:3018`
 
-同步 store 的 `syncOperationStore` 与 `syncDescriptor` 均存在。`core/crates/persistence/store/src/PreferencesDataStore.rs:2962`
+同步 store 的 `syncOperationStore` 与 `syncDescriptor` 均存在。`core/crates/persistence/store/src/PreferencesDataStore.rs:3005`
 
-节点本地 store 的 `syncOperationStore` 与 `syncDescriptor` 均为 `None`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3001`
+节点本地 store 的 `syncOperationStore` 与 `syncDescriptor` 均为 `None`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3044`
 
-PreferencesSyncDescriptor::forStoragePath 由存储路径推导同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2437`
+PreferencesSyncDescriptor::forStoragePath 由存储路径推导同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2480`
 
-同步描述符的域固定为 `preferences`，实体类型取自文件名去掉 `.preferences.json` 与 `.json` 后缀。`core/crates/persistence/store/src/PreferencesDataStore.rs:2448`
+同步描述符的域固定为 `preferences`，实体类型取自文件名去掉 `.preferences.json` 与 `.json` 后缀。`core/crates/persistence/store/src/PreferencesDataStore.rs:2491`
 
 `preferenceSyncStore` 只认 members、profiles、presence、topology 四个目录下的 `.preferences.json` 记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:1422`
 
-CoreNodeStateStore::typedEntry 只解码请求的记录，不展开无关 JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:1894`
+CoreNodeStateStore::typedEntry 只解码请求的记录，不展开无关 JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:1937`
 
-CoreNodeStateStore::delete 同时删除文件与共享快照，避免后续相同导入被缓存跳过。`core/crates/persistence/store/src/PreferencesDataStore.rs:2152`
+CoreNodeStateStore::delete 同时删除文件与共享快照，避免后续相同导入被缓存跳过。`core/crates/persistence/store/src/PreferencesDataStore.rs:2195`
 
-`CoreNodeSecretStore` 存节点本地凭证与密钥，接受旧版加密文件。`core/crates/persistence/store/src/PreferencesDataStore.rs:2361`
+`CoreNodeSecretStore` 存节点本地凭证与密钥，接受旧版加密文件。`core/crates/persistence/store/src/PreferencesDataStore.rs:2404`
 
-encodeStoredPreferences 的 `bounded` 模式指无同步描述符且存储宿主不保留偏好缓存。`core/crates/persistence/store/src/PreferencesDataStore.rs:3529`
+encodeStoredPreferences 的 `bounded` 模式指无同步描述符且存储宿主不保留偏好缓存。`core/crates/persistence/store/src/PreferencesDataStore.rs:3572`
 
-encodeStoredPreferences 在 `bounded` 模式下写紧凑 JSON，否则写 pretty JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:3535`
+encodeStoredPreferences 在 `bounded` 模式下写紧凑 JSON，否则写 pretty JSON。`core/crates/persistence/store/src/PreferencesDataStore.rs:3578`
 
-读取偏好文件不改写文件，不创建新解密密钥。`core/crates/persistence/store/src/PreferencesDataStore.rs:3238`
+读取偏好文件不改写文件，不创建新解密密钥。`core/crates/persistence/store/src/PreferencesDataStore.rs:3281`
 
-加密偏好文件以 `format` 字段 `operit.preferences.encrypted` 标识。`core/crates/persistence/store/src/PreferencesDataStore.rs:3607`
+加密偏好文件以 `format` 字段 `operit.preferences.encrypted` 标识。`core/crates/persistence/store/src/PreferencesDataStore.rs:3650`
 
 ### 偏好条目与变更
 
-`Preferences` 的 `set` 在值不变时直接返回，不记变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1644`
+`Preferences` 的 `set` 在值不变时直接返回，不记变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1687`
 
-`Preferences` 的 `set` 把每次写记为一条 `set` 变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1644`
+`Preferences` 的 `set` 把每次写记为一条 `set` 变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1687`
 
-增量写记为 `increment` 操作，存增量而非绝对值。`core/crates/persistence/store/src/PreferencesDataStore.rs:1691`
+增量写记为 `increment` 操作，存增量而非绝对值。`core/crates/persistence/store/src/PreferencesDataStore.rs:1734`
 
-`Preferences` 的 `setObjectField` 只改对象的一个字段。`core/crates/persistence/store/src/PreferencesDataStore.rs:1726`
+`Preferences` 的 `setObjectField` 只改对象的一个字段。`core/crates/persistence/store/src/PreferencesDataStore.rs:1769`
 
-对象字段的变更记为 `patch_object` 操作。`core/crates/persistence/store/src/PreferencesDataStore.rs:1762`
+对象字段的变更记为 `patch_object` 操作。`core/crates/persistence/store/src/PreferencesDataStore.rs:1805`
 
-`Preferences` 的 `PartialEq` 只比较持久化值，不比较待提交变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1587`
+`Preferences` 的 `PartialEq` 只比较持久化值，不比较待提交变更。`core/crates/persistence/store/src/PreferencesDataStore.rs:1630`
 
 ### Schema 与迁移
 
 偏好 schema 版本键是 `__operit_preferences_schema_version`，复制元数据键是 `__operit_preferences_replication`。`core/crates/persistence/store/src/PreferencesDataStore.rs:71`
 
-`PreferencesDataStore` 的 `withSchema` 声明当前 schema 版本与逐版本迁移回调。`core/crates/persistence/store/src/PreferencesDataStore.rs:3011`
+`PreferencesDataStore` 的 `withSchema` 声明当前 schema 版本与逐版本迁移回调。`core/crates/persistence/store/src/PreferencesDataStore.rs:3054`
 
-`readSchemaVersion` 把缺失的版本键当作 0。`core/crates/persistence/store/src/PreferencesDataStore.rs:3216`
+`readSchemaVersion` 把缺失的版本键当作 0。`core/crates/persistence/store/src/PreferencesDataStore.rs:3259`
 
-`readSchemaVersion` 接受字符串与数字两种版本写法。`core/crates/persistence/store/src/PreferencesDataStore.rs:3214`
+`readSchemaVersion` 接受字符串与数字两种版本写法。`core/crates/persistence/store/src/PreferencesDataStore.rs:3257`
 
-存储版本高于声明版本时迁移返回 `SchemaVersionTooNew`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3196`
+存储版本高于声明版本时迁移返回 `SchemaVersionTooNew`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3239`
 
-迁移按版本逐级应用，每级迁移一次，完成后把 schema 版本键写为当前版本。`core/crates/persistence/store/src/PreferencesDataStore.rs:3204`
+迁移按版本逐级应用，每级迁移一次，完成后把 schema 版本键写为当前版本。`core/crates/persistence/store/src/PreferencesDataStore.rs:3247`
 
 ### 偏好读写与观察
 
-`data` 在同步 store 或宿主保留偏好缓存的前提下，已缓存快照且 schema 已是最新时直接返回缓存。`core/crates/persistence/store/src/PreferencesDataStore.rs:3069`
+`data` 在同步 store 或宿主保留偏好缓存的前提下，已缓存快照且 schema 已是最新时直接返回缓存。`core/crates/persistence/store/src/PreferencesDataStore.rs:3112`
 
-`PreferencesDataStore` 的 `edit` 在内存中改偏好并持久化。`core/crates/persistence/store/src/PreferencesDataStore.rs:3328`
+`PreferencesDataStore` 的 `edit` 在内存中改偏好并持久化。`core/crates/persistence/store/src/PreferencesDataStore.rs:3371`
 
-PreferencesDataStore::migrate 应用本地迁移或修复，不产生同步操作。`core/crates/persistence/store/src/PreferencesDataStore.rs:3356`
+PreferencesDataStore::migrate 应用本地迁移或修复，不产生同步操作。`core/crates/persistence/store/src/PreferencesDataStore.rs:3399`
 
-`PreferencesDataStore` 的 `replace` 整体替换快照并通知观察者。`core/crates/persistence/store/src/PreferencesDataStore.rs:3435`
+`PreferencesDataStore` 的 `replace` 整体替换快照并通知观察者。`core/crates/persistence/store/src/PreferencesDataStore.rs:3478`
 
-`PreferencesDataStore` 的 `replace` 在内容不变且格式匹配时不写文件。`core/crates/persistence/store/src/PreferencesDataStore.rs:3469`
+`PreferencesDataStore` 的 `replace` 在内容不变且格式匹配时不写文件。`core/crates/persistence/store/src/PreferencesDataStore.rs:3512`
 
-`PreferencesDataStore` 的 `replaceRecoverably` 与 `replace` 是同一替换路径。`core/crates/persistence/store/src/PreferencesDataStore.rs:3495`
+`PreferencesDataStore` 的 `replaceRecoverably` 与 `replace` 是同一替换路径。`core/crates/persistence/store/src/PreferencesDataStore.rs:3538`
 
-`PreferencesDataStore` 的 `dataFlow` 返回带观察的 `Flow<Preferences>`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3291`
+`PreferencesDataStore` 的 `dataFlow` 返回带观察的 `Flow<Preferences>`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3334`
 
 ### Flow 与 StateFlow
 
 Flow::collectWithCancellation 先发出当前值，再在 `waitChanged` 报告变化后发出新值。`core/crates/persistence/store/src/PreferencesDataStore.rs:352`
 
-StateFlow::set_value 在值不变时不通知订阅者。`core/crates/persistence/store/src/PreferencesDataStore.rs:752`
+StateFlow::set_value 在值不变时不通知订阅者。`core/crates/persistence/store/src/PreferencesDataStore.rs:785`
 
-StateFlow::compare_and_set 只在当前值等于 `expect` 时替换。`core/crates/persistence/store/src/PreferencesDataStore.rs:785`
+StateFlow::compare_and_set 只在当前值等于 `expect` 时替换。`core/crates/persistence/store/src/PreferencesDataStore.rs:819`
 
-`combine2` 把两个 `StateFlow` 合并为一个派生 `StateFlow`。`core/crates/persistence/store/src/PreferencesDataStore.rs:913`
+`combine2` 把两个 `StateFlow` 合并为一个派生 `StateFlow`。`core/crates/persistence/store/src/PreferencesDataStore.rs:956`
 
-`combine5` 最多合并五个 `StateFlow`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1220`
+`combine5` 最多合并五个 `StateFlow`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1263`
 
 ### 偏好同步载荷
 
-`PreferencesSyncedEntry` 的 `fromOperation` 要求同步操作的域为 `preferences`。`core/crates/persistence/store/src/PreferencesDataStore.rs:2573`
+`PreferencesSyncedEntry` 的 `fromOperation` 要求同步操作的域为 `preferences`。`core/crates/persistence/store/src/PreferencesDataStore.rs:2616`
 
-偏好事务要求 `formatVersion` 为 2 且至少含 2 条。`core/crates/persistence/store/src/PreferencesDataStore.rs:2607`
+偏好事务要求 `formatVersion` 为 2 且至少含 2 条。`core/crates/persistence/store/src/PreferencesDataStore.rs:2650`
 
-偏好事务的条目键必须唯一。`core/crates/persistence/store/src/PreferencesDataStore.rs:2618`
+偏好事务的条目键必须唯一。`core/crates/persistence/store/src/PreferencesDataStore.rs:2661`
 
-偏好同步载荷的 `formatVersion` 只接受 1 与 2。`core/crates/persistence/store/src/PreferencesDataStore.rs:2661`
+偏好同步载荷的 `formatVersion` 只接受 1 与 2。`core/crates/persistence/store/src/PreferencesDataStore.rs:2704`
 
-复制元数据键不许作为业务条目同步。`core/crates/persistence/store/src/PreferencesDataStore.rs:2592`
+复制元数据键不许作为业务条目同步。`core/crates/persistence/store/src/PreferencesDataStore.rs:2635`
 
-schema 元数据键不许作为业务条目同步。`core/crates/persistence/store/src/PreferencesDataStore.rs:2666`
+schema 元数据键不许作为业务条目同步。`core/crates/persistence/store/src/PreferencesDataStore.rs:2709`
 
-`increment`、`patch_object`、`alias` 操作要求 `Transaction` 语义。`core/crates/persistence/store/src/PreferencesDataStore.rs:2693`
+`increment`、`patch_object`、`alias` 操作要求 `Transaction` 语义。`core/crates/persistence/store/src/PreferencesDataStore.rs:2736`
 
-PreferencesSyncedEntry::requireSchemaVersion 在远端 schema 版本高于本地时返回 `SchemaVersionTooNew`。`core/crates/persistence/store/src/PreferencesDataStore.rs:2752`
+PreferencesSyncedEntry::requireSchemaVersion 在远端 schema 版本高于本地时返回 `SchemaVersionTooNew`。`core/crates/persistence/store/src/PreferencesDataStore.rs:2795`
 
-`prepareSync`、`isSyncPrepared`、`syncSnapshot`、`repairSyncedSnapshot` 四个同步入口委托给 `Transaction::preference`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3909`
+`prepareSync`、`isSyncPrepared`、`syncSnapshot`、`repairSyncedSnapshot` 四个同步入口委托给 `Transaction::preference`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3952`
 
-同步的插件偏好路径必须以 `.preferences.json` 结尾。`core/crates/persistence/store/src/PreferencesDataStore.rs:3717`
+同步的插件偏好路径必须以 `.preferences.json` 结尾。`core/crates/persistence/store/src/PreferencesDataStore.rs:3760`
 
-同步的插件偏好路径必须归 Space 所有，节点本地与临时存储不许同步偏好。`core/crates/persistence/store/src/PreferencesDataStore.rs:3722`
+同步的插件偏好路径必须归 Space 所有，节点本地与临时存储不许同步偏好。`core/crates/persistence/store/src/PreferencesDataStore.rs:3765`
 
-同一 storage host 与路径的偏好 store 共享同一份 shared state。`core/crates/persistence/store/src/PreferencesDataStore.rs:3783`
+同一 storage host 与路径的偏好 store 共享同一份 shared state。`core/crates/persistence/store/src/PreferencesDataStore.rs:3826`
 
-同一 storage host 与路径的偏好 store 共享同一个 change signal。`core/crates/persistence/store/src/PreferencesDataStore.rs:3811`
+同一 storage host 与路径的偏好 store 共享同一个 change signal。`core/crates/persistence/store/src/PreferencesDataStore.rs:3854`
 
-`notifyChanged` 递增版本号、唤醒等待者并调度订阅者回调。`core/crates/persistence/store/src/PreferencesDataStore.rs:3589`
+`notifyChanged` 递增版本号、唤醒等待者并调度订阅者回调。`core/crates/persistence/store/src/PreferencesDataStore.rs:3632`
 
 ## 关键符号
 
@@ -489,25 +489,25 @@ sqliteParams! — 值转 `SqliteValue` 参数向量。`core/crates/persistence/s
 
 `COMPACT_TOPOLOGY_V1` — 拓扑紧凑编码名。`core/crates/persistence/store/src/CoreSpaceStore.rs:127`
 
-`PreferencesDataStore` — 偏好存储，同步与节点本地两种形态。`core/crates/persistence/store/src/PreferencesDataStore.rs:2909`
+`PreferencesDataStore` — 偏好存储，同步与节点本地两种形态。`core/crates/persistence/store/src/PreferencesDataStore.rs:2952`
 
-`Preferences` — 偏好快照。`core/crates/persistence/store/src/PreferencesDataStore.rs:1587`
+`Preferences` — 偏好快照。`core/crates/persistence/store/src/PreferencesDataStore.rs:1630`
 
-`CoreNodeStateStore` — 节点本地状态存储。`core/crates/persistence/store/src/PreferencesDataStore.rs:1879`
+`CoreNodeStateStore` — 节点本地状态存储。`core/crates/persistence/store/src/PreferencesDataStore.rs:1922`
 
-`CoreNodeSecretStore` — 节点本地凭证与密钥存储。`core/crates/persistence/store/src/PreferencesDataStore.rs:2361`
+`CoreNodeSecretStore` — 节点本地凭证与密钥存储。`core/crates/persistence/store/src/PreferencesDataStore.rs:2404`
 
-`PreferencesSyncDescriptor` — 偏好同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2421`
+`PreferencesSyncDescriptor` — 偏好同步描述符。`core/crates/persistence/store/src/PreferencesDataStore.rs:2464`
 
-`PreferencesSyncedEntry` — 已同步的偏好条目。`core/crates/persistence/store/src/PreferencesDataStore.rs:2573`
+`PreferencesSyncedEntry` — 已同步的偏好条目。`core/crates/persistence/store/src/PreferencesDataStore.rs:2616`
 
 `Flow` — 可观察的值流。`core/crates/persistence/store/src/PreferencesDataStore.rs:352`
 
-`StateFlow` — 带当前值的可观察状态。`core/crates/persistence/store/src/PreferencesDataStore.rs:752`
+`StateFlow` — 带当前值的可观察状态。`core/crates/persistence/store/src/PreferencesDataStore.rs:785`
 
-`combine2` — 合并两个 `StateFlow`。`core/crates/persistence/store/src/PreferencesDataStore.rs:913`
+`combine2` — 合并两个 `StateFlow`。`core/crates/persistence/store/src/PreferencesDataStore.rs:956`
 
-`combine5` — 合并五个 `StateFlow`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1220`
+`combine5` — 合并五个 `StateFlow`。`core/crates/persistence/store/src/PreferencesDataStore.rs:1263`
 
 ## 调用链
 
@@ -527,13 +527,13 @@ merge 经 `mergedProjection` 合并本地与对端成员，新 revision 取两�
 
 `writeMemberRecord` 用 `replaceRecoverably` 写成员记录。`core/crates/persistence/store/src/CoreSpaceStore.rs:1211`
 
-`PreferencesDataStore` 的 `edit` 在内存中改偏好并持久化。`core/crates/persistence/store/src/PreferencesDataStore.rs:3328`
+`PreferencesDataStore` 的 `edit` 在内存中改偏好并持久化。`core/crates/persistence/store/src/PreferencesDataStore.rs:3371`
 
-`data` 在同步 store 或宿主保留偏好缓存的前提下，已缓存快照且 schema 已是最新时直接返回缓存。`core/crates/persistence/store/src/PreferencesDataStore.rs:3069`
+`data` 在同步 store 或宿主保留偏好缓存的前提下，已缓存快照且 schema 已是最新时直接返回缓存。`core/crates/persistence/store/src/PreferencesDataStore.rs:3112`
 
-`prepareSync`、`isSyncPrepared`、`syncSnapshot`、`repairSyncedSnapshot` 四个同步入口委托给 `Transaction::preference`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3909`
+`prepareSync`、`isSyncPrepared`、`syncSnapshot`、`repairSyncedSnapshot` 四个同步入口委托给 `Transaction::preference`。`core/crates/persistence/store/src/PreferencesDataStore.rs:3952`
 
-`notifyChanged` 递增版本号、唤醒等待者并调度订阅者回调。`core/crates/persistence/store/src/PreferencesDataStore.rs:3589`
+`notifyChanged` 递增版本号、唤醒等待者并调度订阅者回调。`core/crates/persistence/store/src/PreferencesDataStore.rs:3632`
 
 ## 来源
 

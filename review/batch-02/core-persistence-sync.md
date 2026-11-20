@@ -19,11 +19,11 @@ date: 2026-11-11
 - `SyncOperationOrder` — 并发实体操作的确定性冲突顺序（`core/crates/persistence/store/src/SyncOperationStore.rs:316`）
 - `RuntimeFileSyncReference` — 内容哈希加大小的 blob 引用（`core/crates/persistence/store/src/SyncBlobIo.rs:9`）
 - `RuntimeFileSyncStore` — 运行时文件的快照、blob 与删除 tombstone 存储（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:33`）
-- `WorkspaceFileSyncStore` — 托管工作区文件的清单、延迟与待完成写入存储（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:45`）
+- `WorkspaceFileSyncStore` — 托管工作区文件的清单、延迟与待完成写入存储（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:59`）
 - `FileSyncPolicy` — 工作区与会话文件的用户可编辑同步策略（`core/crates/persistence/store/src/FileSyncPolicy.rs:17`）
 - `PreferenceMergeSchema` — 偏好合并声明所属存储的集合（`core/crates/persistence/store/src/PreferenceMerge.rs:61`）
 - SyncAppliedChanges — 提交后通知订阅者的 post-commit 通知（`core/crates/persistence/store/src/SyncAppliedChanges.rs:47`）
-- 主入口：SyncOperationStore 的 `appendLocalOperation` 追加本地操作（`core/crates/persistence/store/src/SyncOperationStore.rs:1881`）；SyncOperationStore 的 `operationsSinceWithInventory` 导出同步页（`core/crates/persistence/store/src/SyncOperationStore.rs:826`）；RuntimeFileSyncStore 的 `recordSnapshot` 记录文件快照（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:120`）；WorkspaceFileSyncStore 的 `scan` 扫描工作区清单（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:96`）。
+- 主入口：SyncOperationStore 的 `appendLocalOperation` 追加本地操作（`core/crates/persistence/store/src/SyncOperationStore.rs:1881`）；SyncOperationStore 的 `operationsSinceWithInventory` 导出同步页（`core/crates/persistence/store/src/SyncOperationStore.rs:826`）；RuntimeFileSyncStore 的 `recordSnapshot` 记录文件快照（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:120`）；WorkspaceFileSyncStore 的 `scan` 扫描工作区清单（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:110`）。
 - 数据流向：本地写操作 → 追加操作日志并推进向量时钟 → 按导出下限与实体胜者裁剪同步页 → 内容寻址 blob 随页传输 → 对端落库为 pending 并记实体版本 → 偏好按声明合并、文件按清单与策略落盘。
 
 ## 核心机制
@@ -71,9 +71,9 @@ date: 2026-11-11
 - `setExportFloor` 只提高导出下限不降低，已有值大于等于传入序列时直接返回（`core/crates/persistence/store/src/SyncOperationStore.rs:1014`）。
 - `exportFloorFor` 未设下限的来源返回 0（`core/crates/persistence/store/src/SyncOperationStore.rs:1037`）。
 - `markLocalOperationsUnexportable` 把本地设备及其 `preferences` 派生来源的当前序列设为导出下限（`core/crates/persistence/store/src/SyncOperationStore.rs:1003`）。
-- `receiveOperations` 经 `storeOriginals` 把接收到的操作以 `pending` 状态存入当前 Journal（`core/crates/persistence/store/src/SyncOperationStore.rs:1956`）。
+- `receiveOperations` 经 `storeOriginals` 把接收到的操作以 `pending` 状态存入当前 Journal（`core/crates/persistence/store/src/SyncOperationStore.rs:1954`）。
 - `operationsSinceWithInventory` 在 `domains` 为空或包含 `preferences` 时先发布偏好 outbox 再读日志（`core/crates/persistence/store/src/SyncOperationStore.rs:826`）。
-- 导出时跳过序列号不大于导出下限的记录（`core/crates/persistence/store/src/SyncOperationStore.rs:2088`）。
+- 导出时跳过序列号不大于导出下限的记录（`core/crates/persistence/store/src/SyncOperationStore.rs:2084`）。
 - `DEFAULT_SYNC_PAGE_BYTES` 是 4 MiB，单个同步交换页的序列化字节预算，超预算时截断但首条操作除外（见下）（`core/crates/persistence/store/src/SyncOperationStore.rs:42`）。
 - `boundSyncOperationPage` 按序列化字节预算截断同步操作页（`core/crates/persistence/store/src/SyncOperationStore.rs:1647`）。
 - 截断超预算页面时始终保留第一条操作，单个超大记录不阻塞导出（`core/crates/persistence/store/src/SyncOperationStore.rs:1658`）。
@@ -87,7 +87,7 @@ date: 2026-11-11
 - 新操作只在顺序大于已记录版本时才应用，未知实体默认应用（`core/crates/persistence/store/src/SyncOperationStore.rs:1115`）。
 - `recordAppliedOperations` 把已应用的操作批量记入实体版本日志（`core/crates/persistence/store/src/SyncOperationStore.rs:1136`）。
 - 顺序不大于已记录版本的操作被跳过，不写入实体版本日志（`core/crates/persistence/store/src/SyncOperationStore.rs:1153`）。
-- 导出时非 `preferences` 域的 `EntityState` 操作每实体只导出最新一条胜者（`core/crates/persistence/store/src/SyncOperationStore.rs:2097`）。
+- 导出时非 `preferences` 域的 `EntityState` 操作每实体只导出最新一条胜者（`core/crates/persistence/store/src/SyncOperationStore.rs:2093`）。
 - `compactSyncOperations` 压缩同步操作页，保留 `preferences` 历史用于身份重放（`core/crates/persistence/store/src/SyncOperationStore.rs:1667``core/crates/persistence/store/src/SyncOperationStore.rs:1679`）。
 - 压缩时保留全部 `preferences` 域操作与全部 `Transaction` 语义操作，`EntityState` 语义每实体只保留最新序列（`core/crates/persistence/store/src/SyncOperationStore.rs:1670``core/crates/persistence/store/src/SyncOperationStore.rs:1682`）。
 
@@ -112,59 +112,59 @@ date: 2026-11-11
 - `FileCoverage` 由 `owner` 与 `covered` 集合组成，失败方只提供覆盖证明而不重发业务内容（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:42`）。
 - `FileCorrectionReference` 由 `source`、`superseded` 与 `skipped` 集合组成，`skipped` 只记录确切失败的原始文件（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:50`）。
 - `recordSnapshot` 由文件内容直接算引用后以本地设备号追加本地操作，`initial` 时设备号加 `:initial` 后缀（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:120`）（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:130`）。
-- `recordDeletion` 只追加 `payload` 为 null 的 `delete` 操作，不动本地文件（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:216``core/crates/persistence/store/src/RuntimeFileSyncStore.rs:228`）。
-- `writeBlob` 先校验引用再写 blob（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:417`）。
-- `readBlob` 读完 blob 后校验哈希与大小（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:467`）。
-- `storeBlob` 计算内容的 SHA-256 并写入 blobs/{hash}，返回引用（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:436`）。
-- `blobPath` 校验哈希后返回 {syncRoot}/blobs/{hash}（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:538`）。
-- `hasBlob` 校验引用后查 blob 是否存在，不存在时再查 live 文件源是否能提供，不读内容也不哈希（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:404`）。
-- `readBlobChunk` 在 `offset` 或 `length` 为负时报错（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:410`）。
-- `requiredBlob` 对任意操作先取 `transaction_reference`，无引用时非 runtime_file 域或非 Space 所有权返回 `None`，`upsert` 从 `payload` 解析引用，`delete` 返回 `None`（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:331`）（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:349`）。
-- 非 `file` 的 `entityType` 在取 blob 引用时报错（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:345`）。
-- `prepareTransactionForTransport` 对无 `transaction_reference` 且序列化后大于 32 KiB 的操作，把载荷换成 `transactionBlob` 信封（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:358`）。
-- 操作大小超过 32 KiB 时 `payload` 换成只含 `transactionBlob` 引用的小信封（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:365`）。
-- `hydrateTransaction` 对无 `transaction_reference` 的操作原样返回，`initialize`/`initialization` 的 `chat` 与 `plugin_storage` 域不读 blob，其余带引用的操作从 blob 还原并校验头部（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:370`）。
-- `requireSpaceFile` 拒绝未注册为 Space 同步的文件进入运行时文件同步（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:551`）。
-- `upsert` 操作读 blob 写文件、恢复 `modifiedAt` 并 `flush` 文件（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:313`）。
-- `delete` 操作只在文件存在时删除，其他操作报错（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:322`）。
+- `recordDeletion` 只追加 `payload` 为 null 的 `delete` 操作，不动本地文件（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:204``core/crates/persistence/store/src/RuntimeFileSyncStore.rs:216`）。
+- `writeBlob` 先校验引用再写 blob（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:404`）。
+- `readBlob` 读完 blob 后校验哈希与大小（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:454`）。
+- `storeBlob` 计算内容的 SHA-256 并写入 blobs/{hash}，返回引用（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:423`）。
+- `blobPath` 校验哈希后返回 {syncRoot}/blobs/{hash}（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:524`）。
+- `hasBlob` 校验引用后查 blob 是否存在，不存在时再查 live 文件源是否能提供，不读内容也不哈希（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:391`）。
+- `readBlobChunk` 在 `offset` 或 `length` 为负时报错（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:397`）。
+- `requiredBlob` 对任意操作先取 `transaction_reference`，无引用时非 runtime_file 域或非 Space 所有权返回 `None`，`upsert` 从 `payload` 解析引用，`delete` 返回 `None`（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:318`）（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:336`）。
+- 非 `file` 的 `entityType` 在取 blob 引用时报错（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:332`）。
+- `prepareTransactionForTransport` 对无 `transaction_reference` 且序列化后大于 32 KiB 的操作，把载荷换成 `transactionBlob` 信封（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:345`）。
+- 操作大小超过 32 KiB 时 `payload` 换成只含 `transactionBlob` 引用的小信封（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:352`）。
+- `hydrateTransaction` 对无 `transaction_reference` 的操作原样返回，`initialize`/`initialization` 的 `chat` 与 `plugin_storage` 域不读 blob，其余带引用的操作从 blob 还原并校验头部（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:357`）。
+- `requireSpaceFile` 拒绝未注册为 Space 同步的文件进入运行时文件同步（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:537`）。
+- `upsert` 操作读 blob 写文件、恢复 `modifiedAt` 并 `flush` 文件（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:300`）。
+- `delete` 操作只在文件存在时删除，其他操作报错（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:309`）。
 - `writeSnapshot` 把显式变更与初始种子走同一文件同步路径（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:100`）。
 - `writeSnapshot` 在 `initial` 且已有快照时直接返回，不重复写（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:102`）。
 - 插件数据库文件拒绝进入文件同步，要求用记录级存储操作（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:110`）。
-- `trackChanges` 在变更前后各抓一次文件快照（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:235`）。
-- 变化的文件记录新快照，消失的文件记录删除（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:244`）。
+- `trackChanges` 在变更前后各抓一次文件快照（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:223`）。
+- 变化的文件记录新快照，消失的文件记录删除（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:232`）。
 - `resetTransactions` 重新发布当前字节与删除 `tombstone`（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:145`）。
 - 重新发布后收回已被替换的文件历史（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:166`）。
 
 ### 工作区文件同步存储
 
-- `MANAGED_ROOTS` 是 `workspaces`、聊天输出目录与旧版聊天附件目录三个托管根（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:21`）。
-- WorkspaceFileSyncStore 的 `owns` 要求 `domain` 为 `runtime_file` 且路径被 `manages` 覆盖（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:78``core/crates/persistence/store/src/RuntimeFileSyncStore.rs:15`）。
-- WorkspaceFileSyncStore 的 `manages` 要求路径以托管根加斜杠开头（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:84`）。
-- `affectedBy` 覆盖托管路径及其祖先与后代路径（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:90`）。
-- 工作区清单存在 {root}/workspace_inventory.json 文件中（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:136`）。
-- `ScanState` 由 `files`、`references`、`deferred`、`pending` 四部分组成（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:35`）。
-- `scan` 只遍历托管根，不查挂载的 VFS 目录（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:96`）。
-- `prepareSpaceJoin` 在加入 Space 前恢复未完成写入（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:114`）。
-- 加入 Space 时本地文件保留，只重新清点清单，避免本设备独有的文件被 `stranded`（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:108`）。
-- 加入 Space 时工作区清单重置为 `ScanState::default()`（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:117`）。
-- `trackPaths` 在变更前后各扫描一次工作区（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:130`）。
-- `applyOperation` 在落库后把操作追加到操作日志（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:382`）。
-- `materializeOperations` 对非 `file` 实体或非本页拥有的操作报错（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:398`）。
-- `materializeOperations` 在 `bootstrap` 时跳过 `shouldApplyOperation` 判断（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:395``core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:413`）。
-- `applyUnlocked` 把 `upsert` 解释为快照、`delete` 解释为空，其他操作报错（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:479`）。
-- 策略拒绝或目标检查失败的传入状态存入 `deferred`，不丢弃（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:487`）。
-- `wantsBlob` 按策略判断一个 `upsert` 操作是否需要其 blob（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:502`）。
-- `deferredBlobs` 返回策略变化后重新符合条件的已延迟文件的引用（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:509`）。
-- `recoverPending` 在任何扫描前先完成中断的传入写入（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:564`）。
-- `finishPending` 先写已验证的字节，再提交清单（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:578`）。
-- `writePending` 的 `upsert` 写字节、恢复 `modifiedAt` 并 `flush` 文件（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:482``core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:605`）。
-- `writePending` 的 `delete` 只在文件存在时删除（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:600``core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:613`）。
-- `checkDestination` 拒绝目标路径上的符号链接与文件/目录类型冲突（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:640`）。
-- `managedDirectory` 取托管根下的第一段目录作为文件所属目录（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:676`）。
-- `managedVfsPath` 把 `workspaces/` 映射为 `/operitapp/workspaces/`，聊天输出映射为 `/operitapp/outputs/`，`runtime/` 映射为 `/operitapp/data/`（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:687`）。
-- `validatePath` 要求托管路径属于 Space 所有权（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:691`）。
-- `captureReference` 为超限文件写 `.operit-ref.json` 边车保存 `FileReference`（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:323``core/crates/persistence/store/src/FileSyncPolicy.rs:12`）。
-- 超限大文件只同步边车引用，原始大文件留在来源节点（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:227`）。
+- `MANAGED_ROOTS` 是 `workspaces`、聊天输出目录与旧版聊天附件目录三个托管根（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:22`）。
+- WorkspaceFileSyncStore 的 `owns` 要求 `domain` 为 `runtime_file` 且路径被 `manages` 覆盖（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:92``core/crates/persistence/store/src/RuntimeFileSyncStore.rs:15`）。
+- WorkspaceFileSyncStore 的 `manages` 要求路径以托管根加斜杠开头（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:98`）。
+- `affectedBy` 覆盖托管路径及其祖先与后代路径（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:104`）。
+- 工作区清单存在 {root}/workspace_inventory.json 文件中（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:188`）。
+- `ScanState` 由 `files`、`references`、`deferred`、`pending` 四部分组成（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:49`）。
+- `scan` 只遍历托管根，不查挂载的 VFS 目录（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:110`）。
+- `prepareSpaceJoin` 在加入 Space 前恢复未完成写入（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:125`）。
+- 加入 Space 时本地文件保留，只重新清点清单，避免本设备独有的文件被 `stranded`（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:124`）。
+- 加入 Space 时工作区清单重置为 `ScanState::default()`（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:134`）。
+- `trackPaths` 在变更前校验路径属于托管范围并提交重扫意图，不再在变更前后各扫描一次工作区（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:144`）。
+- `applyOperation` 在落库后把操作追加到操作日志（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:486`）。
+- `materializeOperations` 对非 `file` 实体或非本页拥有的操作报错（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:502`）。
+- `materializeOperations` 在 `bootstrap` 时跳过 `shouldApplyOperation` 判断（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:499``core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:519`）。
+- `applyUnlocked` 先标记恢复状态，再经 `applyToState` 把 `upsert` 解释为快照、`delete` 解释为空，其他操作报错（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:597` `core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:605`）。
+- 策略拒绝或目标检查失败的传入状态存入 `deferred`，不丢弃（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:613`）。
+- `wantsBlob` 按策略判断一个 `upsert` 操作是否需要其 blob（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:628`）。
+- `deferredBlobs` 返回策略变化后重新符合条件的已延迟文件的引用（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:635`）。
+- `recoverPending` 在任何扫描前先完成中断的传入写入（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:690`）。
+- `finishPending` 先写已验证的字节，再提交清单（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:707`）。
+- `writePending` 的 `upsert` 写字节、恢复 `modifiedAt` 并 `flush` 文件（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:608``core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:734`）。
+- `writePending` 的 `delete` 只在文件存在时删除（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:729``core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:742`）。
+- `checkDestination` 拒绝目标路径上的符号链接与文件/目录类型冲突（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:769`）。
+- `managedDirectory` 取托管根下的第一段目录作为文件所属目录（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:810`）。
+- `managedVfsPath` 把 `workspaces/` 映射为 `/operitapp/workspaces/`，聊天输出映射为 `/operitapp/outputs/`，`runtime/` 映射为 `/operitapp/data/`（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:821`）。
+- `validatePath` 要求托管路径属于 Space 所有权（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:825`）。
+- `captureReference` 为超限文件写 `.operit-ref.json` 边车保存 `FileReference`（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:427``core/crates/persistence/store/src/FileSyncPolicy.rs:12`）。
+- 超限大文件只同步边车引用，原始大文件留在来源节点（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:294`）。
 
 ### 文件同步策略
 
@@ -227,7 +227,7 @@ date: 2026-11-11
 - `NewSyncOperation` — 新建本地操作时提交的域、实体与载荷（`core/crates/persistence/store/src/SyncOperationStore.rs:352`）
 - SyncOperationStore 的 `appendLocalOperation` — 追加本地操作并分配序列号（`core/crates/persistence/store/src/SyncOperationStore.rs:1881`）
 - SyncOperationStore 的 `operationsSinceWithInventory` — 按导出下限与实体胜者裁剪同步页（`core/crates/persistence/store/src/SyncOperationStore.rs:826`）
-- SyncOperationStore 的 `receiveOperations` — 接收到的操作以 `pending` 状态存入日志（`core/crates/persistence/store/src/SyncOperationStore.rs:1956`）
+- SyncOperationStore 的 `receiveOperations` — 接收到的操作以 `pending` 状态存入日志（`core/crates/persistence/store/src/SyncOperationStore.rs:1954`）
 - SyncOperationStore 的 `localDeviceId` — 生成或读取本地设备标识（`core/crates/persistence/store/src/SyncOperationStore.rs:783`）
 - SyncOperationStore 的 `scanOperationLog` — 逐行分类遗留 JSONL 操作日志的可解码与损坏行（`core/crates/persistence/store/src/SyncOperationStore.rs:1306`）
 - SyncOperationStore 的 `quarantineOperationLines` — 只处理遗留 JSONL 日志，把损坏行移入隔离边车（`core/crates/persistence/store/src/SyncOperationStore.rs:1483`）
@@ -251,21 +251,21 @@ date: 2026-11-11
 - `FileCoverage` — 失败方提供的覆盖证明（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:42`）
 - `FileCorrectionReference` — 胜出文件与其取代的历史覆盖（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:50`）
 - RuntimeFileSyncStore 的 `recordSnapshot` — 由内容算引用并以本地设备号追加本地操作（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:120`）。
-- RuntimeFileSyncStore 的 `recordDeletion` — 追加 `payload` 为 null 的 `delete` 操作（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:216``core/crates/persistence/store/src/RuntimeFileSyncStore.rs:228`）
-- RuntimeFileSyncStore 的 `storeBlob` — 计算 SHA-256 并写入 blobs/{hash}（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:436`）
-- RuntimeFileSyncStore 的 `readBlob` — 读完 blob 后校验哈希与大小（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:467`）
-- RuntimeFileSyncStore 的 `hasBlob` — 查 blob 是否存在，不存在时查 live 文件源（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:404`）。
-- RuntimeFileSyncStore 的 `requiredBlob` — 取一个操作所需的 blob 引用（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:331`）
-- RuntimeFileSyncStore 的 `prepareTransactionForTransport` — 大操作改走 blob 传输（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:358`）。
-- RuntimeFileSyncStore 的 `hydrateTransaction` — 从 blob 还原带引用的操作（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:370`）。
-- RuntimeFileSyncStore 的 `applySyncedOperation` — 落库一个已验证的运行时文件操作（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:293`）
-- `WorkspaceFileSyncStore` — 托管工作区文件的清单、延迟与待完成写入存储（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:45`）
-- WorkspaceFileSyncStore 的 `scan` — 只遍历托管根的清单扫描（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:96`）
-- WorkspaceFileSyncStore 的 `prepareSpaceJoin` — 加入 Space 前恢复未完成写入并重置清单（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:114`）
-- WorkspaceFileSyncStore 的 `materializeOperations` — 批量落库工作区文件操作（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:395`）
-- WorkspaceFileSyncStore 的 `deferredBlobs` — 返回策略变化后重新符合条件的已延迟文件引用（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:509`）
-- WorkspaceFileSyncStore 的 `managedDirectory` — 取托管根下的第一段目录（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:676`）
-- WorkspaceFileSyncStore 的 `managedVfsPath` — 托管路径到 VFS 路径的映射（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:687`）
+- RuntimeFileSyncStore 的 `recordDeletion` — 追加 `payload` 为 null 的 `delete` 操作（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:204``core/crates/persistence/store/src/RuntimeFileSyncStore.rs:216`）
+- RuntimeFileSyncStore 的 `storeBlob` — 计算 SHA-256 并写入 blobs/{hash}（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:423`）
+- RuntimeFileSyncStore 的 `readBlob` — 读完 blob 后校验哈希与大小（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:454`）
+- RuntimeFileSyncStore 的 `hasBlob` — 查 blob 是否存在，不存在时查 live 文件源（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:391`）。
+- RuntimeFileSyncStore 的 `requiredBlob` — 取一个操作所需的 blob 引用（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:318`）
+- RuntimeFileSyncStore 的 `prepareTransactionForTransport` — 大操作改走 blob 传输（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:345`）。
+- RuntimeFileSyncStore 的 `hydrateTransaction` — 从 blob 还原带引用的操作（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:357`）。
+- RuntimeFileSyncStore 的 `applySyncedOperation` — 落库一个已验证的运行时文件操作（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:280`）
+- `WorkspaceFileSyncStore` — 托管工作区文件的清单、延迟与待完成写入存储（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:59`）
+- WorkspaceFileSyncStore 的 `scan` — 只遍历托管根的清单扫描（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:110`）
+- WorkspaceFileSyncStore 的 `prepareSpaceJoin` — 加入 Space 前恢复未完成写入并重置清单（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:125`）
+- WorkspaceFileSyncStore 的 `materializeOperations` — 批量落库工作区文件操作（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:499`）
+- WorkspaceFileSyncStore 的 `deferredBlobs` — 返回策略变化后重新符合条件的已延迟文件引用（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:635`）
+- WorkspaceFileSyncStore 的 `managedDirectory` — 取托管根下的第一段目录（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:810`）
+- WorkspaceFileSyncStore 的 `managedVfsPath` — 托管路径到 VFS 路径的映射（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:821`）
 - `FileSyncPolicy` — 工作区与会话文件的用户可编辑同步策略（`core/crates/persistence/store/src/FileSyncPolicy.rs:17`）
 - FileSyncPolicy 的 `load` — 读策略文件，不存在返回默认（`core/crates/persistence/store/src/FileSyncPolicy.rs:49`）
 - FileSyncPolicy 的 `ensure` — 只在策略文件不存在时写入默认策略（`core/crates/persistence/store/src/FileSyncPolicy.rs:73`）
@@ -284,14 +284,14 @@ date: 2026-11-11
 1. 本地写操作：`appendLocalOperation` 分配序列号并把操作追加到当前 Journal，`opId` 是 `originDeviceId` 与序列号以冒号连接（`core/crates/persistence/store/src/SyncOperationStore.rs:1885`）。
 2. 时钟推进：`observeOperations` 只在操作序列大于已知序列时推进本地时钟并写回 `clocks.json`（`core/crates/persistence/store/src/SyncOperationStore.rs:1182``core/crates/persistence/store/src/SyncOperationStore.rs:1193``core/crates/persistence/store/src/SyncOperationStore.rs:1424`）。
 3. 导出裁剪：`operationsSinceWithInventory` 在 `domains` 为空或包含 `preferences` 时先发布偏好 outbox 再读日志（`core/crates/persistence/store/src/SyncOperationStore.rs:826`）。
-4. 导出裁剪：导出时跳过序列号不大于导出下限的记录（`core/crates/persistence/store/src/SyncOperationStore.rs:2088`）。
-5. 导出裁剪：非 `preferences` 域的 `EntityState` 操作每实体只导出最新一条胜者（`core/crates/persistence/store/src/SyncOperationStore.rs:2097`）。
-6. 大操作传输：操作大小超过 32 KiB 时 `payload` 换成只含 `transactionBlob` 引用的小信封（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:365`）。
-7. 接收落库：`receiveOperations` 把接收到的操作以 `pending` 状态存入当前 Journal（`core/crates/persistence/store/src/SyncOperationStore.rs:1956`）。
+4. 导出裁剪：导出时跳过序列号不大于导出下限的记录（`core/crates/persistence/store/src/SyncOperationStore.rs:2084`）。
+5. 导出裁剪：非 `preferences` 域的 `EntityState` 操作每实体只导出最新一条胜者（`core/crates/persistence/store/src/SyncOperationStore.rs:2093`）。
+6. 大操作传输：操作大小超过 32 KiB 时 `payload` 换成只含 `transactionBlob` 引用的小信封（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:352`）。
+7. 接收落库：`receiveOperations` 把接收到的操作以 `pending` 状态存入当前 Journal（`core/crates/persistence/store/src/SyncOperationStore.rs:1954`）。
 8. 实体版本记录：`recordAppliedOperations` 把已应用的操作批量记入实体版本日志（`core/crates/persistence/store/src/SyncOperationStore.rs:1136`）。
 9. 文件快照：`recordSnapshot` 由文件内容直接算引用后以本地设备号追加本地操作，`initial` 时设备号加 `:initial` 后缀（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:120`）（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:130`）。
-10. 工作区扫描：`scan` 只遍历托管根，不查挂载的 VFS 目录（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:96`）。
-11. 工作区落库：`finishPending` 先写已验证的字节，再提交清单（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:578`）。
+10. 工作区扫描：`scan` 只遍历托管根，不查挂载的 VFS 目录（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:110`）。
+11. 工作区落库：`finishPending` 先写已验证的字节，再提交清单（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:707`）。
 12. 提交后通知：SyncAppliedChanges 的 `publish` 在变更为空时直接返回，且只在数据与同步时钟提交后、在 `store` 锁之外调用（`core/crates/persistence/store/src/SyncAppliedChanges.rs:47`）。
 
 ## 来源

@@ -35,10 +35,10 @@ date: 2026-11-11
 
 ### 记忆位于哪里
 
-- 一个 owner 的完整记忆空间是 `MemorySpace`，含记忆、关系、分块、候选、设置、重建进度与向量（`plugins/packages/buildin/character_cards/src/model.ts:393`）。
-- 调度只读写 `MemoryJobState`，即记忆空间去掉记忆、关系、分块与向量后的部分（`plugins/packages/buildin/character_cards/src/model.ts:407`）。
-- 全部 owner 的记忆空间收在 CharacterState 的 `owners` 数组里（`plugins/packages/buildin/character_cards/src/model.ts:419`）。
-- `CharacterState` 的注释写明它只拥有本插件的文件模式，不施加全运行时范围的存储模式（`plugins/packages/buildin/character_cards/src/model.ts:409`）。
+- 一个 owner 的完整记忆空间是 `MemorySpace`，含记忆、关系、分块、候选、设置、重建进度与向量（`plugins/packages/buildin/character_cards/src/model.ts:395`）。
+- 调度只读写 `MemoryJobState`，即记忆空间去掉记忆、关系、分块与向量后的部分（`plugins/packages/buildin/character_cards/src/model.ts:409`）。
+- 全部 owner 的记忆空间收在 CharacterState 的 `owners` 数组里（`plugins/packages/buildin/character_cards/src/model.ts:421`）。
+- `CharacterState` 的注释写明它只拥有本插件的文件模式，不施加全运行时范围的存储模式（`plugins/packages/buildin/character_cards/src/model.ts:411`）。
 - 记忆数据库文件是 Space 数据目录下的 `memory.sqlite`（`plugins/packages/buildin/character_cards/src/storage/memory.ts:20`）。
 - 记忆操作作用于同步化的数据库记录，检索索引是 owner 本地的派生索引（`plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:41`）。
 - 源记录与向量在一次同步化事务里一起发布（`plugins/packages/buildin/character_cards/src/storage/memory.ts:76`）。
@@ -70,8 +70,8 @@ date: 2026-11-11
 ### 间隔推进
 
 - 间隔钩子每 60 秒调用 `runMemoryJobs()`（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:18`）。
-- 导出的 `runMemoryJobs()` 把调用转给服务实例（`plugins/packages/buildin/character_cards/src/service-runtime.ts:267`）。
-- 服务运行时的 `runMemoryJobs` 调用 `jobs.tick()`（`plugins/packages/buildin/character_cards/src/service-runtime.ts:115`）。
+- 导出的 `runMemoryJobs()` 把调用转给服务实例（`plugins/packages/buildin/character_cards/src/service-runtime.ts:269`）。
+- 服务运行时的 `runMemoryJobs` 调用 `jobs.tick()`（`plugins/packages/buildin/character_cards/src/service-runtime.ts:117`）。
 - `tick()` 在已有一次正在跑的 pass 时共享它（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:286`）。
 - 每轮先列出全部记忆 owner 再逐个推进（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:296`）。
 - 处理中超过 30 分钟租约的本设备候选会被打回 `pending`（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:320`）。
@@ -184,8 +184,8 @@ date: 2026-11-11
 - `registerMemoryJobHooks` — 注册两个钩子（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:23`）
 - `memoryJobProducer` — 读当前 CoreNode id（`plugins/packages/buildin/character_cards/src/memory-jobs/producer.ts:4`）
 - `extractionTemplate` — 提取提示词策略（`plugins/packages/buildin/character_cards/src/memory-jobs/prompt-template.ts:2`）
-- `MemorySpace` — 一个 owner 的完整记忆空间（`plugins/packages/buildin/character_cards/src/model.ts:393`）
-- `MemoryJobState` — 调度状态（`plugins/packages/buildin/character_cards/src/model.ts:407`）
+- `MemorySpace` — 一个 owner 的完整记忆空间（`plugins/packages/buildin/character_cards/src/model.ts:395`）
+- `MemoryJobState` — 调度状态（`plugins/packages/buildin/character_cards/src/model.ts:409`）
 - `CharacterMemoryDatabase` — 同步化的记忆数据库（`plugins/packages/buildin/character_cards/src/storage/memory.ts:12`）
 - `DatabaseMemoryRepository` — 同步数据库记录上的记忆操作（`plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:41`）
 
@@ -195,7 +195,7 @@ date: 2026-11-11
 2. 助手回复落库后，消息钩子派发 `memory.candidate.enqueue`（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:14`）。
 3. 校验发送者、作者权限与 owner，写入一条 `pending` 候选（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:102`）。
 4. 每 60 秒，`onMemoryInterval` 调用 `runMemoryJobs()`（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:18`）。
-5. `runMemoryJobs` 转给服务实例，调用 `jobs.tick()`（`plugins/packages/buildin/character_cards/src/service-runtime.ts:115`）。
+5. `runMemoryJobs` 转给服务实例，调用 `jobs.tick()`（`plugins/packages/buildin/character_cards/src/service-runtime.ts:117`）。
 6. 推进各 owner：先回收超租约与无生产设备的历史任务（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:319`）。
 7. 本设备的重建任务按窗口推进，每窗口先复核源消息版本再提取（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:161`）。
 8. 待处理候选达到 5 条时才开始组织批次（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:355`）。

@@ -29,7 +29,7 @@ Operit2 当前处于 `Preview Release` 阶段（`README.md:4`）。
 - `publish_dist.py` — 发布已 staged 文件的脚本（`docs/release-versioning.md:270`）
 - `tools/build_scripts/release_artifacts.py` — 共享的发布包命名实现（`docs/release-versioning.md:91`）
 
-检查命令：`operit2 cli update check`（`apps/cli/src/cli/mod.rs:1979`）。
+检查命令：`operit2 cli update check`（`apps/cli/src/cli/mod.rs:1995`）。
 无参数时自动用 `CARGO_PKG_VERSION` 作当前版本（`apps/cli/src/cli/mod.rs:538`）。
 
 带参形式：`operit2 cli update check <current-version>`，显式参数名为 `current_version`，覆盖版本比较基准（`apps/cli/src/cli/mod.rs:566`）。

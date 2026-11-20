@@ -1,6 +1,6 @@
 [
   {
-    "fact": "operit-cli 的版本是 2.0.0-preview.41",
+    "fact": "operit-cli 的版本是 2.0.0-preview.42",
     "ref": "apps/cli/Cargo.toml:3"
   },
   {
@@ -129,11 +129,11 @@
   },
   {
     "fact": "CLI_COMMANDS 表定义固有 CLI 命令族",
-    "ref": "apps/cli/src/cli/mod.rs:1809"
+    "ref": "apps/cli/src/cli/mod.rs:1827"
   },
   {
     "fact": "单元测试断言 CLI_COMMANDS 覆盖 31 个固有 CLI 命令族",
-    "ref": "apps/cli/src/cli/mod.rs:2331"
+    "ref": "apps/cli/src/cli/mod.rs:2347"
   },
   {
     "fact": "read_cli_plugin_commands 通过 plugin commands --json 读取插件命令目录",
@@ -145,7 +145,7 @@
   },
   {
     "fact": "cli_usage_lines 的用法文本列出 --link <session> 全局选项",
-    "ref": "apps/cli/src/cli/mod.rs:1883"
+    "ref": "apps/cli/src/cli/mod.rs:1901"
   },
   {
     "fact": "run_identity_command 处理 identity 本地管理命令",
@@ -153,7 +153,7 @@
   },
   {
     "fact": "identity 子命令包含 list、current、create、use、rename",
-    "ref": "apps/cli/src/cli/mod.rs:1957"
+    "ref": "apps/cli/src/cli/mod.rs:1975"
   },
   {
     "fact": "除 chat shell 外，chat 子命令转发给 Core 命令",
@@ -161,7 +161,7 @@
   },
   {
     "fact": "model codex-login 只接受 browser 或 device 两种方式",
-    "ref": "apps/cli/src/cli/mod.rs:1485"
+    "ref": "apps/cli/src/cli/mod.rs:1508"
   },
   {
     "fact": "market auth login 走 GitHub OAuth 回调完成登录",
@@ -173,7 +173,7 @@
   },
   {
     "fact": "install_current_cli 从当前可执行文件安装 CLI",
-    "ref": "apps/cli/src/cli/mod.rs:849"
+    "ref": "apps/cli/src/cli/mod.rs:867"
   },
   {
     "fact": "install_cli_from_source 把同一二进制复制为 operit 与 operit2 两个命令",

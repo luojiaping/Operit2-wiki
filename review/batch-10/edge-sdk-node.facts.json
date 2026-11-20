@@ -221,71 +221,71 @@
   },
   {
     "fact": "EdgePeerRouter 只提供本地设备服务执行，没有第二套配对协议",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:18"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:19"
   },
   {
     "fact": "EdgePeerRouter 的 new 以 nodeId 创建路由",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:25"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:26"
   },
   {
     "fact": "install 第二次安装 EdgeNode 返回 Edge node already installed 错误",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:32"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:33"
   },
   {
     "fact": "installSpace 第二次安装 NodeSpaceService 返回 Edge Space services already installed 错误",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:37"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:38"
   },
   {
     "fact": "check 要求 targetNodeId 等于本节点 id，否则返回 EDGE_ROUTE_TARGET_MISMATCH",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:48"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:49"
   },
   {
     "fact": "check 只接受 RoutedCoreRequestKind::Target 路由，其他路由返回 EDGE_ROUTE_UNSUPPORTED",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:53"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:57"
   },
   {
     "fact": "checkSpaceOrigin 要求 Space 调用直连来源、不可中继，NODE_SPACE_TARGET 调用 ttl 必须为 0",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:63"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:64"
   },
   {
     "fact": "准入前调用只允许零跳，同 Space 控制与评审调用在直连上可带正 TTL",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:92"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:110"
   },
   {
     "fact": "NODE_SPACE_TARGET、NODE_SPACE_APPROVAL_TARGET 与 NODE_SPACE_CONTROL_TARGET 三个目标交给 Space 服务处理",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:87"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:105"
   },
   {
     "fact": "准入与控制目标的请求 spaceId 必须等于当前 Space 的 spaceId，否则返回 SPACE_ID_MISMATCH",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:115"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:128"
   },
   {
     "fact": "未安装 Space 服务时 Space 调用返回 EDGE_SPACE_UNAVAILABLE",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:101"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:119"
   },
   {
     "fact": "prepareRoutedCall 只处理 NODE_SPACE_TARGET 的 snapshot 方法",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:143"
-  },
-  {
-    "fact": "prepareEncodedCall 只处理控制通道的 exchange 与 exchangeBounded、申请侧的 requestJoin、cancelJoin 与 joinStatus，以及 observeSpaceSnapshot",
     "ref": "edge/sdk/node/src/PeerRouter.rs:161"
   },
   {
+    "fact": "prepareEncodedCall 只处理控制通道的 exchange 与 exchangeBounded、申请侧的 requestJoin、cancelJoin 与 joinStatus，以及 observeSpaceSnapshot",
+    "ref": "edge/sdk/node/src/PeerRouter.rs:179"
+  },
+  {
     "fact": "routedWatchSnapshot 先执行 check 再分发",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:186"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:204"
   },
   {
     "fact": "routedWatch 先执行 check 再分发",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:194"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:212"
   },
   {
     "fact": "routedOpenPush 先执行 check 再分发",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:202"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:220"
   },
   {
     "fact": "spaceChannelScope 未安装 Space 服务时返回 Ok(None)",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:210"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:228"
   },
   {
     "fact": "DeviceIoStateStream 携带一个 Edge 服务 watch 的类型化数字输出状态",
@@ -305,18 +305,18 @@
   },
   {
     "fact": "installSpace 安装 NodeSpaceService",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:37"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:38"
   },
   {
     "fact": "routedCall 先执行 check 再分发",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:82"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:95"
   },
   {
     "fact": "NODE_SPACE_TARGET 调用交给 Space 服务的 acceptPeerSpaceCall",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:123"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:142"
   },
   {
     "fact": "EdgePeerRouter 的 nodeLocalControlProjection 返回 true，Edge 的权限读取使用 NodeSpaceService 安装的节点本地授权",
-    "ref": "edge/sdk/node/src/PeerRouter.rs:74"
+    "ref": "edge/sdk/node/src/PeerRouter.rs:87"
   }
 ]

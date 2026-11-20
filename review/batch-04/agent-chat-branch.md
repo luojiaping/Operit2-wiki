@@ -33,10 +33,10 @@ date: 2026-11-11
 - `Tools.Chat.sendMessage` — 插件发送消息的入口（docs/chat-send-api.md:8）。
 - `Tools.Chat.sendMessageStreaming` — 流式发送消息的入口（docs/chat-send-api.md:9）。
 - `Tools.Chat.cancel` — 取消发送的入口（docs/chat-send-api.md:10）。
-- `steerMessage` — Flutter 端引导当前会话的内部 Core 路由（docs/chat-send-api.md:75）。
+- `steerMessage` — Flutter 端引导当前会话的内部 Core 路由（docs/chat-send-api.md:90）。
 - 主入口（持久化）：`getInstance`（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:242）。
 - 主入口（发送）：`sendMessage`（docs/chat-send-api.md:8）。
-- 数据流向（发送）：提交经一次准入进入 `startUserMessage` 管线，原生执行持有租约并负责持久化收据（docs/chat-send-api.md:52）。
+- 数据流向（发送）：提交经一次准入进入 `startUserMessage` 管线，原生执行持有租约并负责持久化收据（docs/chat-send-api.md:67）。
 - 数据流向（持久化）：`persistMessageLocked` 写消息与 part 行，同步层记快照（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:822）。
 
 ## 核心机制
@@ -161,32 +161,32 @@ date: 2026-11-11
 - 插件 SDK 的发送与取消入口只有 `sendMessage`、`sendMessageStreaming`、`cancel` 三个方法（docs/chat-send-api.md:8）。
 - `startTurn`、`waitTurn`、`cancelTurn`、`finishSequence` 与回调式流不在当前作者契约内（docs/chat-send-api.md:14）。
 - 发送契约的 Rust 权威实现在 `core/crates/plugin/sdk/src/js_sdk/chat.rs`，TypeScript 导出在 `plugins/types/chat.d.ts`（docs/chat-send-api.md:18）。
-- `kind: "submit"` 保留原文、全部附件与显式可空的回复目标（docs/chat-send-api.md:24）。
-- submit 的 `turn` 在执行与仅做真实用户持久化之间二选一（docs/chat-send-api.md:25）。
-- `kind: "continue"` 指向已提交的用户时间戳与显式参与者，不能重发文本、附件或回复目标（docs/chat-send-api.md:42）。
-- 每次 continue 必须带 `summaryPolicy`，取值为 `"defer"` 或 `"after_reply"`（docs/chat-send-api.md:45）。
-- 两种 summaryPolicy 都抑制回复前与回复中的自动摘要（docs/chat-send-api.md:46）。
-- submit 与 continue 共用一次准入与既有 `startUserMessage` 管线（docs/chat-send-api.md:52）。
-- 被接受的发送不依赖插件代码事后调用单独的 finish 方法（docs/chat-send-api.md:54）。
-- send_message 工具接受 `hide_user_message: true`，Core 以 `HIDDEN_PLACEHOLDER` 记录用户消息，原 parts 仍保留在持久化历史与模型上下文中，仅改变转录呈现（docs/chat-send-api.md:59）。
-- Flutter 端「引导当前会话」走内部 `steerMessage(chatId, messageText)` Core 路由（docs/chat-send-api.md:75）。
-- Flutter 端「打断并发送」是唯一把 `cancelMessage` 与一次新普通发送组合起来的 composer 动作（docs/chat-send-api.md:76）。
-- 引导不是第二次普通发送，不再拿执行租约；活动回合共享一个 FIFO 收件箱（docs/chat-send-api.md:80）。
-- 最终收件箱为空时原子关闭，之后的引导请求会报错而不是挂住（docs/chat-send-api.md:96）。
-- `part` 事件是该消息完整有序 part 列表的原子替换，不是文本增量（docs/chat-send-api.md:129）。
-- 每次发送的快照内容与元数据计费上限为 8 MiB，超限显式拒绝观察（docs/chat-send-api.md:142）。
-- JavaScript 迭代器上同时只能有一个待处理的 `next()`（docs/chat-send-api.md:145）。
-- `cancel(chatId)` 先捕获调用引擎的已启用已认证包及其在该会话的精确活动执行（docs/chat-send-api.md:163）。
-- 排队的请求不能取消其他包或更新的执行（docs/chat-send-api.md:165）。
-- `NativeGroupTurnTransport` 只用 `sendMessage` 与 `cancel`（docs/chat-send-api.md:172）。
-- 群组原始用户输入先以 `record_only` 持久化一次，再调用响应规划器（docs/chat-send-api.md:178）。
-- 群组中间回复用 `summaryPolicy: "defer"`，最后一条规划回复用 `"after_reply"`，只有它可触发完成通知（docs/chat-send-api.md:180）。
-- 续发完成不重复递增原始用户提交计数（docs/chat-send-api.md:184）。
-- 对话级上下文刷新取各绑定参与者估计值中的最大值作为存储窗口（docs/chat-send-api.md:223）。
-- 配置执行结果要求完整的 `historyPolicy` 对象，含 `isolateParticipants` 与 `labelUserMessages`；普通模型对话两者都为 false（docs/chat-send-api.md:242）。
-- 其他参与者的有序 Markdown 发言以前缀 `[From role: name]` 作为用户参考上下文（docs/chat-send-api.md:250）。
-- 群组用户输入加前缀 `[From user]`（docs/chat-send-api.md:252）。
-- 发送契约的可重复校验入口包括 `chat-send-contracts.test.mjs` 的 node 测试（docs/chat-send-api.md:204）。
+- `kind: "submit"` 保留原文、全部附件与显式可空的回复目标（docs/chat-send-api.md:39）。
+- submit 的 `turn` 在执行与仅做真实用户持久化之间二选一（docs/chat-send-api.md:40）。
+- `kind: "continue"` 指向已提交的用户时间戳与显式参与者，不能重发文本、附件或回复目标（docs/chat-send-api.md:57）。
+- 每次 continue 必须带 `summaryPolicy`，取值为 `"defer"` 或 `"after_reply"`（docs/chat-send-api.md:60）。
+- 两种 summaryPolicy 都抑制回复前与回复中的自动摘要（docs/chat-send-api.md:61）。
+- submit 与 continue 共用一次准入与既有 `startUserMessage` 管线（docs/chat-send-api.md:67）。
+- 被接受的发送不依赖插件代码事后调用单独的 finish 方法（docs/chat-send-api.md:69）。
+- send_message 工具接受 `hide_user_message: true`，Core 以 `HIDDEN_PLACEHOLDER` 记录用户消息，原 parts 仍保留在持久化历史与模型上下文中，仅改变转录呈现（docs/chat-send-api.md:74）。
+- Flutter 端「引导当前会话」走内部 `steerMessage(chatId, messageText)` Core 路由（docs/chat-send-api.md:90）。
+- Flutter 端「打断并发送」是唯一把 `cancelMessage` 与一次新普通发送组合起来的 composer 动作（docs/chat-send-api.md:91）。
+- 引导不是第二次普通发送，不再拿执行租约；活动回合共享一个 FIFO 收件箱（docs/chat-send-api.md:95）。
+- 最终收件箱为空时原子关闭，之后的引导请求会报错而不是挂住（docs/chat-send-api.md:111）。
+- `part` 事件是该消息完整有序 part 列表的原子替换，不是文本增量（docs/chat-send-api.md:144）。
+- 每次发送的快照内容与元数据计费上限为 8 MiB，超限显式拒绝观察（docs/chat-send-api.md:157）。
+- JavaScript 迭代器上同时只能有一个待处理的 `next()`（docs/chat-send-api.md:160）。
+- `cancel(chatId)` 先捕获调用引擎的已启用已认证包及其在该会话的精确活动执行（docs/chat-send-api.md:178）。
+- 排队的请求不能取消其他包或更新的执行（docs/chat-send-api.md:180）。
+- `NativeGroupTurnTransport` 只用 `sendMessage` 与 `cancel`（docs/chat-send-api.md:187）。
+- 群组原始用户输入先以 `record_only` 持久化一次，再调用响应规划器（docs/chat-send-api.md:193）。
+- 群组中间回复用 `summaryPolicy: "defer"`，最后一条规划回复用 `"after_reply"`，只有它可触发完成通知（docs/chat-send-api.md:195）。
+- 续发完成不重复递增原始用户提交计数（docs/chat-send-api.md:199）。
+- 对话级上下文刷新取各绑定参与者估计值中的最大值作为存储窗口（docs/chat-send-api.md:238）。
+- 配置执行结果要求完整的 `historyPolicy` 对象，含 `isolateParticipants` 与 `labelUserMessages`；普通模型对话两者都为 false（docs/chat-send-api.md:257）。
+- 其他参与者的有序 Markdown 发言以前缀 `[From role: name]` 作为用户参考上下文（docs/chat-send-api.md:265）。
+- 群组用户输入加前缀 `[From user]`（docs/chat-send-api.md:267）。
+- 发送契约的可重复校验入口包括 `chat-send-contracts.test.mjs` 的 node 测试（docs/chat-send-api.md:219）。
 
 ## 关键符号
 
@@ -219,19 +219,19 @@ date: 2026-11-11
 - `Tools.Chat.sendMessage` — 插件发送消息的入口（docs/chat-send-api.md:8）。
 - `Tools.Chat.sendMessageStreaming` — 流式发送消息的入口（docs/chat-send-api.md:9）。
 - `Tools.Chat.cancel` — 取消发送的入口（docs/chat-send-api.md:10）。
-- `steerMessage` — Flutter 端引导当前会话的内部 Core 路由（docs/chat-send-api.md:75）。
-- `NativeGroupTurnTransport` — 群组回合传输，只用 sendMessage 与 cancel（docs/chat-send-api.md:172）。
+- `steerMessage` — Flutter 端引导当前会话的内部 Core 路由（docs/chat-send-api.md:90）。
+- `NativeGroupTurnTransport` — 群组回合传输，只用 sendMessage 与 cancel（docs/chat-send-api.md:187）。
 
 ## 调用链
 
 1. 插件调用 `Tools.Chat.sendMessage` 提交发送请求（docs/chat-send-api.md:8）。
-2. submit 与 continue 共用一次准入，进入既有 `startUserMessage` 管线（docs/chat-send-api.md:52）。
-3. 原生执行持有规范租约（`canonical lease`），负责输入钩子分发、持久化收据、完成发布与租约释放（docs/chat-send-api.md:53）。
+2. submit 与 continue 共用一次准入，进入既有 `startUserMessage` 管线（docs/chat-send-api.md:67）。
+3. 原生执行持有规范租约（`canonical lease`），负责输入钩子分发、持久化收据、完成发布与租约释放（docs/chat-send-api.md:68）。
 4. 用户消息经 `persistMessageLocked` 写入消息行与 part 行（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:822）。
 5. 新用户消息把会话的 `displayOrder` 取 -updatedAt 与全库最小值减 1 的较小者（通常为 -updatedAt），顶到列表最前（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:868）。
 6. 助手回复分段经 `commitAssistantMessageSegment` 原子提交（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1112）。
-7. 流式观察者收 `part` 事件：每次都是完整有序 part 列表的原子替换（docs/chat-send-api.md:129）。
-8. 完成时收 `completed` 事件，携带实际定稿收据（docs/chat-send-api.md:151）。
+7. 流式观察者收 `part` 事件：每次都是完整有序 part 列表的原子替换（docs/chat-send-api.md:144）。
+8. 完成时收 `completed` 事件，携带实际定稿收据（docs/chat-send-api.md:166）。
 9. 分支创建：`newChatDraft` 带 `parentChatId` 建草稿（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1343）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1349）。
 10. `commitChatDraft` 按 `source` 提交为源会话分支，并从父会话继承输出目录（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1371）。
 11. 读分支：`getBranches` 按 `parentChatId` 取分支会话列表（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1632）。

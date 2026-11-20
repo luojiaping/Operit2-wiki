@@ -37,8 +37,8 @@ Binding 是 [[arch-corenode|CoreNode]] 与 [[arch-space|Space]] 之间的执行�
 - `delete` — 退役一个 key，即使其 Binding 尚未到达。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:168`
 - `applySyncedOperation` — 应用已同步的 Binding 操作，不产生新的本地操作。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:227`
 - `applyImmediateOperation` — 应用直接传输的 Binding 操作，不推进持久化同步时钟。`core/crates/persistence/store/src/CoreNodeBindingStore.rs:273`
-- `changeRoute` — 交接主线：校验目标、同步目标、比较写入提交 Binding、安装 Binding 到目标、调用 AfterChangeRoute。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:959`
-- `requestChangeRoute` — 提交 Binding 变更、在目标安装 Binding 并在目标恢复执行。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:937`
+- `changeRoute` — 交接主线：校验目标、同步目标、比较写入提交 Binding、安装 Binding 到目标、调用 AfterChangeRoute。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:969`
+- `requestChangeRoute` — 提交 Binding 变更、在目标安装 Binding 并在目标恢复执行。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:947`
 - `CoreRouteResumeContext` — 交接运输的上下文，包含 runtimeChatHistory 等字段。`core/crates/tool/services/src/runtime_support.rs:21`
 - `resumeFromRouteContext` — 目标接收上下文并取得本地执行 lease。`core/crates/runtime/application/src/services/ChatServiceCore.rs:831`
 - `beforeChangeRoute` — Binding 移动前校验执行归属。`core/crates/runtime/application/src/services/ChatServiceCore.rs:896`
@@ -177,8 +177,8 @@ upsert 操作的 `payload` 中 `binding.key` 必须与 `entityId` 一致。`core
 - `switch_core` — Agent 切换执行节点的工具，调用时校验目标。`docs/core-node-space-binding-architecture.md:164`
 - `BindingRouteStatus` — 对话执行节点的提示来源。`docs/core-node-space-binding-architecture.md:175`
 - `requiredClock` — 架构文档定义的持久化同步屏障，属于设计约束。`docs/core-node-space-binding-architecture.md:407`
-- `changeRoute` — 交接主线：校验目标、同步目标、比较写入、安装 Binding、调用 AfterChangeRoute。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:959`
-- `requestChangeRoute` — 提交 Binding 变更、在目标安装 Binding 并在目标恢复执行。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:937`
+- `changeRoute` — 交接主线：校验目标、同步目标、比较写入、安装 Binding、调用 AfterChangeRoute。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:969`
+- `requestChangeRoute` — 提交 Binding 变更、在目标安装 Binding 并在目标恢复执行。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:947`
 - `CoreRouteResumeContext` — 交接运输的上下文，包含 runtimeChatHistory 等字段。`core/crates/tool/services/src/runtime_support.rs:21`
 - `resumeFromRouteContext` — 目标接收上下文并取得本地执行 lease。`core/crates/runtime/application/src/services/ChatServiceCore.rs:831`
 - `beforeChangeRoute` — Binding 移动前校验执行归属。`core/crates/runtime/application/src/services/ChatServiceCore.rs:896`
@@ -195,14 +195,14 @@ upsert 操作的 `payload` 中 `binding.key` 必须与 `entityId` 一致。`core
 3. node-A 在一个事务内持久化 assistant 工具调用、工具结果、chat metadata 和同步操作。`docs/core-node-space-binding-architecture.md:397`
 4. 响应业务向 Router 返回只包含目标和不透明 payload 的 route transition。`docs/core-node-space-binding-architecture.md:398`
 5. changeRoute 校验 node-D 属于当前 Space 的成员列表。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:973`
-6. changeRoute 校验 node-D 具备 `runtime.execute` 能力。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:979`
+6. changeRoute 校验 node-D 具备 `runtime.execute` 能力。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:989`
 7. changeRoute 校验 node-D 可达，目标不是本机且 Link 不可达时返回错误。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:988`
-8. changeRoute 在比较写入前调用 `BeforeChangeRoute` 生命周期回调。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:997`
-9. changeRoute 先同步 node-D，再提交比较写入。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1043`
-10. changeRoute 通过 `bindingStore.compareAndSet` 提交切换，得到新的 generation 和 operation。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1059`
-11. changeRoute 调用 `installRouteBindingOnTarget`，把已提交的 Binding operation 安装到 node-D。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1079`
-12. `installRouteBindingOnTarget` 在目标安装该操作，不推进持久化同步时钟。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1125`
-13. changeRoute 调用 `AfterChangeRoute` 生命周期回调，把 CoreRouteResumeContext 送到 node-D。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1100`
+8. changeRoute 在比较写入前调用 `BeforeChangeRoute` 生命周期回调。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1005`
+9. changeRoute 先同步 node-D，再提交比较写入。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1053`
+10. changeRoute 通过 `bindingStore.compareAndSet` 提交切换，得到新的 generation 和 operation。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1069`
+11. changeRoute 调用 `installRouteBindingOnTarget`，把已提交的 Binding operation 安装到 node-D。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1089`
+12. `installRouteBindingOnTarget` 在目标安装该操作，不推进持久化同步时钟。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1135`
+13. changeRoute 调用 `AfterChangeRoute` 生命周期回调，把 CoreRouteResumeContext 送到 node-D。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1110`
 14. node-D 的 `afterChangeRoute` 接收 `CoreRouteResumeContext`。`core/crates/runtime/application/src/services/ChatServiceCore.rs:915`
 15. afterChangeRoute 调用 `resumeFromRouteContext`，由目标恢复聊天。`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`
 16. resumeFromRouteContext 调用 `beginChatExecution` 取得本地执行 lease。`core/crates/runtime/application/src/services/ChatServiceCore.rs:863`
@@ -212,7 +212,7 @@ upsert 操作的 `payload` 中 `binding.key` 必须与 `entityId` 一致。`core
 
 - `docs/core-node-space-binding-architecture.md`（494 行，100% 已读）
 - `core/crates/persistence/store/src/CoreNodeBindingStore.rs`（481 行，100% 已读）
-- `core/crates/node/runtime/src/RuntimeRemoteLinkService.rs`（1411 行；交接路径节选已读：`changeRoute` :959-1124、`installRouteBindingOnTarget` :1125-1148）
+- `core/crates/node/runtime/src/RuntimeRemoteLinkService.rs`（1421 行；交接路径节选已读：`changeRoute` :969-1131、`installRouteBindingOnTarget` :1135-1155）
 - `core/crates/node/runtime/src/CoreNodeRouter.rs`（5846 行；`effectiveBinding` :452-457、`bindingRouteStatus` :461-476 已读）
 - `core/crates/runtime/application/src/services/ChatServiceCore.rs`（3880 行；`resumeFromRouteContext` :831-891、`beforeChangeRoute` :896-910、`afterChangeRoute` :915-925 已读）
 - `core/crates/tool/services/src/runtime_support.rs`（893 行；`CoreRouteResumeContext` :21-35 已读）

@@ -89,15 +89,15 @@
   },
   {
     "fact": "PreferencesDataStore::newWithStorage 创建 Space 偏好存储",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2925"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2968"
   },
   {
     "fact": "偏好存储为存储路径创建 PreferencesSyncDescriptor 形式的 syncDescriptor",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2956"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2999"
   },
   {
     "fact": "偏好存储挂接 syncOperationStore",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2962"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3005"
   },
   {
     "fact": "writeProvider 把完整 ProviderProfile 作为同步偏好值写入 provider_<id>",
