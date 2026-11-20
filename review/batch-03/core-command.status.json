@@ -1,6 +1,6 @@
 {
   "issue": 34,
-  "source_commit": "35cffab",
+  "source_commit": "c4d47c7",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "命令层——CLI 命令编排：core crate 的命令入口、chat/model/tool/sync 四组命令与 OperitApplication 门面的关系",

@@ -1,0 +1,8 @@
+apps/cli/Cargo.lock
+apps/cli/Cargo.toml
+apps/flutter/app/pubspec.yaml
+apps/flutter/native/operit-flutter-bridge/Cargo.lock
+core/Cargo.lock
+core/crates/runtime/application/Cargo.toml
+hosts/web/Cargo.lock
+plugins/packages/external/docs_editor/manifest.json
