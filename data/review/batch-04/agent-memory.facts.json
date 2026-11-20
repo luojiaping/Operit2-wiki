@@ -1,27 +1,27 @@
 [
  {
   "fact": "`MemorySpace` 的 `memories`、`links`、`chunks`、`candidates` 四个集合与 `ownerKey` 同属一个按 owner 划分的记忆空间。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:399"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:401"
  },
  {
   "fact": "`MemorySpace` 还包含 `settings`、`searchConfig`、`userDocumentPath`、`rebuildProgress`、`rebuildTask`。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:404"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:406"
  },
  {
   "fact": "记忆空间的 `embeddings` 字段保存记忆向量。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:404"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:406"
  },
  {
   "fact": "`MemoryJobState` 是 `MemorySpace` 去掉 `memories`、`links`、`chunks`、`embeddings` 后的调度状态类型。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:407"
- },
- {
-  "fact": "`CharacterState` 的注释写明它只拥有本插件的文件模式，不施加全运行时范围的存储模式。",
   "ref": "plugins/packages/buildin/character_cards/src/model.ts:409"
  },
  {
+  "fact": "`CharacterState` 的注释写明它只拥有本插件的文件模式，不施加全运行时范围的存储模式。",
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:411"
+ },
+ {
   "fact": "角色卡状态的 `owners` 字段是 `MemorySpace` 数组。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:419"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:421"
  },
  {
   "fact": "`CharacterMemoryDatabase` 的注释写明它保存同步化的记忆记录并执行有界数据库查询。",
@@ -561,14 +561,14 @@
  },
  {
   "fact": "服务运行时构造一个 `MemoryJobRunner`，由它执行记忆任务。",
-  "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:49"
+  "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:50"
  },
  {
   "fact": "服务运行时的 `runMemoryJobs` 调用 `jobs.tick()`。",
-  "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:115"
+  "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:117"
  },
  {
   "fact": "导出的 `runMemoryJobs()` 把调用转给服务实例。",
-  "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:267"
+  "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:269"
  }
 ]

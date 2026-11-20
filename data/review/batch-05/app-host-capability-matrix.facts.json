@@ -65,7 +65,7 @@
   },
   {
     "fact": "`FileSystemHost` trait 定义含 24 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3474"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3486"
   },
   {
     "fact": "`FileSystemHost` 在 HostManager 有注册槽位",
@@ -73,7 +73,7 @@
   },
   {
     "fact": "`FloatingWindowHost` trait 定义含 1 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3335"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3336"
   },
   {
     "fact": "`FloatingWindowHost` 在 HostManager 有注册槽位",
@@ -209,7 +209,7 @@
   },
   {
     "fact": "`SystemOperationHost` trait 定义含 20 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3398"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3407"
   },
   {
     "fact": "`SystemOperationHost` 在 HostManager 有注册槽位",
@@ -533,31 +533,31 @@
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3335"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3336"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3335"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3336"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3335"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3336"
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3335"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3336"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3335"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3336"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3335"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3336"
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3335"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3336"
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册 `HostJavaScriptRuntimeHost`",

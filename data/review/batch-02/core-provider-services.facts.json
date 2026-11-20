@@ -41,7 +41,7 @@
   },
   {
     "fact": "AIService 是 Send + Sync 的异步 trait，是全部模型供应商的公共接口。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:126"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:131"
   },
   {
     "fact": "SendMessageRequest 包含 chat_history、model_parameters、thinking、stream、available_tools、preserve_think_in_history、enable_retry、on_non_fatal_error、on_tool_invocation。",
@@ -52,32 +52,32 @@
     "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:38"
   },
   {
-    "fact": "AiServiceError 有 ProviderNotImplemented、RequestCancelled、ConnectionFailed、RequestFailed、TokenCalculationFailed 五个变体。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:51"
+    "fact": "AiServiceError 有 ProviderNotImplemented、RequestCancelled、FirstOutputTimeout、ConnectionFailed、RequestFailed、TokenCalculationFailed 六个变体。",
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:53"
   },
   {
     "fact": "AIService 的 input_token_count、cached_input_token_count、output_token_count 默认实现都返回 0。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:133"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:138"
   },
   {
     "fact": "AIService 的 provider_model 默认返回 \"UNKNOWN:unknown\"。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:143"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:148"
   },
   {
     "fact": "AIService 的 get_models_list 默认实现返回 ProviderNotImplemented 错误。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:154"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:159"
   },
   {
     "fact": "AIService 的 send_message 默认实现返回 ProviderNotImplemented 错误。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:161"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:166"
   },
   {
     "fact": "AIService 的 test_connection 默认实现返回 ProviderNotImplemented 错误。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:171"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:176"
   },
   {
     "fact": "AIService 的 calculate_input_tokens 默认实现返回 ProviderNotImplemented 错误。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:178"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:183"
   },
   {
     "fact": "SharedAiResponseStream 是 DelegatingRevisableSharedTextStream 的类型别名。",
@@ -85,23 +85,23 @@
   },
   {
     "fact": "response_stream_from_chunks 用已收集的文本块构造可修订响应流。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:60"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:62"
   },
   {
     "fact": "ensure_response_completed 在流有 terminal failure 时返回 RequestFailed，否则返回 Ok。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:83"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:85"
   },
   {
-    "fact": "retry_error_text 把超时映射为“连接超时”，把 DNS 与主机解析失败映射为“无法解析主机”。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:96"
+    "fact": "retry_error_text 把 FirstOutputTimeout 映射为“AI 首字等待超过 120 秒”，其他超时映射为“连接超时”，把 DNS 与主机解析失败映射为“无法解析主机”。",
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:94"
   },
   {
     "fact": "retry_error_text 把空的 ConnectionFailed 与 RequestFailed 映射为“网络中断”，把 RequestCancelled 映射为“请求已取消”。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:107"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:112"
   },
   {
     "fact": "retry_message 把错误文本格式化为“{错误}，正在进行第 N 次重试...”。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:119"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/AIService.rs:124"
   },
   {
     "fact": "ClaudeProvider 的字段含 api_endpoint、key_getter、model_name、provider_type、enable_tool_call、custom_headers，以及默认关闭的 enable_claude_1h_prompt_cache。",
@@ -129,11 +129,11 @@
   },
   {
     "fact": "fit_max_tokens_to_thinking_budget 在思考预算不小于 max_tokens 时，若用户显式设置了 max_tokens 则返回错误，否则把 max_tokens 扩为 budget 加 DEFAULT_MAX_TOKENS。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1277"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1282"
   },
   {
     "fact": "DEFAULT_MAX_TOKENS 是 4096。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1250"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1255"
   },
   {
     "fact": "build_serialized_history 先经 StructuredToolCallBridge::compileHistoryForProvider 编译历史。",
@@ -197,7 +197,7 @@
   },
   {
     "fact": "请求头固定为 application/json 与 anthropic-version 2023-06-01。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:578"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:583"
   },
   {
     "fact": "x-api-key 请求头改由 key_getter 在 sendHttpRequest 里经 KeyAuthentication::Header 附加，headers 只拼固定头与 custom_headers。",
@@ -249,59 +249,59 @@
   },
   {
     "fact": "流式重试时发出 rollback 修订并重置 token 计数。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:895"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:898"
   },
   {
     "fact": "流式重试要求 request.enable_retry 为真且未达 LlmRetryPolicy::MAX_RETRY_ATTEMPTS。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:878"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:881"
   },
   {
     "fact": "非流式重试同样要求 enable_retry 为真且未达 MAX_RETRY_ATTEMPTS。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:941"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:942"
   },
   {
     "fact": "非流式响应按有无 choices 字段区分 OpenAI 兼容与 Anthropic 两种解析：有 choices 按 OpenAI 口径算 usage，否则按 Anthropic 口径。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:959"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:953"
   },
   {
     "fact": "非流式响应由 parse_anthropic_non_streaming 生成内容，包成单块流返回。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:965"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:959"
   },
   {
     "fact": "process_streaming_response 对 JSON 媒体类型直接按非流式解析，否则按 SSE 解码。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:981"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:976"
   },
   {
     "fact": "\"[DONE]\" 事件标志流式响应完成。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1060"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1058"
   },
   {
     "fact": "message_stop 事件标志流式响应完成。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1186"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1191"
   },
   {
     "fact": "流在完成前结束时返回 ConnectionFailed。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1042"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1040"
   },
   {
     "fact": "content_block_start 的 tool_use 块仅在 enable_tool_call 为真时处理，转为随机标签名的 XML 工具调用标记。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1114"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1115"
   },
   {
     "fact": "thinking 内容块转为 <think> 标记包裹的思考文本。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1124"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1125"
   },
   {
     "fact": "parse_anthropic_non_streaming 把 text 与 thinking 块拼成文本，thinking 包在 <think> 标记内。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1210"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1215"
   },
   {
     "fact": "parse_anthropic_non_streaming 的 tool_use 块仅在 enable_tool_call 为真时转为随机标签名的 XML 标记。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1220"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1225"
   },
   {
     "fact": "无 content 数组时，parse_anthropic_non_streaming 回退读取 choices/0/message/content。",
-    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1198"
+    "ref": "core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1203"
   },
   {
     "fact": "EnhancedAIService 持有 multi_service_manager、conversation_service、tool_handler。",

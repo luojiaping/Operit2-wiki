@@ -84,11 +84,11 @@ Space 组织节点间的协作与持久化同步，Binding 记录哪个节点继
 
 具备存储复制授权、处于正常变更门控状态的可达成员在每个同步周期使用 `syncClockDigest` 探针判断是否需要完整交换（`docs/core-node-space-binding-architecture.md:218`）。
 
-同步门控先处理退避、待处理工作与失败重试，退避未到期时本轮跳过（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:773`）。
+同步门控先处理退避、待处理工作与失败重试，退避未到期时本轮跳过（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:775`）。
 
-未获存储复制授权的成员走 `authority_only` 分支，不调用 `probeRemoteClockSummary`，直接继续控制交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:788`）。
+未获存储复制授权的成员走 `authority_only` 分支，不调用 `probeRemoteClockSummary`，直接继续控制交换（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:790`）。
 
-只有正常存储复制门控分支才调用 `probeRemoteClockSummary`，经 `PeerSyncMethod::SyncClockDigest` 读取对端时钟摘要（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:819`）。
+只有正常存储复制门控分支才调用 `probeRemoteClockSummary`，经 `PeerSyncMethod::SyncClockDigest` 读取对端时钟摘要（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:821`）。
 
 同步页单侧一页最多 `DEFAULT_SYNC_PAGE_BYTES`（4 MiB）（`docs/core-node-space-binding-architecture.md:233`）。
 
@@ -162,9 +162,9 @@ README 声明 API 密钥、设备私钥、配对密钥、会话与本地平台�
 
 `ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:603`）。
 
-Space 偏好存储构造时创建同步描述符 `PreferencesSyncDescriptor`（`core/crates/persistence/store/src/PreferencesDataStore.rs:2956`）。
+Space 偏好存储构造时创建同步描述符 `PreferencesSyncDescriptor`（`core/crates/persistence/store/src/PreferencesDataStore.rs:2999`）。
 
-Space 偏好存储构造时创建同步日志 `SyncOperationStore`（`core/crates/persistence/store/src/PreferencesDataStore.rs:2962`）。
+Space 偏好存储构造时创建同步日志 `SyncOperationStore`（`core/crates/persistence/store/src/PreferencesDataStore.rs:3005`）。
 
 `localStateSummary` 调用 `publishPreferenceOutboxes` 发布偏好同步 outbox（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:718`）。
 

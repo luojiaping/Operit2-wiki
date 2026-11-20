@@ -637,6 +637,6 @@
   },
   {
     "fact": "RuntimeRemoteLinkService 的 `afterJoined` 只调度后台同步（`scheduleSynchronization(\"space_joined\")`），不等待业务同步。",
-    "ref": "core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1408"
+    "ref": "core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1418"
   }
 ]

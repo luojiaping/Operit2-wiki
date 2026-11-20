@@ -9,7 +9,7 @@
   },
   {
     "fact": "插件拥有领域模型、校验、完整记录写入、暂存标签、序列化与互换、命令、公开 API 与编辑请求。",
-    "ref": "plugins/packages/buildin/character_cards/README.md:203"
+    "ref": "plugins/packages/buildin/character_cards/README.md:220"
   },
   {
     "fact": "聊天选择串只有三种形态：`card`、`group`、`model` 加冒号加标识，由 `parseChatSelection` 用正则解析。",
@@ -33,7 +33,7 @@
   },
   {
     "fact": "`ChatBinding` 只有 `chatId` 与 `selection` 两个字段。",
-    "ref": "plugins/packages/buildin/character_cards/src/model.ts:437"
+    "ref": "plugins/packages/buildin/character_cards/src/model.ts:439"
   },
   {
     "fact": "绑定存在插件自己的偏好文件里，键名是 `binding_` 加聊天 id。",
@@ -177,7 +177,7 @@
   },
   {
     "fact": "Core 删会话后经该 API 释放插件绑定，历史快照仍保留，Core 不直接调绑定业务 API。",
-    "ref": "plugins/packages/buildin/character_cards/README.md:165"
+    "ref": "plugins/packages/buildin/character_cards/README.md:182"
   },
   {
     "fact": "`chatsForMemoryOwner` 反查属于某记忆 owner 的全部绑定聊天。",
@@ -209,19 +209,19 @@
   },
   {
     "fact": "`combinePrompts` 先按 id 取卡片，再调 `combineCharacterPrompt` 组装。",
-    "ref": "plugins/packages/buildin/character_cards/src/operations.ts:521"
+    "ref": "plugins/packages/buildin/character_cards/src/operations.ts:524"
   },
   {
     "fact": "公开解析 API 先按 chatId 读取插件自己的绑定，再临时构造 {version: 1, selection} 写入内部 `request.chatExtension`，交给领域解析；执行侧再从聊天扩展解码标记并用 `parseChatSelection` 解析选择串。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:380"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:382"
   },
   {
     "fact": "单卡解析出的提示词直接作为参与者的 `introPrompt`。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:359"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:361"
   },
   {
     "fact": "`withGroupParticipantPrompt` 为群组成员的执行档案追加角色规划提示与有序成员名。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:411"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:413"
   },
   {
     "fact": "群组追加提示直接拼在参与者原 `introPrompt` 之后返回新档案。",
@@ -233,7 +233,7 @@
   },
   {
     "fact": "群组执行的历史策略是参与者隔离、用户消息打标签。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:439"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:441"
   },
   {
     "fact": "纯模型执行的档案 `introPrompt` 为空、主记忆 owner 为空串。",
@@ -241,19 +241,19 @@
   },
   {
     "fact": "`userPreferencesText` 只在全局记忆偏好开启用户描述时才读，否则为空串。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:355"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:357"
   },
   {
     "fact": "记忆主 owner：CHARACTER 模式为 `character:` 加卡片 id，SHARED 模式为 `shared:` 加共享库 id。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:338"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:340"
   },
   {
     "fact": "主记忆 owner 在资源表里可读可写。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:364"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:366"
   },
   {
     "fact": "卡片未指定 TTS 配置时用请求的默认 TTS 配置。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:350"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:352"
   },
   {
     "fact": "执行数据 `ExecutionData` 含 version、selection、promptFunctionType、primaryOwnerKey、profile 与 participants。",
@@ -265,11 +265,11 @@
   },
   {
     "fact": "群组执行把身份约束与有序成员名加进各参与者的提示词，同一档案冻结进消息快照。",
-    "ref": "plugins/packages/buildin/character_cards/README.md:157"
+    "ref": "plugins/packages/buildin/character_cards/README.md:174"
   },
   {
     "fact": "单卡执行只用卡片自己的 authored 提示词。",
-    "ref": "plugins/packages/buildin/character_cards/README.md:160"
+    "ref": "plugins/packages/buildin/character_cards/README.md:177"
   },
   {
     "fact": "卡片有一个可空的 `themeConfigId` 字段。",
@@ -277,7 +277,7 @@
   },
   {
     "fact": "群组也有一个可空的 `themeConfigId` 字段。",
-    "ref": "plugins/packages/buildin/character_cards/src/model.ts:45"
+    "ref": "plugins/packages/buildin/character_cards/src/model.ts:47"
   },
   {
     "fact": "选择引用只存 `themeConfigId` 引用，不存主题本身。",
@@ -309,19 +309,19 @@
   },
   {
     "fact": "主题选择器经 `Tools.Theme.listConfigs()` 读真实命名配置。",
-    "ref": "plugins/packages/buildin/character_cards/README.md:114"
+    "ref": "plugins/packages/buildin/character_cards/README.md:131"
   },
   {
     "fact": "选中只暂存编辑器的 `themeConfigId`，保存后才持久化，激活时经 `Tools.Theme.applyConfig(id)` 应用 exact 配置。",
-    "ref": "plugins/packages/buildin/character_cards/README.md:118"
+    "ref": "plugins/packages/buildin/character_cards/README.md:135"
   },
   {
     "fact": "主题引用为 null 表示保持当前主题，群组不借用成员的主题。",
-    "ref": "plugins/packages/buildin/character_cards/README.md:120"
+    "ref": "plugins/packages/buildin/character_cards/README.md:137"
   },
   {
     "fact": "主题引用可编辑，由持久化与互换保留。",
-    "ref": "plugins/packages/buildin/character_cards/README.md:113"
+    "ref": "plugins/packages/buildin/character_cards/README.md:130"
   },
   {
     "fact": "打开会话时，`onChatViewTheme` 在 `view_opened` 事件里调 `activateChatSelection`。",
@@ -333,15 +333,15 @@
   },
   {
     "fact": "按绑定类型分派：卡片调 `activePrompt.setCard`，群组调 `activePrompt.setGroup`，纯模型调 `activePrompt.setModel`。",
-    "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:109"
+    "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:111"
   },
   {
     "fact": "无绑定时 `activateChatSelection` 直接返回，不做任何事。",
-    "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:106"
+    "ref": "plugins/packages/buildin/character_cards/src/service-runtime.ts:108"
   },
   {
     "fact": "插件关闭时 Core 用独立普通模型配置；无角色聊天不注入角色提示词、不授予角色记忆资源。",
-    "ref": "plugins/packages/buildin/character_cards/README.md:395"
+    "ref": "plugins/packages/buildin/character_cards/README.md:412"
   },
   {
     "fact": "主题选择器的一行只是私有 picker 行，不是独立的主题 SDK 记录，也不是角色拥有的持久化主题。",

@@ -236,7 +236,7 @@ date: 2026-11-11
 - SyncProgressTracker 的 `fileOffset` — 节流发布文件偏移并累加传输字节。`core/crates/node/runtime/src/SpaceSyncProgress.rs:300`
 - 结束时按 `pending`、`error`、`pendingRecords` 决定 `Waiting` 或 `Completed`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:323`
 - `space_join::refresh` — 校验审批结果并导入成员、身份和拓扑，发布 `Joined`。`docs/device-space-large-sync-progress.md:5`
-- RuntimeRemoteLinkService 的 `afterJoined` — 只调度后台同步（`scheduleSynchronization("space_joined")`），不等待业务同步。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1408`
+- RuntimeRemoteLinkService 的 `afterJoined` — 只调度后台同步（`scheduleSynchronization("space_joined")`），不等待业务同步。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1418`
 - `synchronizeOnce` — 先交换空间投影，再通过 change gate 做权限交换、设备偏好交换、版本检查和业务同步。`docs/device-space-large-sync-progress.md:7`
 - `synchronizeDomains` — 比较 `receipt`，合并双向差异，按操作数和传输字节分页。`docs/device-space-large-sync-progress.md:8`
 - `deviceSpaceSnapshotFlow` — 只有成员和拓扑，没有同步执行信息。`docs/device-space-large-sync-progress.md:10`
@@ -250,7 +250,7 @@ date: 2026-11-11
 ## 调用链
 
 1. 加入：`space_join::refresh` 校验审批结果并导入成员、身份和拓扑，发布 `Joined`。`docs/device-space-large-sync-progress.md:5`
-2. 加入后：RuntimeRemoteLinkService 的 `afterJoined` 只调度后台同步（`scheduleSynchronization("space_joined")`），不等待业务数据同步。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1408`
+2. 加入后：RuntimeRemoteLinkService 的 `afterJoined` 只调度后台同步（`scheduleSynchronization("space_joined")`），不等待业务数据同步。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1418`
 3. 加入完成只唤醒原有后台调度，不等待业务数据全部同步后才向界面返回。`docs/device-space-large-sync-progress.md:16`
 4. 常驻同步由持久化变更、连接变化、每两秒的文件扫描唤醒。`docs/device-space-large-sync-progress.md:6`
 5. 常驻服务 `synchronizeOnce` 先交换空间投影，再通过 change gate 对可达成员执行权限交换、设备偏好交换、版本检查和业务同步；业务同步要求两端都有存储权限。`docs/device-space-large-sync-progress.md:7`

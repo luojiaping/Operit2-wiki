@@ -32,24 +32,20 @@
     "ref": "tools/check_peer_protocol.py:24"
   },
   {
-    "fact": "check_revisions 要求全部 revision 的 hash 互不重复。",
-    "ref": "tools/check_peer_protocol.py:26"
-  },
-  {
     "fact": "revisions 为空时 check_revisions 抛 ValueError。",
-    "ref": "tools/check_peer_protocol.py:31"
+    "ref": "tools/check_peer_protocol.py:29"
   },
   {
     "fact": "传入 previous 时，当前 revisions 的前 len(old) 项必须与旧 revisions 完全相等，否则抛 ValueError。",
-    "ref": "tools/check_peer_protocol.py:34"
+    "ref": "tools/check_peer_protocol.py:32"
   },
   {
     "fact": "main 只接受一个 --base 参数，表示本次变更前的 Git 修订，通常为 PR 基线。",
-    "ref": "tools/check_peer_protocol.py:42"
+    "ref": "tools/check_peer_protocol.py:38"
   },
   {
     "fact": "未传 --base 时 previous 保持 None，check_revisions 只校验当前清单。",
-    "ref": "tools/check_peer_protocol.py:45"
+    "ref": "tools/check_peer_protocol.py:41"
   },
   {
     "fact": "基线中缺失清单仅在首次引入清单时被允许。",
@@ -57,18 +53,18 @@
   },
   {
     "fact": "传 --base 时先用 git rev-parse --verify 校验基线为有效 commit，校验失败时调用直接抛错。",
-    "ref": "tools/check_peer_protocol.py:47"
+    "ref": "tools/check_peer_protocol.py:45"
   },
   {
     "fact": "传 --base 时用 git ls-tree 检查基线是否含清单，再用 git show 读出旧版清单。",
-    "ref": "tools/check_peer_protocol.py:50"
+    "ref": "tools/check_peer_protocol.py:46"
   },
   {
     "fact": "校验通过时 main 打印 Peer protocol revision ledger OK 及最新 revision 的 version。",
-    "ref": "tools/check_peer_protocol.py:52"
+    "ref": "tools/check_peer_protocol.py:50"
   },
   {
-    "fact": "core/peer-protocol.json 的 revisions 共 24 条。",
+    "fact": "core/peer-protocol.json 的 revisions 共 26 条。",
     "ref": "core/peer-protocol.json:2"
   },
   {
@@ -80,12 +76,12 @@
     "ref": "core/peer-protocol.json:4"
   },
   {
-    "fact": "core/peer-protocol.json 的最新 revision 为 version 24。",
-    "ref": "core/peer-protocol.json:96"
+    "fact": "core/peer-protocol.json 的最新 revision 为 version 26。",
+    "ref": "core/peer-protocol.json:104"
   },
   {
     "fact": "core/peer-protocol.json 的最新 revision 的 hash 为 bb3372520ca577f16c2ba1b2ff265d777eac047fa50f844a1baf928481cd0cf9。",
-    "ref": "core/peer-protocol.json:97"
+    "ref": "core/peer-protocol.json:105"
   },
   {
     "fact": "node-runtime 的 build.rs 只在启用 CARGO_FEATURE_ROUTE_CATALOG 特性时执行路由目录生成，否则直接返回。",
@@ -97,11 +93,11 @@
   },
   {
     "fact": "peer_protocol::generate 读取 core/peer-protocol.json，对传入的路由契约字符串调用 fingerprint 算 SHA-256 指纹。",
-    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:41"
+    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:38"
   },
   {
     "fact": "构建只对路由契约字符串算 SHA-256 指纹，源码文件内容与 DTO 线稿形状不再进入指纹。",
-    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:41"
+    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:38"
   },
   {
     "fact": "fingerprint 先写域分隔常量 operit-peer-route-signatures-v1 与 operit-peer-session-fragments-v1，各后跟一个空字节，再写路由契约内容。",
@@ -113,7 +109,7 @@
   },
   {
     "fact": "v24 把认证会话分块格式标识 operit-peer-session-fragments-v1 纳入指纹，v24 端点要求对端同为 v24。",
-    "ref": "docs/peer-protocol-versioning.md:28"
+    "ref": "docs/peer-protocol-versioning.md:30"
   },
   {
     "fact": "route_contract 把排序后的路由声明与方法签名编码为一个路由契约字符串，与生成的分发代码文本无关。",
@@ -125,19 +121,19 @@
   },
   {
     "fact": "validate_revisions 要求 revisions 末条的 hash 等于构建算出的指纹，否则报错。",
-    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:29"
+    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:27"
   },
   {
     "fact": "该报错要求追加 version 更高、hash 为新指纹的 revision，且不得替换已发布 revision。",
-    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:30"
+    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:28"
   },
   {
-    "fact": "构建侧 validate_revisions 同样要求 version 严格递增、hash 为 64 位全小写十六进制且不重复。",
-    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:23"
+    "fact": "构建侧 validate_revisions 同样要求 version 严格递增、hash 为 64 位全小写十六进制。",
+    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:22"
   },
   {
     "fact": "校验通过后构建把 version 写进 peer_protocol_identity.rs，生成 pub const VERSION: u32。",
-    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:43"
+    "ref": "core/crates/node/runtime/build_support/peer_protocol.rs:41"
   },
   {
     "fact": "PeerProtocol 通过 include! 引入构建生成的 peer_protocol_identity.rs，获得 VERSION 常量。",
@@ -153,23 +149,7 @@
   },
   {
     "fact": "requireAdvertised 在协议声明缺失时返回 PEER_PROTOCOL_UPGRADE_REQUIRED 错误。",
-    "ref": "core/crates/node/runtime/src/PeerProtocol.rs:29"
-  },
-  {
-    "fact": "Peer Protocol Compatibility 工作流在 pull_request 与 push 到 main 或 master 时运行。",
-    "ref": ".github/workflows/peer-protocol.yml:4"
-  },
-  {
-    "fact": "CI 用 PR 基线或 push 前提交作 --base 运行检查脚本，基线为空或全零时改用无参数运行。",
-    "ref": ".github/workflows/peer-protocol.yml:24"
-  },
-  {
-    "fact": "CI 随后运行 tools/tests/test_peer_protocol.py 的单元测试。",
-    "ref": ".github/workflows/peer-protocol.yml:29"
-  },
-  {
-    "fact": "CI 最后用 cargo check -p operit-node-runtime --features peer-runtime 触发构建侧路由契约指纹校验。",
-    "ref": ".github/workflows/peer-protocol.yml:31"
+    "ref": "core/crates/node/runtime/src/PeerProtocol.rs:35"
   },
   {
     "fact": "单元测试确认纯软件发布（新旧清单相同）可以通过 check_revisions。",

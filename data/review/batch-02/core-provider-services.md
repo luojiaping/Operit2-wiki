@@ -19,7 +19,7 @@ date: 2026-11-11
 
 ## AI 速览
 
-- `AIService` — 全部模型供应商的公共异步接口。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:126）
+- `AIService` — 全部模型供应商的公共异步接口。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:131）
 - `SendMessageRequest` — 一次供应商请求的完整载荷。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:23）
 - `TokenCounts` — 输入、缓存输入、输出三项 token 计数。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:38）
 - `AiServiceError` — 供应商共享的错误类型。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:46）
@@ -53,22 +53,22 @@ date: 2026-11-11
 
 ### AIService：供应商公共接口
 
-- `AIService` 是 `Send + Sync` 的异步 trait，是全部模型供应商的公共接口。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:126）
+- `AIService` 是 `Send + Sync` 的异步 trait，是全部模型供应商的公共接口。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:131）
 - `SendMessageRequest` 包含 `chat_history`、`model_parameters`、`thinking`、`stream`、`available_tools`、`preserve_think_in_history`、`enable_retry`、`on_non_fatal_error`、`on_tool_invocation`。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:28）
 - `TokenCounts` 含 `input`、`cached_input`、`output` 三个 i64 计数。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:38）
-- `AiServiceError` 有 `ProviderNotImplemented`、`RequestCancelled`、`ConnectionFailed`、`RequestFailed`、`TokenCalculationFailed` 五个变体。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:51）
-- `AIService` 的 `input_token_count`、`cached_input_token_count`、`output_token_count` 默认实现都返回 0。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:126）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:133）
-- `AIService` 的 `provider_model` 默认返回 `"UNKNOWN:unknown"`。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:126）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:143）
-- `AIService` 的 `get_models_list` 默认实现返回 `ProviderNotImplemented` 错误。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:126）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:154）
-- `AIService` 的 `send_message` 默认实现返回 `ProviderNotImplemented` 错误。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:126）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:161）
-- `AIService` 的 `test_connection` 默认实现返回 `ProviderNotImplemented` 错误。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:126）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:171）
-- `AIService` 的 `calculate_input_tokens` 默认实现返回 `ProviderNotImplemented` 错误。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:126）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:178）
+- `AiServiceError` 有 `ProviderNotImplemented`、`RequestCancelled`、`FirstOutputTimeout`、`ConnectionFailed`、`RequestFailed`、`TokenCalculationFailed` 六个变体。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:48）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:54）
+- `AIService` 的 `input_token_count`、`cached_input_token_count`、`output_token_count` 默认实现都返回 0。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:131）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:138）
+- `AIService` 的 `provider_model` 默认返回 `"UNKNOWN:unknown"`。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:131）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:148）
+- `AIService` 的 `get_models_list` 默认实现返回 `ProviderNotImplemented` 错误。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:131）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:159）
+- `AIService` 的 `send_message` 默认实现返回 `ProviderNotImplemented` 错误。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:131）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:166）
+- `AIService` 的 `test_connection` 默认实现返回 `ProviderNotImplemented` 错误。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:131）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:176）
+- `AIService` 的 `calculate_input_tokens` 默认实现返回 `ProviderNotImplemented` 错误。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:131）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:183）
 - `SharedAiResponseStream` 是 `DelegatingRevisableSharedTextStream` 的类型别名。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:20）
-- `response_stream_from_chunks` 用已收集的文本块构造可修订响应流。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:60）
-- `ensure_response_completed` 在流有 terminal failure 时返回 `RequestFailed`，否则返回 `Ok`。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:83）
-- `retry_error_text` 把超时映射为“连接超时”，把 DNS 与主机解析失败映射为“无法解析主机”。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:96）
-- `retry_error_text` 把空的 `ConnectionFailed` 与 `RequestFailed` 映射为“网络中断”，把 `RequestCancelled` 映射为“请求已取消”。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:91）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:107）
-- `retry_message` 把错误文本格式化为“{错误}，正在进行第 N 次重试...”。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:119）
+- `response_stream_from_chunks` 用已收集的文本块构造可修订响应流。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:62）
+- `ensure_response_completed` 在流有 terminal failure 时返回 `RequestFailed`，否则返回 `Ok`。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:85）
+- `retry_error_text` 把 `FirstOutputTimeout` 映射为“AI 首字等待超过 120 秒”，其他超时映射为“连接超时”，把 DNS 与主机解析失败映射为“无法解析主机”。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:94）
+- `retry_error_text` 把空的 `ConnectionFailed` 与 `RequestFailed` 映射为“网络中断”，把 `RequestCancelled` 映射为“请求已取消”。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:93）（core/crates/provider/services/src/chat/llmprovider/AIService.rs:112）
+- `retry_message` 把错误文本格式化为“{错误}，正在进行第 N 次重试...”。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:124）
 
 ### ClaudeProvider：Anthropic 适配器
 
@@ -78,8 +78,8 @@ date: 2026-11-11
 - `create_request_body` 写入 `model`、`messages`、`stream`，`system` 非空时才写入，`max_tokens` 未指定时补默认值。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:175）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:184）
 - 只有 `enable_tool_call` 为真且 `available_tools` 非空时，请求体才带 `tools`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:189）
 - 请求体经 `ThinkingDialect::Anthropic` 应用思考方言，再加已启用的模型参数。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:196）
-- `fit_max_tokens_to_thinking_budget` 在思考预算不小于 `max_tokens` 时，若用户显式设置了 `max_tokens` 则返回错误，否则把 `max_tokens` 扩为 budget 加 `DEFAULT_MAX_TOKENS`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1257）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1277）
-- `DEFAULT_MAX_TOKENS` 是 4096。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1250）
+- `fit_max_tokens_to_thinking_budget` 在思考预算不小于 `max_tokens` 时，若用户显式设置了 `max_tokens` 则返回错误，否则把 `max_tokens` 扩为 budget 加 `DEFAULT_MAX_TOKENS`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1262）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1282）
+- `DEFAULT_MAX_TOKENS` 是 4096。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1255）
 - `build_serialized_history` 先经 `StructuredToolCallBridge::compileHistoryForProvider` 编译历史。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:222）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:231）
 - SYSTEM 轮拼进 `system` 提示词，SUMMARY 与 USER 轮映射为 user 角色消息。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:242）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:251）
 - ASSISTANT 与 TOOL_CALL 轮映射为 assistant 角色消息，`enable_tool_call` 为真时走 `build_assistant_content_blocks` 解析工具调用。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:253）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:261）
@@ -95,7 +95,7 @@ date: 2026-11-11
 - `build_content_array` 把文本中的图片链接转为 base64 image 内容块。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:417）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:431）
 - 文本与图片均为空时，`build_content_array` 返回 `"[Empty]"` 文本块。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:451）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:464）
 - `add_parameters` 只写入 `isEnabled` 的模型参数。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:562）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:568）
-- 请求头固定为 `application/json` 与 `anthropic-version` 2023-06-01。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:578）
+- 请求头固定为 `application/json` 与 `anthropic-version` 2023-06-01。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:583）
 - `x-api-key` 请求头改由 `key_getter` 在 `sendHttpRequest` 里经 `KeyAuthentication::Header` 附加，`headers` 只拼固定头与 `custom_headers`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:128）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:584）
 - OpenAI 兼容口径下，`prompt_tokens` 需减去缓存 token 才得到 `input_base`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:684）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:715）
 - Anthropic 口径下 `input_tokens` 本身不含缓存读与缓存创建，缓存创建 token 另行加回 `input`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:697）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:720）
@@ -108,20 +108,20 @@ date: 2026-11-11
 - `send_message` 非流式时返回冷流，只在首次收集时执行一次请求。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:770）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:816）
 - `calculate_input_tokens` 用与发送时相同的序列化内容做预估，且不更新已存储的 token 计数。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:835）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:841）
 - `send_streaming_message` 在发送前发出 savepoint 修订。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:847）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:855）
-- 流式重试时发出 rollback 修订并重置 token 计数。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:895）
-- 流式重试要求 `request.enable_retry` 为真且未达 `LlmRetryPolicy::MAX_RETRY_ATTEMPTS`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:885）
-- 非流式重试同样要求 `enable_retry` 为真且未达 `MAX_RETRY_ATTEMPTS`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:908）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:941）
-- 非流式响应按有无 `choices` 字段区分 OpenAI 兼容与 Anthropic 两种解析：有 `choices` 按 OpenAI 口径算 `usage`，否则按 Anthropic 口径。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:959）
-- 非流式响应由 `parse_anthropic_non_streaming` 生成内容，包成单块流返回。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:965）
-- `process_streaming_response` 对 JSON 媒体类型直接按非流式解析，否则按 SSE 解码。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:974）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:981）
-- `"[DONE]"` 事件标志流式响应完成。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1060）
-- `message_stop` 事件标志流式响应完成。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1186）
-- 流在完成前结束时返回 `ConnectionFailed`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1042）
-- `content_block_start` 的 `tool_use` 块仅在 `enable_tool_call` 为真时处理，转为随机标签名的 XML 工具调用标记。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1099）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1106）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1114）
-- `thinking` 内容块转为 `<think>` 标记包裹的思考文本。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1124）
-- `parse_anthropic_non_streaming` 把 `text` 与 `thinking` 块拼成文本，`thinking` 包在 `<think>` 标记内。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1194）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1213）
-- `parse_anthropic_non_streaming` 的 `tool_use` 块仅在 `enable_tool_call` 为真时转为随机标签名的 XML 标记。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1194）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1220）
-- 无 `content` 数组时，`parse_anthropic_non_streaming` 回退读取 `choices/0/message/content`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1198）
+- 流式重试时发出 rollback 修订并重置 token 计数。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:898）
+- 流式重试要求 `request.enable_retry` 为真且未达 `LlmRetryPolicy::MAX_RETRY_ATTEMPTS`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:888）
+- 非流式重试同样要求 `enable_retry` 为真且未达 `MAX_RETRY_ATTEMPTS`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:912）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:942）
+- 非流式响应按有无 `choices` 字段区分 OpenAI 兼容与 Anthropic 两种解析：有 `choices` 按 OpenAI 口径算 `usage`，否则按 Anthropic 口径。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:953）
+- 非流式响应由 `parse_anthropic_non_streaming` 生成内容，包成单块流返回。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:959）
+- `process_streaming_response` 对 JSON 媒体类型直接按非流式解析，否则按 SSE 解码。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:968）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:976）
+- `"[DONE]"` 事件标志流式响应完成。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1058）
+- `message_stop` 事件标志流式响应完成。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1191）
+- 流在完成前结束时返回 `ConnectionFailed`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1040）
+- `content_block_start` 的 `tool_use` 块仅在 `enable_tool_call` 为真时处理，转为随机标签名的 XML 工具调用标记。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1099）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1106）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1115）
+- `thinking` 内容块转为 `<think>` 标记包裹的思考文本。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1125）
+- `parse_anthropic_non_streaming` 把 `text` 与 `thinking` 块拼成文本，`thinking` 包在 `<think>` 标记内。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1199）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1218）
+- `parse_anthropic_non_streaming` 的 `tool_use` 块仅在 `enable_tool_call` 为真时转为随机标签名的 XML 标记。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1199）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1225）
+- 无 `content` 数组时，`parse_anthropic_non_streaming` 回退读取 `choices/0/message/content`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1203）
 
 ### EnhancedAIService：对话编排
 
@@ -259,7 +259,7 @@ date: 2026-11-11
 
 ## 关键符号
 
-- `AIService` — 全部模型供应商的公共异步接口。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:126）
+- `AIService` — 全部模型供应商的公共异步接口。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:131）
 - `SendMessageRequest` — 一次供应商请求的完整载荷。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:23）
 - `TokenCounts` — 输入、缓存输入、输出三项 token 计数。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:38）
 - `AiServiceError` — 供应商共享的错误类型。（core/crates/provider/services/src/chat/llmprovider/AIService.rs:46）
@@ -276,7 +276,7 @@ date: 2026-11-11
 - `ChatConfigurationResult` — 一次执行的参与者档案与执行快照。（core/crates/provider/services/src/runtime_support.rs:218）
 - `ChatConfigurationPurpose` — Display 与 Execution 两种配置目的。（core/crates/provider/services/src/runtime_support.rs:48）
 - `ProviderFunctionModelBinding` — `providerId` 与 `modelId` 的绑定。（core/crates/provider/services/src/runtime_support.rs:23）
-- `DEFAULT_MAX_TOKENS` — 未指定 `max_tokens` 时的默认值 4096。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1250）
+- `DEFAULT_MAX_TOKENS` — 未指定 `max_tokens` 时的默认值 4096。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:1255）
 - `ChatToolAccess` — 工具来源策略：内置工具、包、技能、MCP 服务器的允许清单。（core/crates/provider/services/src/runtime_support.rs:182）
 - `ChatParticipantProfile` — 一位执行参与者的完整档案：身份、提示词、模型绑定、语音配置、工具访问、资源路由。（core/crates/provider/services/src/runtime_support.rs:192）（core/crates/provider/services/src/runtime_support.rs:198）
 
@@ -296,7 +296,7 @@ date: 2026-11-11
 12. 无工具调用时定稿助手回复，注销执行上下文，记录 `UnregisterExecutionContext` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2302）
 - ClaudeProvider 的 `send_message` 流式时经 Host 任务调度器以后台任务 `"claude-response-stream"` 发送，`RequestCancelled` 不视为终端失败，其他错误写入终端失败。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:770）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:785）
 14. `create_request_body` 组装 Anthropic 请求体：`model`、`messages`、`stream`、`system`、`max_tokens`、条件 `tools`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:171）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:179）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:186）
-15. `process_streaming_response` 对 JSON 媒体类型按非流式解析，否则按 SSE 解码事件流。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:971）
+15. `process_streaming_response` 对 JSON 媒体类型按非流式解析，否则按 SSE 解码事件流。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:965）
 16. `resume` 在目标 CoreNode 上同步历史后直接复用 `sendMessage` 恢复模型处理，见 [[arch-routing|路由与转发]]。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1533）
 
 ## 来源

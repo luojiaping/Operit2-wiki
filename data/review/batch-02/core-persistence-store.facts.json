@@ -17,19 +17,19 @@
   },
   {
     "fact": "lib.rs 用 pub use PreferencesDataStore::* 把偏好存储的公开项重导出到 crate 根。",
-    "ref": "core/crates/persistence/store/src/lib.rs:54"
+    "ref": "core/crates/persistence/store/src/lib.rs:53"
   },
   {
     "fact": "lib.rs 用 pub use SqliteStore::* 把该模块的公开项重导出到 crate 根。",
-    "ref": "core/crates/persistence/store/src/lib.rs:60"
-  },
-  {
-    "fact": "lib.rs 的 pub use SqliteStore::*; 重导出本身也在 #[cfg(feature = \"full\")] 门控下。",
     "ref": "core/crates/persistence/store/src/lib.rs:59"
   },
   {
+    "fact": "lib.rs 的 pub use SqliteStore::*; 重导出本身也在 #[cfg(feature = \"full\")] 门控下。",
+    "ref": "core/crates/persistence/store/src/lib.rs:58"
+  },
+  {
     "fact": "lib.rs 的 repository、dao、db、sync 四个模块只在 feature full 下公开。",
-    "ref": "core/crates/persistence/store/src/lib.rs:67"
+    "ref": "core/crates/persistence/store/src/lib.rs:66"
   },
   {
     "fact": "SqliteStore 模块只在 feature full 下公开。",
@@ -501,71 +501,71 @@
   },
   {
     "fact": "PreferencesDataStore 的字段含 path、storagePath、storageHost、encryption、syncOperationStore、syncDescriptor。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1853"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1896"
   },
   {
     "fact": "PreferencesDataStore 的字段含 changeSignal、sharedState、schema。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1858"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1901"
   },
   {
     "fact": "PreferencesDataStore::new 创建同步偏好 store。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2909"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2952"
   },
   {
     "fact": "PreferencesDataStore::newEncrypted 创建加密的同步偏好 store。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2917"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2960"
   },
   {
     "fact": "PreferencesDataStore::newWithStorage 创建同步偏好 store。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2925"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2968"
   },
   {
     "fact": "PreferencesDataStore::newEncryptedWithStorage 创建加密的同步偏好 store。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2936"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2979"
   },
   {
     "fact": "PreferencesDataStore::newNodeLocalWithStorage 创建节点本地 store。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2975"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3018"
   },
   {
     "fact": "同步 store 的 syncOperationStore 与 syncDescriptor 均存在。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2962"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3005"
   },
   {
     "fact": "节点本地 store 的 syncOperationStore 与 syncDescriptor 均为 None。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3001"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3044"
   },
   {
     "fact": "PreferencesSyncDescriptor::forStoragePath 由存储路径推导同步描述符。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2437"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2480"
   },
   {
     "fact": "同步描述符的域固定为 preferences，实体类型取自文件名去掉 .preferences.json 与 .json 后缀。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2448"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2491"
   },
   {
     "fact": "Preferences::set 在值不变时直接返回，不记变更。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1646"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1689"
   },
   {
     "fact": "Preferences::set 把每次写记为一条 set 变更。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1652"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1695"
   },
   {
     "fact": "增量写记为 increment 操作，存增量而非绝对值。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1691"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1734"
   },
   {
     "fact": "Preferences::setObjectField 只改对象的一个字段。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1726"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1769"
   },
   {
     "fact": "对象字段的变更记为 patch_object 操作。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1762"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1805"
   },
   {
     "fact": "Preferences 的 PartialEq 只比较持久化值，不比较待提交变更。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1587"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1630"
   },
   {
     "fact": "偏好 schema 版本键是 __operit_preferences_schema_version，复制元数据键是 __operit_preferences_replication。",
@@ -573,51 +573,51 @@
   },
   {
     "fact": "PreferencesDataStore::withSchema 声明当前 schema 版本与逐版本迁移回调。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3011"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3054"
   },
   {
     "fact": "readSchemaVersion 把缺失的版本键当作 0。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3216"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3259"
   },
   {
     "fact": "readSchemaVersion 接受字符串与数字两种版本写法。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3220"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3263"
   },
   {
     "fact": "存储版本高于声明版本时迁移返回 SchemaVersionTooNew。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3196"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3239"
   },
   {
     "fact": "迁移按版本逐级应用，每级迁移一次，完成后把 schema 版本键写为当前版本。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3204"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3247"
   },
   {
     "fact": "data() 在同步 store 或宿主保留偏好缓存的前提下，已缓存快照且 schema 已是最新时直接返回缓存。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3073"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3116"
   },
   {
     "fact": "PreferencesDataStore::edit 在内存中改偏好并持久化。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3328"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3371"
   },
   {
     "fact": "PreferencesDataStore::migrate 应用本地迁移或修复，不产生同步操作。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3356"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3399"
   },
   {
     "fact": "PreferencesDataStore::replace 整体替换快照并通知观察者。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3435"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3478"
   },
   {
     "fact": "PreferencesDataStore::replace 在内容不变且格式匹配时不写文件。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3474"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3517"
   },
   {
     "fact": "PreferencesDataStore::replaceRecoverably 与 replace 是同一替换路径。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3495"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3538"
   },
   {
     "fact": "PreferencesDataStore::dataFlow 返回带观察的 Flow<Preferences>。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3296"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3339"
   },
   {
     "fact": "Flow::collectWithCancellation 先发出当前值，再在 waitChanged 报告变化后发出新值。",
@@ -625,103 +625,103 @@
   },
   {
     "fact": "StateFlow::set_value 在值不变时不通知订阅者。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:752"
-  },
-  {
-    "fact": "StateFlow::compare_and_set 只在当前值等于 expect 时替换。",
     "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:785"
   },
   {
+    "fact": "StateFlow::compare_and_set 只在当前值等于 expect 时替换。",
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:819"
+  },
+  {
     "fact": "combine2 把两个 StateFlow 合并为一个派生 StateFlow。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:913"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:956"
   },
   {
     "fact": "combine5 最多合并五个 StateFlow。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1220"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1263"
   },
   {
     "fact": "CoreNodeStateStore::typedEntry 只解码请求的记录，不展开无关 JSON。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1894"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:1937"
   },
   {
     "fact": "CoreNodeStateStore::delete 同时删除文件与共享快照，避免后续相同导入被缓存跳过。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2152"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2195"
   },
   {
     "fact": "CoreNodeSecretStore 存节点本地凭证与密钥，接受旧版加密文件。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2361"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2404"
   },
   {
     "fact": "encodeStoredPreferences 的 bounded 模式指无同步描述符且存储宿主不保留偏好缓存。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3529"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3572"
   },
   {
     "fact": "encodeStoredPreferences 在 bounded 模式下写紧凑 JSON，否则写 pretty JSON。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3535"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3578"
   },
   {
     "fact": "读取偏好文件不改写文件，不创建新解密密钥。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3238"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3281"
   },
   {
     "fact": "加密偏好文件以 format 字段 operit.preferences.encrypted 标识。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3607"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3650"
   },
   {
     "fact": "PreferencesSyncedEntry::fromOperation 要求同步操作的域为 preferences。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2573"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2616"
   },
   {
     "fact": "偏好事务要求 formatVersion 为 2 且至少含 2 条。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2607"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2650"
   },
   {
     "fact": "偏好事务的条目键必须唯一。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2618"
-  },
-  {
-    "fact": "偏好同步载荷的 formatVersion 只接受 1 与 2。",
     "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2661"
   },
   {
+    "fact": "偏好同步载荷的 formatVersion 只接受 1 与 2。",
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2704"
+  },
+  {
     "fact": "复制元数据键不许作为业务条目同步。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2592"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2635"
   },
   {
     "fact": "schema 元数据键不许作为业务条目同步。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2666"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2709"
   },
   {
     "fact": "increment、patch_object、alias 操作要求 Transaction 语义。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2693"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2736"
   },
   {
     "fact": "PreferencesSyncedEntry::requireSchemaVersion 在远端 schema 版本高于本地时返回 SchemaVersionTooNew。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2752"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:2795"
   },
   {
     "fact": "prepareSync、isSyncPrepared、syncSnapshot、repairSyncedSnapshot 四个同步入口委托给 Transaction::preference。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3909"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3952"
   },
   {
     "fact": "同步的插件偏好路径必须以 .preferences.json 结尾。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3717"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3760"
   },
   {
     "fact": "同步的插件偏好路径必须归 Space 所有，节点本地与临时存储不许同步偏好。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3722"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3765"
   },
   {
     "fact": "同一 storage host 与路径的偏好 store 共享同一份 shared state。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3783"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3826"
   },
   {
     "fact": "同一 storage host 与路径的偏好 store 共享同一个 change signal。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3811"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3854"
   },
   {
     "fact": "notifyChanged 递增版本号、唤醒等待者并调度订阅者回调。",
-    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3589"
+    "ref": "core/crates/persistence/store/src/PreferencesDataStore.rs:3632"
   },
   {
     "fact": "UNMEASURED_DIRECT_PEER_COST 的值是 1_000_000_000。",

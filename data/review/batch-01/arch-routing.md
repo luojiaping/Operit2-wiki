@@ -158,10 +158,10 @@ Watch 路由在生成的 Core 路由元数据中声明一个分发类：`Unicast
 
 实际交接按提交调用链进行：先同步目标节点，再比较写入 `Binding`，安装 Binding operation，最后调用 `AfterChangeRoute`。
 
-先同步目标节点：RuntimeRemoteLinkService 在提交前调用 `synchronizeReachablePeerForReason` 同步目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1043）
-比较写入 `Binding`：`bindingStore.compareAndSet` 比较写入，提交后校验新归属等于目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1059）
-安装 Binding operation：`installRouteBindingOnTarget` 把 Binding operation 安装到目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1079）
-调用 `AfterChangeRoute`：`callChatCoreLifecycle` 触发目标节点的 `AfterChangeRoute` 生命周期回调，传入交接上下文。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1098）
+先同步目标节点：RuntimeRemoteLinkService 在提交前调用 `synchronizeReachablePeerForReason` 同步目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1053）
+比较写入 `Binding`：`bindingStore.compareAndSet` 比较写入，提交后校验新归属等于目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1069）
+安装 Binding operation：`installRouteBindingOnTarget` 把 Binding operation 安装到目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1089）
+调用 `AfterChangeRoute`：`callChatCoreLifecycle` 触发目标节点的 `AfterChangeRoute` 生命周期回调，传入交接上下文。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1108）
 目标接收上下文：`resumeFromRouteContext` 接收 `CoreRouteResumeContext`。（core/crates/runtime/application/src/services/ChatServiceCore.rs:831）
 取得本地执行 lease：目标节点打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatServiceCore.rs:860）
 交给续接：目标节点把执行 lease 和交接上下文交给 `sendRoutedContinuation` 续接。（core/crates/runtime/application/src/services/ChatServiceCore.rs:880）
@@ -271,10 +271,10 @@ Transport 消息协议和共享 Link 客户端均已覆盖 Call、Watch、Push�
 2. node-A 验证 node-D 是可达的 Space 成员。（docs/core-node-space-binding-architecture.md:396）
 3. node-A 在一个事务内持久化 assistant 工具调用、工具结果、chat metadata 和同步操作。（docs/core-node-space-binding-architecture.md:397）
 4. 响应业务向 Router 返回只包含目标和不透明 payload 的 route transition。（docs/core-node-space-binding-architecture.md:398）
-5. Router 先同步目标节点，为提交做准备。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1043）
-6. Router 比较写入 Binding(chat-1) = node-D，提交成功后得到新的 generation 和 operation。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1059）
-7. Router 把 Binding operation 安装到 node-D。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1079）
-8. Router 调用 `AfterChangeRoute`，把交接上下文交给 node-D。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1098）
+5. Router 先同步目标节点，为提交做准备。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1053）
+6. Router 比较写入 Binding(chat-1) = node-D，提交成功后得到新的 generation 和 operation。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1069）
+7. Router 把 Binding operation 安装到 node-D。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1089）
+8. Router 调用 `AfterChangeRoute`，把交接上下文交给 node-D。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1108）
 9. node-D 的 `resumeFromRouteContext` 接收 `CoreRouteResumeContext`。（core/crates/runtime/application/src/services/ChatServiceCore.rs:831）
 10. node-D 打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatServiceCore.rs:860）
 11. node-D 把执行 lease 和交接上下文交给 `sendRoutedContinuation` 续接。（core/crates/runtime/application/src/services/ChatServiceCore.rs:880）

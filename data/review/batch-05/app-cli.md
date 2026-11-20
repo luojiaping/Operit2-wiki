@@ -8,7 +8,7 @@ date: 2026-11-11
 
 ## 概述
 
-operit2 是 Operit2 的命令行应用，包名 `operit-cli`，版本是 2.0.0-preview.41（`apps/cli/Cargo.toml:3`）。
+operit2 是 Operit2 的命令行应用，包名 `operit-cli`，版本是 2.0.0-preview.42（`apps/cli/Cargo.toml:3`）。
 CLI 可执行文件名为 `operit2`（`apps/cli/Cargo.toml:12`）。
 无参数启动 operit2 进入 TUI（`apps/cli/src/main.rs:59`）。
 operit2 rescue 把参数交给 `rescue` 的 `run`（`apps/cli/src/main.rs:63`）。
@@ -32,7 +32,7 @@ CLI 不是瘦客户端：无 owner 时启动进程内短命 Core；有 owner 时
 - 核心符号：`run_tui_command` — TUI 入口（`apps/cli/src/tui/mod.rs:92`）。
 - 核心符号：`discover_devices` — 浏览 mDNS 服务发现设备（`apps/cli/src/mdns.rs:51`）。
 - 主入口函数：main 按首个参数分发到 TUI、CLI、daemon、rescue、安装（`apps/cli/src/main.rs:59`）。
-- 数据流向：用户输入 → run_cli_root_inner 分发 → 有 owner 时走控制通道复用 owner 的 Core，无 owner 时启动短命进程内 Core → 本地路径：Core 命令经 `GeneratedCoreProxy`（`apps/cli/src/core_proxy.rs:56`）发往 Core，由 `run_core_command_and_print` 执行并打印结果（`apps/cli/src/cli/mod.rs:1457`）；owner 路径：命令经控制通道 `run` 操作在 owner 的 Core 上执行（`apps/cli/src/daemon.rs:525`）（`apps/cli/src/daemon.rs:474`）。
+- 数据流向：用户输入 → run_cli_root_inner 分发 → 有 owner 时走控制通道复用 owner 的 Core，无 owner 时启动短命进程内 Core → 本地路径：Core 命令经 `GeneratedCoreProxy`（`apps/cli/src/core_proxy.rs:56`）发往 Core，由 `run_core_command_and_print` 执行并打印结果（`apps/cli/src/cli/mod.rs:1475`）；owner 路径：命令经控制通道 `run` 操作在 owner 的 Core 上执行（`apps/cli/src/daemon.rs:525`）（`apps/cli/src/daemon.rs:474`）。
 
 ## 核心机制
 
@@ -56,22 +56,22 @@ model codex-login 不走 owner 路由（`apps/cli/src/daemon.rs:572`）。
 ### 命令清单：31 个固有命令族加插件命令
 
 `run_cli_root_inner` 按首个参数分发 CLI 命令（`apps/cli/src/cli/mod.rs:118`）。
-`CLI_COMMANDS` 表定义固有 CLI 命令族（`apps/cli/src/cli/mod.rs:1809`）。
-单元测试断言 `CLI_COMMANDS` 覆盖 31 个固有 CLI 命令族（`apps/cli/src/cli/mod.rs:2331`）。
+`CLI_COMMANDS` 表定义固有 CLI 命令族（`apps/cli/src/cli/mod.rs:1827`）。
+单元测试断言 `CLI_COMMANDS` 覆盖 31 个固有 CLI 命令族（`apps/cli/src/cli/mod.rs:2347`）。
 `read_cli_plugin_commands` 通过 plugin commands --json 读取插件命令目录（`apps/cli/src/cli/mod.rs:1863`）。
 插件命令与固有 CLI 命令同名时报错（`apps/cli/src/cli/mod.rs:1870`）。
 插件命令来自已启用插件的 Core 命令目录（`apps/cli/src/cli/mod.rs:1858`）。
 `run_cli_root` 剥离 `--json` 后分发命令（`apps/cli/src/cli/mod.rs:103`）。
 `cli_json_mode` 表示本次调用是否要求 JSON 输出（`apps/cli/src/cli/mod.rs:80`）。
-`cli_usage_lines`（`apps/cli/src/cli/mod.rs:1877`）的用法文本列出 `--link <session>` 全局选项（`apps/cli/src/cli/mod.rs:1883`）。
+`cli_usage_lines`（`apps/cli/src/cli/mod.rs:1895`）的用法文本列出 `--link <session>` 全局选项（`apps/cli/src/cli/mod.rs:1901`）。
 除 chat shell 外，`chat` 子命令转发给 Core 命令（`apps/cli/src/cli/mod.rs:183`）。
 `run_identity_command` 处理 identity 本地管理命令（`apps/cli/src/cli/mod.rs:210`）。
-`identity` 子命令包含 `list`、`current`、`create`、`use`、`rename`（`apps/cli/src/cli/mod.rs:1957`）。
-model codex-login 只接受 `browser` 或 `device` 两种方式（`apps/cli/src/cli/mod.rs:1485`）。
+`identity` 子命令包含 `list`、`current`、`create`、`use`、`rename`（`apps/cli/src/cli/mod.rs:1975`）。
+model codex-login 只接受 `browser` 或 `device` 两种方式（`apps/cli/src/cli/mod.rs:1508`）。
 market auth login 走 GitHub OAuth 回调完成登录（`apps/cli/src/cli/mod.rs:1662`）。
 `run_update_cli_command` 处理 update 的发现、下载与安装（`apps/cli/src/cli/mod.rs:517`）。
 `cli_update_target` 用产品 `cli` 与当前系统、架构构造更新目标（`apps/cli/src/cli/host_ops.rs:29`）。
-`install_current_cli` 从当前可执行文件安装 CLI（`apps/cli/src/cli/mod.rs:849`）。
+`install_current_cli` 从当前可执行文件安装 CLI（`apps/cli/src/cli/mod.rs:867`）。
 install_cli_from_source 把同一二进制复制为 `operit` 与 `operit2` 两个命令（`apps/cli/src/cli/mod.rs:908`）。
 非 Windows 的 CLI 安装目录是 ~/.local/bin（`apps/cli/src/cli/mod.rs:1103`）。
 Windows CLI 运行时库包含 `operit_local_llm.dll`（`apps/cli/src/cli/host_ops.rs:37`）。
@@ -174,7 +174,7 @@ mcp_http_streaming.rs 包含流式响应与超时测试 `streamed_responses_and_
 - `create_cli_core_application` — 启动 CLI 的 CoreApplication（`apps/cli/src/bootstrap.rs:239`）。
 - `create_cli_host_manager` — 构造 CLI 的 HostManager（`apps/cli/src/bootstrap.rs:65`）。
 - `run_cli_root_inner` — 按首个参数分发 CLI 命令（`apps/cli/src/cli/mod.rs:118`）。
-- `CLI_COMMANDS` — 固有 CLI 命令族表，31 个（`apps/cli/src/cli/mod.rs:1809`）。
+- `CLI_COMMANDS` — 固有 CLI 命令族表，31 个（`apps/cli/src/cli/mod.rs:1827`）。
 - `read_cli_plugin_commands` — 通过 plugin commands --json 读取插件命令目录（`apps/cli/src/cli/mod.rs:1863`）。
 - `run_link_command` — 分发 link 的子命令（`apps/cli/src/cli/link.rs:125`）。
 - `owner_link_command` — 有 owner 时把 link 管理命令发给 owner 执行（`apps/cli/src/daemon.rs:490`）。

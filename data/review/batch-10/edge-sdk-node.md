@@ -18,7 +18,7 @@ date: 2026-11-11
 ## AI 速览
 
 - `EdgeNode` — 一个 Edge 节点的轻量设备侧 Core 服务。`edge/sdk/node/src/lib.rs:69`
-- `EdgePeerRouter` — 只接受本地 Target 路由与已定义共享 Space 控制调用的路由适配器。`edge/sdk/node/src/PeerRouter.rs:18`
+- `EdgePeerRouter` — 只接受本地 Target 路由与已定义共享 Space 控制调用的路由适配器。`edge/sdk/node/src/PeerRouter.rs:19`
 - `createPeerService` — 用共享配对与会话引擎创建 Edge 接收端。`edge/sdk/node/src/peer.rs:17`
 - `DeviceIoService` — 类型化设备 I/O 操作。`edge/sdk/node/src/service.rs:207`
 - `RobotFaceService` — 类型化机器人表情操作。`edge/sdk/node/src/service.rs:222`
@@ -26,23 +26,23 @@ date: 2026-11-11
 - `EdgeCallHandler` — 设备应用提供的原生调用分发。`edge/sdk/node/src/lib.rs:42`
 - 主入口函数为 `EdgeNode` 的 `new`。`edge/sdk/node/src/lib.rs:82`
 - `fromHostManager` 用一个 `HostManager` 的设备服务创建节点。`edge/sdk/node/src/lib.rs:112`
-- 路由入口为 `EdgePeerRouter` 的 `new`。`edge/sdk/node/src/PeerRouter.rs:25`
+- 路由入口为 `EdgePeerRouter` 的 `new`。`edge/sdk/node/src/PeerRouter.rs:26`
 - 数据流向一句话：本地调用先经 `dispatchAsyncCall` 问原生 `callHandler`，无应答时回落到 `dispatchCall`。`edge/sdk/node/src/lib.rs:369`
 
 ## 核心机制
 
 ### 路由：接受什么，不承担什么
 
-- `EdgePeerRouter` 只提供本地设备服务执行，没有第二套配对协议。`edge/sdk/node/src/PeerRouter.rs:18`
+- `EdgePeerRouter` 只提供本地设备服务执行，没有第二套配对协议。`edge/sdk/node/src/PeerRouter.rs:19`
 - `EdgePeerRouter` 只接受本地 Target 路由与已定义的共享 Space 控制调用。`edge/sdk/node/README.md:13`
 - `EdgePeerRouter` 不是完整 Core Binding 路由器，也不是中继实现。`edge/sdk/node/README.md:14`
-- `check` 要求 `targetNodeId` 等于本节点 id，否则返回 `EDGE_ROUTE_TARGET_MISMATCH`。`edge/sdk/node/src/PeerRouter.rs:48`
-- 只接受 `RoutedCoreRequestKind::Target` 路由，其他路由返回 `EDGE_ROUTE_UNSUPPORTED`。`edge/sdk/node/src/PeerRouter.rs:56`
-- `EdgePeerRouter` 的 `new` 以 `nodeId` 创建路由。`edge/sdk/node/src/PeerRouter.rs:25`
-- `install` 第二次安装返回 `Edge node already installed` 错误。`edge/sdk/node/src/PeerRouter.rs:32`
-- `installSpace` 第二次安装返回 `Edge Space services already installed` 错误。`edge/sdk/node/src/PeerRouter.rs:37`
-- `spaceChannelScope` 未安装 Space 服务时返回 `Ok(None)`。`edge/sdk/node/src/PeerRouter.rs:210`
-- `nodeLocalControlProjection` 返回 `true`，Edge 权限读取使用 `NodeSpaceService` 安装的节点本地授权。`edge/sdk/node/src/PeerRouter.rs:74`
+- `check` 要求 `targetNodeId` 等于本节点 id，否则返回 `EDGE_ROUTE_TARGET_MISMATCH`。`edge/sdk/node/src/PeerRouter.rs:49`
+- 只接受 `RoutedCoreRequestKind::Target` 路由，其他路由返回 `EDGE_ROUTE_UNSUPPORTED`。`edge/sdk/node/src/PeerRouter.rs:57`
+- `EdgePeerRouter` 的 `new` 以 `nodeId` 创建路由。`edge/sdk/node/src/PeerRouter.rs:26`
+- `install` 第二次安装返回 `Edge node already installed` 错误。`edge/sdk/node/src/PeerRouter.rs:33`
+- `installSpace` 第二次安装返回 `Edge Space services already installed` 错误。`edge/sdk/node/src/PeerRouter.rs:38`
+- `spaceChannelScope` 未安装 Space 服务时返回 `Ok(None)`。`edge/sdk/node/src/PeerRouter.rs:228`
+- `nodeLocalControlProjection` 返回 `true`，Edge 权限读取使用 `NodeSpaceService` 安装的节点本地授权。`edge/sdk/node/src/PeerRouter.rs:87`
 
 ### 原生服务注册
 
@@ -78,21 +78,21 @@ date: 2026-11-11
 - Edge 启动使用共享确认码配对引擎，会话加密与 Space 授权留在共享运行时。`edge/sdk/node/src/peer.rs:1`
 - `createPeerService` 复用已有配对与会话引擎，Core 与 Edge 共享确认码、加密与授权。`edge/sdk/node/src/peer.rs:9`
 - `createPeerService` 用 `HostRuntimePeerService::newWithLimits` 创建 Edge 接收端。`edge/sdk/node/src/peer.rs:17`
-- `installSpace` 安装 `NodeSpaceService`。`edge/sdk/node/src/PeerRouter.rs:37`
-- Space 调用先分流到三个 Space 目标：`NODE_SPACE_TARGET`、`NODE_SPACE_APPROVAL_TARGET` 与 `NODE_SPACE_CONTROL_TARGET`。`edge/sdk/node/src/PeerRouter.rs:87`
-- `checkSpaceOrigin` 要求 Space 调用直连来源、不可中继，`NODE_SPACE_TARGET` 调用 ttl 必须为 0。`edge/sdk/node/src/PeerRouter.rs:63`
-- 准入前调用只允许零跳，同 Space 控制与评审调用在直连上可带正 TTL。`edge/sdk/node/src/PeerRouter.rs:92`
-- 准入与控制目标的请求 `spaceId` 必须等于当前 Space 的 `spaceId`，否则返回 `SPACE_ID_MISMATCH`。`edge/sdk/node/src/PeerRouter.rs:115`
-- 未安装 Space 服务时 Space 调用返回 `EDGE_SPACE_UNAVAILABLE`。`edge/sdk/node/src/PeerRouter.rs:101`
-- `prepareRoutedCall` 只处理 `NODE_SPACE_TARGET` 的 `snapshot` 方法。`edge/sdk/node/src/PeerRouter.rs:143`
-- `prepareEncodedCall` 只处理控制通道的 `exchange` 与 `exchangeBounded`、申请侧的 `requestJoin`、`cancelJoin` 与 `joinStatus`，以及 `observeSpaceSnapshot`。`edge/sdk/node/src/PeerRouter.rs:161`
+- `installSpace` 安装 `NodeSpaceService`。`edge/sdk/node/src/PeerRouter.rs:38`
+- Space 调用先分流到三个 Space 目标：`NODE_SPACE_TARGET`、`NODE_SPACE_APPROVAL_TARGET` 与 `NODE_SPACE_CONTROL_TARGET`。`edge/sdk/node/src/PeerRouter.rs:105`
+- `checkSpaceOrigin` 要求 Space 调用直连来源、不可中继，`NODE_SPACE_TARGET` 调用 ttl 必须为 0。`edge/sdk/node/src/PeerRouter.rs:64`
+- 准入前调用只允许零跳，同 Space 控制与评审调用在直连上可带正 TTL。`edge/sdk/node/src/PeerRouter.rs:110`
+- 准入与控制目标的请求 `spaceId` 必须等于当前 Space 的 `spaceId`，否则返回 `SPACE_ID_MISMATCH`。`edge/sdk/node/src/PeerRouter.rs:128`
+- 未安装 Space 服务时 Space 调用返回 `EDGE_SPACE_UNAVAILABLE`。`edge/sdk/node/src/PeerRouter.rs:119`
+- `prepareRoutedCall` 只处理 `NODE_SPACE_TARGET` 的 `snapshot` 方法。`edge/sdk/node/src/PeerRouter.rs:161`
+- `prepareEncodedCall` 只处理控制通道的 `exchange` 与 `exchangeBounded`、申请侧的 `requestJoin`、`cancelJoin` 与 `joinStatus`，以及 `observeSpaceSnapshot`。`edge/sdk/node/src/PeerRouter.rs:179`
 
 ### 没有 storage.provide 时：能保存什么，不能参与什么
 
 - Edge 不用 `storage.provide` 也能持久化自身配置与资源。`edge/sdk/node/README.md:22`
 - 有界设备偏好在共享 Space 控制通道上交换，带成员与撤销检查。`edge/sdk/node/README.md:23`
 - 完整业务副本要求两端都具备存储能力与真实 Core 存储服务。`edge/sdk/node/README.md:24`
-- 控制通道的 `exchangeBounded` 是 `prepareEncodedCall` 处理的有界交换入口之一。`edge/sdk/node/src/PeerRouter.rs:161`
+- 控制通道的 `exchangeBounded` 是 `prepareEncodedCall` 处理的有界交换入口之一。`edge/sdk/node/src/PeerRouter.rs:179`
 - Host API traits 提供硬件、I/O 与存储，设备应用拥有行为。`edge/sdk/node/README.md:20`
 - 配置 `ToolPkg` 在有能力的宿主上运行，设备配置保存后不必保持安装或运行。`edge/sdk/node/README.md:29`
 - 当前 ESP32 应用支持原生设备服务、有界独立 HTTP 聊天与可选远程 Core 聊天。`edge/sdk/node/README.md:27`
@@ -113,7 +113,7 @@ date: 2026-11-11
 ## 关键符号
 
 - `EdgeNode` — 一个 Edge 节点的轻量设备侧 Core 服务。`edge/sdk/node/src/lib.rs:69`
-- `EdgePeerRouter` — 只接受本地 Target 路由与已定义共享 Space 控制调用的路由适配器。`edge/sdk/node/src/PeerRouter.rs:18`
+- `EdgePeerRouter` — 只接受本地 Target 路由与已定义共享 Space 控制调用的路由适配器。`edge/sdk/node/src/PeerRouter.rs:19`
 - `createPeerService` — 用共享配对与会话引擎创建 Edge 接收端。`edge/sdk/node/src/peer.rs:17`
 - `DeviceIoService` — 类型化设备 I/O 操作。`edge/sdk/node/src/service.rs:207`
 - `RobotFaceService` — 类型化机器人表情操作。`edge/sdk/node/src/service.rs:222`
@@ -126,7 +126,7 @@ date: 2026-11-11
 - `EdgeServiceError` — 类型化 Edge 服务操作失败。`edge/sdk/node/src/service.rs:16`
 - `DeviceIoStateStream` — 类型化数字输出状态流。`edge/sdk/node/src/service.rs:30`
 - `RobotFaceStateStream` — 类型化机器人表情状态流。`edge/sdk/node/src/service.rs:116`
-- `NodeSpaceService` — Space 服务，经 `installSpace` 安装。`edge/sdk/node/src/PeerRouter.rs:37`
+- `NodeSpaceService` — Space 服务，经 `installSpace` 安装。`edge/sdk/node/src/PeerRouter.rs:38`
 
 ## 调用链
 
@@ -134,12 +134,12 @@ date: 2026-11-11
 2. `fromHostManager` 用一个 `HostManager` 的设备服务创建节点。`edge/sdk/node/src/lib.rs:112`
 3. 设备应用用 `withCallHandler` 注册原生调用，用 `withStreamHandlers` 注册流端点。`edge/sdk/node/README.md:17`
 4. `createPeerService` 用共享配对引擎建立加密会话，配对与 Space 准入分开进行。`edge/sdk/node/src/peer.rs:9`
-5. `EdgePeerRouter` 的 `new` 以 `nodeId` 创建路由。`edge/sdk/node/src/PeerRouter.rs:25`
-6. `install` 安装 `EdgeNode`，`installSpace` 安装 `NodeSpaceService`。`edge/sdk/node/src/PeerRouter.rs:32`
-7. `routedCall` 的第一步是执行 `check`。`edge/sdk/node/src/PeerRouter.rs:82`
-8. Space 调用再过 `checkSpaceOrigin`：直连来源、不可中继。`edge/sdk/node/src/PeerRouter.rs:63`
+5. `EdgePeerRouter` 的 `new` 以 `nodeId` 创建路由。`edge/sdk/node/src/PeerRouter.rs:26`
+6. `install` 安装 `EdgeNode`，`installSpace` 安装 `NodeSpaceService`。`edge/sdk/node/src/PeerRouter.rs:33`
+7. `routedCall` 的第一步是执行 `check`。`edge/sdk/node/src/PeerRouter.rs:95`
+8. Space 调用再过 `checkSpaceOrigin`：直连来源、不可中继。`edge/sdk/node/src/PeerRouter.rs:64`
 9. 本地调用经 `dispatchAsyncCall` 分发到类型化设备服务。`edge/sdk/node/src/lib.rs:367`
-10. Space 目标调用交给 Space 服务的 `acceptPeerSpaceCall` 处理。`edge/sdk/node/src/PeerRouter.rs:123`
+10. Space 目标调用交给 Space 服务的 `acceptPeerSpaceCall` 处理。`edge/sdk/node/src/PeerRouter.rs:142`
 
 ## 来源
 
