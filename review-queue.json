@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20 17:24 UTC",
+  "updated": "2026-11-20 23:00 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -1023,7 +1023,7 @@
       "facts": "review/batch-06/plugin-catalog-buildin.facts.json",
       "lint": "review/batch-06/plugin-catalog-buildin.lint.md",
       "seed_files": [],
-      "facts_count": 97,
+      "facts_count": 99,
       "refs_valid": "",
       "critic": "",
       "summary": "内置插件目录：16 个内置插件（9 个单文件 .ts 包＋7 个目录包）、默认启用情况、单文件包与目录包的区别、character_cards 体量（src/ 统计按上游 0f08fd43 更新为 102 文件/99 个 .ts/15830 行）",
@@ -1494,7 +1494,7 @@
       "facts_count": 79,
       "refs_valid": "",
       "critic": "",
-      "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界；README 引用按上游 0f08fd43 核验（:53→:57），其余内容仍按基线 7fdb667。",
+      "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界；README 引用按上游 0f08fd43 核验（:53→:57），其余内容仍按基线 2dafe6b。",
       "updated": "2026-11-21"
     },
     {
