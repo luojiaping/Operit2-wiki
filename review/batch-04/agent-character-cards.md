@@ -80,7 +80,7 @@ date: 2026-11-11
 - 插件注册 `chat.configuration.delete` 公开 API，Core 删会话后用它释放插件侧绑定。(plugins/packages/buildin/character_cards/src/public-api.ts:74)
 - `chatConfigurationDeleteApi` 只接受 host 调用方；无绑定时直接返回已删除，不报错。(plugins/packages/buildin/character_cards/src/public-api.ts:42)
 - `deleteChatBinding` 删 `binding_` 键并报告该绑定是否真实存在过。(plugins/packages/buildin/character_cards/src/storage/chats.ts:118)
-- Core 删会话后经该 API 释放插件绑定，历史快照仍保留，Core 不直接调绑定业务 API。(plugins/packages/buildin/character_cards/README.md:182)
+- Core 删会话后经该 API 释放插件绑定，历史快照仍保留，Core 不直接调绑定业务 API。(plugins/packages/buildin/character_cards/README.md:205)
 - `chatsForMemoryOwner` 反查属于某记忆 owner 的全部绑定聊天。(plugins/packages/buildin/character_cards/src/storage/chats.ts:48)
 
 ### 角色提示词如何组装进对话
@@ -106,8 +106,8 @@ date: 2026-11-11
 - 卡片未指定 TTS 配置时用请求的默认 TTS 配置。(plugins/packages/buildin/character_cards/src/domain.ts:352)
 - 执行数据 `ExecutionData` 含 version、selection、promptFunctionType、primaryOwnerKey、profile 与 participants。(plugins/packages/buildin/character_cards/src/chat-markers.ts:13)
 - 单卡执行要求恰好一个参与者且其 id 等于卡片 id。(plugins/packages/buildin/character_cards/src/chat-markers.ts:117)
-- 群组执行把身份约束与有序成员名加进各参与者的提示词，同一档案冻结进消息快照。(plugins/packages/buildin/character_cards/README.md:174)
-- 单卡执行只用卡片自己的 authored 提示词。(plugins/packages/buildin/character_cards/README.md:177)
+- 群组执行把身份约束与有序成员名加进各参与者的提示词，同一档案冻结进消息快照。(plugins/packages/buildin/character_cards/README.md:197)
+- 单卡执行只用卡片自己的 authored 提示词。(plugins/packages/buildin/character_cards/README.md:200)
 
 ### 角色卡与主题配置的关系
 
@@ -128,7 +128,7 @@ date: 2026-11-11
 - 视图钩子注册 id 为 `character-bound-theme`。(plugins/packages/buildin/character_cards/src/chat-view-theme.ts:13)
 - 按绑定类型分派：卡片调 `activePrompt.setCard`，群组调 `activePrompt.setGroup`，纯模型调 `activePrompt.setModel`。(plugins/packages/buildin/character_cards/src/service-runtime.ts:111)
 - 无绑定时 `activateChatSelection` 直接返回，不做任何事。(plugins/packages/buildin/character_cards/src/service-runtime.ts:108)
-- 插件关闭时 Core 用独立普通模型配置；无角色聊天不注入角色提示词、不授予角色记忆资源。(plugins/packages/buildin/character_cards/README.md:412)
+- 插件关闭时 Core 用独立普通模型配置；无角色聊天不注入角色提示词、不授予角色记忆资源。(plugins/packages/buildin/character_cards/src/model-participant.ts:13)
 - 主题选择器的一行只是私有 picker 行，不是独立的主题 SDK 记录，也不是角色拥有的持久化主题。(plugins/packages/buildin/character_cards/src/selection-application.ts:15)
 
 ## 关键符号
@@ -180,6 +180,7 @@ date: 2026-11-11
 - plugins/packages/buildin/character_cards/src/chat-bindings.ts
 - plugins/packages/buildin/character_cards/src/character-prompt.ts
 - plugins/packages/buildin/character_cards/src/model.ts
+- plugins/packages/buildin/character_cards/src/model-participant.ts
 - plugins/packages/buildin/character_cards/src/chat-markers.ts
 - plugins/packages/buildin/character_cards/src/storage/chats.ts
 - plugins/packages/buildin/character_cards/src/domain.ts

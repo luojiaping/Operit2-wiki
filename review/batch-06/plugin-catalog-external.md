@@ -8,8 +8,8 @@ date: 2026-11-11
 
 ## 概述
 
-外置插件是随应用打包、由用户从 more plugins 加载的官方捆绑 ToolPkg（`plugins/README.md:9`）。
-buildin、external 与 examples 使用相同的源码布局，区别是打包方式，字段定义见 [[plugin-manifest|插件 manifest 格式]] 与 [[plugin-toolpkg-overview|ToolPkg 总览]]（`plugins/README.md:17`）。
+外置插件是随应用打包、由用户从 more plugins 加载的官方捆绑 ToolPkg（`plugins/README.md:19`）。
+buildin、external 与 examples 使用相同的源码布局，区别是打包方式，字段定义见 [[plugin-manifest|插件 manifest 格式]] 与 [[plugin-toolpkg-overview|ToolPkg 总览]]（`plugins/README.md:32`）。
 
 ## AI 速览
 
@@ -25,9 +25,9 @@ buildin、external 与 examples 使用相同的源码布局，区别是打包方
 
 ### 外置与内置的打包差异
 
-packages/buildin/ 是打包为内置插件的 ToolPkg 源码（`plugins/README.md:8`）。
-packages/external/ 是随应用打包、由用户从 more plugins 加载的官方捆绑 ToolPkg 源码（`plugins/README.md:9`）。
-packages/buildin/、packages/external/ 与 packages/examples/ 使用相同的源码布局，区别是打包方式（`plugins/README.md:17`）。
+packages/buildin/ 是打包为内置插件的 ToolPkg 源码（`plugins/README.md:18`）。
+packages/external/ 是随应用打包、由用户从 more plugins 加载的官方捆绑 ToolPkg 源码（`plugins/README.md:19`）。
+packages/buildin/、packages/external/ 与 packages/examples/ 使用相同的源码布局，区别是打包方式（`plugins/README.md:32`）。
 subagents 的打包产物是 dist/subagents.toolpkg，归档包含 manifest、README 与全部运行时 JS（`plugins/packages/external/subagents/README.md:55`）。
 subagents 通过安装并启用 dist/subagents.toolpkg 来使用（`plugins/packages/external/subagents/README.md:5`）。
 subagents 的 enabled_by_default 为 false，installation_scope 为 space（`plugins/packages/external/subagents/manifest.json:12`）。
@@ -98,9 +98,9 @@ template_try 用于演示 ToolPkg 工作流模板与工作区模板在宿主中�
 
 image_workbench 在一个工作台中使用 OpenAI、通义千问、智谱、xAI、MiniMax 和 Nano Banana（`plugins/packages/external/image_workbench/manifest.json:12`）。
 image_workbench 支持配置密钥、文生图、参考图生图和查看生成结果（`plugins/packages/external/image_workbench/manifest.json:12`）。
-image_workbench 拥有统一的生图工具与六个内部供应商适配器（`plugins/README.md:15`）。
+image_workbench 拥有统一的生图工具与六个内部供应商适配器（`plugins/README.md:28`）。
 image_workbench 声明 id 为 image_workbench 的子包，入口为 dist/tools.js（`plugins/packages/external/image_workbench/manifest.json:20`）。
-packages/external/image_workbench/ 提供可选的官方 Image Workbench，从 more plugins 提供，默认禁用（`plugins/README.md:15`）。
+packages/external/image_workbench/ 提供可选的官方 Image Workbench，从 more plugins 提供，默认禁用（`plugins/README.md:28`）。
 
 #### waifu
 
