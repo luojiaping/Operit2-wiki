@@ -1,6 +1,6 @@
 {
   "issue": 81,
-  "source_commit": "35cffab",
+  "source_commit": "c4d47c7",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "模型目录与模型识别：models.dev 双文件目录的下载、缓存与过期刷新，及无列表接口服务商的固定列表",
