@@ -41,11 +41,11 @@
   },
   {
     "fact": "把分发交给 `commands::run_core_command`。",
-    "ref": "core/crates/command/core/src/lib.rs:67"
+    "ref": "core/crates/command/core/src/lib.rs:68"
   },
   {
     "fact": "`run_core_command` 在分发后调 `output.finalizeJson` 收尾。",
-    "ref": "core/crates/command/core/src/lib.rs:69"
+    "ref": "core/crates/command/core/src/lib.rs:70"
   },
   {
     "fact": "run_core_command 识别首个 `--cwd` 参数，经 `hostManager` 的 `vfs` 调 `resolveResourcePath` 解析为 VFS 目录后从参数中剥离。",
@@ -53,7 +53,7 @@
   },
   {
     "fact": "带 --cwd 时分发包在 `ToolExecutionManager::scopeToolRuntimeContext` 内执行，`workspacePath` 与 `workspaceFolders` 设为该目录，暴露模式为 `ToolExposureMode::CLI`。",
-    "ref": "core/crates/command/core/src/lib.rs:59"
+    "ref": "core/crates/command/core/src/lib.rs:60"
   },
   {
     "fact": "`run_chat_command` 只操作宿主自有的聊天历史、消息、分支、中性统计与发送。",
@@ -228,151 +228,151 @@
     "ref": "core/crates/command/core/src/commands/tool.rs:140"
   },
   {
-    "fact": "`run_model_command` 的首个参数是 `_context: HostManager`，命令体不使用它。",
-    "ref": "core/crates/command/core/src/commands/model.rs:35"
+    "fact": "`run_model_command` 的首个参数是 `application: &OperitApplication`，命令体内用 `application.hostManager` 取上下文。",
+    "ref": "core/crates/command/core/src/commands/model.rs:36"
   },
   {
     "fact": "`ModelCommand` 的 `modelManager` 返回 `ModelConfigManager::default()`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:25"
+    "ref": "core/crates/command/core/src/commands/model.rs:26"
   },
   {
     "fact": "`functionalManager` 返回 `FunctionalConfigManager::default()`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:30"
+    "ref": "core/crates/command/core/src/commands/model.rs:31"
   },
   {
     "fact": "`provider-type-list` 调 `ModelCatalog::providers()` 并按 `providerTypeId` 排序输出。",
-    "ref": "core/crates/command/core/src/commands/model.rs:48"
+    "ref": "core/crates/command/core/src/commands/model.rs:130"
   },
   {
     "fact": "`provider-list` 调 `getProviderProfiles` 列出已配置的 Provider。",
-    "ref": "core/crates/command/core/src/commands/model.rs:65"
+    "ref": "core/crates/command/core/src/commands/model.rs:147"
   },
   {
     "fact": "`provider-show` 调 `getProviderProfile` 取指定 Provider 档案。",
-    "ref": "core/crates/command/core/src/commands/model.rs:91"
+    "ref": "core/crates/command/core/src/commands/model.rs:173"
   },
   {
     "fact": "`provider-create` 调 `createProvider` 创建 Provider，参数为名称、类型 id、`endpoint`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:117"
+    "ref": "core/crates/command/core/src/commands/model.rs:199"
   },
   {
     "fact": "provider-set-key 把 `apiKey` 写入 Provider 档案后调 `updateProviderProfile` 保存。",
-    "ref": "core/crates/command/core/src/commands/model.rs:144"
+    "ref": "core/crates/command/core/src/commands/model.rs:226"
   },
   {
     "fact": "provider-set-key 只输出 API key 长度，不输出 key 本身。",
-    "ref": "core/crates/command/core/src/commands/model.rs:149"
+    "ref": "core/crates/command/core/src/commands/model.rs:231"
   },
   {
     "fact": "provider-set-endpoint 改写 Provider 的 `endpoint` 后保存。",
-    "ref": "core/crates/command/core/src/commands/model.rs:172"
+    "ref": "core/crates/command/core/src/commands/model.rs:254"
   },
   {
     "fact": "provider-model-available-list 默认只保留 `isFetched` 的模型，传 `all` 才含历史。",
-    "ref": "core/crates/command/core/src/commands/model.rs:201"
+    "ref": "core/crates/command/core/src/commands/model.rs:284"
   },
   {
     "fact": "provider-model-add 要求模型已在可用列表里，否则报错并提示用 `provider-model-create` 按 id 添加。",
-    "ref": "core/crates/command/core/src/commands/model.rs:242"
+    "ref": "core/crates/command/core/src/commands/model.rs:325"
   },
   {
     "fact": "`provider-model-create` 调 `createProviderModel` 按 id 创建 Provider 模型。",
-    "ref": "core/crates/command/core/src/commands/model.rs:272"
+    "ref": "core/crates/command/core/src/commands/model.rs:355"
   },
   {
     "fact": "catalog-status 与 `catalog-refresh` 共用同一分支，分别调 `getModelCatalogStatus` 与 `refreshModelCatalog`，查 `models.dev` 目录状态。",
-    "ref": "core/crates/command/core/src/commands/model.rs:287"
+    "ref": "core/crates/command/core/src/commands/model.rs:370"
   },
   {
     "fact": "`list` 调 `getAllModelSummaries`，按 `providerName` 再按 `modelId` 排序。",
-    "ref": "core/crates/command/core/src/commands/model.rs:301"
+    "ref": "core/crates/command/core/src/commands/model.rs:386"
   },
   {
     "fact": "`show` 无参数时默认取 `DEFAULT_PROVIDER_ID` 与 `DEFAULT_MODEL_ID` 的解析后配置。",
-    "ref": "core/crates/command/core/src/commands/model.rs:326"
+    "ref": "core/crates/command/core/src/commands/model.rs:411"
   },
   {
     "fact": "`use` 只把 `CHAT` 功能的模型绑定设为指定 provider 与 model。",
-    "ref": "core/crates/command/core/src/commands/model.rs:347"
+    "ref": "core/crates/command/core/src/commands/model.rs:432"
   },
   {
     "fact": "`params` 调 `getModelParametersForModel` 列出模型参数。",
-    "ref": "core/crates/command/core/src/commands/model.rs:368"
+    "ref": "core/crates/command/core/src/commands/model.rs:453"
   },
   {
     "fact": "`parameters` 把 JSON 解析为 `Vec<ModelParameter<serde_json::Value>>` 后调 `updateParametersForModel` 更新。",
-    "ref": "core/crates/command/core/src/commands/model.rs:400"
+    "ref": "core/crates/command/core/src/commands/model.rs:485"
   },
   {
     "fact": "builtin-tools 把 JSON 解析为 `Vec<ModelBuiltinTool>` 后调 `updateBuiltinToolsForModel` 更新。",
-    "ref": "core/crates/command/core/src/commands/model.rs:430"
+    "ref": "core/crates/command/core/src/commands/model.rs:515"
   },
   {
     "fact": "context-show 取解析后配置的 `context` 打印。",
-    "ref": "core/crates/command/core/src/commands/model.rs:449"
+    "ref": "core/crates/command/core/src/commands/model.rs:534"
   },
   {
     "fact": "`context-set` 用含 `maxContextLength` 的 `ModelContextSpec` 调 `updateContextForModel` 更新上下文上限。",
-    "ref": "core/crates/command/core/src/commands/model.rs:478"
+    "ref": "core/crates/command/core/src/commands/model.rs:563"
   },
   {
     "fact": "summary-show 取解析后配置的 `summary` 打印。",
-    "ref": "core/crates/command/core/src/commands/model.rs:500"
+    "ref": "core/crates/command/core/src/commands/model.rs:585"
   },
   {
     "fact": "`summary-set` 要求恰好 5 个参数。",
-    "ref": "core/crates/command/core/src/commands/model.rs:511"
+    "ref": "core/crates/command/core/src/commands/model.rs:596"
   },
   {
     "fact": "summary-set 调 `updateSummaryForModel` 更新摘要设置。",
-    "ref": "core/crates/command/core/src/commands/model.rs:524"
+    "ref": "core/crates/command/core/src/commands/model.rs:609"
   },
   {
     "fact": "`thinking` 无档位参数时读当前设置，有参数时用 `ThinkingLevel::fromName` 解析后调 `setThinkingLevelForModel` 设置。",
-    "ref": "core/crates/command/core/src/commands/model.rs:542"
-  },
-  {
-    "fact": "`thinking` 档位名限于 `off`、`enabled`、`minimal`、`low`、`medium`、`high`、`xhigh`、`max`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:537"
-  },
-  {
-    "fact": "function-list 遍历 `functionTypes()` 的 11 种功能类型，逐个读 `getModelBindingForFunction`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:567"
-  },
-  {
-    "fact": "`function-show` 先用 `parseFunctionType` 解析功能类型名。",
-    "ref": "core/crates/command/core/src/commands/model.rs:591"
-  },
-  {
-    "fact": "`function-set` 调 `setModelForFunction` 写指定功能的模型绑定。",
     "ref": "core/crates/command/core/src/commands/model.rs:627"
   },
   {
-    "fact": "function-reset 带功能类型时调 `resetFunctionConfig` 重置单个绑定，不带时调 `resetAllFunctionConfigs` 重置全部。",
+    "fact": "`thinking` 档位名限于 `off`、`enabled`、`minimal`、`low`、`medium`、`high`、`xhigh`、`max`。",
+    "ref": "core/crates/command/core/src/commands/model.rs:622"
+  },
+  {
+    "fact": "function-list 遍历 `functionTypes()` 的 11 种功能类型，逐个读 `getModelBindingForFunction`。",
     "ref": "core/crates/command/core/src/commands/model.rs:652"
   },
   {
+    "fact": "`function-show` 先用 `parseFunctionType` 解析功能类型名。",
+    "ref": "core/crates/command/core/src/commands/model.rs:676"
+  },
+  {
+    "fact": "`function-set` 调 `setModelForFunction` 写指定功能的模型绑定。",
+    "ref": "core/crates/command/core/src/commands/model.rs:712"
+  },
+  {
+    "fact": "function-reset 带功能类型时调 `resetFunctionConfig` 重置单个绑定，不带时调 `resetAllFunctionConfigs` 重置全部。",
+    "ref": "core/crates/command/core/src/commands/model.rs:788"
+  },
+  {
     "fact": "model 命令只接受 `CHAT`、`SUMMARY`、`TITLE_GENERATION`、`MEMORY`、`UI_CONTROLLER`、`TRANSLATION`、`GREP`、`ROLE_RESPONSE_PLANNER`、`IMAGE_RECOGNITION`、`AUDIO_RECOGNITION`、`VIDEO_RECOGNITION` 共 11 个功能类型名。",
-    "ref": "core/crates/command/core/src/commands/model.rs:684"
+    "ref": "core/crates/command/core/src/commands/model.rs:820"
   },
   {
     "fact": "`print_provider_profile` 只输出 API key 长度，不输出 key 本身。",
-    "ref": "core/crates/command/core/src/commands/model.rs:734"
+    "ref": "core/crates/command/core/src/commands/model.rs:870"
   },
   {
     "fact": "Provider JSON 只含 `apiKeyLength` 与密钥池元数据，不含 key 值。",
-    "ref": "core/crates/command/core/src/commands/model.rs:901"
+    "ref": "core/crates/command/core/src/commands/model.rs:1040"
   },
   {
     "fact": "密钥池 JSON 每把 key 只输出 `id`、名称、启用状态、可用状态、使用次数、最后使用时间、错误次数与 `keyLength`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:952"
+    "ref": "core/crates/command/core/src/commands/model.rs:1091"
   },
   {
     "fact": "`print_model_usage` 的用法列表包含 `operit2 model codex-login <browser|device>`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:974"
+    "ref": "core/crates/command/core/src/commands/model.rs:1113"
   },
   {
     "fact": "未知 `model` 子命令落到 `print_model_usage`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:663"
+    "ref": "core/crates/command/core/src/commands/model.rs:799"
   }
 ]

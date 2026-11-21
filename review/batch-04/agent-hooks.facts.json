@@ -197,19 +197,19 @@
   },
   {
     "fact": "注册时订阅包目录变更监听，目录变化时重同步全部桥的注册。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:62"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:63"
   },
   {
     "fact": "目录变更时聊天运行时桥随其他桥一起重同步注册。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:84"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:86"
   },
   {
     "fact": "消息处理委托的 `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥。",
-    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1139"
+    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1146"
   },
   {
     "fact": "聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`。",
-    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1170"
+    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1177"
   },
   {
     "fact": "`TOOLPKG_EVENT_CHAT_RUNTIME` 的值是 toolpkg_chat_runtime。",
@@ -217,7 +217,7 @@
   },
   {
     "fact": "`TOOLPKG_EVENT_SUMMARY_GENERATE` 的值是 toolpkg_summary_generate。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgCommonPluginConstants.rs:40"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgCommonPluginConstants.rs:41"
   },
   {
     "fact": "ToolPkgPreHookTimeout 的 `fromPreferences` 从持久化偏好读 before-hook 超时秒数。",
@@ -349,23 +349,23 @@
   },
   {
     "fact": "摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:480"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:521"
   },
   {
     "fact": "摘要生成在 before_send_to_model 阶段派发摘要 hook。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:514"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:555"
   },
   {
     "fact": "摘要生成在 after_generate_summary 阶段派发摘要 hook。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:558"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:598"
   },
   {
     "fact": "`before_prepare_summary_prompt` 分发前先用 `buildSummaryPreparedHistory` 预生成 `prepared_history`，不再传空历史。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:503"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:510"
   },
   {
     "fact": "分发后用 `reconcileSummaryPreparedHistory` 对账，取 hook 改动后的 preparedHistory。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:517"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:524"
   },
   {
     "fact": "同文件的测试把 after_generate_summary 列为不创建截止时间的阶段。",
@@ -373,10 +373,10 @@
   },
   {
     "fact": "`ToolPkgSummaryHookObjectResult` 是 JS 侧的摘要 hook 对象结果，含 `chatHistory`、`preparedHistory` 与 `systemPrompt`。",
-    "ref": "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1048"
+    "ref": "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1049"
   },
   {
     "fact": "JS 侧摘要 hook 对象结果还含 `summaryPrompt` 与 `summaryResult`。",
-    "ref": "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1054"
+    "ref": "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1055"
   }
 ]

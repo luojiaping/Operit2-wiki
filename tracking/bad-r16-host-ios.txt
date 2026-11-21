@@ -1,0 +1,11 @@
+page: host-ios  batch: batch-05  facts: 109  bad: 10
+host-ios.facts.json#64 `None` not within ±5 of hosts/ios/src/terminal.rs:468
+host-ios.facts.json#66 `configurationId` not within ±5 of hosts/ios/src/terminal.rs:505
+host-ios.facts.json#70 `outputBytes` not within ±5 of hosts/ios/src/terminal.rs:577
+host-ios.facts.json#70 `exitCode` not within ±5 of hosts/ios/src/terminal.rs:577
+host-ios.facts.json#75 `contentBytes` not within ±5 of hosts/ios/src/terminal.rs:683
+host-ios.md:61 `configurationId` not within ±5 of any ref ['hosts/ios/src/terminal.rs:505']
+host-ios.md:68 `outputBytes` not within ±5 of any ref ['hosts/ios/src/terminal.rs:577']
+host-ios.md:68 `exitCode` not within ±5 of any ref ['hosts/ios/src/terminal.rs:577']
+host-ios.md:73 `None` not within ±5 of any ref ['hosts/ios/src/terminal.rs:468']
+host-ios.md:74 `contentBytes` not within ±5 of any ref ['hosts/ios/src/terminal.rs:683']

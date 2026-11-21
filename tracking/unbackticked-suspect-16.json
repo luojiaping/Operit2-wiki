@@ -1,0 +1,2079 @@
+[
+ {
+  "page": "intro-not-what",
+  "idx": 13,
+  "ref": "README.md:39",
+  "text": "单节点 Agent 的能力并不在所有平台完全相同",
+  "terms": [
+   "Agent"
+  ],
+  "window": "- Web access, browser automation, workspace browsers, and runtime WebView session projections;\n- Memory, summarization, speech recognition, speech synthesis, and other built-in tools.\n\nThese capabilities are not identical across all platforms. Whether an operation can actually be executed depends on"
+ },
+ {
+  "page": "intro-overview",
+  "idx": 16,
+  "ref": "README.md:34",
+  "text": "单节点 Agent 已包含工作区、文件操作、项目模板、命令和备份/导入导出。",
+  "terms": [
+   "Agent"
+  ],
+  "window": "\n- Conversations, session branches, message management, attachments, character cards, character groups, and prompt configuration;\n- Provider configuration, model parameters, tool calls, request queues, and downloadable local chat models using embedded llama.cpp and MNN CPU inference;\n- Workspaces, f"
+ },
+ {
+  "page": "intro-overview",
+  "idx": 17,
+  "ref": "README.md:35",
+  "text": "单节点 Agent 已包含终端会话、PTY 输入和输出流。",
+  "terms": [
+   "Agent"
+  ],
+  "window": "- Conversations, session branches, message management, attachments, character cards, character groups, and prompt configuration;\n- Provider configuration, model parameters, tool calls, request queues, and downloadable local chat models using embedded llama.cpp and MNN CPU inference;\n- Workspaces, fi"
+ },
+ {
+  "page": "intro-overview",
+  "idx": 19,
+  "ref": "README.md:37",
+  "text": "单节点 Agent 已包含记忆、摘要、语音识别、语音合成以及其他内置工具。",
+  "terms": [
+   "Agent"
+  ],
+  "window": "- Workspaces, file operations, project templates, commands, and backup/import/export;\n- Terminal sessions, PTY input, and output streams;\n- Web access, browser automation, workspace browsers, and runtime WebView session projections;\n- Memory, summarization, speech recognition, speech synthesis, and "
+ },
+ {
+  "page": "intro-quickstart",
+  "idx": 88,
+  "ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4970",
+  "text": "Flutter 扫码确认提示写明确认后直接连接并提交加入，无需输入配对码",
+  "terms": [
+   "Flutter"
+  ],
+  "window": "  String get peerQrConfirmJoin => '确认加入';\n\n  @override\n  String get peerQrConfirmJoinHint => '是否确认加入此设备的空间？确认后将直接连接并提交加入，无需输入配对码。';\n\n  @override\n  String get peerQrListenerRequired => '请先在连接设置中开启接收连接，并连接到可用的网络。';"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 72,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1694",
+  "text": "openHttpResponseStream 默认返回不支持错误。",
+  "terms": [
+   "openHttpResponseStream"
+  ],
+  "window": "        &self,\n        _streamId: String,\n        _request: HttpRequestData,\n        _onResponse: HttpStreamResponseCallback,\n        _onChunk: HttpStreamChunkCallback,\n        _onClosed: HttpStreamClosedCallback,\n    ) -> HostResult<()> {"
+ },
+ {
+  "page": "core-provider-local-model",
+  "idx": 80,
+  "ref": "hosts/common/operit-host-local-inference/src/speech.rs:289",
+  "text": "transcribe 识别结果为空文本时记一条 LocalSTT 警告日志。",
+  "terms": [
+   "LocalSTT",
+   "transcribe"
+  ],
+  "window": "        .and_then(Value::as_str)\n        .ok_or_else(|| LocalModelProviderError::InvalidOutput(record.to_string()))?;\n    if text.trim().is_empty() {\n        AppLogger::w(\n            LOCAL_STT_LOG_TAG,\n            &format!(\n                \"Sherpa STT completed without recognized text\\nstdout:\\n{}\\"
+ },
+ {
+  "page": "core-provider-local-model",
+  "idx": 83,
+  "ref": "hosts/common/operit-host-local-inference/src/speech.rs:94",
+  "text": "synthesize 用引擎声明的 ttsExecutable 作为可执行文件。",
+  "terms": [
+   "synthesize",
+   "ttsExecutable"
+  ],
+  "window": "        LocalModelProviderError::DriverMissing(\n            runtime.model.manifest.id.clone(),\n            runtime.model.manifest.version.clone(),\n        )\n    })?;\n    let executable = engineExecutable(\n        &runtime,"
+ },
+ {
+  "page": "core-provider-local-model",
+  "idx": 100,
+  "ref": "hosts/common/operit-host-local-inference/src/speech.rs:173",
+  "text": "declaredModelDirectory 要求目录在清单 files 中有声明的子文件。",
+  "terms": [
+   "declaredModelDirectory",
+   "files"
+  ],
+  "window": "    model: &InstalledLocalModel,\n    modelDirectory: &Path,\n    relativePath: &str,\n) -> Result<PathBuf, LocalModelProviderError> {\n    let requested = Path::new(relativePath.trim());\n    let hasDeclaredChild = model\n        .manifest"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 86,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:284",
+  "text": "ChatGuidanceInbox 的 enqueue 拒绝空消息与已关闭的回合。",
+  "terms": [
+   "ChatGuidanceInbox",
+   "enqueue"
+  ],
+  "window": "        let message = message.trim().to_string();\n        if message.is_empty() {\n            return Err(\"Guidance message cannot be empty\".to_string());\n        }\n        let mut state = self.state.lock().expect(\"chat guidance inbox mutex poisoned\");\n        if !state.accepting {\n            return"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 87,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:313",
+  "text": "drainOrClose 在无待处理指导时关闭收件箱，之后 enqueue 全部拒绝；有待处理指导时返回全部条目且保持开放。",
+  "terms": [
+   "drainOrClose",
+   "enqueue"
+  ],
+  "window": "        if state.pending.is_empty() {\n            state.accepting = false;\n            return Vec::new();\n        }\n        state.pending.drain(..).collect()\n    }\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 108,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1084",
+  "text": "prepareConversationHistory 完成后把附件路径改写为相对路径。",
+  "terms": [
+   "prepareConversationHistory"
+  ],
+  "window": "                runtime.useEnglish,\n            )).await.map_err(AiServiceError::RequestFailed)?;\n        if let Some(base) = fileDirectory {\n            ConversationService::use_relative_attachment_paths(&mut history, &base);\n        }\n        Ok(history)\n    }"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 114,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1257",
+  "text": "Full 暴露模式下工具列表取系统工具分类中已在 tool_handler 注册的工具，再追加 package_proxy 代理工具。",
+  "terms": [
+   "Full",
+   "package_proxy",
+   "tool_handler"
+  ],
+  "window": "            .into_iter()\n            .flat_map(|category| category.tools)\n            .filter(|tool| registered_tool_names.contains(&tool.name))\n            .map(systemToolPromptToModelToolPrompt)\n            .collect::<Vec<_>>();\n        available_tools.push(buildPackageProxyToolPrompt());\n        "
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 115,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1311",
+  "text": "estimateRequestWindowFromMemory 先用 prepareConversationHistory 准备历史，再用 getAvailableToolsForFunction 取工具。",
+  "terms": [
+   "estimateRequestWindowFromMemory",
+   "getAvailableToolsForFunction",
+   "prepareConversationHistory"
+  ],
+  "window": "                promptFunctionType.clone(),\n                None,\n                participantId.clone(),\n                proxySenderName,\n                false,\n                FunctionType::CHAT,\n                chatProviderIdOverride.clone(),"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 149,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2820",
+  "text": "纯思考回复且 disableWarning 为真时，completeResponseRound 直接定稿。",
+  "terms": [
+   "completeResponseRound",
+   "disableWarning"
+  ],
+  "window": "                        context.executionId, context.roundManager.roundIndex\n                    ),\n                );\n                self.finalizeAssistantResponse(&displayContent);\n                return ResponseRoundAction::Complete;\n            }\n            let pureThinkingWarning ="
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 150,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2824",
+  "text": "纯思考回复且 disableWarning 为假时，completeResponseRound 发出纯思考警告并继续一轮。",
+  "terms": [
+   "completeResponseRound",
+   "disableWarning"
+  ],
+  "window": "                return ResponseRoundAction::Complete;\n            }\n            let pureThinkingWarning =\n                ConversationMarkupManager::createWarningStatus(ENHANCED_PURE_THINKING_ONLY_WARNING);\n            context\n                .roundManager\n                .appendContent(&format!(\"\\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 152,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2913",
+  "text": "无工具调用时，completeResponseRound 定稿助手回复并结束。",
+  "terms": [
+   "completeResponseRound"
+  ],
+  "window": "            ),\n            operit_util::AppLogger::VERBOSE_LEVEL_2,\n        );\n        self.finalizeAssistantResponse(&context.roundManager.getDisplayContent());\n        ResponseRoundAction::Complete\n    }\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 160,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3208",
+  "text": "setCurrentTurnTokenCounts 把负数 token 计数钳制为 0。",
+  "terms": [
+   "setCurrentTurnTokenCounts",
+   "token"
+  ],
+  "window": "        cachedInputTokens: i64,\n    ) {\n        self.turnTokenUsage().setSnapshot(TurnTokenSnapshot {\n            inputTokens: inputTokens.max(0),\n            outputTokens: outputTokens.max(0),\n            cachedInputTokens: cachedInputTokens.max(0),\n        });"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 19,
+  "ref": "core/crates/tool/services/src/ToolExecutionManager.rs:146",
+  "text": "toLegacyTool 把 ToolCall 转回 AITool 时，字符串参数原样保留，非字符串参数转成字符串。",
+  "terms": [
+   "AITool",
+   "ToolCall",
+   "toLegacyTool"
+  ],
+  "window": "                name: name.clone(),\n                value: match value {\n                    serde_json::Value::String(text) => text.clone(),\n                    value => value.to_string(),\n                },\n            }).collect(),\n        }"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 28,
+  "ref": "core/crates/tool/services/src/ToolExecutionManager.rs:533",
+  "text": "CLI 模式下调用非公开工具时，buildToolExposureDeniedResult 返回失败结果。",
+  "terms": [
+   "buildToolExposureDeniedResult"
+  ],
+  "window": "    ) -> Option<ToolResult> {\n        let toolName = tool.name.trim();\n        let denied = match toolExposureMode {\n            ToolExposureMode::CLI if !Self::isCliPublicTool(toolName) => Some(format!(\n                \"{}\",\n                CliToolModeSupport::buildCliTopLevelRestrictionErrorMessag"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 30,
+  "ref": "core/crates/tool/services/src/ToolExecutionManager.rs:561",
+  "text": "CLI 公开工具只有 search 与 proxy 两个。",
+  "terms": [
+   "proxy",
+   "search"
+  ],
+  "window": "    }\n\n    fn isCliPublicTool(toolName: &str) -> bool {\n        toolName == CLI_SEARCH_TOOL_NAME || toolName == CLI_PROXY_TOOL_NAME\n    }\n\n    fn buildToolNotAvailableErrorMessage(toolName: &str) -> String {"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 33,
+  "ref": "core/crates/tool/services/src/ToolExecutionManager.rs:399",
+  "text": "executeInvocations 按顺序逐个执行调用，串行处理整批。",
+  "terms": [
+   "executeInvocations"
+  ],
+  "window": "            operit_util::AppLogger::VERBOSE_LEVEL_3,\n        );\n        toolHandler.registerDefaultTools();\n        for invocation in invocations.iter().cloned() {\n            let displayToolName = Self::resolveDisplayToolName(&invocation.tool);\n            AppLogger::trace_detail(\n                T"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 34,
+  "ref": "core/crates/tool/services/src/ToolExecutionManager.rs:366",
+  "text": "批处理不再在循环里向调用参数注入包调用上下文；调用方名字由 executeInvocations 存入 ToolRuntimeContext.callerName，随回合上下文提供给 JS 执行侧。",
+  "terms": [
+   "ToolRuntimeContext.callerName",
+   "executeInvocations"
+  ],
+  "window": "        executionData: serde_json::Map<String, serde_json::Value>,\n    ) -> Result<ToolExecutionBatch, String> {\n        let runtimeContext = ToolRuntimeContext {\n            callerName: callerName.clone(),\n            callerChatId: callerChatId.clone(),\n            callerParticipantId: callerPartic"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 45,
+  "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:1028",
+  "text": "AI 策略下 resolveTarget 失败路径仍通知请求与结果 hook。",
+  "terms": [
+   "hook",
+   "resolveTarget"
+  ],
+  "window": "                if matches!(policy, ToolExecutionPolicy::Ai { .. }) {\n                    let _lifecycle = ToolInvocationLifecycle {\n                        context: context.clone(),\n                        tool: tool.clone(),\n                    };\n                    self.notifyToolCallRequested(&"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 76,
+  "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:526",
+  "text": "registerBuiltinTool 重复注册同名内置工具时断言失败。",
+  "terms": [
+   "registerBuiltinTool"
+  ],
+  "window": "        let toolName = name.as_str().to_string();\n        let mut guard = self.inner.lock().expect(\"AIToolHandler mutex poisoned\");\n        assert!(\n            !guard.toolExecutors.contains_key(&toolName),\n            \"Built-in tool is registered more than once: {toolName}\"\n        );\n        guard"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 88,
+  "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:85",
+  "text": "BuiltinToolName::UsePackage 执行时先准备 MCP 包。",
+  "terms": [
+   "BuiltinToolName",
+   "UsePackage"
+  ],
+  "window": "                Box::pin(async move {\n                    let tool = &tool;\n                    let packageName = requiredParameterValue(tool, \"package_name\");\n                    if let Err(error) = RuntimePackageManager::prepareMcpPackage(&usePackageManager, &packageName).await {\n                 "
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 94,
+  "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:224",
+  "text": "unregisterMcpServerTools 按 服务器名: 前缀批量删除该 MCP 服务器的工具。",
+  "terms": [
+   "unregisterMcpServerTools"
+  ],
+  "window": "            .toolExecutors\n            .keys()\n            .filter(|toolName| {\n                matches!(toolName.split_once(':'), Some((name, _)) if name == serverName)\n            })\n            .cloned()\n            .collect::<Vec<_>>();"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 111,
+  "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:804",
+  "text": "executeAccessPreflightAsync 读取当前权限模式失败时，返回失败结果而不是抛错。",
+  "terms": [
+   "executeAccessPreflightAsync"
+  ],
+  "window": "            .and_then(|context| context.callerChatId);\n        let mode = permissionSystem\n            .getAiPermissionMode()\n            .map_err(|error| ToolResult {\n                toolName: tool.name.clone(),\n                success: false,\n                result: stringResultData(\"\"),"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 114,
+  "ref": "core/crates/tool/services/src/ToolExecutionManager.rs:47",
+  "text": "PACKAGE_CALLER_OWNER_PARAM 不再由批处理注入；调用方所有者仍由 ToolRuntimeContext.extensionOwner 承载，并经 toolpkg_caller_context 提供给 JS 执行侧。",
+  "terms": [
+   "PACKAGE_CALLER_OWNER_PARAM",
+   "ToolRuntimeContext.extensionOwner",
+   "toolpkg_caller_context"
+  ],
+  "window": "    pub workspaceFolders: Vec<String>,\n    pub toolExposureMode: ToolExposureMode,\n    /// Identifies the native-authenticated configuration owner captured for this execution.\n    pub extensionOwner: String,\n    /// Preserves current execution data for the active turn; never persisted on a message.\n"
+ },
+ {
+  "page": "core-tool-packages-mcp",
+  "idx": 66,
+  "ref": "core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:282",
+  "text": "调用前从工具定义的 inputSchema.properties 取参数声明。",
+  "terms": [
+   "inputSchema.properties"
+  ],
+  "window": "        toolInfo: Option<&Value>,\n    ) -> BTreeMap<String, Value> {\n        let properties = toolInfo\n            .and_then(|tool| tool.get(\"inputSchema\"))\n            .and_then(|schema| schema.get(\"properties\"))\n            .and_then(Value::as_object);\n        let mut result = BTreeMap::new();"
+ },
+ {
+  "page": "core-tool-packages-mcp",
+  "idx": 85,
+  "ref": "core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:320",
+  "text": "参数值含 U+FFFD 替换字符时视为参数完整性违规。",
+  "terms": [
+   "FFFD"
+  ],
+  "window": "        let parameter = tool\n            .parameters\n            .iter()\n            .find(|parameter| parameter.value.contains(REPLACEMENT_CHARACTER))?;\n        let utf8_byte_offset = parameter.value.find(REPLACEMENT_CHARACTER)?;\n\n        Some(ArgumentIntegrityViolation {"
+ },
+ {
+  "page": "core-tool-packages-mcp",
+  "idx": 86,
+  "ref": "core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:448",
+  "text": "含 U+FFFD 的参数调用在到达 MCP 服务器前被阻止并报错。",
+  "terms": [
+   "FFFD"
+  ],
+  "window": "                    violation.character_offset,\n                    violation.utf8_byte_offset,\n                ),\n            );\n            return ToolValidationResult {\n                valid: false,\n                errorMessage: format!("
+ },
+ {
+  "page": "core-plugin-codegen",
+  "idx": 16,
+  "ref": "core/crates/plugin/codegen/src/declarations.rs:166",
+  "text": "check_declaration_tree 比较前把回车换行统一归一化为换行，消除 Git 换行符差异。",
+  "terms": [
+   "check_declaration_tree"
+  ],
+  "window": "    let mut mismatched_files = Vec::new();\n    for declaration in &generated {\n        let committed = fs::read_to_string(declaration_root.join(&declaration.file_name))?;\n        if committed.replace(\"\\r\\n\", \"\\n\") != declaration.source.replace(\"\\r\\n\", \"\\n\") {\n            mismatched_files.push(declar"
+ },
+ {
+  "page": "core-plugin-codegen",
+  "idx": 17,
+  "ref": "core/crates/plugin/codegen/src/declarations.rs:190",
+  "text": "render_declaration_tree 逐个读取各模块的 Rust 源文件并用 syn 解析，再建类型目录、逐模块生成声明文件。",
+  "terms": [
+   "Rust",
+   "render_declaration_tree"
+  ],
+  "window": "        }\n        let files = sources\n            .iter()\n            .map(|source| syn::parse_file(source))\n            .collect::<Result<Vec<_>, _>>()?;\n        modules.push((spec, files));\n    }"
+ },
+ {
+  "page": "core-plugin-codegen",
+  "idx": 24,
+  "ref": "core/crates/plugin/codegen/src/declarations.rs:340",
+  "text": "EmitContext::new 把其余公开声明按推断的 TypeScript 路径登记。",
+  "terms": [
+   "EmitContext",
+   "TypeScript"
+  ],
+  "window": "                }\n                let Some((path, kind)) = infer_declaration(item_ref, spec.ts_file) else {\n                    continue;\n                };\n                context.named_paths.insert(rust_name, path.clone());\n                let order = source_order;\n                source_order += "
+ },
+ {
+  "page": "core-plugin-codegen",
+  "idx": 27,
+  "ref": "core/crates/plugin/codegen/src/declarations.rs:515",
+  "text": "scope_entries 在空作用域时把 CoreHost 的方法作为根函数输出。",
+  "terms": [
+   "CoreHost",
+   "scope_entries"
+  ],
+  "window": "            for item_trait in &self.root_traits {\n                for trait_item in &item_trait.items {\n                    if let TraitItem::Fn(method) = trait_item {\n                        entries.push(ScopeEntry::Method {\n                            method,\n                            order: usi"
+ },
+ {
+  "page": "core-plugin-codegen",
+  "idx": 29,
+  "ref": "core/crates/plugin/codegen/src/declarations.rs:553",
+  "text": "emit_type_map_group 要求枚举变体各带一个未命名字段，生成以变体名为键的 TypeScript interface。",
+  "terms": [
+   "TypeScript",
+   "emit_type_map_group",
+   "interface"
+  ],
+  "window": "        output: &mut String,\n        group: &DeclarationGroup<'a>,\n        scope: &[String],\n        indent: &str,\n    ) {\n        let ItemRef::Enum(item) = group.items[0] else {\n            panic!(\"Rust TypeMap declarations must be enums\");"
+ },
+ {
+  "page": "core-plugin-codegen",
+  "idx": 30,
+  "ref": "core/crates/plugin/codegen/src/declarations.rs:627",
+  "text": "emit_interface_group 把同一声明组的结构体字段与 trait/impl 方法合并输出。",
+  "terms": [
+   "emit_interface_group",
+   "trait"
+  ],
+  "window": "                    output,\n                    item_struct,\n                    scope,\n                    &child_indent,\n                    group.kind == \"class\" || declaration_options(&item_struct.attrs).readonly,\n                );\n            }"
+ },
+ {
+  "page": "core-plugin-codegen",
+  "idx": 34,
+  "ref": "core/crates/plugin/codegen/src/declarations.rs:695",
+  "text": "emit_struct_fields 把 additionalProperties 映射字段转为索引签名。",
+  "terms": [
+   "additionalProperties",
+   "emit_struct_fields"
+  ],
+  "window": "        readonly: bool,\n    ) {\n        let Fields::Named(fields) = &item.fields else {\n            return;\n        };\n        for field in &fields.named {\n            if is_additional_properties_field(field) {"
+ },
+ {
+  "page": "core-plugin-codegen",
+  "idx": 39,
+  "ref": "core/crates/plugin/codegen/src/declarations.rs:814",
+  "text": "emit_type_group 把枚举生成联合类型、类型别名展开底层类型、包装结构体展开内部类型或交集。",
+  "terms": [
+   "emit_type_group"
+  ],
+  "window": "            ItemRef::Type(item_type) => output.push_str(&self.emit_type(&item_type.ty, scope)),\n            ItemRef::Struct(item_struct) => match &item_struct.fields {\n                Fields::Unnamed(fields) => {\n                    let field = fields\n                        .unnamed\n               "
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 45,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:719",
+  "text": "ToolPkgDependencyIssue 记录依赖 id、问题码、要求版本上下限、已安装版本与是否启用。",
+  "terms": [
+   "ToolPkgDependencyIssue"
+  ],
+  "window": "    pub id: String,\n    pub code: String,\n    pub requiredMinVersion: Option<String>,\n    pub requiredMaxVersion: Option<String>,\n    pub installedVersion: Option<String>,\n    pub enabled: bool,\n}"
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 64,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2783",
+  "text": "schema_version 省略时默认 1。",
+  "terms": [
+   "schema_version"
+  ],
+  "window": "\n#[allow(non_snake_case)]\n/// Returns the default ToolPkg manifest schema version.\nfn defaultSchemaVersion() -> i32 {\n    1\n}\n"
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 67,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2013",
+  "text": "validateProtectedEntryPolicy 的函数体直接返回 Ok，未执行保护策略校验。",
+  "terms": [
+   "validateProtectedEntryPolicy"
+  ],
+  "window": "where\n    FReadEntryProtectionHeader: FnMut(&str) -> Option<Vec<u8>>,\n{\n    Ok(())\n}\n\n#[allow(non_snake_case)]"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 5,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:507",
+  "text": "initializeChatConfiguration 首次调用恢复持久化历史并缓存结果，重复调用直接返回缓存结果",
+  "terms": [
+   "initializeChatConfiguration"
+  ],
+  "window": "\n    /// Initializes shared history synchronously before capturing an independent operation.\n    fn initializeChatHistory(&mut self) -> Result<(), String> {\n        if let Some(result) = &self.chatConfigurationInitialization {\n            return result.clone();\n        }\n        let result = self.ch"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 84,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2537",
+  "text": "attachUploadedFile 仅当已上传附件已导入当前聊天文件目录且 VFS 定位与存储文件一致时才登记",
+  "terms": [
+   "attachUploadedFile"
+  ],
+  "window": "        if !self\n            .attachments\n            .iter()\n            .any(|item| item.filePath == attachment.filePath)\n        {\n            let message = format!(\"已添加附件: {}\", attachment.fileName);\n            self.attachments.push(attachment);"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 95,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2716",
+  "text": "chatMessagesWindowFlow 向前翻页时一次加载 14 条消息",
+  "terms": [
+   "chatMessagesWindowFlow"
+  ],
+  "window": "        let manager = self.chatHistoryDelegate.chatHistoryManager.clone();\n        self.localChatMessagesFlow(chatId.clone()).map(move |live| {\n            let messages = if let Some(timestamp) = beforeTimestamp {\n                let mut page = match manager.loadChatMessagesDescUpTo(chatId.clone(), "
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 98,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2814",
+  "text": "routeProbeChatMessagesFlow 构建带嵌入响应流的路由诊断聊天消息流",
+  "terms": [
+   "routeProbeChatMessagesFlow"
+  ],
+  "window": "                                requestId: Some(request.requestId.clone()),\n                                target: request.target.clone(),\n                                propertyName: request.propertyName.clone(),\n                                kind: CoreEventKind::Changed,\n                      "
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 111,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3116",
+  "text": "localChatStateFlow 返回本地 Core 上指定聊天的运行时状态流",
+  "terms": [
+   "Core",
+   "localChatStateFlow"
+  ],
+  "window": "                    chat.map(|chat| chat.title.clone()).unwrap_or_default(),\n                    chat.and_then(|chat| chat.workspacePrimaryPath.clone()),\n                    directory,\n                )\n            }\n        });\n        let pendingQueueStateFlow = self.pendingQueueStateFlow().asStat"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 20,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:167",
+  "text": "日志文件配置失败时只记警告，应用继续使用控制台与内存日志。截至基线 364d1d594，日志配置失败后只记警告、继续使用控制台与内存日志；上游 053c6686 已改为 hostManager.vfs().expect(...)（Operi",
+  "terms": [
+   "OperitApplication.rs",
+   "Runtime",
+   "c6686",
+   "configure_log_files",
+   "d1d594",
+   "expect",
+   "files",
+   "hostManager.vfs",
+   "must",
+   "panic",
+   "writable"
+  ],
+  "window": "        setDefaultGitHubTokenSource(Arc::new(GitHubLoginTokenSource));\n        if let Some(webSocketHost) = hostManager.webSocketHost.clone() {\n            setDefaultWebSocketHost(webSocketHost);\n        }\n        if let Some(discoveryHost) = hostManager.serviceDiscoveryHost.clone() {\n            op"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 22,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:189",
+  "text": "HostManager 携带 httpHost 与 webSocketHost 时，newWithContext 把两者注册为默认值。",
+  "terms": [
+   "HostManager",
+   "httpHost",
+   "newWithContext",
+   "webSocketHost"
+  ],
+  "window": "                .hostJavaScriptRuntimeHost\n                .clone()\n                .expect(\"JavaScript runtime requires a HostJavaScriptRuntimeHost\"),\n        );\n        let chatFilesystem = Arc::new(hostManager.vfs().expect(\"Chat runtime requires VFS\"));\n        let chatRuntimeHolder = Arc::new(As"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 23,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:196",
+  "text": "HostManager 携带 serviceDiscoveryHost 与 httpServerHost 时，newWithContext 把两者注册为默认值。",
+  "terms": [
+   "HostManager",
+   "httpServerHost",
+   "newWithContext",
+   "serviceDiscoveryHost"
+  ],
+  "window": "        )));\n        let runtimeToolSupport =\n            ToolRuntimeSupportService::create(hostManager.clone(), chatRuntimeHolder.clone());\n        #[cfg(feature = \"javascript\")]\n        let toolRuntimeDependencies = ToolRuntimeDependencies::new(\n            runtimeToolSupport.clone(),\n            "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 24,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:203",
+  "text": "HostManager 携带 tcpHost、serialPortHost 与 hostRuntimeTaskSchedulerHost 时，newWithContext 把三者注册为默认值。",
+  "terms": [
+   "HostManager",
+   "hostRuntimeTaskSchedulerHost",
+   "newWithContext",
+   "serialPortHost",
+   "tcpHost"
+  ],
+  "window": "        );\n        let toolHandler = AIToolHandler::new(hostManager.clone(), toolRuntimeDependencies.clone());\n        let toolPkgBridgeRuntime =\n            ToolPkgBridgeRuntime::new(toolHandler.clone(), hostManager.clone());\n        let providerRuntimeContext = ProviderRuntimeSupportService::creat"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 26,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:229",
+  "text": "开启 javascript 特性时，工具运行时依赖使用 HostJsExecutionProvider 作为 JS 执行提供方。",
+  "terms": [
+   "HostJsExecutionProvider",
+   "javascript"
+  ],
+  "window": "            .expect(\"new chat runtime holder must be unlocked\") = initializedChatRuntimeHolder;\n        if let Err(error) = runtimeToolSupport.startScheduledChatDelivery() {\n            operit_util::AppLogger::AppLogger::e(\"ScheduledChatMessages\", &error);\n        }\n        Self {\n            applic"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 27,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:225",
+  "text": "newWithContext 创建 ToolRuntimeSupportService 作为运行时工具支持。",
+  "terms": [
+   "ToolRuntimeSupportService",
+   "newWithContext"
+  ],
+  "window": "            )\n            .expect(\"tool runtime must bind the canonical chat record manager exactly once\");\n        *chatRuntimeHolder\n            .try_lock()\n            .expect(\"new chat runtime holder must be unlocked\") = initializedChatRuntimeHolder;\n        if let Err(error) = runtimeToolSuppor"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 28,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:233",
+  "text": "newWithContext 创建 AIToolHandler、ToolPkgBridgeRuntime 与 ProviderRuntimeSupportService，分别作为工具处理器、ToolPkg 桥运行时与 Provider 运行",
+  "terms": [
+   "AIToolHandler",
+   "Provider",
+   "ProviderRuntimeSupportService",
+   "ToolPkg",
+   "ToolPkgBridgeRuntime",
+   "newWithContext"
+  ],
+  "window": "        Self {\n            applicationUpdate: super::ApplicationUpdate::ApplicationUpdateManager::new(),\n            appStartupTimeMs: 0,\n            hostManager,\n            chatRuntimeHolder,\n            toolRuntimeDependencies,\n            toolHandler,"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 29,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:237",
+  "text": "newWithContext 把工具运行时服务绑定到工具处理器与 Provider 运行时上下文，且只绑定一次，重复绑定时 expect 报错。",
+  "terms": [
+   "Provider",
+   "expect",
+   "newWithContext"
+  ],
+  "window": "            chatRuntimeHolder,\n            toolRuntimeDependencies,\n            toolHandler,\n            toolPkgBridgeRuntime,\n            providerRuntimeContext,\n            initialized: false,\n            hostRuntimeEventRegistration: None,"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 30,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:247",
+  "text": "newWithContext 用带运行时依赖的 ChatRuntimeHolder 替换初始 holder，并把其主聊天记录管理器绑定给工具运行时支持，同样只绑定一次。",
+  "terms": [
+   "ChatRuntimeHolder",
+   "holder",
+   "newWithContext"
+  ],
+  "window": "\n    /// Shares live services for a command without creating a second runtime or lifecycle.\n    /// Each invocation owns its dispatch view so nested tool calls need no application lock.\n    #[allow(non_snake_case)]\n    pub fn sharedCoreCommandRuntime(&self) -> Self {\n        Self {\n            appli"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 31,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:271",
+  "text": "sharedCoreCommandRuntime 共享同一批服务供命令使用，不创建第二个运行时或生命周期。",
+  "terms": [
+   "sharedCoreCommandRuntime"
+  ],
+  "window": "        let fileSystem = self.runtimeFileSystem()?;\n        const CLEAN_ON_EXIT_PATH: &str = \"/operitapp/data/temp/clean_on_exit\";\n        fileSystem.makeDirectory(CLEAN_ON_EXIT_PATH, true)?;\n        for entry in fileSystem.listFiles(CLEAN_ON_EXIT_PATH)? {\n            let path = VfsPath::joinVfsPath"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 32,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:284",
+  "text": "sharedCoreCommandRuntime 返回的副本不持有 extensionChanges 与 hostRuntimeEventRegistration，原始应用仍是唯一的生命周期与订阅持有者。",
+  "terms": [
+   "extensionChanges",
+   "hostRuntimeEventRegistration",
+   "sharedCoreCommandRuntime"
+  ],
+  "window": "    }\n\n    /// Ensures a mapped directory exists through the configured file-system host.\n    fn ensureHostDirectory(&self, path: &std::path::Path) -> Result<(), String> {\n        self.runtimeFileSystem()?.makeDirectory(&path.to_string_lossy(), true)\n    }\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 33,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:293",
+  "text": "cleanOnExitFiles 清理 /operitapp/data/temp/clean_on_exit 下的文件。",
+  "terms": [
+   "cleanOnExitFiles",
+   "clean_on_exit",
+   "data",
+   "operitapp",
+   "temp"
+  ],
+  "window": "    pub fn onCreate(&mut self) -> Result<(), String> {\n        self.appStartupTimeMs = currentTimeMillis();\n        AppLogger::v(\"OperitApplication\", \"runtime initialization start\");\n        setHostManager(self.hostManager.clone());\n        if let Some(storage) = self.hostManager.runtimeStorageHost."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 34,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:306",
+  "text": "runtimeFileSystem 在缺少 RuntimeStorageHost 时返回错误。",
+  "terms": [
+   "RuntimeStorageHost",
+   "runtimeFileSystem"
+  ],
+  "window": "        self.configureOpenMpEnvironment();\n        self.cleanOnExitFiles()?;\n        AppLogger::v(\n            \"OperitApplication\",\n            &format!(\n                \"clean on-exit files done elapsedMs={}\",\n                currentTimeMillis() - cleanupStartedAt"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 35,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:341",
+  "text": "onCreate 首先记录 appStartupTimeMs 并把 HostManager 存入进程级静态变量。",
+  "terms": [
+   "HostManager",
+   "appStartupTimeMs",
+   "onCreate"
+  ],
+  "window": "        AppLogger::v(\n            \"OperitApplication\",\n            &format!(\n                \"default tool registration done elapsedMs={}\",\n                currentTimeMillis() - toolRegistrationStartedAt\n            ),\n        );"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 36,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:345",
+  "text": "runtimeStorageHost 存在时，onCreate 调用 PreferenceSpaceMerge::prepareLayout 准备偏好布局，失败时只记错误日志不中断启动。",
+  "terms": [
+   "PreferenceSpaceMerge",
+   "onCreate",
+   "prepareLayout",
+   "runtimeStorageHost"
+  ],
+  "window": "                currentTimeMillis() - toolRegistrationStartedAt\n            ),\n        );\n        let pluginInitializationStartedAt = currentTimeMillis();\n        AppLogger::v(\"OperitApplication\", \"built-in plugin initialization start\");\n        PluginRegistry::initializeBuiltins(self.toolPkgBridgeR"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 37,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:353",
+  "text": "onCreate 先配置 OpenMP 环境再清理退出时删除文件，清理失败时返回错误中断启动。",
+  "terms": [
+   "OpenMP",
+   "onCreate"
+  ],
+  "window": "            \"OperitApplication\",\n            &format!(\n                \"built-in plugin initialization done elapsedMs={}\",\n                currentTimeMillis() - pluginInitializationStartedAt\n            ),\n        );\n        ToolPkgAppLifecycleHookBridge::dispatchEvent("
+ },
+ {
+  "page": "core-runtime",
+  "idx": 38,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:363",
+  "text": "onCreate 依次初始化 WorkManager、AIMessageManager、JSON 序列化器、应用语言与 Android 权限偏好。",
+  "terms": [
+   "AIMessageManager",
+   "Android",
+   "JSON",
+   "WorkManager",
+   "onCreate"
+  ],
+  "window": "                \"extras\": {\n                    \"startupTimeMs\": self.appStartupTimeMs,\n                    \"elapsedMs\": currentTimeMillis() - self.appStartupTimeMs,\n                }\n            }),\n        );\n        let runtimeEventRegistrationStartedAt = currentTimeMillis();"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 39,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:372",
+  "text": "onCreate 打开 AppDatabase、迁移主题外观并预加载数据库。",
+  "terms": [
+   "AppDatabase",
+   "onCreate"
+  ],
+  "window": "            crate::services::RuntimeEventIngressService::RuntimeEventIngressService::startHostRuntimeEventSupport(\n                self.hostManager.clone(),\n                self.toolPkgBridgeRuntime.clone(),\n            )?\n            .map(|registration| Arc::new(Mutex::new(registration)));\n        "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 40,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:387",
+  "text": "onCreate 调用 toolHandler.registerDefaultTools 注册默认工具。",
+  "terms": [
+   "onCreate",
+   "toolHandler.registerDefaultTools"
+  ],
+  "window": "        );\n        self.dispatchPluginLoading()?;\n        crate::services::ModelCatalogService::startKeepingFresh();\n        self.initialized = true;\n        AppLogger::i(\n            \"OperitApplication\",\n            &format!("
+ },
+ {
+  "page": "core-runtime",
+  "idx": 42,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:407",
+  "text": "onCreate 向 ToolPkg 派发 TOOLPKG_EVENT_APPLICATION_ON_CREATE 应用创建事件。",
+  "terms": [
+   "TOOLPKG_EVENT_APPLICATION_ON_CREATE",
+   "ToolPkg",
+   "onCreate"
+  ],
+  "window": "        )\n        .ingestEvent(event)\n    }\n\n    /// Applies host-specific OpenMP environment setup before runtime services start.\n    #[allow(non_snake_case)]\n    pub fn configureOpenMpEnvironment(&self) {}"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 43,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:419",
+  "text": "onCreate 启动 Host 运行时事件支持并保存其注册句柄。",
+  "terms": [
+   "Host",
+   "onCreate"
+  ],
+  "window": "    /// Registers JSON serialization rules used by generated bridge payloads.\n    #[allow(non_snake_case)]\n    pub fn initializeJsonSerializer(&self) {}\n\n    /// Initializes application language resources before user-facing services are created.\n    #[allow(non_snake_case)]\n    pub fn initializeAppL"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 44,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:431",
+  "text": "onCreate 启动 ExtensionRuntimeService 并调度插件加载。",
+  "terms": [
+   "ExtensionRuntimeService",
+   "onCreate"
+  ],
+  "window": "    /// Touches database-backed services early so schema setup happens during startup.\n    #[allow(non_snake_case)]\n    pub fn preloadDatabase(&self) {}\n\n    /// Schedules the single initial package and MCP load and returns its submission error.\n    #[allow(non_snake_case)]\n    pub fn initMcpPlugins"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 45,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:436",
+  "text": "onCreate 启动 ModelCatalogService 的持续保鲜并把 initialized 置为 true。",
+  "terms": [
+   "ModelCatalogService",
+   "initialized",
+   "onCreate",
+   "true"
+  ],
+  "window": "    #[allow(non_snake_case)]\n    pub fn initMcpPlugins(&self) -> Result<(), String> {\n        self.dispatchPluginLoading()\n    }\n\n    /// Claims and schedules the owning initial load task that publishes canonical registry readiness.\n    fn dispatchPluginLoading(&self) -> Result<(), String> {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 47,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:460",
+  "text": "configureOpenMpEnvironment 与 ensureWorkManagerInitialized 在本 seed 内是空实现。",
+  "terms": [
+   "configureOpenMpEnvironment",
+   "ensureWorkManagerInitialized",
+   "seed"
+  ],
+  "window": "            })?;\n        let hostManager = self.hostManager.clone();\n        let taskReadiness = readiness.clone();\n        let startup = move || {\n            Box::pin(async move {\n                let loadingGeneration = showPluginLoading();\n                AppLogger::trace(\"PluginStartup\", &format"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 48,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:472",
+  "text": "initializeJsonSerializer、initializeAppLanguage 与 initAndroidPermissionPreferences 在本 seed 内是空实现。",
+  "terms": [
+   "initAndroidPermissionPreferences",
+   "initializeAppLanguage",
+   "initializeJsonSerializer",
+   "seed"
+  ],
+  "window": "                    completePluginLoadingSession(loadingGeneration);\n                    AppLogger::e(\"OperitApplication\", &error);\n                    return;\n                }\n                AppLogger::trace(\"PluginStartup\", &format!(\n                    \"event=registry_ready generation={loadingG"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 49,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:480",
+  "text": "preloadDatabase 在本 seed 内是空实现。",
+  "terms": [
+   "preloadDatabase",
+   "seed"
+  ],
+  "window": "                let timeoutSeconds = ApiPreferences::getInstance()\n                    .getMcpStartupTimeoutSeconds()\n                    .expect(\"api preferences must provide mcp startup timeout seconds\");\n                AppLogger::trace(\"PluginStartup\", &format!(\n                    \"event=mcp_st"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 50,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:485",
+  "text": "initMcpPlugins 直接调用 dispatchPluginLoading。",
+  "terms": [
+   "dispatchPluginLoading",
+   "initMcpPlugins"
+  ],
+  "window": "                ));\n                let (started, total, status) = starter\n                    .startAllDeployedPluginsWithTimeout(timeoutSeconds)\n                    .await;\n                AppLogger::trace(\"PluginStartup\", &format!(\n                    \"event=mcp_complete generation={loadingGenera"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 51,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:493",
+  "text": "dispatchPluginLoading 先认领初始包注册表加载，已被认领时直接返回 Ok。",
+  "terms": [
+   "dispatchPluginLoading"
+  ],
+  "window": "            }) as std::pin::Pin<Box<dyn std::future::Future<Output = ()>>>\n        };\n        taskScheduler\n            .scheduleHostRuntimeAsyncTask(\"operit-plugin-startup\", Box::new(startup))\n            .map_err(|error| {\n                let error = error.to_string();\n                readiness.fa"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 52,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:501",
+  "text": "dispatchPluginLoading 在缺少 hostRuntimeTaskSchedulerHost 时把 readiness 标记为失败并返回错误。",
+  "terms": [
+   "dispatchPluginLoading",
+   "hostRuntimeTaskSchedulerHost",
+   "readiness"
+  ],
+  "window": "            })\n    }\n\n    /// Observes package and plugin loading overlay progress.\n    #[allow(non_snake_case)]\n    #[operit_route_macros::operit_plugin_sdk_expose]\n    pub fn pluginLoadingProgressFlow(&self) -> StateFlow<PluginLoadingProgress> {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 53,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:518",
+  "text": "插件启动任务先调用 loadAvailablePackages 再要求 readiness 就绪，失败时标记 readiness 失败并记错误日志。",
+  "terms": [
+   "loadAvailablePackages",
+   "readiness"
+  ],
+  "window": "    #[allow(non_snake_case)]\n    pub fn aiToolHandler(&self) -> AIToolHandler {\n        self.toolHandler.clone()\n    }\n\n    /// Creates workspace access using this runtime's existing file-tool routing.\n    pub fn workspaceService(&self) -> crate::services::WorkspaceService::WorkspaceService {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 54,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:528",
+  "text": "插件启动任务用 MCPStarter::startAllDeployedPluginsWithTimeout 启动已部署插件，超时秒数取自 ApiPreferences::getMcpStartupTimeoutSeconds。",
+  "terms": [
+   "ApiPreferences",
+   "MCPStarter",
+   "getMcpStartupTimeoutSeconds",
+   "startAllDeployedPluginsWithTimeout"
+  ],
+  "window": "    /// Creates an MCP repository with this runtime's host and tool support.\n    #[allow(non_snake_case)]\n    pub fn mcpRepository(&self) -> MCPRepository {\n        MCPRepository::getInstance(&self.hostManager, self.toolHandler.runtimeSupport())\n    }\n\n    /// Imports portable A2A connection definit"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 56,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:548",
+  "text": "pluginLoadingProgressFlow 返回包与插件加载进度流。",
+  "terms": [
+   "pluginLoadingProgressFlow"
+  ],
+  "window": "\n    /// Fetches and validates an Agent Card before the user saves a connection.\n    #[allow(non_snake_case)]\n    pub async fn discoverA2AAgent(&self, configJson: String) -> Result<String, String> {\n        let config = serde_json::from_str(&configJson).map_err(|e| e.to_string())?;\n        let confi"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 57,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:553",
+  "text": "skipPluginLoading 隐藏加载遮罩但不停止加载会话。",
+  "terms": [
+   "skipPluginLoading"
+  ],
+  "window": "        let config = operit_tools::tools::a2a::A2ARepository::A2ARepository::new(self.hostManager.clone())?.discover(config).await?;\n        serde_json::to_string(&config).map_err(|e| e.to_string())\n    }\n\n    /// Enables or disables an installed A2A package through its canonical owner record.\n    #"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 58,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:560",
+  "text": "aiToolHandler 返回本运行时拥有的工具处理器。",
+  "terms": [
+   "aiToolHandler"
+  ],
+  "window": "        operit_tools::tools::a2a::A2ARepository::A2ARepository::new(self.hostManager.clone())?.set_enabled(&id, enabled)?;\n        self.packageManager().lock().map_err(|e| e.to_string())?.reloadA2APackages();\n        Ok(())\n    }\n\n    /// Deletes an A2A installation and removes its package tools.\n  "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 59,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:566",
+  "text": "mcpRepository 用本运行时 Host 与工具支持创建 MCPRepository。",
+  "terms": [
+   "Host",
+   "MCPRepository",
+   "mcpRepository"
+  ],
+  "window": "    #[allow(non_snake_case)]\n    pub fn deleteA2A(&self, id: String) -> Result<(), String> {\n        operit_tools::tools::a2a::A2ARepository::A2ARepository::new(self.hostManager.clone())?.delete(&id)?;\n        self.packageManager().lock().map_err(|e| e.to_string())?.reloadA2APackages();\n        Ok(("
+ },
+ {
+  "page": "core-runtime",
+  "idx": 60,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:619",
+  "text": "skillRepository 用本运行时 Host 与工具支持创建 SkillRepository。",
+  "terms": [
+   "Host",
+   "SkillRepository",
+   "skillRepository"
+  ],
+  "window": "    /// Lists explicit installation scopes, including subpackages that inherit their container scope.\n    #[allow(non_snake_case)]\n    pub fn getExtensionScopes(&self, kind: String) -> Result<BTreeMap<String, String>, String> {\n        super::ExtensionCatalogSupport::extension_scopes(&self.toolHandl"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 61,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:634",
+  "text": "getExtensionCatalogSnapshot 返回一份归一化本地扩展目录快照。",
+  "terms": [
+   "getExtensionCatalogSnapshot"
+  ],
+  "window": "            \"skill\" => {\n                self.skillRepository().getAvailableSkillPackages();\n                operit_store::ExtensionStore::ExtensionStore::default()\n                    .moveScope(&kind, &id, &scope)\n            }\n            \"mcp\" | \"a2a\" => operit_store::ExtensionStore::ExtensionSt"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 63,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:674",
+  "text": "getExtensionScopes 对 package、skill、mcp、a2a 之外的 kind 返回 Unknown extension kind 错误。",
+  "terms": [
+   "Unknown",
+   "extension",
+   "getExtensionScopes",
+   "kind",
+   "package",
+   "skill"
+  ],
+  "window": "    pub fn installMarketArtifact(\n        &self,\n        assetId: String,\n        fileName: String,\n        expectedSha256: String,\n    ) -> Result<String, String> {\n        let fileName = fileName.trim().to_string();"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 64,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:741",
+  "text": "themeConfigManager 在缺少 RuntimeStorageHost 时返回错误。",
+  "terms": [
+   "RuntimeStorageHost",
+   "themeConfigManager"
+  ],
+  "window": "            .getOrCreatePackageManager()\n            .lock()\n            .expect(\"package manager mutex poisoned\")\n            .getActivePackageNames()\n    }\n\n    /// Tests one model connection using this application's provider runtime."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 65,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:749",
+  "text": "packageManager 返回工具处理器拥有的共享包管理器。",
+  "terms": [
+   "packageManager"
+  ],
+  "window": "        &self,\n        provider_id: String,\n        model_id: String,\n    ) -> impl std::future::Future<Output = Result<ModelConnectionTestReport, String>> + 'static\n    {\n        let runtime = self.providerRuntimeContext.clone();\n        async move {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 66,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:763",
+  "text": "installMarketArtifact 拒绝含 / 或 \\ 或不是纯文件名的文件名。",
+  "terms": [
+   "installMarketArtifact"
+  ],
+  "window": "    /// Tests one draft credential through this application's provider runtime without saving it.\n    pub fn test_provider_api_key(\n        &self,\n        provider: operit_model::ModelConfigData::ProviderProfile,\n        key_id: String,\n    ) -> impl std::future::Future<Output = Result<operit_model:"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 67,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:774",
+  "text": "installMarketArtifact 要求 SHA-256 为 64 位十六进制字符，输入先统一转小写再校验。",
+  "terms": [
+   "installMarketArtifact"
+  ],
+  "window": "    }\n\n    /// Checks the installed client using shared Rust release/channel/target rules.\n    pub fn checkApplicationUpdate(\n        &self,\n    ) -> impl std::future::Future<Output = Result<Option<ApplicationUpdateInfo>, String>> + 'static {\n        let manager = self.applicationUpdate.clone();"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 68,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:784",
+  "text": "installMarketArtifact 先调用 prepareMarketArtifactDownload 准备下载目标。",
+  "terms": [
+   "installMarketArtifact",
+   "prepareMarketArtifactDownload"
+  ],
+  "window": "\n    /// Observes host download progress without exposing URLs or native file paths.\n    pub fn applicationUpdateProgressFlow(&self) -> StateFlow<ApplicationUpdateProgress> {\n        self.applicationUpdate.progress()\n    }\n\n    /// Observes local connectivity and network cost without platform logic "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 69,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:791",
+  "text": "installMarketArtifact 下载产物文件后以归一化 SHA-256 登记产物文件。",
+  "terms": [
+   "installMarketArtifact"
+  ],
+  "window": "    pub fn applicationUpdateNetworkFlow(&self) -> StateFlow<ApplicationUpdateNetwork> {\n        crate::services::RuntimeEventIngressService::RuntimeEventIngressService::updateNetworkFlow()\n    }\n\n    /// Downloads the selected release and returns an opaque native receipt.\n    pub fn downloadApplicat"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 70,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:822",
+  "text": "active_package_names 返回本应用运行时中启用的包名。",
+  "terms": [
+   "active_package_names"
+  ],
+  "window": "    }\n\n    /// Cancels the current package download or import operation.\n    pub fn cancelApplicationUpdateDownload(&self) {\n        self.applicationUpdate.cancel();\n    }\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 71,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:834",
+  "text": "test_model_connection 使用 providerRuntimeContext 测试一个模型连接。",
+  "terms": [
+   "providerRuntimeContext",
+   "test_model_connection"
+  ],
+  "window": "        let manager = self.applicationUpdate.clone();\n        let context = self.hostManager.clone();\n        async move { manager.install(receipt, context).await }\n    }\n\n    /// Returns the Cargo package version compiled into the runtime crate.\n    #[allow(non_snake_case)]"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 72,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:849",
+  "text": "checkApplicationUpdate 使用 ApplicationUpdateManager 与 systemOperationHost 检查应用更新。",
+  "terms": [
+   "ApplicationUpdateManager",
+   "checkApplicationUpdate",
+   "systemOperationHost"
+  ],
+  "window": "    }\n\n    /// Reads the application log file as text.\n    #[allow(non_snake_case)]\n    pub fn logText(&self) -> Result<String, String> {\n        AppLogger::text()\n    }"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 73,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:854",
+  "text": "applicationUpdateProgressFlow 观测 Host 下载进度而不暴露 URL 或原生文件路径。",
+  "terms": [
+   "Host",
+   "applicationUpdateProgressFlow"
+  ],
+  "window": "        AppLogger::text()\n    }\n\n    /// Reads the package-manager log file as text.\n    #[allow(non_snake_case)]\n    pub fn packageLogText(&self) -> Result<String, String> {\n        AppLogger::package_text()"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 74,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:860",
+  "text": "downloadApplicationUpdate 下载选定版本并返回不透明原生回执。",
+  "terms": [
+   "downloadApplicationUpdate"
+  ],
+  "window": "        AppLogger::package_text()\n    }\n\n    /// Returns the active application log file path.\n    #[allow(non_snake_case)]\n    pub fn logFilePath(&self) -> Result<String, String> {\n        AppLogger::get_log_file_path()"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 76,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:884",
+  "text": "coreVersion 返回编译进 runtime crate 的 CORE_VERSION。",
+  "terms": [
+   "CORE_VERSION",
+   "coreVersion",
+   "crate",
+   "runtime"
+  ],
+  "window": "    #[allow(non_snake_case)]\n    pub fn exportsPath(&self) -> Result<String, String> {\n        let path = OperitPaths::exportsDir()?;\n        self.ensureHostDirectory(&path)?;\n        Ok(path.to_string_lossy().into_owned())\n    }\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 77,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:892",
+  "text": "logEntries 与 logText 分别返回内存中的应用日志条目与日志文件文本。",
+  "terms": [
+   "logEntries",
+   "logText"
+  ],
+  "window": "    #[allow(non_snake_case)]\n    pub fn cleanOnExitPath(&self) -> Result<String, String> {\n        let path = OperitPaths::cleanOnExitDir()?;\n        self.ensureHostDirectory(&path)?;\n        Ok(path.to_string_lossy().into_owned())\n    }\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 78,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:902",
+  "text": "packageLogText 返回包管理器日志文件文本。",
+  "terms": [
+   "packageLogText"
+  ],
+  "window": "        AppLogger::reset_log_file();\n    }\n\n    /// Returns the globally registered host manager after startup has completed.\n    #[allow(non_snake_case)]\n    pub fn hostManager() -> HostManager {\n        HOST_MANAGER"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 79,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:910",
+  "text": "logFilePath 与 packageLogFilePath 返回两个日志文件路径。",
+  "terms": [
+   "logFilePath",
+   "packageLogFilePath"
+  ],
+  "window": "            .lock()\n            .expect(\"HostManager context mutex poisoned\")\n            .clone()\n            .expect(\"HostManager context must be initialized\")\n    }\n\n    /// Advertises exact durable receipts and separately reports unapplied data."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 80,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:920",
+  "text": "operitRootPath 返回用户可见的 Operit 根目录路径并确保目录存在。",
+  "terms": [
+   "Operit",
+   "operitRootPath"
+  ],
+  "window": "            .hostManager\n            .runtimeStorageHost\n            .clone()\n            .ok_or(\"RuntimeStorageHost is not registered for persistent sync\")?;\n        let mut errors = PreferenceSpaceMerge::prepare(storage);\n        if let Err(error) = self\n            .runtimeWorkspaceFileSyncStore("
+ },
+ {
+  "page": "core-runtime",
+  "idx": 81,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:928",
+  "text": "exportsPath 返回导出用户产物的目录路径并确保目录存在。",
+  "terms": [
+   "exportsPath"
+  ],
+  "window": "        {\n            errors.push(format!(\"workspace scan: {error}\"));\n        }\n        let store = self.runtimeSyncOperationStore()?;\n        errors.extend(store.publishPreferenceOutboxes().map_err(|error| error.to_string())?);\n        let schema = PreferenceSpaceMerge::schema();\n        let pendi"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 82,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:936",
+  "text": "cleanOnExitPath 返回退出时清理维护所用文件的目录路径并确保目录存在。",
+  "terms": [
+   "cleanOnExitPath"
+  ],
+  "window": "        let summary = store.synchronizationSummary().map_err(|e|e.to_string())?;\n        let (receipt,failures) = registry.receipt()?;\n        errors.extend(failures);\n        let pending = store.applicationOperations().map_err(|e|e.to_string())?;\n        let mut states = BTreeMap::<&str, &SyncOpera"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 83,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:953",
+  "text": "hostManager() 静态方法返回启动后全局注册的 HostManager，未初始化时 panic。",
+  "terms": [
+   "HostManager",
+   "hostManager",
+   "panic"
+  ],
+  "window": "        }\n        for operation in states.into_values() {\n            if !store.shouldApplyOperation(operation).map_err(|e|e.to_string())? { continue; }\n            if operit_store::WorkspaceFileSyncStore::WorkspaceFileSyncStore::owns(operation) && !managedFiles.wantsBlob(operation)? { continue; }\n "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 84,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1457",
+  "text": "setHostManager 把 HostManager 存入 HOST_MANAGER 静态变量。",
+  "terms": [
+   "HOST_MANAGER",
+   "HostManager",
+   "setHostManager"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime",
+  "idx": 85,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:948",
+  "text": "syncClock 返回 protocolVersion 1、consistencyVersion 9 与 stateSummary 摘要。",
+  "terms": [
+   "consistencyVersion",
+   "protocolVersion",
+   "stateSummary",
+   "syncClock"
+  ],
+  "window": "        let managedFiles = self.runtimeWorkspaceFileSyncStore()?;\n        for reference in managedFiles.deferredBlobs()? {\n            operit_util::AppLogger::AppLogger::trace(\"CoreSyncTrace\", &format!(\n                \"sync_clock.blob hash={} bytes={} source=deferred\", &reference.contentHash[..12],"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 87,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:994",
+  "text": "syncClockDigest 返回 protocolVersion 1 与同步摘要。",
+  "terms": [
+   "protocolVersion",
+   "syncClockDigest"
+  ],
+  "window": "        self.consistencyManifest()\n    }\n\n    pub fn syncReadSnapshot(&self, owner: serde_json::Value, token: String) -> Result<serde_json::Value, String> {\n        self.exportConsistencySnapshot(serde_json::from_value(owner).map_err(|e| e.to_string())?, &token, false)\n    }\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 91,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1068",
+  "text": "syncApplyOperations 最后发布已应用变更。",
+  "terms": [
+   "syncApplyOperations"
+  ],
+  "window": "        let received_ms = timing.elapsed().as_millis();\n        let pending = journal.pendingOperations().map_err(|e|e.to_string())?;\n        journal.observeOperations(pending.iter().filter(|op| op.domain == \"preferences\")).map_err(|e|e.to_string())?;\n        files.prepareSyncedOperations(&pending)?"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 92,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1085",
+  "text": "syncApplyImmediateBindingOperation 对单个路由传输的 Binding 操作直接应用，不移动持久同步时钟。",
+  "terms": [
+   "Binding",
+   "syncApplyImmediateBindingOperation"
+  ],
+  "window": "        let pending_owners = pending.iter().filter(|op|report.pending.contains(&op.opId)).map(|op|registry.target(op))\n            .collect::<Result<std::collections::BTreeSet<_>, _>>()?;\n        drop(application);\n        operit_store::SyncAppliedChanges::publish(&storage,&report.applied);\n        "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 93,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1214",
+  "text": "refreshSynchronizedChatFlows 对有活跃本地流的聊天记 chat_flow_skip 并跳过。",
+  "terms": [
+   "chat_flow_skip",
+   "refreshSynchronizedChatFlows"
+  ],
+  "window": "            let runtime = manager.getToolPkgContainerRuntime(&packageName)\n                .ok_or(\"ToolPkg is not registered\")?;\n            if !runtime.themes.iter().any(|template| template.id == templateId) {\n                return Err(\"Theme template is not declared by this ToolPkg\".to_string());"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 94,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1234",
+  "text": "refreshSynchronizedChatFlows 对无活跃本地流的聊天调用 refreshChatMessagesFromPersistence 刷新。",
+  "terms": [
+   "refreshChatMessagesFromPersistence",
+   "refreshSynchronizedChatFlows"
+  ],
+  "window": "    }\n\n    /// Creates the persistent sync operation store owned by this application instance.\n    #[allow(non_snake_case)]\n    pub(super) fn runtimeSyncOperationStore(&self) -> Result<SyncOperationStore, String> {\n        let storageHost = self.hostManager.runtimeStorageHost.clone().ok_or_else(|| {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 96,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1273",
+  "text": "syncBlobExists 检查本地 blob 是否存在而不读内容，保留各文件的独立失败。",
+  "terms": [
+   "blob",
+   "syncBlobExists"
+  ],
+  "window": "            operit_store::WorkspaceFileSyncStore::WorkspaceFileSyncStore::new(\n                host,\n                RUNTIME_SYNC_DIR_PATH,\n            ),\n        )\n    }\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 97,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1286",
+  "text": "syncReadBlobChunk 读取一个有界同步 blob 分块供传给另一 CoreNode。",
+  "terms": [
+   "CoreNode",
+   "blob",
+   "syncReadBlobChunk"
+  ],
+  "window": "        Ok(RuntimeFileSyncStore::new(\n            storageHost,\n            RUNTIME_SYNC_DIR_PATH.to_string(),\n        ))\n    }\n\n    /// Requires the existing runtime SQLite Host for plugin storage synchronization."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 98,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:76",
+  "text": "ThemePreviewAsset 是只交给预览界面的内存资产，不是库记录，预览 API 从不写入它。",
+  "terms": [
+   "ThemePreviewAsset"
+  ],
+  "window": "use std::collections::BTreeMap;\nuse std::sync::{Arc, Mutex, OnceLock};\nuse tokio::sync::Mutex as AsyncMutex;\n\n/// One in-memory asset handed to the preview surface. It is not a library\n/// record and is never written by the preview API.\n#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 101,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1340",
+  "text": "previewToolPkgTheme 要求模板由该 ToolPkg 声明，否则返回 Theme template is not declared by this ToolPkg 错误。",
+  "terms": [
+   "Theme",
+   "ToolPkg",
+   "declared",
+   "previewToolPkgTheme",
+   "template",
+   "this"
+  ],
+  "window": "pub(super) fn synchronizationDataset(operation: &SyncOperation) -> Result<String, String> {\n    match operation.domain.as_str() {\n        CHAT_SYNC_DOMAIN => synchronizedChatId(operation).ok_or_else(|| \"Chat transaction dataset is missing\".into()),\n        PLUGIN_STORAGE_SYNC_DOMAIN => PluginStorage"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 102,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1355",
+  "text": "validateThemeArchive 在归档中按 theme_id 查找模板，找不到时返回 Selected theme template is not declared by this ToolPkg 错误。",
+  "terms": [
+   "Selected",
+   "ToolPkg",
+   "declared",
+   "template",
+   "theme",
+   "theme_id",
+   "this",
+   "validateThemeArchive"
+  ],
+  "window": "    match operation.entityType.as_str() {\n        \"chat\" | \"messages\" => Some(operation.entityId.clone()),\n        \"message\" => operation\n            .entityId\n            .split_once(':')\n            .map(|(chatId, _)| chatId.to_string()),\n        _ => None,"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 103,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1307",
+  "text": "previewThemeArchive 只把 preview.png 与 assets/ 下的文件收进预览资产。",
+  "terms": [
+   "assets",
+   "preview.png",
+   "previewThemeArchive"
+  ],
+  "window": "            operation.domain.as_str(),\n            operation.entityType.as_str(),\n            operation.operation.as_str(),\n        ) {\n            (RUNTIME_FILE_SYNC_DOMAIN, \"file\", \"upsert\" | \"delete\") => {\n                let storageHost = self.hostManager.runtimeStorageHost.clone().ok_or_else(||"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 104,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1364",
+  "text": "runtimeSyncOperationStore 用 RUNTIME_SYNC_DIR_PATH 创建本应用实例拥有的持久同步操作存储。",
+  "terms": [
+   "RUNTIME_SYNC_DIR_PATH",
+   "runtimeSyncOperationStore"
+  ],
+  "window": "\nimpl Default for OperitApplication {\n    fn default() -> Self {\n        Self::new()\n    }\n}\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 105,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1376",
+  "text": "runtimeBindingStore 创建本应用实例拥有的 Binding 存储。",
+  "terms": [
+   "Binding",
+   "runtimeBindingStore"
+  ],
+  "window": "    #[test]\n    fn preview_asset_bytes_use_messagepack_binary() {\n        let value = toCoreValue(&ThemePreviewAsset {\n            path: \"assets/images/example.png\".to_string(),\n            bytes: vec![0, 127, 255],\n        })\n        .expect(\"theme preview asset must convert to a CoreValue map\");"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 106,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1385",
+  "text": "runtimeNetworkControlStore 创建本应用实例拥有的同步 Space 授权与控制存储。",
+  "terms": [
+   "Space",
+   "runtimeNetworkControlStore"
+  ],
+  "window": "        };\n        assert_eq!(fields.get(\"bytes\"), Some(&CoreValue::Bytes(vec![0, 127, 255].into())));\n    }\n}"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 107,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1408",
+  "text": "runtimeFileSyncStore 创建本应用实例拥有的内容寻址运行时文件存储。",
+  "terms": [
+   "runtimeFileSyncStore"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime",
+  "idx": 108,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1420",
+  "text": "pluginSqliteHost 要求已注册的运行时 SQLite Host，用于插件存储同步。",
+  "terms": [
+   "Host",
+   "SQLite",
+   "pluginSqliteHost"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime",
+  "idx": 109,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1436",
+  "text": "applyNonPreferenceSyncOperation 只处理 RUNTIME_FILE_SYNC_DOMAIN 下 file 实体的 upsert 与 delete 操作。",
+  "terms": [
+   "RUNTIME_FILE_SYNC_DOMAIN",
+   "applyNonPreferenceSyncOperation",
+   "delete",
+   "file",
+   "upsert"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime",
+  "idx": 110,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1447",
+  "text": "applyNonPreferenceSyncOperation 对其他域、实体或操作返回 unsupported sync operation 错误。",
+  "terms": [
+   "applyNonPreferenceSyncOperation",
+   "operation",
+   "sync",
+   "unsupported"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime",
+  "idx": 111,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1467",
+  "text": "synchronizationDataset 按域解析数据集：聊天走 synchronizedChatId，插件存储走 PluginStorage::syncDatasetPath，网络控制走 spaceId，其余用 (entityType",
+  "terms": [
+   "PluginStorage",
+   "entityId",
+   "entityType",
+   "spaceId",
+   "syncDatasetPath",
+   "synchronizationDataset",
+   "synchronizedChatId"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime",
+  "idx": 112,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1483",
+  "text": "synchronizedChatId 只在 CHAT_SYNC_DOMAIN 下返回聊天 id；message 实体按冒号切分出聊天 id。",
+  "terms": [
+   "CHAT_SYNC_DOMAIN",
+   "message",
+   "synchronizedChatId"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime",
+  "idx": 113,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1489",
+  "text": "OperitApplication 的 Default 实现直接调用 new()。",
+  "terms": [
+   "Default",
+   "OperitApplication"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime",
+  "idx": 114,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1505",
+  "text": "单元测试 preview_asset_bytes_use_messagepack_binary 校验主题预览资产可转为 CoreValue 映射。",
+  "terms": [
+   "CoreValue",
+   "preview_asset_bytes_use_messagepack_binary"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime",
+  "idx": 115,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1511",
+  "text": "该测试断言 bytes 字段转为 CoreValue::Bytes。",
+  "terms": [
+   "Bytes",
+   "CoreValue",
+   "bytes"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime",
+  "idx": 116,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:572",
+  "text": "importA2AConfig 把可移植 A2A 连接定义导入扩展与包注册表。",
+  "terms": [
+   "importA2AConfig"
+  ],
+  "window": "\n    /// Executes the same A2A operations used by the installed package's tools.\n    #[allow(non_snake_case)]\n    pub async fn invokeA2A(&self, id: String, operation: String, argumentsJson: String) -> Result<String, String> {\n        let arguments = serde_json::from_str(&argumentsJson).map_err(|e| e"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 117,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:580",
+  "text": "getA2AConfig 读取已保存的连接清单供编辑或导出。",
+  "terms": [
+   "getA2AConfig"
+  ],
+  "window": "\n    /// Creates a skill repository with this runtime's host and tool support.\n    #[allow(non_snake_case)]\n    pub fn skillRepository(&self) -> SkillRepository {\n        SkillRepository::getInstance(&self.hostManager, self.toolHandler.runtimeSupport())\n    }\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 118,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:587",
+  "text": "discoverA2AAgent 在用户保存连接前获取并校验 Agent Card。",
+  "terms": [
+   "Agent",
+   "Card",
+   "discoverA2AAgent"
+  ],
+  "window": "    /// Observes extension catalog changes from both local operations and device-space synchronization.\n    #[allow(non_snake_case)]\n    pub fn extensionCatalogRevisionFlow(&self) -> StateFlow<i64> {\n        operit_store::ExtensionStore::catalogRevisionFlow()\n    }\n\n    /// Returns one normalized lo"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 119,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:595",
+  "text": "setA2AEnabled 通过规范的归属记录启用或禁用已安装的 A2A 包。",
+  "terms": [
+   "setA2AEnabled"
+  ],
+  "window": "    #[operit_route_macros::operit_plugin_sdk_expose]\n    pub fn getExtensionCatalogSnapshot(\n        &self,\n    ) -> impl std::future::Future<Output = Result<ExtensionCatalogSnapshot, String>> + 'static {\n        super::ExtensionCatalogSupport::run(self.toolHandler.clone(), \"operit-extension-catalog"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 120,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:603",
+  "text": "deleteA2A 删除 A2A 安装并移除其包工具。",
+  "terms": [
+   "deleteA2A"
+  ],
+  "window": "    #[allow(non_snake_case)]\n    pub fn checkExtensionCatalogUpdates(\n        &self,\n    ) -> impl std::future::Future<Output = Result<Vec<ExtensionCatalogUpdateCheck>, String>> + 'static {\n        super::ExtensionCatalogSupport::run(self.toolHandler.clone(), \"operit-extension-updates\", super::Exten"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 121,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:611",
+  "text": "invokeA2A 执行已安装包的工具所用的同一批 A2A 操作。",
+  "terms": [
+   "invokeA2A"
+  ],
+  "window": "    #[allow(non_snake_case)]\n    pub fn deleteExtensionCatalogDiagnostic(\n        &self,\n        diagnostic: ExtensionCatalogDiagnostic,\n    ) -> Result<bool, String> {\n        super::ExtensionCatalogSupport::delete_diagnostic(self, diagnostic)\n    }"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 122,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:625",
+  "text": "extensionCatalogRevisionFlow 观测本地操作与设备空间同步带来的扩展目录变更。",
+  "terms": [
+   "extensionCatalogRevisionFlow"
+  ],
+  "window": "    /// Moves an existing extension; local MCP is rejected by the owning store before content changes.\n    #[allow(non_snake_case)]\n    pub fn setExtensionScope(&self, kind: String, id: String, scope: String) -> Result<(), String> {\n        match kind.as_str() {\n            \"package\" => self\n       "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 123,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:640",
+  "text": "checkExtensionCatalogUpdates 把已安装市场条目与最新发布版本对照检查。",
+  "terms": [
+   "checkExtensionCatalogUpdates"
+  ],
+  "window": "                .moveScope(&kind, &id, &scope),\n            _ => Err(format!(\"Unknown extension kind: {kind}\")),\n        }\n    }\n\n    /// Creates an input menu bridge backed by this application's tool package runtime.\n    #[allow(non_snake_case)]"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 124,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:648",
+  "text": "deleteExtensionCatalogDiagnostic 在重新设计的卡片确认后删除一条包管理器诊断。",
+  "terms": [
+   "deleteExtensionCatalogDiagnostic"
+  ],
+  "window": "        ToolPkgInputMenuToggleBridge::new(self.toolPkgBridgeRuntime.clone())\n    }\n\n    /// Creates a host-composed chat composer slot bridge.\n    #[allow(non_snake_case)]\n    pub fn chatComposerSlotBridge(&self) -> ToolPkgChatComposerSlotBridge {\n        ToolPkgChatComposerSlotBridge::new(self.tool"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 125,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:728",
+  "text": "inputMenuToggleBridge 创建由本应用工具包运行时支撑的输入菜单桥。",
+  "terms": [
+   "inputMenuToggleBridge"
+  ],
+  "window": "    /// Installs a market entry and persists its successfully installed version in Core.\n    #[allow(non_snake_case)]\n    pub fn installMarketEntry(\n        &self,\n        entryId: String,\n        versionId: Option<String>,\n    ) -> Result<String, String> {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 126,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:734",
+  "text": "chatComposerSlotBridge 创建由 Host 组合的聊天输入框槽位桥。",
+  "terms": [
+   "Host",
+   "chatComposerSlotBridge"
+  ],
+  "window": "    ) -> Result<String, String> {\n        super::MarketInstallSupport::install_entry(self, &entryId, versionId.as_deref())\n    }\n\n    /// Returns package names enabled in this application runtime.\n    pub fn active_package_names(&self) -> Vec<String> {\n        self.toolHandler"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 127,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:805",
+  "text": "getInstalledMarketVersions 返回仍已安装插件的市场条目与版本标记。",
+  "terms": [
+   "getInstalledMarketVersions"
+  ],
+  "window": "    /// Calculates full and incremental availability before starting a transfer.\n    pub fn planApplicationUpdate(&self, version: String) -> impl std::future::Future<Output = Result<ApplicationUpdatePlan, String>> + 'static {\n        let manager = self.applicationUpdate.clone();\n        let context "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 128,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:811",
+  "text": "installMarketEntry 安装市场条目并把成功安装的版本持久化进 Core。",
+  "terms": [
+   "Core",
+   "installMarketEntry"
+  ],
+  "window": "\n    /// Verifies a selected old original against the authenticated patch declaration.\n    pub fn supplyApplicationUpdateBase(&self, version: String, sourcePath: String) -> impl std::future::Future<Output = Result<ApplicationUpdatePlan, String>> + 'static {\n        let manager = self.applicationUpda"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 133,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:198",
+  "text": "applyConfigurationIdentity 给 sender 为 ai 的消息写入 host.chat.identity（配置档案名与头像 URI），其余 sender 移除该键。",
+  "terms": [
+   "applyConfigurationIdentity",
+   "host.chat",
+   "identity",
+   "sender"
+  ],
+  "window": "                serde_json::json!({\n                    \"title\": configuration.profile.name,\n                    \"avatarUri\": configuration.profile.avatarUri,\n                }),\n            );\n        } else {\n            // The configured participant receives user input; it did not author it."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 139,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:296",
+  "text": "buildUserMessageContent 过滤掉空白部分后用空格连接成最终内容。",
+  "terms": [
+   "buildUserMessageContent"
+  ],
+  "window": "        .into_iter()\n        .filter(|part| !part.trim().is_empty())\n        .collect::<Vec<_>>()\n        .join(\" \"))\n    }\n\n    /// Serializes original user-only input without selecting a participant, invoking a model, or rewriting submitted text."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 145,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:360",
+  "text": "sendMessage 把历史中的图片与媒体链接上限取值自 ApiPreferences，流无值时分别缺省 2 与 1 个用户回合。",
+  "terms": [
+   "ApiPreferences",
+   "sendMessage"
+  ],
+  "window": "        let maxImageHistoryUserTurns = apiPreferences\n            .maxImageHistoryUserTurnsFlow()\n            .first()\n            .unwrap_or(2);\n        let maxMediaHistoryUserTurns = apiPreferences\n            .maxMediaHistoryUserTurnsFlow()\n            .first()"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 147,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:394",
+  "text": "插件匹配时 sendMessage 直接返回插件执行流并结束本次操作，不调用 Provider。",
+  "terms": [
+   "Provider",
+   "sendMessage"
+  ],
+  "window": "                ],\n                operit_util::AppLogger::VERBOSE_LEVEL_3,\n            );\n            Self::finishOperation(&chatKey, operationId);\n            return Ok(SharedAiResponseStream::from(with_event_channel_shared(\n                pluginExecution.stream,\n                operit_util::stre"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 151,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:483",
+  "text": "Provider 返回流后先登记到操作记录，未登记成功时关闭流并返回 RequestCancelled。",
+  "terms": [
+   "Provider",
+   "RequestCancelled"
+  ],
+  "window": "                    let mut operations = activeChatOperations()\n                        .lock()\n                        .expect(\"active chat operations mutex poisoned\");\n                    if let Some(operation) = operations.get_mut(&chatKey, operationId) {\n                        operation.respons"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 153,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:503",
+  "text": "清理任务提交失败时取消本次操作并返回 RequestFailed。",
+  "terms": [
+   "RequestFailed"
+  ],
+  "window": "                            Box::pin(async move {\n                                cleanupStream.collect(&mut |_| {}).await;\n                                Self::finishOperation(&cleanupChatKey, operationId);\n                            })\n                        }),\n                    )\n          "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 154,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:552",
+  "text": "summarizeMemory 只汇总上一次 summary 之后的用户与 AI 消息。",
+  "terms": [
+   "summarizeMemory",
+   "summary"
+  ],
+  "window": "                None\n            } else {\n                Some(content)\n            }\n        });\n\n        let messagesToSummarize = match lastSummaryIndex {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 156,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:592",
+  "text": "summarizeMemory 在 autoContinue 为 true 时在摘要后追加中文继续句。",
+  "terms": [
+   "autoContinue",
+   "summarizeMemory",
+   "true"
+  ],
+  "window": "        let endTime = ChatMessageTimestampAllocator::currentTimeMillis();\n        if summary.trim().is_empty() {\n            return Ok(None);\n        }\n\n        let mut summaryWithQuotes = summary.trim().to_string();\n        // Keep the review in the same language as the summary prompt."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 157,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:599",
+  "text": "summarizeMemory 的输入 token 估算为摘要长度乘 3 除 2（至少 1），输出 token 估算为最终摘要长度除 2（至少 1）。",
+  "terms": [
+   "summarizeMemory",
+   "token"
+  ],
+  "window": "        appendConversationReview(&mut summaryWithQuotes, &conversationReviewEntries, false);\n\n        let finalSummary = if autoContinue {\n            format!(\n                \"{}\\n\\n如果任务尚未完成，请基于以上摘要继续。\",\n                summaryWithQuotes.trim_end()\n            )"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 162,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:678",
+  "text": "isolateParticipants 开启时，AI 消息缺持久化作者或缺展示身份时 getMemoryFromMessages 返回错误。",
+  "terms": [
+   "getMemoryFromMessages",
+   "isolateParticipants"
+  ],
+  "window": "                    let author = message.pluginExtensions.get(&configuration.extensionOwner)\n                        .and_then(|identity| identity.get(\"participantId\"))\n                        .and_then(serde_json::Value::as_str)\n                        .filter(|id| !id.trim().is_empty())\n          "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 164,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:701",
+  "text": "getMemoryFromMessages 把 sender 为 summary 的消息转为 SUMMARY 回合。",
+  "terms": [
+   "SUMMARY",
+   "getMemoryFromMessages",
+   "sender",
+   "summary"
+  ],
+  "window": "                }\n                \"ai\" => turns.extend(Self::assistantPromptTurnsFromParts(message)),\n                \"user\" => {\n                    let content = message.displayText();\n                    let content = if configuration.historyPolicy.labelUserMessages && !content.trim().is_empty() "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 169,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:805",
+  "text": "buildAttachmentTag 对有 VFS 定位的同步附件先在本地解析物理路径并核对存在性与大小。",
+  "terms": [
+   "buildAttachmentTag"
+  ],
+  "window": "        enableDirectVideoProcessing: bool,\n    ) -> Result<String, String> {\n        if attachment.vfsPath.is_none()\n            && attachment.nodeId.is_none()\n            && attachment.filePath.starts_with(\"pasted_text_\")\n            && attachment.mimeType == \"text/plain\"\n        {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 172,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:853",
+  "text": "直接音频附件经 buildDirectMediaAttachmentTag 生成媒体链接。",
+  "terms": [
+   "buildDirectMediaAttachmentTag"
+  ],
+  "window": "                    AppLogger::e(\n                        \"AIMessageManager\",\n                        &format!(\n                            \"direct image attachment failed, falling back to ordinary attachment: {}: {}\",\n                            attachment.filePath, error\n                        ),"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 173,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:861",
+  "text": "直接视频附件经 buildDirectMediaAttachmentTag 生成媒体链接。",
+  "terms": [
+   "buildDirectMediaAttachmentTag"
+  ],
+  "window": "            }\n        }\n        if enableDirectAudioProcessing\n            && attachment\n                .mimeType\n                .to_ascii_lowercase()\n                .starts_with(\"audio/\")"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 174,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:893",
+  "text": "直接图片附件注册要求 FileSystemHost，读不到字节或文件为空时报错。截至基线，直接图片读取走 FileSystemHost 边界；上游 053c6686 的注册入口已接收 Option<&VisualFileSystem>（AI",
+  "terms": [
+   "AIMessageManager.rs",
+   "FileSource",
+   "FileSystemHost",
+   "Option",
+   "VisualFileSystem",
+   "c6686",
+   "fileResource",
+   "readBytes"
+  ],
+  "window": "        let imageId = Self::registerDirectImageAttachment(attachment, filesystem)?;\n        let imageLink = MediaLinkBuilder::image(&imageId);\n        let mut attachedContent = \"Image content has been attached as multimodal input with this message. Do not call file reading tools to read this path.\"."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 175,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:904",
+  "text": "图片池返回 imageId 为 error 时直接图片附件注册失败。",
+  "terms": [
+   "error",
+   "imageId"
+  ],
+  "window": "\n    /// Registers an image attachment in the process image pool.\n    fn registerDirectImageAttachment(\n        attachment: &AttachmentInfo,\n        filesystem: Option<&VisualFileSystem>,\n    ) -> Result<String, String> {\n        let Some(filesystem) = filesystem else {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 176,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:975",
+  "text": "附件属性含 id、filename、type，nodeId 非空时加 node_id。",
+  "terms": [
+   "filename",
+   "nodeId",
+   "node_id",
+   "type"
+  ],
+  "window": "        Ok(mediaId)\n    }\n\n    /// Builds the XML attributes for an attachment notice.\n    fn buildAttachmentAttributes(attachment: &AttachmentInfo) -> String {\n        let escape = |value: &str| {\n            value"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 177,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:986",
+  "text": "工具路径以 /app/、/operitapp/、/mnt/、/virtual/ 开头时附件属性加 path，fileSize 大于 0 时加 size。",
+  "terms": [
+   "fileSize",
+   "operitapp",
+   "path",
+   "size",
+   "virtual"
+  ],
+  "window": "                .replace('\\'', \"&#39;\")\n        };\n        let toolPath = attachment.fileToolPath();\n        let mut attributes = format!(\n            \"id=\\\"{}\\\" filename=\\\"{}\\\" type=\\\"{}\\\"\",\n            escape(&toolPath),\n            escape(&attachment.fileName),"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 178,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1082",
+  "text": "cancelCurrentOperation 取消最近活跃聊天的操作。",
+  "terms": [
+   "cancelCurrentOperation"
+  ],
+  "window": "                        .trim()\n                        .to_string();\n                    turn.with_content(if removed.is_empty() {\n                        \"[Image omitted]\".to_string()\n                    } else {\n                        removed\n                    })"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 179,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1091",
+  "text": "cancelOperation 把空 chatId 当作默认聊天键。",
+  "terms": [
+   "cancelOperation",
+   "chatId"
+  ],
+  "window": "                }\n            })\n            .collect()\n    }\n\n    #[allow(non_snake_case)]\n    pub async fn cancelCurrentOperation() -> Result<(), AiServiceError> {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 181,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1116",
+  "text": "取消时立即调用 cancellationToken.cancel()。",
+  "terms": [
+   "cancellationToken.cancel"
+  ],
+  "window": "    /// Takes ownership of the service before anything can close the response stream.\n    async fn cancelOperationForId(chatKey: &str, expectedOperationId: Option<u64>) -> Result<(), AiServiceError> {\n        let operation = {\n            let mut operations = activeChatOperations()\n                ."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 182,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1130",
+  "text": "取消时关闭 operation.responseStream。",
+  "terms": [
+   "operation.responseStream"
+  ],
+  "window": "            return Ok(());\n        };\n        // Close the per-send gate immediately, including a send that has not yet\n        // entered the provider or registered its execution context.\n        operation.cancellationToken.cancel();\n        ChainLogger::verbose_with_level(\n            SEND_CHAIN,"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 183,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1132",
+  "text": "取消最后调用 enhancedAiService.cancelConversation 并返回其结果。",
+  "terms": [
+   "enhancedAiService.cancelConversation"
+  ],
+  "window": "        // Close the per-send gate immediately, including a send that has not yet\n        // entered the provider or registered its execution context.\n        operation.cancellationToken.cancel();\n        ChainLogger::verbose_with_level(\n            SEND_CHAIN,\n            \"send.cancel.start\",\n     "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 184,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1152",
+  "text": "cancelAllOperations 快照当前全部操作并逐个按 id 取消。",
+  "terms": [
+   "cancelAllOperations"
+  ],
+  "window": "            SEND_CHAIN,\n            \"send.cancel.done\",\n            &[\n                (\"chatKey\", chatKey.to_string()),\n                (\"operationId\", operationId.to_string()),\n            ],\n        );"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 187,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1243",
+  "text": "cleanSummarySourceMessage 去掉 meta 标签、AI 消息的 think 内容与媒体链接。",
+  "terms": [
+   "cleanSummarySourceMessage",
+   "meta",
+   "think"
+  ],
+  "window": "    appendEntries(summary, &entries[..CONVERSATION_REVIEW_HEAD_ENTRIES]);\n    let omittedCount = entries.len() - MAX_CONVERSATION_REVIEW_ENTRIES;\n    if useEnglish {\n        summary.push_str(&format!(\n            \"- [...Middle messages omitted: {omittedCount}...]\\n\"\n        ));\n    } else {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 189,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1359",
+  "text": "condenseAssistantMessageForReview 超过 25 段时只保留前 12 段与后 10 段并注明省略段数。",
+  "terms": [
+   "condenseAssistantMessageForReview"
+  ],
+  "window": "                let result_text = if result.is_empty() {\n                    String::new()\n                } else {\n                    format!(\" {result}\")\n                };\n                Some(format!(\"[{tool_label}{status_text}]{result_text}\"))\n            }"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 191,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:181",
+  "text": "logMessageTiming 按“阶段 耗时=Nms”记录阶段耗时。",
+  "terms": [
+   "logMessageTiming"
+  ],
+  "window": "    let suffix = details\n        .filter(|value| !value.trim().is_empty())\n        .map(|value| format!(\", {value}\"))\n        .unwrap_or_default();\n    AppLogger::v_with_level(\n        MESSAGE_PROCESS_TIMING_TAG,\n        &format!(\"{stage} 耗时={elapsed}ms{suffix}\"),"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 194,
+  "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:191",
+  "text": "newWithContext 无条件把 GitHub 登录 token 源注册为默认值。",
+  "terms": [
+   "GitHub",
+   "newWithContext",
+   "token"
+  ],
+  "window": "                .expect(\"JavaScript runtime requires a HostJavaScriptRuntimeHost\"),\n        );\n        let chatFilesystem = Arc::new(hostManager.vfs().expect(\"Chat runtime requires VFS\"));\n        let chatRuntimeHolder = Arc::new(AsyncMutex::new(ChatRuntimeHolder::new(\n            chatFilesystem.clo"
+ },
+ {
+  "page": "agent-character-cards",
+  "idx": 80,
+  "ref": "plugins/packages/buildin/character_cards/README.md:137",
+  "text": "主题引用为 null 表示保持当前主题，群组不借用成员的主题。",
+  "terms": [
+   "null"
+  ],
+  "window": "not substituted for a failed request. Selecting stages only the editor's\n`themeConfigId`; saving persists it, and activating the character/group applies\nthe exact configuration through `Tools.Theme.applyConfig(id)`.\nNull means keep the current theme, and groups never borrow a member's theme.\nCharact"
+ },
+ {
+  "page": "agent-hooks",
+  "idx": 88,
+  "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:521",
+  "text": "摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook。",
+  "terms": [
+   "before_prepare_summary_prompt",
+   "hook"
+  ],
+  "window": "            metadata: baseSummaryMetadata,\n        };\n        let beforePrepareContext =\n            SummaryHookRegistry::dispatchSummaryGenerateHooks(beforePrepareBaseContext.clone())\n            .await\n            .map_err(AiServiceError::RequestFailed)?;\n        let mut preparedHistory = reconcil"
+ },
+ {
+  "page": "agent-hooks",
+  "idx": 89,
+  "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:555",
+  "text": "摘要生成在 before_send_to_model 阶段派发摘要 hook。",
+  "terms": [
+   "before_send_to_model",
+   "hook"
+  ],
+  "window": "            },\n        };\n        let beforeSendContext =\n            SummaryHookRegistry::dispatchSummaryGenerateHooks(beforeSendBaseContext.clone())\n            .await\n            .map_err(AiServiceError::RequestFailed)?;\n        preparedHistory = reconcileSummaryPreparedHistory(&beforeSendBaseCon"
+ },
+ {
+  "page": "agent-slash",
+  "idx": 86,
+  "ref": "apps/cli/src/cli/mod.rs:1656",
+  "text": "cli_usage_lines 先列固有命令族，再追加插件命令",
+  "terms": [
+   "cli_usage_lines"
+  ],
+  "window": "        \"Commands:\".to_string(),\n    ];\n    for (name, description) in CLI_COMMANDS {\n        lines.push(format!(\"  {name:<15}  {description}\"));\n    }\n    for command in pluginCommands {\n        lines.push(format!(\"  {:<15}  {}\", command.name, command.description));"
+ },
+ {
+  "page": "app-cli",
+  "idx": 69,
+  "ref": "apps/cli/src/daemon.rs:474",
+  "text": "控制通道的 run 操作在 owner 的 Core 上执行命令",
+  "terms": [
+   "Core",
+   "owner"
+  ],
+  "window": "                Err(error) => ControlResponse::error(error),\n            }\n        }\n        \"run\" => {\n            if request.argv.is_empty() {\n                return ControlResponse::error(\"run requires argv\");\n            }"
+ },
+ {
+  "page": "host-apple",
+  "idx": 67,
+  "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:38",
+  "text": "沙盒下只注册一个 bash 适配器，且关闭 controlling TTY",
+  "terms": [
+   "bash",
+   "controlling"
+  ],
+  "window": "        if sandboxed {\n            hosts.insert(\n                primary.clone(),\n                NativePtyTerminalHost::new().withControllingTty(false),\n            );\n        } else {\n            let home = std::env::var(\"HOME\").unwrap_or_else(|_| \"/\".to_string());"
+ },
+ {
+  "page": "host-ios",
+  "idx": 61,
+  "ref": "hosts/ios/src/terminal.rs:414",
+  "text": "ARM64 写入按 16 KiB 分块重试，截止时间为 30 秒。",
+  "terms": [
+   "ARM64"
+  ],
+  "window": "                // Match the shared native host's write_all behavior. Managed\n                // runtime callers rely on an entire protocol frame being sent.\n                // Each native request reports only bytes accepted by the PTY.\n                let deadline = Instant::now() + Duration::from_"
+ },
+ {
+  "page": "plugin-catalog-buildin",
+  "idx": 21,
+  "ref": "plugins/packages/buildin/character_cards/manifest.json:13",
+  "text": "character_cards 的中文显示名是角色卡，中文描述是：创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库。",
+  "terms": [
+   "character_cards"
+  ],
+  "window": "    \"en\": \"Characters\"\n  },\n  \"description\": {\n    \"zh\": \"创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库。\",\n    \"en\": \"Create AI characters or put several in a group chat; each keeps its own memory library.\"\n  },\n  \"logo\": \"package_logo\","
+ },
+ {
+  "page": "plugin-js-wasm-runtime",
+  "idx": 86,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:335",
+  "text": "captureMarketOrigin 在非注册期调用时直接返回，不改动注册捕获状态",
+  "terms": [
+   "captureMarketOrigin"
+  ],
+  "window": "            // Marketplace publishing appends this marker to a main module. Runtime hooks can\n            // evaluate that module repeatedly after registration, so marker calls there must\n            // not mutate registration capture state or interrupt the hook.\n            if (!registrationOnly) {"
+ },
+ {
+  "page": "plugin-manifest",
+  "idx": 44,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2461",
+  "text": "兼容 requires 只对 api_version 主版本为 1 的包追加",
+  "terms": [
+   "api_version",
+   "requires"
+  ],
+  "window": "    packageId: &str,\n    requirements: &mut Vec<ToolPkgManifestRequirement>,\n) -> Result<(), String> {\n    if apiVersion.major != 1 {\n        return Ok(());\n    }\n    for (provider, minimumVersion) in ["
+ },
+ {
+  "page": "plugin-manifest",
+  "idx": 56,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1342",
+  "text": "子包脚本声明的环境变量名会传给 main 注册解析",
+  "terms": [
+   "main"
+  ],
+  "window": "                &apiVersionText,\n                &subpackagePackages\n                    .iter()\n                    .flat_map(|package| package.env.iter().map(|variable| variable.name.clone()))\n                    .collect::<Vec<_>>(),\n            ) {\n                ToolPkgMainRegistrationParseRes"
+ },
+ {
+  "page": "plugin-mcp",
+  "idx": 64,
+  "ref": "core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:237",
+  "text": "decodeValidatedImage 只接受 PNG、JPEG、GIF、WebP 四种图片格式",
+  "terms": [
+   "JPEG",
+   "WebP",
+   "decodeValidatedImage"
+  ],
+  "window": "        let bytes = STANDARD.decode(data.trim()).ok()?;\n        let format = image::guess_format(&bytes).ok()?;\n        match format {\n            image::ImageFormat::Png | image::ImageFormat::Jpeg => {\n                image::ImageReader::with_format(std::io::Cursor::new(&bytes), format)\n           "
+ },
+ {
+  "page": "plugin-mcp",
+  "idx": 153,
+  "ref": "core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:309",
+  "text": "仓库 zip 按默认分支从 GitHub 归档地址下载",
+  "terms": [
+   "GitHub"
+  ],
+  "window": "        progressCallback: &impl Fn(InstallProgress),\n    ) -> Option<Vec<u8>> {\n        let defaultBranch = getGithubDefaultBranch(owner, repoName)?;\n        let zipUrl = format!(\n            \"https://github.com/{owner}/{repoName}/archive/refs/heads/{}.zip\",\n            encodePathSegment(&defaultBra"
+ },
+ {
+  "page": "plugin-mcp",
+  "idx": 154,
+  "ref": "core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:322",
+  "text": "resolvePluginRoot 要求归档解压后恰好含一个根目录",
+  "terms": [
+   "resolvePluginRoot"
+  ],
+  "window": "        let roots = self\n            .filesystem\n            .listFiles(pluginDir)\n            .map_err(|error| error.to_string())?\n            .into_iter()\n            .filter(|entry| entry.isDirectory)\n            .collect::<Vec<_>>();"
+ },
+ {
+  "page": "plugin-toolpkg-overview",
+  "idx": 27,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:582",
+  "text": "注册链路实际未执行 60 秒期限，注册执行传入的中断参数是 HostJavaScriptExecutionInterrupt::unlimited()，即无截止时间",
+  "terms": [
+   "HostJavaScriptExecutionInterrupt",
+   "unlimited"
+  ],
+  "window": "        &self,\n        script: &str,\n        functionName: &str,\n        params: &BTreeMap<String, Value>,\n        textResources: Option<Arc<ToolPkgTextResources>>,\n    ) -> JsExecutionResult<ToolPkgMainRegistrationCapture> {\n        let result = self.runtimeHost.executeHostJavaScriptRuntimeStateTas"
+ }
+]

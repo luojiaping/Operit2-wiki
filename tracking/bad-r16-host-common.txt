@@ -1,0 +1,6 @@
+page: host-common  batch: batch-05  facts: 202  bad: 5
+host-common.facts.json#115 `TERMINAL` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:1743
+host-common.facts.json#116 `posixCommandLine` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:987
+host-common.md:128 `TERMINAL` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:1743']
+host-common.md:129 `posixCommandLine` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:987']
+host-common.md:212 `posixCommandLine` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:987']

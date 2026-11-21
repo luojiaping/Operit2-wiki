@@ -1,0 +1,16 @@
+page: host-android  batch: batch-05  facts: 190  bad: 15
+host-android.facts.json#66 `\x1b[6n` not within ±5 of hosts/android/src/terminal.rs:886
+host-android.md:85 `\x1b[6n` not within ±5 of any ref ['hosts/android/src/terminal.rs:886']
+host-android.md:92 `forkpty` not within ±5 of any ref ['hosts/android/src/terminal.rs:2247']
+host-android.md:95 `androidPrivilegedPtyOperation` not within ±5 of any ref ['hosts/android/src/terminal.rs:2584']
+host-android.md:97 `pollPidExitCode` not within ±5 of any ref ['hosts/android/src/terminal.rs:2609']
+host-android.md:98 `terminateAndroidPtyProcess` not within ±5 of any ref ['hosts/android/src/terminal.rs:2612']
+host-android.md:99 `setPtyWindowSize` not within ±5 of any ref ['hosts/android/src/terminal.rs:2624']
+host-android.md:100 `forkPtyExecve` not within ±5 of any ref ['hosts/android/src/terminal.rs:2601']
+host-android.md:114 `terminal_privilege` not within ±5 of any ref ['hosts/android/src/terminal.rs:2500']
+host-android.md:114 `call` not within ±5 of any ref ['hosts/android/src/terminal.rs:2500']
+host-android.md:115 `waitpid` not within ±5 of any ref ['hosts/android/src/terminal.rs:2526']
+host-android.md:257 `androidPrivilegedPtyOperation` not within ±5 of any ref ['hosts/android/src/terminal.rs:2584']
+host-android.md:261 `AndroidPtyProcess` not within ±5 of any ref ['hosts/android/src/terminal.rs:2500']
+host-android.md:261 `terminal_privilege` not within ±5 of any ref ['hosts/android/src/terminal.rs:2500']
+host-android.md:261 `call` not within ±5 of any ref ['hosts/android/src/terminal.rs:2500']

@@ -1,11 +1,11 @@
 [
   {
     "fact": "ChatServiceCore 的 `compactChat` 是手动压缩入口，未传 chatId 时取当前聊天",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1631"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1635"
   },
   {
     "fact": "`compactChat` 的文档注明手动压缩无视阈值，把当前聊天压缩成检查点",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1628"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1632"
   },
   {
     "fact": "compactChat 压缩前通过 `beginChatExecution` 取执行租约",
@@ -145,47 +145,47 @@
   },
   {
     "fact": "在已准入回合完成、且回合工作要求回复后摘要（summaryPolicy 为 AfterReply）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`",
-    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1109"
+    "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1175"
   },
   {
     "fact": "执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2512"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2470"
   },
   {
     "fact": "超限后调用 `onTokenLimitExceeded` 回调",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2531"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2489"
   },
   {
     "fact": "handleTokenLimitExceeded 先等 `summaryTaskForChat` 返回的进行中摘要任务完成，再调用 `isCurrentChatTurn` 校验回合归属",
-    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1138"
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1150"
   },
   {
     "fact": "handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要",
-    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1168"
-  },
-  {
-    "fact": "handleTokenLimitExceeded 压缩后调用 `sendMessageInternal` 续跑同一已提交用户回合",
     "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1180"
   },
   {
+    "fact": "handleTokenLimitExceeded 压缩后调用 `sendMessageInternal` 续跑同一已提交用户回合",
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1192"
+  },
+  {
     "fact": "续跑时原执行租约以 `Some(request.executionLease)` 传入",
-    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1197"
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1209"
   },
   {
     "fact": "manuallySummarizeConversationForChat 在 `summaryTaskForChat` 返回进行中任务时直接返回 false",
-    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1075"
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1087"
   },
   {
     "fact": "manuallySummarizeConversationForChat 以 `autoContinue` 为假、`requireCurrentChat` 为假启动摘要",
-    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1106"
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1118"
   },
   {
     "fact": "manuallySummarizeConversationForChat 摘要失败时改由 `reportSummaryFailure` 上报：记日志并向 UI 弹 toast 提示上下文压缩失败，不再写入非致命错误事件流",
-    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1089"
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1101"
   },
   {
     "fact": "MessageCoordinationDelegate 的 `manuallySummarizeConversation` 对当前聊天调用 `manuallySummarizeConversationForChat`",
-    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1123"
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1135"
   },
   {
     "fact": "launchSummary 把摘要排成名为 `chat-summary` 的可取消 host 任务",
@@ -197,11 +197,11 @@
   },
   {
     "fact": "摘要插入位置取最新 AI 消息之后，由 `findProperSummaryPosition` 计算",
-    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1027"
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1039"
   },
   {
     "fact": "generateAndStoreSummary 生成摘要后调用 `addSummaryMessage` 持久化，再调用 `refreshStableContextWindow` 重算窗口",
-    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1050"
+    "ref": "core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1062"
   },
   {
     "fact": "ChatHistoryDelegate 的 `addSummaryMessage` 把摘要消息持久化到相邻消息时间戳之间",
@@ -293,31 +293,31 @@
   },
   {
     "fact": "ConversationService 在 `before_prepare_summary_prompt` 阶段分发摘要 hook 之前先以 `buildSummaryPreparedHistory` 生成 `prepared_history`，此时 `summary_result` 为空",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:504"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:511"
   },
   {
     "fact": "分发后以 `reconcileSummaryPreparedHistory` 调和 hook 改动：hook 显式改了 `prepared_history` 就保留，否则只在源组件变化时以 `buildSummaryPreparedHistory` 重建",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:889"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:899"
   },
   {
     "fact": "before_prepare_summary_prompt 的元数据含 `providerModel` 与 `sourceMessageCount`",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:481"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:488"
   },
   {
     "fact": "ConversationService 在 `before_send_to_model` 阶段分发摘要 hook，此时 `prepared_history` 已生成",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:530"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:537"
   },
   {
     "fact": "before_send_to_model 的元数据追加 `preparedMessageCount`",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:541"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:548"
   },
   {
     "fact": "ConversationService 在 `after_generate_summary` 阶段分发摘要 hook，此时 `summary_result` 为已生成内容",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:596"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:603"
   },
   {
     "fact": "after_generate_summary 的元数据追加 `preparedMessageCount`、`inputTokens`、`cachedInputTokens` 与 `outputTokens`",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:608"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:615"
   },
   {
     "fact": "ToolPkgSummaryHookBridge 的 hook id 为 `builtin.toolpkg.summary-generate-bridge`",

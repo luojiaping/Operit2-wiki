@@ -1,0 +1,3 @@
+page: plugin-mcp  batch: batch-06  facts: 165  bad: 2
+plugin-mcp.md:72 `CONNECT_TIMEOUT_SECONDS` not within ±5 of any ref ['core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:21']
+plugin-mcp.md:72 `READ_TIMEOUT_SECONDS` not within ±5 of any ref ['core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:21']

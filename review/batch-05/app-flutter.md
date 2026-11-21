@@ -30,7 +30,7 @@ README 要求执行 fvm flutter precache --web --ohos（`apps/flutter/app/README
 - `OperitApp` — 主窗口根组件（`apps/flutter/app/lib/ui/main/OperitApp.dart:19`）
 - `RuntimeBootstrapManager` — 启动时初始化 runtime 引导状态（`apps/flutter/app/lib/main.dart:105`）
 - `CoreApplicationService` — 主窗口启动 Core 应用服务（`apps/flutter/app/lib/main.dart:161`）
-- `operit_flutter_bridge_create` — 在非 Android、非 OpenHarmony 平台上创建 runtime 的 C 导出（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:26`）
+- `operit_flutter_bridge_create` — 在非 Android、非 OpenHarmony 平台上创建 runtime 的 C 导出（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:46`）
 - `operit_flutter_bridge_ffi_connect` — FFI 连接入口（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:306`）
 - `prepareLiquidGlass` — 预载液态玻璃光学着色器（`apps/flutter/packages/operit_ui/README.md:21`）
 - 主入口函数是 `main`（`apps/flutter/app/lib/main.dart:32`）。
@@ -54,7 +54,7 @@ pubspec 声明 path_provider_ohos，来自 openharmony-sig/flutter_packages 的 
 pubspec 声明 url_launcher_ohos，来自 openharmony-sig/flutter_packages 的 git 仓库（`apps/flutter/app/pubspec.yaml:78`）。
 pubspec 声明 record_ohos，来自本地 thirdparty 路径（`apps/flutter/app/pubspec.yaml:69`）。
 pubspec 声明 image_picker_ohos，来自本地 thirdparty 路径（`apps/flutter/app/pubspec.yaml:93`）。
-pubspec 在 dependency_overrides 中把 webview_all_ohos 指向本地 thirdparty 路径（`apps/flutter/app/pubspec.yaml:159`）。
+pubspec 在 dependency_overrides 中把 webview_all_ohos 指向本地 thirdparty 路径（`apps/flutter/app/pubspec.yaml:161`）。
 ffi ^2.2.0 声明在 pubspec 的 dev_dependencies 段（`apps/flutter/app/pubspec.yaml:132`）。
 
 ### Dart 侧与 Rust Core 的桥接
@@ -73,8 +73,8 @@ platform_runtime 用 cfg 门控为 ohos、web、windows 各设一个模块（`ap
 桥接在 iOS 上依赖 operit-host-ios-native，路径指向 hosts/ios（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:65`）。
 桥接在 macOS 上依赖 operit-host-macos-native，带 arm64-runtime 特性（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:68`）。
 桥接在 wasm32 上依赖 operit-host-web，路径指向 hosts/web（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:73`）。
-在非 Android、非 OpenHarmony 平台上，BridgeExports 导出 operit_flutter_bridge_create 创建引用计数的 runtime（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:26`）。
-OpenHarmony 用独立的 operit_flutter_bridge_create_ohos 入口，参数含 runtime_root、workspace_root、system_language_code、device_model（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:95`）。
+在非 Android、非 OpenHarmony 平台上，BridgeExports 导出 operit_flutter_bridge_create 创建引用计数的 runtime（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:46`）。
+OpenHarmony 用独立的 operit_flutter_bridge_create_ohos 入口，参数含 runtime_root、workspace_root、system_language_code、device_model（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:115`）。
 operit_flutter_bridge_ffi_connect 是 FFI 连接入口，位于 FfiTransport.rs（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:306`）。
 Flutter Core 调用与流只用 ABI 版本 4，ABI v1 与 v2 已移除（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:107`）。
 Dart 拒绝 version 不是 4 的描述符（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:107`）。
@@ -100,7 +100,7 @@ README 要求执行 fvm flutter precache --web --ohos（`apps/flutter/app/README
 pubspec 声明 path_provider_ohos，来自 openharmony-sig/flutter_packages 的 git 仓库（`apps/flutter/app/pubspec.yaml:61`）。
 pubspec 声明 url_launcher_ohos，来自 openharmony-sig/flutter_packages 的 git 仓库（`apps/flutter/app/pubspec.yaml:78`）。
 桥接在 OpenHarmony 上依赖 operit-host-ohos-native，路径指向 hosts/ohos（`apps/flutter/native/operit-flutter-bridge/Cargo.toml:62`）。
-OpenHarmony 用独立的 operit_flutter_bridge_create_ohos 入口，参数含 runtime_root、workspace_root、system_language_code、device_model（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:95`）。
+OpenHarmony 用独立的 operit_flutter_bridge_create_ohos 入口，参数含 runtime_root、workspace_root、system_language_code、device_model（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:115`）。
 
 ### lib/core 与 lib/ui 的分工
 
@@ -131,8 +131,8 @@ operit_ui 要求在应用或预览启动时调用 prepareLiquidGlass 预载光�
 - `OperitApp` — 主窗口根组件（`apps/flutter/app/lib/ui/main/OperitApp.dart:19`）
 - `DataRescueApp` — 数据救援应用（`apps/flutter/app/lib/main.dart:15`）
 - `prepareLiquidGlass` — 预载液态玻璃光学着色器（`apps/flutter/app/lib/main.dart:113`）
-- `operit_flutter_bridge_create` — 在非 Android、非 OpenHarmony 平台上创建引用计数的 runtime（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:26`）
-- `operit_flutter_bridge_create_ohos` — OpenHarmony 的 bridge 创建入口（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:95`）
+- `operit_flutter_bridge_create` — 在非 Android、非 OpenHarmony 平台上创建引用计数的 runtime（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:46`）
+- `operit_flutter_bridge_create_ohos` — OpenHarmony 的 bridge 创建入口（`apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:115`）
 - `operit_flutter_bridge_ffi_connect` — FFI 连接入口（`apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:306`）
 - `connectCoreFfi` — 平台通道上的 FFI 连接方法（`apps/flutter/app/lib/core/bridge/FfiCoreTransport.dart:71`）
 - `ThemePreferenceSnapshot` — operit_ui 的外观快照模型，有 104 个字段（`apps/flutter/packages/operit_ui/lib/src/model/theme_preference_snapshot.dart:3`）

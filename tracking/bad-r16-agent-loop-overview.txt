@@ -1,0 +1,43 @@
+page: agent-loop-overview  batch: batch-04  facts: 135  bad: 42
+agent-loop-overview.facts.json#38 `beginChatExecution` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1636
+agent-loop-overview.facts.json#96 `USER.md:` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:1036
+agent-loop-overview.facts.json#97 `{{aiName}}` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:1044
+agent-loop-overview.facts.json#97 `{aiName}` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:1044
+agent-loop-overview.facts.json#104 `APPLY_FILE_TOOL_NAME` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:762
+agent-loop-overview.facts.json#105 `apply_file` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:788
+agent-loop-overview.facts.json#105 `extract_apply_file_request_content` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:788
+agent-loop-overview.facts.json#106 `SUMMARY` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:469
+agent-loop-overview.facts.json#106 `getModelParametersForFunction` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:469
+agent-loop-overview.facts.json#106 `getServiceForFunction` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:469
+agent-loop-overview.facts.json#106 `FunctionType::SUMMARY` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:469
+agent-loop-overview.facts.json#107 `before_prepare_summary_prompt` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:499
+agent-loop-overview.facts.json#108 `before_send_to_model` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:528
+agent-loop-overview.facts.json#109 `after_generate_summary` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:592
+agent-loop-overview.facts.json#110 `available_tools` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:569
+agent-loop-overview.facts.json#111 `ensure_response_completed` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:579
+agent-loop-overview.facts.json#112 `validateSummaryContent` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:916
+agent-loop-overview.facts.json#113 `updateTokensForProviderModel` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:626
+agent-loop-overview.facts.json#114 `SUMMARY_GENERATION` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:637
+agent-loop-overview.facts.json#114 `UsageRequestSource::SUMMARY_GENERATION` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:637
+agent-loop-overview.facts.json#115 `PromptTurnKind::SYSTEM` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:909
+agent-loop-overview.facts.json#116 `generateConversationTitle` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:649
+agent-loop-overview.facts.json#117 `sanitizeConversationTitle` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:988
+agent-loop-overview.facts.json#125 `CoreNodeReferenceMatch::Ambiguous` not within ±5 of core/crates/tool/services/src/tools/ToolRegistration.rs:1612
+agent-loop-overview.md:63 `USER.md:` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:1036']
+agent-loop-overview.md:64 `{{aiName}}` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:1044']
+agent-loop-overview.md:64 `{aiName}` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:1044']
+agent-loop-overview.md:129 `SUMMARY` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:469']
+agent-loop-overview.md:129 `getModelParametersForFunction` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:469']
+agent-loop-overview.md:129 `getServiceForFunction` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:469']
+agent-loop-overview.md:129 `FunctionType::SUMMARY` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:469']
+agent-loop-overview.md:130 `before_prepare_summary_prompt` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:499']
+agent-loop-overview.md:131 `before_send_to_model` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:528']
+agent-loop-overview.md:132 `after_generate_summary` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:592']
+agent-loop-overview.md:133 `available_tools` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:569']
+agent-loop-overview.md:134 `ensure_response_completed` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:579']
+agent-loop-overview.md:135 `validateSummaryContent` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:916']
+agent-loop-overview.md:136 `updateTokensForProviderModel` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:626']
+agent-loop-overview.md:137 `SUMMARY_GENERATION` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:637']
+agent-loop-overview.md:137 `UsageRequestSource::SUMMARY_GENERATION` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:637']
+agent-loop-overview.md:138 `PromptTurnKind::SYSTEM` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:909']
+agent-loop-overview.md:143 `beginChatExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1636']

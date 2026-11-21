@@ -1,0 +1,4 @@
+page: intro-preview  batch: batch-01  facts: 46  bad: 3
+intro-preview.md:26 `operit2 cli update check` not within ±5 of any ref ['apps/cli/src/cli/mod.rs:1995']
+intro-preview.md:27 `CARGO_PKG_VERSION` not within ±5 of any ref ['apps/cli/src/cli/mod.rs:538']
+intro-preview.md:29 `current_version` not within ±5 of any ref ['apps/cli/src/cli/mod.rs:566']

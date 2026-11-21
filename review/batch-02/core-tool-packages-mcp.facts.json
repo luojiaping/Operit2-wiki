@@ -245,7 +245,7 @@
   },
   {
     "fact": "MCP 工具名须为 server_name:tool_name，少于两段报错。",
-    "ref": "core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:339"
+    "ref": "core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:342"
   },
   {
     "fact": "实际工具名取冒号后全部段落拼接。",
@@ -489,7 +489,7 @@
   },
   {
     "fact": "依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 main。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2099"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2111"
   },
   {
     "fact": "`package_name` 参数指定要激活的包。",

@@ -35,7 +35,7 @@ Operit2 的一句话定位是 *An Agent core that connects your device space*（
 - MCP — 外部模型上下文协议服务器接入点（README.md:62）
 - Web Access — 浏览器访问已运行 CoreNode 的入口（README.md:72）
 
-主入口：`operit2`（无参数默认进入 TUI，README.md:175），命令参数以 `operit2 --help` 的实际输出为准（README.md:53）。
+主入口：`operit2`（无参数默认进入 TUI，README.md:178），命令参数以 `operit2 --help` 的实际输出为准（README.md:53）。
 
 数据流向一句话：用户在发起设备开始任务 → 工具结果持久化后同步记录到达目标节点 → 目标节点继续执行 → 进展经异步同步回到其他设备（README.md:22）。
 
@@ -184,7 +184,7 @@ Rust Core、平台 Host、节点连接、持久化同步和插件运行时已经
 - `MCP` — 外部模型上下文协议服务器接入点（README.md:62）
 - `Web Access` — 浏览器访问已运行 CoreNode 的入口（README.md:72）
 - `ReadOnly` / `WorkspaceWrite` / `Full` — 用户为 AI 选择的三档能力模式（README.md:119）
-- `operit2` — Rust CLI/TUI 可执行文件，无参数默认进入 TUI（README.md:170）
+- `operit2` — Rust CLI/TUI 可执行文件，无参数默认进入 TUI（README.md:173）
 
 ## 调用链
 
@@ -210,7 +210,7 @@ Rust Core、平台 Host、节点连接、持久化同步和插件运行时已经
 3. 浏览器打开 `http://127.0.0.1:4835`（apps/flutter/app/web/README.md:30）
 4. Flutter 原生读取 `web_dev_config.yaml`，不需要单独的 Node 代理进程（apps/flutter/app/web/README.md:18）
 5. 开发服务器地址由 web_dev_config.yaml 配置为 127.0.0.1:4835（apps/flutter/app/web_dev_config.yaml:4）
-6. README.md:202 的双终端加 Node 代理流程引用的 `tools/dev_web_access_proxy.mjs` 在基线中不存在，照做会失败（README.md:202）
+6. README.md:205 的双终端加 Node 代理流程引用的 `tools/dev_web_access_proxy.mjs` 在基线中不存在，照做会失败（README.md:205）
 
 ## 来源
 
@@ -225,4 +225,4 @@ Rust Core、平台 Host、节点连接、持久化同步和插件运行时已经
 
 两份白皮书 PDF（docs/Operit2-Technical-Whitepaper.pdf、docs/Operit2技术白皮书.pdf）只核存在，未读正文，本页不引用白皮书内容。
 
-架构文档中标注为“目标”“计划”或“演进方向”的内容，不代表所有平台已经实现；判断当前实际行为时，以源码、命令帮助输出、构建结果和目标平台运行结果为准（README.md:246）。
+架构文档中标注为“目标”“计划”或“演进方向”的内容，不代表所有平台已经实现；判断当前实际行为时，以源码、命令帮助输出、构建结果和目标平台运行结果为准（README.md:249）。

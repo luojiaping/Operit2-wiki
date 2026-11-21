@@ -1,0 +1,15 @@
+page: core-plugin-codegen  batch: batch-03  facts: 258  bad: 14
+core-plugin-codegen.facts.json#64 `UINode` not within ±5 of core/crates/plugin/codegen/src/declarations.rs:1743
+core-plugin-codegen.md:65 `group_methods` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:740']
+core-plugin-codegen.md:72 `| null` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:963']
+core-plugin-codegen.md:72 `| null` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:963']
+core-plugin-codegen.md:73 `emit_parameter_type` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:977']
+core-plugin-codegen.md:76 `| undefined` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:1145']
+core-plugin-codegen.md:76 `| null | undefined` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:1145']
+core-plugin-codegen.md:84 `public_item_ref` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:1613']
+core-plugin-codegen.md:85 `default_item_kind` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:1641']
+core-plugin-codegen.md:92 `UINode` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:1743']
+core-plugin-codegen.md:100 `emit_jsdoc` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:2043']
+core-plugin-codegen.md:101 `method_name` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:2070']
+core-plugin-codegen.md:102 `pattern_name` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:2081']
+core-plugin-codegen.md:103 `typescript_module_path` not within ±5 of any ref ['core/crates/plugin/codegen/src/declarations.rs:2261']

@@ -193,7 +193,7 @@ cancelAllOperations 把各聊天的取消错误用分号连接后返回（`core/
 syncClock 返回 protocolVersion 1、consistencyVersion 9 与 stateSummary 摘要（`core/crates/runtime/application/src/core/application/OperitApplication.rs:948`）。
 syncClock 还返回待处理操作数与 id、待传 blob 与错误列表（`core/crates/runtime/application/src/core/application/OperitApplication.rs:951`）。
 syncClockDigest 返回 protocolVersion 1 与同步摘要（`core/crates/runtime/application/src/core/application/OperitApplication.rs:994`）。
-syncOperationsSince 从 clock JSON 读取 includeProgress 标志并校验 receipt（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1001`）。
+syncOperationsSince 从 clock JSON 读取 includeProgress 标志并校验 receipt（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1016`）。
 syncApplyOperations 先经 RuntimeFileSyncStore 把文件类操作水合为原始操作，失败的记入 errors 并列入 deferred（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1039`）。
 syncApplyOperations 把操作接收进 journal 后应用待处理操作（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1047`）。
 syncApplyOperations 最后发布已应用变更（`core/crates/runtime/application/src/core/application/OperitApplication.rs:1068`）。
@@ -239,7 +239,7 @@ installMarketArtifact 下载产物文件后以归一化 SHA-256 登记产物文�
 checkApplicationUpdate 使用 ApplicationUpdateManager 与 systemOperationHost 检查应用更新（`core/crates/runtime/application/src/core/application/OperitApplication.rs:849`）。
 applicationUpdateProgressFlow 观测 Host 下载进度而不暴露 URL 或原生文件路径（`core/crates/runtime/application/src/core/application/OperitApplication.rs:854`）。
 downloadApplicationUpdate 下载选定版本并返回不透明原生回执（`core/crates/runtime/application/src/core/application/OperitApplication.rs:860`）。
-installApplicationUpdate 在 Core 内解析回执并经本地 Host 准备安装（`core/crates/runtime/application/src/core/application/OperitApplication.rs:872`）。
+installApplicationUpdate 在 Core 内解析回执并经本地 Host 准备安装（`core/crates/runtime/application/src/core/application/OperitApplication.rs:827`）。
 ThemePreviewAsset 是只交给预览界面的内存资产，不是库记录，预览 API 从不写入它（`core/crates/runtime/application/src/core/application/OperitApplication.rs:76`）。
 ThemePreviewAsset 的 bytes 经 serde_bytes 以 MessagePack 二进制穿越 CoreLink 边界（`core/crates/runtime/application/src/core/application/OperitApplication.rs:85`）。
 ThemePreviewReceipt 携带校验回执、theme_id、version、theme_json 与 assets，不带选择或持久化结果（`core/crates/runtime/application/src/core/application/OperitApplication.rs:93`）。

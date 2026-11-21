@@ -1,0 +1,13 @@
+page: agent-hooks  batch: batch-04  facts: 95  bad: 12
+agent-hooks.facts.json#52 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1139
+agent-hooks.facts.json#53 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1170
+agent-hooks.facts.json#91 `buildSummaryPreparedHistory` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:503
+agent-hooks.facts.json#91 `prepared_history` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:503
+agent-hooks.facts.json#92 `reconcileSummaryPreparedHistory` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:517
+agent-hooks.md:75 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1170']
+agent-hooks.md:76 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1139']
+agent-hooks.md:133 `buildSummaryPreparedHistory` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:503']
+agent-hooks.md:133 `prepared_history` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:503']
+agent-hooks.md:134 `reconcileSummaryPreparedHistory` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:517']
+agent-hooks.md:161 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1170']
+agent-hooks.md:162 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1139']

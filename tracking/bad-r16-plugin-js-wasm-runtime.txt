@@ -1,0 +1,22 @@
+page: plugin-js-wasm-runtime  batch: batch-06  facts: 104  bad: 21
+plugin-js-wasm-runtime.facts.json#103 `registerMessageTransformHook` not within ±5 of core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:580
+plugin-js-wasm-runtime.facts.json#104 `registerMessageStreamTransform` not within ±5 of core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:581
+plugin-js-wasm-runtime.md:7 `installGlobal` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:637']
+plugin-js-wasm-runtime.md:7 `ToolPkg` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:637']
+plugin-js-wasm-runtime.md:22 `registerMessageTransformHook` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:580']
+plugin-js-wasm-runtime.md:23 `registerMessageStreamTransform` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:581']
+plugin-js-wasm-runtime.md:113 `registrationOnly` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:642']
+plugin-js-wasm-runtime.md:117 `registerMessageTransformHook` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:580']
+plugin-js-wasm-runtime.md:117 `registerMessageStreamTransform` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:580']
+plugin-js-wasm-runtime.md:118 `__operitCreateToolPkgWasmApi` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:630']
+plugin-js-wasm-runtime.md:119 `registerApi` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:511']
+plugin-js-wasm-runtime.md:119 `definition` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:511']
+plugin-js-wasm-runtime.md:120 `registerApi` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:513']
+plugin-js-wasm-runtime.md:120 `normalizeFunctionField` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:513']
+plugin-js-wasm-runtime.md:120 `definition` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:513']
+plugin-js-wasm-runtime.md:121 `capture.publicApis` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:516']
+plugin-js-wasm-runtime.md:129 `surface` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:87']
+plugin-js-wasm-runtime.md:130 `registerChatLifecycleHook` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:587']
+plugin-js-wasm-runtime.md:131 `Duplicate chat lifecycle hook owner` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:590']
+plugin-js-wasm-runtime.md:167 `registerApi` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:511']
+plugin-js-wasm-runtime.md:187 `capture.publicApis` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:516']

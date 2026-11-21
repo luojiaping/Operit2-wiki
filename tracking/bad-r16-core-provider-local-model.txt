@@ -1,0 +1,9 @@
+page: core-provider-local-model  batch: batch-02  facts: 112  bad: 8
+core-provider-local-model.md:109 `appendSherpaTtsDriverArguments` not within ±5 of any ref ['hosts/common/operit-host-local-inference/src/speech.rs:299']
+core-provider-local-model.md:119 `runEngineCommand` not within ±5 of any ref ['hosts/common/operit-host-local-inference/src/speech.rs:188', 'hosts/common/operit-host-local-inference/src/speech.rs:201']
+core-provider-local-model.md:126 `declaredModelFile` not within ±5 of any ref ['hosts/common/operit-host-local-inference/src/speech.rs:133', 'hosts/common/operit-host-local-inference/src/speech.rs:138']
+core-provider-local-model.md:127 `declaredModelDirectory` not within ±5 of any ref ['hosts/common/operit-host-local-inference/src/speech.rs:148', 'hosts/common/operit-host-local-inference/src/speech.rs:152']
+core-provider-local-model.md:128 `declaredModelDirectory` not within ±5 of any ref ['hosts/common/operit-host-local-inference/src/speech.rs:148', 'hosts/common/operit-host-local-inference/src/speech.rs:159']
+core-provider-local-model.md:171 `runEngineCommand` not within ±5 of any ref ['hosts/common/operit-host-local-inference/src/speech.rs:188', 'hosts/common/operit-host-local-inference/src/speech.rs:201']
+core-provider-local-model.md:172 `parseSherpaSttOutput` not within ±5 of any ref ['hosts/common/operit-host-local-inference/src/speech.rs:249', 'hosts/common/operit-host-local-inference/src/speech.rs:257']
+core-provider-local-model.md:181 `runEngineCommand` not within ±5 of any ref ['hosts/common/operit-host-local-inference/src/speech.rs:188']

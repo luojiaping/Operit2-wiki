@@ -131,8 +131,8 @@ NativePtyTerminalHost 的 `withControllingTty` 选择 PTY 是否成为子进程�
 NativePtyTerminalHost 的 `probe` 以 1 行 1 列启动并关闭会话验证能力（`hosts/common/operit-host-native-terminal/src/lib.rs:323`）。
 NativePtyTerminalHost 的 `executeHiddenCommand` 按执行器键复用隐藏会话（`hosts/common/operit-host-native-terminal/src/lib.rs:641`）。
 NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数（`hosts/common/operit-host-native-terminal/src/lib.rs:733`）。
-`requireNativeTerminal` 只接受 `TERMINAL` 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:1743`）。
-`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:987`）。
+`requireNativeTerminal` 只接受 `TERMINAL` 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:1748`）。
+`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:992`）。
 超时取消的安顿等待为 3000 毫秒（`hosts/common/operit-host-native-terminal/src/lib.rs:25`）。
 `TerminalManagedRuntimeLaunch` 描述经指定终端启动的托管运行时程序（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:17`）。
 `TerminalManagedRuntimeProcess` 把终端 PTY 会话适配为 `ManagedRuntimeProcess`（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:29`）。
@@ -206,16 +206,16 @@ Android 上 `registerAndroidClient` 注册 SDK 提供的激活客户端（`hosts
 ### 顶层源文件：为什么不是 crate
 
 `chromium_browser.rs` 是 hosts/common 下的顶层源文件，各平台 Host 以 #[path] 直接包含编译（`hosts/apple/src/lib.rs:4`）。
-`terminal_command.rs` 是 hosts/common 下的顶层源文件，各平台 Host 与 terminal crate 以 #[path] 直接包含编译（`hosts/android/src/lib.rs:32`）。
+`terminal_command.rs` 是 hosts/common 下的顶层源文件，各平台 Host 与 terminal crate 以 #[path] 直接包含编译（`hosts/android/src/lib.rs:33`）。
 Apple 的 macOS 目标以 #[path] 把 `../../common/chromium_browser.rs` 编为 `chromium_browser` 模块（`hosts/apple/src/lib.rs:4`）。
 Linux 以 #[path] 把 `../../common/chromium_browser.rs` 编为 `chromium_browser` 模块（`hosts/linux/src/lib.rs:18`）。
 Windows 以 #[path] 把 `../../common/chromium_browser.rs` 编为 `chromium_browser` 模块（`hosts/windows/src/lib.rs:7`）。
-Android 以 #[path] 把 `../../common/terminal_command.rs` 编为 `terminal_command` 模块（`hosts/android/src/lib.rs:32`）。
-Windows 终端工具以 #[path] 把 `../../../../common/terminal_command.rs` 编为 `terminal_command` 模块（`hosts/windows/src/tools/terminal/mod.rs:3`）。
+Android 以 #[path] 把 `../../common/terminal_command.rs` 编为 `terminal_command` 模块（`hosts/android/src/lib.rs:33`）。
+Windows 终端工具以 #[path] 把 `../../../../common/terminal_command.rs` 编为 `terminal_command` 模块（`hosts/windows/src/tools/terminal/mod.rs:1`）。
 terminal crate 以 #[path] 把 `../../terminal_command.rs` 编为 `terminal_command` 模块（`hosts/common/operit-host-native-terminal/src/lib.rs:1`）。
 `posixCommandLine` 只在命令含控制字符或 `!` 时才编码（`hosts/common/terminal_command.rs:7`）。
 编码后的命令以 `eval` 加 `printf '%b'` 的形式提交（`hosts/common/terminal_command.rs:29`）。
-`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:987`）。
+`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:992`）。
 
 ### Chromium 浏览器自动化
 

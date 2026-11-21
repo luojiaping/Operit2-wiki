@@ -1,0 +1,4 @@
+page: app-flutter  batch: batch-05  facts: 77  bad: 3
+app-flutter.md:27 `operit_flutter_bridge_create` not within ±5 of any ref ['apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:26']
+app-flutter.md:128 `operit_flutter_bridge_create` not within ±5 of any ref ['apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:26']
+app-flutter.md:129 `operit_flutter_bridge_create_ohos` not within ±5 of any ref ['apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:95']

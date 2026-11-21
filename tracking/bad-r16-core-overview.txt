@@ -1,0 +1,7 @@
+page: core-overview  batch: batch-02  facts: 102  bad: 6
+core-overview.md:106 `RuntimeToolSupport` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:159', 'core/crates/runtime/application/Cargo.toml:2']
+core-overview.md:106 `ToolRuntimeSupport` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:159', 'core/crates/runtime/application/Cargo.toml:2']
+core-overview.md:116 `JsExecutionEngine` not within ±5 of any ref ['core/crates/plugin/sdk/src/javascript.rs:666', 'core/crates/plugin/sdk/src/javascript.rs:666']
+core-overview.md:180 `JsExecutionEngine` not within ±5 of any ref ['core/crates/plugin/sdk/src/javascript.rs:666']
+core-overview.md:187 `RuntimeToolSupport` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:159', 'core/crates/runtime/application/Cargo.toml:2']
+core-overview.md:187 `ToolRuntimeSupport` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:159', 'core/crates/runtime/application/Cargo.toml:2']

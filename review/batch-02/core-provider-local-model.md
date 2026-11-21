@@ -96,9 +96,9 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 - `transcribe` 把清单声明的 encoder 与 decoder 文件解析为 --encoder 与 --decoder 参数（hosts/common/operit-host-local-inference/src/speech.rs:18）（hosts/common/operit-host-local-inference/src/speech.rs:54）。
 - `transcribe` 把清单声明的 joiner 与 tokens 文件解析为 --joiner 与 --tokens 参数，并传入 --model-type（hosts/common/operit-host-local-inference/src/speech.rs:18）（hosts/common/operit-host-local-inference/src/speech.rs:64）。
 - `transcribe` 固定用 CPU 推理、2 线程与 greedy_search 解码（hosts/common/operit-host-local-inference/src/speech.rs:18）（hosts/common/operit-host-local-inference/src/speech.rs:70）。
-- `transcribe` 解析引擎 stderr 最后一行 JSON 记录的 text 字段作为识别结果（hosts/common/operit-host-local-inference/src/speech.rs:18）（hosts/common/operit-host-local-inference/src/speech.rs:257）。
-- `transcribe` 的识别结果 segments 固定为空向量（hosts/common/operit-host-local-inference/src/speech.rs:18）（hosts/common/operit-host-local-inference/src/speech.rs:276）。
-- `transcribe` 识别结果为空文本时记一条 LocalSTT 警告日志（hosts/common/operit-host-local-inference/src/speech.rs:18）（hosts/common/operit-host-local-inference/src/speech.rs:265）。
+- `transcribe` 解析引擎 stderr 最后一行 JSON 记录的 text 字段作为识别结果（hosts/common/operit-host-local-inference/src/speech.rs:18）（hosts/common/operit-host-local-inference/src/speech.rs:281）。
+- `transcribe` 的识别结果 segments 固定为空向量（hosts/common/operit-host-local-inference/src/speech.rs:18）（hosts/common/operit-host-local-inference/src/speech.rs:300）。
+- `transcribe` 识别结果为空文本时记一条 LocalSTT 警告日志（hosts/common/operit-host-local-inference/src/speech.rs:18）（hosts/common/operit-host-local-inference/src/speech.rs:289）。
 - `LocalSttSegment` 记录 text、startMs 与 endMs（core/crates/provider/local-model/src/LocalInference.rs:31）。
 - `LocalSttResponse` 由 text 与 segments 组成（core/crates/provider/local-model/src/LocalInference.rs:39）。
 - `LocalSpeechToTextSession` 定义 transcribe 与 release（core/crates/provider/local-model/src/LocalInference.rs:81）。
@@ -112,9 +112,9 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 - `synthesize` 用引擎声明的 ttsExecutable 作为可执行文件（hosts/common/operit-host-local-inference/src/speech.rs:81）（hosts/common/operit-host-local-inference/src/speech.rs:94）。
 - `synthesize` 从请求携带的 `speed` 字段取语速（hosts/common/operit-host-local-inference/src/speech.rs:81）（hosts/common/operit-host-local-inference/src/speech.rs:101）。
 - `synthesize` 向引擎传入 --sid、--speed、--provider=cpu、--num-threads=2 与 --output-filename 参数（hosts/common/operit-host-local-inference/src/speech.rs:81）（hosts/common/operit-host-local-inference/src/speech.rs:105）。
-- `appendSherpaTtsDriverArguments` 按 driver 的具体类型分分支追加 Sherpa TTS 参数（hosts/common/operit-host-local-inference/src/speech.rs:299）。
-- 三种 TTS 驱动之外的 driver 返回 UnsupportedDriver（hosts/common/operit-host-local-inference/src/speech.rs:410）。
-- `validateSpeakerId` 要求 speakerId 在 [0, speakerCount) 范围内，越界返回 InvalidRequest（hosts/common/operit-host-local-inference/src/speech.rs:418）。
+- `appendSherpaTtsDriverArguments` 按 driver 的具体类型分分支追加 Sherpa TTS 参数（hosts/common/operit-host-local-inference/src/speech.rs:323）。
+- 三种 TTS 驱动之外的 driver 返回 UnsupportedDriver（hosts/common/operit-host-local-inference/src/speech.rs:434）。
+- `validateSpeakerId` 要求 speakerId 在 [0, speakerCount) 范围内，越界返回 InvalidRequest（hosts/common/operit-host-local-inference/src/speech.rs:442）。
 - TTS 临时输出路径由 LocalProviderService 生成，形如 /operitapp/data/temp/clean_on_exit/local-tts-{uuid}.wav（core/crates/runtime/application/src/services/LocalProviderService.rs:134）。
 - 合成后经 `filesystem` 读回 WAV 字节并删除临时文件，宿主返回的 outputFormat 固定为 wav（core/crates/runtime/application/src/services/LocalProviderService.rs:157）（hosts/common/operit-host-local-inference/src/speech.rs:115）。
 - `LocalTtsResponse` 的 audioBytes 是字节数组，outputFormat 记录输出格式（core/crates/provider/local-model/src/LocalInference.rs:57）。
@@ -122,16 +122,16 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 
 ### 引擎子进程与文件校验
 
-- `runEngineCommand` 以 engineRuntimeDirectory 为工作目录启动引擎进程（hosts/common/operit-host-local-inference/src/speech.rs:188）（hosts/common/operit-host-local-inference/src/speech.rs:201）。
-- `runEngineCommand` 进程非零退出时返回 Process 错误，附 status、stdout 与 stderr（hosts/common/operit-host-local-inference/src/speech.rs:188）（hosts/common/operit-host-local-inference/src/speech.rs:205）。
-- `configureEngineLibraryPath` 在 Windows 上把引擎 bin 与 lib 目录前置到 PATH（hosts/common/operit-host-local-inference/src/speech.rs:217）（hosts/common/operit-host-local-inference/src/speech.rs:225）。
-- `configureEngineLibraryPath` 在 Linux 上设 LD_LIBRARY_PATH 为引擎 lib 目录（hosts/common/operit-host-local-inference/src/speech.rs:217）（hosts/common/operit-host-local-inference/src/speech.rs:233）。
-- `configureEngineLibraryPath` 在 macOS 上设 DYLD_LIBRARY_PATH 为引擎 lib 目录（hosts/common/operit-host-local-inference/src/speech.rs:217）（hosts/common/operit-host-local-inference/src/speech.rs:236）。
-- `configureEngineLibraryPath` 在 Android、Ohos、Ios、Web 平台返回 UnsupportedDriver，注明平台引擎由宿主驱动（hosts/common/operit-host-local-inference/src/speech.rs:217）（hosts/common/operit-host-local-inference/src/speech.rs:239）。
+- `runEngineCommand` 以 engineRuntimeDirectory 为工作目录启动引擎进程（hosts/common/operit-host-local-inference/src/speech.rs:209）（hosts/common/operit-host-local-inference/src/speech.rs:222）。
+- `runEngineCommand` 进程非零退出时返回 Process 错误，附 status、stdout 与 stderr（hosts/common/operit-host-local-inference/src/speech.rs:209）（hosts/common/operit-host-local-inference/src/speech.rs:229）。
+- `configureEngineLibraryPath` 在 Windows 上把引擎 bin 与 lib 目录前置到 PATH（hosts/common/operit-host-local-inference/src/speech.rs:241）（hosts/common/operit-host-local-inference/src/speech.rs:249）。
+- `configureEngineLibraryPath` 在 Linux 上设 LD_LIBRARY_PATH 为引擎 lib 目录（hosts/common/operit-host-local-inference/src/speech.rs:241）（hosts/common/operit-host-local-inference/src/speech.rs:257）。
+- `configureEngineLibraryPath` 在 macOS 上设 DYLD_LIBRARY_PATH 为引擎 lib 目录（hosts/common/operit-host-local-inference/src/speech.rs:241）（hosts/common/operit-host-local-inference/src/speech.rs:260）。
+- `configureEngineLibraryPath` 在 Android、Ohos、Ios、Web 平台返回 UnsupportedDriver，注明平台引擎由宿主驱动（hosts/common/operit-host-local-inference/src/speech.rs:241）（hosts/common/operit-host-local-inference/src/speech.rs:263）。
 - `engineExecutable` 要求引擎声明可执行文件相对路径并校验文件存在，未声明返回 EngineExecutableMissing（hosts/common/operit-host-local-inference/src/speech.rs:122）（hosts/common/operit-host-local-inference/src/speech.rs:126）。
-- `declaredModelFile` 要求被引用的模型文件在清单 files 中声明且磁盘上存在，否则返回 RuntimeFileMissing（hosts/common/operit-host-local-inference/src/speech.rs:133）（hosts/common/operit-host-local-inference/src/speech.rs:138）。
-- `declaredModelDirectory` 要求目录在清单 files 中有声明的子文件（hosts/common/operit-host-local-inference/src/speech.rs:148）（hosts/common/operit-host-local-inference/src/speech.rs:152）。
-- `declaredModelDirectory` 校验目录存在，缺失返回 RuntimeFileMissing（hosts/common/operit-host-local-inference/src/speech.rs:148）（hosts/common/operit-host-local-inference/src/speech.rs:159）。
+- `declaredModelFile` 要求被引用的模型文件在清单 files 中声明且磁盘上存在，否则返回 RuntimeFileMissing（hosts/common/operit-host-local-inference/src/speech.rs:154）（hosts/common/operit-host-local-inference/src/speech.rs:159）。
+- `declaredModelDirectory` 要求目录在清单 files 中有声明的子文件（hosts/common/operit-host-local-inference/src/speech.rs:169）（hosts/common/operit-host-local-inference/src/speech.rs:173）。
+- `declaredModelDirectory` 校验目录存在，缺失返回 RuntimeFileMissing（hosts/common/operit-host-local-inference/src/speech.rs:169）（hosts/common/operit-host-local-inference/src/speech.rs:180）。
 
 ### runtime_support：runtime 向实现方要什么
 
@@ -174,8 +174,8 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 2. LocalProviderService 的 `transcribeAudio` 先调 `resolve` 解析 SpeechToText 模型（core/crates/runtime/application/src/services/LocalProviderService.rs:79）。
 3. 平台分流：绑定了平台语音宿主时转给平台宿主，否则走桌面 Sherpa 转录（hosts/common/operit-host-local-inference/src/lib.rs:82）。
 4. 取 `SherpaOnnxStreamingTransducer` 驱动的五个字段，取引擎声明的 sttExecutable（hosts/common/operit-host-local-inference/src/speech.rs:28）（hosts/common/operit-host-local-inference/src/speech.rs:43）。
-5. `runEngineCommand` 以 engineRuntimeDirectory 为工作目录启动引擎进程（hosts/common/operit-host-local-inference/src/speech.rs:188）（hosts/common/operit-host-local-inference/src/speech.rs:201）。
-6. `parseSherpaSttOutput` 解析引擎 stderr 最后一行 JSON 记录的 text 字段作为识别结果（hosts/common/operit-host-local-inference/src/speech.rs:249）（hosts/common/operit-host-local-inference/src/speech.rs:257）。
+5. `runEngineCommand` 以 engineRuntimeDirectory 为工作目录启动引擎进程（hosts/common/operit-host-local-inference/src/speech.rs:209）（hosts/common/operit-host-local-inference/src/speech.rs:222）。
+6. `parseSherpaSttOutput` 解析引擎 stderr 最后一行 JSON 记录的 text 字段作为识别结果（hosts/common/operit-host-local-inference/src/speech.rs:273）（hosts/common/operit-host-local-inference/src/speech.rs:281）。
 
 ### TTS：synthesize
 
@@ -184,7 +184,7 @@ TTS 推理入口是宿主 crate 的 `synthesizeLocalSpeech`，未绑定平台语
 3. 平台分流：绑定了平台语音宿主时转给平台宿主，否则走桌面 Sherpa 合成（hosts/common/operit-host-local-inference/src/lib.rs:105）。
 4. voice 解析为整数 speakerId（hosts/common/operit-host-local-inference/src/speech.rs:82）。
 5. 生成临时 WAV 路径，取请求携带的 speed，拼装引擎参数（core/crates/runtime/application/src/services/LocalProviderService.rs:134）（hosts/common/operit-host-local-inference/src/speech.rs:101）。
-6. `runEngineCommand` 接收引擎可执行文件与参数并启动进程（hosts/common/operit-host-local-inference/src/speech.rs:188）。
+6. `runEngineCommand` 接收引擎可执行文件与参数并启动进程（hosts/common/operit-host-local-inference/src/speech.rs:209）。
 7. 经 filesystem 读回 WAV 字节并删除临时文件，返回 outputFormat 为 wav 的 `LocalTtsResponse`（core/crates/runtime/application/src/services/LocalProviderService.rs:161）。
 
 ## 来源

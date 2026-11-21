@@ -457,11 +457,11 @@
   },
   {
     "fact": "`requireNativeTerminal` 只接受 `TERMINAL` 终端实现",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1743"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1748"
   },
   {
     "fact": "`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:987"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:992"
   },
   {
     "fact": "超时取消的安顿等待为 3000 毫秒",
@@ -709,11 +709,11 @@
   },
   {
     "fact": "Android 以 #[path] 把 `../../common/terminal_command.rs` 编为 `terminal_command` 模块",
-    "ref": "hosts/android/src/lib.rs:32"
+    "ref": "hosts/android/src/lib.rs:33"
   },
   {
     "fact": "Windows 终端工具以 #[path] 把 `../../../../common/terminal_command.rs` 编为 `terminal_command` 模块",
-    "ref": "hosts/windows/src/tools/terminal/mod.rs:3"
+    "ref": "hosts/windows/src/tools/terminal/mod.rs:1"
   },
   {
     "fact": "terminal crate 以 #[path] 把 `../../terminal_command.rs` 编为 `terminal_command` 模块",
