@@ -38,41 +38,41 @@ macOS 把 AppleFileSystemHost 重导出为 MacosFileSystemHost (hosts/macos/src/
 
 ## AI 速览
 
-- `ArchiveStagingHost` — 归档暂存，8 个方法 (core/crates/foundation/host-contract/src/lib.rs:2182)
-- `AudioPlaybackHost` — 音频播放，9 个方法 (core/crates/foundation/host-contract/src/lib.rs:2828)
-- `BluetoothHost` — 蓝牙设备操作，20 个方法 (core/crates/foundation/host-contract/src/lib.rs:3023)
-- `BrowserAutomationHost` — 浏览器自动化工具调用，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:1119)
-- `BrowserSessionHost` — 交互式浏览器会话，6 个方法 (core/crates/foundation/host-contract/src/lib.rs:1172)
-- `ClipboardHost` — 系统剪贴板写，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:3309)
-- `ComposeDslWebViewHost` — Compose DSL WebView 渲染，3 个方法 (core/crates/foundation/host-contract/src/lib.rs:1350)
-- `DeviceIoHost` — 板级数字 IO，2 个方法 (core/crates/foundation/host-contract/src/lib.rs:3106)
-- `FileSystemHost` — 文件读写、目录、查找与压缩，24 个方法 (core/crates/foundation/host-contract/src/lib.rs:3486)
-- `FloatingWindowHost` — 悬浮窗命令，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:3336)
-- `HostJavaScriptRuntimeHost` — JS 运行时与仿射状态执行，6 个方法 (core/crates/foundation/host-contract/src/lib.rs:2552)
-- `HostRuntimeEventHost` — 运行时事件桥接，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:2334)
-- `HostRuntimeEventSchedulerHost` — 定时与周期调度，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:2366)
-- `HostRuntimeTaskSchedulerHost` — 一次性运行时任务调度，8 个方法 (core/crates/foundation/host-contract/src/lib.rs:2595)
-- `HostSecretStore` — 密钥存储，3 个方法 (core/crates/foundation/host-contract/src/lib.rs:2208)
-- `HttpHost` — HTTP 请求与批量下载，5 个方法，另继承 `HttpStreamHost` 的 3 个方法 (core/crates/foundation/host-contract/src/lib.rs:1623)
+- `ArchiveStagingHost` — 归档暂存，8 个方法 (core/crates/foundation/host-contract/src/lib.rs:2232)
+- `AudioPlaybackHost` — 音频播放，9 个方法 (core/crates/foundation/host-contract/src/lib.rs:2878)
+- `BluetoothHost` — 蓝牙设备操作，20 个方法 (core/crates/foundation/host-contract/src/lib.rs:3073)
+- `BrowserAutomationHost` — 浏览器自动化工具调用，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:1121)
+- `BrowserSessionHost` — 交互式浏览器会话，6 个方法 (core/crates/foundation/host-contract/src/lib.rs:1174)
+- `ClipboardHost` — 系统剪贴板写，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:3359)
+- `ComposeDslWebViewHost` — Compose DSL WebView 渲染，3 个方法 (core/crates/foundation/host-contract/src/lib.rs:1352)
+- `DeviceIoHost` — 板级数字 IO，2 个方法 (core/crates/foundation/host-contract/src/lib.rs:3156)
+- `FileSystemHost` — 文件读写、目录、查找与压缩，24 个方法 (core/crates/foundation/host-contract/src/lib.rs:3536)
+- `FloatingWindowHost` — 悬浮窗命令，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:3386)
+- `HostJavaScriptRuntimeHost` — JS 运行时与仿射状态执行，6 个方法 (core/crates/foundation/host-contract/src/lib.rs:2602)
+- `HostRuntimeEventHost` — 运行时事件桥接，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:2384)
+- `HostRuntimeEventSchedulerHost` — 定时与周期调度，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:2416)
+- `HostRuntimeTaskSchedulerHost` — 一次性运行时任务调度，8 个方法 (core/crates/foundation/host-contract/src/lib.rs:2645)
+- `HostSecretStore` — 密钥存储，3 个方法 (core/crates/foundation/host-contract/src/lib.rs:2258)
+- `HttpHost` — HTTP 请求与批量下载，5 个方法，另继承 `HttpStreamHost` 的 3 个方法 (core/crates/foundation/host-contract/src/lib.rs:1625)
 - `HttpServerHost` — HTTP 服务器绑定与连接服务，4 个方法 (core/crates/foundation/host-contract/src/HttpServer.rs:57)
-- `LocalInferenceHost` — 本地模型推理，6 个方法 (core/crates/foundation/host-contract/src/lib.rs:3251)
-- `ManagedRuntimeHost` — 托管运行时进程，9 个方法 (core/crates/foundation/host-contract/src/lib.rs:1747)
+- `LocalInferenceHost` — 本地模型推理，6 个方法 (core/crates/foundation/host-contract/src/lib.rs:3301)
+- `ManagedRuntimeHost` — 托管运行时进程，9 个方法 (core/crates/foundation/host-contract/src/lib.rs:1749)
 - `PluginSdkIpcHost` — 插件 SDK IPC 接入，6 个方法 (core/crates/foundation/host-contract/src/PluginSdkIpc.rs:58)
-- `RobotFaceHost` — 机器人表情渲染，2 个方法 (core/crates/foundation/host-contract/src/lib.rs:3130)
-- `RuntimeSqliteHost` — SQLite 连接，2 个方法 (core/crates/foundation/host-contract/src/lib.rs:2326)
-- `RuntimeStorageHost` — 运行时存储读写，19 个方法 (core/crates/foundation/host-contract/src/lib.rs:2004)
-- `RuntimeStorageWriteHost` — 运行时存储顺序写，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:2176)
+- `RobotFaceHost` — 机器人表情渲染，2 个方法 (core/crates/foundation/host-contract/src/lib.rs:3180)
+- `RuntimeSqliteHost` — SQLite 连接，2 个方法 (core/crates/foundation/host-contract/src/lib.rs:2376)
+- `RuntimeStorageHost` — 运行时存储读写，19 个方法 (core/crates/foundation/host-contract/src/lib.rs:2054)
+- `RuntimeStorageWriteHost` — 运行时存储顺序写，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:2226)
 - `SerialPortHost` — 串口设备打开与字节流，2 个方法 (core/crates/foundation/host-contract/src/SerialPort.rs:19)
 - `ServiceDiscoveryHost` — 服务发现与广播，5 个方法 (core/crates/foundation/host-contract/src/ServiceDiscovery.rs:31)
-- `SystemOperationHost` — 系统操作，20 个方法 (core/crates/foundation/host-contract/src/lib.rs:3407)
+- `SystemOperationHost` — 系统操作，20 个方法 (core/crates/foundation/host-contract/src/lib.rs:3457)
 - `TcpHost` — TCP 连接与监听，2 个方法 (core/crates/foundation/host-contract/src/Tcp.rs:26)
-- `TerminalHost` — 终端会话与命令执行，20 个方法 (core/crates/foundation/host-contract/src/lib.rs:1896)
-- `ToastHost` — 前端 transient 提示，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:3304)
-- `TtsPlaybackHost` — TTS 播放，8 个方法 (core/crates/foundation/host-contract/src/lib.rs:3184)
-- `TtsSynthesisHost` — TTS 合成，2 个方法 (core/crates/foundation/host-contract/src/lib.rs:3156)
+- `TerminalHost` — 终端会话与命令执行，29 个方法 (core/crates/foundation/host-contract/src/lib.rs:1898)
+- `ToastHost` — 前端 transient 提示，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:3354)
+- `TtsPlaybackHost` — TTS 播放，8 个方法 (core/crates/foundation/host-contract/src/lib.rs:3234)
+- `TtsSynthesisHost` — TTS 合成，2 个方法 (core/crates/foundation/host-contract/src/lib.rs:3206)
 - `UiAutomationHost` — 无障碍采集与输入，3 个方法 (core/crates/foundation/host-contract/src/UiAutomation.rs:100)
-- `WebSocketHost` — WebSocket 连接，4 个方法 (core/crates/foundation/host-contract/src/lib.rs:1591)
-- `WebVisitHost` — 网页访问，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:1103)
+- `WebSocketHost` — WebSocket 连接，4 个方法 (core/crates/foundation/host-contract/src/lib.rs:1593)
+- `WebVisitHost` — 网页访问，1 个方法 (core/crates/foundation/host-contract/src/lib.rs:1105)
 - Android 的 `createRuntimeHostManager` 是平台入口 (hosts/android/src/lib.rs:76)
 - iOS 的 `createRuntimeHostManager` 是平台入口 (hosts/ios/src/lib.rs:41)
 - Linux 的 `createRuntimeHostManager` 是平台入口 (hosts/linux/src/lib.rs:54)
@@ -92,24 +92,24 @@ host-contract 的 src 下共定义 53 个 pub trait，数字是生成脚本的�
 其余 18 个是辅助 trait，无独立注册槽位，逐项列出如下。
 `DiscoveryAdvertisement` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/ServiceDiscovery.rs:23)。
 `DiscoverySubscription` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/ServiceDiscovery.rs:21)。
-`FileAppendHandle` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:3479)。
+`FileAppendHandle` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:3529)。
 `FileSource` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/FileSystemResource.rs:9)。
 `FileTarget` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/FileSystemResource.rs:23)。
 `HostJavaScriptInterruptController` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/JavaScriptExecutionInterrupt.rs:146)。
-`HostJavaScriptRuntime` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:2433)。
-`HostRuntimeEventRegistration` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:2332)。
+`HostJavaScriptRuntime` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:2483)。
+`HostRuntimeEventRegistration` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:2382)。
 `HttpServerListener` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/HttpServer.rs:51)。
-`HttpStreamHost` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:1672)。
-`ManagedRuntimeProcess` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:1732)。
-`RuntimeSqliteConnection` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:2291)。
-`RuntimeSqliteTransaction` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:2308)。
-`RuntimeStorageWriteSession` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:2153)。
+`HttpStreamHost` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:1674)。
+`ManagedRuntimeProcess` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:1734)。
+`RuntimeSqliteConnection` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:2341)。
+`RuntimeSqliteTransaction` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:2358)。
+`RuntimeStorageWriteSession` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:2203)。
 `SerialPortConnection` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/SerialPort.rs:7)。
 `ServerWebSocket` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/HttpServer.rs:30)。
 `TcpConnection` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/Tcp.rs:7)。
 `TcpListener` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/Tcp.rs:19)。
-`HttpHost` 继承 `HttpStreamHost`，本 trait 5 个方法之外另继承 3 个流方法 (core/crates/foundation/host-contract/src/lib.rs:1623)。
-`HttpStreamHost` 是 `HttpHost` 的父 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:1623)。
+`HttpHost` 继承 `HttpStreamHost`，本 trait 5 个方法之外另继承 3 个流方法 (core/crates/foundation/host-contract/src/lib.rs:1625)。
+`HttpStreamHost` 是 `HttpHost` 的父 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/lib.rs:1625)。
 
 ### 判定标准
 
@@ -139,26 +139,26 @@ RuntimeSqliteHost 等格的注册行只含 camelCase 字段名(如 runtimeSqlite
 | 能力 | Android | iOS | Linux | macOS | OpenHarmony | Web | Windows |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | ArchiveStagingHost | 支持 (hosts/android/src/lib.rs:165) | 支持 (hosts/ios/src/lib.rs:72) | 支持 (hosts/linux/src/lib.rs:84) | 支持 (hosts/macos/src/lib.rs:76) | 支持 (hosts/ohos/src/lib.rs:86) | 支持 (hosts/web/src/lib.rs:56) | 支持 (hosts/windows/src/lib.rs:67) |
-| AudioPlaybackHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2828) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2828) | 支持 (hosts/linux/src/lib.rs:86) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2828) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2828) | 支持 (hosts/web/src/lib.rs:60) | 支持 (hosts/windows/src/lib.rs:69) |
-| BluetoothHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3023) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3023) | 支持 (hosts/linux/src/lib.rs:87) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3023) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3023) | 支持 (hosts/web/src/lib.rs:61) | 支持 (hosts/windows/src/lib.rs:70) |
-| BrowserAutomationHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1119) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1119) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1119) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1119) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1119) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1119) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1119) |
-| BrowserSessionHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1172) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1172) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1172) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1172) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1172) | 支持 (hosts/web/src/lib.rs:57) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1172) |
-| ClipboardHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3309) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3309) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3309) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3309) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3309) | 支持(与 SystemOperationHost 共用同一实现) (hosts/web/src/lib.rs:53) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3309) |
-| ComposeDslWebViewHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1350) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1350) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1350) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1350) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1350) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1350) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1350) |
-| DeviceIoHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3106) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3106) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3106) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3106) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3106) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3106) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3106) |
+| AudioPlaybackHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2878) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2878) | 支持 (hosts/linux/src/lib.rs:86) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2878) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2878) | 支持 (hosts/web/src/lib.rs:60) | 支持 (hosts/windows/src/lib.rs:69) |
+| BluetoothHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3073) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3073) | 支持 (hosts/linux/src/lib.rs:87) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3073) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3073) | 支持 (hosts/web/src/lib.rs:61) | 支持 (hosts/windows/src/lib.rs:70) |
+| BrowserAutomationHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1121) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1121) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1121) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1121) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1121) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1121) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1121) |
+| BrowserSessionHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1174) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1174) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1174) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1174) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1174) | 支持 (hosts/web/src/lib.rs:57) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1174) |
+| ClipboardHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3359) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3359) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3359) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3359) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3359) | 支持(与 SystemOperationHost 共用同一实现) (hosts/web/src/lib.rs:53) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3359) |
+| ComposeDslWebViewHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1352) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1352) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1352) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1352) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1352) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1352) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1352) |
+| DeviceIoHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) |
 | FileSystemHost | 支持 (hosts/android/src/lib.rs:153) | 支持 (hosts/ios/src/lib.rs:58) | 支持 (hosts/linux/src/lib.rs:67) | 支持 (hosts/macos/src/lib.rs:59) | 部分支持(依赖调用方回调) (hosts/ohos/src/lib.rs:72) | 支持 (hosts/web/src/lib.rs:44) | 支持 (hosts/windows/src/lib.rs:49) |
-| FloatingWindowHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3336) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3336) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3336) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3336) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3336) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3336) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3336) |
+| FloatingWindowHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3386) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3386) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3386) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3386) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3386) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3386) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3386) |
 | HostJavaScriptRuntimeHost | 支持 (hosts/android/src/lib.rs:167) | 支持 (hosts/ios/src/lib.rs:77) | 支持 (hosts/linux/src/lib.rs:92) | 支持 (hosts/macos/src/lib.rs:80) | 支持 (hosts/ohos/src/lib.rs:91) | 支持 (hosts/web/src/lib.rs:68) | 支持 (hosts/windows/src/lib.rs:76) |
-| HostRuntimeEventHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2334) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2334) | 支持 (hosts/linux/src/lib.rs:90) | 支持 (hosts/macos/src/lib.rs:78) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2334) | 支持 (hosts/web/src/lib.rs:69) | 支持 (hosts/windows/src/lib.rs:73) |
+| HostRuntimeEventHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2384) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2384) | 支持 (hosts/linux/src/lib.rs:90) | 支持 (hosts/macos/src/lib.rs:78) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2384) | 支持 (hosts/web/src/lib.rs:69) | 支持 (hosts/windows/src/lib.rs:73) |
 | HostRuntimeEventSchedulerHost | 支持 (hosts/android/src/lib.rs:96) | 支持 (hosts/ios/src/lib.rs:75) | 支持 (hosts/linux/src/lib.rs:91) | 支持 (hosts/macos/src/lib.rs:79) | 支持 (hosts/ohos/src/lib.rs:90) | 支持 (hosts/web/src/lib.rs:65) | 支持 (hosts/windows/src/lib.rs:74) |
 | HostRuntimeTaskSchedulerHost | 支持 (hosts/android/src/lib.rs:168) | 支持 (hosts/ios/src/lib.rs:79) | 支持 (hosts/linux/src/lib.rs:94) | 支持 (hosts/macos/src/lib.rs:82) | 支持 (hosts/ohos/src/lib.rs:94) | 支持 (hosts/web/src/lib.rs:67) | 支持 (hosts/windows/src/lib.rs:78) |
-| HostSecretStore | 支持 (hosts/android/src/lib.rs:94) | 支持 (hosts/ios/src/lib.rs:71) | 支持 (hosts/linux/src/lib.rs:79) | 支持 (hosts/macos/src/lib.rs:71) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2208) | 支持 (hosts/web/src/lib.rs:54) | 支持 (hosts/windows/src/lib.rs:62) |
+| HostSecretStore | 支持 (hosts/android/src/lib.rs:94) | 支持 (hosts/ios/src/lib.rs:71) | 支持 (hosts/linux/src/lib.rs:79) | 支持 (hosts/macos/src/lib.rs:71) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:2258) | 支持 (hosts/web/src/lib.rs:54) | 支持 (hosts/windows/src/lib.rs:62) |
 | HttpHost | 支持 (hosts/android/src/lib.rs:155) | 支持 (hosts/ios/src/lib.rs:62) | 支持 (hosts/linux/src/lib.rs:69) | 支持 (hosts/macos/src/lib.rs:61) | 支持 (hosts/ohos/src/lib.rs:78) | 支持 (hosts/web/src/lib.rs:46) | 支持 (hosts/windows/src/lib.rs:51) |
 | HttpServerHost | 支持 (hosts/android/src/lib.rs:162) | 支持 (hosts/ios/src/lib.rs:63) | 支持 (hosts/linux/src/lib.rs:81) | 支持 (hosts/macos/src/lib.rs:73) | 支持 (hosts/ohos/src/lib.rs:79) | 未查到 (core/crates/foundation/host-contract/src/HttpServer.rs:57) | 支持 (hosts/windows/src/lib.rs:64) |
 | LocalInferenceHost | 部分支持(仅标准版注册，特权版无此注册) (hosts/android/src/lib.rs:95) | 支持 (hosts/ios/src/lib.rs:70) | 支持 (hosts/linux/src/lib.rs:75) | 支持 (hosts/macos/src/lib.rs:67) | 支持 (hosts/ohos/src/lib.rs:88) | 支持 (hosts/web/src/lib.rs:62) | 支持 (hosts/windows/src/lib.rs:57) |
 | ManagedRuntimeHost | 支持 (hosts/android/src/lib.rs:157) | 部分支持(调用方提供) (hosts/ios/src/lib.rs:45) | 支持 (hosts/linux/src/lib.rs:71) | 支持 (hosts/macos/src/lib.rs:63) | 部分支持(调用方提供) (hosts/ohos/src/lib.rs:53) | 支持 (hosts/web/src/lib.rs:48) | 支持 (hosts/windows/src/lib.rs:53) |
 | PluginSdkIpcHost | 部分支持(仅标准版注册，特权版无此注册) (hosts/android/src/lib.rs:102) | 支持 (hosts/ios/src/lib.rs:80) | 支持 (hosts/linux/src/lib.rs:95) | 支持 (hosts/macos/src/lib.rs:83) | 未查到 (core/crates/foundation/host-contract/src/PluginSdkIpc.rs:58) | 未查到 (core/crates/foundation/host-contract/src/PluginSdkIpc.rs:58) | 支持 (hosts/windows/src/lib.rs:75) |
-| RobotFaceHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3130) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3130) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3130) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3130) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3130) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3130) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3130) |
+| RobotFaceHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3180) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3180) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3180) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3180) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3180) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3180) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3180) |
 | RuntimeSqliteHost | 支持 (hosts/android/src/lib.rs:159) | 支持 (hosts/ios/src/lib.rs:69) | 支持 (hosts/linux/src/lib.rs:73) | 支持 (hosts/macos/src/lib.rs:65) | 支持 (hosts/ohos/src/lib.rs:85) | 支持 (hosts/web/src/lib.rs:50) | 支持 (hosts/windows/src/lib.rs:55) |
 | RuntimeStorageHost | 支持 (hosts/android/src/lib.rs:144) | 支持 (hosts/ios/src/lib.rs:48) | 支持 (hosts/linux/src/lib.rs:62) | 支持 (hosts/macos/src/lib.rs:54) | 支持 (hosts/ohos/src/lib.rs:63) | 支持 (hosts/web/src/lib.rs:37) | 支持 (hosts/windows/src/lib.rs:44) |
 | RuntimeStorageWriteHost | 支持 (hosts/android/src/lib.rs:166) | 支持 (hosts/ios/src/lib.rs:73) | 支持 (hosts/linux/src/lib.rs:85) | 支持 (hosts/macos/src/lib.rs:77) | 支持 (hosts/ohos/src/lib.rs:87) | 支持 (hosts/web/src/lib.rs:55) | 支持 (hosts/windows/src/lib.rs:68) |
@@ -166,10 +166,10 @@ RuntimeSqliteHost 等格的注册行只含 camelCase 字段名(如 runtimeSqlite
 | ServiceDiscoveryHost | 部分支持(仅标准版注册，特权版无此注册) (hosts/android/src/lib.rs:97) | 支持 (hosts/ios/src/lib.rs:78) | 支持 (hosts/linux/src/lib.rs:93) | 支持 (hosts/macos/src/lib.rs:81) | 支持 (hosts/ohos/src/lib.rs:93) | 未查到 (core/crates/foundation/host-contract/src/ServiceDiscovery.rs:31) | 支持 (hosts/windows/src/lib.rs:77) |
 | SystemOperationHost | 部分支持(调用方提供) (hosts/android/src/lib.rs:136) | 支持 (hosts/ios/src/lib.rs:60) | 支持 (hosts/linux/src/lib.rs:70) | 支持 (hosts/macos/src/lib.rs:62) | 部分支持(依赖调用方回调) (hosts/ohos/src/lib.rs:65) | 支持(与 SystemOperationHost 共用同一实现) (hosts/web/src/lib.rs:47) | 支持 (hosts/windows/src/lib.rs:52) |
 | TcpHost | 支持 (hosts/android/src/lib.rs:163) | 支持 (hosts/ios/src/lib.rs:64) | 支持 (hosts/linux/src/lib.rs:82) | 支持 (hosts/macos/src/lib.rs:74) | 支持 (hosts/ohos/src/lib.rs:80) | 未查到 (core/crates/foundation/host-contract/src/Tcp.rs:26) | 支持 (hosts/windows/src/lib.rs:65) |
-| TerminalHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1896) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1896) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1896) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1896) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1896) | 支持 (hosts/web/src/lib.rs:59) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1896) |
-| ToastHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3304) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3304) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3304) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3304) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3304) | 支持(与 SystemOperationHost 共用同一实现) (hosts/web/src/lib.rs:52) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3304) |
-| TtsPlaybackHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3184) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3184) | 支持 (hosts/linux/src/lib.rs:89) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3184) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3184) | 支持 (hosts/web/src/lib.rs:63) | 支持 (hosts/windows/src/lib.rs:72) |
-| TtsSynthesisHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) | 支持 (hosts/linux/src/lib.rs:88) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) | 不支持(API 18 SDK 无公开系统语音合成接口，不提供 SYSTEM_TTS) (hosts/ohos/README.md:29) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3156) | 支持 (hosts/windows/src/lib.rs:71) |
+| TerminalHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1898) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1898) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1898) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1898) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1898) | 支持 (hosts/web/src/lib.rs:59) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:1898) |
+| ToastHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3354) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3354) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3354) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3354) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3354) | 支持(与 SystemOperationHost 共用同一实现) (hosts/web/src/lib.rs:52) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3354) |
+| TtsPlaybackHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3234) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3234) | 支持 (hosts/linux/src/lib.rs:89) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3234) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3234) | 支持 (hosts/web/src/lib.rs:63) | 支持 (hosts/windows/src/lib.rs:72) |
+| TtsSynthesisHost | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3206) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3206) | 支持 (hosts/linux/src/lib.rs:88) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3206) | 不支持(API 18 SDK 无公开系统语音合成接口，不提供 SYSTEM_TTS) (hosts/ohos/README.md:29) | 未查到 (core/crates/foundation/host-contract/src/lib.rs:3206) | 支持 (hosts/windows/src/lib.rs:71) |
 | UiAutomationHost | 未查到 (core/crates/foundation/host-contract/src/UiAutomation.rs:100) | 未查到 (core/crates/foundation/host-contract/src/UiAutomation.rs:100) | 支持 (hosts/linux/src/lib.rs:76) | 支持 (hosts/macos/src/lib.rs:68) | 未查到 (core/crates/foundation/host-contract/src/UiAutomation.rs:100) | 未查到 (core/crates/foundation/host-contract/src/UiAutomation.rs:100) | 支持 (hosts/windows/src/lib.rs:58) |
 | WebSocketHost | 支持 (hosts/android/src/lib.rs:161) | 支持 (hosts/ios/src/lib.rs:66) | 支持 (hosts/linux/src/lib.rs:80) | 支持 (hosts/macos/src/lib.rs:72) | 支持 (hosts/ohos/src/lib.rs:82) | 支持 (hosts/web/src/lib.rs:58) | 支持 (hosts/windows/src/lib.rs:63) |
 | WebVisitHost | 部分支持(调用方提供) (hosts/android/src/lib.rs:135) | 部分支持(调用方提供) (hosts/ios/src/lib.rs:44) | 部分支持(调用方提供) (hosts/linux/src/lib.rs:57) | 部分支持(调用方提供) (hosts/macos/src/lib.rs:49) | 部分支持(调用方提供) (hosts/ohos/src/lib.rs:46) | 支持 (hosts/web/src/lib.rs:45) | 部分支持(调用方提供) (hosts/windows/src/lib.rs:39) |
@@ -187,20 +187,20 @@ Web 的 createRuntimeHostManager 注册中未查到 TcpHost (core/crates/foundat
 Web 的 createRuntimeHostManager 注册中未查到 SerialPortHost (core/crates/foundation/host-contract/src/SerialPort.rs:19)。
 Web 的 createRuntimeHostManager 注册中未查到 ServiceDiscoveryHost (core/crates/foundation/host-contract/src/ServiceDiscovery.rs:31)。
 Web 的 createRuntimeHostManager 注册中未查到 PluginSdkIpcHost (core/crates/foundation/host-contract/src/PluginSdkIpc.rs:58)。
-Web 的 createRuntimeHostManager 注册中未查到 TtsSynthesisHost (core/crates/foundation/host-contract/src/lib.rs:3156)。
-Web 的 createRuntimeHostManager 注册中未查到 BrowserAutomationHost (core/crates/foundation/host-contract/src/lib.rs:1119)。
-Web 的 createRuntimeHostManager 注册中未查到 FloatingWindowHost (core/crates/foundation/host-contract/src/lib.rs:3336)。
-Web 的 createRuntimeHostManager 注册中未查到 ComposeDslWebViewHost (core/crates/foundation/host-contract/src/lib.rs:1350)。
-Web 的 createRuntimeHostManager 注册中未查到 DeviceIoHost (core/crates/foundation/host-contract/src/lib.rs:3106)。
-Web 的 createRuntimeHostManager 注册中未查到 RobotFaceHost (core/crates/foundation/host-contract/src/lib.rs:3130)。
+Web 的 createRuntimeHostManager 注册中未查到 TtsSynthesisHost (core/crates/foundation/host-contract/src/lib.rs:3206)。
+Web 的 createRuntimeHostManager 注册中未查到 BrowserAutomationHost (core/crates/foundation/host-contract/src/lib.rs:1121)。
+Web 的 createRuntimeHostManager 注册中未查到 FloatingWindowHost (core/crates/foundation/host-contract/src/lib.rs:3386)。
+Web 的 createRuntimeHostManager 注册中未查到 ComposeDslWebViewHost (core/crates/foundation/host-contract/src/lib.rs:1352)。
+Web 的 createRuntimeHostManager 注册中未查到 DeviceIoHost (core/crates/foundation/host-contract/src/lib.rs:3156)。
+Web 的 createRuntimeHostManager 注册中未查到 RobotFaceHost (core/crates/foundation/host-contract/src/lib.rs:3180)。
 本页格子以注册实测为准，README 声明只作对照。
 OHOS README 的能力清单列出 PTY sessions (hosts/ohos/README.md:13)。
-OpenHarmony 的 createRuntimeHostManager 注册中未查到 TerminalHost (core/crates/foundation/host-contract/src/lib.rs:1896)。
+OpenHarmony 的 createRuntimeHostManager 注册中未查到 TerminalHost (core/crates/foundation/host-contract/src/lib.rs:1898)。
 OHOS README 的能力清单列出 ArkTS AVPlayer 生成的 TTS 播放控制 (hosts/ohos/README.md:18)。
-OpenHarmony 的 createRuntimeHostManager 注册中未查到 TtsPlaybackHost (core/crates/foundation/host-contract/src/lib.rs:3184)。
+OpenHarmony 的 createRuntimeHostManager 注册中未查到 TtsPlaybackHost (core/crates/foundation/host-contract/src/lib.rs:3234)。
 这两项的缺失只针对本页取数范围；Host 能力也可由产品方注册 (hosts/README.md:38)。
 iOS README 称 Flutter Runner 的终端通过 Rust 桥接调用 Arm64TerminalBridge.mm (hosts/ios/README.md:5)。
-iOS 的 createRuntimeHostManager 注册中未查到 TerminalHost (core/crates/foundation/host-contract/src/lib.rs:1896)。
+iOS 的 createRuntimeHostManager 注册中未查到 TerminalHost (core/crates/foundation/host-contract/src/lib.rs:1898)。
 hosts/README.md 的目录表列出 hosts/boards 与 hosts/server (hosts/README.md:19)，但基线 hosts/ 下无这两个目录，引用时按过时项处理。
 Web 的 terminal 经 v86 启动浏览器本地 Buildroot Linux 客户机 (hosts/web/README.md:68)。
 Web 的 localInference 执行已安装的 Sherpa ONNX Web STT 与 TTS 包 (hosts/web/README.md:77)。
@@ -208,10 +208,10 @@ Web 的 localInference 执行已安装的 Sherpa ONNX Web STT 与 TTS 包 (hosts
 ## 关键符号
 
 - `HostManager` — 宿主能力注册表，字段是 Option 包装的 trait 对象槽位 (core/crates/foundation/host-api/src/HostManager.rs:139)
-- `HostEnvironmentDescriptor` — 平台环境描述符 (core/crates/foundation/host-contract/src/lib.rs:97)
-- `HostCapability` — 能力声明，含 id、displayName、scope 与 operations (core/crates/foundation/host-contract/src/lib.rs:526)
-- `CapabilityScope` — 能力范围枚举 (core/crates/foundation/host-contract/src/lib.rs:508)
-- `CapabilityOperation` — 能力操作枚举 (core/crates/foundation/host-contract/src/lib.rs:518)
+- `HostEnvironmentDescriptor` — 平台环境描述符 (core/crates/foundation/host-contract/src/lib.rs:99)
+- `HostCapability` — 能力声明，含 id、displayName、scope 与 operations (core/crates/foundation/host-contract/src/lib.rs:528)
+- `CapabilityScope` — 能力范围枚举 (core/crates/foundation/host-contract/src/lib.rs:510)
+- `CapabilityOperation` — 能力操作枚举 (core/crates/foundation/host-contract/src/lib.rs:520)
 - `withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts` — 一次填充七个槽位的复合构造器 (core/crates/foundation/host-api/src/HostManager.rs:392)
 - `withFileSystemWebVisitAndSystemOperationHosts` — 填充文件系统、Web 访问与系统操作三个槽位 (core/crates/foundation/host-api/src/HostManager.rs:336)
 - `withFileSystemAndWebVisitHosts` — 填充文件系统与 Web 访问两个槽位 (core/crates/foundation/host-api/src/HostManager.rs:288)

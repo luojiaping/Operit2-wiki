@@ -116,7 +116,7 @@
     "ref": "hosts/ohos/Cargo.toml:10"
   },
   {
-    "fact": "依赖项包括 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage、terminal 特性。",
+    "fact": "依赖项包括 `operit-host-native-common`，并启用 terminal-rootfs、tcp、serial、fs、http、scheduler、storage、terminal 特性。",
     "ref": "hosts/ohos/Cargo.toml:11"
   },
   {
@@ -201,7 +201,7 @@
   },
   {
     "fact": "`backendForTerminal` 只接受 native 与 shell、qemu-vroot 与 shell 两组实现与类型配对。",
-    "ref": "hosts/ohos/src/terminal.rs:248"
+    "ref": "hosts/ohos/src/terminal.rs:262"
   },
   {
     "fact": "QEMU-vroot 可执行文件路径为 `/data/app/bin/qemu-harmonix-aarch64`。",
@@ -224,104 +224,104 @@
     "ref": "hosts/ohos/src/terminal.rs:30"
   },
   {
-    "fact": "`isAvailable` 要求 qemu-vroot 可执行文件、rootfs 归档与校验和文件三者都存在。",
-    "ref": "hosts/ohos/src/terminal.rs:81"
+    "fact": "`isAvailable` 在默认 rootfs 下要求 qemu-vroot 可执行文件、rootfs 归档与校验和文件三者都存在。",
+    "ref": "hosts/ohos/src/terminal.rs:86"
   },
   {
-    "fact": "`ensureReady` 在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs。",
-    "ref": "hosts/ohos/src/terminal.rs:88"
+    "fact": "`ensureReady` 在默认 rootfs 下会在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs。",
+    "ref": "hosts/ohos/src/terminal.rs:96"
   },
   {
     "fact": "归档安装前由 `verifyRootfsArchiveSha256` 校验归档 SHA-256。",
-    "ref": "hosts/ohos/src/terminal.rs:114"
+    "ref": "hosts/ohos/src/terminal.rs:128"
   },
   {
     "fact": "`readRootfsSha256` 要求校验和为 64 位十六进制字符并转小写。",
-    "ref": "hosts/ohos/src/terminal.rs:631"
+    "ref": "hosts/ohos/src/terminal.rs:734"
   },
   {
     "fact": "打包安装经 apk 以 `--no-network` 离线运行。",
-    "ref": "hosts/ohos/src/terminal.rs:169"
+    "ref": "hosts/ohos/src/terminal.rs:183"
   },
   {
     "fact": "rootfs 不存在时 payload 直接改名为 rootfs。",
-    "ref": "hosts/ohos/src/terminal.rs:156"
+    "ref": "hosts/ohos/src/terminal.rs:170"
   },
   {
     "fact": "已存在 rootfs 时安装经 apk 做 add --upgrade，不替换用户 rootfs。",
-    "ref": "hosts/ohos/src/terminal.rs:180"
+    "ref": "hosts/ohos/src/terminal.rs:194"
   },
   {
     "fact": "安装后经 ./bin/busybox --install -s 安装 shell 命令。",
-    "ref": "hosts/ohos/src/terminal.rs:198"
+    "ref": "hosts/ohos/src/terminal.rs:212"
   },
   {
     "fact": "宿主 asset 目录的 `resolv.conf` 不存在时创建空文件，guest 的 `etc/resolv.conf` 换成指向它的符号链接。",
-    "ref": "hosts/ohos/src/terminal.rs:208"
+    "ref": "hosts/ohos/src/terminal.rs:222"
   },
   {
     "fact": "安装完成时把校验和写入 `VROOT_INSTALL_MARKER` 的 installing 临时文件再改名为安装标记。",
-    "ref": "hosts/ohos/src/terminal.rs:218"
+    "ref": "hosts/ohos/src/terminal.rs:232"
   },
   {
     "fact": "`verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`。",
-    "ref": "hosts/ohos/src/terminal.rs:698"
+    "ref": "hosts/ohos/src/terminal.rs:801"
   },
   {
     "fact": "`OhosTerminalHost` 的 `new` 接受显式的 runtimeRoot 与 workspaceRoot。",
-    "ref": "hosts/ohos/src/terminal.rs:236"
+    "ref": "hosts/ohos/src/terminal.rs:250"
   },
   {
     "fact": "`OhosTerminalHost` 以 `sessionBackends` 记录每个会话的后端。",
-    "ref": "hosts/ohos/src/terminal.rs:231"
+    "ref": "hosts/ohos/src/terminal.rs:245"
   },
   {
     "fact": "`createVrootShell` 为 QEMU-vroot Alpine 创建 PTY 启动器。",
-    "ref": "hosts/ohos/src/terminal.rs:538"
+    "ref": "hosts/ohos/src/terminal.rs:642"
   },
   {
     "fact": "vroot shell 在 guest 内执行 cd \"$OPERIT_OHOS_HOST_WORKING_DIR\" && exec /bin/sh -i。",
-    "ref": "hosts/ohos/src/terminal.rs:554"
+    "ref": "hosts/ohos/src/terminal.rs:657"
   },
   {
     "fact": "vroot 会话默认工作目录为 `VROOT_HOST_MOUNT_ROOT` 拼接 workspaceRoot。",
-    "ref": "hosts/ohos/src/terminal.rs:558"
+    "ref": "hosts/ohos/src/terminal.rs:661"
   },
   {
     "fact": "`terminalInfo` 把 qemu-vroot 列为默认终端。",
-    "ref": "hosts/ohos/src/terminal.rs:343"
+    "ref": "hosts/ohos/src/terminal.rs:438"
   },
   {
     "fact": "qemu-vroot 条目 available 取 `isAvailable` 的结果。",
-    "ref": "hosts/ohos/src/terminal.rs:349"
+    "ref": "hosts/ohos/src/terminal.rs:444"
   },
   {
     "fact": "native 条目 available 取 `/bin/sh` 是否存在。",
-    "ref": "hosts/ohos/src/terminal.rs:355"
-  },
-  {
-    "fact": "`startPtySession` 对 qemu-vroot 要求工作目录为绝对路径。",
-    "ref": "hosts/ohos/src/terminal.rs:376"
-  },
-  {
-    "fact": "qemu-vroot 工作目录解析把原生目录映射为 `VROOT_HOST_MOUNT_ROOT` 前缀的 guest 路径。",
-    "ref": "hosts/ohos/src/terminal.rs:332"
-  },
-  {
-    "fact": "`createOrGetTypedSession` 固定走 `QEMU_VROOT_TERMINAL` 后端。",
     "ref": "hosts/ohos/src/terminal.rs:450"
   },
   {
+    "fact": "`startPtySession` 对 qemu-vroot 要求工作目录为绝对路径。",
+    "ref": "hosts/ohos/src/terminal.rs:471"
+  },
+  {
+    "fact": "qemu-vroot 工作目录解析把原生目录映射为 `VROOT_HOST_MOUNT_ROOT` 前缀的 guest 路径。",
+    "ref": "hosts/ohos/src/terminal.rs:427"
+  },
+  {
+    "fact": "`createOrGetTypedSession` 固定走 `QEMU_VROOT_TERMINAL` 后端。",
+    "ref": "hosts/ohos/src/terminal.rs:545"
+  },
+  {
     "fact": "`executeHiddenCommand` 固定走 QemuVroot 后端。",
-    "ref": "hosts/ohos/src/terminal.rs:487"
+    "ref": "hosts/ohos/src/terminal.rs:591"
   },
   {
     "fact": "`listSessions` 合并 native 与 vroot 两路会话并逐条记录后端。",
-    "ref": "hosts/ohos/src/terminal.rs:424"
+    "ref": "hosts/ohos/src/terminal.rs:519"
   },
   {
     "fact": "`closePtySession` 关闭 PTY 后移除会话后端记录。",
-    "ref": "hosts/ohos/src/terminal.rs:417"
+    "ref": "hosts/ohos/src/terminal.rs:512"
   },
   {
     "fact": "`OhosManagedRuntimeHost` 的 `new` 接受终端 Host 与 workspaceRoot。",
@@ -661,7 +661,7 @@
   },
   {
     "fact": "`OhosTerminalHost` 是 OpenHarmony PTY 终端 Host。",
-    "ref": "hosts/ohos/src/terminal.rs:227"
+    "ref": "hosts/ohos/src/terminal.rs:241"
   },
   {
     "fact": "`OhosVrootRuntime` 持有 QEMU-vroot 运行时的路径与安装状态。",

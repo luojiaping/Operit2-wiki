@@ -93,17 +93,17 @@ date: 2026-11-11
 - `ChatSendEvent` 的 `Part` 变体含 `chatId`、`messageTimestamp`、`revision` 与 `parts` 字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:319`
 - `ChatSendEvent` 的 `Completed` 变体携带 `MessageSendResultData` 作为 `result`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:321`
 - part 事件替换整条有序 part 列表，包括被移除或修订的块。`core/crates/plugin/sdk/src/js_sdk/chat.rs:314`
-- part 标识 markdown、thinking、工具调用、工具结果与 status，工具身份与属性已结构化。`docs/chat-send-api.md:144`
-- 文档写明被移除的 part 在下一次替换中消失，消费者必须替换消息状态而不是追加每次快照。`docs/chat-send-api.md:146`
-- 文档写明多个物理助手消息保留以各自实际消息时间戳标识的独立快照。`docs/chat-send-api.md:152`
-- 文档写明每次发送的快照内容与元数据记账上限为 8 MiB，溢出会显式拒绝观察。`docs/chat-send-api.md:156`
-- 慢消费会把未消费的修订合并为最新权威状态，不产生仅追加的分块队列。`docs/chat-send-api.md:157`
-- 文档写明 JavaScript 迭代器上同时只能有一个待处理的 `next()`。`docs/chat-send-api.md:159`
-- 文档写明流式提交在第一次拉取时开始，请求在迭代器创建时被捕获，调用方变更不能改变随后的原生准入。`docs/chat-send-api.md:161`
-- 文档写明从未启动的迭代器返回不会发送请求。`docs/chat-send-api.md:163`
-- 文档写明 `completed` 事件携带实际的最终回执，其结果区分已提交的完成或取消、非持久化输出、被阻止的输入与被插件消费的输入。`docs/chat-send-api.md:165`
-- 文档写明被消费的请求不能证明消费插件自己后续的工作已完成。`docs/chat-send-api.md:167`
-- 文档写明原生失败会拒绝迭代，而不是制造一个完成事件。`docs/chat-send-api.md:168`
+- part 标识 markdown、thinking、工具调用、工具结果与 status，工具身份与属性已结构化。`docs/chat-send-api.md:150`
+- 文档写明被移除的 part 在下一次替换中消失，消费者必须替换消息状态而不是追加每次快照。`docs/chat-send-api.md:152`
+- 文档写明多个物理助手消息保留以各自实际消息时间戳标识的独立快照。`docs/chat-send-api.md:158`
+- 文档写明每次发送的快照内容与元数据记账上限为 8 MiB，溢出会显式拒绝观察。`docs/chat-send-api.md:162`
+- 慢消费会把未消费的修订合并为最新权威状态，不产生仅追加的分块队列。`docs/chat-send-api.md:163`
+- 文档写明 JavaScript 迭代器上同时只能有一个待处理的 `next()`。`docs/chat-send-api.md:165`
+- 文档写明流式提交在第一次拉取时开始，请求在迭代器创建时被捕获，调用方变更不能改变随后的原生准入。`docs/chat-send-api.md:167`
+- 文档写明从未启动的迭代器返回不会发送请求。`docs/chat-send-api.md:169`
+- 文档写明 `completed` 事件携带实际的最终回执，其结果区分已提交的完成或取消、非持久化输出、被阻止的输入与被插件消费的输入。`docs/chat-send-api.md:171`
+- 文档写明被消费的请求不能证明消费插件自己后续的工作已完成。`docs/chat-send-api.md:173`
+- 文档写明原生失败会拒绝迭代，而不是制造一个完成事件。`docs/chat-send-api.md:174`
 - `ChatMessagePart` 含 `partId`、`sequence`、`kind`、`content`、`toolCallId`、`toolName` 与 `attributes` 字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:288`
 - `ChatMessagePartKind` 包括 `markdown` 与 `thinking` 两种 part。`core/crates/plugin/sdk/src/js_sdk/chat.rs:300`
 - 消息 part 还包括 `tool_call`、`tool_result` 与 `status` 三种。`core/crates/plugin/sdk/src/js_sdk/chat.rs:304`
@@ -117,12 +117,12 @@ date: 2026-11-11
 - `ChatCancelResult` 含 `chatId` 与 `cancelRequested` 两个字段。`core/crates/plugin/sdk/src/js_sdk/chat.rs:327`
 - TypeScript 的 `CancelResult` 含 `chatId` 与 `cancelRequested` 字段。`plugins/types/chat.d.ts:243`
 - TypeScript 导出 `cancel(chatId: string)`，返回 `Promise<ChatCancelResultData>`。`plugins/types/chat.d.ts:304`
-- 文档写明中断循环、调用迭代器的 `return()` 或消费者抛错都会释放观察，显式释放会唤醒待处理的原生拉取。`docs/chat-send-api.md:173`
-- 文档写明这些释放操作都不取消模型生成，原生发送终结仍会运行。`docs/chat-send-api.md:174`
-- 文档写明 `cancel(chatId)` 在异步访问模型之前捕获调用引擎的已启用已认证包及其在该聊天的确切活动执行。`docs/chat-send-api.md:177`
-- 文档写明已排队的请求不能取消另一个包或更新的执行。`docs/chat-send-api.md:178`
-- 取消确认含 `chatId` 与 `cancelRequested`，终端回执报告原始发送的实际结果。`docs/chat-send-api.md:180`
-- 文档写明没有活动的自有执行时产生 `cancelRequested: false` 的真实确认。`docs/chat-send-api.md:181`
+- 文档写明中断循环、调用迭代器的 `return()` 或消费者抛错都会释放观察，显式释放会唤醒待处理的原生拉取。`docs/chat-send-api.md:179`
+- 文档写明这些释放操作都不取消模型生成，原生发送终结仍会运行。`docs/chat-send-api.md:180`
+- 文档写明 `cancel(chatId)` 在异步访问模型之前捕获调用引擎的已启用已认证包及其在该聊天的确切活动执行。`docs/chat-send-api.md:183`
+- 文档写明已排队的请求不能取消另一个包或更新的执行。`docs/chat-send-api.md:184`
+- 取消确认含 `chatId` 与 `cancelRequested`，终端回执报告原始发送的实际结果。`docs/chat-send-api.md:186`
+- 文档写明没有活动的自有执行时产生 `cancelRequested: false` 的真实确认。`docs/chat-send-api.md:187`
 
 ### Flutter 引导（Flutter 专属）
 
@@ -141,43 +141,43 @@ date: 2026-11-11
 
 ### 群组适配
 
-- 文档写明 `NativeGroupTurnTransport` 只用 `sendMessage` 与 `cancel`。`docs/chat-send-api.md:186`
-- 文档写明群组 `finish`/`abandon` 方法是插件本地规划操作，不是额外的 `Tools.Chat` API。`docs/chat-send-api.md:190`
-- 文档写明原始用户输入在调用响应规划器之前用 `record_only` 持久化一次。`docs/chat-send-api.md:192`
-- 文档写明每个 participant 都用引用该已确认时间戳的 continuation。`docs/chat-send-api.md:193`
-- 文档写明中间回复用 `summaryPolicy` `defer`，最终规划回复用 `after_reply` 且只有它有资格收到完成通知。`docs/chat-send-api.md:194`
-- 文档写明空计划或 speak-false 计划只留用户记录且不检查摘要。`docs/chat-send-api.md:196`
-- 文档写明 continuation 终结不会再次增加原始用户提交计数。`docs/chat-send-api.md:197`
-- 文档写明包在生产聊天输入钩子中注册 `group-input-submit`。`docs/chat-send-api.md:200`
-- 文档写明该钩子在返回 `Consume` 并清空 composer 之前等待实际输入持久化回执，规划与生成留在钩子之外。`docs/chat-send-api.md:202`
-- 文档写明输入持久化失败时 composer 保持完整，规划器或响应失败保留已记录的原始输入并传播原始错误。`docs/chat-send-api.md:204`
-- 文档写明 source 为 `Sequence` 的原生发送不递归进入群组规划。`docs/chat-send-api.md:207`
+- 文档写明 `NativeGroupTurnTransport` 只用 `sendMessage` 与 `cancel`。`docs/chat-send-api.md:192`
+- 文档写明群组 `finish`/`abandon` 方法是插件本地规划操作，不是额外的 `Tools.Chat` API。`docs/chat-send-api.md:196`
+- 文档写明原始用户输入在调用响应规划器之前用 `record_only` 持久化一次。`docs/chat-send-api.md:198`
+- 文档写明每个 participant 都用引用该已确认时间戳的 continuation。`docs/chat-send-api.md:199`
+- 文档写明中间回复用 `summaryPolicy` `defer`，最终规划回复用 `after_reply` 且只有它有资格收到完成通知。`docs/chat-send-api.md:200`
+- 文档写明空计划或 speak-false 计划只留用户记录且不检查摘要。`docs/chat-send-api.md:202`
+- 文档写明 continuation 终结不会再次增加原始用户提交计数。`docs/chat-send-api.md:203`
+- 文档写明包在生产聊天输入钩子中注册 `group-input-submit`。`docs/chat-send-api.md:206`
+- 文档写明该钩子在返回 `Consume` 并清空 composer 之前等待实际输入持久化回执，规划与生成留在钩子之外。`docs/chat-send-api.md:208`
+- 文档写明输入持久化失败时 composer 保持完整，规划器或响应失败保留已记录的原始输入并传播原始错误。`docs/chat-send-api.md:210`
+- 文档写明 source 为 `Sequence` 的原生发送不递归进入群组规划。`docs/chat-send-api.md:213`
 
 ### 上下文与历史策略
 
-- 文档写明会话级上下文刷新读取当前绑定并为每个当前绑定 participant 估算请求窗口，存储的会话窗口取其中最大值。`docs/chat-send-api.md:235`
-- 文档写明带显式 participant 的刷新只估算该 participant，历史助手作者不选择会话的当前配置。`docs/chat-send-api.md:237`
-- 文档写明重新生成助手修订需要该修订的持久化 participant 身份，缺失身份、目录初始化错误与扩展读取错误以原始失败停止重新生成而不是选替代 participant。`docs/chat-send-api.md:241` [[model-catalog|模型目录与模型识别]]
-- 文档写明手动摘要插入调用摘要模型时不先解析会话执行 participant，包括只有用户消息的历史。`docs/chat-send-api.md:244`
-- 文档写明共享 JavaScript 运行时为每个待处理 Promise 反应保留一次调用，主钩子完成可返回 `Consume` 而这些反应让会话保持分离。`docs/chat-send-api.md:248`
-- 文档写明插件不需要为观察到的后台工作设置固定时长的 keepalive 定时器。`docs/chat-send-api.md:252`
-- 文档写明配置执行结果要求完整的 `historyPolicy` 对象含 `isolateParticipants` 与 `labelUserMessages`，普通模型会话两者都为 false。`docs/chat-send-api.md:256`
-- 文档写明角色卡隔离 participant，群组还标注用户消息；Core 对模型请求与上下文窗口估算都应用该策略。`docs/chat-send-api.md:258`
-- 文档写明隔离的助手消息按其持久化 participant ID 在已认证配置 owner 下归属，其他 participant 的有序 Markdown 发言成为前缀为 [From role: name] 的用户参考上下文。`docs/chat-send-api.md:261`
-- 文档写明其他 participant 的 thinking、status 与工具协议被排除，群组用户输入前缀为 [From user]。`docs/chat-send-api.md:265`
-- 文档写明投影从最新摘要开始，不从改名卡片、重复显示名或当前群组成员推断历史作者，缺失必需作者或显示身份是错误。`docs/chat-send-api.md:267`
-- 文档写明最终回复后 Core 刷新会话窗口并检查每个已配置模型的已启用摘要阈值，超阈值调度一个已有的规范摘要任务且 `autoContinue` 为 false。`docs/chat-send-api.md:271`
-- 文档写明该 API 不含角色卡群组概念。`docs/chat-send-api.md:275`
+- 文档写明会话级上下文刷新读取当前绑定并为每个当前绑定 participant 估算请求窗口，存储的会话窗口取其中最大值。`docs/chat-send-api.md:241`
+- 文档写明带显式 participant 的刷新只估算该 participant，历史助手作者不选择会话的当前配置。`docs/chat-send-api.md:243`
+- 文档写明重新生成助手修订需要该修订的持久化 participant 身份，缺失身份、目录初始化错误与扩展读取错误以原始失败停止重新生成而不是选替代 participant。`docs/chat-send-api.md:247` [[model-catalog|模型目录与模型识别]]
+- 文档写明手动摘要插入调用摘要模型时不先解析会话执行 participant，包括只有用户消息的历史。`docs/chat-send-api.md:250`
+- 文档写明共享 JavaScript 运行时为每个待处理 Promise 反应保留一次调用，主钩子完成可返回 `Consume` 而这些反应让会话保持分离。`docs/chat-send-api.md:254`
+- 文档写明插件不需要为观察到的后台工作设置固定时长的 keepalive 定时器。`docs/chat-send-api.md:258`
+- 文档写明配置执行结果要求完整的 `historyPolicy` 对象含 `isolateParticipants` 与 `labelUserMessages`，普通模型会话两者都为 false。`docs/chat-send-api.md:262`
+- 文档写明角色卡隔离 participant，群组还标注用户消息；Core 对模型请求与上下文窗口估算都应用该策略。`docs/chat-send-api.md:264`
+- 文档写明隔离的助手消息按其持久化 participant ID 在已认证配置 owner 下归属，其他 participant 的有序 Markdown 发言成为前缀为 [From role: name] 的用户参考上下文。`docs/chat-send-api.md:267`
+- 文档写明其他 participant 的 thinking、status 与工具协议被排除，群组用户输入前缀为 [From user]。`docs/chat-send-api.md:271`
+- 文档写明投影从最新摘要开始，不从改名卡片、重复显示名或当前群组成员推断历史作者，缺失必需作者或显示身份是错误。`docs/chat-send-api.md:273`
+- 文档写明最终回复后 Core 刷新会话窗口并检查每个已配置模型的已启用摘要阈值，超阈值调度一个已有的规范摘要任务且 `autoContinue` 为 false。`docs/chat-send-api.md:277`
+- 文档写明该 API 不含角色卡群组概念。`docs/chat-send-api.md:281`
 
 ### 原生存储宿主
 
-- 文档写明原生存储宿主用标准库 `File::lock` 与 `File::try_lock`（Rust 1.89 最低）而不是 `fs2`。`docs/chat-send-api.md:278`
-- 文档写明争用的租约仍归活动进程所有，其他锁错误经宿主 API 传播。`docs/chat-send-api.md:279`
+- 文档写明原生存储宿主用标准库 `File::lock` 与 `File::try_lock`（Rust 1.89 最低）而不是 `fs2`。`docs/chat-send-api.md:284`
+- 文档写明争用的租约仍归活动进程所有，其他锁错误经宿主 API 传播。`docs/chat-send-api.md:285`
 
 ### 验证范围
 
-- 文档把 `node --test core/crates/plugin/javascript-bridge/tests/chat-send-contracts.test.mjs` 列为无需 Rust/Flutter 编译的可重复检查。`docs/chat-send-api.md:218`
-- 文档写明源码断言与 Rust 语法解析不是 Rust 类型检查、实时 AI 请求或跨平台运行时验收。`docs/chat-send-api.md:226`
+- 文档把 `node --test core/crates/plugin/javascript-bridge/tests/chat-send-contracts.test.mjs` 列为无需 Rust/Flutter 编译的可重复检查。`docs/chat-send-api.md:224`
+- 文档写明源码断言与 Rust 语法解析不是 Rust 类型检查、实时 AI 请求或跨平台运行时验收。`docs/chat-send-api.md:232`
 
 ## 关键符号
 
@@ -211,15 +211,16 @@ date: 2026-11-11
 6. `sendMessageStreaming` 经一个异步迭代器流式输出权威解析 part 快照与真实终端回执。`core/crates/plugin/sdk/src/js_sdk/chat.rs:479`
 7. `Completed` 事件携带 `MessageSendResultData` 作为 `result`。`core/crates/plugin/sdk/src/js_sdk/chat.rs:321`
 8. `cancel` 只取消调用插件在指定会话中已捕获的执行。`core/crates/plugin/sdk/src/js_sdk/chat.rs:481`
-9. 中断循环、调用迭代器的 `return()` 或消费者抛错只释放观察，都不取消模型生成。`docs/chat-send-api.md:174`
+9. 中断循环、调用迭代器的 `return()` 或消费者抛错只释放观察，都不取消模型生成。`docs/chat-send-api.md:180`
 
 ## 来源
 
-- `docs/chat-send-api.md`：当前插件聊天发送契约文档，全文 269 行。
-- `core/crates/plugin/sdk/src/js_sdk/chat.rs`：Rust 权威实现，全文 606 行。
+- `docs/chat-send-api.md`：当前插件聊天发送契约文档，全文 290 行。
+- `core/crates/plugin/sdk/src/js_sdk/chat.rs`：Rust 权威实现，全文 729 行。
 - `plugins/types/chat.d.ts`：TypeScript 导出；文档点名该文件，写作时另行读过并逐行核对了 Chat 命名空间内的发送方法签名。
 - 复核（2026-11-19，新基线 f9b7555）：chat.rs 新增预备/排程消息类型与 ChatHost 方法（`deliverPrepared`、`scheduleMessage`、`cancelScheduledMessage`、`listScheduledMessages`），ChatHost trait :330→:382，发送/取消/调用方法 :401–:431→:461–:491，附件与选项结构 :465–:513→:525–:574，契约测试 :527–:536→:587–:596；chat.d.ts 新增 `PreparedMessageRequest`/`ScheduledMessageRequest` 及四个方法导出，`call` :255→:286，`cancel` :260→:290，`sendMessage` :315→:361，`sendMessageStreaming` :319→:365；docs/chat-send-api.md 0 行改动；chat.rs 全文 606→696 行，chat.d.ts 471→517 行；事实条数不变（128 条），未为预备/排程消息新增事实。
 - 复核（2026-11-20，新基线 35cffab）：chat.rs 新增 `ChatScheduledGeneration` 与 `ChatScheduledMessageRequest.generation`（生成式排程回复），ChatHost trait :382→:399，发送/取消/调用方法 :460–:491→:477–:508，附件与选项结构 :525–:574→:542–:591，契约测试 :587–:596→:604–:613；chat.d.ts 新增 `ScheduledGeneration` 接口与 `ScheduledMessageRequest.generation`，`call` :286→:300，`cancel` :290→:304，`sendMessage` :361→:375，`sendMessageStreaming` :365→:379；results.rs 的 `ChatScheduledMessage` 新增 `text` 字段与 `preparing`/`invalidated` 状态（本页未引 results.rs，未立新事实）；docs/chat-send-api.md 0 行改动；chat.rs 全文 696→729 行，chat.d.ts 517→531 行；事实条数不变（128 条），未为生成式排程回复新增事实。
+- 复核（2026-11-21，新基线 6c41242）：docs/chat-send-api.md 在 Flutter 引导段末新增 6 行（排队消息自动发送或 Interrupt and send 后活动聊天从 Core 刷新 composer 附件；submit hook 返回 `Consume` 且 `clearInput: true` 时清空 Core 附件后亦刷新 composer），其后全部引用 +6 行（:144→:150 … :279→:285）；chat.rs 与 chat.d.ts 0 行改动；docs 全文 284→290 行；事实条数不变（128 条），未为 composer 附件刷新新增事实；来源行数 269→290、606→729 系此前轮次遗留的过期数字一并订正。
 
 否定性核验方法：2026-11-15 对基线 AAswordman/Operit2 @ ff5373fb6 的本地 checkout 执行 grep -c，`startTurn`、`waitTurn`、`cancelTurn`、`finishSequence` 在 chat.rs 与 chat.d.ts 中均为 0 命中；文档第 14-16 行亦写明四者不在当前作者契约内。
 

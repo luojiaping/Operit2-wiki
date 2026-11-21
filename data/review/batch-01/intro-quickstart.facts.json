@@ -349,6 +349,6 @@
 },
 {
 "fact": "Flutter 扫码确认提示写明确认后直接连接并提交加入，无需输入配对码",
-"ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4641"
+"ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4871"
 }
 ]

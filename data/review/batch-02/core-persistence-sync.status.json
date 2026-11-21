@@ -1,6 +1,6 @@
 {
   "issue": 16,
-  "source_commit": "2dafe6b",
+  "source_commit": "6c41242",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "持久化同步存储：操作日志、时钟、实体版本、blob、工作区清单、文件策略与偏好合并声明的存法。",

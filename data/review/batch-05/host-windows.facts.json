@@ -133,23 +133,23 @@
  },
  {
   "fact": "`terminalInfo` 用 `bundledBashExecutable` 判断随包 Bash 是否可用",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:124"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:188"
  },
  {
   "fact": "PowerShell 类型的可用性按 `PowerShellSource` 区分：`OnDemand` 源始终报告可用，描述为 PowerShell 7 · downloads on first use；`Bundled` 源仍由 `bundledPowerShellExecutable` 解析随应用分发的 powershell/pwsh.exe 是否存在决定",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:121"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:184"
  },
  {
   "fact": "`bundledBashExecutable` 只解析运行程序同目录下的 bash/bin/bash.exe",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:732"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:914"
  },
  {
   "fact": "`normalizeTerminalType` 只接受 powershell 与 bash 两种终端类型",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:1690"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:1872"
  },
  {
   "fact": "PTY 会话经 portable-pty 的 `native_pty_system` 打开",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:620"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:690"
  },
  {
   "fact": "PTY 输出缓冲上限 `PTY_OUTPUT_LIMIT` 为 1 MiB",
@@ -157,7 +157,7 @@
  },
  {
   "fact": "`appendPtyOutput` 在缓冲超过 `PTY_OUTPUT_LIMIT` 时从队首丢弃旧字节",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:808"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:990"
  },
  {
   "fact": "PTY 提示标记前缀 `PTY_PROMPT_MARKER_PREFIX` 的值为 ESC ] 133 ; OperitPrompt =",
@@ -165,107 +165,107 @@
  },
  {
   "fact": "`findLastPtyPromptMarker` 在 PTY 输出中定位最后一个提示标记",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:1061"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:1243"
  },
  {
   "fact": "提示标记载荷以冒号分隔，冒号前为退出码、后为工作目录",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:1077"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:1259"
  },
  {
   "fact": "`ptyCommandLine` 把 Bash 命令交给 terminal_command 的 `posixCommandLine` 编码",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:683"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:753"
  },
  {
   "fact": "含控制字符的 PowerShell 命令经 Base64 编码后由 `Invoke-Expression` 执行",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:691"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:761"
  },
  {
   "fact": "`windowsPtyCommand` 按 `PowerShellSource` 选择 PowerShell 7 可执行文件：`Bundled` 源用随应用分发的 powershell/pwsh.exe，`OnDemand` 源调用 `powershell_runtime::executable` 取缓存的按需下载版；仍加 -NoLogo、-NoProfile、-ExecutionPolicy Bypass、-NoExit 启动 PowerShell",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:766"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:948"
  },
  {
   "fact": "Bash 会话的 `PROMPT_COMMAND` 在每次提示时输出 `OperitPrompt` 标记",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:722"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:792"
  },
  {
   "fact": "`ptyCommand` 为 Bash 类型解析 `bundledBashExecutable` 的可执行文件",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:698"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:768"
  },
  {
   "fact": "新建 PTY 会话等待初始提示最长 10000 毫秒",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:659"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:729"
  },
  {
   "fact": "命令完成以 `quietPeriod` 150 毫秒静默期确认提示标记后的命令完成",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:953"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:1135"
  },
  {
   "fact": "会话已有命令运行时再次执行返回 Terminal session already has a command in progress 错误",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:369"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:434"
  },
  {
   "fact": "命令超时时返回 exitCode -1 与 timedOut true",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:992"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:1174"
  },
  {
   "fact": "超时取消先向 PTY 写 0x03，再以 `COMMAND_CANCEL_SETTLE_TIMEOUT_MS` 为限等待 shell 就绪",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:1011"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:1193"
  },
  {
   "fact": "`createOrGetSession` 在默认 powershell 类型上创建或复用会话",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:286"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:350"
  },
  {
   "fact": "同名会话仍存在时直接复用，返回结果的 `isNewSession` 为 false",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:309"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:373"
  },
  {
   "fact": "`executeHiddenCommand` 执行隐藏命令并返回 `HiddenTerminalCommandOutput`",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:433"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:496"
  },
  {
   "fact": "隐藏命令的空 `executorKey` 记为 default",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:440"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:505"
  },
  {
   "fact": "隐藏命令固定使用 `PRIMARY_TERMINAL_TYPE`，即 PowerShell",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:438"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:503"
  },
  {
   "fact": "`listSessions` 枚举 PTY 会话并用 `try_wait` 刷新退出状态",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:261"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:323"
  },
  {
   "fact": "会话列表条目的 `sessionKind` 为 pty",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:277"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:341"
  },
  {
   "fact": "会话屏幕输出的 rows 取自内容行数，cols 取自最长行的字符数",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:535"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:600"
  },
  {
   "fact": "`pollPtyExitCode` 对不存在的会话返回 PTY session does not exist 错误",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:226"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:290"
  },
  {
   "fact": "PTY 子进程退出码经 `try_wait` 查询",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:235"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:299"
  },
  {
   "fact": "`PtySession` 析构时先 kill 再 wait 回收子进程",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:80"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:81"
  },
  {
   "fact": "会话输入在未提供 input 且 control 经 `normalizeControl` 后为空时返回错误",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:472"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:537"
  },
  {
   "fact": "`controlToSequence` 把 enter、tab、esc 与方向键映射为控制序列",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:1601"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:1783"
  },
  {
   "fact": "`normalizeControl` 把 return 与 escape 归一化为 enter 与 esc",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:1655"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:1837"
  },
  {
   "fact": "文件系统 Host 的 `envLabel` 为 windows",

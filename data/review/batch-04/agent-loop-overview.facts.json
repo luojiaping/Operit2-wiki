@@ -77,87 +77,87 @@
   },
   {
     "fact": "`finishNativeChatSequence` 接收序列完成结果、`notifyReply` 与 `hasSubmittedInput` 三个参数",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:761"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:766"
   },
   {
     "fact": "序列完成通知由 `finalizeSequenceAndNotify` 发出，带会话 id、状态、错误与最后一条助手消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:777"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:782"
   },
   {
     "fact": "`resume` 在已拥有该会话 Binding 的 CoreNode 上恢复 AI 轮次",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:783"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:788"
   },
   {
     "fact": "恢复轮次前先调 `resolveChatConfigurationForOptions` 解析该会话的执行配置",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:790"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:795"
   },
   {
     "fact": "`resumeFromRouteContext` 用随路由变更带来的 `CoreRouteResumeContext` 恢复轮次",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:831"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:836"
   },
   {
     "fact": "路由恢复先为会话申请执行租约（`beginChatExecution`），租约保存在 `executionLease` 里",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:863"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:868"
   },
   {
     "fact": "路由恢复用 `ChatConfigurationApi::ready` 解析执行配置",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:865"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:870"
   },
   {
     "fact": "路由恢复按 `ChatConfigurationPurpose::Execution` 解析配置，参与者取自路由上下文",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:869"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:874"
   },
   {
     "fact": "路由恢复把轮次交给 `sendRoutedContinuation`，并把 `executionLease` 传过去",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:880"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:885"
   },
   {
     "fact": "`beforeChangeRoute` 在 Binding 移动前检查执行归属，保留当前上下文",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:896"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:901"
   },
   {
     "fact": "beforeChangeRoute 先申请执行租约（`beginChatExecution`）再释放它",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:863"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:909"
   },
   {
     "fact": "`afterChangeRoute` 在路由变更到达目标 Core 后恢复目标会话",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:915"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:920"
   },
   {
     "fact": "路由变更测试断言：执行中的会话拒绝切换，`beforeChangeRoute` 返回含 Conversation is executing 的错误",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3714"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3754"
   },
   {
     "fact": "路由变更测试断言：切换不总结、不改写会话，且切换后该会话无待处理总结任务（`summaryTaskForChat` 为空）",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3760"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3800"
   },
   {
     "fact": "`insertSummary` 只在用户或 AI 消息处插入总结",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1500"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1510"
   },
   {
     "fact": "insertSummary 用 `summarizeMemory` 生成总结",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1548"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1558"
   },
   {
     "fact": "insertSummary 生成有效总结后经 `addSummaryMessage` 插入到选定位置",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1567"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1578"
   },
   {
     "fact": "`compactChat` 手动把当前会话压缩为检查点，不论阈值",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1620"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1631"
   },
   {
     "fact": "`compactChat` 压缩前先为目标会话申请执行租约（`beginChatExecution`）",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1624"
-  },
-  {
-    "fact": "compactChat 压缩经 `manuallySummarizeConversationForChat` 执行",
     "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1636"
   },
   {
+    "fact": "compactChat 压缩经 `manuallySummarizeConversationForChat` 执行",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1647"
+  },
+  {
     "fact": "compactChat 压缩完成后释放执行租约（`executionLease`）",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1625"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1636"
   },
   {
     "fact": "`initializeChatConfiguration` 只恢复一次持久化历史，不解析执行配置",
@@ -205,11 +205,11 @@
   },
   {
     "fact": "取消后，若当前轮次要求持久化（`persistTurn`）且有已生成部分消息，经 `commitAssistantMessageSegment` 提交为助手消息段",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:939"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:947"
   },
   {
     "fact": "`steerMessage` 只引导当前逻辑轮次，不取消当前模型或工具回合",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:953"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:963"
   },
   {
     "fact": "`runtimeToolHandler` 返回增强 AI 服务的工具处理器（`tool_handler`）",
@@ -233,135 +233,135 @@
   },
   {
     "fact": "`buildReplyTag` 把被回复消息正文截到前 100 字符做回复标记",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:766"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:772"
   },
   {
     "fact": "`buildAttachmentAttributes` 生成附件标记的属性串：id、文件名、类型，节点 id 与大小按需附加",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:969"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:976"
   },
   {
     "fact": "非本节点附件不读本机文件宿主，只保留来源定位符（`isLocalToNode`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:823"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:830"
   },
   {
     "fact": "直连图片附件经 `registerDirectImageAttachment` 在进程图片池注册",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:883"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:903"
   },
   {
     "fact": "sendMessage 先在 `activeChatOperations` 登记本次发送操作，取操作 id",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:324"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:325"
   },
   {
     "fact": "sendMessage 用 `promptHistoryOverride` 覆盖时跳过 `getMemoryFromMessages`",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:351"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:352"
   },
   {
     "fact": "图片链接默认只保留最近 2 轮用户回合，媒体链接默认只保留最近 1 轮（`maxImageHistoryUserTurnsFlow`、`maxMediaHistoryUserTurnsFlow`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:358"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359"
   },
   {
     "fact": "sendMessage 先调 `limitImageLinksInChatHistory` 再调 `limitMediaLinksInChatHistory` 裁剪历史",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:366"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:367"
   },
   {
     "fact": "插件消息处理钩子命中时由插件执行接管本次发送（`MessageProcessingPluginRegistry::createExecutionIfMatched`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:370"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:371"
   },
   {
     "fact": "偏好关闭流式输出时，本次发送不启用流式（`disableStreamOutputFlow`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:402"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:403"
   },
   {
     "fact": "resume 为真时以 `ResumeRequest` 调 `resume`，否则调 `sendMessageWithConfiguration`",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:465"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467"
   },
   {
     "fact": "发送成功后把响应流登记进本次操作（`responseStream`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:479"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:486"
   },
   {
     "fact": "响应流清理任务排在宿主运行时异步任务上（`scheduleHostRuntimeAsyncTask`），收完流才注销操作",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:492"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:499"
   },
   {
     "fact": "cancelOperationForId 先取消本次操作的取消令牌（`cancellationToken`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1124"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1131"
   },
   {
     "fact": "取消操作随后调 `cancelConversation` 取消会话",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1140"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1147"
   },
   {
     "fact": "summarizeMemory 只总结上一次总结之后的消息（`lastSummaryIndex`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:547"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:543"
   },
   {
     "fact": "总结沿用上一次总结的正文作为前序总结（`previousSummary`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:538"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:546"
   },
   {
     "fact": "总结经 `generateSummaryForConfiguration` 生成",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:579"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:587"
   },
   {
     "fact": "总结正文后附对话回顾（`appendConversationReview`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:588"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:596"
   },
   {
     "fact": "对话回顾条数上限 `MAX_CONVERSATION_REVIEW_ENTRIES`（100 条），超限时保留前 `CONVERSATION_REVIEW_HEAD_ENTRIES`（30 条）与后 70 条，中间省略（总条数 − 100）条",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1232"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1239"
   },
   {
     "fact": "总结消息的 token 数取自摘要生成的真实用量：输入 token 为 `usage.input`、输出 token 为 `usage.output`，另记缓存输入 token `usage.cached_input`，不再按正文长度估算",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:609"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:616"
   },
   {
     "fact": "总结消息的发送方记为 `summary`",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:603"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:608"
   },
   {
     "fact": "总结消息的角色名是 `system`",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:610"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:615"
   },
   {
     "fact": "`shouldGenerateSummary` 只看配置的上下文 token 阈值：开启总结、最大 token 大于 0、当前占比达到 `tokenUsageThreshold`",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:647"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:656"
   },
   {
     "fact": "稳定上下文窗口经 `estimateRequestWindowFromMemory` 估算请求窗口",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:628"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:634"
   },
   {
     "fact": "`getMemoryFromMessages` 从最后一条总结消息起取历史，之前的消息不进入本轮（`lastSummaryIndex`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:660"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:666"
   },
   {
     "fact": "参与者隔离开启时，助手消息按持久化作者身份分流（`isolateParticipants`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:668"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:674"
   },
   {
     "fact": "他人消息在参与者隔离下以 `[From role:` 前缀转为用户轮次",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:689"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:695"
   },
   {
     "fact": "用户消息在配置要求时加 `[From user]` 前缀",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:697"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:703"
   },
   {
     "fact": "总结消息在历史投影里是 `SUMMARY` 轮次（`PromptTurnKind::SUMMARY`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:701"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:707"
   },
   {
     "fact": "工具调用部件转为 `TOOL_CALL` 轮次，工具名保留在轮次上（`PromptTurnKind::TOOL_CALL`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:727"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:733"
   },
   {
     "fact": "工具结果部件转为 `TOOL_RESULT` 轮次（`PromptTurnKind::TOOL_RESULT`）",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:742"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:748"
   },
   {
     "fact": "`cancelCurrentOperation` 取消最后活跃会话的操作",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1087"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1094"
   },
   {
     "fact": "`ChatOperationRegistry` 按会话键保存（操作 id，操作）二元组，操作 id 全局递增（`nextOperationId`）",

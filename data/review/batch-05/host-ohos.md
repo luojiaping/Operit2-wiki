@@ -14,7 +14,7 @@ crate 名为 `operit-host-ohos-native`（`hosts/ohos/Cargo.toml:2`）。
 声明 `publish = false`，不对外发布（`hosts/ohos/Cargo.toml:6`）。
 依赖项包括 `operit-host-local-inference`（`hosts/ohos/Cargo.toml:9`）。
 依赖项包括 `operit-host-api`（`hosts/ohos/Cargo.toml:10`）。
-依赖项包括 `operit-host-native-common`，并启用 tcp、serial、fs、http、scheduler、storage、terminal 特性（`hosts/ohos/Cargo.toml:11`）。
+依赖项包括 `operit-host-native-common`，并启用 terminal-rootfs、tcp、serial、fs、http、scheduler、storage、terminal 特性（`hosts/ohos/Cargo.toml:11`）。
 依赖项包括 `operit-local-models`（`hosts/ohos/Cargo.toml:12`）。
 依赖项包括 `libloading` 0.8（`hosts/ohos/Cargo.toml:14`）。
 README 列出的初始能力包括 POSIX 应用文件访问（`hosts/ohos/README.md:9`）。
@@ -30,7 +30,7 @@ README 列出的初始能力包括 ArkTS AVPlayer 生成式 TTS 播放控制（`
 
 ## AI 速览
 
-- `OhosTerminalHost` — OpenHarmony PTY 终端 Host（`hosts/ohos/src/terminal.rs:227`）
+- `OhosTerminalHost` — OpenHarmony PTY 终端 Host（`hosts/ohos/src/terminal.rs:241`）
 - `OhosVrootRuntime` — QEMU-vroot 运行时的路径与安装状态（`hosts/ohos/src/terminal.rs:39`）
 - `OhosTerminalBackend` — 区分 NativeShell 与 QemuVroot 两种终端后端（`hosts/ohos/src/terminal.rs:33`）
 - `OhosManagedRuntimeHost` — OpenHarmony 托管运行时 Host（`hosts/ohos/src/managed_runtime.rs:18`）
@@ -81,20 +81,20 @@ OpenHarmony 应用存储根目录须传给 `operit_flutter_bridge_create_with_st
 ### 终端：两种后端
 
 终端 Host 的 `PLATFORM` 为 `ohos`（`hosts/ohos/src/terminal.rs:18`）。
-`backendForTerminal` 只接受 native 与 shell、qemu-vroot 与 shell 两组实现与类型配对（`hosts/ohos/src/terminal.rs:248`）。
+`backendForTerminal` 只接受 native 与 shell、qemu-vroot 与 shell 两组实现与类型配对（`hosts/ohos/src/terminal.rs:262`）。
 QEMU-vroot 可执行文件路径为 `/data/app/bin/qemu-harmonix-aarch64`（`hosts/ohos/src/terminal.rs:22`）。
-`OhosTerminalHost` 的 `new` 接受显式的 runtimeRoot 与 workspaceRoot（`hosts/ohos/src/terminal.rs:236`）。
-`OhosTerminalHost` 以 `sessionBackends` 记录每个会话的后端（`hosts/ohos/src/terminal.rs:231`）。
-`terminalInfo` 把 qemu-vroot 列为默认终端（`hosts/ohos/src/terminal.rs:343`）。
-qemu-vroot 条目 available 取 `isAvailable` 的结果（`hosts/ohos/src/terminal.rs:349`）。
-native 条目 available 取 `/bin/sh` 是否存在（`hosts/ohos/src/terminal.rs:355`）。
-`isAvailable` 要求 qemu-vroot 可执行文件、rootfs 归档与校验和文件三者都存在（`hosts/ohos/src/terminal.rs:81`）。
-`startPtySession` 对 qemu-vroot 要求工作目录为绝对路径（`hosts/ohos/src/terminal.rs:376`）。
-qemu-vroot 工作目录解析把原生目录映射为 `VROOT_HOST_MOUNT_ROOT` 前缀的 guest 路径（`hosts/ohos/src/terminal.rs:332`）。
-`createOrGetTypedSession` 固定走 `QEMU_VROOT_TERMINAL` 后端（`hosts/ohos/src/terminal.rs:450`）。
-`executeHiddenCommand` 固定走 QemuVroot 后端（`hosts/ohos/src/terminal.rs:487`）。
-`listSessions` 合并 native 与 vroot 两路会话并逐条记录后端（`hosts/ohos/src/terminal.rs:424`）。
-`closePtySession` 关闭 PTY 后移除会话后端记录（`hosts/ohos/src/terminal.rs:417`）。
+`OhosTerminalHost` 的 `new` 接受显式的 runtimeRoot 与 workspaceRoot（`hosts/ohos/src/terminal.rs:250`）。
+`OhosTerminalHost` 以 `sessionBackends` 记录每个会话的后端（`hosts/ohos/src/terminal.rs:245`）。
+`terminalInfo` 把 qemu-vroot 列为默认终端（`hosts/ohos/src/terminal.rs:438`）。
+qemu-vroot 条目 available 取 `isAvailable` 的结果（`hosts/ohos/src/terminal.rs:444`）。
+native 条目 available 取 `/bin/sh` 是否存在（`hosts/ohos/src/terminal.rs:450`）。
+`isAvailable` 在默认 rootfs 下要求 qemu-vroot 可执行文件、rootfs 归档与校验和文件三者都存在（`hosts/ohos/src/terminal.rs:86`）。
+`startPtySession` 对 qemu-vroot 要求工作目录为绝对路径（`hosts/ohos/src/terminal.rs:471`）。
+qemu-vroot 工作目录解析把原生目录映射为 `VROOT_HOST_MOUNT_ROOT` 前缀的 guest 路径（`hosts/ohos/src/terminal.rs:427`）。
+`createOrGetTypedSession` 固定走 `QEMU_VROOT_TERMINAL` 后端（`hosts/ohos/src/terminal.rs:545`）。
+`executeHiddenCommand` 固定走 QemuVroot 后端（`hosts/ohos/src/terminal.rs:591`）。
+`listSessions` 合并 native 与 vroot 两路会话并逐条记录后端（`hosts/ohos/src/terminal.rs:519`）。
+`closePtySession` 关闭 PTY 后移除会话后端记录（`hosts/ohos/src/terminal.rs:512`）。
 
 ### QEMU-vroot Alpine rootfs：校验、安装与更新
 
@@ -102,23 +102,23 @@ qemu-vroot 工作目录解析把原生目录映射为 `VROOT_HOST_MOUNT_ROOT` �
 打包的 Alpine rootfs 归档名为 `alpine-minirootfs-3.23.6-aarch64.tar.gz`（`hosts/ohos/src/terminal.rs:26`）。
 安装标记文件名为 `.operit-rootfs.sha256`（`hosts/ohos/src/terminal.rs:28`）。
 Host 根挂载点 `VROOT_HOST_MOUNT_ROOT` 为 `/mnt/host-root`（`hosts/ohos/src/terminal.rs:30`）。
-`ensureReady` 在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs（`hosts/ohos/src/terminal.rs:88`）。
-归档安装前由 `verifyRootfsArchiveSha256` 校验归档 SHA-256（`hosts/ohos/src/terminal.rs:114`）。
-`readRootfsSha256` 要求校验和为 64 位十六进制字符并转小写（`hosts/ohos/src/terminal.rs:631`）。
+`ensureReady` 在默认 rootfs 下会在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs（`hosts/ohos/src/terminal.rs:96`）。
+归档安装前由 `verifyRootfsArchiveSha256` 校验归档 SHA-256（`hosts/ohos/src/terminal.rs:128`）。
+`readRootfsSha256` 要求校验和为 64 位十六进制字符并转小写（`hosts/ohos/src/terminal.rs:734`）。
 终端从 checksum 验证的离线 Alpine 仓库安装打包的包（`hosts/ohos/README.md:32`）。
-打包安装经 apk 以 `--no-network` 离线运行（`hosts/ohos/src/terminal.rs:169`）。
-rootfs 不存在时 payload 直接改名为 rootfs（`hosts/ohos/src/terminal.rs:156`）。
-已存在 rootfs 时安装经 apk 做 add --upgrade，不替换用户 rootfs（`hosts/ohos/src/terminal.rs:180`）。
+打包安装经 apk 以 `--no-network` 离线运行（`hosts/ohos/src/terminal.rs:183`）。
+rootfs 不存在时 payload 直接改名为 rootfs（`hosts/ohos/src/terminal.rs:170`）。
+已存在 rootfs 时安装经 apk 做 add --upgrade，不替换用户 rootfs（`hosts/ohos/src/terminal.rs:194`）。
 更新对已有 rootfs 运行 apk，用户安装的包与文件保留（`hosts/ohos/README.md:33`）。
-安装后经 ./bin/busybox --install -s 安装 shell 命令（`hosts/ohos/src/terminal.rs:198`）。
-宿主 asset 目录的 `resolv.conf` 不存在时创建空文件，guest 的 `etc/resolv.conf` 换成指向它的符号链接（`hosts/ohos/src/terminal.rs:208`）。
+安装后经 ./bin/busybox --install -s 安装 shell 命令（`hosts/ohos/src/terminal.rs:212`）。
+宿主 asset 目录的 `resolv.conf` 不存在时创建空文件，guest 的 `etc/resolv.conf` 换成指向它的符号链接（`hosts/ohos/src/terminal.rs:222`）。
 Guest DNS 由活动 OHOS 所有者网络提供（`hosts/ohos/README.md:34`）。
-安装完成时把校验和写入 `VROOT_INSTALL_MARKER` 的 installing 临时文件再改名为安装标记（`hosts/ohos/src/terminal.rs:218`）。
+安装完成时把校验和写入 `VROOT_INSTALL_MARKER` 的 installing 临时文件再改名为安装标记（`hosts/ohos/src/terminal.rs:232`）。
 安装期间校验归档哈希与包载荷，就绪结果由当前进程的终端实例共享（`hosts/ohos/README.md:35`）。
-`verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:698`）。
-`createVrootShell` 为 QEMU-vroot Alpine 创建 PTY 启动器（`hosts/ohos/src/terminal.rs:538`）。
-vroot shell 在 guest 内执行 cd "$OPERIT_OHOS_HOST_WORKING_DIR" && exec /bin/sh -i（`hosts/ohos/src/terminal.rs:554`）。
-vroot 会话默认工作目录为 `VROOT_HOST_MOUNT_ROOT` 拼接 workspaceRoot（`hosts/ohos/src/terminal.rs:558`）。
+`verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:801`）。
+`createVrootShell` 为 QEMU-vroot Alpine 创建 PTY 启动器（`hosts/ohos/src/terminal.rs:642`）。
+vroot shell 在 guest 内执行 cd "$OPERIT_OHOS_HOST_WORKING_DIR" && exec /bin/sh -i（`hosts/ohos/src/terminal.rs:657`）。
+vroot 会话默认工作目录为 `VROOT_HOST_MOUNT_ROOT` 拼接 workspaceRoot（`hosts/ohos/src/terminal.rs:661`）。
 
 ### 托管运行时：路径映射
 
@@ -229,7 +229,7 @@ OhosBluetoothHost 的 `execute` 把命令与参数交给 controller 回调并解
 
 - `createRuntimeHostManager` — 接受显式的 `runtimeRoot` 与 `workspaceRoot`，组装 OpenHarmony 运行时 `HostManager`（`hosts/ohos/src/lib.rs:44`）
 - `newOhosFileSystemHost` — 创建 `OhosFileSystemHost`（`hosts/ohos/src/lib.rs:38`）
-- `OhosTerminalHost` — OpenHarmony PTY 终端 Host（`hosts/ohos/src/terminal.rs:227`）
+- `OhosTerminalHost` — OpenHarmony PTY 终端 Host（`hosts/ohos/src/terminal.rs:241`）
 - `OhosVrootRuntime` — QEMU-vroot 运行时的路径与安装状态（`hosts/ohos/src/terminal.rs:39`）
 - `OhosTerminalBackend` — 区分 NativeShell 与 QemuVroot 两种终端后端（`hosts/ohos/src/terminal.rs:33`）
 - `OhosManagedRuntimeHost` — OpenHarmony 托管运行时 Host（`hosts/ohos/src/managed_runtime.rs:18`）
@@ -243,12 +243,12 @@ OhosBluetoothHost 的 `execute` 把命令与参数交给 controller 回调并解
 - `OhosAudioPlaybackHost` — OpenHarmony 音频播放 Host（`hosts/ohos/src/audio_playback.rs:22`）
 - `OhosMusicCommand` — 音乐播放命令枚举（`hosts/ohos/src/audio_playback.rs:11`）
 - `OhosBluetoothHost` — OpenHarmony 蓝牙 Host（`hosts/ohos/src/bluetooth.rs:17`）
-- `ensureReady` — 在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs（`hosts/ohos/src/terminal.rs:88`）
-- `verifyRootfsArchiveSha256` — 归档安装前校验归档 SHA-256（`hosts/ohos/src/terminal.rs:114`）
-- `readRootfsSha256` — 要求校验和为 64 位十六进制字符并转小写（`hosts/ohos/src/terminal.rs:631`）
-- `verifyRootfsPayload` — 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:698`）
-- `createVrootShell` — 为 QEMU-vroot Alpine 创建 PTY 启动器（`hosts/ohos/src/terminal.rs:538`）
-- `terminalInfo` — 把 qemu-vroot 列为默认终端（`hosts/ohos/src/terminal.rs:343`）
+- `ensureReady` — 在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs（`hosts/ohos/src/terminal.rs:96`）
+- `verifyRootfsArchiveSha256` — 归档安装前校验归档 SHA-256（`hosts/ohos/src/terminal.rs:128`）
+- `readRootfsSha256` — 要求校验和为 64 位十六进制字符并转小写（`hosts/ohos/src/terminal.rs:734`）
+- `verifyRootfsPayload` — 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:801`）
+- `createVrootShell` — 为 QEMU-vroot Alpine 创建 PTY 启动器（`hosts/ohos/src/terminal.rs:642`）
+- `terminalInfo` — 把 qemu-vroot 列为默认终端（`hosts/ohos/src/terminal.rs:438`）
 - `resolveRuntimeExecutable` — 在显式 executablePath 非空时使用该路径（`hosts/ohos/src/managed_runtime.rs:122`）
 - `runRuntimeCommand` — 在 QEMU-vroot Alpine 内运行一次性命令并等待退出（`hosts/ohos/src/managed_runtime.rs:151`）
 - `runtimeWorkspaceDir` — 位于 workspaceRoot 下的 `.operit` 与 `managed_runtime` 两级目录并创建目录（`hosts/ohos/src/managed_runtime.rs:116`）
@@ -266,13 +266,13 @@ OhosBluetoothHost 的 `execute` 把命令与参数交给 controller 回调并解
 
 ### vroot rootfs 就绪
 
-1. `isAvailable` 要求 qemu-vroot 可执行文件、rootfs 归档与校验和文件三者都存在（`hosts/ohos/src/terminal.rs:81`）。
-2. `ensureReady` 在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs（`hosts/ohos/src/terminal.rs:88`）。
-3. 归档安装前由 `verifyRootfsArchiveSha256` 校验归档 SHA-256（`hosts/ohos/src/terminal.rs:114`）。
-4. rootfs 不存在时 payload 直接改名为 rootfs（`hosts/ohos/src/terminal.rs:156`）。
-5. 已存在 rootfs 时安装经 apk 做 add --upgrade，不替换用户 rootfs（`hosts/ohos/src/terminal.rs:180`）。
-6. `verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:698`）。
-7. 安装完成时把校验和写入 `VROOT_INSTALL_MARKER` 的 installing 临时文件再改名为安装标记（`hosts/ohos/src/terminal.rs:218`）。
+1. `isAvailable` 在默认 rootfs 下要求 qemu-vroot 可执行文件、rootfs 归档与校验和文件三者都存在（`hosts/ohos/src/terminal.rs:86`）。
+2. `ensureReady` 在默认 rootfs 下会在 vroot 会话启动前提取 checksum 验证的 Alpine rootfs（`hosts/ohos/src/terminal.rs:96`）。
+3. 归档安装前由 `verifyRootfsArchiveSha256` 校验归档 SHA-256（`hosts/ohos/src/terminal.rs:128`）。
+4. rootfs 不存在时 payload 直接改名为 rootfs（`hosts/ohos/src/terminal.rs:170`）。
+5. 已存在 rootfs 时安装经 apk 做 add --upgrade，不替换用户 rootfs（`hosts/ohos/src/terminal.rs:194`）。
+6. `verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`（`hosts/ohos/src/terminal.rs:801`）。
+7. 安装完成时把校验和写入 `VROOT_INSTALL_MARKER` 的 installing 临时文件再改名为安装标记（`hosts/ohos/src/terminal.rs:232`）。
 
 ### 托管运行时启动
 

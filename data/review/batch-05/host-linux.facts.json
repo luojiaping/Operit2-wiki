@@ -97,27 +97,27 @@
  },
  {
   "fact": "terminalInfo 的 types 只含一项，terminalType 为 bash，描述为 Linux bash terminal",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:94"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:123"
  },
  {
   "fact": "normalizeTerminalType 只接受 PRIMARY_TERMINAL_TYPE",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:1268"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:1320"
  },
  {
   "fact": "requireNativeTerminal 只接受 TERMINAL 这一种终端实现",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:1276"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:1330"
  },
  {
   "fact": "linuxPtyCommand 构造 bash --noprofile --norc -i 子进程",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:601"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:637"
  },
  {
   "fact": "PTY 环境设置 TERM 为 xterm-256color、COLORTERM 为 truecolor、LANG 为 C.UTF-8、PS1 为 $PWD $ ",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:607"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:643"
  },
  {
   "fact": "PROMPT_COMMAND 在每次提示时输出 base64 编码的工作目录与退出码",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:610"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:648"
  },
  {
   "fact": "PTY 输出缓冲上限 PTY_OUTPUT_LIMIT 为 1024 * 1024 字节",
@@ -125,23 +125,23 @@
  },
  {
   "fact": "PTY 输出缓冲超限时从队首丢弃旧字节",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:630"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:684"
  },
  {
   "fact": "新建会话等待初始提示最长 10000 毫秒",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:578"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:616"
  },
  {
   "fact": "同一个终端会话同一时间只允许一条命令在执行",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:309"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:345"
  },
  {
   "fact": "命令超时时返回 exitCode -1 与 timedOut true",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:802"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:856"
  },
  {
   "fact": "取消超时命令时写入 \\x03",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:817"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:871"
  },
  {
   "fact": "取消超时命令的等待上限 COMMAND_CANCEL_SETTLE_TIMEOUT_MS 为 3000 毫秒",
@@ -149,23 +149,23 @@
  },
  {
   "fact": "新建终端会话默认尺寸为 24 行 80 列",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:264"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:300"
  },
  {
   "fact": "executorKey 为空时默认取 default",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:367"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:403"
  },
  {
   "fact": "隐藏会话名形如 hidden:{executorLabel}",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:508"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:545"
  },
  {
   "fact": "input 与 control 至少一个非空",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:399"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:435"
  },
  {
   "fact": "getSessionScreen 返回会话当前屏幕内容与行列数",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:450"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:486"
  },
  {
   "fact": "PTY 提示标记前缀为 \\x1b]133;OperitPrompt=",
@@ -717,11 +717,11 @@
  },
  {
   "fact": "listSessions 遍历全部 PTY 会话并刷新退出码",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:202"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:237"
  },
  {
   "fact": "会话列表条目的 sessionKind 为 pty",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:220"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:255"
  },
  {
   "fact": "getSystemLanguageCode 委托给 get_linux_system_language_code",
@@ -729,6 +729,6 @@
  },
  {
   "fact": "hiddenPtySessionId 按 executorKey 复用已存在的隐藏会话",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:489"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:525"
  }
 ]

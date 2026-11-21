@@ -1,6 +1,6 @@
 {
   "issue": 71,
-  "source_commit": "2dafe6b",
+  "source_commit": "6c41242",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "工作区文件同步与 .operit/sync.json：三类受管目录、默认同步策略、跳过规则与产出目录绑定继承",

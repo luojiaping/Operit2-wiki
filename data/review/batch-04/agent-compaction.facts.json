@@ -1,47 +1,47 @@
 [
   {
     "fact": "ChatServiceCore 的 `compactChat` 是手动压缩入口，未传 chatId 时取当前聊天",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1620"
-  },
-  {
-    "fact": "`compactChat` 的文档注明手动压缩无视阈值，把当前聊天压缩成检查点",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1617"
-  },
-  {
-    "fact": "compactChat 压缩前通过 `beginChatExecution` 取执行租约",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1628"
-  },
-  {
-    "fact": "compactChat 压缩完成后调用 `release` 释放执行租约",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1648"
-  },
-  {
-    "fact": "compactChat 在 `newEnhancedAiServiceForChat` 返回空时返回 false，不执行压缩",
     "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1631"
   },
   {
+    "fact": "`compactChat` 的文档注明手动压缩无视阈值，把当前聊天压缩成检查点",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1628"
+  },
+  {
+    "fact": "compactChat 压缩前通过 `beginChatExecution` 取执行租约",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1639"
+  },
+  {
+    "fact": "compactChat 压缩完成后调用 `release` 释放执行租约",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1659"
+  },
+  {
+    "fact": "compactChat 在 `newEnhancedAiServiceForChat` 返回空时返回 false，不执行压缩",
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1641"
+  },
+  {
     "fact": "compactChat 把压缩交给 `manuallySummarizeConversationForChat`，返回值表示是否压缩成功",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1636"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1647"
   },
   {
     "fact": "ChatServiceCore 的 `insertSummary` 只在用户或 AI 消息处插入总结，其他发送者直接失败",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1500"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1510"
   },
   {
     "fact": "insertSummary 通过 `loadMessagesForSummaryInsertion` 取选中消息前后的待总结消息",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1529"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1539"
   },
   {
     "fact": "insertSummary 调用 `AIMessageManager::summarizeMemory` 生成摘要，第三个参数传 false",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1548"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1558"
   },
   {
     "fact": "insertSummary 通过 `addSummaryMessage` 持久化摘要，相邻位置已有总结时插入失败",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1567"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1578"
   },
   {
     "fact": "insertSummary 插入摘要后调用 `refreshStableContextWindow` 重新计算稳定上下文窗口",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1579"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1590"
   },
   {
     "fact": "ChatServiceCore 在注册委托时挂钩 `setBeforeDestructiveHistoryMutation`，破坏性历史变更前取消该聊天的摘要任务",
@@ -61,7 +61,7 @@
   },
   {
     "fact": "路由变更测试断言切换后不产生摘要任务，`summaryTaskForChat` 返回空",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3760"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3800"
   },
   {
     "fact": "`ChatInputMenuSummary` 含 `currentWindowSize`、`inputTokenCount`、`outputTokenCount` 与 `maxContextLength` 四个值",
@@ -69,19 +69,19 @@
   },
   {
     "fact": "chatInputMenuSummary 的 `maxContextLength` 取自已解析模型配置的 `config.context.maxContextLength`",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3037"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3047"
   },
   {
     "fact": "ChatServiceCore 的 `currentWindowSizeFlow` 暴露当前上下文窗口大小的状态流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3178"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3188"
   },
   {
     "fact": "ChatServiceCore 的 `inputTokenCountFlow` 暴露累计输入 token 数的状态流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3186"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3196"
   },
   {
     "fact": "ChatServiceCore 的 `outputTokenCountFlow` 暴露累计输出 token 数的状态流",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3194"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3204"
   },
   {
     "fact": "syncTokenStatisticsForCurrentChat 把 ChatHistory 的 `inputTokens`、`outputTokens`、`currentWindowSize` 同步进 `tokenStatisticsDelegate`",
@@ -89,11 +89,11 @@
   },
   {
     "fact": "ChatServiceCore 的 `resetTokenStatistics` 清空 `UsageStatisticsStore` 的全部 token 用量记录",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2028"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2037"
   },
   {
     "fact": "ChatServiceCore 的 `updateCumulativeStatistics` 为当前聊天重算累计 token 统计",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2045"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2054"
   },
   {
     "fact": "`ModelSummarySettings` 含 `enableSummary` 与 `summaryTokenThreshold` 两个字段",
@@ -149,11 +149,11 @@
   },
   {
     "fact": "执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2484"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2512"
   },
   {
     "fact": "超限后调用 `onTokenLimitExceeded` 回调",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2503"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2531"
   },
   {
     "fact": "handleTokenLimitExceeded 先等 `summaryTaskForChat` 返回的进行中摘要任务完成，再调用 `isCurrentChatTurn` 校验回合归属",
@@ -205,11 +205,11 @@
   },
   {
     "fact": "ChatHistoryDelegate 的 `addSummaryMessage` 把摘要消息持久化到相邻消息时间戳之间",
-    "ref": "core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2450"
+    "ref": "core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2463"
   },
   {
     "fact": "ChatHistoryDelegate 的 `findProperSummaryPosition` 返回最新 AI 消息之后的位置",
-    "ref": "core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2481"
+    "ref": "core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2494"
   },
   {
     "fact": "summarizeMemory 只总结 `lastSummaryIndex` 之后的用户与 AI 消息，无上一次摘要时总结全部用户与 AI 消息",
@@ -217,31 +217,31 @@
   },
   {
     "fact": "summarizeMemory 取上一次 `sender` 为 `summary` 的消息正文作 `previousSummary`",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:535"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:546"
   },
   {
     "fact": "summarizeMemory 在 `autoContinue` 为真时在摘要末尾追加如果任务尚未完成请基于以上摘要继续",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:592"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:598"
   },
   {
     "fact": "summarizeMemory 生成的摘要消息 `sender` 为 `summary`，`roleName` 为 `system`",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:604"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:611"
   },
   {
     "fact": "总结消息的 token 数取自摘要生成的真实用量：输入 token 为 `usage.input`、输出 token 为 `usage.output`，另记缓存输入 token `usage.cached_input`，不再按正文长度估算",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:609"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:616"
   },
   {
     "fact": "AIMessageManager 的 `getMemoryFromMessages` 只取上一次摘要消息起的后续消息作提示记忆",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:660"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:666"
   },
   {
     "fact": "AIMessageManager 的 `shouldGenerateSummary` 的文档注明自动摘要只取决于配置的上下文 token 阈值",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:646"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:653"
   },
   {
     "fact": "AIMessageManager 的 `shouldGenerateSummary` 在启用、`maxTokens` 大于 0 且当前 token 数占比达到 `tokenUsageThreshold` 时返回真",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:650"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:657"
   },
   {
     "fact": "FunctionalPrompts 的 `buildSummarySystemPrompt` 把上一次摘要拼进系统提示，要求新摘要融合旧摘要信息",

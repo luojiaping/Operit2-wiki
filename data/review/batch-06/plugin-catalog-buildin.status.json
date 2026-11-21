@@ -1,6 +1,6 @@
 {
   "issue": 66,
-  "source_commit": "2dafe6b",
+  "source_commit": "6c41242",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "内置插件目录：16 个内置插件（9 个单文件 .ts 包＋7 个目录包）、默认启用情况、单文件包与目录包的区别、character_cards 体量（src/ 统计按上游 0f08fd43 更新为 102 文件/99 个 .ts/15830 行）",
