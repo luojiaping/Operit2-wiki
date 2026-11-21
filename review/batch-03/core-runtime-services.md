@@ -10,10 +10,10 @@ date: 2026-11-11
 
 ## 概述
 
-本页写 core/crates/runtime/application/src/services/ 下的四个服务：聊天核心 `ChatServiceCore`（core/crates/runtime/application/src/services/ChatServiceCore.rs:239）、Provider 支持 `ProviderRuntimeSupportService`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:27）、工具支持 `ToolRuntimeSupportService`（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:49）、终端服务 `RuntimeTerminalService`（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:68）。
+本页写 core/crates/runtime/application/src/services/ 下的四个服务：聊天核心 `ChatServiceCore`（core/crates/runtime/application/src/services/ChatServiceCore.rs:239）、Provider 支持 `ProviderRuntimeSupportService`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:27）、工具支持 `ToolRuntimeSupportService`（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:49）、终端服务 `RuntimeTerminalService`（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:98）。
 `ChatServiceCore` 是聊天回合的执行入口：收用户消息、跑提交钩子、驱动模型与工具回合、管理聊天历史与工作区（core/crates/runtime/application/src/services/ChatServiceCore.rs:239）。
 `ProviderRuntimeSupportService` 与 `ToolRuntimeSupportService` 是两座桥：把 provider crate 与 tools crate 要的接口接到 runtime 自有的管理器与注册表上（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:27、core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:49）。
-`RuntimeTerminalService` 是宿主终端 API 的外观：PTY 会话的创建、输入、输出流与退出码都经它走（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:68）。
+`RuntimeTerminalService` 是宿主终端 API 的外观：PTY 会话的创建、输入、输出流与退出码都经它走（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:98）。
 浏览器服务不在本页 4 个 seed 文件中，本页不写浏览器挂接。
 四个服务同属 runtime application 层，与 [[core-runtime|Runtime 总览与 OperitApplication]] 的应用组装互补：本页只写服务本身的实现，不写应用启动时的装配顺序。
 
@@ -28,7 +28,7 @@ date: 2026-11-11
 - `MODEL_CONFIGURATION_OWNER` — 内置模型会话归属常量，值为 `host.chat.model`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:37）
 - `RuntimeProviderSupport` — `ProviderRuntimeSupport` trait 的 runtime 实现（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:439）
 - `RuntimeToolSupport` — ToolRuntimeSupport trait 的 runtime 实现（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:77）
-- `RuntimeTerminalService` — 宿主终端 API 的外观（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:68）
+- `RuntimeTerminalService` — 宿主终端 API 的外观（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:98）
 - `ChatState` — 一次聊天运行时的状态快照：标题、工作区、加载态、待发队列、工具权限请求（core/crates/runtime/application/src/services/ChatServiceCore.rs:179）
 - `PendingChatQueueState` — 一次聊天的待发消息队列状态（core/crates/runtime/application/src/services/ChatServiceCore.rs:198）
 - `ChatInputMenuSettings` — 输入框行为设置：权限模式、流式开关、画像描述开关、插件开关（core/crates/runtime/application/src/services/ChatServiceCore.rs:122）
@@ -39,7 +39,7 @@ date: 2026-11-11
 - 主入口：`sendUserMessage`（core/crates/runtime/application/src/services/ChatServiceCore.rs:637）
 - 主入口：`ChatConfigurationApi` 的 `ready`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:55）
 - 主入口：ToolRuntimeSupportService 的 `create`（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:53）
-- 主入口：RuntimeTerminalService 的 `getInstance`（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:257）
+- 主入口：RuntimeTerminalService 的 `getInstance`（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:271）
 - 数据流向：用户消息 → 提交钩子 → MessageCoordinationDelegate → EnhancedAIService → 模型与工具回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:683）
 
 ## 核心机制
@@ -61,40 +61,40 @@ startUserMessage 在提交前先派发 `CHAT_INPUT_EVENT_SUBMIT_REQUESTED` 钩�
 startUserMessage 在 SUBMIT_REQUESTED 之后还派发 `CHAT_INPUT_EVENT_SUBMITTED` 钩子（core/crates/runtime/application/src/services/ChatServiceCore.rs:343）。
 `generateLocalLlm` 只在 Binding 归属节点做模型推理，对话与工具走各自的路由（core/crates/runtime/application/src/services/ChatServiceCore.rs:417）。
 `resume` 在已拥有聊天的 CoreNode 上恢复 AI 回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:783）。
-`resumeFromRouteContext` 用路由变更携带的 `CoreRouteResumeContext` 恢复目标聊天（core/crates/runtime/application/src/services/ChatServiceCore.rs:831）。
+`resumeFromRouteContext` 用路由变更携带的 `CoreRouteResumeContext` 恢复目标聊天（core/crates/runtime/application/src/services/ChatServiceCore.rs:836）。
 `beforeChangeRoute` 在路由变更前开启执行租约并立即释放以校验执行归属（core/crates/runtime/application/src/services/ChatServiceCore.rs:896）。
 afterChangeRoute 把恢复交给 `resumeFromRouteContext`（core/crates/runtime/application/src/services/ChatServiceCore.rs:925）。
 `cancelMessage` 取消指定聊天的消息生成，persistTurn 为真时提交已生成的部分消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:929）。
-`steerMessage` 在不取消当前模型或工具回合的前提下引导进行中的逻辑回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:953）。
-`enqueuePendingQueueMessage` 向指定聊天的待发消息队列追加一条消息并置 wasBlocked 为 true（core/crates/runtime/application/src/services/ChatServiceCore.rs:961）。
-`takeNextPendingQueueMessageIfReady` 仅当聊天未在处理、队列曾被阻塞且未被抑制时取出下一条排队消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:1031）。
-`restorePendingQueueMessage` 把被拒绝的排队消息插回所属聊天队列头部（core/crates/runtime/application/src/services/ChatServiceCore.rs:1061）。
-`setPendingQueueExpanded` 更新指定聊天待发消息队列在界面上的展开状态（core/crates/runtime/application/src/services/ChatServiceCore.rs:1077）。
-`chatConfiguration` 只解析通用展示身份、有序参与者与插件初始化数据（core/crates/runtime/application/src/services/ChatServiceCore.rs:1196）。
-`chatConfigurationForMessage` 按消息的配置归属解析模型与语音回放用的消息作者（core/crates/runtime/application/src/services/ChatServiceCore.rs:1226）。
-`chatConfigurationForParticipant` 精确解析指定执行参与者，解析出的 profile 与请求不一致且归属不是 MODEL_CONFIGURATION_OWNER 时返回错误（core/crates/runtime/application/src/services/ChatServiceCore.rs:1265）。
+`steerMessage` 在不取消当前模型或工具回合的前提下引导进行中的逻辑回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:963）。
+`enqueuePendingQueueMessage` 向指定聊天的待发消息队列追加一条消息并置 wasBlocked 为 true（core/crates/runtime/application/src/services/ChatServiceCore.rs:971）。
+`takeNextPendingQueueMessageIfReady` 仅当聊天未在处理、队列曾被阻塞且未被抑制时取出下一条排队消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:1041）。
+`restorePendingQueueMessage` 把被拒绝的排队消息插回所属聊天队列头部（core/crates/runtime/application/src/services/ChatServiceCore.rs:1071）。
+`setPendingQueueExpanded` 更新指定聊天待发消息队列在界面上的展开状态（core/crates/runtime/application/src/services/ChatServiceCore.rs:1087）。
+`chatConfiguration` 只解析通用展示身份、有序参与者与插件初始化数据（core/crates/runtime/application/src/services/ChatServiceCore.rs:1206）。
+`chatConfigurationForMessage` 按消息的配置归属解析模型与语音回放用的消息作者（core/crates/runtime/application/src/services/ChatServiceCore.rs:1236）。
+`chatConfigurationForParticipant` 精确解析指定执行参与者，解析出的 profile 与请求不一致且归属不是 MODEL_CONFIGURATION_OWNER 时返回错误（core/crates/runtime/application/src/services/ChatServiceCore.rs:1275）。
 `projectMessagesForDisplay` 对客户端消息快照做一次深度查询并经消息变换桥批量投影显示（core/crates/runtime/application/src/services/ChatServiceCore.rs:1108）。
-`messageTransformRevisionFlow` 暴露消息变换处理器的修订号流（core/crates/runtime/application/src/services/ChatServiceCore.rs:1095）。
-`deleteChatHistory` 删除会话前先取消破坏性变更中的消息生成并删除待发队列（core/crates/runtime/application/src/services/ChatServiceCore.rs:1313）。
-`compactChat` 手动把当前聊天压缩为检查点，不论阈值是否达到（core/crates/runtime/application/src/services/ChatServiceCore.rs:1620）。
-`insertSummary` 仅在用户或 AI 消息处插入总结，其他发送者返回失败（core/crates/runtime/application/src/services/ChatServiceCore.rs:1500）。
-`updateMessage` 在持久化前经 `ToolPkgMessageTransformBridge` 对编辑后消息做 before_persist 变换，变换失败返回 false（core/crates/runtime/application/src/services/ChatServiceCore.rs:1384、core/crates/runtime/application/src/services/ChatServiceCore.rs:1431）。
-`rollbackToMessage` 仅当目标消息是用户消息时回滚聊天到该消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:1903）。
-`rewindAndResendMessage` 回滚用户消息后用编辑内容作为新回合重新发送（core/crates/runtime/application/src/services/ChatServiceCore.rs:1934）。
-`regenerateSingleAiMessage` 原地重新生成一条 AI 消息，保留周围聊天历史（core/crates/runtime/application/src/services/ChatServiceCore.rs:1979）。
-`handleAttachment` 按前缀分发粘贴文本与粘贴图片附件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2057）。
-handleAttachment 收到 `screen_capture`、`notifications_capture`、location_capture 时分别做屏幕 OCR、通知与位置捕获（core/crates/runtime/application/src/services/ChatServiceCore.rs:2073）。
-handleAttachment 用 `PACKAGE_ATTACHMENT_PREFIX` 与 `WORKSPACE_MENTION_ATTACHMENT_PREFIX` 分发包附件与工作区引用附件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2085）。
-`chatAvailablePlugins` 只列出已启用且包名不超过 108 字符的插件容器（core/crates/runtime/application/src/services/ChatServiceCore.rs:2840）。
-chatAvailablePlugins 的 items 用 `take(6)` 截取，每页返回 6 个插件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2854）。
-chatPluginDetails 的 tools 用 `take(3)` 截取，每页返回 3 个工具名（core/crates/runtime/application/src/services/ChatServiceCore.rs:2885）。
-`chatPluginStatus` 只运行插件自有的诊断导出，不做只读模块存在检查（core/crates/runtime/application/src/services/ChatServiceCore.rs:2893）。
-chatPluginStatus 的 `testKind` 缺省为 `connection`，对应 `test_connection`；`tool` 对应 `test_tool_call`（core/crates/runtime/application/src/services/ChatServiceCore.rs:2904）。
-`chatMessagesWindowFlow` 按消息索引分页显示窗口，不传输完整历史或工具负载（core/crates/runtime/application/src/services/ChatServiceCore.rs:2698）。
-`chatMessagesWindowFlow` 向前翻页时一次加载 14 条消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:2702）。
-chatImagePreviewChunk 先校验图片归属再返回图像预览分块，格式仅支持 `rgb565le`（core/crates/runtime/application/src/services/ChatServiceCore.rs:2728）。
-`authorizeChatImage` 仅当图片 id 被本聊天的消息引用且长度不超过 80 字符时才授权（core/crates/runtime/application/src/services/ChatServiceCore.rs:3551）。
-localChatStateFlow 用 `combine5` 合并执行状态、显示窗口状态、文件上下文、待发队列与工具权限请求五路流（core/crates/runtime/application/src/services/ChatServiceCore.rs:3107）。
+`messageTransformRevisionFlow` 暴露消息变换处理器的修订号流（core/crates/runtime/application/src/services/ChatServiceCore.rs:1105）。
+`deleteChatHistory` 删除会话前先取消破坏性变更中的消息生成并删除待发队列（core/crates/runtime/application/src/services/ChatServiceCore.rs:1323）。
+`compactChat` 手动把当前聊天压缩为检查点，不论阈值是否达到（core/crates/runtime/application/src/services/ChatServiceCore.rs:1631）。
+`insertSummary` 仅在用户或 AI 消息处插入总结，其他发送者返回失败（core/crates/runtime/application/src/services/ChatServiceCore.rs:1510）。
+`updateMessage` 在持久化前经 `ToolPkgMessageTransformBridge` 对编辑后消息做 before_persist 变换，变换失败返回 false（core/crates/runtime/application/src/services/ChatServiceCore.rs:1394、core/crates/runtime/application/src/services/ChatServiceCore.rs:1440）。
+`rollbackToMessage` 仅当目标消息是用户消息时回滚聊天到该消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:1914）。
+`rewindAndResendMessage` 回滚用户消息后用编辑内容作为新回合重新发送（core/crates/runtime/application/src/services/ChatServiceCore.rs:1945）。
+`regenerateSingleAiMessage` 原地重新生成一条 AI 消息，保留周围聊天历史（core/crates/runtime/application/src/services/ChatServiceCore.rs:1990）。
+`handleAttachment` 按前缀分发粘贴文本与粘贴图片附件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2065）。
+handleAttachment 收到 `screen_capture`、`notifications_capture`、location_capture 时分别做屏幕 OCR、通知与位置捕获（core/crates/runtime/application/src/services/ChatServiceCore.rs:2082、core/crates/runtime/application/src/services/ChatServiceCore.rs:2086）。
+handleAttachment 用 `PACKAGE_ATTACHMENT_PREFIX` 与 `WORKSPACE_MENTION_ATTACHMENT_PREFIX` 分发包附件与工作区引用附件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2094、core/crates/runtime/application/src/services/ChatServiceCore.rs:2098）。
+`chatAvailablePlugins` 只列出已启用且包名不超过 108 字符的插件容器（core/crates/runtime/application/src/services/ChatServiceCore.rs:2850）。
+chatAvailablePlugins 的 items 用 `take(6)` 截取，每页返回 6 个插件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2864）。
+chatPluginDetails 的 tools 用 `take(3)` 截取，每页返回 3 个工具名（core/crates/runtime/application/src/services/ChatServiceCore.rs:2895）。
+`chatPluginStatus` 只运行插件自有的诊断导出，不做只读模块存在检查（core/crates/runtime/application/src/services/ChatServiceCore.rs:2903）。
+chatPluginStatus 的 `testKind` 缺省为 `connection`，对应 `test_connection`；`tool` 对应 `test_tool_call`（core/crates/runtime/application/src/services/ChatServiceCore.rs:2915）。
+`chatMessagesWindowFlow` 按消息索引分页显示窗口，不传输完整历史或工具负载（core/crates/runtime/application/src/services/ChatServiceCore.rs:2708）。
+`chatMessagesWindowFlow` 向前翻页时一次加载 14 条消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:2712）。
+chatImagePreviewChunk 先校验图片归属再返回图像预览分块，格式仅支持 `rgb565le`（core/crates/runtime/application/src/services/ChatServiceCore.rs:2738）。
+`authorizeChatImage` 仅当图片 id 被本聊天的消息引用且长度不超过 80 字符时才授权（core/crates/runtime/application/src/services/ChatServiceCore.rs:3561）。
+localChatStateFlow 用 `combine5` 合并执行状态、显示窗口状态、文件上下文、待发队列与工具权限请求五路流（core/crates/runtime/application/src/services/ChatServiceCore.rs:3117）。
 `ChatConfigurationApi` 的 `ready` 加载可选插件后端，不把插件就绪作为聊天前提（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:55）。
 `extensionOwner` 无插件时返回 `MODEL_CONFIGURATION_OWNER`，有插件时返回插件归属（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:87）。
 `pluginConfiguration` 以 CONFIGURATION_TIMEOUT_MILLIS 为限调用插件公开 API，失败后禁用插件并回退（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:94）。
@@ -140,19 +140,19 @@ speakSpeech 经 TtsPlaybackService 的 `speakConfigured` 异步播放，播放�
 `requestPluginChatCancellation` 同步捕获归属以便排队取消不指向后续执行（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:879）。
 `sendChatMessage` 在 Holder 之外调用权威提交钩子，只等待发起回合的实际提交收据（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:907）。
 `callChatModel` 直接调用配置的功能模型，不记入聊天历史（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:971）。
-RuntimeTerminalService 的 `getInstance` 要求 `TerminalHost` 已配置，否则 panic（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:257）。
-`startTerminalPty` 返回 Future，在宿主阻塞池上启动 PTY 终端会话并挂接输出流，启动期间不持有 Core proxy 锁（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:302）。
-startTerminalPty 在 `enterTerminalDirectory` 失败时关闭已建会话并返回错误（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:364）。
-`terminalPtyOutput` 返回指定 PTY 会话的共享输出流（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:377）。
-`writeTerminalPty` 向 PTY 会话写入 base64 解码后的字节并返回写入字节数（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:383）。
-`closeTerminalPty` 关闭 PTY 会话并移除其输出流，随后重新发布会话快照（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:411）。
-`inputTerminalSession` 向终端会话发送文本输入并返回接受的字符数（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:422）。
-`getTerminalSessionScreen` 读取终端会话的当前屏幕内容（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:431）。
-`ensureTerminalPtyOutputStream` 复用已有输出流，不为同一会话重复创建读取器（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:451）。
-PTY 输出流用 `MutableSharedStreamImpl::new(512)` 创建，共享缓冲容量为 512（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:458）。
-start_terminal_pty_output_reader 每轮轮询后等 `waitForHostRuntimeDelay(40)`，即 40 毫秒（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:203）。
+RuntimeTerminalService 的 `getInstance` 要求 `TerminalHost` 已配置，否则 panic（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:271）。
+`startTerminalPty` 返回 Future，在宿主阻塞池上启动 PTY 终端会话并挂接输出流，启动期间不持有 Core proxy 锁（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:536）。
+startTerminalPty 在 `enterTerminalDirectory` 失败时关闭已建会话并返回错误（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:617）。
+`terminalPtyOutput` 返回指定 PTY 会话的共享输出流（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:633）。
+`writeTerminalPty` 向 PTY 会话写入 base64 解码后的字节并返回写入字节数（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:639）。
+`closeTerminalPty` 关闭 PTY 会话并移除其输出流，随后重新发布会话快照（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:667）。
+`inputTerminalSession` 向终端会话发送文本输入并返回接受的字符数（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:678）。
+`getTerminalSessionScreen` 读取终端会话的当前屏幕内容（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:687）。
+`ensureTerminalPtyOutputStream` 复用已有输出流，不为同一会话重复创建读取器（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:707）。
+PTY 输出流用 `MutableSharedStreamImpl::new(512)` 创建，共享缓冲容量为 512（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:714）。
+start_terminal_pty_output_reader 每轮轮询后等 `waitForHostRuntimeDelay(40)`，即 40 毫秒（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:211）。
 `poll_terminal_pty_output` 在退出码出现后先排空最后到达的字节再关闭流（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:214）。
-`resolve_terminal_working_dir` 不再按路径分支，全部路径经 VFS 的 `resolveResourcePath` 解析后由 `terminalDirectory` 处理（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:481)(core/crates/runtime/application/src/services/RuntimeTerminalService.rs:487）；上一层仍先由 TerminalHost 的 `resolveWorkingDirectory` 处理所选终端的命名空间（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:342），不是所有终端路径都直接送 VFS。
+`resolve_terminal_working_dir` 不再按路径分支，全部路径经 VFS 的 `resolveResourcePath` 解析后由 `terminalDirectory` 处理（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:737)(core/crates/runtime/application/src/services/RuntimeTerminalService.rs:744）；上一层仍先由 TerminalHost 的 `resolveWorkingDirectory` 处理所选终端的命名空间（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:595），不是所有终端路径都直接送 VFS。
 
 ## 关键符号
 
@@ -171,12 +171,12 @@ start_terminal_pty_output_reader 每轮轮询后等 `waitForHostRuntimeDelay(40)
 - `captureUserMessageStarter` — 捕获共享聊天状态与起始选择，供发送管线在后台执行（core/crates/runtime/application/src/services/ChatServiceCore.rs:706）
 - `recordOnlySequenceInput` — 只提交原始输入的序列入口（core/crates/runtime/application/src/services/ChatServiceCore.rs:730）
 - `finishNativeChatSequence` — 校验收据后发布序列级完成（core/crates/runtime/application/src/services/ChatServiceCore.rs:761）
-- `chatConfiguration` — 解析通用展示配置（core/crates/runtime/application/src/services/ChatServiceCore.rs:1196）
-- `chatConfigurationForMessage` — 按消息归属解析消息作者配置（core/crates/runtime/application/src/services/ChatServiceCore.rs:1226）
-- `chatConfigurationForParticipant` — 精确解析指定执行参与者（core/crates/runtime/application/src/services/ChatServiceCore.rs:1265）
+- `chatConfiguration` — 解析通用展示配置（core/crates/runtime/application/src/services/ChatServiceCore.rs:1206）
+- `chatConfigurationForMessage` — 按消息归属解析消息作者配置（core/crates/runtime/application/src/services/ChatServiceCore.rs:1236）
+- `chatConfigurationForParticipant` — 精确解析指定执行参与者（core/crates/runtime/application/src/services/ChatServiceCore.rs:1275）
 - `projectMessagesForDisplay` — 对客户端消息快照做消息变换投影（core/crates/runtime/application/src/services/ChatServiceCore.rs:1108）
-- `projectMessageForDisplay` — 投影单条客户端消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:1100）
-- `messageTransformRevisionFlow` — 消息变换处理器修订号流（core/crates/runtime/application/src/services/ChatServiceCore.rs:1095）
+- `projectMessageForDisplay` — 投影单条客户端消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:1110）
+- `messageTransformRevisionFlow` — 消息变换处理器修订号流（core/crates/runtime/application/src/services/ChatServiceCore.rs:1105）
 - `ProviderRuntimeSupportService` — 创建 provider 运行时服务的工厂（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:27）
 - `MODEL_CONFIGURATION_OWNER` — 内置模型会话归属常量（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:37）
 - `ChatConfigurationApi` — 聊天配置解析入口（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:48）
@@ -200,16 +200,16 @@ start_terminal_pty_output_reader 每轮轮询后等 `waitForHostRuntimeDelay(40)
 - `sendChatMessage` — 工具侧发送聊天消息的入口（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:907）
 - `callChatModel` — 直接调用功能模型（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:971）
 - `builtinSkillNames` — 返回无需启用 AI 可见性的内置技能名（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:594）
-- `RuntimeTerminalService` — 宿主终端 API 的外观（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:68）
+- `RuntimeTerminalService` — 宿主终端 API 的外观（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:98）
 - `RuntimeTerminalSessionInfo` — 已发布的终端会话元数据（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:25）
 - `RuntimeTerminalScreen` — 当前终端屏幕快照（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:38）
 - `RuntimeTerminalTypeInfo` — 一个可创建的终端类型（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:51）
 - `RuntimeTerminalInfo` — 活跃宿主暴露的全部终端类型（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:60）
-- `RuntimeTerminalPtyOutputStream` — 暴露 PTY 输出给 Kotlin 风格收集器的流包装（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:75）
-- `startTerminalPty` — 启动 PTY 终端会话（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:302）
-- `terminalPtyOutput` — 返回 PTY 会话的共享输出流（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:377）
-- `getMimeTypeFromPath` — 按扩展名返回 MIME 类型（core/crates/runtime/application/src/services/ChatServiceCore.rs:3474）
-- `authorizeChatImage` — 校验图片归属后授权预览（core/crates/runtime/application/src/services/ChatServiceCore.rs:3551）
+- `RuntimeTerminalPtyOutputStream` — 暴露 PTY 输出给 Kotlin 风格收集器的流包装（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:105）
+- `startTerminalPty` — 启动 PTY 终端会话（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:536）
+- `terminalPtyOutput` — 返回 PTY 会话的共享输出流（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:633）
+- `getMimeTypeFromPath` — 按扩展名返回 MIME 类型（core/crates/runtime/application/src/services/ChatServiceCore.rs:3484）
+- `authorizeChatImage` — 校验图片归属后授权预览（core/crates/runtime/application/src/services/ChatServiceCore.rs:3561）
 
 ## 调用链
 
@@ -223,14 +223,14 @@ start_terminal_pty_output_reader 每轮轮询后等 `waitForHostRuntimeDelay(40)
 8. 工具侧发送：RuntimeToolSupport 的 `sendChatMessage` 在 Holder 之外跑权威提交钩子，再调 ChatServiceCore::startUserMessage 并等待提交收据（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:907）。
 9. 插件发送：`openPluginChatMessage` 准入一次已认证发送，异步任务跑回合并做最终收据与租约清理（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:836）。
 10. 语音合成：`synthesizeSpeech` → TtsSynthesisService；朗读：speakSpeech → TtsPlaybackService；转录：transcribeSpeech → SttRecognitionService（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:250）。
-11. 终端：`getInstance` 取宿主 `TerminalHost`（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:257），`startTerminalPty` 建会话并挂输出流（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:302）。
-12. 终端输入输出：`terminalPtyOutput` 读输出（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:377）、`writeTerminalPty` 写输入（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:383）。
-13. 终端退出：`pollTerminalPtyExit` 查退出码（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:403）、`closeTerminalPty` 关闭（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:411）。
-14. 状态聚合：localChatStateFlow 用 `combine5` 合并执行状态、显示窗口状态、文件上下文、待发队列、工具权限请求，产出 ChatState（core/crates/runtime/application/src/services/ChatServiceCore.rs:3107）。
+11. 终端：`getInstance` 取宿主 `TerminalHost`（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:271），`startTerminalPty` 建会话并挂输出流（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:536）。
+12. 终端输入输出：`terminalPtyOutput` 读输出（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:633）、`writeTerminalPty` 写输入（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:639）。
+13. 终端退出：`pollTerminalPtyExit` 查退出码（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:659）、`closeTerminalPty` 关闭（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:667）。
+14. 状态聚合：localChatStateFlow 用 `combine5` 合并执行状态、显示窗口状态、文件上下文、待发队列、工具权限请求，产出 ChatState（core/crates/runtime/application/src/services/ChatServiceCore.rs:3117）。
 
 ## 来源
 
-- `core/crates/runtime/application/src/services/ChatServiceCore.rs`（3880 行）
+- `core/crates/runtime/application/src/services/ChatServiceCore.rs`（3886 行）
 - `core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs`（901 行）
-- `core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs`（1302 行）
-- `core/crates/runtime/application/src/services/RuntimeTerminalService.rs`（585 行）
+- `core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs`（1374 行）
+- `core/crates/runtime/application/src/services/RuntimeTerminalService.rs`（895 行）

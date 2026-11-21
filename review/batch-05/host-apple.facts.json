@@ -277,11 +277,11 @@
   },
   {
     "fact": "沙盒下终端类型描述为 macOS sandbox PTY（without controlling TTY）",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:122"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:153"
   },
   {
     "fact": "非沙盒下终端类型描述为 macOS native 登录 PTY，带作业控制",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:124"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:155"
   },
   {
     "fact": "只接受 terminal 为 native 的请求，否则报 Unsupported macOS terminal 错误",
@@ -293,23 +293,23 @@
   },
   {
     "fact": "createOrGetSession 使用 primary 解释器创建或复用会话",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:237"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:267"
   },
   {
     "fact": "开启 arm64-runtime 特性时 terminal 为 arm64 的请求转交给 arm64 终端 Host",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:101"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:132"
   },
   {
     "fact": "开启 arm64-runtime 特性时 macos-arm64- 前缀的会话 ID 转交给 arm64 终端 Host",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:176"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:207"
   },
   {
     "fact": "开启 arm64-runtime 特性时 terminalType 为 shell 的类型会话转交给 arm64 终端 Host",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:247"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:278"
   },
   {
     "fact": "executeHiddenCommand 使用 primary 解释器执行隐藏命令",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:308"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:339"
   },
   {
     "fact": "AppleWebVisitHost 的 visitWeb 通过临时 Chromium 会话访问网页",

@@ -277,47 +277,47 @@
   },
   {
     "fact": "ARM64 流式执行调用 `callArm64TerminalStreaming` 传输输出回调，命令结果仍从响应取 `outputBytes` 与 `exitCode`。",
-    "ref": "hosts/ios/src/terminal.rs:572"
+    "ref": "hosts/ios/src/terminal.rs:577"
   },
   {
     "fact": "隐藏命令执行先创建或复用名为 `hidden:{executorKey}` 的会话，再在该会话内执行命令。",
-    "ref": "hosts/ios/src/terminal.rs:600"
+    "ref": "hosts/ios/src/terminal.rs:605"
   },
   {
     "fact": "ARM64 会话收到 `interrupt` 控制时发送 `terminalSignal`，`signal` 为 2。",
-    "ref": "hosts/ios/src/terminal.rs:642"
+    "ref": "hosts/ios/src/terminal.rs:649"
   },
   {
     "fact": "iOS 终端输入同时传入文本与控制序列时返回错误，文本与控制序列均缺失时也返回错误。",
-    "ref": "hosts/ios/src/terminal.rs:633"
+    "ref": "hosts/ios/src/terminal.rs:638"
   },
   {
     "fact": "`controlSequence` 把 `interrupt` 映射为 U+0003，把 `eof` 映射为 U+0004，把 `newline` 映射为换行符。",
-    "ref": "hosts/ios/src/terminal.rs:845"
+    "ref": "hosts/ios/src/terminal.rs:850"
   },
   {
     "fact": "ARM64 会话屏幕查询发送 `terminalScreen`，内容取自 `contentBytes` 字段。",
-    "ref": "hosts/ios/src/terminal.rs:678"
+    "ref": "hosts/ios/src/terminal.rs:683"
   },
   {
     "fact": "关闭会话返回 `TerminalCloseOutput`，`success` 为 true，消息为 “iOS terminal session closed”。",
-    "ref": "hosts/ios/src/terminal.rs:661"
+    "ref": "hosts/ios/src/terminal.rs:666"
   },
   {
     "fact": "`terminalText` 用 `String::from_utf8_lossy` 把 PTY 字节解码为文本。",
-    "ref": "hosts/ios/src/terminal.rs:813"
+    "ref": "hosts/ios/src/terminal.rs:818"
   },
   {
     "fact": "`requiredText` 去除首尾空白，空白值返回错误。",
-    "ref": "hosts/ios/src/terminal.rs:759"
+    "ref": "hosts/ios/src/terminal.rs:764"
   },
   {
     "fact": "`positiveDimension` 拒绝为零的行列尺寸。",
-    "ref": "hosts/ios/src/terminal.rs:771"
+    "ref": "hosts/ios/src/terminal.rs:776"
   },
   {
     "fact": "`shellTerminalType` 只接受 `shell` 类型，其他值返回错误。",
-    "ref": "hosts/ios/src/terminal.rs:749"
+    "ref": "hosts/ios/src/terminal.rs:754"
   },
   {
     "fact": "Rust 声明外部函数 `operit_ios_arm64_terminal_call`，接收命令与请求 JSON 的 C 字符串，返回原生分配的 C 字符串。",

@@ -24,7 +24,7 @@ hosts/tests/daemon.rs 只有 Unix daemon 传输的测试脚手架，没有独立
 
 ## AI 速览
 
-- operit-host-native-common — 聚合共享 crate 的 feature 门控入口（`hosts/common/operit-host-native-common/src/lib.rs:24`）
+- operit-host-native-common — 聚合共享 crate 的 feature 门控入口（`hosts/common/operit-host-native-common/src/lib.rs:27`）
 - `PosixFileSystemHost` — 共享 POSIX 文件系统实现（`hosts/common/operit-host-native-filesystem/src/lib.rs:93`）
 - `NativeHttpHost` — 共享原生 HTTP、WebSocket 与下载实现（`hosts/common/operit-host-native-http/src/lib.rs:31`）
 - `NativeRuntimeStorageHost` — 共享运行时存储实现（`hosts/common/operit-host-native-storage/src/lib.rs:21`）
@@ -40,30 +40,30 @@ hosts/tests/daemon.rs 只有 Unix daemon 传输的测试脚手架，没有独立
 - `SharedBuffer` — 原生 Rust 与 Dart 之间的共享二进制缓冲（`hosts/common/operit-host-native-common/src/SharedBuffer.rs:6`）
 - `ControlStream` — 平台无关的本地守护进程字节流（`hosts/common/operit-host-native-common/src/DaemonHost.rs:10`）
 - `TerminalManagedRuntimeProcess` — 经 PTY 启动的托管运行时进程（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:29`）
-- 平台 Host 按 feature 取用重导出的共享实现（`hosts/common/operit-host-native-common/src/lib.rs:24`）
+- 平台 Host 按 feature 取用重导出的共享实现（`hosts/common/operit-host-native-common/src/lib.rs:27`）
 - 数据流向一句话：平台 Host 持有共享实现并调用其操作（`hosts/android/src/filesystem.rs:14`）
 
 ## 核心机制
 
 ### 聚合入口与 feature 门控
 
-operit-host-native-common 的 `fs` feature 启用 filesystem crate 并重导出 `PosixFileSystemHost` 与 `NativeFileAppendHandle`（`hosts/common/operit-host-native-common/src/lib.rs:24`）。
-operit-host-native-common 的 `http` feature 重导出 `NativeHttpHost` 与 `NativeHttpServerHost`（`hosts/common/operit-host-native-common/src/lib.rs:26`）。
-operit-host-native-common 的 `scheduler` feature 重导出 `NativeHostJavaScriptRuntimeHost`（`hosts/common/operit-host-native-common/src/lib.rs:28`）。
-operit-host-native-common 的 `scheduler` feature 重导出 `NativeHostRuntimeEventSchedulerHost`（`hosts/common/operit-host-native-common/src/lib.rs:30`）。
-operit-host-native-common 的 `storage` feature 重导出 `NativeArchiveStagingHost`（`hosts/common/operit-host-native-common/src/lib.rs:32`）。
-operit-host-native-common 的 `storage` feature 重导出 `NativeFileSecretStore` 与 `NativeRuntimeStorageHost`（`hosts/common/operit-host-native-common/src/lib.rs:34`）。
-operit-host-native-common 的 `terminal` feature 重导出 `NativePtyShellCommand` 与 `NativePtyTerminalHost`（`hosts/common/operit-host-native-common/src/lib.rs:36`）。
-operit-host-native-common 的 `terminal` feature 重导出 `TerminalManagedRuntimeLaunch` 与 `TerminalManagedRuntimeProcess`（`hosts/common/operit-host-native-common/src/lib.rs:40`）。
-operit-host-native-common 的 `tcp` feature 重导出 `NativeTcpHost`（`hosts/common/operit-host-native-common/src/lib.rs:54`）。
-operit-host-native-common 的 `serial` feature 重导出 `NativeSerialPortHost`（`hosts/common/operit-host-native-common/src/lib.rs:21`）。
-`DaemonHost` 模块只在 `daemon` feature 下编译（`hosts/common/operit-host-native-common/src/lib.rs:10`）。
+operit-host-native-common 的 `fs` feature 启用 filesystem crate 并重导出 `PosixFileSystemHost` 与 `NativeFileAppendHandle`（`hosts/common/operit-host-native-common/src/lib.rs:27`）。
+operit-host-native-common 的 `http` feature 重导出 `NativeHttpHost` 与 `NativeHttpServerHost`（`hosts/common/operit-host-native-common/src/lib.rs:29`）。
+operit-host-native-common 的 `scheduler` feature 重导出 `NativeHostJavaScriptRuntimeHost`（`hosts/common/operit-host-native-common/src/lib.rs:31`）。
+operit-host-native-common 的 `scheduler` feature 重导出 `NativeHostRuntimeEventSchedulerHost`（`hosts/common/operit-host-native-common/src/lib.rs:33`）。
+operit-host-native-common 的 `storage` feature 重导出 `NativeArchiveStagingHost`（`hosts/common/operit-host-native-common/src/lib.rs:35`）。
+operit-host-native-common 的 `storage` feature 重导出 `NativeFileSecretStore` 与 `NativeRuntimeStorageHost`（`hosts/common/operit-host-native-common/src/lib.rs:37`）。
+operit-host-native-common 的 `terminal` feature 重导出 `NativePtyShellCommand` 与 `NativePtyTerminalHost`（`hosts/common/operit-host-native-common/src/lib.rs:39`）。
+operit-host-native-common 的 `terminal` feature 重导出 `TerminalManagedRuntimeLaunch` 与 `TerminalManagedRuntimeProcess`（`hosts/common/operit-host-native-common/src/lib.rs:43`）。
+operit-host-native-common 的 `tcp` feature 重导出 `NativeTcpHost`（`hosts/common/operit-host-native-common/src/lib.rs:57`）。
+operit-host-native-common 的 `serial` feature 重导出 `NativeSerialPortHost`（`hosts/common/operit-host-native-common/src/lib.rs:24`）。
+`DaemonHost` 模块只在 `daemon` feature 下编译（`hosts/common/operit-host-native-common/src/lib.rs:13`）。
 `AppInstaller` 模块只在 `app-install` feature 下编译（`hosts/common/operit-host-native-common/src/lib.rs:4`）。
-`DartPort` 与 `SharedBuffer` 模块没有 feature 门控、始终编译（`hosts/common/operit-host-native-common/src/lib.rs:6`）。
-`SerialPort` 模块在 iOS、espidf 与 wasm32 上不编译（启用 `serial` feature 时）（`hosts/common/operit-host-native-common/src/lib.rs:14`）。
-`ServiceDiscovery` 模块在 espidf 与 wasm32 上不编译（`hosts/common/operit-host-native-common/src/lib.rs:42`）。
-`Tcp` 模块在 espidf 与 wasm32 上不编译（启用 `tcp` feature 时）（`hosts/common/operit-host-native-common/src/lib.rs:47`）。
-operit-host-native-common 重导出调度器的 `scheduleNativeBlockingTask`、`scheduleNativeServiceTask`、`scheduleNativeServiceTasks`、`NativeHostRuntimeTaskSchedulerHost` 与 `NativeTaskHandle`（`hosts/common/operit-host-native-common/src/lib.rs:58`）。
+`DartPort` 与 `SharedBuffer` 模块没有 feature 门控、始终编译（`hosts/common/operit-host-native-common/src/lib.rs:9`）。
+`SerialPort` 模块在 iOS、espidf 与 wasm32 上不编译（启用 `serial` feature 时）（`hosts/common/operit-host-native-common/src/lib.rs:17`）。
+`ServiceDiscovery` 模块在 espidf 与 wasm32 上不编译（`hosts/common/operit-host-native-common/src/lib.rs:45`）。
+`Tcp` 模块在 espidf 与 wasm32 上不编译（启用 `tcp` feature 时）（`hosts/common/operit-host-native-common/src/lib.rs:50`）。
+operit-host-native-common 重导出调度器的 `scheduleNativeBlockingTask`、`scheduleNativeServiceTask`、`scheduleNativeServiceTasks`、`NativeHostRuntimeTaskSchedulerHost` 与 `NativeTaskHandle`（`hosts/common/operit-host-native-common/src/lib.rs:61`）。
 
 ### 文件系统
 
@@ -124,15 +124,15 @@ SQLite 事务用 `Immediate` 行为先占写锁再读（`hosts/common/operit-hos
 
 共享 PTY 宿主自报平台 `posix`、终端 `native`、默认类型 `bash`（`hosts/common/operit-host-native-terminal/src/lib.rs:26`）。
 PTY 输出上限为 16 MiB（`hosts/common/operit-host-native-terminal/src/lib.rs:22`）。
-NativePtyTerminalHost 的 `systemShell` 启动系统 `/bin/sh` 终端（`hosts/common/operit-host-native-terminal/src/lib.rs:261`）。
-NativePtyTerminalHost 的 `customShell` 用 `NativePtyShellCommand` 配置启动一个显式 POSIX shell（`hosts/common/operit-host-native-terminal/src/lib.rs:269`）。
-NativePtyTerminalHost 的 `loginShell` 创建带登录启动参数的原生 shell（`hosts/common/operit-host-native-terminal/src/lib.rs:289`）。
-NativePtyTerminalHost 的 `withControllingTty` 选择 PTY 是否成为子进程的控制终端（`hosts/common/operit-host-native-terminal/src/lib.rs:283`）。
-NativePtyTerminalHost 的 `probe` 以 1 行 1 列启动并关闭会话验证能力（`hosts/common/operit-host-native-terminal/src/lib.rs:310`）。
-NativePtyTerminalHost 的 `executeHiddenCommand` 按执行器键复用隐藏会话（`hosts/common/operit-host-native-terminal/src/lib.rs:628`）。
-NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数（`hosts/common/operit-host-native-terminal/src/lib.rs:720`）。
-`requireNativeTerminal` 只接受 `TERMINAL` 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:1730`）。
-`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:975`）。
+NativePtyTerminalHost 的 `systemShell` 启动系统 `/bin/sh` 终端（`hosts/common/operit-host-native-terminal/src/lib.rs:274`）。
+NativePtyTerminalHost 的 `customShell` 用 `NativePtyShellCommand` 配置启动一个显式 POSIX shell（`hosts/common/operit-host-native-terminal/src/lib.rs:282`）。
+NativePtyTerminalHost 的 `loginShell` 创建带登录启动参数的原生 shell（`hosts/common/operit-host-native-terminal/src/lib.rs:302`）。
+NativePtyTerminalHost 的 `withControllingTty` 选择 PTY 是否成为子进程的控制终端（`hosts/common/operit-host-native-terminal/src/lib.rs:296`）。
+NativePtyTerminalHost 的 `probe` 以 1 行 1 列启动并关闭会话验证能力（`hosts/common/operit-host-native-terminal/src/lib.rs:323`）。
+NativePtyTerminalHost 的 `executeHiddenCommand` 按执行器键复用隐藏会话（`hosts/common/operit-host-native-terminal/src/lib.rs:641`）。
+NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数（`hosts/common/operit-host-native-terminal/src/lib.rs:733`）。
+`requireNativeTerminal` 只接受 `TERMINAL` 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:1743`）。
+`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:987`）。
 超时取消的安顿等待为 3000 毫秒（`hosts/common/operit-host-native-terminal/src/lib.rs:25`）。
 `TerminalManagedRuntimeLaunch` 描述经指定终端启动的托管运行时程序（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:17`）。
 `TerminalManagedRuntimeProcess` 把终端 PTY 会话适配为 `ManagedRuntimeProcess`（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:29`）。
@@ -215,7 +215,7 @@ Windows 终端工具以 #[path] 把 `../../../../common/terminal_command.rs` 编
 terminal crate 以 #[path] 把 `../../terminal_command.rs` 编为 `terminal_command` 模块（`hosts/common/operit-host-native-terminal/src/lib.rs:1`）。
 `posixCommandLine` 只在命令含控制字符或 `!` 时才编码（`hosts/common/terminal_command.rs:7`）。
 编码后的命令以 `eval` 加 `printf '%b'` 的形式提交（`hosts/common/terminal_command.rs:29`）。
-`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:975`）。
+`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:987`）。
 
 ### Chromium 浏览器自动化
 
@@ -288,7 +288,7 @@ operit-host-data-rescue 的 crate 文档称其为 `Native Host boundary for offl
 - `NativeArchiveStagingHost` — 共享归档暂存实现（`hosts/common/operit-host-native-storage/src/lib.rs:372`）
 - `NativeFileSecretStore` — 共享文件密钥库实现（`hosts/common/operit-host-native-storage/src/lib.rs:2`）
 - `NativePtyTerminalHost` — 共享 POSIX PTY 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:26`）
-- `NativePtyShellCommand` — 显式 POSIX shell 配置（`hosts/common/operit-host-native-terminal/src/lib.rs:269`）
+- `NativePtyShellCommand` — 显式 POSIX shell 配置（`hosts/common/operit-host-native-terminal/src/lib.rs:52`）
 - `NativeHostJavaScriptRuntimeHost` — 共享 JS 运行时实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:15`）
 - `NativeHostRuntimeEventSchedulerHost` — 共享运行时事件调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:16`）
 - `NativeHostRuntimeTaskSchedulerHost` — 共享运行时任务调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）
@@ -314,7 +314,7 @@ operit-host-data-rescue 的 crate 文档称其为 `Native Host boundary for offl
 
 ## 调用链
 
-1. 平台 Host 启用 feature，得到 operit-host-native-common 重导出的共享实现（`hosts/common/operit-host-native-common/src/lib.rs:24`）。
+1. 平台 Host 启用 feature，得到 operit-host-native-common 重导出的共享实现（`hosts/common/operit-host-native-common/src/lib.rs:27`）。
 2. Android 的 HTTP 实现内部持有 `operit_host_native_common::NativeHttpHost`，Android 侧见 [[host-android|Android Host]]（`hosts/android/src/http.rs:11`）。
 3. NativeHttpHost 的 `executeHttpRequest` 经共享网络任务执行缓冲请求（`hosts/common/operit-host-native-http/src/lib.rs:454`）。
 4. 连接池由 `HttpClientPolicy` 标识（`hosts/common/operit-host-native-http/src/lib.rs:68`）。

@@ -37,59 +37,59 @@
   },
   {
     "fact": "operit-host-native-common 的 `fs` feature 启用 filesystem crate 并重导出 `PosixFileSystemHost` 与 `NativeFileAppendHandle`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:24"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:27"
   },
   {
     "fact": "operit-host-native-common 的 `http` feature 重导出 `NativeHttpHost` 与 `NativeHttpServerHost`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:26"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:29"
   },
   {
     "fact": "operit-host-native-common 的 `scheduler` feature 重导出 `NativeHostJavaScriptRuntimeHost`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:28"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:31"
   },
   {
     "fact": "operit-host-native-common 的 `scheduler` feature 重导出 `NativeHostRuntimeEventSchedulerHost`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:30"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:33"
   },
   {
     "fact": "operit-host-native-common 的 `storage` feature 重导出 `NativeArchiveStagingHost`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:32"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:35"
   },
   {
     "fact": "operit-host-native-common 的 `storage` feature 重导出 `NativeFileSecretStore` 与 `NativeRuntimeStorageHost`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:34"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:37"
   },
   {
     "fact": "operit-host-native-common 的 `terminal` feature 重导出 `NativePtyShellCommand` 与 `NativePtyTerminalHost`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:36"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:39"
   },
   {
     "fact": "operit-host-native-common 的 `terminal` feature 重导出 `TerminalManagedRuntimeLaunch` 与 `TerminalManagedRuntimeProcess`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:40"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:43"
   },
   {
     "fact": "operit-host-native-common 的 `tcp` feature 重导出 `NativeTcpHost`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:54"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:57"
   },
   {
     "fact": "operit-host-native-common 的 `serial` feature 重导出 `NativeSerialPortHost`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:21"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:24"
   },
   {
     "fact": "`SerialPort` 模块在 iOS、espidf 与 wasm32 上不编译（启用 `serial` feature 时）",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:14"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:17"
   },
   {
     "fact": "`ServiceDiscovery` 模块在 espidf 与 wasm32 上不编译",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:42"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:45"
   },
   {
     "fact": "`Tcp` 模块在 espidf 与 wasm32 上不编译（启用 `tcp` feature 时）",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:47"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:50"
   },
   {
     "fact": "`DaemonHost` 模块只在 `daemon` feature 下编译",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:10"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:13"
   },
   {
     "fact": "`AppInstaller` 模块只在 `app-install` feature 下编译",
@@ -97,11 +97,11 @@
   },
   {
     "fact": "`DartPort` 与 `SharedBuffer` 模块没有 feature 门控、始终编译",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:6"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:9"
   },
   {
     "fact": "operit-host-native-common 重导出调度器的 `scheduleNativeBlockingTask`、`scheduleNativeServiceTask`、`scheduleNativeServiceTasks`、`NativeHostRuntimeTaskSchedulerHost` 与 `NativeTaskHandle`",
-    "ref": "hosts/common/operit-host-native-common/src/lib.rs:58"
+    "ref": "hosts/common/operit-host-native-common/src/lib.rs:61"
   },
   {
     "fact": "`ControlIo` 要求 `AsyncRead`、`AsyncWrite`、`Unpin` 与 `Send`",
@@ -429,39 +429,39 @@
   },
   {
     "fact": "NativePtyTerminalHost 的 `systemShell` 启动系统 `/bin/sh` 终端",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:261"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:274"
   },
   {
     "fact": "NativePtyTerminalHost 的 `customShell` 用 `NativePtyShellCommand` 配置启动一个显式 POSIX shell",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:269"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:282"
   },
   {
     "fact": "NativePtyTerminalHost 的 `loginShell` 创建带登录启动参数的原生 shell",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:289"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:302"
   },
   {
     "fact": "NativePtyTerminalHost 的 `withControllingTty` 选择 PTY 是否成为子进程的控制终端",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:283"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:296"
   },
   {
     "fact": "NativePtyTerminalHost 的 `probe` 以 1 行 1 列启动并关闭会话验证能力",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:310"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:323"
   },
   {
     "fact": "NativePtyTerminalHost 的 `executeHiddenCommand` 按执行器键复用隐藏会话",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:628"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:641"
   },
   {
     "fact": "NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:720"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:733"
   },
   {
     "fact": "`requireNativeTerminal` 只接受 `TERMINAL` 终端实现",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1730"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1743"
   },
   {
     "fact": "`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:975"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:987"
   },
   {
     "fact": "超时取消的安顿等待为 3000 毫秒",

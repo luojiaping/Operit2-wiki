@@ -114,7 +114,7 @@ TXT 元数据必须包含 `nodeId`、`displayName` 与 `transports`，不完整�
 `operit2 cli link qr http --no-discovery` 在没有守护进程或 TUI 属主运行时启动 HTTP 监听器并保持到 Ctrl-C（`docs/device-space-lan-discovery.md:137`）。
 `link qr` 的 `--json` 以无终端转义序列的形式输出连接信息（`docs/device-space-lan-discovery.md:142`）。
 交互式 `link session` 中 `qr` 显示同一连接码，`pair <connection-code>` 完成 QR 配对，`space` 命令提交或检查加入请求（`docs/device-space-lan-discovery.md:145`）。
-Flutter 扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4638`）。
+Flutter 扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4871`）。
 
 ### Web Access
 
@@ -191,7 +191,7 @@ ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/cr
 11. 刷新申请：link space refresh [space-name] 对发出的申请调用 `refreshDeviceSpaceJoin` 并打印更新后的回执（`apps/cli/src/cli/link.rs:1016`）。
 12. 成功判据：已批准的加入申请经 `adoptApprovedMembership` 落为 `Joined`（`core/crates/node/runtime/src/peer/space_join.rs:1328`）。
 13. 核对成员：用 operit2 cli link space show 核对 Space 名称与成员数量（`apps/cli/src/cli/link.rs:921`）。
-14. Flutter 扫码：扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4638`）。
+14. Flutter 扫码：扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4871`）。
 15. 用浏览器访问：`operit2 cli web open` 打开 https://web.operit.app/（`apps/cli/src/cli/web.rs:6`）；打开页面不会自动让浏览器成为 `Space` 中的独立节点（`README.md:72`）。
 16. 备份：`operit2 cli export snapshot <path>` 导出快照（`apps/cli/src/cli/transfer.rs:53`），恢复用 `operit2 cli backup restore <path>`（`apps/cli/src/cli/transfer.rs:122`），检查用 `operit2 cli backup inspect <snapshot-zip-path>`（`apps/cli/src/cli/transfer.rs:123`）。
 
