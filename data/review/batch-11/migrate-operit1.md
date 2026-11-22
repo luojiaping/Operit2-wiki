@@ -89,7 +89,7 @@ date: 2026-11-11
 - rescue 帮助列出 describe、export、inspect、import、resume 五条命令，import 与 resume 带 --confirm。`apps/cli/src/rescue.rs:85`
 - rescue 的 export、inspect、import、resume 接受公共的 `--runtime-root` 与 `--workspace-root` 选项。`apps/cli/src/rescue.rs:22`
 - `--confirm` 仅对 import 与 resume 有效，export 或 inspect 传 `--confirm` 报错。`apps/cli/src/rescue.rs:35`
-- 顶层帮助把 `operit2 rescue <command>` 列为导出、检查、导入或恢复数据救援的入口。`apps/cli/src/cli/mod.rs:1800`
+- 顶层帮助把 `operit2 rescue <command>` 列为导出、检查、导入或恢复数据救援的入口。`apps/cli/src/cli/mod.rs:1566`
 - Flutter 维护界面是独立路由，不构造 `CoreApplicationService`、`RuntimeBootstrapManager`、常规日志路径与常规业务 UI。`docs/data-rescue.md:16`
 - 原生平台用 `operit.files.v1` 归档布局，浏览器用 `operit.browser.v1` 归档布局；归档是普通 ZIP 文件，不需要密码；每次恢复前按声明大小与 SHA-256 校验每个 payload。`docs/data-rescue.md:24`
 - 恢复先暂存校验再发布，原目录保留在生成的 `.operit-retained-*` 路径（原生平台）与 `data-rescue/retained-*`（浏览器）。`docs/data-rescue.md:28`

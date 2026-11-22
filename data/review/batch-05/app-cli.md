@@ -17,14 +17,14 @@ operit2 daemon 把参数交给 `daemon` 的 `run`（`apps/cli/src/main.rs:69`）
 operit2 tui 把参数交给 `tui` 的 `run_tui_command`（`apps/cli/src/main.rs:70`）。
 operit2 install 与 operit2 uninstall 把参数交给 `cli` 的 `run_cli_root`（`apps/cli/src/main.rs:71`）。
 CLI host 只在 Windows、Linux、macOS 上实现（`apps/cli/src/bootstrap.rs:62`）。
-CLI 不是瘦客户端：无 owner 时启动进程内短命 Core；有 owner 时复用 owner 的 Core（`apps/cli/src/cli/mod.rs:162`）（`apps/cli/src/core_proxy.rs:51`）。
+CLI 不是瘦客户端：无 owner 时启动进程内短命 Core；有 owner 时复用 owner 的 Core（`apps/cli/src/cli/mod.rs:157`）（`apps/cli/src/core_proxy.rs:51`）。
 短命 CLI Core 在 owner 运行时关闭 Space 同步（`apps/cli/src/bootstrap.rs:249`）。
 
 ## AI 速览
 
 - 核心符号：`local_cli_core` — 创建进程内本地 CLI Core（`apps/cli/src/core_proxy.rs:51`）。
 - 核心符号：`create_cli_core_application` — 启动 CLI 的 CoreApplication（`apps/cli/src/bootstrap.rs:239`）。
-- 核心符号：`run_cli_root_inner` — 按首个参数分发 CLI 命令（`apps/cli/src/cli/mod.rs:118`）。
+- 核心符号：`run_cli_root_inner` — 按首个参数分发 CLI 命令（`apps/cli/src/cli/mod.rs:113`）。
 - 核心符号：`run_link_command` — 分发 link 的子命令（`apps/cli/src/cli/link.rs:125`）。
 - 核心符号：`OwnerGuard` 的 `acquire` — 为一个身份抢占排他 Core 所有权锁（`apps/cli/src/daemon.rs:135`）。
 - 核心符号：`try_run_cli_command` — 有 owner 时把 CLI 命令路由给 owner（`apps/cli/src/daemon.rs:525`）。
@@ -32,7 +32,7 @@ CLI 不是瘦客户端：无 owner 时启动进程内短命 Core；有 owner 时
 - 核心符号：`run_tui_command` — TUI 入口（`apps/cli/src/tui/mod.rs:92`）。
 - 核心符号：`discover_devices` — 浏览 mDNS 服务发现设备（`apps/cli/src/mdns.rs:51`）。
 - 主入口函数：main 按首个参数分发到 TUI、CLI、daemon、rescue、安装（`apps/cli/src/main.rs:59`）。
-- 数据流向：用户输入 → run_cli_root_inner 分发 → 有 owner 时走控制通道复用 owner 的 Core，无 owner 时启动短命进程内 Core → 本地路径：Core 命令经 `GeneratedCoreProxy`（`apps/cli/src/core_proxy.rs:56`）发往 Core，由 `run_core_command_and_print` 执行并打印结果（`apps/cli/src/cli/mod.rs:1475`）；owner 路径：命令经控制通道 `run` 操作在 owner 的 Core 上执行（`apps/cli/src/daemon.rs:525`）（`apps/cli/src/daemon.rs:474`）。
+- 数据流向：用户输入 → run_cli_root_inner 分发 → 有 owner 时走控制通道复用 owner 的 Core，无 owner 时启动短命进程内 Core → 本地路径：Core 命令经 `GeneratedCoreProxy`（`apps/cli/src/core_proxy.rs:56`）发往 Core，由 `run_core_command_and_print` 执行并打印结果（`apps/cli/src/cli/mod.rs:1223`）；owner 路径：命令经控制通道 `run` 操作在 owner 的 Core 上执行（`apps/cli/src/daemon.rs:525`）（`apps/cli/src/daemon.rs:474`）。
 
 ## 核心机制
 
@@ -46,34 +46,34 @@ CLI 不是瘦客户端：无 owner 时启动进程内短命 Core；有 owner 时
 CLI 设备身份用 `LinkDeviceInfo` 的 `nativeCliOnHost` 构造（`apps/cli/src/bootstrap.rs:78`）。
 短命 CLI Core 在 owner 运行时关闭 Space 同步（`apps/cli/src/bootstrap.rs:249`）。
 带节点服务的 CLI Core 创建入口固定关闭 Space 同步（`apps/cli/src/bootstrap.rs:268`）。
-run_cli_root_inner 在启动自有 Core 之前先调用 `try_run_cli_command`（`apps/cli/src/cli/mod.rs:162`）。
+run_cli_root_inner 在启动自有 Core 之前先调用 `try_run_cli_command`（`apps/cli/src/cli/mod.rs:157`）。
 有 owner 时 CLI 命令经 `try_run_cli_command` 走 owner 的控制通道（`apps/cli/src/daemon.rs:525`）。
 `route_supported` 把交互与本地命令排除在 owner 路由之外（`apps/cli/src/daemon.rs:562`）。
 model codex-login 不走 owner 路由（`apps/cli/src/daemon.rs:572`）。
 `OPERIT_CLI_CONFIG_DIR` 环境变量覆盖 CLI 配置目录（`apps/cli/src/bootstrap.rs:632`）。
 显式 CLI 配置下插件 SDK IPC 实例按身份隔离（`apps/cli/src/bootstrap.rs:108`）。
 
-### 命令清单：31 个固有命令族加插件命令
+### 命令清单：33 个固有命令族加插件命令
 
-`run_cli_root_inner` 按首个参数分发 CLI 命令（`apps/cli/src/cli/mod.rs:118`）。
-`CLI_COMMANDS` 表定义固有 CLI 命令族（`apps/cli/src/cli/mod.rs:1827`）。
-单元测试断言 `CLI_COMMANDS` 覆盖 31 个固有 CLI 命令族（`apps/cli/src/cli/mod.rs:2347`）。
-`read_cli_plugin_commands` 通过 plugin commands --json 读取插件命令目录（`apps/cli/src/cli/mod.rs:1863`）。
-插件命令与固有 CLI 命令同名时报错（`apps/cli/src/cli/mod.rs:1870`）。
-插件命令来自已启用插件的 Core 命令目录（`apps/cli/src/cli/mod.rs:1858`）。
-`run_cli_root` 剥离 `--json` 后分发命令（`apps/cli/src/cli/mod.rs:103`）。
-`cli_json_mode` 表示本次调用是否要求 JSON 输出（`apps/cli/src/cli/mod.rs:80`）。
-`cli_usage_lines`（`apps/cli/src/cli/mod.rs:1895`）的用法文本列出 `--link <session>` 全局选项（`apps/cli/src/cli/mod.rs:1901`）。
-除 chat shell 外，`chat` 子命令转发给 Core 命令（`apps/cli/src/cli/mod.rs:183`）。
-`run_identity_command` 处理 identity 本地管理命令（`apps/cli/src/cli/mod.rs:210`）。
-`identity` 子命令包含 `list`、`current`、`create`、`use`、`rename`（`apps/cli/src/cli/mod.rs:1975`）。
-model codex-login 只接受 `browser` 或 `device` 两种方式（`apps/cli/src/cli/mod.rs:1508`）。
-market auth login 走 GitHub OAuth 回调完成登录（`apps/cli/src/cli/mod.rs:1662`）。
-`run_update_cli_command` 处理 update 的发现、下载与安装（`apps/cli/src/cli/mod.rs:517`）。
+`run_cli_root_inner` 按首个参数分发 CLI 命令（`apps/cli/src/cli/mod.rs:113`）。
+`CLI_COMMANDS` 表定义固有 CLI 命令族（`apps/cli/src/cli/mod.rs:1575`）。
+单元测试断言 `CLI_COMMANDS` 覆盖 31 个固有 CLI 命令族（`apps/cli/src/cli/mod.rs:2095`）。
+`read_cli_plugin_commands` 通过 plugin commands --json 读取插件命令目录（`apps/cli/src/cli/mod.rs:1627`）。
+插件命令与固有 CLI 命令同名时报错（`apps/cli/src/cli/mod.rs:1637`）。
+插件命令来自已启用插件的 Core 命令目录（`apps/cli/src/cli/mod.rs:1627`）。
+`run_cli_root` 剥离 `--json` 后分发命令（`apps/cli/src/cli/mod.rs:98`）。
+`cli_json_mode` 表示本次调用是否要求 JSON 输出（`apps/cli/src/cli/mod.rs:75`）。
+`cli_usage_lines`（`apps/cli/src/cli/mod.rs:1645`）的用法文本列出 `--link <session>` 全局选项（`apps/cli/src/cli/mod.rs:1651`）。
+除 chat shell 外，`chat` 子命令转发给 Core 命令（`apps/cli/src/cli/mod.rs:181`）。
+`run_identity_command` 处理 identity 本地管理命令（`apps/cli/src/cli/mod.rs:206`）。
+`identity` 子命令包含 `list`、`current`、`create`、`use`、`rename`（`apps/cli/src/cli/mod.rs:1721`）。
+model codex-login 只接受 `browser` 或 `device` 两种方式（`apps/cli/src/cli/mod.rs:1256`）。
+market auth login 走 GitHub OAuth 回调完成登录（`apps/cli/src/cli/mod.rs:1428`）。
+`run_update_cli_command` 处理 update 的发现、下载与安装（`apps/cli/src/cli/mod.rs:279`）。
 `cli_update_target` 用产品 `cli` 与当前系统、架构构造更新目标（`apps/cli/src/cli/host_ops.rs:29`）。
-`install_current_cli` 从当前可执行文件安装 CLI（`apps/cli/src/cli/mod.rs:867`）。
-install_cli_from_source 把同一二进制复制为 `operit` 与 `operit2` 两个命令（`apps/cli/src/cli/mod.rs:908`）。
-非 Windows 的 CLI 安装目录是 ~/.local/bin（`apps/cli/src/cli/mod.rs:1103`）。
+`install_current_cli` 从当前可执行文件安装 CLI（`apps/cli/src/cli/mod.rs:615`）。
+install_cli_from_source 把同一二进制复制为 `operit` 与 `operit2` 两个命令（`apps/cli/src/cli/mod.rs:674`）。
+非 Windows 的 CLI 安装目录是 ~/.local/bin（`apps/cli/src/cli/mod.rs:869`）。
 Windows CLI 运行时库包含 `operit_local_llm.dll`（`apps/cli/src/cli/host_ops.rs:37`）。
 
 ### link：配对、空间与网络控制
@@ -82,7 +82,7 @@ Windows CLI 运行时库包含 `operit_local_llm.dll`（`apps/cli/src/cli/host_o
 除 listen、session、qr、pair 外，`run_link_command` 先查 owner 是否在运行，有 owner 时经控制通道复用 owner 的 Core（`apps/cli/src/cli/link.rs:125`）。
 run_link_command 把 `session` 交给 `run_link_session`（`apps/cli/src/cli/link.rs:148`）。
 `link` 包含 `stream-probe` 与 `edge-call` 子命令（`apps/cli/src/cli/link.rs:126`）。
-`print_link_usage` 列出 link 的全部子命令用法（`apps/cli/src/cli/link.rs:1496`）。
+`print_link_usage` 列出 link 的全部子命令用法（`apps/cli/src/cli/link.rs:1501`）。
 link pair 配对时在接收设备上读六位确认码（`apps/cli/src/cli/link.rs:276`）。
 连接二维码有效期为 5 分钟（`apps/cli/src/cli/link.rs:396`）。
 link listen 接受 `http`、`ws`、`tcp`、`serial`、`bluetooth` 五种传输（`apps/cli/src/cli/link.rs:455`）。
@@ -91,10 +91,10 @@ link discover 通过 `discoverPeers` 发现对端（`apps/cli/src/cli/link.rs:89
 `link doctor` 默认只读，`--repair` 才隔离损坏的日记行（`apps/cli/src/cli/link.rs:801`）。
 `run_link_space_command` 处理设备空间的查看与成员管理（`apps/cli/src/cli/link.rs:902`）。
 link space join 在只有一个已配对设备时不需要参数（`apps/cli/tests/network_control_session.py:152`）。
-`run_link_control_command` 处理空间网络控制策略命令（`apps/cli/src/cli/link.rs:1081`）。
+`run_link_control_command` 处理空间网络控制策略命令（`apps/cli/src/cli/link.rs:1086`）。
 `network_capabilities` 把 `all`、`audit`、`relay`、`storage`、`execute`、`view` 等短名映射为协议能力（`apps/cli/src/cli/network_control_ui.rs:155`）。
 `network_device_label` 用设备名、用户名、平台、型号拼接设备标签（`apps/cli/src/cli/network_control_ui.rs:10`）。
-`run_link_stream_probe_command` 用路由探测验证 StateFlow 与嵌入流（`apps/cli/src/cli/link.rs:1308`）。
+`run_link_stream_probe_command` 用路由探测验证 StateFlow 与嵌入流（`apps/cli/src/cli/link.rs:1313`）。
 `run_link_edge_call_command` 向指定设备发起 edge 调用（`apps/cli/src/cli/link.rs:678`）。
 
 ### daemon：无头 Core owner 与控制通道
@@ -173,17 +173,17 @@ mcp_http_streaming.rs 包含流式响应与超时测试 `streamed_responses_and_
 - `SharedLocalCore` — 持有 `Arc<LocalCoreProxy>` 的共享本地 Core 包装（`apps/cli/src/core_proxy.rs:14`）。
 - `create_cli_core_application` — 启动 CLI 的 CoreApplication（`apps/cli/src/bootstrap.rs:239`）。
 - `create_cli_host_manager` — 构造 CLI 的 HostManager（`apps/cli/src/bootstrap.rs:65`）。
-- `run_cli_root_inner` — 按首个参数分发 CLI 命令（`apps/cli/src/cli/mod.rs:118`）。
-- `CLI_COMMANDS` — 固有 CLI 命令族表，31 个（`apps/cli/src/cli/mod.rs:1827`）。
-- `read_cli_plugin_commands` — 通过 plugin commands --json 读取插件命令目录（`apps/cli/src/cli/mod.rs:1863`）。
+- `run_cli_root_inner` — 按首个参数分发 CLI 命令（`apps/cli/src/cli/mod.rs:113`）。
+- `CLI_COMMANDS` — 固有 CLI 命令族表，33 个（`apps/cli/src/cli/mod.rs:1575`）。
+- `read_cli_plugin_commands` — 通过 plugin commands --json 读取插件命令目录（`apps/cli/src/cli/mod.rs:1627`）。
 - `run_link_command` — 分发 link 的子命令（`apps/cli/src/cli/link.rs:125`）。
 - `owner_link_command` — 有 owner 时把 link 管理命令发给 owner 执行（`apps/cli/src/daemon.rs:490`）。
 - `run_link_owner` — 统一持有 listen、session、qr 的身份并绑定控制服务器（`apps/cli/src/cli/link.rs:345`）。
 - `run_link_session` — 运行交互式 link 会话（`apps/cli/src/cli/link.rs:148`）。
 - `run_link_space_command` — 处理设备空间的查看与成员管理（`apps/cli/src/cli/link.rs:902`）。
-- `run_link_control_command` — 处理空间网络控制策略命令（`apps/cli/src/cli/link.rs:1081`）。
+- `run_link_control_command` — 处理空间网络控制策略命令（`apps/cli/src/cli/link.rs:1086`）。
 - `run_link_doctor_command` — 运行共享空间诊断，默认只读（`apps/cli/src/cli/link.rs:790`）。
-- `run_link_stream_probe_command` — 用路由探测验证 StateFlow 与嵌入流（`apps/cli/src/cli/link.rs:1308`）。
+- `run_link_stream_probe_command` — 用路由探测验证 StateFlow 与嵌入流（`apps/cli/src/cli/link.rs:1313`）。
 - `run_link_edge_call_command` — 向指定设备发起 edge 调用（`apps/cli/src/cli/link.rs:678`）。
 - `OwnerGuard` 的 `acquire` — 为一个身份抢占排他 Core 所有权锁（`apps/cli/src/daemon.rs:135`）。
 - `ControlServer` 的 `bind` — 在宿主控制端点上监听（`apps/cli/src/daemon.rs:309`）。
@@ -197,8 +197,8 @@ mcp_http_streaming.rs 包含流式响应与超时测试 `streamed_responses_and_
 
 ## 调用链
 
-1. 用户执行 operit2 cli 命令，`run_cli_root` 剥离 `--json` 后分发命令（`apps/cli/src/cli/mod.rs:103`）。
-2. run_cli_root_inner 在启动自有 Core 之前先调用 `try_run_cli_command`（`apps/cli/src/cli/mod.rs:162`）。
+1. 用户执行 operit2 cli 命令，`run_cli_root` 剥离 `--json` 后分发命令（`apps/cli/src/cli/mod.rs:98`）。
+2. run_cli_root_inner 在启动自有 Core 之前先调用 `try_run_cli_command`（`apps/cli/src/cli/mod.rs:157`）。
 3. 有 owner 时 CLI 命令经 `try_run_cli_command` 走 owner 的控制通道（`apps/cli/src/daemon.rs:525`）。
 4. 无 owner 时 `local_cli_core` 创建进程内本地 CLI Core（`apps/cli/src/core_proxy.rs:51`）。
 5. `CliCore` 的 proxy 是包着 `SharedLocalCore` 的 `GeneratedCoreProxy`，命令经它发往 Core（`apps/cli/src/core_proxy.rs:56`）。

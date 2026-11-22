@@ -84,14 +84,14 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - 沙盒下只注册一个 bash 适配器，`withControllingTty(false)` 关闭控制终端（`hosts/apple/src/tools/terminal/terminal_macos.rs:38`）。
 - 非沙盒下注册 `/bin/bash` 与 `/bin/zsh` 两个登录 shell（`hosts/apple/src/tools/terminal/terminal_macos.rs:42`）。
 - 非沙盒下默认 shell 取自 `SHELL` 环境变量，缺省为 `/bin/zsh`（`hosts/apple/src/tools/terminal/terminal_macos.rs:47`）。
-- 沙盒下终端类型描述为 macOS sandbox PTY（without controlling TTY）（`hosts/apple/src/tools/terminal/terminal_macos.rs:153`）。
-- 非沙盒下终端类型描述为 macOS native 登录 PTY，带作业控制（`hosts/apple/src/tools/terminal/terminal_macos.rs:155`）。
+- 沙盒下终端类型描述为 macOS sandbox PTY（without controlling TTY）（`hosts/apple/src/tools/terminal/terminal_macos.rs:161`）。
+- 非沙盒下终端类型描述为 macOS native 登录 PTY，带作业控制（`hosts/apple/src/tools/terminal/terminal_macos.rs:163`）。
 - 只接受 `terminal` 为 native 的请求，否则报 Unsupported macOS terminal 错误（`hosts/apple/src/tools/terminal/terminal_macos.rs:70`）。
 - `hostForSession` 按 `ownsSession` 查找会话，未知会话报 Unknown macOS terminal session 错误（`hosts/apple/src/tools/terminal/terminal_macos.rs:83`）。
-- `createOrGetSession` 使用 `primary` 解释器创建或复用会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:267`）。
+- `createOrGetSession` 使用 `primary` 解释器创建或复用会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:275`）。
 - 开启 `arm64-runtime` 特性时 `terminal` 为 `arm64` 的请求转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:132`）。
-- 开启 `arm64-runtime` 特性时 `macos-arm64-` 前缀的会话 ID 转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:207`）。
-- `executeHiddenCommand` 使用 `primary` 解释器执行隐藏命令（`hosts/apple/src/tools/terminal/terminal_macos.rs:339`）。
+- 开启 `arm64-runtime` 特性时 `macos-arm64-` 前缀的会话 ID 转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:215`）。
+- `executeHiddenCommand` 使用 `primary` 解释器执行隐藏命令（`hosts/apple/src/tools/terminal/terminal_macos.rs:347`）。
 - iOS 下 `terminalInfo` 返回“iOS does not expose a local PTY host”错误（`hosts/apple/src/tools/terminal/mod.rs:43`）。
 - iOS 下 `listSessions` 返回空列表而不报错（`hosts/apple/src/tools/terminal/mod.rs:78`）。
 
@@ -297,7 +297,7 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 
 1. AppleTerminalHost 的 `new` 先以 `processIsolation` 判定沙盒状态（`hosts/apple/src/tools/terminal/terminal_macos.rs:32`）。
 2. 沙盒下只注册一个 `bash` 适配器，非沙盒下注册 `/bin/bash` 与 `/bin/zsh` 登录 shell（`hosts/apple/src/tools/terminal/terminal_macos.rs:38`）。
-3. 调用方调 `createOrGetSession`，复用 `primary` 解释器的同名会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:267`）。
+3. 调用方调 `createOrGetSession`，复用 `primary` 解释器的同名会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:275`）。
 4. 会话操作按 `ownsSession` 定位所属的底层 PTY Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:83`）。
 
 ### 服务发现订阅

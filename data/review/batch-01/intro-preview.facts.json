@@ -37,7 +37,7 @@
   },
   {
     "fact": "标记为 target、plan 或 direction of evolution 的架构文档不代表所有平台已实现；以源码、命令帮助输出、构建结果与目标平台运行时结果为准。",
-    "ref": "README.md:246"
+    "ref": "README.md:249"
   },
   {
     "fact": "版本格式兼容 SemVer：stable 为 2.0.0，preview 为 2.0.0-preview.1，rc 为 2.0.0-rc.1，dev 为 2.0.0-dev.20260619。",
@@ -169,11 +169,11 @@
   },
   {
     "fact": "operit2 cli update check 支持无参数调用，无参数时自动使用 CARGO_PKG_VERSION 作当前版本。",
-    "ref": "apps/cli/src/cli/mod.rs:538"
+    "ref": "apps/cli/src/cli/mod.rs:300"
   },
   {
     "fact": "operit2 cli update check 接受显式参数 current_version，显式参数覆盖版本比较基准。",
-    "ref": "apps/cli/src/cli/mod.rs:566"
+    "ref": "apps/cli/src/cli/mod.rs:328"
   },
   {
     "fact": "cli update check 只检查是否有可用更新，不下载。",

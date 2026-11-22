@@ -66,8 +66,8 @@ sendMessage 先调 `limitImageLinksInChatHistory` 再调 `limitMediaLinksInChatH
 响应流清理任务排在宿主运行时异步任务上（`scheduleHostRuntimeAsyncTask`），收完流才注销操作（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:499`）。
 历史准备在 ConversationService.prepare_conversation_history 内完成，先跑 `before_prepare_history` 钩子再组装历史（`dispatch_prompt_history_hooks`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:150`）。
 历史里没有 `SYSTEM` 轮次时才注入系统提示（`PromptTurnKind::SYSTEM`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:165`）。
-系统提示后追加用户偏好文本（`USER.md:` 段），除非配置禁用了用户偏好描述（`disable_user_preference_description`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:1036`）。
-系统提示里的 `{{aiName}}` 与 `{aiName}` 占位符替换为 AI 名称（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:1044`）。
+系统提示后追加用户偏好文本（`USER.md:` 段），除非配置禁用了用户偏好描述（`disable_user_preference_description`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:1046`）。
+系统提示里的 `{{aiName}}` 与 `{aiName}` 占位符替换为 AI 名称（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:1054`）。
 prepare_conversation_history 对工具结果轮次做模型侧标记归一化（`normalize_tool_result_markup_for_model`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:191`）。
 准备完再跑 `after_prepare_history` 钩子，返回钩子处理后的历史（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:201`）。
 助手输出没有 XML 标签时，整段内容作一个助手轮次（`PromptTurnKind::ASSISTANT`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:321`）。
@@ -132,21 +132,21 @@ summarizeMemory 只总结上一次总结之后的消息（`lastSummaryIndex`）�
 总结消息的 token 数取自摘要生成的真实用量：输入 token 为 `usage.input`、输出 token 为 `usage.output`，另记缓存输入 token `usage.cached_input`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:616`）。
 总结消息的发送方记为 `summary`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:608`）。
 总结消息的角色名是 `system`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:615`）。
-总结用 `SUMMARY` 功能的模型参数与服务（`getModelParametersForFunction`、`getServiceForFunction`、`FunctionType::SUMMARY`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:469`）。
-总结生成先跑 `before_prepare_summary_prompt` 钩子（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:499`）。
-总结发送前跑 `before_send_to_model` 钩子（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:528`）。
-总结生成后跑 `after_generate_summary` 钩子（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:592`）。
-总结请求不带工具：`available_tools` 为空（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:569`）。
-总结流收完后校验响应完整（`ensure_response_completed`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:579`）。
-空总结通不过 `validateSummaryContent` 校验（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:916`）。
-总结的 token 用量写回 Provider 模型（`updateTokensForProviderModel`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:626`）。
-总结请求按 `SUMMARY_GENERATION` 来源记用量统计（`recordProviderModelRequest`、`UsageRequestSource::SUMMARY_GENERATION`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:637`）。
-总结提示由 buildSummaryPreparedHistory 按系统提示、历史、总结提问三段组装（`PromptTurnKind::SYSTEM`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:909`）。
+总结用 `SUMMARY` 功能的模型参数与服务（`getModelParametersForFunction`、`getServiceForFunction`、`FunctionType::SUMMARY`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:476`）。
+总结生成先跑 `before_prepare_summary_prompt` 钩子（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:506`）。
+总结发送前跑 `before_send_to_model` 钩子（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:535`）。
+总结生成后跑 `after_generate_summary` 钩子（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:599`）。
+总结请求不带工具：`available_tools` 为空（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:576`）。
+总结流收完后校验响应完整（`ensure_response_completed`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:586`）。
+空总结通不过 `validateSummaryContent` 校验（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:926`）。
+总结的 token 用量写回 Provider 模型（`updateTokensForProviderModel`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:633`）。
+总结请求按 `SUMMARY_GENERATION` 来源记用量统计（`recordProviderModelRequest`、`UsageRequestSource::SUMMARY_GENERATION`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:644`）。
+总结提示由 buildSummaryPreparedHistory 按系统提示、历史、总结提问三段组装（`PromptTurnKind::SYSTEM`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:919`）。
 `insertSummary` 只在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1510`）。
 insertSummary 用 `summarizeMemory` 生成总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1558`）。
 insertSummary 生成有效总结后经 `addSummaryMessage` 插入到选定位置（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1578`）。
 `compactChat` 手动把当前会话压缩为检查点，不论阈值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）。
-`compactChat` 压缩前先为目标会话申请执行租约（`beginChatExecution`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1636`）。
+`compactChat` 压缩前先为目标会话申请执行租约（`beginChatExecution`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1640`）。
 compactChat 压缩经 `manuallySummarizeConversationForChat` 执行（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1647`）。
 compactChat 压缩完成后释放执行租约（`executionLease`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1636`）。
 
@@ -197,8 +197,8 @@ compactChat 压缩完成后释放执行租约（`executionLease`）（`core/crat
 
 ## 来源
 
-- `core/crates/runtime/application/src/services/ChatServiceCore.rs`（3886 行，全文通读）
+- `core/crates/runtime/application/src/services/ChatServiceCore.rs`（3890 行，全文通读）
 - `core/crates/runtime/application/src/core/chat/AIMessageManager.rs`（1967 行，全文通读）
-- `core/crates/provider/services/src/chat/enhance/ConversationService.rs`（1240 行，全文通读）
+- `core/crates/provider/services/src/chat/enhance/ConversationService.rs`（1250 行，全文通读）
 - `core/crates/tool/services/src/tools/ToolRegistration.rs`（补充：switch_core 工具注册与 `resolveSwitchCoreTarget` 相关区段）
 - `core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs`（补充：`sendRoutedContinuation` 与总结检查相关区段）

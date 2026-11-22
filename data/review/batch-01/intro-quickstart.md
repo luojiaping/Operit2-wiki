@@ -40,9 +40,9 @@ Operit2 处于 Preview 阶段，底层结构、数据格式、插件契约与跨
 主入口：
 
 - operit2：无参数进入 TUI（`apps/cli/src/main.rs:59`）
-- `operit2 cli link`：配对、发现与 Space 管理（`apps/cli/src/cli/link.rs:1499`）
+- `operit2 cli link`：配对、发现与 Space 管理（`apps/cli/src/cli/link.rs:1504`）
 - `operit2 cli web open`：打开 Web Access（`apps/cli/src/cli/web.rs:6`）
-- `fvm flutter run`：启动 Flutter App（`README.md:191`）
+- `fvm flutter run`：启动 Flutter App（`README.md:194`）
 
 数据流向：本节点启动监听器 → 对端通过发现或扫码拿到地址 → 配对握手验证节点与配对密钥 → 提交 Space 加入请求 → 同步记录到达目标节点后继续任务。
 
@@ -52,25 +52,25 @@ Operit2 处于 Preview 阶段，底层结构、数据格式、插件契约与跨
 
 开发入口要求 Rust stable 与 rustup、Flutter SDK 与 FVM、Node.js、Python 3（`README.md:156`）。
 
-CLI 从仓库根目录运行：`cargo check --manifest-path apps/cli/Cargo.toml` 检查，`cargo run --manifest-path apps/cli/Cargo.toml --bin operit2 -- --help` 查看帮助（README.md:169-170）。
+CLI 从仓库根目录运行：`cargo check --manifest-path apps/cli/Cargo.toml` 检查，`cargo run --manifest-path apps/cli/Cargo.toml --bin operit2 -- --help` 查看帮助（README.md:172-173）。
 
-不带参数运行 `operit2` 默认进入 TUI（`README.md:175`）；operit2 cli version 显示 CLI、Core 与 Link 版本（`apps/cli/src/cli/mod.rs:131`）。
+不带参数运行 `operit2` 默认进入 TUI（`README.md:178`）；operit2 cli version 显示 CLI、Core 与 Link 版本（`apps/cli/src/cli/mod.rs:126`）。
 
-Flutter App 从 `apps/flutter/app` 目录运行：`fvm install --skip-pub-get`、`fvm dart pub get --enforce-lockfile`、`fvm flutter analyze`、`fvm flutter run -d windows`（README.md:188-191）。其中 `windows` 只是示例设备名，Android、Linux、macOS、iOS、OpenHarmony 与浏览器模式各需要自己的平台工具链（`README.md:191`）。
+Flutter App 从 `apps/flutter/app` 目录运行：`fvm install --skip-pub-get`、`fvm dart pub get --enforce-lockfile`、`fvm flutter analyze`、`fvm flutter run -d windows`（README.md:191-194）。其中 `windows` 只是示例设备名，Android、Linux、macOS、iOS、OpenHarmony 与浏览器模式各需要自己的平台工具链（`README.md:194`）。
 
 ### CLI 入口（以 apps/cli 源码为准）
 
 | 用途 | 命令 | 来源 |
 | --- | --- | --- |
-| 查看版本 | operit2 cli version | `apps/cli/src/cli/mod.rs:131` |
-| 发现设备 | operit2 cli link discover [--timeout-ms \<ms\>] | `apps/cli/src/cli/link.rs:1504` |
-| 生成连接码 | operit2 cli link qr [http\|ws\|tcp] [--bind \<host:port\>] [--no-discovery] | `apps/cli/src/cli/link.rs:1505` |
-| 配对 | operit2 cli link pair [device-name\|connection-code] | `apps/cli/src/cli/link.rs:1503` |
-| 启动监听器 | operit2 cli link listen \<http\|ws\|tcp\|serial\|bluetooth\> [--automatic-port\|--fixed-port] [--bind \<host:port\>] | `apps/cli/src/cli/link.rs:1509` |
-| 交互式管理 | operit2 cli link session \<http\|ws\|tcp\> [--automatic-port\|--fixed-port] [--bind \<host:port\>] [--no-discovery] | `apps/cli/src/cli/link.rs:1513` |
+| 查看版本 | operit2 cli version | `apps/cli/src/cli/mod.rs:126` |
+| 发现设备 | operit2 cli link discover [--timeout-ms \<ms\>] | `apps/cli/src/cli/link.rs:1509` |
+| 生成连接码 | operit2 cli link qr [http\|ws\|tcp] [--bind \<host:port\>] [--no-discovery] | `apps/cli/src/cli/link.rs:1510` |
+| 配对 | operit2 cli link pair [device-name\|connection-code] | `apps/cli/src/cli/link.rs:1508` |
+| 启动监听器 | operit2 cli link listen \<http\|ws\|tcp\|serial\|bluetooth\> [--automatic-port\|--fixed-port] [--bind \<host:port\>] | `apps/cli/src/cli/link.rs:1514` |
+| 交互式管理 | operit2 cli link session \<http\|ws\|tcp\> [--automatic-port\|--fixed-port] [--bind \<host:port\>] [--no-discovery] | `apps/cli/src/cli/link.rs:1519` |
 | 查看 Space | operit2 cli link space show | `apps/cli/src/cli/link.rs:921` |
-| 加入 Space | operit2 cli link space join [device-name\|number] | `apps/cli/src/cli/link.rs:1510` |
-| 列出身份 | operit2 cli identity list | `apps/cli/src/cli/mod.rs:212` |
+| 加入 Space | operit2 cli link space join [device-name\|number] | `apps/cli/src/cli/link.rs:1515` |
+| 列出身份 | operit2 cli identity list | `apps/cli/src/cli/mod.rs:208` |
 | 存储路径 | operit2 cli storage paths | `core/crates/command/core/src/commands/storage.rs:20` |
 | 导出快照 | operit2 cli export snapshot \<path\> | `apps/cli/src/cli/transfer.rs:53` |
 | 创建备份 | operit2 cli backup create \<path\> | `apps/cli/src/cli/transfer.rs:121` |
@@ -83,9 +83,9 @@ discover 的默认超时 `timeout_ms` 是 2000 毫秒（`apps/cli/src/cli/link.r
 
 README 的命令示例有两处与代码不符，以代码为准：
 
-- README 写 `operit2 cli link serve --bind <address:port> --token <strong-token>`（`README.md:46`），但 run_link_command 的分发中没有 `serve` 子命令，`link` 的子命令清单是 discover、qr、pair、unpair、peers、prompts、listen、session、space、doctor、control、stream-probe、edge-call（`apps/cli/src/cli/link.rs:1499`）。启动监听器用 `operit2 cli link listen`（`apps/cli/src/cli/link.rs:1509`）。
+- README 写 `operit2 cli link serve --bind <address:port> --token <strong-token>`（`README.md:46`），但 run_link_command 的分发中没有 `serve` 子命令，`link` 的子命令清单是 discover、qr、pair、unpair、peers、prompts、listen、session、space、doctor、control、stream-probe、edge-call（`apps/cli/src/cli/link.rs:1504`）。启动监听器用 `operit2 cli link listen`（`apps/cli/src/cli/link.rs:1514`）。
 - README 写 `operit2 cli link connect <url> --token <token> --save <session-name>`（`README.md:48`），run_link_command 的分发中没有 `connect` 子命令（`apps/cli/src/cli/link.rs:125`）。连接改走发现或扫码后的 `pair`。
-- README 写 `operit2 cli link space join <session-name>`（`README.md:49`），代码里的 `space join` 接受设备名或编号作为选择器，不是会话名（`apps/cli/src/cli/link.rs:1510`）。
+- README 写 `operit2 cli link space join <session-name>`（`README.md:49`），代码里的 `space join` 接受设备名或编号作为选择器，不是会话名（`apps/cli/src/cli/link.rs:1515`）。
 
 ### 发现与配对
 
@@ -114,7 +114,7 @@ TXT 元数据必须包含 `nodeId`、`displayName` 与 `transports`，不完整�
 `operit2 cli link qr http --no-discovery` 在没有守护进程或 TUI 属主运行时启动 HTTP 监听器并保持到 Ctrl-C（`docs/device-space-lan-discovery.md:137`）。
 `link qr` 的 `--json` 以无终端转义序列的形式输出连接信息（`docs/device-space-lan-discovery.md:142`）。
 交互式 `link session` 中 `qr` 显示同一连接码，`pair <connection-code>` 完成 QR 配对，`space` 命令提交或检查加入请求（`docs/device-space-lan-discovery.md:145`）。
-Flutter 扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4871`）。
+Flutter 扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4970`）。
 
 ### Web Access
 
@@ -134,7 +134,7 @@ runtime 布局：`runtime/src` 存放 TypeScript 源码，`runtime/generated` �
 
 原生应用与 CLI 不打包也不提供 web 目录；设置入口与 `operit2 cli web open` 打开 https://web.operit.app/，不启动本地服务器，不把凭证放进 URL（`apps/flutter/app/web/README.md:54`）。连接另一台设备是独立的节点监听与配对操作，不是 Web Access 服务器生命周期（`apps/flutter/app/web/README.md:57`）。
 
-两份文档在开发代理上说法不同：README 的 Web Access 双终端步骤引用 `node tools/dev_web_access_proxy.mjs`，代理监听 4836 端口（`README.md:205`），要求 Flutter 上游端口与代理的 `--upstream-port` 保持相同（`README.md:208`）；web README 则写明不需要单独的 Node 进程或代理端口，内置开发服务器直接位于 http://127.0.0.1:4835（`apps/flutter/app/web/README.md:22`）。本页的开发步骤按 web README（Web Access 的专门文档）写，README 的双终端步骤只记录在本段，不作为操作指导。另注意：`tools/dev_web_access_proxy.mjs` 在当前仓库树中不存在，README 的双终端步骤目前不可直接执行。
+两份文档在开发代理上说法不同：README 的 Web Access 双终端步骤引用 `node tools/dev_web_access_proxy.mjs`，代理监听 4836 端口（`README.md:208`），要求 Flutter 上游端口与代理的 `--upstream-port` 保持相同（`README.md:211`）；web README 则写明不需要单独的 Node 进程或代理端口，内置开发服务器直接位于 http://127.0.0.1:4835（`apps/flutter/app/web/README.md:22`）。本页的开发步骤按 web README（Web Access 的专门文档）写，README 的双终端步骤只记录在本段，不作为操作指导。另注意：`tools/dev_web_access_proxy.mjs` 在当前仓库树中不存在，README 的双终端步骤目前不可直接执行。
 
 ### 备份与迁移
 
@@ -179,19 +179,19 @@ ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/cr
 ## 调用链
 
 1. 装环境：Rust stable 与 rustup、Flutter SDK 与 FVM、Node.js、Python 3（`README.md:156`）。
-2. 启动本节点：`operit2` 进入 TUI（`README.md:175`），或从仓库根目录用 `cargo run --manifest-path apps/cli/Cargo.toml --bin operit2` 启动 CLI（`README.md:170`）。
-3. 启动监听器：operit2 cli link listen http（`apps/cli/src/cli/link.rs:1509`）；设备在监听器运行且 `discoveryEnabled` 开启时才广播（`docs/device-space-lan-discovery.md:7`）。
-4. 发现对端：`operit2 cli link discover`（`apps/cli/src/cli/link.rs:1504`），或在添加设备对话框里 5 秒扫描（`docs/device-space-lan-discovery.md:11`）。
-5. 连接码配对——提供方：`operit2 cli link qr` 显示二维码与连接码（`apps/cli/src/cli/link.rs:1505`）。
+2. 启动本节点：`operit2` 进入 TUI（`README.md:178`），或从仓库根目录用 `cargo run --manifest-path apps/cli/Cargo.toml --bin operit2` 启动 CLI（`README.md:173`）。
+3. 启动监听器：operit2 cli link listen http（`apps/cli/src/cli/link.rs:1514`）；设备在监听器运行且 `discoveryEnabled` 开启时才广播（`docs/device-space-lan-discovery.md:7`）。
+4. 发现对端：`operit2 cli link discover`（`apps/cli/src/cli/link.rs:1509`），或在添加设备对话框里 5 秒扫描（`docs/device-space-lan-discovery.md:11`）。
+5. 连接码配对——提供方：`operit2 cli link qr` 显示二维码与连接码（`apps/cli/src/cli/link.rs:1510`）。
 6. 连接码配对——接收方：`operit2 cli link pair <connection-code>`，`operit://` 分支配对成功后直接返回，不出现六位码提示（`apps/cli/src/cli/link.rs:271`）。
 7. 手动配对：`operit2 cli link pair <device-name>` 后在接收设备上读六位码，CLI 提示输入配对码完成配对（`apps/cli/src/cli/link.rs:276`）。
-8. 加入 Space：operit2 cli link space join [device-name|number] 只提交加入申请并打印回执，底层调用 `requestDeviceSpaceJoin`（`apps/cli/src/cli/link.rs:991`）。
-9. 加入审批：Space 一侧用 `incomingDeviceSpaceJoins` 查看收到的申请，用 `decideDeviceSpaceJoin` 以 approve 或 reject 做决定（`apps/cli/src/cli/link.rs:1022`）。
-10. 查申请状态：申请人用 `outgoingDeviceSpaceJoins` 列出已发出的申请（`apps/cli/src/cli/link.rs:998`）。
-11. 刷新申请：link space refresh [space-name] 对发出的申请调用 `refreshDeviceSpaceJoin` 并打印更新后的回执（`apps/cli/src/cli/link.rs:1016`）。
+8. 加入 Space：operit2 cli link space join [device-name|number] 只提交加入申请并打印回执，底层调用 `requestDeviceSpaceJoin`（`apps/cli/src/cli/link.rs:996`）。
+9. 加入审批：Space 一侧用 `incomingDeviceSpaceJoins` 查看收到的申请，用 `decideDeviceSpaceJoin` 以 approve 或 reject 做决定（`apps/cli/src/cli/link.rs:1027`）。
+10. 查申请状态：申请人用 `outgoingDeviceSpaceJoins` 列出已发出的申请（`apps/cli/src/cli/link.rs:1003`）。
+11. 刷新申请：link space refresh [space-name] 对发出的申请调用 `refreshDeviceSpaceJoin` 并打印更新后的回执（`apps/cli/src/cli/link.rs:1021`）。
 12. 成功判据：已批准的加入申请经 `adoptApprovedMembership` 落为 `Joined`（`core/crates/node/runtime/src/peer/space_join.rs:1328`）。
 13. 核对成员：用 operit2 cli link space show 核对 Space 名称与成员数量（`apps/cli/src/cli/link.rs:921`）。
-14. Flutter 扫码：扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4871`）。
+14. Flutter 扫码：扫码后点 `确认加入` 直接连接并提交加入请求，无需输入配对码（`apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4970`）。
 15. 用浏览器访问：`operit2 cli web open` 打开 https://web.operit.app/（`apps/cli/src/cli/web.rs:6`）；打开页面不会自动让浏览器成为 `Space` 中的独立节点（`README.md:72`）。
 16. 备份：`operit2 cli export snapshot <path>` 导出快照（`apps/cli/src/cli/transfer.rs:53`），恢复用 `operit2 cli backup restore <path>`（`apps/cli/src/cli/transfer.rs:122`），检查用 `operit2 cli backup inspect <snapshot-zip-path>`（`apps/cli/src/cli/transfer.rs:123`）。
 

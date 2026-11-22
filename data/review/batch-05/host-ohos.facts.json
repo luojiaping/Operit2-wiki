@@ -237,7 +237,7 @@
   },
   {
     "fact": "`readRootfsSha256` 要求校验和为 64 位十六进制字符并转小写。",
-    "ref": "hosts/ohos/src/terminal.rs:734"
+    "ref": "hosts/ohos/src/terminal.rs:736"
   },
   {
     "fact": "打包安装经 apk 以 `--no-network` 离线运行。",
@@ -265,7 +265,7 @@
   },
   {
     "fact": "`verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`。",
-    "ref": "hosts/ohos/src/terminal.rs:801"
+    "ref": "hosts/ohos/src/terminal.rs:802"
   },
   {
     "fact": "`OhosTerminalHost` 的 `new` 接受显式的 runtimeRoot 与 workspaceRoot。",
@@ -277,15 +277,15 @@
   },
   {
     "fact": "`createVrootShell` 为 QEMU-vroot Alpine 创建 PTY 启动器。",
-    "ref": "hosts/ohos/src/terminal.rs:642"
+    "ref": "hosts/ohos/src/terminal.rs:644"
   },
   {
     "fact": "vroot shell 在 guest 内执行 cd \"$OPERIT_OHOS_HOST_WORKING_DIR\" && exec /bin/sh -i。",
-    "ref": "hosts/ohos/src/terminal.rs:657"
+    "ref": "hosts/ohos/src/terminal.rs:659"
   },
   {
     "fact": "vroot 会话默认工作目录为 `VROOT_HOST_MOUNT_ROOT` 拼接 workspaceRoot。",
-    "ref": "hosts/ohos/src/terminal.rs:661"
+    "ref": "hosts/ohos/src/terminal.rs:663"
   },
   {
     "fact": "`terminalInfo` 把 qemu-vroot 列为默认终端。",
@@ -297,11 +297,11 @@
   },
   {
     "fact": "native 条目 available 取 `/bin/sh` 是否存在。",
-    "ref": "hosts/ohos/src/terminal.rs:450"
+    "ref": "hosts/ohos/src/terminal.rs:451"
   },
   {
     "fact": "`startPtySession` 对 qemu-vroot 要求工作目录为绝对路径。",
-    "ref": "hosts/ohos/src/terminal.rs:471"
+    "ref": "hosts/ohos/src/terminal.rs:473"
   },
   {
     "fact": "qemu-vroot 工作目录解析把原生目录映射为 `VROOT_HOST_MOUNT_ROOT` 前缀的 guest 路径。",
@@ -309,19 +309,19 @@
   },
   {
     "fact": "`createOrGetTypedSession` 固定走 `QEMU_VROOT_TERMINAL` 后端。",
-    "ref": "hosts/ohos/src/terminal.rs:545"
+    "ref": "hosts/ohos/src/terminal.rs:547"
   },
   {
     "fact": "`executeHiddenCommand` 固定走 QemuVroot 后端。",
-    "ref": "hosts/ohos/src/terminal.rs:591"
+    "ref": "hosts/ohos/src/terminal.rs:593"
   },
   {
     "fact": "`listSessions` 合并 native 与 vroot 两路会话并逐条记录后端。",
-    "ref": "hosts/ohos/src/terminal.rs:519"
+    "ref": "hosts/ohos/src/terminal.rs:521"
   },
   {
     "fact": "`closePtySession` 关闭 PTY 后移除会话后端记录。",
-    "ref": "hosts/ohos/src/terminal.rs:512"
+    "ref": "hosts/ohos/src/terminal.rs:514"
   },
   {
     "fact": "`OhosManagedRuntimeHost` 的 `new` 接受终端 Host 与 workspaceRoot。",

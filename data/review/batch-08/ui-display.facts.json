@@ -205,11 +205,11 @@
   },
   {
     "fact": "`requiresNativeApplicationZoom` 的默认值为 `false`。",
-    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:364"
+    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408"
   },
   {
     "fact": "需要原生内容缩放的后端返回 `true` 并实现 `setApplicationZoomFactor`，复合平台视图保持默认。",
-    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:361"
+    "ref": "apps/flutter/thirdparty/webview_all_linux/lib/src/linux_webview_controller.dart:816"
   },
   {
     "fact": "`build` 在 `requiresNativeApplicationZoom` 为真时包一层 `_NativeZoomWebViewViewport`，否则直接返回原生视图。",
@@ -293,7 +293,7 @@
   },
   {
     "fact": "OHOS 控制器用 `NativeWebViewZoom` 只发页面缩放，因为平台视图已复合应用绘制缩放，再乘应用缩放会翻倍。",
-    "ref": "apps/flutter/thirdparty/webview_all_ohos/lib/src/ohos_webview_controller.dart:1099"
+    "ref": "apps/flutter/thirdparty/webview_all_ohos/lib/src/ohos_webview_controller.dart:1124"
   },
   {
     "fact": "Windows 上 WebView2 直接向 Windows 引擎提供 composition visual，原生浏览器显示使用 composition visual，不用 Flutter Texture 或连续截屏。",

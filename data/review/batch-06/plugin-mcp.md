@@ -75,7 +75,7 @@ date: 2026-11-11
 - `extractOwnerAndRepo` 只接受 `github.com` 及其子域。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:498`
 - 仓库 zip 按默认分支从 GitHub 归档地址下载。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:309`
 - `getGithubDefaultBranch` 查询 `api.github.com` 的仓库接口取默认分支。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:547`
-- 仓库下载的 `CONNECT_TIMEOUT_SECONDS` 为 15 秒、`READ_TIMEOUT_SECONDS` 为 30 秒。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:21`
+- 仓库下载的 `API_REQUEST_TIMEOUT_SECONDS` 为 15 秒、`ARCHIVE_DOWNLOAD_TIMEOUT_SECONDS` 为 30 秒。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:21`
 - `resolvePluginRoot` 要求归档解压后恰好含一个根目录。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:322`
 - `deployInstalledPlugin` 在 `mcpConfig` 为空时从项目生成配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:351`
 - 安装部署时，插件的服务器配置经 `addOrUpdateMCPServerConfig` 写入。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:362`

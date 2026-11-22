@@ -1,10 +1,10 @@
 {
   "issue": 2,
-  "source_commit": "6c41242",
+  "source_commit": "ab6508d",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Operit2 是什么：面向个人用户的开源跨设备 Agent 项目，CoreNode + Host + Space + Binding，预览阶段，11 章大纲第 1 页。",
-  "updated": "2026-11-21",
+  "updated": "2026-11-22",
   "approved_by_comment_id": 6789481374,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-11 07:52 UTC"

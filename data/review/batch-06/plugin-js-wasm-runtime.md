@@ -10,7 +10,7 @@ date: 2026-11-11
 
 `ToolPkgLoader` 的 `loadToolPkgFromExternalFile` 是外部 ToolPkg 归档的加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:17`）。
 `buildToolPkgRegistrationBridgeScript` 接受 `restrictHostCapabilities` 参数生成注册桥脚本（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:3`）。
-桥脚本经 `installGlobal` 把 `ToolPkg` 对象安装为全局（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:637`）。
+桥脚本经 `installGlobal` 把 `ToolPkg` 对象安装为全局（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:671`）。
 JS 运行时类型声明文件名为 quickjs-runtime.d.ts，声明了 `QuickJsTimerHandler` 等运行时全局（`plugins/types/quickjs-runtime.d.ts:20`）。
 5 个 seed 文件没有给出 JS 引擎的 Rust 侧实现代码，引擎名只体现在类型声明文件名与 `QuickJsTimerHandler` 声明中（`plugins/types/quickjs-runtime.d.ts:20`）。
 Rust 侧 Wasm 宿主基于 wasmi，只在非 wasm32 目标上执行（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:7`）。
@@ -25,8 +25,8 @@ ToolPkg.wasm 在注册期间不可用（`core/crates/plugin/sdk/src/toolpkg/Tool
 - `__operitNativeLoadToolPkgWasm` — JS 侧取回 Wasm 模块字节与元数据的宿主函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:79`）
 - `ToolPkgLoader` 的 `loadToolPkgFromExternalFile` — 外部归档加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:17`）
 - `buildToolPkgRegistrationBridgeScript` — 注册桥脚本生成器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:3`）
-- `registerMessageTransformHook` — 消息变换钩子注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:580`）
-- `registerMessageStreamTransform` — 消息流变换注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:581`）
+- `registerMessageTransformHook` — 消息变换钩子注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:613`）
+- `registerMessageStreamTransform` — 消息流变换注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:614`）
 - ToolPkg.wasm 的 `call` — JS 侧 Wasm 导出调用入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:103`）
 - `parseWasmArg` — JS ABI 参数到 wasmi 标量值的转换（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:79`）
 - `encodeWasmResult` — wasmi 标量结果到 JS 结果信封的转换（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:148`）
@@ -115,29 +115,29 @@ ToolPkgLoader 的 `loadToolPkgFromMarketFile` 是市场文件加载入口（`cor
 `readToolPkgTextResources` 以小写条目名作键缓存文本资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:211`）。
 `readIndexedTextResource` 经 `entryIndex` 的 `resolveEntryName` 解析资源路径（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:226`）。
 `buildToolPkgRegistrationBridgeScript` 在 `restrictHostCapabilities` 为真时把 `registrationOnly` 置为 `true` 字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:4`）。
-桥脚本模板把 ToolPkgWasmApi.js 内联进来（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:641`）。
-桥脚本模板把 `registrationOnly` 占位符替换为 true 或 false 字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:642`）。
-桥脚本把 `capture` 对象挂到 `__operitToolPkgRegistrationCapture` 上（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:53`）。
+桥脚本模板把 ToolPkgWasmApi.js 内联进来（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:675`）。
+桥脚本模板把 `registrationOnly` 占位符替换为 true 或 false 字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:676`）。
+桥脚本把 `capture` 对象挂到 `__operitToolPkgRegistrationCapture` 上（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:54`）。
 `capture` 收集 `publicApis`、`toolboxUiModules`、`uiRoutes` 等注册桶（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:19`）。
 capture 新增 `messageTransformHooks` 与 `messageStreamTransforms` 两个注册桶（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:33`）。
-ToolPkg 新增 `registerMessageTransformHook` 与 `registerMessageStreamTransform` 两个注册函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:580`）。
-ToolPkg.wasm 的值是 `__operitCreateToolPkgWasmApi` 的返回值（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:630`）。
-`registerApi` 要求 `definition` 的 `name` 为非空字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:511`）。
-`registerApi` 用 `normalizeFunctionField` 处理 `definition` 的 `function`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:513`）。
-规范化后的公开 API 定义写入 `capture.publicApis`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:516`）。
-`normalizeFunctionField` 要求 `definition` 的目标字段为函数引用，否则抛错（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:235`）。
-函数字段经 `resolveDurableFunctionRef` 转为 durable 引用（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:239`）。
-`resolveDurableFunctionRef` 先用 `OperitToolPkgExports` 的 `nameOf` 取已导出函数名（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:214`）。
-`registrationOnly` 为真时 `ToolPkg.readResource` 抛错不可用（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:410`）。
-`registrationOnly` 为真时浮动窗口命令抛错不可用（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:489`）。
-导航 `surface` 清单包含 `toolbox`、`main_sidebar_plugins`、`app_bar`、`chat_attachments`、`chat_sidebar_tabs`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:79`）。
-导航 `surface` 清单包含 `workspace` 与 `workspace_home`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:89`）。
-导航 `surface` 清单还包含 `chat_input_menu`、`chat_input_menu_sections`、`chat_message_after`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:87`）。
-`registerChatLifecycleHook` 要求 `definition` 的 `id` 为非空字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:587`）。
-同一包重复注册聊天生命周期钩子时抛 `Duplicate chat lifecycle hook owner` 错误（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:590`）。
-`captureMarketOrigin` 在非注册期调用时直接返回，不改动注册捕获状态（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:334`）。
-插件配置目录经 `__operitNativeGetScopedPluginConfigDir` 取回（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:457`）。
-插件配置目录为绝对 VFS 路径，否则抛错（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:461`）。
+ToolPkg 新增 `registerMessageTransformHook` 与 `registerMessageStreamTransform` 两个注册函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:613`）。
+ToolPkg.wasm 的值是 `__operitCreateToolPkgWasmApi` 的返回值（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:664`）。
+`registerApi` 要求 `definition` 的 `name` 为非空字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:525`）。
+`registerApi` 用 `normalizeFunctionField` 处理 `definition` 的 `function`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:527`）。
+规范化后的公开 API 定义写入 `capture.publicApis`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:530`）。
+`normalizeFunctionField` 要求 `definition` 的目标字段为函数引用，否则抛错（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:236`）。
+函数字段经 `resolveDurableFunctionRef` 转为 durable 引用（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:240`）。
+`resolveDurableFunctionRef` 先用 `OperitToolPkgExports` 的 `nameOf` 取已导出函数名（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:215`）。
+`registrationOnly` 为真时 `ToolPkg.readResource` 抛错不可用（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:411`）。
+`registrationOnly` 为真时浮动窗口命令抛错不可用（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:491`）。
+导航 `surface` 清单包含 `toolbox`、`main_sidebar_plugins`、`app_bar`、`chat_attachments`、`chat_sidebar_tabs`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:80`）。
+导航 `surface` 清单包含 `workspace` 与 `workspace_home`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:90`）。
+导航 `surface` 清单还包含 `chat_input_menu`、`chat_input_menu_sections`、`chat_message_after`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:88`）。
+`registerChatLifecycleHook` 要求 `definition` 的 `id` 为非空字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:620`）。
+同一包重复注册聊天生命周期钩子时抛 `Duplicate chat lifecycle hook owner` 错误（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:623`）。
+`captureMarketOrigin` 在非注册期调用时直接返回，不改动注册捕获状态（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:335`）。
+插件配置目录经 `__operitNativeGetScopedPluginConfigDir` 取回（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:458`）。
+插件配置目录为绝对 VFS 路径，否则抛错（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:462`）。
 
 ### 超时与取消
 
@@ -168,10 +168,10 @@ ToolPkg.wasm 的 `call` 参数只有模块 id、导出名与 `args`，无超时�
 - `loadToolPkgFromArchiveBytes` — 归档字节解析与主脚本注册入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:117`）
 - `parseMainRegistration` — 主注册脚本解析入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:182`）
 - `buildToolPkgRegistrationBridgeScript` — 注册桥脚本生成器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:3`）
-- `normalizeFunctionField` — 注册函数字段的规范化（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:235`）
-- `resolveDurableFunctionRef` — 函数到 durable 引用的解析（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:214`）
-- `registerApi` — 公开 API 注册函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:511`）
-- `getToolPkgConfigDir` — 插件配置目录解析（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:450`）
+- `normalizeFunctionField` — 注册函数字段的规范化（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:236`）
+- `resolveDurableFunctionRef` — 函数到 durable 引用的解析（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:215`）
+- `registerApi` — 公开 API 注册函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:525`）
+- `getToolPkgConfigDir` — 插件配置目录解析（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:451`）
 - `QuickJsTimerHandler` — QuickJS 计时器回调类型（`plugins/types/quickjs-runtime.d.ts:20`）
 - `VerboseLogLevel` — 1 至 6 的诊断级别类型（`plugins/types/quickjs-runtime.d.ts:6`）
 - `setTimeout` — 计时器创建函数（`plugins/types/quickjs-runtime.d.ts:22`）
@@ -189,8 +189,8 @@ ToolPkg.wasm 的 `call` 参数只有模块 id、导出名与 `args`，无超时�
 6. 归档加载调用 `readToolPkgTextResources` 预读归档文本资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:141`）
 7. 主脚本交给 `parseMainRegistration` 解析注册声明（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:165`）
 8. 主注册解析委托给 `ToolPkgMainRegistrationScriptParser` 的 `parseWithTextResources`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:192`）
-9. 桥脚本把 `capture` 对象挂到 `__operitToolPkgRegistrationCapture` 上（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:53`）
-10. 规范化后的公开 API 定义写入 `capture.publicApis`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:516`）
+9. 桥脚本把 `capture` 对象挂到 `__operitToolPkgRegistrationCapture` 上（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:54`）
+10. 规范化后的公开 API 定义写入 `capture.publicApis`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:530`）
 
 **JS 侧 Wasm 调用：**
 

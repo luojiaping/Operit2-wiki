@@ -129,23 +129,23 @@
   },
   {
     "fact": "ToolPkgMainRegistration 含 promptInputHooks、promptHistoryHooks 与 promptEstimateHistoryHooks 三组提示词 hook 注册。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:494"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:496"
   },
   {
     "fact": "ToolPkgMainRegistration 含 systemPromptComposeHooks、toolPromptComposeHooks、promptFinalizeHooks、promptEstimateFinalizeHooks 与 summaryGenerateHooks 五组提示词 hook 注册。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:502"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:504"
   },
   {
     "fact": "ToolPkgMainRegistrationParseResult 只有 Success 与 Failure 两种结果。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:519"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:521"
   },
   {
     "fact": "ToolPkgContainerRuntime 含 packageName、displayName、description、version 与 apiVersion。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:533"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:535"
   },
   {
     "fact": "ToolPkgContainerRuntime 含 mainEntry、themes、license、sourceType、sourcePath 与 subpackages。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:557"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:559"
   },
   {
     "fact": "ToolPkgLoadResult 由容器包、子包包列表、容器运行时与市场来源四部分组成。",
@@ -153,119 +153,119 @@
   },
   {
     "fact": "ToolPkgManifest 含 schema_version、toolpkg_id、version 与 api_version。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:660"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:664"
   },
   {
     "fact": "ToolPkgManifest 含 public_api、requires 与 main。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:669"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:673"
   },
   {
     "fact": "ToolPkgManifest 含 display_name、description、author、logo 与 license。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:681"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:685"
   },
   {
     "fact": "ToolPkgManifest 含 enabled_by_default、market_only 与 installation_scope。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:689"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:693"
   },
   {
     "fact": "ToolPkgManifest 含 subpackages、themes、resources 与 wasm_modules。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:695"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:699"
   },
   {
     "fact": "ToolPkgManifest 含 workspace_templates，并以 #[serde(flatten)] 收纳全部扩展字段。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:702"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:706"
   },
   {
     "fact": "ToolPkgDependencyIssue 记录依赖 id、问题码、要求版本上下限、已安装版本与是否启用。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:715"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:719"
   },
   {
     "fact": "ToolPkgManifestRequirement 含 id、description、min_version 与 max_version。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:724"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:728"
   },
   {
     "fact": "ToolPkgManifestSubpackage 只含 id 与 entry 两个字段。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:732"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:736"
   },
   {
     "fact": "ToolPkgManifestTheme 含 id、path、preview 与 files，拒绝未知字段。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:742"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:746"
   },
   {
     "fact": "parseToolPkgFromIndexedEntries 以调用方注入的读条目、读保护头、解析 JS 包、解析 main 注册与上报加载错误五组回调解析 ToolPkg。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:987"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:991"
   },
   {
     "fact": "解析时先校验 manifest 的 api_version 是否受支持，不支持直接失败。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1013"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1017"
   },
   {
     "fact": "manifest.toolpkg_id 为空时解析失败。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1034"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1038"
   },
   {
     "fact": "manifest.public_api 必须引用包内已存在的 TypeScript 文件。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1044"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1048"
   },
   {
     "fact": "manifest.main 为空且声明了 public_api 或子包时解析失败。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1071"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1075"
   },
   {
     "fact": "声明了子包但一个都未成功加载时解析失败。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1170"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1174"
   },
   {
     "fact": "wasm 模块的 abi 只接受 scalar 与 memory，其他值解析失败。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1249"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1253"
   },
   {
     "fact": "注册的 UI 路由未声明 runtime 时，解析器以 TOOLPKG_RUNTIME_COMPOSE_DSL 补默认值。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1398"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1402"
   },
   {
     "fact": "聊天输入框插槽只接受 TOOLPKG_CHAT_COMPOSER_SLOT_ABOVE_INPUT 一个 slot 值。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1469"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1473"
   },
   {
     "fact": "嵌入式 UI surface 的导航路由必须使用 TOOLPKG_RUNTIME_COMPOSE_DSL 运行时。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1524"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1528"
   },
   {
     "fact": "一个 ToolPkg 最多注册一个 chat lifecycle hook，超过一个解析失败。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1588"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1592"
   },
   {
     "fact": "v1 契约自动补两条兼容依赖：com.operit.workflow 最低 0.2.0、com.operit.character_cards 最低 0.1.0。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2437"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2445"
   },
   {
     "fact": "兼容提供方自身不得使用 v1 契约，否则解析失败。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2457"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2465"
   },
   {
     "fact": "findManifestEntry 先找根目录的 manifest.hjson，找不到再找 manifest.json。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2676"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2685"
   },
   {
     "fact": "根目录没有清单时，findManifestEntry 再按子目录 manifest.hjson、子目录 manifest.json 的顺序找。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2687"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2696"
   },
   {
     "fact": "schema_version 省略时默认 1。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2771"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2783"
   },
   {
     "fact": "enabled_by_default 省略时默认 true。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2777"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2789"
   },
   {
     "fact": "省略 api_version 的清单按 1.0.0 解析。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:663"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:667"
   },
   {
     "fact": "validateProtectedEntryPolicy 的函数体直接返回 Ok，未执行保护策略校验。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2001"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2013"
   },
   {
     "fact": "createExecutionEngine 创建不带 ToolPkg 包环境的隔离 JS 引擎。",
@@ -597,22 +597,22 @@
   },
   {
     "fact": "嵌入式 UI surface 的导航路由 id 必须以 toolpkg:{容器包名}:ui: 开头。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1514"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1518"
   },
   {
     "fact": "工具箱 UI 模块与导航条目的路由 id 由 buildToolPkgRouteId 按容器包名与模块 id 生成。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1359"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1363"
   },
   {
     "fact": "ToolPkgContainerRuntime 含 messageTransformHooks 与 messageStreamTransforms 两组消息变换 hook 运行时记录。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:598"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:600"
   },
   {
     "fact": "readToolPkgManifest 只读归档清单并校验 toolpkg_id 非空，不触碰可执行条目。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:820"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:824"
   },
   {
     "fact": "readToolPkgCatalog 只读清单、子包元数据与资源路径，产出 ToolPkgLoadResult，不评估脚本。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:836"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:840"
   }
 ]

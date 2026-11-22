@@ -24,7 +24,7 @@ date: 2026-11-11
 - `run_core_command` — 对已初始化应用执行命令，处理 `--json` 开关（`core/crates/command/core/src/lib.rs:22`）
 - `CoreCommandOutput` — 命令输出载体，文本行与 JSON 两种形态（`core/crates/command/core/src/lib.rs:43`）
 - `run_chat_command` — 聊天子命令分发（`core/crates/command/core/src/commands/chat.rs:26`）
-- `run_model_command` — 模型与 Provider 子命令分发（`core/crates/command/core/src/commands/model.rs:34`）
+- `run_model_command` — 模型与 Provider 子命令分发（`core/crates/command/core/src/commands/model.rs:35`）
 - `run_tool_command` — 工具查看与执行分发（`core/crates/command/core/src/commands/tool.rs:8`）
 - `run_sync_command` — 同步恢复命令分发（`core/crates/command/core/src/commands/sync.rs:5`）
 - `ModelConfigManager` — 模型配置管理器，`model` 命令直接用其默认实例（`core/crates/command/core/src/commands/model.rs:25`）
@@ -33,7 +33,7 @@ date: 2026-11-11
 - 主入口函数之一是 `run_core_command_with_context`：新建应用走它（`core/crates/command/core/src/lib.rs:9`）。
 - 另一个主入口是 `run_core_command`：复用已初始化应用（`core/crates/command/core/src/lib.rs:22`）。
 - 数据流向：CLI 参数 → `run_core_command` 剥离 `--json`（`core/crates/command/core/src/lib.rs:26`）。
-- 剥离后委托 `commands::run_core_command` 分发（`core/crates/command/core/src/lib.rs:67`）。
+- 剥离后委托 `commands::run_core_command` 分发（`core/crates/command/core/src/lib.rs:68`）。
 - 各组入口函数经门面方法或默认管理器读写状态，输出文本行与 JSON（`core/crates/command/core/src/commands/chat.rs:68`）。
 
 ## 核心机制
@@ -43,17 +43,17 @@ date: 2026-11-11
 - `run_core_command_with_context` 用 `OperitApplication::newWithContext` 创建应用（`core/crates/command/core/src/lib.rs:14`）。
 - 创建应用后调 `onCreate` 初始化（`core/crates/command/core/src/lib.rs:13`）。
 - 新建 `CoreCommandOutput` 并按 `jsonMode` 调 `setJsonMode` 设 JSON 模式（`core/crates/command/core/src/lib.rs:44`）。
-- 分发结束后调 `output.finalizeJson` 收尾（`core/crates/command/core/src/lib.rs:69`）。
+- 分发结束后调 `output.finalizeJson` 收尾（`core/crates/command/core/src/lib.rs:70`）。
 - 首个参数为 `--cwd` 时，经 `hostManager` 的 `vfs` 调 `resolveResourcePath` 解析为 VFS 目录后从参数中剥离（`core/crates/command/core/src/lib.rs:32`）。
-- 带 --cwd 时分发包在 `ToolExecutionManager::scopeToolRuntimeContext` 内执行，`workspacePath` 与 `workspaceFolders` 设为该目录，暴露模式为 `ToolExposureMode::CLI`（`core/crates/command/core/src/lib.rs:59`）。
+- 带 --cwd 时分发包在 `ToolExecutionManager::scopeToolRuntimeContext` 内执行，`workspacePath` 与 `workspaceFolders` 设为该目录，暴露模式为 `ToolExposureMode::CLI`（`core/crates/command/core/src/lib.rs:60`）。
 
 **命令组覆盖**
 
 - `chat` 组有 15 个子命令，分两段列出：`new`、`list`、`show`、`current`、`switch`、`delete`（`core/crates/command/core/src/commands/chat.rs:39`）。
 - 其余 9 个是 `delete-message`、`clear`、`rollback`、`branch`、`branches`、`lock`、`pin`、`send`、`stats`（`core/crates/command/core/src/commands/chat.rs:47`）。
-- `model` 组的 match 分支从 `provider-type-list` 起（`core/crates/command/core/src/commands/model.rs:48`）。
-- `model` 组的 match 分支到 `function-reset` 止（`core/crates/command/core/src/commands/model.rs:642`）。
-- catalog-status 与 `catalog-refresh` 共用一个分支，分别查与刷新 `models.dev` 目录（`core/crates/command/core/src/commands/model.rs:287`）。
+- `model` 组的 match 分支从 `codex-status` 起（`core/crates/command/core/src/commands/model.rs:48`）。
+- model 组的 match 分支到 `function-reset` 止（`core/crates/command/core/src/commands/model.rs:778`）。
+- catalog-status 与 `catalog-refresh` 共用一个分支，分别查与刷新 `models.dev` 目录（`core/crates/command/core/src/commands/model.rs:370`）。
 - `tool` 组有 `list` 与 `show` 子命令（`core/crates/command/core/src/commands/tool.rs:22`）。
 - `tool` 组有 `exec` 子命令（`core/crates/command/core/src/commands/tool.rs:31`）。
 - `sync` 组只有 `reset-transactions` 一个子命令，且要求不带额外参数（`core/crates/command/core/src/commands/sync.rs:11`）。
@@ -66,10 +66,10 @@ date: 2026-11-11
 - `tool` 命令直接用 `application.toolHandler` 查工具与执行调用（`core/crates/command/core/src/commands/tool.rs:26`）。
 - `sync` 命令调 `application.syncResetTransactions()` 重建同步历史（`core/crates/command/core/src/commands/sync.rs:25`）。
 - 有附件时经 `AttachmentTransferManager::getInstance` 取传输管理器，传入 `application.hostManager`（`core/crates/command/core/src/commands/chat.rs:606`）。
-- `model` 命令不接收应用：首个参数是以下划线开头的 `_context: HostManager`，命令体不使用它（`core/crates/command/core/src/commands/model.rs:35`）。
+- `model` 命令的首个参数改为 `application: &OperitApplication`，命令体从 `application.hostManager` 取出上下文供内部使用（`core/crates/command/core/src/commands/model.rs:36`）。
 - `model` 命令改用 `ModelConfigManager::default()` 读写 Provider 与模型配置（`core/crates/command/core/src/commands/model.rs:25`）。
 - `model` 命令改用 `FunctionalConfigManager::default()` 读写功能模型绑定（`core/crates/command/core/src/commands/model.rs:30`）。
-- 门面关系分两类：chat、sync、tool 走 `OperitApplication` 门面，model 绕开门面直接用两个默认管理器（`core/crates/command/core/src/lib.rs:22`）。
+- 门面关系分两类：chat、sync、tool 走 `OperitApplication` 门面，model 组接收应用取上下文、配置读写仍直接用两个默认管理器（`core/crates/command/core/src/commands/model.rs:36`）。
 
 **输出形态**
 
@@ -79,9 +79,9 @@ date: 2026-11-11
 
 **密钥处理**
 
-- provider-set-key 只输出 API key 长度，不输出 key 本身（`core/crates/command/core/src/commands/model.rs:149`）。
-- `print_provider_profile` 只输出 API key 长度，不输出 key 本身（`core/crates/command/core/src/commands/model.rs:734`）。
-- Provider JSON 只含 `apiKeyLength` 与密钥池元数据，不含 key 值（`core/crates/command/core/src/commands/model.rs:901`）。
+- provider-set-key 只输出 API key 长度，不输出 key 本身（`core/crates/command/core/src/commands/model.rs:231`）。
+- `print_provider_profile` 只输出 API key 长度，不输出 key 本身（`core/crates/command/core/src/commands/model.rs:870`）。
+- Provider JSON 只含 `apiKeyLength` 与密钥池元数据，不含 key 值（`core/crates/command/core/src/commands/model.rs:1040`）。
 
 **条件与边界**
 
@@ -92,19 +92,19 @@ date: 2026-11-11
 - `stats` 只输出中性汇总统计：总会话数与总消息数（`core/crates/command/core/src/commands/chat.rs:367`）。
 - `tool exec` 用 `ToolExecutionPolicy::Direct` 策略执行，只取最后一个结果（`core/crates/command/core/src/commands/tool.rs:117`）。
 - `tool list` 的 `scope` 只接受 `public`、`internal`、`all`，其他值返回用法错误（`core/crates/command/core/src/commands/tool.rs:60`）。
-- `model use` 只把 `CHAT` 功能的模型绑定设为指定 provider 与 model（`core/crates/command/core/src/commands/model.rs:347`）。
-- provider-model-available-list 默认只保留 `isFetched` 的模型，传 `all` 才含历史（`core/crates/command/core/src/commands/model.rs:201`）。
-- provider-model-add 要求模型已在可用列表里，否则报错并提示用 `provider-model-create` 按 id 添加（`core/crates/command/core/src/commands/model.rs:242`）。
-- `summary-set` 要求恰好 5 个参数（`core/crates/command/core/src/commands/model.rs:511`）。
+- `model use` 只把 `CHAT` 功能的模型绑定设为指定 provider 与 model（`core/crates/command/core/src/commands/model.rs:432`）。
+- provider-model-available-list 默认只保留 `isFetched` 的模型，传 `all` 才含历史（`core/crates/command/core/src/commands/model.rs:284`）。
+- provider-model-add 要求模型已在可用列表里，否则报错并提示用 `provider-model-create` 按 id 添加（`core/crates/command/core/src/commands/model.rs:325`）。
+- `summary-set` 要求恰好 5 个参数（`core/crates/command/core/src/commands/model.rs:596`）。
 - `chat new` 的 `--set-current` 默认值为 `true`（`core/crates/command/core/src/commands/chat.rs:422`）。
 - `chat` 未知子命令返回错误，不打印用法（`core/crates/command/core/src/commands/chat.rs:52`）。
-- `model` 未知子命令落到 `print_model_usage`（`core/crates/command/core/src/commands/model.rs:663`）。
+- `model` 未知子命令落到 `print_model_usage`（`core/crates/command/core/src/commands/model.rs:799`）。
 - `tool` 未知子命令打印用法（`core/crates/command/core/src/commands/tool.rs:31`）。
 
 **用法文本与实现的两处不一致**
 
-- `print_model_usage` 的用法列表包含 `codex-login`（`core/crates/command/core/src/commands/model.rs:974`）。
-- 未知 `model` 子命令落到 `print_model_usage`；用法里列出的 codex-login 没有对应的执行分支（`core/crates/command/core/src/commands/model.rs:663`）。
+- `print_model_usage` 的用法列表包含 `codex-login`（`core/crates/command/core/src/commands/model.rs:1113`）。
+- 未知 `model` 子命令落到 `print_model_usage`；用法里列出的 codex-login 没有对应的执行分支（`core/crates/command/core/src/commands/model.rs:799`）。
 - `print_chat_usage` 写 `operit2 chat show <chat-id> [--runtime]`（`core/crates/command/core/src/commands/chat.rs:711`）。
 - `show_chat` 只读 `args`[0] 作 `chatId`，不读后续参数，`--runtime` 不起作用（`core/crates/command/core/src/commands/chat.rs:89`）。
 - `print_chat_usage` 的 `chat new` 用法行没有列出 --workspace（`core/crates/command/core/src/commands/chat.rs:709`）。
@@ -116,7 +116,7 @@ date: 2026-11-11
 - `run_core_command` — 对已初始化应用执行命令，处理 `--json` 开关（`core/crates/command/core/src/lib.rs:22`）
 - `CoreCommandOutput` — 命令输出载体，文本行与 JSON 两种形态（`core/crates/command/core/src/lib.rs:43`）
 - `run_chat_command` — 聊天子命令分发（`core/crates/command/core/src/commands/chat.rs:26`）
-- `run_model_command` — 模型与 Provider 子命令分发（`core/crates/command/core/src/commands/model.rs:34`）
+- `run_model_command` — 模型与 Provider 子命令分发（`core/crates/command/core/src/commands/model.rs:35`）
 - `run_tool_command` — 工具查看与执行分发（`core/crates/command/core/src/commands/tool.rs:8`）
 - `run_sync_command` — 同步恢复命令分发（`core/crates/command/core/src/commands/sync.rs:5`）
 - `ModelConfigManager` — 模型配置管理器，`model` 命令直接用其默认实例（`core/crates/command/core/src/commands/model.rs:25`）
@@ -127,34 +127,34 @@ date: 2026-11-11
 - `ChatHistoryManager` — 聊天历史管理器，stats 用它读汇总计数（`core/crates/command/core/src/commands/chat.rs:9`）
 - `AIToolHandler` — 工具处理器，`tool` 命令的查询与执行对象（`core/crates/command/core/src/commands/tool.rs:4`）
 - `ToolExecutionPolicy` — 工具执行策略，tool exec 用 Direct（`core/crates/command/core/src/commands/tool.rs:6`）
-- `FunctionType` — 功能模型角色枚举，共 11 种（`core/crates/command/core/src/commands/model.rs:6`）
-- `ThinkingLevel` — 思考档位枚举，thinking 子命令读写它（`core/crates/command/core/src/commands/model.rs:12`）
-- `ProviderProfile` — Provider 档案，含 endpoint、密钥池与模型列表（`core/crates/command/core/src/commands/model.rs:9`）
-- `ResolvedModelConfig` — 解析后模型配置，show 与 context-show 的输出对象（`core/crates/command/core/src/commands/model.rs:10`）
+- `FunctionType` — 功能模型角色枚举，共 11 种（`core/crates/command/core/src/commands/model.rs:5`）
+- `ThinkingLevel` — 思考档位枚举，thinking 子命令读写它（`core/crates/command/core/src/commands/model.rs:11`）
+- `ProviderProfile` — Provider 档案，含 endpoint、密钥池与模型列表（`core/crates/command/core/src/commands/model.rs:8`）
+- `ResolvedModelConfig` — 解析后模型配置，show 与 context-show 的输出对象（`core/crates/command/core/src/commands/model.rs:9`）
 
 ## 调用链
 
 1. CLI 入口调 `run_core_command_with_context`，传 `HostManager` 上下文（`core/crates/command/core/src/lib.rs:9`）。
 2. 该函数用 `OperitApplication::newWithContext` 建应用并调 `onCreate` 初始化（`core/crates/command/core/src/lib.rs:14`）。
 3. `run_core_command` 识别并剥离 `--json`，建 CoreCommandOutput（`core/crates/command/core/src/lib.rs:26`）。
-4. 委托 `commands::run_core_command` 分发（`core/crates/command/core/src/lib.rs:67`）。
+4. 委托 `commands::run_core_command` 分发（`core/crates/command/core/src/lib.rs:68`）。
 5. `chat` 的 15 个子命令由 `match` 分支分发（`core/crates/command/core/src/commands/chat.rs:39`）。
 6. chat send：解析参数 → 取会话（--chat 或当前会话）（`core/crates/command/core/src/commands/chat.rs:595`）。
 7. 附件经 `AttachmentTransferManager` 导入（`core/crates/command/core/src/commands/chat.rs:606`）。
 8. `sendChatMessage` 发送并等回执（`core/crates/command/core/src/commands/chat.rs:633`）。
-9. `model` 组不经应用门面（`core/crates/command/core/src/commands/model.rs:35`）。
+9. `model` 组现接收应用，从 `application.hostManager` 取上下文（`core/crates/command/core/src/commands/model.rs:36`）。
 10. `ModelConfigManager::default()` 与 `FunctionalConfigManager::default()` 直接读写配置（`core/crates/command/core/src/commands/model.rs:25`）。
 11. `tool exec`：解析 params-json 为 `ToolCall`，以 `Direct` 策略执行，取最后一个结果（`core/crates/command/core/src/commands/tool.rs:117`）。
 12. sync reset-transactions：调 `syncResetTransactions` 重建同步历史（`core/crates/command/core/src/commands/sync.rs:25`）。
-13. 收尾：`output.finalizeJson`（`core/crates/command/core/src/lib.rs:69`）。
+13. 收尾：`output.finalizeJson`（`core/crates/command/core/src/lib.rs:70`）。
 
 ## 来源
 
 - core/crates/command/README.md（9 行）
-- core/crates/command/core/src/lib.rs（71 行）
+- core/crates/command/core/src/lib.rs（72 行）
 - core/crates/command/core/src/commands/chat.rs（729 行）
 - core/crates/command/core/src/commands/sync.rs（44 行）
 - core/crates/command/core/src/commands/tool.rs（156 行）
-- core/crates/command/core/src/commands/model.rs（1006 行）
+- core/crates/command/core/src/commands/model.rs（1159 行）
 
 命令层与应用门面的关系见 [[core-application|应用组装——CoreApplication 门面]]。

@@ -25,9 +25,9 @@ ToolPkg 支持将多个功能相关的子包（`subpackages`）组织在一起�
 - `registerToolPkg` — 包注册函数，在独立的临时 JavaScript engine 中执行，60 秒期限仅为格式指南要求，注册链路实际不执行该期限，详见“注册与执行上下文”一节（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）
 - `ToolPkg.ipc` — 跨上下文共享状态与调用能力的显式通道（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:576`）
 - `ToolPkg.wasm.call` — 调用 native WASM runtime 的导出函数，当前 ABI 支持 `i32`、`i64`、`f32`、`f64` 标量参数和返回值（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`）
-- `ToolPkg.getConfigDir` — 包配置目录，在模块顶层、`registerToolPkg()` 内和执行期间均可用（`docs/toolpkg-runtime.md:95`）
-- `ToolPkg.route` — 路由装饰器，`binding` 是包含现有 Core Binding key 的参数的从零开始的位置（`docs/toolpkg-runtime.md:18`）
-- `installation_scope` — 固定安装范围为 `device` 或 `space`（`docs/toolpkg-runtime.md:3`）
+- `ToolPkg.getConfigDir` — 包配置目录，在模块顶层、`registerToolPkg()` 内和执行期间均可用（`docs/toolpkg-runtime.md:115`）
+- `ToolPkg.route` — 路由装饰器，`binding` 是包含现有 Core Binding key 的参数的从零开始的位置（`docs/toolpkg-runtime.md:38`）
+- `installation_scope` — 固定安装范围为 `device` 或 `space`（`docs/toolpkg-runtime.md:9`）
 - 主入口函数是 `registerToolPkg`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）
 
 ## 核心机制
@@ -55,7 +55,7 @@ ToolPkg API `2.0.0` 基本所有公共接口都通过统一 host 能力提供跨
 `packages/buildin/` 是打包为内置插件的 ToolPkg 源码（`plugins/README.md:18`）。
 `packages/external/` 是随应用打包、由用户从 "more plugins" 加载的官方捆绑 ToolPkg 源码（`plugins/README.md:19`）。
 `packages/examples/` 是用于开发和手动测试的示例 ToolPkg 源码（`plugins/README.md:20`）。
-`packages/buildin/`、`packages/external/`、`packages/examples/` 使用相同的源码布局，区别是打包方式：`buildin` 作为当前内置插件加载，`external` 作为可选官方插件捆绑，`examples` 保留为开发示例（`plugins/README.md:32`）。
+`packages/buildin/`、`packages/external/`、`packages/examples/` 使用相同的源码布局，区别是打包方式：`buildin` 作为当前内置插件加载，`external` 作为可选官方插件捆绑，`examples` 保留为开发示例（`plugins/README.md:34`）。
 `packages/external/image_workbench/` 提供可选的官方 Image Workbench，从 "more plugins" 提供，默认禁用（`plugins/README.md:28`）。
 主仓库内置与 external 资源同步脚本是 `plugins/tools/sync_plugin_packages.py`，同步更新 `core/crates/runtime/application/assets/plugins/buildin/` 与 `external/`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:830`）。
 内置资源同步服务于应用资源构建，不等于向正在运行的应用安装插件（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:830`）。
@@ -93,16 +93,16 @@ Java/Kotlin Bridge 仅适用于已提供 Java Bridge 的 host，不代表所有�
 
 ### 安装范围与远程路由
 
-manifest 可以用 `"installation_scope": "device"` 或 `"installation_scope": "space"` 固定安装范围，固定范围的包不能安装或移动到另一范围（`docs/toolpkg-runtime.md:3`）。
-Device 安装拥有本地数据，Space 安装拥有同步数据（`docs/toolpkg-runtime.md:5`）。
-Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，与聊天工作区无关（`docs/toolpkg-runtime.md:5`）。
-包环境变量属于安装所有者，包括其全部子包；Space 安装同步这些配置快照，device 安装保留在本地（`docs/toolpkg-runtime.md:7`）。
-只有 `space` 安装的包才能对外暴露远程实现（`docs/toolpkg-runtime.md:37`）。
-`@ToolPkg.route({ binding: 0 })` 装饰的方法可被路由，`binding` 是包含现有 Core Binding key 的参数的从零开始的位置（`docs/toolpkg-runtime.md:18`）。
-示例用 `ToolPkg.getSpaceDataDir()` 拼接 `goals.sqlite` 路径打开 Space 数据目录下的数据库（`docs/toolpkg-runtime.md:21`）。
-`ToolPkg.getConfigDir()` 在模块顶层、`registerToolPkg()` 内和执行期间均可用（`docs/toolpkg-runtime.md:95`）。
-只有 `submit_requested` 和 pre-hooks 共享一个总期限，默认 10 秒，可在高级工具设置中配置为 1 至 60 秒（`docs/toolpkg-runtime.md:144`）。
-`Tools.Files.write(path, content, append)` 返回 `FileApplyResultData`，与 `toolCall("write_file", ...)` 相同（`docs/toolpkg-runtime.md:85`）。
+manifest 可以用 `"installation_scope": "device"` 或 `"installation_scope": "space"` 固定安装范围，固定范围的包不能安装或移动到另一范围（`docs/toolpkg-runtime.md:9`）。
+Device 安装拥有本地数据，Space 安装拥有同步数据（`docs/toolpkg-runtime.md:11`）。
+Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，与聊天工作区无关（`docs/toolpkg-runtime.md:11`）。
+包环境变量属于安装所有者，包括其全部子包；Space 安装同步这些配置快照，device 安装保留在本地（`docs/toolpkg-runtime.md:13`）。
+只有 `space` 安装的包才能对外暴露远程实现（`docs/toolpkg-runtime.md:57`）。
+`@ToolPkg.route({ binding: 0 })` 装饰的方法可被路由，`binding` 是包含现有 Core Binding key 的参数的从零开始的位置（`docs/toolpkg-runtime.md:38`）。
+示例用 `ToolPkg.getSpaceDataDir()` 拼接 `goals.sqlite` 路径打开 Space 数据目录下的数据库（`docs/toolpkg-runtime.md:41`）。
+`ToolPkg.getConfigDir()` 在模块顶层、`registerToolPkg()` 内和执行期间均可用（`docs/toolpkg-runtime.md:115`）。
+只有 `submit_requested` 和 pre-hooks 共享一个总期限，默认 10 秒，可在高级工具设置中配置为 1 至 60 秒（`docs/toolpkg-runtime.md:176`）。
+`Tools.Files.write(path, content, append)` 返回 `FileApplyResultData`，与 `toolCall("write_file", ...)` 相同（`docs/toolpkg-runtime.md:105`）。
 
 ### 同 ID 更新与打包
 
@@ -133,12 +133,12 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 - `ToolPkg.ipc` — 跨上下文通道（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:576`）
 - `ToolPkg.readResource` — 读取资源（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:666`）
 - `ToolPkg.wasm.call` — 调用 WASM 导出函数（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`）
-- `installation_scope` — 固定安装范围为 `device` 或 `space`（`docs/toolpkg-runtime.md:3`）
-- `ToolPkg.getSpaceDataDir` — Space 数据目录（`docs/toolpkg-runtime.md:21`）
-- `ToolPkg.getConfigDir` — 包配置目录（`docs/toolpkg-runtime.md:95`）
-- `ToolPkg.route` — 路由装饰器（`docs/toolpkg-runtime.md:18`）
-- `FileApplyResultData` — 文件写回执（`docs/toolpkg-runtime.md:85`）
-- `submit_requested` — 与 pre-hooks 共享总期限的提交事件（`docs/toolpkg-runtime.md:144`）
+- `installation_scope` — 固定安装范围为 `device` 或 `space`（`docs/toolpkg-runtime.md:9`）
+- `ToolPkg.getSpaceDataDir` — Space 数据目录（`docs/toolpkg-runtime.md:41`）
+- `ToolPkg.getConfigDir` — 包配置目录（`docs/toolpkg-runtime.md:115`）
+- `ToolPkg.route` — 路由装饰器（`docs/toolpkg-runtime.md:38`）
+- `FileApplyResultData` — 文件写回执（`docs/toolpkg-runtime.md:105`）
+- `submit_requested` — 与 pre-hooks 共享总期限的提交事件（`docs/toolpkg-runtime.md:176`）
 - `sync_plugin_packages.py` — 主仓库内置与 external 资源同步脚本（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:818`）
 - `types/` — 从 Rust SDK 生成的当前 v2 TypeScript 声明（`plugins/README.md:15`）
 - `types-v1/` — 独立手写的 v1 声明快照（`plugins/README.md:16`）
@@ -153,8 +153,8 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 6. `ToolPkg.registerToolboxUiModule` 与 `ToolPkg.registerUiRoute` 注册 UI 模块与路由（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:473`）。
 7. 运行时按 `main`、`ui`、`sandbox`、`provider` 分发执行上下文（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:538`）。
 8. 跨上下文共享状态或调用能力时显式使用 `ToolPkg.ipc`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:576`）。
-9. 只有 `submit_requested` 和 pre-hooks 共享一个总期限，默认 10 秒（`docs/toolpkg-runtime.md:144`）。
-10. 超时终止所属 hook，报告错误并中止依赖操作（`docs/toolpkg-runtime.md:147`）。
+9. 只有 `submit_requested` 和 pre-hooks 共享一个总期限，默认 10 秒（`docs/toolpkg-runtime.md:176`）。
+10. 超时终止所属 hook，报告错误并中止依赖操作（`docs/toolpkg-runtime.md:179`）。
 
 ## 来源
 

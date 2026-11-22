@@ -265,15 +265,15 @@
   },
   {
     "fact": "桥脚本模板把 ToolPkgWasmApi.js 内联进来",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:641"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:675"
   },
   {
     "fact": "桥脚本模板把 registrationOnly 占位符替换为 true 或 false 字符串",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:642"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:676"
   },
   {
     "fact": "桥脚本把 capture 对象挂到 __operitToolPkgRegistrationCapture 上",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:53"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:54"
   },
   {
     "fact": "capture 收集 publicApis、toolboxUiModules、uiRoutes 等注册桶",
@@ -281,75 +281,75 @@
   },
   {
     "fact": "ToolPkg.wasm 的值是 __operitCreateToolPkgWasmApi 的返回值",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:630"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:664"
   },
   {
     "fact": "桥脚本经 installGlobal 把 ToolPkg 对象安装为全局",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:637"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:671"
   },
   {
     "fact": "registerApi 要求 definition 的 name 为非空字符串",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:511"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:525"
   },
   {
     "fact": "registerApi 用 normalizeFunctionField 处理 definition 的 function",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:513"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:527"
   },
   {
     "fact": "规范化后的公开 API 定义写入 capture.publicApis",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:516"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:530"
   },
   {
     "fact": "normalizeFunctionField 要求 definition 的目标字段为函数引用，否则抛错",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:235"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:236"
   },
   {
     "fact": "函数字段经 resolveDurableFunctionRef 转为 durable 引用",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:239"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:240"
   },
   {
     "fact": "resolveDurableFunctionRef 先用 OperitToolPkgExports 的 nameOf 取已导出函数名",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:214"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:215"
   },
   {
     "fact": "registrationOnly 为真时 ToolPkg.readResource 抛错不可用",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:410"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:411"
   },
   {
     "fact": "registrationOnly 为真时浮动窗口命令抛错不可用",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:489"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:491"
   },
   {
     "fact": "导航 surface 清单包含 toolbox、main_sidebar_plugins、app_bar、chat_attachments、chat_sidebar_tabs",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:79"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:80"
   },
   {
     "fact": "导航 surface 清单包含 workspace 与 workspace_home",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:89"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:90"
   },
   {
     "fact": "导航 surface 清单还包含 chat_input_menu、chat_input_menu_sections、chat_message_after",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:86"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:88"
   },
   {
     "fact": "registerChatLifecycleHook 要求 definition 的 id 为非空字符串",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:587"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:620"
   },
   {
     "fact": "同一包重复注册聊天生命周期钩子时抛 Duplicate chat lifecycle hook owner 错误",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:590"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:623"
   },
   {
     "fact": "captureMarketOrigin 在非注册期调用时直接返回，不改动注册捕获状态",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:334"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:335"
   },
   {
     "fact": "插件配置目录经 __operitNativeGetScopedPluginConfigDir 取回",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:457"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:458"
   },
   {
     "fact": "插件配置目录为绝对 VFS 路径，否则抛错",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:461"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:462"
   },
   {
     "fact": "插件 JS 运行时类型声明文件 quickjs-runtime.d.ts 声明 QuickJsTimerHandler 类型",
@@ -409,10 +409,10 @@
   },
   {
     "fact": "ToolPkg 新增 `registerMessageTransformHook` 注册消息变换钩子",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:580"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:613"
   },
   {
     "fact": "ToolPkg 新增 `registerMessageStreamTransform` 注册消息流变换",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:581"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:614"
   }
 ]

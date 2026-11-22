@@ -345,7 +345,7 @@
  },
  {
   "fact": "终端信息把 Web 终端描述为带 `BusyBox`、`Node` 与 `Python` 的浏览器本地 Buildroot 虚拟机",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:80"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:81"
  },
  {
   "fact": "工作目录解析把宿主目录映射到 `/mnt/operit-host/` 之下",
@@ -353,47 +353,47 @@
  },
  {
   "fact": "启动 PTY 会话在 `rows` 或 `cols` 为零时报错",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:100"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:101"
  },
  {
   "fact": "启动 PTY 会话调用桥接 `startPty` 并传入会话标识、行数与列数",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:105"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:106"
  },
  {
   "fact": "终端会话标识按 `linux-vm-terminal-{value}` 分配",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:433"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:434"
  },
  {
   "fact": "桥接值为空或未定义时 `pollPtyExitCode` 返回 `None`",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:170"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:171"
  },
  {
   "fact": "会话列表只列出未退出的会话，条目 `sessionKind` 为 `linux-vm`",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:199"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:200"
  },
  {
   "fact": "按名创建或复用类型化会话时，遇到同名会话直接复用，`isNewSession` 为 false",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:232"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:233"
  },
  {
   "fact": "新建终端会话从根目录 `/` 启动，默认 24 行 80 列",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:244"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:245"
  },
  {
   "fact": "会话内流式调度拒绝非零 `timeoutMs`，要求会话自有执行",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:308"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:309"
  },
  {
   "fact": "`executeHiddenCommand` 报错，浏览器本地 Linux 虚拟机终端不提供隐藏命令执行",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:343"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:344"
  },
  {
   "fact": "`getSessionScreen` 用 `vt100::Parser` 渲染保留的串口屏幕内容",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:380"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:381"
  },
  {
   "fact": "会话内执行命令返回 `output`、`exitCode`、`timedOut`、`workingDir`",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:271"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:277"
  },
  {
   "fact": "`createArchive` 把声明的字节长度转成 `i64` 再传给桥接",

@@ -69,7 +69,7 @@
   },
   {
     "fact": "pubspec 在 dependency_overrides 中把 webview_all_ohos 指向本地 thirdparty 路径",
-    "ref": "apps/flutter/app/pubspec.yaml:159"
+    "ref": "apps/flutter/app/pubspec.yaml:161"
   },
   {
     "fact": "ffi ^2.2.0 声明在 pubspec 的 dev_dependencies 段",
@@ -161,11 +161,11 @@
   },
   {
     "fact": "在非 Android、非 OpenHarmony 平台上，BridgeExports 导出 operit_flutter_bridge_create 创建引用计数的 runtime",
-    "ref": "apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:26"
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:46"
   },
   {
     "fact": "OpenHarmony 用独立的 operit_flutter_bridge_create_ohos 入口，参数含 runtime_root、workspace_root、system_language_code、device_model",
-    "ref": "apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:95"
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/BridgeExports.rs:115"
   },
   {
     "fact": "operit_flutter_bridge_ffi_connect 是 FFI 连接入口，位于 FfiTransport.rs",

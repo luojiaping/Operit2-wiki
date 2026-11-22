@@ -65,31 +65,31 @@
 },
 {
 "fact": "不带参数运行 operit2 默认进入 TUI",
-"ref": "README.md:175"
+"ref": "README.md:178"
 },
 {
 "fact": "Flutter App 从 apps/flutter/app 目录运行，fvm flutter run -d windows 中的 windows 只是示例设备名",
-"ref": "README.md:191"
+"ref": "README.md:194"
 },
 {
 "fact": "README 的 Web Access 双终端步骤引用 node tools/dev_web_access_proxy.mjs，代理监听 4836 端口",
-"ref": "README.md:205"
-},
-{
-"fact": "README 的双终端步骤要求 Flutter 上游端口与代理的 --upstream-port 保持相同",
 "ref": "README.md:208"
 },
 {
+"fact": "README 的双终端步骤要求 Flutter 上游端口与代理的 --upstream-port 保持相同",
+"ref": "README.md:211"
+},
+{
 "fact": "operit2 cli link 的子命令清单是 discover、qr、pair、unpair、peers、prompts、listen、session、space、doctor、control、stream-probe、edge-call",
-"ref": "apps/cli/src/cli/link.rs:1499"
+"ref": "apps/cli/src/cli/link.rs:1504"
 },
 {
 "fact": "operit2 cli link listen 接受 http、ws、tcp、serial、bluetooth 五种传输方式，支持 --automatic-port、--fixed-port 与 --bind <host:port>",
-"ref": "apps/cli/src/cli/link.rs:1509"
+"ref": "apps/cli/src/cli/link.rs:1514"
 },
 {
 "fact": "operit2 cli link discover 接受 --timeout-ms 参数",
-"ref": "apps/cli/src/cli/link.rs:1504"
+"ref": "apps/cli/src/cli/link.rs:1509"
 },
 {
 "fact": "link discover 的默认超时是 2000 毫秒",
@@ -101,15 +101,15 @@
 },
 {
 "fact": "operit2 cli link space join 接受设备名或编号作为选择器",
-"ref": "apps/cli/src/cli/link.rs:1510"
+"ref": "apps/cli/src/cli/link.rs:1515"
 },
 {
 "fact": "operit2 cli link qr 接受 http、ws、tcp 传输方式选择，支持 --bind <host:port> 与 --no-discovery",
-"ref": "apps/cli/src/cli/link.rs:1505"
+"ref": "apps/cli/src/cli/link.rs:1510"
 },
 {
 "fact": "operit2 cli identity list 列出本地身份与当前活动身份",
-"ref": "apps/cli/src/cli/mod.rs:212"
+"ref": "apps/cli/src/cli/mod.rs:208"
 },
 {
 "fact": "operit2 cli storage paths 由 storage 命令的 paths 子命令实现",
@@ -141,7 +141,7 @@
 },
 {
 "fact": "operit2 cli version 显示 CLI、Core 与 Link 版本",
-"ref": "apps/cli/src/cli/mod.rs:131"
+"ref": "apps/cli/src/cli/mod.rs:126"
 },
 {
 "fact": "operit2 cli web open 只打开 https://web.operit.app/，不启动本地服务器，不把凭证放进 URL",
@@ -301,23 +301,23 @@
 },
 {
 "fact": "link space join 只提交加入申请并打印回执",
-"ref": "apps/cli/src/cli/link.rs:991"
+"ref": "apps/cli/src/cli/link.rs:996"
 },
 {
 "fact": "加入申请回执打印申请人、状态、Space 名与审批人",
-"ref": "apps/cli/src/cli/link.rs:1074"
+"ref": "apps/cli/src/cli/link.rs:1079"
 },
 {
 "fact": "link space requests incoming/outgoing 分别列出收到与发出的加入申请",
-"ref": "apps/cli/src/cli/link.rs:997"
+"ref": "apps/cli/src/cli/link.rs:1002"
 },
 {
 "fact": "link space approve/reject 由 Space 一侧对收到的加入申请做决定",
-"ref": "apps/cli/src/cli/link.rs:1022"
+"ref": "apps/cli/src/cli/link.rs:1027"
 },
 {
 "fact": "link space refresh 对发出的加入申请调用 refreshDeviceSpaceJoin 并打印更新后的回执",
-"ref": "apps/cli/src/cli/link.rs:1016"
+"ref": "apps/cli/src/cli/link.rs:1021"
 },
 {
 "fact": "加入审批与配对、同步成员关系是分开的步骤",
@@ -349,6 +349,6 @@
 },
 {
 "fact": "Flutter 扫码确认提示写明确认后直接连接并提交加入，无需输入配对码",
-"ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4871"
+"ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4970"
 }
 ]

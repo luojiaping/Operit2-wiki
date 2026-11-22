@@ -58,55 +58,55 @@ date: 2026-11-11
 - EmitContext::new 把 CoreHost trait 单独收进 root_traits（core/crates/plugin/codegen/src/declarations.rs:333）。
 - EmitContext::new 把其余公开声明按推断的 TypeScript 路径登记（core/crates/plugin/codegen/src/declarations.rs:340）。
 - EmitContext 的 `emit` 在输出头部写 `Generated from operit-plugin-sdk Rust declarations.`，并为跨模块类型补 import type 行（core/crates/plugin/codegen/src/declarations.rs:372）。
-- `emit_scope` 在 toolpkg.d.ts 的 ToolPkg 作用域注入 ipc、wasm、ui 三个常量声明（core/crates/plugin/codegen/src/declarations.rs:393）。
-- scope_entries 在空作用域时把 CoreHost 的方法作为根函数输出（core/crates/plugin/codegen/src/declarations.rs:506）。
-- emit_group 按 kind 分发：interface/class 走 emit_interface_group，type 走 emit_type_group，type_map 走 emit_type_map_group，variable 走 emit_variable_group，未知 kind 直接 panic（core/crates/plugin/codegen/src/declarations.rs:528）。
-- `emit_type_map_group` 要求枚举变体各带一个未命名字段，生成以变体名为键的 TypeScript interface（core/crates/plugin/codegen/src/declarations.rs:544）。
-- emit_interface_group 把同一声明组的结构体字段与 trait/impl 方法合并输出（core/crates/plugin/codegen/src/declarations.rs:618）。
-- emit_interface_group 为 DeviceTransportChannel 额外生成 extends AsyncIterable<DeviceTransportEvent>（core/crates/plugin/codegen/src/declarations.rs:595）。
-- emit_constructor_object 只在存在非 receiver 关联方法时输出构造对象（core/crates/plugin/codegen/src/declarations.rs:649）。
-- emit_constructor_object 在存在构造器时为构造对象补 prototype 字段（core/crates/plugin/codegen/src/declarations.rs:668）。
-- emit_struct_fields 把 additionalProperties 映射字段转为索引签名（core/crates/plugin/codegen/src/declarations.rs:686）。
-- emit_struct_fields 在组只读或字段只读时输出 readonly 修饰（core/crates/plugin/codegen/src/declarations.rs:698）。
-- `group_methods` 收集 trait 方法与公开固有 impl 方法（core/crates/plugin/codegen/src/declarations.rs:740）。
-- group_methods 跳过带 trait 的 impl（core/crates/plugin/codegen/src/declarations.rs:761）。
-- emit_type_group 把 ToolReturnType 特判为按 ToolResultMap 键的条件类型（core/crates/plugin/codegen/src/declarations.rs:793）。
-- emit_type_group 把枚举生成联合类型、类型别名展开底层类型、包装结构体展开内部类型或交集（core/crates/plugin/codegen/src/declarations.rs:805）。
-- emit_variable_group 在根作用域输出 export declare，CommonJsExports 用 var 其余用 const（core/crates/plugin/codegen/src/declarations.rs:833）。
-- emit_method 按样式输出：根函数为 export declare function，类静态方法加 static，构造器输出 constructor 关键字（core/crates/plugin/codegen/src/declarations.rs:913）。
-- emit_method 在方法无返回值时输出 void（core/crates/plugin/codegen/src/declarations.rs:949）。
-- `emit_field_type` 把 Option 字段在 nullable_wire_fields 为真时输出 `| null`，否则输出内部类型；JsOptional 输出 `| null`（core/crates/plugin/codegen/src/declarations.rs:963）。
-- `emit_parameter_type` 把 Option 与 JsOptional 参数标记为可选参数（core/crates/plugin/codegen/src/declarations.rs:977）。
-- emit_path_type 的标量映射：String/str/JsDate 映射为 string，bool 映射为 boolean，整数与浮点映射为 number，Value 映射为 unknown，JsBigInt 映射为 bigint，JsUint8Array 映射为 Uint8Array，JsAny 映射为 any（core/crates/plugin/codegen/src/declarations.rs:1129）。
-- emit_path_type 把 JsObject 映射为 object，JsNever 映射为 never（core/crates/plugin/codegen/src/declarations.rs:1135）。
-- emit_path_type 把 Option 在 nullable_wire_fields 时映射为 `| null`，否则为 `| undefined`，JsOptional 映射为 `| null | undefined`，JsNullable 映射为 `| null`（core/crates/plugin/codegen/src/declarations.rs:1145）。
-- emit_path_type 把 JsFuture 映射为 Promise，JsAsyncIterable 映射为 AsyncIterable（core/crates/plugin/codegen/src/declarations.rs:1151）。
-- emit_enum_union 把无字段枚举变体输出为字符串字面量联合，Null、Undefined、Void 三个变体分别输出 null、undefined、void（core/crates/plugin/codegen/src/declarations.rs:1301）。
-- emit_enum_union 对带 serde tag 与 content 的枚举输出带判别字段的对象联合（core/crates/plugin/codegen/src/declarations.rs:1317）。
-- `resolve_named_type` 对同一文件或 global 作用域的类型输出相对路径（core/crates/plugin/codegen/src/declarations.rs:1425）。
-- resolve_named_type 对跨文件类型记录 import type 导入（core/crates/plugin/codegen/src/declarations.rs:1435）。
-- declaration_options 的 kind 只接受 interface、class、type，其他值报错（core/crates/plugin/codegen/src/declarations.rs:1556）。
-- `field_is_readonly` 只认字段上的 js(readonly)，未知 js 字段选项与重复 readonly 均报错（core/crates/plugin/codegen/src/declarations.rs:1577）。
-- `public_item_ref` 只收公开的 struct、enum、type alias、trait（core/crates/plugin/codegen/src/declarations.rs:1613）。
-- `default_item_kind` 把元组结构体与扁平交集结构体判为 type，普通结构体与 trait 判为 interface，枚举与类型别名判为 type（core/crates/plugin/codegen/src/declarations.rs:1641）。
-- is_flattened_intersection 在全部字段带 serde flatten，或字段名为 member_1、member_2 依次编号时成立（core/crates/plugin/codegen/src/declarations.rs:1658）。
-- infer_declaration 优先使用显式 scope/name/kind，ToolPkgBroadcastTopicKey 直接跳过不生成声明（core/crates/plugin/codegen/src/declarations.rs:1679）。
-- infer_declaration 把 FilesHost、NetHost、SystemHost 等 Host trait 按命名空间映射（core/crates/plugin/codegen/src/declarations.rs:1700）。
-- infer_declaration 把 UIAgentHost 与 UIHost 一同映射到 UI 命名空间（core/crates/plugin/codegen/src/declarations.rs:1718）。
-- infer_declaration 把 ChatHost、StorageHost、StorageFacadeHost 映射到 Chat 与 Storage 命名空间（core/crates/plugin/codegen/src/declarations.rs:1719）。
-- infer_declaration 按输出文件经 `prefixed_path` 加命名空间前缀：仅当 Rust 名以该前缀开头时进入命名空间，否则输出到根：files.d.ts 映射为 Files、network.d.ts 映射为 Net、system.d.ts 映射为 System、models.d.ts 映射为 Models、tts.d.ts 映射为 Tts、stt.d.ts 映射为 Stt、theme.d.ts 映射为 Theme、catalog.d.ts 映射为 Catalog、media.d.ts 映射为 Media（core/crates/plugin/codegen/src/declarations.rs:1736）。
-- infer_declaration 把 software_settings.d.ts、ui.d.ts、storage.d.ts 的声明分别归入 SoftwareSettings、UI、Storage 命名空间；仅当 Rust 名以该前缀开头时进入命名空间，否则输出到根；ui.d.ts 中以 `UINode` 开头的声明直接输出原名（core/crates/plugin/codegen/src/declarations.rs:1743）。
-- infer_declaration 把 chat.d.ts、toolpkg.d.ts 的声明分别归入 Chat、ToolPkg 命名空间（core/crates/plugin/codegen/src/declarations.rs:1756）。
-- `prefixed_path` 在 Rust 名以前缀开头时剥离前缀生成两段路径，否则保留原名（core/crates/plugin/codegen/src/declarations.rs:1765）。
-- `is_inherited_base_field` 把带 serde flatten 的非附加属性字段，或 base_ 开头且非可选的字段判为继承基字段（core/crates/plugin/codegen/src/declarations.rs:1810）。
-- `is_additional_properties_field` 只认名为 additional_properties 或 additionalProperties 的字段（core/crates/plugin/codegen/src/declarations.rs:1820）。
-- typescript_generic_bound 把 AsRef<str|String> 映射为 string（core/crates/plugin/codegen/src/declarations.rs:1865）。
-- typescript_generic_bound 把 ToolPkgBroadcastTopicKey 映射为 ToolPkg.BroadcastTopic，Send/Sync/Sized 忽略，其他泛型 bound 直接 panic（core/crates/plugin/codegen/src/declarations.rs:1880）。
-- `is_function_type` 在 Fn trait 对象，或 Arc/Box/Pin 包裹的 Fn 类型时成立（core/crates/plugin/codegen/src/declarations.rs:1890）。
-- `emit_jsdoc` 把 Rust 文档注释输出为 JSDoc 块，裁掉首尾空行（core/crates/plugin/codegen/src/declarations.rs:2043）。
-- `method_name` 去掉 Rust 方法名中的 _overload_ 后缀与 r# 前缀（core/crates/plugin/codegen/src/declarations.rs:2070）。
-- `pattern_name` 要求 SDK trait 参数使用标识符模式，否则 panic（core/crates/plugin/codegen/src/declarations.rs:2081）。
-- `typescript_module_path` 把 .d.ts 文件名转为 ./<模块名> 的相对导入路径（core/crates/plugin/codegen/src/declarations.rs:2261）。
+- `emit_scope` 在 toolpkg.d.ts 的 ToolPkg 作用域按 ToolPkgRegistry 结构体的字段逐个输出 export const 服务声明；注册表现有 toolPermissions、ui、ipc、wasm 四个字段，其中 toolPermissions 为本轮新增（core/crates/plugin/codegen/src/declarations.rs:389）。
+- scope_entries 在空作用域时把 CoreHost 的方法作为根函数输出（core/crates/plugin/codegen/src/declarations.rs:515）。
+- emit_group 按 kind 分发：interface/class 走 emit_interface_group，type 走 emit_type_group，type_map 走 emit_type_map_group，variable 走 emit_variable_group，未知 kind 直接 panic（core/crates/plugin/codegen/src/declarations.rs:537）。
+- `emit_type_map_group` 要求枚举变体各带一个未命名字段，生成以变体名为键的 TypeScript interface（core/crates/plugin/codegen/src/declarations.rs:553）。
+- emit_interface_group 把同一声明组的结构体字段与 trait/impl 方法合并输出（core/crates/plugin/codegen/src/declarations.rs:627）。
+- emit_interface_group 为 DeviceTransportChannel 额外生成 extends AsyncIterable<DeviceTransportEvent>（core/crates/plugin/codegen/src/declarations.rs:604）。
+- emit_constructor_object 只在存在非 receiver 关联方法时输出构造对象（core/crates/plugin/codegen/src/declarations.rs:658）。
+- emit_constructor_object 在存在构造器时为构造对象补 prototype 字段（core/crates/plugin/codegen/src/declarations.rs:677）。
+- emit_struct_fields 把 additionalProperties 映射字段转为索引签名（core/crates/plugin/codegen/src/declarations.rs:695）。
+- emit_struct_fields 在组只读或字段只读时输出 readonly 修饰（core/crates/plugin/codegen/src/declarations.rs:707）。
+- `group_methods` 收集 trait 方法与公开固有 impl 方法（core/crates/plugin/codegen/src/declarations.rs:749）。
+- group_methods 跳过带 trait 的 impl（core/crates/plugin/codegen/src/declarations.rs:770）。
+- emit_type_group 把 ToolReturnType 特判为按 ToolResultMap 键的条件类型（core/crates/plugin/codegen/src/declarations.rs:802）。
+- emit_type_group 把枚举生成联合类型、类型别名展开底层类型、包装结构体展开内部类型或交集（core/crates/plugin/codegen/src/declarations.rs:814）。
+- emit_variable_group 在根作用域输出 export declare，CommonJsExports 用 var 其余用 const（core/crates/plugin/codegen/src/declarations.rs:842）。
+- emit_method 按样式输出：根函数为 export declare function，类静态方法加 static，构造器输出 constructor 关键字（core/crates/plugin/codegen/src/declarations.rs:922）。
+- emit_method 在方法无返回值时输出 void（core/crates/plugin/codegen/src/declarations.rs:958）。
+- `emit_field_type` 把 Option 字段在 nullable_wire_fields 为真时输出 `| null`，否则输出内部类型；JsOptional 输出 `| null`（core/crates/plugin/codegen/src/declarations.rs:972）。
+- `emit_parameter_type` 把 Option 与 JsOptional 参数标记为可选参数（core/crates/plugin/codegen/src/declarations.rs:986）。
+- emit_path_type 的标量映射：String/str/JsDate 映射为 string，bool 映射为 boolean，整数与浮点映射为 number，Value 映射为 unknown，JsBigInt 映射为 bigint，JsUint8Array 映射为 Uint8Array，JsAny 映射为 any（core/crates/plugin/codegen/src/declarations.rs:1138）。
+- emit_path_type 把 JsObject 映射为 object，JsNever 映射为 never（core/crates/plugin/codegen/src/declarations.rs:1144）。
+- emit_path_type 把 Option 在 nullable_wire_fields 时映射为 `| null`，否则为 `| undefined`，JsOptional 映射为 `| null | undefined`，JsNullable 映射为 `| null`（core/crates/plugin/codegen/src/declarations.rs:1154）。
+- emit_path_type 把 JsFuture 映射为 Promise，JsAsyncIterable 映射为 AsyncIterable（core/crates/plugin/codegen/src/declarations.rs:1160）。
+- emit_enum_union 把无字段枚举变体输出为字符串字面量联合，Null、Undefined、Void 三个变体分别输出 null、undefined、void（core/crates/plugin/codegen/src/declarations.rs:1310）。
+- emit_enum_union 对带 serde tag 与 content 的枚举输出带判别字段的对象联合（core/crates/plugin/codegen/src/declarations.rs:1326）。
+- `resolve_named_type` 对同一文件或 global 作用域的类型输出相对路径（core/crates/plugin/codegen/src/declarations.rs:1434）。
+- resolve_named_type 对跨文件类型记录 import type 导入（core/crates/plugin/codegen/src/declarations.rs:1444）。
+- declaration_options 的 kind 只接受 interface、class、type，其他值报错（core/crates/plugin/codegen/src/declarations.rs:1565）。
+- `field_is_readonly` 只认字段上的 js(readonly)，未知 js 字段选项与重复 readonly 均报错（core/crates/plugin/codegen/src/declarations.rs:1586）。
+- `public_item_ref` 只收公开的 struct、enum、type alias、trait（core/crates/plugin/codegen/src/declarations.rs:1622）。
+- `default_item_kind` 把元组结构体与扁平交集结构体判为 type，普通结构体与 trait 判为 interface，枚举与类型别名判为 type（core/crates/plugin/codegen/src/declarations.rs:1650）。
+- is_flattened_intersection 在全部字段带 serde flatten，或字段名为 member_1、member_2 依次编号时成立（core/crates/plugin/codegen/src/declarations.rs:1667）。
+- infer_declaration 优先使用显式 scope/name/kind，ToolPkgBroadcastTopicKey 直接跳过不生成声明（core/crates/plugin/codegen/src/declarations.rs:1688）。
+- infer_declaration 把 FilesHost、NetHost、SystemHost 等 Host trait 按命名空间映射（core/crates/plugin/codegen/src/declarations.rs:1709）。
+- infer_declaration 把 UIAgentHost 与 UIHost 一同映射到 UI 命名空间（core/crates/plugin/codegen/src/declarations.rs:1727）。
+- infer_declaration 把 ChatHost、StorageHost、StorageFacadeHost 映射到 Chat 与 Storage 命名空间（core/crates/plugin/codegen/src/declarations.rs:1728）。
+- infer_declaration 按输出文件经 `prefixed_path` 加命名空间前缀：仅当 Rust 名以该前缀开头时进入命名空间，否则输出到根：files.d.ts 映射为 Files、network.d.ts 映射为 Net、system.d.ts 映射为 System、models.d.ts 映射为 Models、tts.d.ts 映射为 Tts、stt.d.ts 映射为 Stt、theme.d.ts 映射为 Theme、catalog.d.ts 映射为 Catalog、media.d.ts 映射为 Media（core/crates/plugin/codegen/src/declarations.rs:1745）。
+- infer_declaration 把 software_settings.d.ts、ui.d.ts、storage.d.ts 的声明分别归入 SoftwareSettings、UI、Storage 命名空间；仅当 Rust 名以该前缀开头时进入命名空间，否则输出到根；ui.d.ts 中以 `UINode` 开头的声明直接输出原名（core/crates/plugin/codegen/src/declarations.rs:1752）。
+- infer_declaration 把 chat.d.ts、toolpkg.d.ts 的声明分别归入 Chat、ToolPkg 命名空间（core/crates/plugin/codegen/src/declarations.rs:1765）。
+- `prefixed_path` 在 Rust 名以前缀开头时剥离前缀生成两段路径，否则保留原名（core/crates/plugin/codegen/src/declarations.rs:1774）。
+- `is_inherited_base_field` 把带 serde flatten 的非附加属性字段，或 base_ 开头且非可选的字段判为继承基字段（core/crates/plugin/codegen/src/declarations.rs:1819）。
+- `is_additional_properties_field` 只认名为 additional_properties 或 additionalProperties 的字段（core/crates/plugin/codegen/src/declarations.rs:1829）。
+- typescript_generic_bound 把 AsRef<str|String> 映射为 string（core/crates/plugin/codegen/src/declarations.rs:1874）。
+- typescript_generic_bound 把 ToolPkgBroadcastTopicKey 映射为 ToolPkg.BroadcastTopic，Send/Sync/Sized 忽略，其他泛型 bound 直接 panic（core/crates/plugin/codegen/src/declarations.rs:1889）。
+- `is_function_type` 在 Fn trait 对象，或 Arc/Box/Pin 包裹的 Fn 类型时成立（core/crates/plugin/codegen/src/declarations.rs:1899）。
+- `emit_jsdoc` 把 Rust 文档注释输出为 JSDoc 块，裁掉首尾空行（core/crates/plugin/codegen/src/declarations.rs:2052）。
+- `method_name` 去掉 Rust 方法名中的 _overload_ 后缀与 r# 前缀（core/crates/plugin/codegen/src/declarations.rs:2079）。
+- `pattern_name` 要求 SDK trait 参数使用标识符模式，否则 panic（core/crates/plugin/codegen/src/declarations.rs:2090）。
+- `typescript_module_path` 把 .d.ts 文件名转为 ./<模块名> 的相对导入路径（core/crates/plugin/codegen/src/declarations.rs:2290）。
 
 ### JS Tools 运行时生成
 

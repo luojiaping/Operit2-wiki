@@ -2,7 +2,7 @@
 title: 工具系统——执行与注册
 module: core
 platforms: [all]
-sources: [core/crates/tool/README.md, core/crates/tool/services/src/lib.rs, core/crates/tool/services/src/ToolExecutionManager.rs, core/crates/tool/services/src/tools/AIToolHandler.rs, core/crates/tool/services/src/tools/ToolRegistration.rs, core/crates/tool/services/src/tools/ToolPermissionSystem.rs]
+sources: [core/crates/tool/README.md, core/crates/tool/services/src/lib.rs, core/crates/tool/services/src/ToolExecutionManager.rs, core/crates/tool/services/src/tools/AIToolHandler.rs, core/crates/tool/services/src/tools/ToolRegistration.rs, core/crates/tool/services/src/tools/ToolPermissionSystem.rs, core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs]
 date: 2026-11-11
 ---
 
@@ -13,84 +13,84 @@ date: 2026-11-11
 tool 域拥有工具契约、工具执行、内置工具、skills、包、MCP 与工具脚本。`core/crates/tool/README.md:3`
 services 是当前聚合工具 crate，包含工具执行、内置工具、权限、skills、包、MCP 与 JavaScript 工具支持。`core/crates/tool/README.md:9`
 README 的 Target Split 规划把 services 聚合拆为 contracts、runtime、builtin、skill、package、mcp 与 javascript 七个 crate。`core/crates/tool/README.md:13`
-`executeInvocations` 是批处理主入口。`core/crates/tool/services/src/ToolExecutionManager.rs:359`
+`executeInvocations` 是批处理主入口。`core/crates/tool/services/src/ToolExecutionManager.rs:353`
 包工具由 `PackageToolExecutor` 执行，其内部实现见 [[core-tool-packages-mcp|工具系统——包、技能与 MCP]]。`core/crates/tool/services/src/tools/AIToolHandler.rs:784`
 
 ## AI 速览
 
-`extractToolInvocations` — 从助手响应提取 XML 风格的工具调用。`core/crates/tool/services/src/ToolExecutionManager.rs:314`
-`ToolRuntimeContext` — 本次执行的上下文：调用方聊天、参与者、工作区与曝光模式。`core/crates/tool/services/src/ToolExecutionManager.rs:42`
-`AITool` — 模型请求的解析形态：工具名与名值对参数。`core/crates/tool/services/src/ToolExecutionManager.rs:96`
-`ToolCall` — 结构化参数形态，参数以名值对映射保存。`core/crates/tool/services/src/ToolExecutionManager.rs:103`
-`resolveTarget` — 解析代理入口，把代理请求还原为目标工具调用。`core/crates/tool/services/src/ToolExecutionManager.rs:110`
-`ToolExposureMode` — 曝光模式：`FULL` 与 `CLI` 两档。`core/crates/tool/services/src/ToolExecutionManager.rs:36`
-`ToolExecutionBatch` — 汇总结果、回填消息、展示消息与路由变更意图。`core/crates/tool/services/src/ToolExecutionManager.rs:264`
-`executeInvocations` — 批处理主入口。`core/crates/tool/services/src/ToolExecutionManager.rs:359`
+`extractToolInvocations` — 从助手响应提取 XML 风格的工具调用。`core/crates/tool/services/src/ToolExecutionManager.rs:308`
+`ToolRuntimeContext` — 本次执行的上下文：调用方聊天、参与者、工作区与曝光模式。`core/crates/tool/services/src/ToolExecutionManager.rs:37`
+`AITool` — 模型请求的解析形态：工具名与名值对参数。`core/crates/tool/services/src/ToolExecutionManager.rs:94`
+`ToolCall` — 结构化参数形态，参数以名值对映射保存。`core/crates/tool/services/src/ToolExecutionManager.rs:101`
+`resolveTarget` — 解析代理入口，把代理请求还原为目标工具调用。`core/crates/tool/services/src/ToolExecutionManager.rs:108`
+`ToolExposureMode` — 曝光模式：`FULL` 与 `CLI` 两档。`core/crates/tool/services/src/ToolExecutionManager.rs:31`
+`ToolExecutionBatch` — 汇总结果、回填消息、展示消息与路由变更意图。`core/crates/tool/services/src/ToolExecutionManager.rs:258`
+`executeInvocations` — 批处理主入口。`core/crates/tool/services/src/ToolExecutionManager.rs:353`
 `executeToolInvocation` — 单次执行入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1006`
 `AIToolHandler` — 注册表与执行管线：注册、可见性、hook、权限预检、执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:80`
 `addToolHook` — 按 hook id 去重注册 hook。`core/crates/tool/services/src/tools/AIToolHandler.rs:272`
 `AiPermissionMode` — 权限模式三档：`ReadOnly`、`WorkspaceWrite`、`Full`。`core/crates/tool/services/src/tools/ToolPermissionSystem.rs:16`
-`RegisteredToolExecutor` — 四种执行契约：`Alias`、`Synchronous`、`Asynchronous`、`Shared`。`core/crates/tool/services/src/ToolExecutionManager.rs:732`
-`ToolAccessSpec` — 访问声明：效果与边界。`core/crates/tool/services/src/ToolExecutionManager.rs:798`
+`RegisteredToolExecutor` — 四种执行契约：`Alias`、`Synchronous`、`Asynchronous`、`Shared`。`core/crates/tool/services/src/ToolExecutionManager.rs:649`
+`ToolAccessSpec` — 访问声明：效果与边界。`core/crates/tool/services/src/ToolExecutionManager.rs:715`
 `registerAllTools` — 先注册公开工具，再注册内部工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:62`
-`get_tool_catalog` — 工具目录入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1242`
+`get_tool_catalog` — 工具目录入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1243`
 数据流向：模型响应 → 解析 → 批处理 → 逐个执行 → 结果回填，步骤见 ## 调用链。
 
 ## 核心机制
 
 ### 解析
 
-`extractToolInvocations` 从助手响应中提取 XML 风格的工具调用。`core/crates/tool/services/src/ToolExecutionManager.rs:314`
-工具调用参数从 `<param>` 标签解析，参数名取自标签的 name 属性。`core/crates/tool/services/src/ToolExecutionManager.rs:320`
-`unescapeXml` 剥离参数值首尾的 `<![CDATA[` 与 `]]>` 标记。`core/crates/tool/services/src/ToolExecutionManager.rs:676`
-`unescapeXml` 还原 `&lt;`、`&gt;`、`&amp;`、`&quot;`、`&apos;` 五种 XML 转义。`core/crates/tool/services/src/ToolExecutionManager.rs:674` `core/crates/tool/services/src/ToolExecutionManager.rs:686`
-每个 `ToolInvocation` 保留工具请求、原始文本 `rawText` 与响应内起止位置 `responseLocation`。`core/crates/tool/services/src/ToolExecutionManager.rs:251`
+`extractToolInvocations` 从助手响应中提取 XML 风格的工具调用。`core/crates/tool/services/src/ToolExecutionManager.rs:308`
+工具调用参数从 `<param>` 标签解析，参数名取自标签的 name 属性。`core/crates/tool/services/src/ToolExecutionManager.rs:314`
+`unescapeXml` 剥离参数值首尾的 `<![CDATA[` 与 `]]>` 标记。`core/crates/tool/services/src/ToolExecutionManager.rs:593`
+`unescapeXml` 还原 `&lt;`、`&gt;`、`&amp;`、`&quot;`、`&apos;` 五种 XML 转义。`core/crates/tool/services/src/ToolExecutionManager.rs:591` `core/crates/tool/services/src/ToolExecutionManager.rs:603`
+每个 `ToolInvocation` 保留工具请求、原始文本 `rawText` 与响应内起止位置 `responseLocation`。`core/crates/tool/services/src/ToolExecutionManager.rs:245`
 
 ### 执行上下文
 
-`ToolRuntimeContext` 记录调用方聊天、参与者、工作区路径、工作区目录列表与曝光模式。`core/crates/tool/services/src/ToolExecutionManager.rs:42`
-`ToolRuntimeContext` 的 `extensionOwner` 是本次执行捕获的原生认证配置所有者。`core/crates/tool/services/src/ToolExecutionManager.rs:49`
-`ToolRuntimeContext` 的 `executionData` 保存当前回合的执行数据，不持久化到消息上。`core/crates/tool/services/src/ToolExecutionManager.rs:51`
-`validateExecutionContext` 要求 `extensionOwner` 非空且无首尾空白，否则拒绝进入策略分发。`core/crates/tool/services/src/ToolExecutionManager.rs:67`
-两个任务局部变量保存上下文：`TOOL_RUNTIME_CONTEXT` 与 `TOOL_INVOCATION_CONTEXT`。`core/crates/tool/services/src/ToolExecutionManager.rs:28`
-`ToolInvocationContext` 的 `capture` 优先取当前任务局部的调用上下文。`core/crates/tool/services/src/ToolExecutionManager.rs:189`
-无任务局部上下文时，`capture` 回退到 handler 自身的 `invocationSnapshot`。`core/crates/tool/services/src/ToolExecutionManager.rs:192`
-`withHook` 把 hook id 记入快照的 `activeHooks`，`isHookActive` 查询该集合。`core/crates/tool/services/src/ToolExecutionManager.rs:222`
+`ToolRuntimeContext` 记录调用方聊天、参与者、工作区路径、工作区目录列表与曝光模式。`core/crates/tool/services/src/ToolExecutionManager.rs:37`
+`ToolRuntimeContext` 的 `extensionOwner` 是本次执行捕获的原生认证配置所有者。`core/crates/tool/services/src/ToolExecutionManager.rs:47`
+`ToolRuntimeContext` 的 `executionData` 保存当前回合的执行数据，不持久化到消息上。`core/crates/tool/services/src/ToolExecutionManager.rs:49`
+`validateExecutionContext` 要求 `extensionOwner` 非空且无首尾空白，否则拒绝进入策略分发。`core/crates/tool/services/src/ToolExecutionManager.rs:65`
+两个任务局部变量保存上下文：`TOOL_RUNTIME_CONTEXT` 与 `TOOL_INVOCATION_CONTEXT`。`core/crates/tool/services/src/ToolExecutionManager.rs:23`
+`ToolInvocationContext` 的 `capture` 优先取当前任务局部的调用上下文。`core/crates/tool/services/src/ToolExecutionManager.rs:183`
+无任务局部上下文时，`capture` 回退到 handler 自身的 `invocationSnapshot`。`core/crates/tool/services/src/ToolExecutionManager.rs:186`
+`withHook` 把 hook id 记入快照的 `activeHooks`，`isHookActive` 查询该集合。`core/crates/tool/services/src/ToolExecutionManager.rs:216`
 
 ### 代理与曝光
 
-`resolveTarget` 只解析 `PACKAGE_PROXY_TOOL_NAME` 与 `CLI_PROXY_TOOL_NAME` 两个代理入口，其他工具名原样通过。`core/crates/tool/services/src/ToolExecutionManager.rs:110`
-CLI 代理 `proxy` 要求当前回合曝光模式为 CLI，否则返回不可用错误。`core/crates/tool/services/src/ToolExecutionManager.rs:112`
-代理信封只允许 `tool_name`、`params` 与四个 __operit_package_* 参数，其余参数报错。`core/crates/tool/services/src/ToolExecutionManager.rs:116`
-代理的目标工具名必须是非空且无首尾空白的精确文本。`core/crates/tool/services/src/ToolExecutionManager.rs:122`
-代理不能以另一个代理或目录条目为目标。`core/crates/tool/services/src/ToolExecutionManager.rs:123`
-`PACKAGE_PROXY_TOOL_NAME` 的目标必须写成 `packageName:toolName` 格式，且方法名内不能再含冒号。`core/crates/tool/services/src/ToolExecutionManager.rs:124`
-代理的 `params` 必须是 JSON 对象或其旧版文本编码，否则报错。`core/crates/tool/services/src/ToolExecutionManager.rs:134`
-`ToolExposureMode` 分 `FULL` 与 `CLI` 两档：FULL 用原生工具调用标记与完整注册目录，CLI 用命令行代理模式的受限公开面。`core/crates/tool/services/src/ToolExecutionManager.rs:36`
-CLI 模式下调用非公开工具时返回失败结果。`core/crates/tool/services/src/ToolExecutionManager.rs:616`
-FULL 模式下调用 CLI 公开工具时，返回 CLI 模式不可用错误。`core/crates/tool/services/src/ToolExecutionManager.rs:623`
-CLI 公开工具只有 `CLI_SEARCH_TOOL_NAME` 与 `CLI_PROXY_TOOL_NAME` 两个。`core/crates/tool/services/src/ToolExecutionManager.rs:644`
+`resolveTarget` 只解析 `PACKAGE_PROXY_TOOL_NAME` 与 `CLI_PROXY_TOOL_NAME` 两个代理入口，其他工具名原样通过。`core/crates/tool/services/src/ToolExecutionManager.rs:108`
+CLI 代理 `proxy` 要求当前回合曝光模式为 CLI，否则返回不可用错误。`core/crates/tool/services/src/ToolExecutionManager.rs:110`
+代理信封只允许 `tool_name` 与 `params`，其余参数报错。`core/crates/tool/services/src/ToolExecutionManager.rs:114`
+代理的目标工具名必须是非空且无首尾空白的精确文本。`core/crates/tool/services/src/ToolExecutionManager.rs:120`
+代理不能以另一个代理或目录条目为目标。`core/crates/tool/services/src/ToolExecutionManager.rs:121`
+`PACKAGE_PROXY_TOOL_NAME` 的目标必须写成 `packageName:toolName` 格式，且方法名内不能再含冒号。`core/crates/tool/services/src/ToolExecutionManager.rs:122`
+代理的 `params` 必须是 JSON 对象或其旧版文本编码，否则报错。`core/crates/tool/services/src/ToolExecutionManager.rs:132`
+`ToolExposureMode` 分 `FULL` 与 `CLI` 两档：FULL 用原生工具调用标记与完整注册目录，CLI 用命令行代理模式的受限公开面。`core/crates/tool/services/src/ToolExecutionManager.rs:31`
+CLI 模式下调用非公开工具时返回失败结果。`core/crates/tool/services/src/ToolExecutionManager.rs:533`
+FULL 模式下调用 CLI 公开工具时，返回 CLI 模式不可用错误。`core/crates/tool/services/src/ToolExecutionManager.rs:540`
+CLI 公开工具只有 `CLI_SEARCH_TOOL_NAME` 与 `CLI_PROXY_TOOL_NAME` 两个。`core/crates/tool/services/src/ToolExecutionManager.rs:561`
 
 ### 批处理
 
-`executeInvocations` 在批处理开始前校验 `ToolRuntimeContext`。`core/crates/tool/services/src/ToolExecutionManager.rs:359` `core/crates/tool/services/src/ToolExecutionManager.rs:381`
-`executeInvocations` 入口调用 `registerDefaultTools` 注册内置工具。`core/crates/tool/services/src/ToolExecutionManager.rs:359` `core/crates/tool/services/src/ToolExecutionManager.rs:404`
-`executeInvocations` 按顺序逐个执行调用，串行处理整批。`core/crates/tool/services/src/ToolExecutionManager.rs:359` `core/crates/tool/services/src/ToolExecutionManager.rs:423`
-批处理执行前，每个调用先经 `injectPackageCallContext` 注入包调用上下文。`core/crates/tool/services/src/ToolExecutionManager.rs:413`
-批处理中每个调用经 `executeToolInvocation` 以 `ToolExecutionPolicy::Ai` 执行。`core/crates/tool/services/src/ToolExecutionManager.rs:435`
-多结果合并时，失败项文本标为 `Step error`。`core/crates/tool/services/src/ToolExecutionManager.rs:458`
-多个原始结果以换行拼接成一个合并字符串。`core/crates/tool/services/src/ToolExecutionManager.rs:466`
-只有显示名为 `switch_core`、结果工具名为 `switch_core` 且成功时，才生成 `RouteChangeIntent`。`core/crates/tool/services/src/ToolExecutionManager.rs:518`
-`RouteChangeIntent` 的 `targetNodeId` 取自结果文本去首尾空白后的内容。`core/crates/tool/services/src/ToolExecutionManager.rs:526`
-同一批中后一个调用的路由意图会覆盖前一个。`core/crates/tool/services/src/ToolExecutionManager.rs:480`
-`ToolExecutionBatch` 的 `new` 用 `buildToolResultMessage` 生成回填模型的消息，用 `formatToolResultForDisplay` 生成展示消息。`core/crates/tool/services/src/ToolExecutionManager.rs:273`
-`ToolExecutionBatch` 汇总结果、回填消息、展示消息与路由变更意图。`core/crates/tool/services/src/ToolExecutionManager.rs:264`
+`executeInvocations` 在批处理开始前校验 `ToolRuntimeContext`。`core/crates/tool/services/src/ToolExecutionManager.rs:353` `core/crates/tool/services/src/ToolExecutionManager.rs:375`
+`executeInvocations` 入口调用 `registerDefaultTools` 注册内置工具。`core/crates/tool/services/src/ToolExecutionManager.rs:353` `core/crates/tool/services/src/ToolExecutionManager.rs:398`
+`executeInvocations` 按顺序逐个执行调用，串行处理整批。`core/crates/tool/services/src/ToolExecutionManager.rs:353` `core/crates/tool/services/src/ToolExecutionManager.rs:399`
+批处理不再在循环里向调用参数注入包调用上下文；调用方名字由 `executeInvocations` 存入 `ToolRuntimeContext` 的 `callerName`，随回合上下文经 `toolpkg_caller_context` 提供给 JS 执行侧。`core/crates/tool/services/src/ToolExecutionManager.rs:353` `core/crates/tool/services/src/ToolExecutionManager.rs:366` `core/crates/tool/services/src/tools/AIToolHandler.rs:1191`
+批处理中每个调用经 `executeToolInvocation` 以 `ToolExecutionPolicy::Ai` 执行。`core/crates/tool/services/src/ToolExecutionManager.rs:411`
+多结果合并时，失败项文本标为 `Step error`。`core/crates/tool/services/src/ToolExecutionManager.rs:434`
+多个原始结果以换行拼接成一个合并字符串。`core/crates/tool/services/src/ToolExecutionManager.rs:442`
+只有显示名为 `switch_core`、结果工具名为 `switch_core` 且成功时，才生成 `RouteChangeIntent`。`core/crates/tool/services/src/ToolExecutionManager.rs:494`
+`RouteChangeIntent` 的 `targetNodeId` 取自结果文本去首尾空白后的内容。`core/crates/tool/services/src/ToolExecutionManager.rs:502`
+同一批中后一个调用的路由意图会覆盖前一个。`core/crates/tool/services/src/ToolExecutionManager.rs:456`
+`ToolExecutionBatch` 的 `new` 用 `buildToolResultMessage` 生成回填模型的消息，用 `formatToolResultForDisplay` 生成展示消息。`core/crates/tool/services/src/ToolExecutionManager.rs:267`
+`ToolExecutionBatch` 汇总结果、回填消息、展示消息与路由变更意图。`core/crates/tool/services/src/ToolExecutionManager.rs:258`
 
 ### 调用管线（单次执行）
 
 `executeToolInvocation` 先用 `ToolInvocationContext::capture` 捕获调用方上下文，再在该上下文作用域内执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1011`
 `resolveTarget` 解析失败时返回失败结果，不抛错中断批处理。`core/crates/tool/services/src/tools/AIToolHandler.rs:1024`
-`resolveTarget` 失败路径在 AI 策略下仍通知请求与结果 hook。`core/crates/tool/services/src/tools/AIToolHandler.rs:1020` `core/crates/tool/services/src/tools/AIToolHandler.rs:1036`
+`resolveTarget` 失败路径在 AI 策略下仍通知请求与结果 hook。`core/crates/tool/services/src/tools/AIToolHandler.rs:1020` `core/crates/tool/services/src/tools/AIToolHandler.rs:1028`
 曝光检查以原始请求判定，在代理目标解析之后、拦截检查之前执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1064`
 拦截检查在曝光检查之后、激活之前执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1069`
 工具未注册时先尝试激活，仍不存在返回 `Tool not found` 失败结果。`core/crates/tool/services/src/tools/AIToolHandler.rs:1074`
@@ -101,7 +101,7 @@ AI 调用才做权限预检：`prepared.access` 为 `Some` 时调用 `executeAcc
 内置工具执行器返回的结果必须与请求同名，失败结果必须带 `error`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1096`
 执行器返回空结果时，整个调用以错误结束。`core/crates/tool/services/src/tools/AIToolHandler.rs:1101`
 `executeTool` 以 `Direct` 策略执行并取最后一个结果。`core/crates/tool/services/src/tools/AIToolHandler.rs:1142`
-`Direct` 策略的调用不经过 AI 生命周期 hook 与权限预检。`core/crates/tool/services/src/ToolExecutionManager.rs:290`
+`Direct` 策略的调用不经过 AI 生命周期 hook 与权限预检。`core/crates/tool/services/src/ToolExecutionManager.rs:284`
 
 ### Hook
 
@@ -114,16 +114,16 @@ hook 拦截产生的失败结果 `error` 为 hook 给出的原因。`core/crates
 
 ### 执行器契约
 
-`ToolExecutor` 要求实现 `validateParameters`、`accessSpec` 与 `invokeAndStream` 三个方法。`core/crates/tool/services/src/ToolExecutionManager.rs:697`
-`AsyncToolExecutor` 的 `invokeAndStreamAsync` 接收 `ToolInvocationContext`。`core/crates/tool/services/src/ToolExecutionManager.rs:709` `core/crates/tool/services/src/ToolExecutionManager.rs:715`
-`SharedToolExecutor` 的 `prepare` 一次解码校验，`checkAccess` 为真时才声明 `access`。`core/crates/tool/services/src/ToolExecutionManager.rs:725`
-`RegisteredToolExecutor` 分 `Alias`、`Synchronous`、`Asynchronous`、`Shared` 四种执行契约。`core/crates/tool/services/src/ToolExecutionManager.rs:732`
-`Alias` 契约必须在取执行器前解析，直接 `prepare` 会报错。`core/crates/tool/services/src/ToolExecutionManager.rs:759`
-同步与异步执行器在 `prepare` 时先校验参数，校验失败返回错误信息。`core/crates/tool/services/src/ToolExecutionManager.rs:763`
-`prepare` 只在 `checkAccess` 为真时调用 `accessSpec` 取访问声明。`core/crates/tool/services/src/ToolExecutionManager.rs:765`
-`ToolEffect` 只有 `READ` 与 `WRITE` 两档。`core/crates/tool/services/src/ToolExecutionManager.rs:780`
-`ToolBoundary` 分 `None`、`FilePath` 与 `FilePair` 三种，文件边界各带读写效果。`core/crates/tool/services/src/ToolExecutionManager.rs:791`
-`ToolAccessSpec` 由 `effect` 与 `boundary` 组成。`core/crates/tool/services/src/ToolExecutionManager.rs:798`
+`ToolExecutor` 要求实现 `validateParameters`、`accessSpec` 与 `invokeAndStream` 三个方法。`core/crates/tool/services/src/ToolExecutionManager.rs:614`
+`AsyncToolExecutor` 的 `invokeAndStreamAsync` 接收 `ToolInvocationContext`。`core/crates/tool/services/src/ToolExecutionManager.rs:626` `core/crates/tool/services/src/ToolExecutionManager.rs:632`
+`SharedToolExecutor` 的 `prepare` 一次解码校验，`checkAccess` 为真时才声明 `access`。`core/crates/tool/services/src/ToolExecutionManager.rs:642`
+`RegisteredToolExecutor` 分 `Alias`、`Synchronous`、`Asynchronous`、`Shared` 四种执行契约。`core/crates/tool/services/src/ToolExecutionManager.rs:649`
+`Alias` 契约必须在取执行器前解析，直接 `prepare` 会报错。`core/crates/tool/services/src/ToolExecutionManager.rs:676`
+同步与异步执行器在 `prepare` 时先校验参数，校验失败返回错误信息。`core/crates/tool/services/src/ToolExecutionManager.rs:680`
+`prepare` 只在 `checkAccess` 为真时调用 `accessSpec` 取访问声明。`core/crates/tool/services/src/ToolExecutionManager.rs:682`
+`ToolEffect` 只有 `READ` 与 `WRITE` 两档。`core/crates/tool/services/src/ToolExecutionManager.rs:697`
+`ToolBoundary` 分 `None`、`FilePath` 与 `FilePair` 三种，文件边界各带读写效果。`core/crates/tool/services/src/ToolExecutionManager.rs:708`
+`ToolAccessSpec` 由 `effect` 与 `boundary` 组成。`core/crates/tool/services/src/ToolExecutionManager.rs:715`
 
 ### 注册
 
@@ -145,8 +145,8 @@ MCP 包的工具用 `MCPToolExecutor` 执行。`core/crates/tool/services/src/to
 `BuiltinToolName::UsePackage` 执行时先准备 MCP 包。`core/crates/tool/services/src/tools/ToolRegistration.rs:72` `core/crates/tool/services/src/tools/ToolRegistration.rs:85`
 use_package 激活包成功后调用 `registerPackageTools` 注册该包的工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:104`
 `sleep` 工具无 `duration_ms` 参数时默认等待 1000 毫秒。`core/crates/tool/services/src/tools/ToolRegistration.rs:115`
-文件工具以异步契约注册为 `PUBLIC` 工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:1560`
-跨节点文件传输端点注册为内部异步工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:1534`
+文件工具以异步契约注册为 `PUBLIC` 工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:1565`
+跨节点文件传输端点注册为内部异步工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:1539`
 `unregisterTool` 删除工具注册与其可见性记录。`core/crates/tool/services/src/tools/AIToolHandler.rs:210`
 `unregisterMcpServerTools` 按 `服务器名:` 前缀批量删除该 MCP 服务器的工具。`core/crates/tool/services/src/tools/AIToolHandler.rs:218` `core/crates/tool/services/src/tools/AIToolHandler.rs:224`
 
@@ -170,61 +170,61 @@ use_package 激活包成功后调用 `registerPackageTools` 注册该包的工�
 用户拒绝审批时返回 `User cancelled the tool execution.` 错误。`core/crates/tool/services/src/tools/AIToolHandler.rs:840`
 `executeAccessPreflightAsync` 读取当前权限模式失败时，返回失败结果而不是抛错。`core/crates/tool/services/src/tools/AIToolHandler.rs:794`
 
-### 包调用上下文注入
+### 包调用上下文
 
-`setPackageContextParameter` 先删除模型传入的同名参数，再写入给定值。`core/crates/tool/services/src/ToolExecutionManager.rs:554`
-包调用注入覆盖 `PACKAGE_CALLER_NAME_PARAM`、`PACKAGE_CHAT_ID_PARAM` 与 `PACKAGE_CALLER_PARTICIPANT_ID_PARAM` 三个参数。`core/crates/tool/services/src/ToolExecutionManager.rs:579`
-`PACKAGE_CALLER_OWNER_PARAM` 的值取自当前回合上下文的 `extensionOwner`。`core/crates/tool/services/src/ToolExecutionManager.rs:588`
-包调用上下文注入只处理 `isJsPackageTool` 判定的包工具，非包工具原样返回。`core/crates/tool/services/src/ToolExecutionManager.rs:572`
+`bindCallerContext` 先删除传入的同名 __operit_package_* 参数，再按回合上下文写入给定值。`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3393`
+包调用注入不再覆盖 PACKAGE_CALLER_NAME_PARAM、PACKAGE_CHAT_ID_PARAM 与 PACKAGE_CALLER_PARTICIPANT_ID_PARAM 三个参数；调用方名字、聊天与参与者改为由 `ToolRuntimeContext` 的 `callerName`、`callerChatId`、`callerParticipantId` 字段承载。`core/crates/tool/services/src/ToolExecutionManager.rs:40`
+PACKAGE_CALLER_OWNER_PARAM 不再由批处理注入；调用方所有者仍由 `ToolRuntimeContext` 的 `extensionOwner` 承载，并经 `toolpkg_caller_context` 提供给 JS 执行侧。`core/crates/tool/services/src/ToolExecutionManager.rs:37` `core/crates/tool/services/src/ToolExecutionManager.rs:47` `core/crates/tool/services/src/tools/AIToolHandler.rs:1191`
+包调用上下文绑定不再按包名判定是否为包工具；JS 执行时直接取回合上下文绑定 __operit_package_* 参数。`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3393`
 
 ### 展示名与目录
 
-`resolveDisplayToolName` 对代理工具显示目标工具名。`core/crates/tool/services/src/ToolExecutionManager.rs:531`
-工具目录中的内置工具 `source` 为 `builtin`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1273`
-工具目录中的包工具 `source` 为 `package`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1313`
-`execute_tool_call` 经 `executeToolInvocation` 以 `ToolExecutionPolicy::Direct` 执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1322` `core/crates/tool/services/src/tools/AIToolHandler.rs:1341`
+`resolveDisplayToolName` 对代理工具显示目标工具名。`core/crates/tool/services/src/ToolExecutionManager.rs:507`
+工具目录中的内置工具 `source` 为 `builtin`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1274`
+工具目录中的包工具 `source` 为 `package`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1314`
+`execute_tool_call` 经 `executeToolInvocation` 以 `ToolExecutionPolicy::Direct` 执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1323` `core/crates/tool/services/src/tools/AIToolHandler.rs:1342`
 `reset` 清空注册表与可见性，并把 `defaultToolsRegistration` 重置为新的 OnceLock。`core/crates/tool/services/src/tools/AIToolHandler.rs:1150`
 
 ## 关键符号
 
-`ToolRuntimeContext` — 执行上下文结构。`core/crates/tool/services/src/ToolExecutionManager.rs:42`
-`AITool` — 模型请求的解析形态。`core/crates/tool/services/src/ToolExecutionManager.rs:96`
-`ToolCall` — 结构化参数形态。`core/crates/tool/services/src/ToolExecutionManager.rs:103`
-`ToolInvocation` — 单次工具调用：请求、原始文本与响应位置。`core/crates/tool/services/src/ToolExecutionManager.rs:251`
-`ToolExecutionBatch` — 批处理结果汇总。`core/crates/tool/services/src/ToolExecutionManager.rs:264`
-`ToolExposureMode` — 曝光模式枚举。`core/crates/tool/services/src/ToolExecutionManager.rs:33`
-`ToolExecutionPolicy` — 执行策略枚举：`Ai` 与 `Direct`。`core/crates/tool/services/src/ToolExecutionManager.rs:287`
-`ToolExecutor` — 同步执行器契约。`core/crates/tool/services/src/ToolExecutionManager.rs:697`
-`AsyncToolExecutor` — 异步执行器契约。`core/crates/tool/services/src/ToolExecutionManager.rs:709`
-`SharedToolExecutor` — 共享执行器契约。`core/crates/tool/services/src/ToolExecutionManager.rs:725`
-`RegisteredToolExecutor` — 注册的执行器契约枚举。`core/crates/tool/services/src/ToolExecutionManager.rs:732`
-`ToolEffect` — 效果枚举：`READ` 与 `WRITE`。`core/crates/tool/services/src/ToolExecutionManager.rs:780`
-`ToolBoundary` — 边界枚举。`core/crates/tool/services/src/ToolExecutionManager.rs:786`
-`ToolAccessSpec` — 访问声明结构。`core/crates/tool/services/src/ToolExecutionManager.rs:798`
+`ToolRuntimeContext` — 执行上下文结构。`core/crates/tool/services/src/ToolExecutionManager.rs:37`
+`AITool` — 模型请求的解析形态。`core/crates/tool/services/src/ToolExecutionManager.rs:94`
+`ToolCall` — 结构化参数形态。`core/crates/tool/services/src/ToolExecutionManager.rs:101`
+`ToolInvocation` — 单次工具调用：请求、原始文本与响应位置。`core/crates/tool/services/src/ToolExecutionManager.rs:245`
+`ToolExecutionBatch` — 批处理结果汇总。`core/crates/tool/services/src/ToolExecutionManager.rs:258`
+`ToolExposureMode` — 曝光模式枚举。`core/crates/tool/services/src/ToolExecutionManager.rs:28`
+`ToolExecutionPolicy` — 执行策略枚举：`Ai` 与 `Direct`。`core/crates/tool/services/src/ToolExecutionManager.rs:281`
+`ToolExecutor` — 同步执行器契约。`core/crates/tool/services/src/ToolExecutionManager.rs:614`
+`AsyncToolExecutor` — 异步执行器契约。`core/crates/tool/services/src/ToolExecutionManager.rs:626`
+`SharedToolExecutor` — 共享执行器契约。`core/crates/tool/services/src/ToolExecutionManager.rs:642`
+`RegisteredToolExecutor` — 注册的执行器契约枚举。`core/crates/tool/services/src/ToolExecutionManager.rs:649`
+`ToolEffect` — 效果枚举：`READ` 与 `WRITE`。`core/crates/tool/services/src/ToolExecutionManager.rs:697`
+`ToolBoundary` — 边界枚举。`core/crates/tool/services/src/ToolExecutionManager.rs:703`
+`ToolAccessSpec` — 访问声明结构。`core/crates/tool/services/src/ToolExecutionManager.rs:715`
 `AIToolHandler` — 注册表与执行管线。`core/crates/tool/services/src/tools/AIToolHandler.rs:80`
 `AIToolHandlerState` — 注册表状态结构。`core/crates/tool/services/src/tools/AIToolHandler.rs:106`
 `ToolRegistrationVisibility` — 可见性枚举：`PUBLIC` 与 `INTERNAL`。`core/crates/tool/services/src/tools/AIToolHandler.rs:50`
 `ToolPermissionSystem` — 权限系统。`core/crates/tool/services/src/tools/ToolPermissionSystem.rs:72`
 `AiPermissionMode` — 权限模式枚举。`core/crates/tool/services/src/tools/ToolPermissionSystem.rs:16`
 `PermissionRequestResult` — 审批结果枚举。`core/crates/tool/services/src/tools/ToolPermissionSystem.rs:54`
-`extractToolInvocations` — 解析入口。`core/crates/tool/services/src/ToolExecutionManager.rs:314`
-`executeInvocations` — 批处理入口。`core/crates/tool/services/src/ToolExecutionManager.rs:359`
+`extractToolInvocations` — 解析入口。`core/crates/tool/services/src/ToolExecutionManager.rs:308`
+`executeInvocations` — 批处理入口。`core/crates/tool/services/src/ToolExecutionManager.rs:353`
 `executeToolInvocation` — 单次执行入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1006`
 `executeTool` — `Direct` 策略执行入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1142`
 `registerAllTools` — 注册全部工具。`core/crates/tool/services/src/tools/ToolRegistration.rs:62`
 `registerDefaultTools` — 注册内置工具。`core/crates/tool/services/src/tools/AIToolHandler.rs:658`
-`get_tool_catalog` — 工具目录入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1242`
-`execute_tool_call` — JS 工具调用入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1322`
+`get_tool_catalog` — 工具目录入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1243`
+`execute_tool_call` — JS 工具调用入口。`core/crates/tool/services/src/tools/AIToolHandler.rs:1323`
 `reset` — 清空注册表。`core/crates/tool/services/src/tools/AIToolHandler.rs:1150`
 
 ## 调用链
 
-1. 模型响应经 `extractToolInvocations` 解析为 `ToolInvocation` 列表。`core/crates/tool/services/src/ToolExecutionManager.rs:314`
-2. `executeInvocations` 校验 `ToolRuntimeContext`。`core/crates/tool/services/src/ToolExecutionManager.rs:359` `core/crates/tool/services/src/ToolExecutionManager.rs:381`
-3. `executeInvocations` 调用 `registerDefaultTools` 注册内置工具。`core/crates/tool/services/src/ToolExecutionManager.rs:359` `core/crates/tool/services/src/ToolExecutionManager.rs:404`
-4. 每个调用经 `injectPackageCallContext` 注入包调用上下文。`core/crates/tool/services/src/ToolExecutionManager.rs:413`
-5. 调用按顺序逐个执行。`core/crates/tool/services/src/ToolExecutionManager.rs:423`
-6. 每个调用经 `executeToolInvocation` 以 `ToolExecutionPolicy::Ai` 执行。`core/crates/tool/services/src/ToolExecutionManager.rs:435`
+1. 模型响应经 `extractToolInvocations` 解析为 `ToolInvocation` 列表。`core/crates/tool/services/src/ToolExecutionManager.rs:308`
+2. `executeInvocations` 校验 `ToolRuntimeContext`。`core/crates/tool/services/src/ToolExecutionManager.rs:353` `core/crates/tool/services/src/ToolExecutionManager.rs:375`
+3. `executeInvocations` 调用 `registerDefaultTools` 注册内置工具。`core/crates/tool/services/src/ToolExecutionManager.rs:353` `core/crates/tool/services/src/ToolExecutionManager.rs:398`
+4. 包调用上下文不再逐个注入调用参数；调用方名字存入 `ToolRuntimeContext` 的 `callerName`。`core/crates/tool/services/src/ToolExecutionManager.rs:366`
+5. 调用按顺序逐个执行。`core/crates/tool/services/src/ToolExecutionManager.rs:399`
+6. 每个调用经 `executeToolInvocation` 以 `ToolExecutionPolicy::Ai` 执行。`core/crates/tool/services/src/ToolExecutionManager.rs:411`
 7. `executeToolInvocation` 用 `ToolInvocationContext::capture` 捕获调用方上下文。`core/crates/tool/services/src/tools/AIToolHandler.rs:1011`
 8. `resolveTarget` 解析失败时返回失败结果，不抛错中断批处理。`core/crates/tool/services/src/tools/AIToolHandler.rs:1024`
 9. 曝光检查以原始请求判定。`core/crates/tool/services/src/tools/AIToolHandler.rs:1064`
@@ -235,17 +235,18 @@ use_package 激活包成功后调用 `registerPackageTools` 注册该包的工�
 14. 权限预检：`prepared.access` 为 `Some` 时调用 `executeAccessPreflightAsync`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1085`
 15. 执行器真正调用在 `prepared.invoke`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1091`
 16. 内置工具执行器返回的结果必须与请求同名，失败结果必须带 `error`。`core/crates/tool/services/src/tools/AIToolHandler.rs:1096`
-17. `ToolExecutionBatch` 的 `new` 生成回填消息与展示消息。`core/crates/tool/services/src/ToolExecutionManager.rs:273`
-18. 多个原始结果以换行拼接成一个合并字符串。`core/crates/tool/services/src/ToolExecutionManager.rs:466`
-19. 只有显示名为 `switch_core`、结果工具名为 `switch_core` 且成功时，才生成 `RouteChangeIntent`。`core/crates/tool/services/src/ToolExecutionManager.rs:518`
-20. `execute_tool_call` 经 `executeToolInvocation` 以 `ToolExecutionPolicy::Direct` 执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1322` `core/crates/tool/services/src/tools/AIToolHandler.rs:1341`
-21. `Direct` 策略的调用不经过 AI 生命周期 hook 与权限预检。`core/crates/tool/services/src/ToolExecutionManager.rs:290`
+17. `ToolExecutionBatch` 的 `new` 生成回填消息与展示消息。`core/crates/tool/services/src/ToolExecutionManager.rs:267`
+18. 多个原始结果以换行拼接成一个合并字符串。`core/crates/tool/services/src/ToolExecutionManager.rs:442`
+19. 只有显示名为 `switch_core`、结果工具名为 `switch_core` 且成功时，才生成 `RouteChangeIntent`。`core/crates/tool/services/src/ToolExecutionManager.rs:494`
+20. `execute_tool_call` 经 `executeToolInvocation` 以 `ToolExecutionPolicy::Direct` 执行。`core/crates/tool/services/src/tools/AIToolHandler.rs:1323` `core/crates/tool/services/src/tools/AIToolHandler.rs:1342`
+21. `Direct` 策略的调用不经过 AI 生命周期 hook 与权限预检。`core/crates/tool/services/src/ToolExecutionManager.rs:284`
 
 ## 来源
 
 - `core/crates/tool/README.md`（13 行，100% 已读）
 - `core/crates/tool/services/src/lib.rs`（10 行，100% 已读）
-- `core/crates/tool/services/src/ToolExecutionManager.rs`（946 行，100% 已读）
+- `core/crates/tool/services/src/ToolExecutionManager.rs`（864 行，100% 已读）
 - `core/crates/tool/services/src/tools/AIToolHandler.rs`（3644 行，100% 已读）
 - `core/crates/tool/services/src/tools/ToolRegistration.rs`（1795 行，100% 已读）
 - `core/crates/tool/services/src/tools/ToolPermissionSystem.rs`（254 行，100% 已读）
+- `core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs`（3602 行，`bindCallerContext` 相关段落已读）
