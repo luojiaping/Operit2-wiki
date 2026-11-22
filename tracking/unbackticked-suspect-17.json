@@ -1,0 +1,32 @@
+[
+ {
+  "page": "core-persistence-sync",
+  "idx": 148,
+  "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:178",
+  "text": "同一偏好合并 schema 中重复的存储路径被拒绝。",
+  "terms": [
+   "schema"
+  ],
+  "window": "        if store.path.is_empty()\n            || store.path.len() > 512\n            || store.path.chars().any(char::is_control)\n            || !paths.insert(store.path.as_str())\n        {\n            return Err(\"Invalid or duplicate preference merge store declaration\".into());\n        }"
+ },
+ {
+  "page": "agent-memory",
+  "idx": 42,
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:216",
+  "text": "候选源消息已删除或版本已变化时跳过该候选并记为 failed、记录原因。",
+  "terms": [
+   "failed"
+  ],
+  "window": "              /** Resolves only the queued revision rather than substituting another message. */\n              message => message.timestamp === candidate.triggerMessageTimestamp && message.variantIndex === candidate.triggerVariantIndex,\n            );\n            if (source.length === 0) throw new E"
+ },
+ {
+  "page": "agent-memory",
+  "idx": 43,
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:219",
+  "text": "候选源消息的发送者已变化时跳过该候选并记为 failed。",
+  "terms": [
+   "failed"
+  ],
+  "window": "            if (source.length === 0) throw new Error(\"源消息已删除或所选版本已变化，已跳过该候选：\" + candidate.id);\n            if (source.length !== 1) throw new Error(\"源消息无法唯一定位，已跳过该候选：\" + candidate.id);\n            const sender = source[0].sender;\n            if (candidate.sourceType === \"selected_user_message\" ? sen"
+ }
+]

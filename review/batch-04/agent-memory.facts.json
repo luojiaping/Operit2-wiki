@@ -25,231 +25,231 @@
  },
  {
   "fact": "`CharacterMemoryDatabase` 的注释写明它保存同步化的记忆记录并执行有界数据库查询。",
-  "ref": "plugins/packages/buildin/character_cards/src/storage/memory.ts:11"
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory.ts:31"
  },
  {
   "fact": "记忆数据库文件是 Space 数据目录下的 `memory.sqlite`，目录由 `ToolPkg.getSpaceDataDir()` 定位。",
-  "ref": "plugins/packages/buildin/character_cards/src/storage/memory.ts:20"
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory.ts:37"
  },
  {
   "fact": "源记录与向量在一次同步化事务里一起发布。",
-  "ref": "plugins/packages/buildin/character_cards/src/storage/memory.ts:76"
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory.ts:96"
  },
  {
   "fact": "`DatabaseMemoryRepository` 在同步化的数据库记录上实现记忆操作，检索索引是 owner 本地的派生索引。",
-  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:41"
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:40"
  },
  {
   "fact": "`readMemoryJobState` 按 `ownerKey` 读出该记忆空间的任务状态。",
-  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:312"
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:339"
  },
  {
   "fact": "`writeMemoryJobState` 按 `ownerKey` 写回该记忆空间的任务状态。",
-  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:322"
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:349"
  },
  {
   "fact": "`CandidateSource` 只有 `reply_finalized_auto` 与 `selected_user_message` 两种取值。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:8"
- },
- {
-  "fact": "`CandidateRequest` 包含 `chatId`、`timestamp`、`variantIndex`、`sourceType`、`ownerKey` 五个字段。",
   "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:9"
  },
  {
+  "fact": "`CandidateRequest` 包含 `chatId`、`timestamp`、`variantIndex`、`sourceType`、`ownerKey` 五个字段。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:10"
+ },
+ {
   "fact": "`enqueueCandidate` 在 `sourceType` 为 `reply_finalized_auto` 且全局记忆偏好 `autoUpdateEnabled` 关闭时直接返回空结果，不入队。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:54"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:55"
  },
  {
   "fact": "`enqueueCandidate` 在 `variantIndex` 超过 2147483647 时抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:56"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:57"
  },
  {
   "fact": "候选必须恰好定位到一条源消息，否则抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:61"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:62"
  },
  {
   "fact": "`reply_finalized_auto` 的候选要求源消息发送者是 `ai` 或 `assistant`。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:64"
- },
- {
-  "fact": "`selected_user_message` 的候选要求源消息发送者是 `user`。",
   "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:65"
  },
  {
+  "fact": "`selected_user_message` 的候选要求源消息发送者是 `user`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:66"
+ },
+ {
   "fact": "候选源消息内容为空白时抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:68"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:69"
  },
  {
   "fact": "自动候选在当前消息作者缺失（`authorMissing`）时直接返回空结果，不入队。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:72"
- },
- {
-  "fact": "自动候选在 `ownerKey` 为空时取当前消息的 `primaryOwnerKey` 作为记忆 owner。",
   "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:73"
  },
  {
+  "fact": "自动候选在 `ownerKey` 为空时取当前消息的 `primaryOwnerKey` 作为记忆 owner。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:74"
+ },
+ {
   "fact": "自动候选在当前消息作者对目标 owner 不可写时抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:77"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:78"
  },
  {
   "fact": "选定用户消息的候选在显式给出 `ownerKey` 时用 `requireChatOwner` 校验该聊天对该 owner 可写。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:81"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:82"
  },
  {
   "fact": "群聊的选定用户消息候选在参与者不是恰好一人时要求显式给出 owner，否则抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:84"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:85"
  },
  {
   "fact": "入队时会删掉没有记忆 owner 记录的候选 owner。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:87"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:88"
  },
  {
   "fact": "同一 owner 下已存在相同 `chatId`、`timestamp`、`variantIndex`、`sourceType` 的候选时，返回已有候选 id，不再重复入队。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:94"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:95"
  },
  {
   "fact": "新候选的状态为 `pending`、`attemptCount` 为 0，并携带产生它的 `producerNodeId`。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:102"
- },
- {
-  "fact": "入队时若 `autoSaveIntervalMinutes` 大于 0 且 `nextAutoSaveRunAtMs` 为 0，则按间隔设置下一次自动保存时间。",
   "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:103"
  },
  {
+  "fact": "入队时若 `autoSaveIntervalMinutes` 大于 0 且 `nextAutoSaveRunAtMs` 为 0，则按间隔设置下一次自动保存时间。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:106"
+ },
+ {
   "fact": "已有重建处于 `preparing` 或 `running` 时，新建重建抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:116"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:120"
  },
  {
   "fact": "重建聊天 id 出现重复时抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:119"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:123"
  },
  {
   "fact": "新建重建用 `planWindows` 把选定聊天切成窗口。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:121"
- },
- {
-  "fact": "选定历史没有任何窗口时抛错。",
   "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:125"
  },
  {
+  "fact": "选定历史没有任何窗口时抛错。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:129"
+ },
+ {
   "fact": "新重建任务建立后进度状态为 `preparing`。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:128"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:132"
  },
  {
   "fact": "`advanceRebuildWindow` 把 `completedWindows` 加 1，并把当前窗口的 `sourceMessageCount` 累加到 `processedSourceMessages`。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:137"
- },
- {
-  "fact": "没有下一个窗口时把进度状态置为 `completed`，否则置为 `running`。",
   "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:141"
  },
  {
+  "fact": "没有下一个窗口时把进度状态置为 `completed`，否则置为 `running`。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:145"
+ },
+ {
   "fact": "重建窗口执行前用 `sameMessageRevision` 逐条复核计划源消息的版本，版本变化或删除时抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:161"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:165"
  },
  {
   "fact": "重建窗口用 `extractMessages` 对窗口消息做提取。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:164"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:168"
  },
  {
   "fact": "重建窗口失败时 `failedWindows` 加 1 并记录 `lastError`，窗口照常推进，不发布部分记忆修改。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:180"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:184"
  },
  {
   "fact": "`CANDIDATE_PROCESSING_LEASE_MS` 为 30 分钟，即一条处理中候选可被认领的最长占用时间。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:190"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:194"
  },
  {
   "fact": "`failCandidate` 把候选状态置为 `failed` 并记录 `lastError` 与更新时间。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:193"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:197"
  },
  {
   "fact": "候选源消息已删除或版本已变化时跳过该候选并记为 failed、记录原因。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:212"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:216"
  },
  {
   "fact": "候选源消息的发送者已变化时跳过该候选并记为 failed。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:215"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:219"
  },
  {
   "fact": "`selected_user_message` 批次只提取通过校验的选定用户消息。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:230"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:234"
  },
  {
   "fact": "自动回复来源的批次只取截至最后一条候选时间戳的消息，且至多取最后 48 条。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:237"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:241"
  },
  {
   "fact": "提取提交后从 `space.candidates` 里删除已完成的候选。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:248"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:252"
  },
  {
   "fact": "`MemoryJobStatusError` 同时保留执行错误与状态发布错误，不用成功掩盖任一失败。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:19"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:20"
  },
  {
   "fact": "`MemoryJobPassError` 保留每个失败 owner 的原始错误与本轮报告。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:28"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:29"
  },
  {
   "fact": "`MemoryJobReport` 统计 `owners`、`rebuildWindows`、`candidateBatches` 三个数。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:272"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:278"
  },
  {
   "fact": "`tick()` 在已有一次正在跑的 pass 时共享它，不另起一轮。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:286"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:290"
  },
  {
   "fact": "`runTick` 通过 `listMemoryOwnerKeys` 列出全部记忆 owner 并逐个推进。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:296"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:303"
  },
  {
   "fact": "本轮在任一 owner 失败时抛出 `MemoryJobPassError`。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:306"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:310"
  },
  {
   "fact": "没有 `producerNodeId` 且未失败的历史候选会被标为失败，提示在应处理它的设备上重试。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:319"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:324"
  },
  {
   "fact": "处理中超过 30 分钟租约的本设备候选会被打回 `pending`。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:320"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:327"
  },
  {
   "fact": "没有 `producerNodeId` 且仍在活动的历史重建任务会被标为失败。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:326"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:332"
  },
  {
   "fact": "一个 owner 只有在本设备的重建仍在活动、或本设备有待处理候选时才会被推进。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:331"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:337"
  },
  {
   "fact": "候选批次只有在全局记忆偏好 `autoUpdateEnabled` 开启时才会产生。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:347"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:353"
  },
  {
   "fact": "`autoSaveIntervalMinutes` 为 0 或未到 `nextAutoSaveRunAtMs` 时不产生候选批次。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:349"
- },
- {
-  "fact": "候选批次只有在待处理候选达到 5 条时才开始组织。",
   "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:355"
  },
  {
-  "fact": "待处理候选按聊天分组，按触发时间戳最旧优先排序，每聊天至多取 20 条。",
+  "fact": "候选批次只有在待处理候选达到 5 条时才开始组织。",
   "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:361"
  },
  {
+  "fact": "待处理候选按聊天分组，按触发时间戳最旧优先排序，每聊天至多取 20 条。",
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:365"
+ },
+ {
   "fact": "候选批次按 `selected_user_message` 与 `reply_finalized_auto` 两种来源分别成批。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:366"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:369"
  },
  {
   "fact": "认领批次时候选若已不是本设备的待处理状态则抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:385"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:391"
  },
  {
   "fact": "认领批次时候选状态改为 `processing`，`attemptCount` 加 1。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:386"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:392"
  },
  {
   "fact": "`parseModelJson` 去掉模型输出里的思考块与代码围栏后解析 JSON，失败时回退到首尾花括号切片。",
@@ -413,7 +413,7 @@
  },
  {
   "fact": "作者为模型聊天时 `primaryOwnerKey` 为空、`resources` 为空（`authorMissing` 为 false），入队时因 `ownerKey` 为空返回空结果。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:73"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:74"
  },
  {
   "fact": "`requireMessageOwner` 在作者缺失时回退到聊天级的 `requireChatOwner` 校验。",

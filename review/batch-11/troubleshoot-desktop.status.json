@@ -1,6 +1,6 @@
 {
   "issue": 115,
-  "source_commit": "ab6508d",
+  "source_commit": "a7920ad",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "桌面端排障：Impeller 渲染目标失败的 iOS 崩溃证据与引擎层修复链，及 WebView 渲染与 Windows WebView2 合成。",

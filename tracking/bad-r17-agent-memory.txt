@@ -1,0 +1,20 @@
+agent-memory.facts.json#7 `CharacterMemoryDatabase` not within ±5 of plugins/packages/buildin/character_cards/src/storage/memory.ts:11
+agent-memory.facts.json#8 `memory.sqlite` not within ±5 of plugins/packages/buildin/character_cards/src/storage/memory.ts:20
+agent-memory.facts.json#8 `ToolPkg.getSpaceDataDir()` not within ±5 of plugins/packages/buildin/character_cards/src/storage/memory.ts:20
+agent-memory.facts.json#11 `readMemoryJobState` not within ±5 of plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:312
+agent-memory.facts.json#12 `writeMemoryJobState` not within ±5 of plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:322
+agent-memory.facts.json#49 `rebuildWindows` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:272
+agent-memory.facts.json#49 `candidateBatches` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:272
+agent-memory.facts.json#51 `listMemoryOwnerKeys` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:296
+agent-memory.facts.json#54 `pending` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:320
+agent-memory.facts.json#57 `autoUpdateEnabled` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:347
+agent-memory.facts.json#58 `autoSaveIntervalMinutes` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:349
+agent-memory.facts.json#58 `nextAutoSaveRunAtMs` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:349
+agent-memory.facts.json#63 `attemptCount` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:386
+agent-memory.md:36 `memory.sqlite` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/memory.ts:20']
+agent-memory.md:42 `memory.sqlite` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/memory.ts:20']
+agent-memory.md:43 `readMemoryJobState` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:312']
+agent-memory.md:44 `writeMemoryJobState` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:322']
+agent-memory.md:71 `pending` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:320']
+agent-memory.md:74 `attemptCount` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:386']
+agent-memory.md:183 `CharacterMemoryDatabase` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/memory.ts:12']

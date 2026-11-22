@@ -17,9 +17,9 @@ Operit2 使用与 SemVer 兼容的版本。`docs/release-versioning.md:7`
 - docs/release-versioning.md — 版本、tag、通道与包资产规则的事实来源。`docs/release-versioning.md:3`
 - `tools/release/build_release.py` — 构建发布资产的主入口。`docs/release-versioning.md:239`
 - `publish_dist.py` — 上传已暂存于 `tools/release/dist` 的文件。`docs/release-versioning.md:270`
-- `download_action_artifacts.py` — 从成功的 run 收集发布资产进 `tools/release/dist`。`docs/release-versioning.md:345`
+- `download_action_artifacts.py` — 从成功的 run 收集发布资产进 `tools/release/dist`。`docs/release-versioning.md:351`
 - `tools/build_scripts/release_artifacts.py` — 共享的发布包命名实现。`docs/release-versioning.md:91`
-- `core/crates/foundation/util/src/GithubReleaseUtil.rs` — 更新器实现。`docs/release-versioning.md:429`
+- `core/crates/foundation/util/src/GithubReleaseUtil.rs` — 更新器实现。`docs/release-versioning.md:435`
 - `cliVersion` — CLI 以其 Cargo 包版本作为该值。`docs/release-versioning.md:207`
 - `coreVersion` — App 从 `operit-runtime` 暴露该值。`docs/release-versioning.md:207`
 - 主入口 build_release.py，`--scope` 由 `ReleaseScope` 枚举定义取值。`tools/release/build_release.py:1306`
@@ -87,13 +87,13 @@ GitHub 发布凭证存放在 `tools/release/secrets/github.env`，该目录被 g
 构建发布脚本的 `--scope` 取值由 `ReleaseScope` 枚举定义。`tools/release/build_release.py:1306`
 `ReleaseScope` 的取值为 `cli`、`app`、`full`、`none`。`tools/release/build_release.py:114`
 `ReleaseScope.NONE` 对应 `ReleaseProduct.NONE`，不构建任何产品。`tools/release/build_release.py:1295`
-`download_action_artifacts.py` 在把发布资产复制进 `tools/release/dist` 之前，验证每个请求的 run 都以 `success` 结论完成。`docs/release-versioning.md:345`
-默认发布仓库是 `AAswordman/Operit2`。`docs/release-versioning.md:395`
-构建与发布脚本必须拒绝 CLI 与 runtime 发布版本不一致的情况。`docs/release-versioning.md:404`
-构建与发布脚本必须拒绝包含构建元数据的 Cargo 与 runtime 发布版本。`docs/release-versioning.md:405`
-构建与发布脚本必须从发布版本推导 GitHub prerelease 标志。`docs/release-versioning.md:408`
-构建与发布脚本必须在 App/full 资产构建成功后把 Flutter `buildNumber` 加 1。`docs/release-versioning.md:410`
-构建与发布脚本必须拒绝改动已公开的 release，允许重试其匹配的 draft。`docs/release-versioning.md:413`
+`download_action_artifacts.py` 在把发布资产复制进 `tools/release/dist` 之前，验证每个请求的 run 都以 `success` 结论完成。`docs/release-versioning.md:351`
+默认发布仓库是 `AAswordman/Operit2`。`docs/release-versioning.md:401`
+构建与发布脚本必须拒绝 CLI 与 runtime 发布版本不一致的情况。`docs/release-versioning.md:410`
+构建与发布脚本必须拒绝包含构建元数据的 Cargo 与 runtime 发布版本。`docs/release-versioning.md:411`
+构建与发布脚本必须从发布版本推导 GitHub prerelease 标志。`docs/release-versioning.md:414`
+构建与发布脚本必须在 App/full 资产构建成功后把 Flutter `buildNumber` 加 1。`docs/release-versioning.md:416`
+构建与发布脚本必须拒绝改动已公开的 release，允许重试其匹配的 draft。`docs/release-versioning.md:419`
 
 ### 云端构建 workflow
 
@@ -105,10 +105,10 @@ iOS Flutter Build 覆盖未签名的 iOS App。`docs/release-versioning.md:315`
 Windows Release Build 覆盖 Windows App 和/或 CLI。`docs/release-versioning.md:316`
 Linux Release Build 覆盖 Linux App 和/或 CLI。`docs/release-versioning.md:317`
 Android Flutter Build 覆盖已签名的 Android APK 与 module 安装器 ZIP。`docs/release-versioning.md:318`
-Android Flutter Build 要求仓库 secret `ANDROID_RELEASE_KEYSTORE_BASE64`、`ANDROID_RELEASE_STORE_PASSWORD`、`ANDROID_RELEASE_KEY_ALIAS`、`ANDROID_RELEASE_KEY_PASSWORD`。`docs/release-versioning.md:324`
-Android keystore secret 必须经过 Base64 编码。`docs/release-versioning.md:330`
-OpenHarmony 仍是本地构建，因为仓库没有其 SDK 与命令行工具的可复现分发地址。`docs/release-versioning.md:331`
-在外部工具链来源与签名 secret 配置好之前，不得把 OpenHarmony 视为可用的云端构建。`docs/release-versioning.md:333`
+Android Flutter Build 要求仓库 secret `ANDROID_RELEASE_KEYSTORE_BASE64`、`ANDROID_RELEASE_STORE_PASSWORD`、`ANDROID_RELEASE_KEY_ALIAS`、`ANDROID_RELEASE_KEY_PASSWORD`。`docs/release-versioning.md:330`
+Android keystore secret 必须经过 Base64 编码。`docs/release-versioning.md:336`
+OpenHarmony 仍是本地构建，因为仓库没有其 SDK 与命令行工具的可复现分发地址。`docs/release-versioning.md:337`
+在外部工具链来源与签名 secret 配置好之前，不得把 OpenHarmony 视为可用的云端构建。`docs/release-versioning.md:339`
 
 ### release notes 覆盖情况
 
@@ -134,9 +134,9 @@ macOS 原生桥接冒烟测试通过，覆盖 PTY、流式输出、命令取消�
 - docs/release-versioning.md — 版本、tag、通道与包资产规则的事实来源。`docs/release-versioning.md:3`
 - `tools/release/build_release.py` — 构建发布资产。`docs/release-versioning.md:239`
 - `publish_dist.py` — 上传已暂存于 `tools/release/dist` 的文件。`docs/release-versioning.md:270`
-- `download_action_artifacts.py` — 从成功的 run 收集发布资产进 `tools/release/dist`。`docs/release-versioning.md:345`
+- `download_action_artifacts.py` — 从成功的 run 收集发布资产进 `tools/release/dist`。`docs/release-versioning.md:351`
 - `tools/build_scripts/release_artifacts.py` — 共享的发布包命名实现。`docs/release-versioning.md:91`
-- `core/crates/foundation/util/src/GithubReleaseUtil.rs` — 更新器实现。`docs/release-versioning.md:429`
+- `core/crates/foundation/util/src/GithubReleaseUtil.rs` — 更新器实现。`docs/release-versioning.md:435`
 - `cliVersion` — CLI 以其 Cargo 包版本作为该值。`docs/release-versioning.md:207`
 - `coreVersion` — App 从 `operit-runtime` 暴露该值。`docs/release-versioning.md:207`
 - `OPERIT_ARM64_WASM` — 新增构建配置，默认 `OFF`。`docs/release-notes/2.0.0-preview.27-build33.md:4`
@@ -150,22 +150,22 @@ macOS 原生桥接冒烟测试通过，覆盖 PTY、流式输出、命令取消�
 2. build_release.py 的 `--scope` 取值由 `ReleaseScope` 枚举定义。`tools/release/build_release.py:1306`
    `ReleaseScope` 的取值为 `cli`、`app`、`full`、`none`。`tools/release/build_release.py:114`
 3. `build_release.py` 只构建发布资产。`docs/release-versioning.md:270`
-4. 云端 run 的资产由 `download_action_artifacts.py` 在每个请求的 run 都以 `success` 结论完成后收集进 `tools/release/dist`。`docs/release-versioning.md:345`
-5. ESP32 本地构建把板级 ZIP 包写入 `tools/release/dist/operit2-firmware-esp32-2432s028-<release-version>.zip`，包内含完整 4 MiB 初始刷机镜像、拆分刷机镜像、`partitions.csv` 与带已验证偏移量和 SHA-256 摘要的 manifest。`docs/release-versioning.md:362`
+4. 云端 run 的资产由 `download_action_artifacts.py` 在每个请求的 run 都以 `success` 结论完成后收集进 `tools/release/dist`。`docs/release-versioning.md:351`
+5. ESP32 本地构建把板级 ZIP 包写入 `tools/release/dist/operit2-firmware-esp32-2432s028-<release-version>.zip`，包内含完整 4 MiB 初始刷机镜像、拆分刷机镜像、`partitions.csv` 与带已验证偏移量和 SHA-256 摘要的 manifest。`docs/release-versioning.md:368`
 6. App/full 资产全部成功后，Flutter `buildNumber` 加 1；CLI-only 运行不改变 `buildNumber`。`docs/release-versioning.md:223`
 7. `publish_dist.py` 上传 `tools/release/dist` 中已暂存的文件。`docs/release-versioning.md:270`
-8. 上传前检查已有 GitHub release 的 prerelease 标志。`docs/release-versioning.md:409`
-9. 更新器 `GithubReleaseUtil.rs` 按更新器通道选择 release，并按精确的 product、platform、architecture 与完整发布 tag 版本匹配资产。`docs/release-versioning.md:434`
-10. 更新器拒绝 GitHub prerelease 标志不一致的情况。`docs/release-versioning.md:438`
+8. 上传前检查已有 GitHub release 的 prerelease 标志。`docs/release-versioning.md:414`
+9. 更新器 `GithubReleaseUtil.rs` 按更新器通道选择 release，并按精确的 product、platform、architecture 与完整发布 tag 版本匹配资产。`docs/release-versioning.md:440`
+10. 更新器拒绝 GitHub prerelease 标志不一致的情况。`docs/release-versioning.md:444`
 11. 更新发现从最近 30 个 release 开始惰性加载页面，仅当选中的版本比已安装版本新时才提供，不降级已安装应用。`docs/release-versioning.md:195`
-12. 更新测试用 `cli update check 0.0.0-preview.0` 在不下载的情况下检查是否有 release 可用。`docs/release-versioning.md:451`
-13. 更新测试用 `cli update run 0.0.0-preview.0` 走完整 CLI 更新路径，当前目标匹配时包含安装覆盖。`docs/release-versioning.md:463`
+12. 更新测试用 `cli update check 0.0.0-preview.0` 在不下载的情况下检查是否有 release 可用。`docs/release-versioning.md:457`
+13. 更新测试用 `cli update run 0.0.0-preview.0` 走完整 CLI 更新路径，当前目标匹配时包含安装覆盖。`docs/release-versioning.md:469`
 
 ## 来源
 
-- `docs/release-versioning.md`（474 行）：版本、tag、通道、包资产、版本来源、发布脚本、更新器与 workflow 分工的事实来源。`docs/release-versioning.md:3`
+- `docs/release-versioning.md`（484 行）：版本、tag、通道、包资产、版本来源、发布脚本、更新器与 workflow 分工的事实来源。`docs/release-versioning.md:3`
 - `docs/release-notes/2.0.0-preview.22-build28.md`（96 行）：`2.0.0-preview.22` 的 Apple Build 28 更新日志。`docs/release-notes/2.0.0-preview.22-build28.md:1`
 - `docs/release-notes/2.0.0-preview.27-build33.md`（15 行）：`2.0.0-preview.27` 的 Apple build 33 更新日志。`docs/release-notes/2.0.0-preview.27-build33.md:1`
 - 范围限定：本页 workflow 相关内容只写 `docs/release-versioning.md` 中记载的 workflow 名称与分工，本轮未读 `.github/workflows` 下的 workflow 文件，未核对 workflow 文件本身的触发方式与步骤。`docs/release-versioning.md:309`
 - 覆盖核验：2026-11-12 对基线 `364d1d594` 的本地 checkout 执行 `ls docs/release-notes/`，仅返回 `2.0.0-preview.22-build28.md` 与 `2.0.0-preview.27-build33.md` 两个文件；10 月“没有更新日志”的结论不再成立，release notes 现有两份，最高覆盖到 `2.0.0-preview.27`，中间版本 preview.23 至 preview.26 没有对应的 release notes 文件，覆盖不全。
-- App/CLI 发布版本不控制 Core 或 Edge 的配对、路由或同步，Core/Edge 协议版本是独立的整数协议版本，细节见 `peer-protocol-versioning.md`，本页未展开。`docs/release-versioning.md:476`
+- App/CLI 发布版本不控制 Core 或 Edge 的配对、路由或同步，Core/Edge 协议版本是独立的整数协议版本，细节见 `peer-protocol-versioning.md`，本页未展开。`docs/release-versioning.md:482`

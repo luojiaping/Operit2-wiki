@@ -75,7 +75,7 @@ date: 2026-11-11
 - 文档记载，普通 sh 身份在两项授权均不可用时以应用自身 UID 启动 `/system/bin/sh`。`docs/android-root-shell.md:71`
 - 文档记载，Shizuku 的默认工作目录从应用私有目录调整为 `/sdcard`，不携带应用私有动态库路径。`docs/android-root-shell.md:76`
 - 文档记载，没有 Kotlin 编译器时 Python 测试显式报告 skipped，不将其视为行为验证通过。`docs/android-root-shell.md:110`
-- 文档记载，Magisk / KernelSU / APatch 真机验证仍需进行，JVM 测试不能替代设备级兼容性验证。`docs/android-root-shell.md:112`
+- 文档记载，Magisk / KernelSU / APatch 真机验证仍需进行，JVM 测试不能替代设备级兼容性验证。`docs/android-root-shell.md:123`
 
 ### iOS 性能定位：采样方法与实测数
 

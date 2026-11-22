@@ -1,0 +1,32 @@
+dev-release.facts.json#45 `tools/release/dist` not within ±5 of docs/release-versioning.md:345
+dev-release.facts.json#45 `success` not within ±5 of docs/release-versioning.md:345
+dev-release.facts.json#46 `AAswordman/Operit2` not within ±5 of docs/release-versioning.md:395
+dev-release.facts.json#50 `buildNumber` not within ±5 of docs/release-versioning.md:410
+dev-release.facts.json#60 `ANDROID_RELEASE_KEYSTORE_BASE64` not within ±5 of docs/release-versioning.md:324
+dev-release.facts.json#60 `ANDROID_RELEASE_STORE_PASSWORD` not within ±5 of docs/release-versioning.md:324
+dev-release.facts.json#60 `ANDROID_RELEASE_KEY_ALIAS` not within ±5 of docs/release-versioning.md:324
+dev-release.facts.json#60 `ANDROID_RELEASE_KEY_PASSWORD` not within ±5 of docs/release-versioning.md:324
+dev-release.facts.json#64 `core/crates/foundation/util/src/GithubReleaseUtil.rs` not within ±5 of docs/release-versioning.md:429
+dev-release.facts.json#65 `major.minor.patch[-prerelease][+build]` not within ±5 of docs/release-versioning.md:434
+dev-release.facts.json#71 `cli update target` not within ±5 of docs/release-versioning.md:445
+dev-release.facts.json#72 `cli update check 0.0.0-preview.0` not within ±5 of docs/release-versioning.md:451
+dev-release.facts.json#73 `cli update download 0.0.0-preview.0` not within ±5 of docs/release-versioning.md:457
+dev-release.facts.json#74 `cli update run 0.0.0-preview.0` not within ±5 of docs/release-versioning.md:463
+dev-release.facts.json#76 `partitions.csv` not within ±5 of docs/release-versioning.md:362
+dev-release.md:14 `tools/release/dist` not within ±5 of any ref ['docs/release-versioning.md:345']
+dev-release.md:16 `core/crates/foundation/util/src/GithubReleaseUtil.rs` not within ±5 of any ref ['docs/release-versioning.md:429']
+dev-release.md:84 `tools/release/dist` not within ±5 of any ref ['docs/release-versioning.md:345']
+dev-release.md:84 `success` not within ±5 of any ref ['docs/release-versioning.md:345']
+dev-release.md:85 `AAswordman/Operit2` not within ±5 of any ref ['docs/release-versioning.md:395']
+dev-release.md:89 `buildNumber` not within ±5 of any ref ['docs/release-versioning.md:410']
+dev-release.md:102 `ANDROID_RELEASE_KEYSTORE_BASE64` not within ±5 of any ref ['docs/release-versioning.md:324']
+dev-release.md:102 `ANDROID_RELEASE_STORE_PASSWORD` not within ±5 of any ref ['docs/release-versioning.md:324']
+dev-release.md:102 `ANDROID_RELEASE_KEY_ALIAS` not within ±5 of any ref ['docs/release-versioning.md:324']
+dev-release.md:102 `ANDROID_RELEASE_KEY_PASSWORD` not within ±5 of any ref ['docs/release-versioning.md:324']
+dev-release.md:131 `tools/release/dist` not within ±5 of any ref ['docs/release-versioning.md:345']
+dev-release.md:133 `core/crates/foundation/util/src/GithubReleaseUtil.rs` not within ±5 of any ref ['docs/release-versioning.md:429']
+dev-release.md:147 `success` not within ±5 of any ref ['docs/release-versioning.md:345']
+dev-release.md:147 `tools/release/dist` not within ±5 of any ref ['docs/release-versioning.md:345']
+dev-release.md:148 `partitions.csv` not within ±5 of any ref ['docs/release-versioning.md:362']
+dev-release.md:155 `cli update check 0.0.0-preview.0` not within ±5 of any ref ['docs/release-versioning.md:451']
+dev-release.md:156 `cli update run 0.0.0-preview.0` not within ±5 of any ref ['docs/release-versioning.md:463']

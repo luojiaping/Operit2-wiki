@@ -1,0 +1,5 @@
+theme-sync.md:30 `resolveIdentity` not within ±5 of any ref ['core/crates/persistence/store/src/PreferenceMerge.rs:860']
+theme-sync.md:90 `resolveIdentity` not within ±5 of any ref ['core/crates/persistence/store/src/PreferenceMerge.rs:860']
+theme-sync.md:171 `rewriteReferenceValue` not within ±5 of any ref ['core/crates/persistence/store/src/PreferenceMerge.rs:801']
+theme-sync.md:172 `resolveIdentity` not within ±5 of any ref ['core/crates/persistence/store/src/PreferenceMerge.rs:860']
+theme-sync.md:173 `referenceKey` not within ±5 of any ref ['core/crates/persistence/store/src/PreferenceMerge.rs:877']
