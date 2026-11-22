@@ -393,55 +393,55 @@
   },
   {
     "fact": "SqlDataset 的 domain 在聊天数据库路径下为 chat，否则为 plugin_storage",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1528"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1580"
   },
   {
     "fact": "SqlDataset 的 coverage 合并已提交事务身份、初始化覆盖与初始化事务操作身份",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1538"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1590"
   },
   {
     "fact": "SqlDataset 的 initialization 返回当前已保存的初始化事务操作",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1532"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1584"
   },
   {
     "fact": "SqlDataset 的 receive_initialization 在操作身份已被覆盖时返回 false，不重复接收",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1656"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1708"
   },
   {
     "fact": "receive_validated_initialization 在初始化数据的 owner 或 domain 不符时返回 Initialization owner differs 错误",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1665"
-  },
-  {
-    "fact": "提交快照时以 token 做 CAS，当前 token 与期望不符时返回 false",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1709"
-  },
-  {
-    "fact": "提交快照时在定义给出时经 restore_schema 恢复表结构声明",
     "ref": "core/crates/persistence/store/src/Transaction.rs:1717"
   },
   {
-    "fact": "covered_by_initialization 按初始化覆盖表判断操作是否已被封存",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1752"
-  },
-  {
-    "fact": "Form 要求实现 migrate 与 apply_rule",
+    "fact": "提交快照时以 token 做 CAS，当前 token 与期望不符时返回 false",
     "ref": "core/crates/persistence/store/src/Transaction.rs:1761"
   },
   {
+    "fact": "提交快照时在定义给出时经 restore_schema 恢复表结构声明",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1769"
+  },
+  {
+    "fact": "covered_by_initialization 按初始化覆盖表判断操作是否已被封存",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1804"
+  },
+  {
+    "fact": "Form 要求实现 migrate 与 apply_rule",
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1813"
+  },
+  {
     "fact": "Data 实现 Form",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1765"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1817"
   },
   {
     "fact": "Transaction 实现 Form",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1773"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1825"
   },
   {
     "fact": "Migrations 的 migrate 先在副本上迁移，成功后才替换原文",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1782"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1834"
   },
   {
     "fact": "Rule 的 apply 先在副本上应用规则，成功后才替换原文",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1790"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1842"
   },
   {
     "fact": "operation_digest 对事务引用返回其内容哈希，否则对事务操作做摘要",
@@ -453,7 +453,7 @@
   },
   {
     "fact": "project_sql_table 把声明的本地列投影出 SQL 内容比较，并按行排序去重",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1470"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1474"
   },
   {
     "fact": "Transaction.rs 声明 transaction/Compaction.rs 为 compaction 模块",

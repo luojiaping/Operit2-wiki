@@ -8,21 +8,21 @@ date: 2026-11-11
 
 ## 概述
 
-上下文压缩把过长的对话历史压缩成检查点摘要，压缩后对话以摘要为历史继续（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1628`）。
-手动压缩入口是 ChatServiceCore 的 `compactChat`，未传 chatId 时取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）。
-手动压缩无视阈值，把当前聊天压缩成检查点（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1628`）。
+上下文压缩把过长的对话历史压缩成检查点摘要，压缩后对话以摘要为历史继续（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
+手动压缩入口是 ChatServiceCore 的 `compactChat`，未传 chatId 时取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
+手动压缩无视阈值，把当前聊天压缩成检查点（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
 自动压缩存在：ModelSummarySettings 默认启用摘要，默认阈值 0.85（`core/crates/foundation/model/src/ModelConfigData.rs:147`）。
 2026-10-13 差距调查把自动 compaction 缺失列为 P0，HEAD 上的实现与该结论相反，自动压缩已存在且默认启用（`core/crates/foundation/model/src/ModelConfigData.rs:147`）。
 自动摘要只取决于配置的上下文 token 阈值（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:653`）。
 摘要 hook 在摘要生成全过程分发三阶段事件，hook 可改写提示词与结果（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:89`）。
-压缩与 CoreNode 切换互不干扰：路由变更测试断言切换后不产生摘要任务（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3800`）。
-上下文用量显示存在：chatInputMenuSummary 返回当前窗口大小与累计 token 数（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3025`）。
+压缩与 CoreNode 切换互不干扰：路由变更测试断言切换后不产生摘要任务（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3825`）。
+上下文用量显示存在：chatInputMenuSummary 返回当前窗口大小与累计 token 数（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3042`）。
 摘要消息的 sender 为 summary、roleName 为 system（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:611`）。
 
 ## AI 速览
 
-- `compactChat` — 手动压缩入口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）
-- `insertSummary` — 在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1510`）
+- `compactChat` — 手动压缩入口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）
+- `insertSummary` — 在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1521`）
 - `ModelSummarySettings` — 摘要开关与阈值配置（`core/crates/foundation/model/src/ModelConfigData.rs:320`）
 - SummarySendPolicy — 发送前摘要策略（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:74`）
 - `prepareSummaryForSend` — 发送前摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）
@@ -39,31 +39,31 @@ date: 2026-11-11
 - ToolPkgSummaryHookBridge — ToolPkg 摘要 hook 桥（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:62`）
 - FunctionalPrompts 的 `buildSummarySystemPrompt` — 摘要系统提示词（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:159`）
 - FunctionalPrompts 的 `SUMMARY_PROMPT` — 摘要指令（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:3`）
-- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3025`）
+- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3042`）
 - beforeChangeRoute — 路由变更前钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:904`）
 - afterChangeRoute — 路由变更后钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`）
-- 主入口：`compactChat`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）
+- 主入口：`compactChat`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）
 - 数据流向：消息发送 / 回复 / 执行 → 阈值检查 → 摘要生成 → 摘要消息落库 → 窗口重算。
 
 ## 核心机制
 
 ### 手动压缩
 
-- `compactChat` 未传 chatId 时取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）。
-- `compactChat` 的文档注明手动压缩无视阈值，把当前聊天压缩成检查点（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1632`）。
-- compactChat 压缩前通过 `beginChatExecution` 取执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1639`）。
-- compactChat 压缩完成后调用 `release` 释放执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1659`）。
-- compactChat 在 `newEnhancedAiServiceForChat` 返回空时返回 false，不执行压缩（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1641`）。
-- compactChat 把压缩交给 `manuallySummarizeConversationForChat`，返回值表示是否压缩成功（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1647`）。
+- `compactChat` 未传 chatId 时取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
+- `compactChat` 的文档注明手动压缩无视阈值，把当前聊天压缩成检查点（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1642`）。
+- compactChat 压缩前通过 `beginChatExecution` 取执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1654`）。
+- compactChat 压缩完成后调用 `release` 释放执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1674`）。
+- compactChat 在 `newEnhancedAiServiceForChat` 返回空时返回 false，不执行压缩（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1656`）。
+- compactChat 把压缩交给 `manuallySummarizeConversationForChat`，返回值表示是否压缩成功（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1662`）。
 - manuallySummarizeConversationForChat 在 `summaryTaskForChat` 返回进行中任务时直接返回 false（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1087`）。
 - manuallySummarizeConversationForChat 以 `autoContinue` 为假、`requireCurrentChat` 为假启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1118`）。
 - manuallySummarizeConversationForChat 摘要失败时改由 `reportSummaryFailure` 上报：记日志并向 UI 弹 toast 提示上下文压缩失败（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1101`）。
 - MessageCoordinationDelegate 的 `manuallySummarizeConversation` 对当前聊天调用 `manuallySummarizeConversationForChat`（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1135`）。
-- ChatServiceCore 的 `insertSummary` 只在用户或 AI 消息处插入总结，其他发送者直接失败（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1510`）。
-- insertSummary 通过 `loadMessagesForSummaryInsertion` 取选中消息前后的待总结消息（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1539`）。
-- insertSummary 调用 AIMessageManager 的 `summarizeMemory` 生成摘要，第三个参数传 false（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1558`）。
-- insertSummary 通过 `addSummaryMessage` 持久化摘要，相邻位置已有总结时插入失败（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1578`）。
-- insertSummary 插入摘要后调用 `refreshStableContextWindow` 重新计算稳定上下文窗口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1590`）。
+- ChatServiceCore 的 `insertSummary` 只在用户或 AI 消息处插入总结，其他发送者直接失败（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1521`）。
+- insertSummary 通过 `loadMessagesForSummaryInsertion` 取选中消息前后的待总结消息（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1550`）。
+- insertSummary 调用 AIMessageManager 的 `summarizeMemory` 生成摘要，第三个参数传 false（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1570`）。
+- insertSummary 通过 `addSummaryMessage` 持久化摘要，相邻位置已有总结时插入失败（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1593`）。
+- insertSummary 插入摘要后调用 `refreshStableContextWindow` 重新计算稳定上下文窗口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1605`）。
 
 ### 自动压缩：配置与三处触发
 
@@ -142,27 +142,27 @@ date: 2026-11-11
 ### 上下文用量显示
 
 - `ChatInputMenuSummary` 含 `currentWindowSize`、`inputTokenCount`、`outputTokenCount` 与 `maxContextLength` 四个值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:132`）。
-- chatInputMenuSummary 的 `maxContextLength` 取自已解析模型配置的 `config.context.maxContextLength`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3047`）。
-- ChatServiceCore 的 `currentWindowSizeFlow` 暴露当前上下文窗口大小的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3188`）。
-- ChatServiceCore 的 `inputTokenCountFlow` 暴露累计输入 token 数的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3196`）。
-- ChatServiceCore 的 `outputTokenCountFlow` 暴露累计输出 token 数的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3204`）。
+- chatInputMenuSummary 的 `maxContextLength` 取自已解析模型配置的 `config.context.maxContextLength`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3074`）。
+- ChatServiceCore 的 `currentWindowSizeFlow` 暴露当前上下文窗口大小的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3215`）。
+- ChatServiceCore 的 `inputTokenCountFlow` 暴露累计输入 token 数的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3223`）。
+- ChatServiceCore 的 `outputTokenCountFlow` 暴露累计输出 token 数的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3231`）。
 - syncTokenStatisticsForCurrentChat 把 ChatHistory 的 `inputTokens`、`outputTokens`、`currentWindowSize` 同步进 `tokenStatisticsDelegate`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:534`）。
-- ChatServiceCore 的 `resetTokenStatistics` 清空 `UsageStatisticsStore` 的全部 token 用量记录（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2037`）。
-- ChatServiceCore 的 `updateCumulativeStatistics` 为当前聊天重算累计 token 统计（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2054`）。
-- 从缓存刷新活跃聊天统计时，`currentWindowSize` 被写入缓存的窗口大小并推送 `currentWindowSizeFlow`（`core/crates/runtime/application/src/services/core/TokenStatisticsDelegate.rs:74`）。
+- ChatServiceCore 的 `resetTokenStatistics` 清空 `UsageStatisticsStore` 的全部 token 用量记录（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2052`）。
+- ChatServiceCore 的 `updateCumulativeStatistics` 为当前聊天重算累计 token 统计（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2069`）。
+- 从缓存刷新活跃聊天统计时，`currentWindowSize` 被写入缓存的窗口大小并推送 `currentWindowSizeFlow`（`core/crates/runtime/application/src/services/core/TokenStatisticsDelegate.rs:76`）。
 
 ### 压缩与 CoreNode 切换的时序
 
 - beforeChangeRoute 在路由变更前调用 `beginChatExecution` 取执行租约并立即释放，用于校验执行归属（`core/crates/runtime/application/src/services/ChatServiceCore.rs:904`）。
 - afterChangeRoute 在路由到达目标 Core 后调用 `resumeFromRouteContext` 续跑（`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`）。
 - resumeFromRouteContext 经 sendRoutedContinuation 把路由携带的 `runtimeChatHistory` 交给续跑发送（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:521`）。
-- 路由变更测试断言切换后不产生摘要任务，`summaryTaskForChat` 返回空（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3800`）。
+- 路由变更测试断言切换后不产生摘要任务，`summaryTaskForChat` 返回空（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3825`）。
 - 路由决策与跨节点调用写在 [[core-node-runtime|节点——节点运行时]]。
 
 ## 关键符号
 
-- `compactChat` — 手动压缩入口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）
-- `insertSummary` — 在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1510`）
+- `compactChat` — 手动压缩入口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）
+- `insertSummary` — 在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1521`）
 - `ModelSummarySettings` — 摘要开关与阈值配置（`core/crates/foundation/model/src/ModelConfigData.rs:320`）
 - SummarySendPolicy — 发送前摘要策略（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:74`）
 - `prepareSummaryForSend` — 发送前摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）
@@ -179,18 +179,18 @@ date: 2026-11-11
 - ToolPkgSummaryHookBridge — ToolPkg 摘要 hook 桥（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:62`）
 - FunctionalPrompts 的 `buildSummarySystemPrompt` — 摘要系统提示词（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:159`）
 - FunctionalPrompts 的 `SUMMARY_PROMPT` — 摘要指令（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:3`）
-- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3025`）
+- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3042`）
 - beforeChangeRoute — 路由变更前钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:904`）
 - afterChangeRoute — 路由变更后钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`）
 
 ## 调用链
 
-1. 手动压缩：`compactChat` 取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）。
-2. 手动压缩：`beginChatExecution` 取执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1639`）。
-3. 手动压缩：`manuallySummarizeConversationForChat` 启动摘要（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1647`）。
+1. 手动压缩：`compactChat` 取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
+2. 手动压缩：`beginChatExecution` 取执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1654`）。
+3. 手动压缩：`manuallySummarizeConversationForChat` 启动摘要（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1662`）。
 4. 手动压缩：launchSummary 把摘要排成 `chat-summary` 任务（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:947`）。
 5. 手动压缩：generateAndStoreSummary 生成摘要并持久化（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1029`）。
-6. 手动压缩：压缩完成后 `release` 释放执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1659`）。
+6. 手动压缩：压缩完成后 `release` 释放执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1674`）。
 7. 发送前自动压缩：`prepareSummaryForSend` 做摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）。
 8. 发送前自动压缩：`SummarySendPolicy` 决策是否评估窗口占比（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:805`）。
 9. 发送前自动压缩：窗口占比达到阈值时 `shouldGenerateSummary` 判断并启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:821`）。

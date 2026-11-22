@@ -121,8 +121,8 @@ date: 2026-11-11
 - `core_route_embedded_stream_source` 创建一个经路由 watch 打开内嵌流的本地 `CoreStreamSource`（`core/crates/rslink/runtime/src/lib.rs:972`）。
 - 内嵌流打开参数写入源方法、源模式与源参数三项（`core/crates/rslink/runtime/src/lib.rs:1124`）。
 - `core_route_embedded_stream_open_args` 在打开参数不是 map 时返回 `INVALID_ARGS` 错误（`core/crates/rslink/runtime/src/lib.rs:1112`）。
-- `routed_state_flow_embedded_stream_opens_through_route_runtime` 测试验证路由流值在重序列化时保留内嵌流源（`core/crates/rslink/runtime/src/lib.rs:1693`）。
-- `stream_pool_keeps_one_source_for_duplicate_logical_stream_id` 测试验证同一逻辑 `streamId` 的重复附件只保留第一个源（`core/crates/rslink/runtime/src/lib.rs:1740`）。
+- `routed_state_flow_embedded_stream_opens_through_route_runtime` 测试验证路由流值在重序列化时保留内嵌流源（`core/crates/rslink/runtime/src/lib.rs:1688`）。
+- `stream_pool_keeps_one_source_for_duplicate_logical_stream_id` 测试验证同一逻辑 `streamId` 的重复附件只保留第一个源（`core/crates/rslink/runtime/src/lib.rs:1735`）。
 
 ### 诊断与事件流
 

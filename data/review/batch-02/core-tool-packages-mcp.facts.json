@@ -489,7 +489,7 @@
   },
   {
     "fact": "依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 main。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2111"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2223"
   },
   {
     "fact": "`package_name` 参数指定要激活的包。",
@@ -497,10 +497,10 @@
   },
   {
     "fact": "命中技能时，激活返回 `getSkillSystemPrompt` 生成的指令提示词。",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1047"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1068"
   },
   {
     "fact": "激活经 `usePackage` 执行。",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1110"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1131"
   }
 ]

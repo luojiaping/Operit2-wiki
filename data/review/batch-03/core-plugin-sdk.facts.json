@@ -237,7 +237,7 @@
   },
   {
     "fact": "v1 契约自动补两条兼容依赖：com.operit.workflow 最低 0.2.0、com.operit.character_cards 最低 0.1.0。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2445"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2450"
   },
   {
     "fact": "兼容提供方自身不得使用 v1 契约，否则解析失败。",
@@ -245,11 +245,11 @@
   },
   {
     "fact": "findManifestEntry 先找根目录的 manifest.hjson，找不到再找 manifest.json。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2685"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2687"
   },
   {
     "fact": "根目录没有清单时，findManifestEntry 再按子目录 manifest.hjson、子目录 manifest.json 的顺序找。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2696"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2698"
   },
   {
     "fact": "schema_version 省略时默认 1。",
@@ -601,7 +601,7 @@
   },
   {
     "fact": "工具箱 UI 模块与导航条目的路由 id 由 buildToolPkgRouteId 按容器包名与模块 id 生成。",
-    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1363"
+    "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1365"
   },
   {
     "fact": "ToolPkgContainerRuntime 含 messageTransformHooks 与 messageStreamTransforms 两组消息变换 hook 运行时记录。",

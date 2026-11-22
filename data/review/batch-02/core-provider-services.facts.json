@@ -373,7 +373,7 @@
   },
   {
     "fact": "RuntimePromptHistoryHooks 把 HistoryHookContext 转为 PromptHookContext 分发历史钩子，并要求钩子保留 prompt_function_type 与 processed_input。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:681"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:690"
   },
   {
     "fact": "RuntimeSystemPromptComposer 从 tool_handler 的 Host 环境与运行时存储 Host 解析工作区路径，每次请求重新解析。",
@@ -661,23 +661,23 @@
   },
   {
     "fact": "toolRuntimeContextForConfiguration 先校验 ChatConfigurationResult，再构建 ToolRuntimeContext。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3537"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3547"
   },
   {
     "fact": "工具运行时上下文含 callerParticipantId（取配置 profile.id）、extensionOwner 与 executionData，暴露模式 Full 映射 FULL、Cli 映射 CLI。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3544"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3554"
   },
   {
     "fact": "function_type_name 覆盖 CHAT、SUMMARY、TITLE_GENERATION、MEMORY、UI_CONTROLLER、TRANSLATION、GREP、ROLE_RESPONSE_PLANNER、IMAGE_RECOGNITION、AUDIO_RECOGNITION、VIDEO_RECOGNITION 共 11 种功能类型。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3555"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3565"
   },
   {
     "fact": "prompt_function_type_name 只有 CHAT 与 VOICE 两种。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3571"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3581"
   },
   {
     "fact": "resolve_workspace_path_mappings 经 VisualFileSystem 校验并规范化路径，按规范化后的 vfs 路径去重，返回 WorkspacePathMapping 列表。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3640"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3650"
   },
   {
     "fact": "ProviderFunctionModelBinding 含 providerId 与 modelId。",

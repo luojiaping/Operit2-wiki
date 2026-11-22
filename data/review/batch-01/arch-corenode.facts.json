@@ -113,15 +113,15 @@
   },
   {
     "fact": "list_core_nodes() 返回 { currentNodeId, nodes }。",
-    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:186"
+    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:189"
   },
   {
     "fact": "nodes 是对象数组，每项包含 nodeId、displayName、userName、platform、model、reachable、canExecute。",
-    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:192"
+    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:195"
   },
   {
     "fact": "nodes 每项只在有值时带 relayHops 或 relayPath。",
-    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:197"
+    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:200"
   },
   {
     "fact": "Agent 通过 switch_core(nodeId) 切换执行节点。",

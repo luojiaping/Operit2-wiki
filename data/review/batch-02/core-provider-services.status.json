@@ -1,10 +1,10 @@
 {
   "issue": 18,
-  "source_commit": "a7920ad",
+  "source_commit": "24ad6ff",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Provider 服务聚合：AIService 接口、ClaudeProvider 适配器、EnhancedAIService 对话编排与 ProviderRuntimeSupport 运行时支持",
-  "updated": "2026-11-22",
+  "updated": "2026-11-23",
   "approved_by_comment_id": 6791245941,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-11 09:21 UTC"

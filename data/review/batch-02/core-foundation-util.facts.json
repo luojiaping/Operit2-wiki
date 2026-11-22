@@ -601,7 +601,7 @@
   },
   {
     "fact": "Stream.rs 的测试 fn_stream_starts_producer_during_collection 验证生产者在收集开始前不启动。",
-    "ref": "core/crates/foundation/util/src/stream/Stream.rs:396"
+    "ref": "core/crates/foundation/util/src/stream/Stream.rs:391"
   },
   {
     "fact": "批处理分支中 append_line 在排队后立即返回 Ok(())，文件尚未实际写入。",

@@ -2,7 +2,7 @@
 title: Linux Host
 module: hosts
 platforms: [linux]
-sources: [hosts/linux/Cargo.toml, hosts/linux/src/lib.rs, hosts/linux/src/tools/terminal/mod.rs, hosts/linux/src/tools/fs/mod.rs, hosts/linux/src/tools/runtime/mod.rs, hosts/linux/src/tools/storage/mod.rs, hosts/linux/src/tools/system/mod.rs, hosts/linux/src/tools/system/packages.rs, hosts/linux/src/tools/browser/mod.rs, hosts/linux/src/tools/http/mod.rs, hosts/linux/src/tools/audio/mod.rs, hosts/linux/src/tools/bluetooth/mod.rs, hosts/linux/src/tools/tts/mod.rs, hosts/linux/src/plugin_sdk_ipc.rs, hosts/common/managed_runtime_process.rs, hosts/common/ui_automation.rs, hosts/linux/src/ui_automation.py]
+sources: [hosts/linux/Cargo.toml, hosts/linux/src/lib.rs, hosts/linux/src/tools/terminal/mod.rs, hosts/linux/src/tools/fs/mod.rs, hosts/linux/src/tools/runtime/mod.rs, hosts/linux/src/tools/storage/mod.rs, hosts/linux/src/tools/system/mod.rs, hosts/linux/src/tools/system/packages.rs, hosts/linux/src/tools/browser/mod.rs, hosts/linux/src/tools/http/mod.rs, hosts/linux/src/tools/audio/mod.rs, hosts/linux/src/tools/bluetooth/mod.rs, hosts/linux/src/tools/tts/mod.rs, hosts/linux/src/plugin_sdk_ipc.rs, hosts/common/managed_runtime_process.rs, hosts/common/ui_automation.rs, hosts/linux/src/ui_automation.py, hosts/linux/src/ui_provider.rs, core/crates/foundation/host-contract/src/TerminalCommand.rs]
 date: 2026-11-11
 ---
 
@@ -10,15 +10,15 @@ date: 2026-11-11
 
 Linux Host 由 crate `operit-host-linux-native` 提供（`hosts/linux/Cargo.toml:2`）。
 `operit-host-linux-native` 声明 `publish = false`，不对外发布（`hosts/linux/Cargo.toml:6`）。
-`createRuntimeHostManager` 接收 `runtimeRoot`、`workspaceRoot` 与 `webVisitHost` 三个参数（`hosts/linux/src/lib.rs:54`）。
+`createRuntimeHostManager` 接收 `runtimeRoot`、`workspaceRoot` 与 `webVisitHost` 三个参数（`hosts/linux/src/lib.rs:56`）。
 daemon 模块通过 #[path] 指向 hosts/unix/daemon.rs 的共享实现，细节见 [[host-common|Host 公共实现]]（`hosts/linux/src/lib.rs:6`）。
 `daemon` 模块只在启用 `daemon` 特性且目标为 Linux 时编译（`hosts/linux/src/lib.rs:5`）。
-终端、文件系统、系统操作、音频、蓝牙由 Linux 自有实现提供，Android 的同名 tools 见 [[host-android|Android Host]]（`hosts/linux/src/lib.rs:45`）。
-HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`hosts/linux/src/lib.rs:82`）。
+终端、文件系统、系统操作、音频、蓝牙由 Linux 自有实现提供，Android 的同名 tools 见 [[host-android|Android Host]]（`hosts/linux/src/lib.rs:47`）。
+HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`hosts/linux/src/lib.rs:85`）。
 
 ## AI 速览
 
-- `LinuxTerminalHost` — Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:28`）
+- `LinuxTerminalHost` — Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:31`）
 - `LinuxFileSystemHost` — Linux 文件系统 Host（`hosts/linux/src/tools/fs/mod.rs:19`）
 - `LinuxManagedRuntimeHost` — Linux 托管运行时 Host（`hosts/linux/src/tools/runtime/mod.rs:17`）
 - `LinuxRuntimeStorageHost` — Linux 运行时存储与密钥 Host（`hosts/linux/src/tools/storage/mod.rs:13`）
@@ -31,25 +31,25 @@ HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`ho
 - `LinuxPluginSdkIpcHost` — Linux 插件 SDK IPC Host（`hosts/linux/src/plugin_sdk_ipc.rs:112`）
 - `LinuxWebVisitHost` — Linux 网页访问 Host（`hosts/linux/src/tools/browser/mod.rs:13`）
 - `LinuxBrowserAutomationHost` — Linux 浏览器自动化 Host（`hosts/linux/src/tools/browser/mod.rs:37`）
-- `NativeLocalInferenceHost` — 本地推理 Host（`hosts/linux/src/lib.rs:75`）
-- `ScriptUiAutomationHost` — UI 自动化 Host，经 python3 执行 `ui_automation.py`（`hosts/linux/src/lib.rs:76`）
-- 主入口是 `createRuntimeHostManager`，接收 `runtimeRoot`、`workspaceRoot` 与 `webVisitHost` 三个参数（`hosts/linux/src/lib.rs:54`）
-- 数据流向：`HostManager` 由 `LinuxFileSystemHost` 等 Linux tools 装配（`hosts/linux/src/lib.rs:66`）
+- `NativeLocalInferenceHost` — 本地推理 Host（`hosts/linux/src/lib.rs:79`）
+- `ScriptUiAutomationHost` — UI 自动化 Host，经 `ui_provider` 落盘 `ui_automation.py` 后用 python3 执行（`hosts/linux/src/lib.rs:80`）（`hosts/linux/src/ui_provider.rs:24`）
+- 主入口是 `createRuntimeHostManager`，接收 `runtimeRoot`、`workspaceRoot` 与 `webVisitHost` 三个参数（`hosts/linux/src/lib.rs:56`）
+- 数据流向：`HostManager` 由 `LinuxFileSystemHost` 等 Linux tools 装配（`hosts/linux/src/lib.rs:70`）
 
 ## 核心机制
 
 ### Host 组装：一个入口与两类 tools
 
-`HostManager` 用 `LinuxFileSystemHost`、`LinuxHttpHost`、`LinuxSystemOperationHost` 与 `LinuxManagedRuntimeHost` 装配（`hosts/linux/src/lib.rs:69`）。
-同一份 `LinuxRuntimeStorageHost` 实例兼任 Host 密钥库与 `runtimeSqliteHost`（`hosts/linux/src/lib.rs:63`）。
-第二个 `LinuxHttpHost` 实例注册为 WebSocket Host（`hosts/linux/src/lib.rs:80`）。
-运行时组合注册 `NativeLocalInferenceHost` 为本地推理 Host（`hosts/linux/src/lib.rs:75`）。
-运行时组合注册 `ScriptUiAutomationHost` 为 UI 自动化 Host，经 python3 执行 `ui_automation.py`（`hosts/linux/src/lib.rs:76`）。
-HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`hosts/linux/src/lib.rs:82`）。
-`LinuxHostJavaScriptRuntimeHost` 是 operit-host-native-common 的 `NativeHostJavaScriptRuntimeHost` 的重导出（`hosts/linux/src/lib.rs:32`）。
-`LinuxHostRuntimeEventSchedulerHost` 与 `LinuxHostRuntimeTaskSchedulerHost` 是 operit-host-native-common 的重导出（`hosts/linux/src/lib.rs:34`）。
-服务发现 Host 使用 operit-host-native-common 的 `ServiceDiscoveryProvider`（`hosts/linux/src/lib.rs:93`）。
-`LinuxPluginSdkIpcHost` 注册为插件 SDK IPC Host（`hosts/linux/src/lib.rs:95`）。
+`HostManager` 用 `LinuxFileSystemHost`、`LinuxHttpHost`、`LinuxSystemOperationHost` 与 `LinuxManagedRuntimeHost` 装配（`hosts/linux/src/lib.rs:75`）。
+同一份 `LinuxRuntimeStorageHost` 实例兼任 Host 密钥库与 `runtimeSqliteHost`（`hosts/linux/src/lib.rs:66`）。
+第二个 `LinuxHttpHost` 实例注册为 WebSocket Host（`hosts/linux/src/lib.rs:84`）。
+运行时组合注册 `NativeLocalInferenceHost` 为本地推理 Host（`hosts/linux/src/lib.rs:79`）。
+运行时组合注册 `ScriptUiAutomationHost` 为 UI 自动化 Host，`ui_provider` 把内嵌的 `ui_automation.py` 写到 runtimeRoot 下 ui-automation 内容哈希命名的子目录后用 python3 执行，窗口预览用同一命令（`hosts/linux/src/lib.rs:80`）（`hosts/linux/src/ui_provider.rs:24`）。
+HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`hosts/linux/src/lib.rs:85`）。
+`LinuxHostJavaScriptRuntimeHost` 是 operit-host-native-common 的 `NativeHostJavaScriptRuntimeHost` 的重导出（`hosts/linux/src/lib.rs:34`）。
+`LinuxHostRuntimeEventSchedulerHost` 与 `LinuxHostRuntimeTaskSchedulerHost` 是 operit-host-native-common 的重导出（`hosts/linux/src/lib.rs:36`）。
+服务发现 Host 使用 operit-host-native-common 的 `ServiceDiscoveryProvider`（`hosts/linux/src/lib.rs:97`）。
+`LinuxPluginSdkIpcHost` 注册为插件 SDK IPC Host（`hosts/linux/src/lib.rs:99`）。
 Linux Host crate 依赖 `operit-host-api`（`hosts/linux/Cargo.toml:20`）。
 Linux Host crate 依赖 `operit-host-native-common`，并启用 `tcp`、`serial`、`fs`、`http`、`scheduler`、`storage`、`app-install` 特性（`hosts/linux/Cargo.toml:21`）。
 Linux Host crate 依赖 `operit-host-native-plugin-sdk-ipc`（`hosts/linux/Cargo.toml:22`）。
@@ -60,35 +60,35 @@ Linux Host crate 依赖 `portable-pty` 0.9.0（`hosts/linux/Cargo.toml:23`）。
 
 `LinuxHttpHost` 内部持有 `NativeHttpHost`（`hosts/linux/src/tools/http/mod.rs:12`）。
 存储操作由 `delegate_runtime_storage` 宏转发给共享的 `NativeRuntimeStorageHost`（`hosts/linux/src/tools/storage/mod.rs:18`）。
-终端、文件系统、系统操作、音频、蓝牙由 Linux 自有实现提供（`hosts/linux/src/lib.rs:45`）。
-TTS 由 Linux 自有实现提供（`hosts/linux/src/lib.rs:50`）。
+终端、文件系统、系统操作、音频、蓝牙由 Linux 自有实现提供（`hosts/linux/src/lib.rs:47`）。
+TTS 由 Linux 自有实现提供（`hosts/linux/src/lib.rs:52`）。
 
 ### 终端：只要 bash 的 PTY
 
-`LinuxTerminalHost` 是 Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:28`）。
-`PLATFORM` 为 linux，`TERMINAL` 为 native，`PRIMARY_TERMINAL_TYPE` 为 bash（`hosts/linux/src/tools/terminal/mod.rs:24`）。
-`terminalInfo` 的 `types` 只含一项，`terminalType` 为 bash，描述为 Linux bash terminal（`hosts/linux/src/tools/terminal/mod.rs:123`）。
-`normalizeTerminalType` 只接受 `PRIMARY_TERMINAL_TYPE`（`hosts/linux/src/tools/terminal/mod.rs:1320`）。
-`requireNativeTerminal` 只接受 `TERMINAL` 这一种终端实现（`hosts/linux/src/tools/terminal/mod.rs:1330`）。
-`linuxPtyCommand` 构造 bash `--noprofile` `--norc` -i 子进程（`hosts/linux/src/tools/terminal/mod.rs:637`）。
-PTY 环境设置 `TERM` 为 xterm-256color、`COLORTERM` 为 truecolor、`LANG` 为 C.UTF-8、`PS1` 为 $PWD $ （`hosts/linux/src/tools/terminal/mod.rs:643`）。
-`PROMPT_COMMAND` 在每次提示时输出 base64 编码的工作目录与退出码（`hosts/linux/src/tools/terminal/mod.rs:648`）。
-PTY 输出缓冲上限 `PTY_OUTPUT_LIMIT` 为 1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:19`）。
-PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:684`）。
-新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:616`）。
-同一个终端会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:345`）。
-命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:856`）。
-取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:871`）。
-取消超时命令的等待上限 `COMMAND_CANCEL_SETTLE_TIMEOUT_MS` 为 3000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:22`）。
-`listSessions` 遍历全部 PTY 会话并刷新退出码（`hosts/linux/src/tools/terminal/mod.rs:237`）。
-会话列表条目的 `sessionKind` 为 pty（`hosts/linux/src/tools/terminal/mod.rs:255`）。
-新建终端会话默认尺寸为 24 行 80 列（`hosts/linux/src/tools/terminal/mod.rs:300`）。
-`executorKey` 为空时默认取 default（`hosts/linux/src/tools/terminal/mod.rs:403`）。
-隐藏会话名形如 `hidden:{executorLabel}`（`hosts/linux/src/tools/terminal/mod.rs:545`）。
-`hiddenPtySessionId` 按 `executorKey` 复用已存在的隐藏会话（`hosts/linux/src/tools/terminal/mod.rs:525`）。
-input 与 control 至少一个非空（`hosts/linux/src/tools/terminal/mod.rs:435`）。
-`getSessionScreen` 返回会话当前屏幕内容与行列数（`hosts/linux/src/tools/terminal/mod.rs:486`）。
-PTY 提示标记前缀为 \x1b]133;OperitPrompt=（`hosts/linux/src/tools/terminal/mod.rs:20`）。
+`LinuxTerminalHost` 是 Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:31`）。
+`PLATFORM` 为 linux，`TERMINAL` 为 native，`PRIMARY_TERMINAL_TYPE` 为 bash（`hosts/linux/src/tools/terminal/mod.rs:26`）。
+`terminalInfo` 的 `types` 只含一项，`terminalType` 为 bash，描述为 Linux bash terminal（`hosts/linux/src/tools/terminal/mod.rs:131`）。
+`normalizeTerminalType` 只接受 `PRIMARY_TERMINAL_TYPE`（`hosts/linux/src/tools/terminal/mod.rs:936`）。
+`requireNativeTerminal` 只接受 `TERMINAL` 这一种终端实现（`hosts/linux/src/tools/terminal/mod.rs:946`）。
+`linuxPtyCommand` 构造 bash `--noprofile` `--norc` -i 子进程（`hosts/linux/src/tools/terminal/mod.rs:779`）。
+PTY 环境设置 `TERM` 为 xterm-256color、`COLORTERM` 为 truecolor、`LANG` 为 C.UTF-8、`PS1` 为 $PWD $ （`hosts/linux/src/tools/terminal/mod.rs:785`）。
+`PROMPT_COMMAND` 在每次提示时输出 base64 编码的工作目录与退出码（`hosts/linux/src/tools/terminal/mod.rs:790`）。
+PTY 输出缓冲上限 `PTY_OUTPUT_LIMIT` 为 1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:23`）。
+PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:591`）。
+新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:754`）。
+同一个终端会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:538`）。
+命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:609`）。
+取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:646`）。
+取消超时命令后，共享的 `waitForCommandEvent` 以 3000 毫秒为限等待中断就绪（`core/crates/foundation/host-contract/src/TerminalCommand.rs:153`）。
+`listSessions` 遍历全部 PTY 会话并刷新退出码（`hosts/linux/src/tools/terminal/mod.rs:239`）。
+会话列表条目的 `sessionKind` 为 pty（`hosts/linux/src/tools/terminal/mod.rs:257`）。
+新建终端会话默认尺寸为 24 行 80 列（`hosts/linux/src/tools/terminal/mod.rs:302`）。
+`executorKey` 为空时默认取 default（`hosts/linux/src/tools/terminal/mod.rs:353`）。
+隐藏会话名形如 `hidden:{executorLabel}`（`hosts/linux/src/tools/terminal/mod.rs:491`）。
+`hiddenPtySessionId` 按 `executorKey` 复用已存在的隐藏会话（`hosts/linux/src/tools/terminal/mod.rs:471`）。
+input 与 control 至少一个非空（`hosts/linux/src/tools/terminal/mod.rs:383`）。
+`getSessionScreen` 返回会话当前屏幕内容与行列数（`hosts/linux/src/tools/terminal/mod.rs:432`）。
+PTY 提示标记前缀为 \x1b]133;OperitPrompt=（`hosts/linux/src/tools/terminal/mod.rs:24`）。
 
 ### 文件系统：绝对路径与桌面工具
 
@@ -267,8 +267,8 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 ## 关键符号
 
 - `operit-host-linux-native` — Linux Host crate（`hosts/linux/Cargo.toml:2`）
-- `createRuntimeHostManager` — 组装 Linux 运行时 `HostManager` 的主入口（`hosts/linux/src/lib.rs:54`）
-- `LinuxTerminalHost` — Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:28`）
+- `createRuntimeHostManager` — 组装 Linux 运行时 `HostManager` 的主入口（`hosts/linux/src/lib.rs:56`）
+- `LinuxTerminalHost` — Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:31`）
 - `LinuxFileSystemHost` — Linux 文件系统 Host（`hosts/linux/src/tools/fs/mod.rs:19`）
 - `LinuxManagedRuntimeHost` — Linux 托管运行时 Host（`hosts/linux/src/tools/runtime/mod.rs:17`）
 - `LinuxRuntimeStorageHost` — Linux 运行时存储与密钥 Host（`hosts/linux/src/tools/storage/mod.rs:13`）
@@ -281,12 +281,12 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 - `LinuxPluginSdkIpcHost` — Linux 插件 SDK IPC Host（`hosts/linux/src/plugin_sdk_ipc.rs:112`）
 - `LinuxWebVisitHost` — Linux 网页访问 Host（`hosts/linux/src/tools/browser/mod.rs:13`）
 - `LinuxBrowserAutomationHost` — Linux 浏览器自动化 Host（`hosts/linux/src/tools/browser/mod.rs:37`）
-- `NativeLocalInferenceHost` — 本地推理 Host（`hosts/linux/src/lib.rs:75`）
-- `ScriptUiAutomationHost` — UI 自动化 Host（`hosts/linux/src/lib.rs:76`）
+- `NativeLocalInferenceHost` — 本地推理 Host（`hosts/linux/src/lib.rs:79`）
+- `ScriptUiAutomationHost` — UI 自动化 Host（`hosts/linux/src/lib.rs:80`）
 - `captureScreenshotTo` — 截图字节经 VFS 能力写出（`hosts/linux/src/tools/system/mod.rs:138`）
 - `synthesizeSpeechBytes` — 导出合成音频字节（`hosts/linux/src/tools/tts/mod.rs:199`）
-- `PTY_OUTPUT_LIMIT` — PTY 输出缓冲上限，1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:19`）
-- `PTY_PROMPT_MARKER_PREFIX` — PTY 提示标记前缀（`hosts/linux/src/tools/terminal/mod.rs:20`）
+- `PTY_OUTPUT_LIMIT` — PTY 输出缓冲上限，1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:23`）
+- `PTY_PROMPT_MARKER_PREFIX` — PTY 提示标记前缀（`hosts/linux/src/tools/terminal/mod.rs:24`）
 - `validateSecretKey` — 校验 Host 密钥 key，只允许字母数字与 . _ -（`hosts/linux/src/tools/storage/mod.rs:190`）
 - `bluez_connection` — 建立 BlueZ 系统总线连接（`hosts/linux/src/tools/bluetooth/mod.rs:842`）
 - `rfcomm_channel` — 解析 RFCOMM 通道号（`hosts/linux/src/tools/bluetooth/mod.rs:747`）
@@ -295,12 +295,12 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 
 ### 终端执行一条命令
 
-1. `createOrGetSession` 新建或复用 bash 会话（`hosts/linux/src/tools/terminal/mod.rs:264`）
-2. 同一会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:345`）
-3. 新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:616`）
-4. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:856`）
-5. 取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:871`）
-6. PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:684`）
+1. `createOrGetSession` 新建或复用 bash 会话（`hosts/linux/src/tools/terminal/mod.rs:266`）
+2. 同一会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:538`）
+3. 新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:754`）
+4. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:609`）
+5. 取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:646`）
+6. PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:591`）
 
 ### 安装一个应用
 
@@ -347,3 +347,5 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 - `hosts/common/managed_runtime_process.rs`
 - `hosts/common/ui_automation.rs`
 - `hosts/linux/src/ui_automation.py`
+- `hosts/linux/src/ui_provider.rs`
+- `core/crates/foundation/host-contract/src/TerminalCommand.rs`

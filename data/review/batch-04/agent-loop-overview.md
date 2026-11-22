@@ -26,10 +26,10 @@ ChatServiceCore 是 Runtime 域的聊天服务核心（见 [[core-runtime|Runtim
 - prepare_conversation_history — 跑钩子、注入系统提示、归一化工具结果轮次（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:150`）
 - summarizeMemory — 只总结上一次总结之后的消息（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:543`）
 - `shouldGenerateSummary` — 只看配置的上下文 token 阈值（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:656`）
-- `insertSummary` — 只在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1510`）
-- `compactChat` — 手动压缩为检查点，不论阈值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）
+- `insertSummary` — 只在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1521`）
+- `compactChat` — 手动压缩为检查点，不论阈值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）
 - switch_core — 内置工具，预检目标节点（`core/crates/tool/services/src/tools/ToolRegistration.rs:219`）
-- `resolveSwitchCoreTarget` — 解析目标节点引用（`core/crates/tool/services/src/tools/ToolRegistration.rs:1588`）
+- `resolveSwitchCoreTarget` — 解析目标节点引用（`core/crates/tool/services/src/tools/ToolRegistration.rs:1596`）
 - `beforeChangeRoute` — Binding 移动前检查执行归属（`core/crates/runtime/application/src/services/ChatServiceCore.rs:901`）
 - `afterChangeRoute` — 路由变更到达目标 Core 后恢复目标会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:920`）
 - `resumeFromRouteContext` — 用路由上下文恢复轮次（`core/crates/runtime/application/src/services/ChatServiceCore.rs:836`）
@@ -86,15 +86,15 @@ cancelOperationForId 先取消本次操作的取消令牌（`cancellationToken`�
 
 switch_core 工具以 `BuiltinToolName::SwitchCore` 注册为内置工具（`core/crates/tool/services/src/tools/ToolRegistration.rs:219`）。
 switch_core 工具要求 `node_id` 参数，缺失时校验失败（`core/crates/tool/services/src/tools/ToolRegistration.rs:226`）。
-switch_core 目标必须能承载 Core 执行（`canExecute`），否则工具调用直接失败（`core/crates/tool/services/src/tools/ToolRegistration.rs:1597`）。
-switch_core 目标必须当前可达（`reachable`），否则工具调用直接失败（`core/crates/tool/services/src/tools/ToolRegistration.rs:1603`）。
-switch_core 目标不是当前设备空间成员时工具调用直接失败（`CoreNodeReferenceMatch::Unknown`）（`core/crates/tool/services/src/tools/ToolRegistration.rs:1611`）。
-switch_core 目标有歧义时工具调用直接失败，并列出候选（`CoreNodeReferenceMatch::Ambiguous`）（`core/crates/tool/services/src/tools/ToolRegistration.rs:1614`）。
+switch_core 目标必须能承载 Core 执行（`canExecute`），否则工具调用直接失败（`core/crates/tool/services/src/tools/ToolRegistration.rs:1605`）。
+switch_core 目标必须当前可达（`reachable`），否则工具调用直接失败（`core/crates/tool/services/src/tools/ToolRegistration.rs:1611`）。
+switch_core 目标不是当前设备空间成员时工具调用直接失败（`CoreNodeReferenceMatch::Unknown`）（`core/crates/tool/services/src/tools/ToolRegistration.rs:1619`）。
+switch_core 目标有歧义时工具调用直接失败，并列出候选（`CoreNodeReferenceMatch::Ambiguous`）（`core/crates/tool/services/src/tools/ToolRegistration.rs:1622`）。
 switch_core 的实际 Binding 移动发生在当前模型轮次结束后，工具调用时只做预检（`core/crates/tool/services/src/tools/ToolRegistration.rs:246`）。
 switch_core 调用成功时返回规范节点 id（`stringResultData`、`targetNodeId`）（`core/crates/tool/services/src/tools/ToolRegistration.rs:266`）。
 `beforeChangeRoute` 在 Binding 移动前检查执行归属，保留当前上下文（`core/crates/runtime/application/src/services/ChatServiceCore.rs:901`）。
 beforeChangeRoute 先申请执行租约（`beginChatExecution`）再释放它（`core/crates/runtime/application/src/services/ChatServiceCore.rs:909`）。
-路由变更测试断言：执行中的会话拒绝切换，`beforeChangeRoute` 返回含 Conversation is executing 的错误（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3754`）。
+路由变更测试断言：执行中的会话拒绝切换，`beforeChangeRoute` 返回含 Conversation is executing 的错误（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3779`）。
 `afterChangeRoute` 在路由变更到达目标 Core 后恢复目标会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:920`）。
 
 ### Binding 路由与模型工具循环的配合
@@ -116,7 +116,7 @@ beforeChangeRoute 先申请执行租约（`beginChatExecution`）再释放它（
 
 ### 切换与总结压缩
 
-路由变更测试断言：切换不总结、不改写会话，且切换后该会话无待处理总结任务（`summaryTaskForChat` 为空）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3800`）。
+路由变更测试断言：切换不总结、不改写会话，且切换后该会话无待处理总结任务（`summaryTaskForChat` 为空）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3825`）。
 `sendRoutedContinuation` 直接调用消息处理委托发送续发，不先做总结检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:486`）。
 `prepareSummaryForSend` 在发送前启动快照压缩且不延迟发送（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）。
 快照压缩只在发送前检查开启且该会话无进行中总结任务时启动（`checkBeforeSend`、`summaryTaskForChat`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:805`）。
@@ -142,13 +142,13 @@ summarizeMemory 只总结上一次总结之后的消息（`lastSummaryIndex`）�
 总结的 token 用量写回 Provider 模型（`updateTokensForProviderModel`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:633`）。
 总结请求按 `SUMMARY_GENERATION` 来源记用量统计（`recordProviderModelRequest`、`UsageRequestSource::SUMMARY_GENERATION`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:644`）。
 总结提示由 buildSummaryPreparedHistory 按系统提示、历史、总结提问三段组装（`PromptTurnKind::SYSTEM`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:919`）。
-`insertSummary` 只在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1510`）。
-insertSummary 用 `summarizeMemory` 生成总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1558`）。
-insertSummary 生成有效总结后经 `addSummaryMessage` 插入到选定位置（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1578`）。
-`compactChat` 手动把当前会话压缩为检查点，不论阈值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）。
-`compactChat` 压缩前先为目标会话申请执行租约（`beginChatExecution`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1640`）。
-compactChat 压缩经 `manuallySummarizeConversationForChat` 执行（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1647`）。
-compactChat 压缩完成后释放执行租约（`executionLease`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1636`）。
+`insertSummary` 只在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1521`）。
+insertSummary 用 `summarizeMemory` 生成总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1570`）。
+insertSummary 生成有效总结后经 `addSummaryMessage` 插入到选定位置（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1593`）。
+`compactChat` 手动把当前会话压缩为检查点，不论阈值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
+`compactChat` 压缩前先为目标会话申请执行租约（`beginChatExecution`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1651`）。
+compactChat 压缩经 `manuallySummarizeConversationForChat` 执行（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1662`）。
+compactChat 压缩完成后释放执行租约（`executionLease`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1673`）。
 
 ## 关键符号
 
@@ -161,9 +161,9 @@ compactChat 压缩完成后释放执行租约（`executionLease`）（`core/crat
 - `CoreRouteResumeContext` — 随路由变更带来的恢复上下文（`core/crates/runtime/application/src/services/ChatServiceCore.rs:839`）
 - `ChatConfigurationPurpose::Execution` — 路由恢复解析配置的目的（`core/crates/runtime/application/src/services/ChatServiceCore.rs:874`）
 - `BuiltinToolName::SwitchCore` — switch_core 的内置工具注册名（`core/crates/tool/services/src/tools/ToolRegistration.rs:219`）
-- `resolveSwitchCoreTarget` — 解析目标节点引用（`core/crates/tool/services/src/tools/ToolRegistration.rs:1588`）
-- `CoreNodeReferenceMatch::Unknown` — 目标不是设备空间成员的匹配结果（`core/crates/tool/services/src/tools/ToolRegistration.rs:1611`）
-- `CoreNodeReferenceMatch::Ambiguous` — 目标有歧义的匹配结果（`core/crates/tool/services/src/tools/ToolRegistration.rs:1614`）
+- `resolveSwitchCoreTarget` — 解析目标节点引用（`core/crates/tool/services/src/tools/ToolRegistration.rs:1596`）
+- `CoreNodeReferenceMatch::Unknown` — 目标不是设备空间成员的匹配结果（`core/crates/tool/services/src/tools/ToolRegistration.rs:1619`）
+- `CoreNodeReferenceMatch::Ambiguous` — 目标有歧义的匹配结果（`core/crates/tool/services/src/tools/ToolRegistration.rs:1622`）
 - `PromptTurnKind::TOOL_CALL` — 工具调用轮次（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:733`）
 - `PromptTurnKind::TOOL_RESULT` — 工具结果轮次（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:748`）
 - `PromptTurnKind::SUMMARY` — 总结轮次（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:707`）

@@ -48,8 +48,8 @@
     "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1885"
   },
   {
-    "fact": "appendLocalOperation 生成的操作 schemaVersion 为 1，createdAt 取当前墙钟毫秒。",
-    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1891"
+    "fact": "appendLocalOperation 生成的操作 schemaVersion 为 1，createdAt 取当前墙钟毫秒与日志最高业务时间加一的较大者（混合逻辑时钟下限）。",
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1896"
   },
   {
     "fact": "本地设备标识格式是 core-{毫秒}-{UUID 简写}，首次生成后持久保存。",
@@ -181,7 +181,7 @@
   },
   {
     "fact": "receiveOperations 经 storeOriginals 把接收到的操作以 pending 状态存入当前 Journal。",
-    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1954"
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:1958"
   },
   {
     "fact": "publishPreferenceOutboxes 逐个发布已注册偏好数据集的 outbox。",
@@ -205,11 +205,11 @@
   },
   {
     "fact": "导出时跳过序列号不大于导出下限的记录。",
-    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:2084"
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:2081"
   },
   {
     "fact": "导出时非 preferences 域的 EntityState 操作每实体只导出最新一条胜者。",
-    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:2093"
+    "ref": "core/crates/persistence/store/src/SyncOperationStore.rs:2100"
   },
   {
     "fact": "RuntimeFileSyncReference 由 contentHash 与 size 两个字段组成。",

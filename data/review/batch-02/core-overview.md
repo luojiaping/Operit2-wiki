@@ -87,7 +87,7 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 - `operit-proxy-local` 依赖 `operit-proxy-bridge`、`operit-rslink-runtime`、`operit-host-api`、`operit-link`、`operit-local-models`、`operit-model`、`operit-plugin-sdk`、`operit-plugin-sdk-ipc`、`operit-providers`、`operit-runtime`（`core/crates/proxy/local/Cargo.toml:2` `core/crates/proxy/local/Cargo.toml:18`）
 - `operit-proxy-local` 依赖 `operit-store`、`operit-plugin-theme`、`operit-tools`、`operit-util`（`core/crates/proxy/local/Cargo.toml:2` `core/crates/proxy/local/Cargo.toml:24`）
 - `operit-proxy-local` 依赖 `operit-edge-contract`、`operit-node-runtime`、`operit-peer-link`（`core/crates/proxy/local/Cargo.toml:2` `core/crates/proxy/local/Cargo.toml:10`）
-- `operit-command-core` 依赖 `operit-runtime`、`operit-providers`、`operit-store`、`operit-host-api`、`operit-local-models`、`operit-model`、`operit-tools`、`operit-util`（`core/crates/command/core/Cargo.toml:2` `core/crates/command/core/Cargo.toml:12`）
+- `operit-command-core` 依赖 `operit-runtime`、`operit-providers`、`operit-store`、`operit-host-api`、`operit-local-models`、`operit-model`、`operit-tools`、`operit-plugin-sdk`、`operit-util`（`core/crates/command/core/Cargo.toml:2` `core/crates/command/core/Cargo.toml:14`）
 - `operit-core-application` 依赖 `operit-runtime`、`operit-proxy-local`、`operit-node-runtime`、`operit-tools`、`operit-plugin-sdk`、`operit-plugin-sdk-ipc`、`operit-plugin-sdk-ipc-bridge`、`operit-host-api`、`operit-link`、`operit-util`（`core/crates/application/core/Cargo.toml:2` `core/crates/application/core/Cargo.toml:13`）
 - `operit-node-runtime` 依赖 `operit-peer-link`、`operit-host-api`、`operit-link`，以及可选的 `operit-rslink-runtime`、`operit-runtime`（features 为 javascript）、`operit-store`、`operit-tools`、`operit-util`（`core/crates/node/runtime/Cargo.toml:2` `core/crates/node/runtime/Cargo.toml:36`）
 - `operit-node-edge` 依赖 `operit-node-runtime`、`operit-host-api`、`operit-edge-contract`、`operit-link`（`edge/sdk/node/Cargo.toml:2` `edge/sdk/node/Cargo.toml:12`）
@@ -115,11 +115,11 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 - `LocalModelRuntimeSupport` trait 定义在 `core/crates/provider/local-model/src/runtime_support.rs:7`（`core/crates/provider/local-model/src/runtime_support.rs:7`）
 - `GitHubTokenSource` trait 定义在 `core/crates/provider/services/src/market/MarketStatsApiService.rs:512`，请求已登录 GitHub 账号的访问令牌（`core/crates/provider/services/src/market/MarketStatsApiService.rs:512`）
 - `JsExecutionHost` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:213`（`core/crates/plugin/sdk/src/javascript.rs:213`）
-- `operit-tools` 在 tools/AIToolHandler.rs 中以 `AIToolHandler` 实现 `JsExecutionHost`（`core/crates/tool/services/src/tools/AIToolHandler.rs:1167` `core/crates/tool/services/Cargo.toml:2`）
-- `JsExecutionProvider` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:445`（`core/crates/plugin/sdk/src/javascript.rs:445`）
+- `operit-tools` 在 tools/AIToolHandler.rs 中以 `AIToolHandler` 实现 `JsExecutionHost`（`core/crates/tool/services/src/tools/AIToolHandler.rs:1238` `core/crates/tool/services/Cargo.toml:2`）
+- `JsExecutionProvider` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:451`（`core/crates/plugin/sdk/src/javascript.rs:451`）
 - `operit-js-bridge` 在 javascript/JsExecutionProvider.rs 中以 `HostJsExecutionProvider` 实现 `JsExecutionProvider`（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:91` `core/crates/plugin/javascript-bridge/Cargo.toml:2`）
-- `JsPackageExecutor` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:436`（`core/crates/plugin/sdk/src/javascript.rs:436`）
-- `JsExecutionEngine` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:673`（`core/crates/plugin/sdk/src/javascript.rs:673`）
+- `JsPackageExecutor` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:434`（`core/crates/plugin/sdk/src/javascript.rs:434`）
+- `JsExecutionEngine` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:679`（`core/crates/plugin/sdk/src/javascript.rs:679`）
 
 ### 各边界归属
 
@@ -181,9 +181,9 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 - `LocalModelRuntimeSupport` — 本地模型侧对父级运行时的请求 trait（`core/crates/provider/local-model/src/runtime_support.rs:7`）
 - `GitHubTokenSource` — 请求已登录 GitHub 账号访问令牌的 trait（`core/crates/provider/services/src/market/MarketStatsApiService.rs:512`）
 - `JsExecutionHost` — JavaScript 到应用的执行边界 trait（`core/crates/plugin/sdk/src/javascript.rs:213`）
-- `JsExecutionProvider` — 引擎 Provider 边界 trait（`core/crates/plugin/sdk/src/javascript.rs:445`）
-- `JsPackageExecutor` — 绑定一个包运行时与执行宿主的 trait（`core/crates/plugin/sdk/src/javascript.rs:436`）
-- `JsExecutionEngine` — ToolPkg 引擎操作 trait（`core/crates/plugin/sdk/src/javascript.rs:673`）
+- `JsExecutionProvider` — 引擎 Provider 边界 trait（`core/crates/plugin/sdk/src/javascript.rs:451`）
+- `JsPackageExecutor` — 绑定一个包运行时与执行宿主的 trait（`core/crates/plugin/sdk/src/javascript.rs:434`）
+- `JsExecutionEngine` — ToolPkg 引擎操作 trait（`core/crates/plugin/sdk/src/javascript.rs:679`）
 - `HostJsExecutionProvider` — `operit-js-bridge` 实现 `JsExecutionProvider` 的结构体（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:16` `core/crates/plugin/javascript-bridge/Cargo.toml:2`）
 - `HostManager` — 活动宿主能力集与面向生命周期的宿主句柄（`core/crates/foundation/host-api/src/HostManager.rs:139`）
 

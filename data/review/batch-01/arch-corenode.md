@@ -114,11 +114,11 @@ date: 2026-11-11
 
 `Agent` 通过 `list_core_nodes()` 获得节点列表，通过 `switch_core(nodeId)` 切换执行节点（`docs/core-node-space-binding-architecture.md:155`）。
 
-list_core_nodes 返回包含 `currentNodeId` 与 `nodes` 的对象（`core/crates/tool/services/src/tools/ToolRegistration.rs:187`）。
+list_core_nodes 返回包含 `currentNodeId` 与 `nodes` 的对象（`core/crates/tool/services/src/tools/ToolRegistration.rs:190`）。
 
-`nodes` 是对象数组，每项有 `nodeId`、`displayName`、`userName`、`platform`、`model`、`reachable`、`canExecute`（`core/crates/tool/services/src/tools/ToolRegistration.rs:192`）。
+`nodes` 是对象数组，每项有 `nodeId`、`displayName`、`userName`、`platform`、`model`、`reachable`、`canExecute`（`core/crates/tool/services/src/tools/ToolRegistration.rs:195`）。
 
-只有 `relayHops` 或 `relayPath` 有值时才出现在每项里（`core/crates/tool/services/src/tools/ToolRegistration.rs:197`）。
+只有 `relayHops` 或 `relayPath` 有值时才出现在每项里（`core/crates/tool/services/src/tools/ToolRegistration.rs:200`）。
 
 `list_core_nodes` 只读取本机已经同步的 `Space` 成员视图（`docs/core-node-space-binding-architecture.md:159`）。
 

@@ -125,39 +125,39 @@
   },
   {
     "fact": "路由变更测试断言：执行中的会话拒绝切换，`beforeChangeRoute` 返回含 Conversation is executing 的错误",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3754"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3779"
   },
   {
     "fact": "路由变更测试断言：切换不总结、不改写会话，且切换后该会话无待处理总结任务（`summaryTaskForChat` 为空）",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3800"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3825"
   },
   {
     "fact": "`insertSummary` 只在用户或 AI 消息处插入总结",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1510"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1521"
   },
   {
     "fact": "insertSummary 用 `summarizeMemory` 生成总结",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1558"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1570"
   },
   {
     "fact": "insertSummary 生成有效总结后经 `addSummaryMessage` 插入到选定位置",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1578"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1593"
   },
   {
     "fact": "`compactChat` 手动把当前会话压缩为检查点，不论阈值",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1631"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1646"
   },
   {
     "fact": "`compactChat` 压缩前先为目标会话申请执行租约（`beginChatExecution`）",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1640"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1651"
   },
   {
     "fact": "compactChat 压缩经 `manuallySummarizeConversationForChat` 执行",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1647"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1662"
   },
   {
     "fact": "compactChat 压缩完成后释放执行租约（`executionLease`）",
-    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1636"
+    "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1673"
   },
   {
     "fact": "`initializeChatConfiguration` 只恢复一次持久化历史，不解析执行配置",
@@ -485,15 +485,15 @@
   },
   {
     "fact": "`switch_core` 目标必须能承载 Core 执行（`canExecute`），否则工具调用直接失败",
-    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:1599"
-  },
-  {
-    "fact": "`switch_core` 目标必须当前可达（`reachable`），否则工具调用直接失败",
     "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:1605"
   },
   {
+    "fact": "`switch_core` 目标必须当前可达（`reachable`），否则工具调用直接失败",
+    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:1611"
+  },
+  {
     "fact": "`switch_core` 目标不是当前设备空间成员时工具调用直接失败（`CoreNodeReferenceMatch::Unknown`）",
-    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:1612"
+    "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:1619"
   },
   {
     "fact": "`switch_core` 目标有歧义时工具调用直接失败，并列出候选（`CoreNodeReferenceMatch::Ambiguous`）",
