@@ -1,0 +1,4 @@
+# core-persistence-sync (batch-02, 168 facts, 3 bad)
+core-persistence-sync.md:68 `pending` not within ±5 of any ref ['core/crates/persistence/store/src/SyncOperationStore.rs:1954']
+core-persistence-sync.md:224 `pending` not within ±5 of any ref ['core/crates/persistence/store/src/SyncOperationStore.rs:1954']
+core-persistence-sync.md:284 `pending` not within ±5 of any ref ['core/crates/persistence/store/src/SyncOperationStore.rs:1954']

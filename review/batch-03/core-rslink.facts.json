@@ -341,10 +341,10 @@
   },
   {
     "fact": "routed_state_flow_embedded_stream_opens_through_route_runtime 测试验证路由 StateFlow 值在重序列化时保留内嵌流源。",
-    "ref": "core/crates/rslink/runtime/src/lib.rs:1693"
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1688"
   },
   {
     "fact": "stream_pool_keeps_one_source_for_duplicate_logical_stream_id 测试验证同一逻辑 streamId 的重复附件只保留第一个源。",
-    "ref": "core/crates/rslink/runtime/src/lib.rs:1740"
+    "ref": "core/crates/rslink/runtime/src/lib.rs:1735"
   }
 ]

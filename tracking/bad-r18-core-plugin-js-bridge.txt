@@ -1,0 +1,291 @@
+# core-plugin-js-bridge (batch-03, 160 facts, 290 bad)
+core-plugin-js-bridge.facts.json#64 `JsEngineOwner` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:622
+core-plugin-js-bridge.facts.json#67 `selectScriptExecution` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:695
+core-plugin-js-bridge.facts.json#69 `ExecutionScope` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:746
+core-plugin-js-bridge.facts.json#69 `enter` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:746
+core-plugin-js-bridge.facts.json#70 `executeWithInterrupt` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:790
+core-plugin-js-bridge.facts.json#70 `shouldInterrupt` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:790
+core-plugin-js-bridge.facts.json#70 `didTimeOut` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:790
+core-plugin-js-bridge.facts.json#71 `PreparedJsEngine` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:807
+core-plugin-js-bridge.facts.json#71 `new` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:807
+core-plugin-js-bridge.facts.json#71 `JsEngineWorker::new(None, None)` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:807
+core-plugin-js-bridge.facts.json#72 `bind` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:820
+core-plugin-js-bridge.facts.json#72 `context.validate()` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:820
+core-plugin-js-bridge.facts.json#72 `executionHost.for_toolpkg_execution_context(&context)` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:820
+core-plugin-js-bridge.facts.json#73 `JsPackageBinding` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:839
+core-plugin-js-bridge.facts.json#73 `packageBinding` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:839
+core-plugin-js-bridge.facts.json#73 `"ToolPkg execution context is already bound"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:839
+core-plugin-js-bridge.facts.json#74 `new` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:860
+core-plugin-js-bridge.facts.json#74 `JsEngineWorker::new(Some(executionHost), None)` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:860
+core-plugin-js-bridge.facts.json#75 `new_toolpkg_execution_engine` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:871
+core-plugin-js-bridge.facts.json#75 `JsEngineWorker::new(Some(executionHost), Some(context))` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:871
+core-plugin-js-bridge.facts.json#76 `new_toolpkg_registration_engine` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:881
+core-plugin-js-bridge.facts.json#76 `JsEngineWorker::new(None, None)` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:881
+core-plugin-js-bridge.facts.json#77 `executeScriptFunction` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:893
+core-plugin-js-bridge.facts.json#77 `None` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:893
+core-plugin-js-bridge.facts.json#78 `timeoutMillis` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:906
+core-plugin-js-bridge.facts.json#78 `"Before hook timed out before execution"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:906
+core-plugin-js-bridge.facts.json#79 `textIntermediateCallback` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:923
+core-plugin-js-bridge.facts.json#80 `execute_toolpkg_main_registration_function` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:954
+core-plugin-js-bridge.facts.json#80 `None` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:954
+core-plugin-js-bridge.facts.json#81 `"compose action id is required"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:990
+core-plugin-js-bridge.facts.json#82 `"__operit_render_compose_dsl"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1022
+core-plugin-js-bridge.facts.json#83 `textResources` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1046
+core-plugin-js-bridge.facts.json#84 `buildRuntimeBootstrapScript()` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1123
+core-plugin-js-bridge.facts.json#85 `registerScriptSource` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1134
+core-plugin-js-bridge.facts.json#86 `source_` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1137
+core-plugin-js-bridge.facts.json#87 `JsScriptRequestStep::Start` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1183
+core-plugin-js-bridge.facts.json#87 `cancelled` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1183
+core-plugin-js-bridge.facts.json#88 `startScriptFunctionForRequest` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1208
+core-plugin-js-bridge.facts.json#89 `__operitExecuteScriptFunction` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1298
+core-plugin-js-bridge.facts.json#90 `execute_script_function_on_current_thread` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1336
+core-plugin-js-bridge.facts.json#91 `buildToolPkgApiRuntimeScript()` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1440
+core-plugin-js-bridge.facts.json#91 `buildToolPkgRegistrationBridgeScript(true)` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1440
+core-plugin-js-bridge.facts.json#92 `__operitReadRegistrationCapture` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1530
+core-plugin-js-bridge.facts.json#93 `buildToolPkgRegistrationBridgeScript(false)` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1541
+core-plugin-js-bridge.facts.json#95 `__operitCancelCallSession` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1572
+core-plugin-js-bridge.facts.json#96 `cancelHostJavaScriptPromises` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1581
+core-plugin-js-bridge.facts.json#98 `advanceDetachedJavaScriptExecution` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1670
+core-plugin-js-bridge.facts.json#98 `__operitGetDetachedCallIds` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1670
+core-plugin-js-bridge.facts.json#99 `waitForExecutionResult` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1774
+core-plugin-js-bridge.facts.json#100 `deliverAsyncCallback` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1831
+core-plugin-js-bridge.facts.json#100 `settleHostJavaScriptPromise` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1831
+core-plugin-js-bridge.facts.json#101 `resolveCurrentPackageLanguage` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1852
+core-plugin-js-bridge.facts.json#101 `package_language()` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1852
+core-plugin-js-bridge.facts.json#102 `__operitExecuteScriptFunction` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1876
+core-plugin-js-bridge.facts.json#103 `registerCoreRoute` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1889
+core-plugin-js-bridge.facts.json#104 `registerHostBindings` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1911
+core-plugin-js-bridge.facts.json#104 `__operitNativeCompileModuleFactory` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1911
+core-plugin-js-bridge.facts.json#104 `__operit_call_runtime` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1911
+core-plugin-js-bridge.facts.json#105 `syncNames` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1914
+core-plugin-js-bridge.facts.json#106 `executeHostOperation` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1955
+core-plugin-js-bridge.facts.json#107 `__operitNativeCallToolStructured` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2043
+core-plugin-js-bridge.facts.json#109 `"main"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2111
+core-plugin-js-bridge.facts.json#110 `"JavaScript timer delay must be a non-negative integer"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2059
+core-plugin-js-bridge.facts.json#111 `__operitNativeCallCoreRoute` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2145
+core-plugin-js-bridge.facts.json#111 `registerCoreRoute` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2145
+core-plugin-js-bridge.facts.json#112 `registerCoreRoute` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2145
+core-plugin-js-bridge.facts.json#113 `asyncNames` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2180
+core-plugin-js-bridge.facts.json#114 `executeHostOperation` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2201
+core-plugin-js-bridge.facts.json#115 `exactHostJavaScriptJsonArguments` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2236
+core-plugin-js-bridge.facts.json#115 `"{name} requires {N} arguments, received {count}"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2236
+core-plugin-js-bridge.facts.json#118 `scheduleDelayedHostRuntimeTask` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2369
+core-plugin-js-bridge.facts.json#119 `invoke_toolpkg_ipc_async` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409
+core-plugin-js-bridge.facts.json#119 `success` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409
+core-plugin-js-bridge.facts.json#119 `value` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409
+core-plugin-js-bridge.facts.json#119 `buildToolPkgIpcFailure` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409
+core-plugin-js-bridge.facts.json#120 `lifetime.changed()` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2444
+core-plugin-js-bridge.facts.json#121 `__operit_ui_package_name` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2471
+core-plugin-js-bridge.facts.json#121 `packageTarget` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2471
+core-plugin-js-bridge.facts.json#122 `__operit_execution_context_key` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2474
+core-plugin-js-bridge.facts.json#122 `contextKey` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2474
+core-plugin-js-bridge.facts.json#123 `toolpkg_provider:` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494
+core-plugin-js-bridge.facts.json#123 `provider` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494
+core-plugin-js-bridge.facts.json#123 `toolpkg_compose:` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494
+core-plugin-js-bridge.facts.json#123 `ui` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494
+core-plugin-js-bridge.facts.json#123 `sandbox` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494
+core-plugin-js-bridge.facts.json#123 `main` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494
+core-plugin-js-bridge.facts.json#124 `main` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2504
+core-plugin-js-bridge.facts.json#124 `sandbox` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2504
+core-plugin-js-bridge.facts.json#124 `provider` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2504
+core-plugin-js-bridge.facts.json#124 `ToolPkg execution runtime is invalid` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2504
+core-plugin-js-bridge.facts.json#125 `"ToolPkg.ipc channel is required"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2529
+core-plugin-js-bridge.facts.json#126 `main` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2535
+core-plugin-js-bridge.facts.json#126 `sandbox` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2535
+core-plugin-js-bridge.facts.json#126 `provider` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2535
+core-plugin-js-bridge.facts.json#127 `clearThreadLocalCallState` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2556
+core-plugin-js-bridge.facts.json#128 `installThreadLocalCallContext` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2563
+core-plugin-js-bridge.facts.json#128 `JsCallContext` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2563
+core-plugin-js-bridge.facts.json#128 `CURRENT_CALL_CONTEXT` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2563
+core-plugin-js-bridge.facts.json#129 `packageTextResourceSource` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2572
+core-plugin-js-bridge.facts.json#130 `JsEngine` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2664
+core-plugin-js-bridge.facts.json#130 `JsExecutionEngine` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2664
+core-plugin-js-bridge.facts.json#134 `panic` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2841
+core-plugin-js-bridge.facts.json#135 `sendStructuredIntermediate` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2847
+core-plugin-js-bridge.facts.json#135 `CURRENT_ACTIVE_CALL_CONTEXTS` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2847
+core-plugin-js-bridge.facts.json#135 `"Compose response requires an active owning call"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2847
+core-plugin-js-bridge.facts.json#137 `"Plugin data directory must be an absolute VFS path"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2928
+core-plugin-js-bridge.facts.json#138 `__operitNativeJavaGetCurrentActivity` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3195
+core-plugin-js-bridge.facts.json#138 `"current activity is null"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3195
+core-plugin-js-bridge.facts.json#139 `__operitNativeJavaCallStaticSuspend` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3225
+core-plugin-js-bridge.facts.json#139 `__operitNativeJavaGetStaticField` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3225
+core-plugin-js-bridge.facts.json#139 `__operitNativeJavaSetStaticField` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3225
+core-plugin-js-bridge.facts.json#139 `"Java host operation is not implemented: {name}"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3225
+core-plugin-js-bridge.facts.json#140 `requireHostObject` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3315
+core-plugin-js-bridge.facts.json#141 `storeExecutionResult` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3352
+core-plugin-js-bridge.facts.json#141 `"Completion requires an active owning call"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3352
+core-plugin-js-bridge.facts.json#142 `storeExecutionError` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3369
+core-plugin-js-bridge.facts.json#142 `on_failed` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3369
+core-plugin-js-bridge.facts.json#143 `__operit_package_caller_participant_id` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3398
+core-plugin-js-bridge.facts.json#144 `toolPkgId` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3424
+core-plugin-js-bridge.facts.json#145 `__operit_package_name` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3454
+core-plugin-js-bridge.facts.json#146 `setHostEnvironmentValue` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3473
+core-plugin-js-bridge.facts.json#146 `"Environment variable name is required"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3473
+core-plugin-js-bridge.facts.json#148 `currentExecutionHost` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3528
+core-plugin-js-bridge.facts.json#148 `CURRENT_CALL_CONTEXT` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3528
+core-plugin-js-bridge.facts.json#148 `"JavaScript execution host is unavailable"` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3528
+core-plugin-js-bridge.facts.json#149 `success` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3592
+core-plugin-js-bridge.facts.json#149 `message` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3592
+core-plugin-js-bridge.facts.json#150 `__operitNativePrepareJavaScript` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2934
+core-plugin-js-bridge.facts.json#150 `JsAsyncCompiler::compile` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2934
+core-plugin-js-bridge.facts.json#151 `__operitNativeAsyncMethodKind` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2939
+core-plugin-js-bridge.facts.json#151 `JsAsyncCompiler::method_kind` not within ±5 of core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2939
+core-plugin-js-bridge.md:7 `JsEngine` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2664']
+core-plugin-js-bridge.md:7 `JsExecutionEngine` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2664']
+core-plugin-js-bridge.md:9 `__operitNative` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1955']
+core-plugin-js-bridge.md:9 `executeHostOperation` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1955']
+core-plugin-js-bridge.md:10 `executeHostOperation` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2201']
+core-plugin-js-bridge.md:17 `JsEngine` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2664']
+core-plugin-js-bridge.md:17 `JsExecutionEngine` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2664']
+core-plugin-js-bridge.md:21 `PreparedJsEngine` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:807']
+core-plugin-js-bridge.md:22 `JsPackageBinding` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:839']
+core-plugin-js-bridge.md:32 `executeHostOperation` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1955']
+core-plugin-js-bridge.md:37 `new_toolpkg_execution_engine` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:871']
+core-plugin-js-bridge.md:39 `execute_toolpkg_main_registration_function` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:954']
+core-plugin-js-bridge.md:46 `new` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:860']
+core-plugin-js-bridge.md:46 `JsEngineWorker::new(Some(executionHost), None)` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:860']
+core-plugin-js-bridge.md:47 `new_toolpkg_execution_engine` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:871']
+core-plugin-js-bridge.md:47 `JsEngineWorker::new(Some(executionHost), Some(context))` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:871']
+core-plugin-js-bridge.md:48 `new_toolpkg_registration_engine` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:881']
+core-plugin-js-bridge.md:48 `JsEngineWorker::new(None, None)` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:881']
+core-plugin-js-bridge.md:49 `PreparedJsEngine` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:807']
+core-plugin-js-bridge.md:49 `new` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:807']
+core-plugin-js-bridge.md:49 `JsEngineWorker::new(None, None)` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:807']
+core-plugin-js-bridge.md:50 `bind` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:820']
+core-plugin-js-bridge.md:50 `context.validate()` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:820']
+core-plugin-js-bridge.md:50 `executionHost.for_toolpkg_execution_context(&context)` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:820']
+core-plugin-js-bridge.md:51 `JsPackageBinding` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:839']
+core-plugin-js-bridge.md:51 `packageBinding` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:839']
+core-plugin-js-bridge.md:51 `"ToolPkg execution context is already bound"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:839']
+core-plugin-js-bridge.md:81 `buildRuntimeBootstrapScript()` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1123']
+core-plugin-js-bridge.md:82 `JsEngineOwner` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:622']
+core-plugin-js-bridge.md:85 `__operitCancelCallSession` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1572']
+core-plugin-js-bridge.md:86 `cancelHostJavaScriptPromises` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1581']
+core-plugin-js-bridge.md:90 `ExecutionScope` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:746']
+core-plugin-js-bridge.md:90 `enter` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:746']
+core-plugin-js-bridge.md:91 `selectScriptExecution` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:695']
+core-plugin-js-bridge.md:92 `executeWithInterrupt` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:790']
+core-plugin-js-bridge.md:92 `shouldInterrupt` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:790']
+core-plugin-js-bridge.md:92 `didTimeOut` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:790']
+core-plugin-js-bridge.md:100 `executeScriptFunction` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:893']
+core-plugin-js-bridge.md:100 `None` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:893']
+core-plugin-js-bridge.md:101 `timeoutMillis` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:906']
+core-plugin-js-bridge.md:101 `"Before hook timed out before execution"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:906']
+core-plugin-js-bridge.md:102 `textIntermediateCallback` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:923']
+core-plugin-js-bridge.md:103 `registerScriptSource` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1134']
+core-plugin-js-bridge.md:104 `source_` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1137']
+core-plugin-js-bridge.md:105 `JsScriptRequestStep::Start` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1183']
+core-plugin-js-bridge.md:105 `cancelled` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1183']
+core-plugin-js-bridge.md:106 `startScriptFunctionForRequest` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1208']
+core-plugin-js-bridge.md:107 `__operitExecuteScriptFunction` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1298']
+core-plugin-js-bridge.md:108 `__operitExecuteScriptFunction` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1876']
+core-plugin-js-bridge.md:110 `advanceDetachedJavaScriptExecution` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1670']
+core-plugin-js-bridge.md:110 `__operitGetDetachedCallIds` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1670']
+core-plugin-js-bridge.md:111 `deliverAsyncCallback` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1831']
+core-plugin-js-bridge.md:111 `settleHostJavaScriptPromise` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1831']
+core-plugin-js-bridge.md:112 `resolveCurrentPackageLanguage` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1852']
+core-plugin-js-bridge.md:112 `package_language()` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1852']
+core-plugin-js-bridge.md:113 `execute_script_function_on_current_thread` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1336']
+core-plugin-js-bridge.md:114 `waitForExecutionResult` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1774']
+core-plugin-js-bridge.md:118 `buildToolPkgApiRuntimeScript()` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1440']
+core-plugin-js-bridge.md:118 `buildToolPkgRegistrationBridgeScript(true)` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1440']
+core-plugin-js-bridge.md:119 `__operitReadRegistrationCapture` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1530']
+core-plugin-js-bridge.md:120 `buildToolPkgRegistrationBridgeScript(false)` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1541']
+core-plugin-js-bridge.md:121 `success` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3592']
+core-plugin-js-bridge.md:121 `message` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3592']
+core-plugin-js-bridge.md:122 `execute_toolpkg_main_registration_function` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:954']
+core-plugin-js-bridge.md:122 `None` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:954']
+core-plugin-js-bridge.md:123 `"compose action id is required"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:990']
+core-plugin-js-bridge.md:124 `"__operit_render_compose_dsl"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1022']
+core-plugin-js-bridge.md:125 `textResources` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1046']
+core-plugin-js-bridge.md:129 `registerHostBindings` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1911']
+core-plugin-js-bridge.md:129 `__operitNativeCompileModuleFactory` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1911']
+core-plugin-js-bridge.md:129 `__operit_call_runtime` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1911']
+core-plugin-js-bridge.md:130 `syncNames` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1914']
+core-plugin-js-bridge.md:131 `executeHostOperation` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1955']
+core-plugin-js-bridge.md:132 `__operitNativePrepareJavaScript` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2934']
+core-plugin-js-bridge.md:132 `JsAsyncCompiler::compile` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2934']
+core-plugin-js-bridge.md:133 `__operitNativeAsyncMethodKind` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2939']
+core-plugin-js-bridge.md:133 `JsAsyncCompiler::method_kind` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2939']
+core-plugin-js-bridge.md:134 `__operitNativeCallToolStructured` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2043']
+core-plugin-js-bridge.md:136 `"main"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2111']
+core-plugin-js-bridge.md:137 `"JavaScript timer delay must be a non-negative integer"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2059']
+core-plugin-js-bridge.md:138 `registerCoreRoute` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1889']
+core-plugin-js-bridge.md:139 `__operitNativeCallCoreRoute` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2145']
+core-plugin-js-bridge.md:139 `registerCoreRoute` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2145']
+core-plugin-js-bridge.md:140 `registerCoreRoute` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2145']
+core-plugin-js-bridge.md:141 `asyncNames` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2180']
+core-plugin-js-bridge.md:142 `executeHostOperation` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2201']
+core-plugin-js-bridge.md:143 `exactHostJavaScriptJsonArguments` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2236']
+core-plugin-js-bridge.md:143 `"{name} requires {N} arguments, received {count}"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2236']
+core-plugin-js-bridge.md:161 `scheduleDelayedHostRuntimeTask` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2369']
+core-plugin-js-bridge.md:162 `invoke_toolpkg_ipc_async` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409']
+core-plugin-js-bridge.md:162 `success` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409']
+core-plugin-js-bridge.md:162 `value` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409']
+core-plugin-js-bridge.md:162 `buildToolPkgIpcFailure` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409']
+core-plugin-js-bridge.md:163 `lifetime.changed()` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2444']
+core-plugin-js-bridge.md:167 `__operit_ui_package_name` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2471']
+core-plugin-js-bridge.md:167 `packageTarget` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2471']
+core-plugin-js-bridge.md:168 `__operit_execution_context_key` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2474']
+core-plugin-js-bridge.md:168 `contextKey` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2474']
+core-plugin-js-bridge.md:169 `toolpkg_provider:` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494']
+core-plugin-js-bridge.md:169 `provider` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494']
+core-plugin-js-bridge.md:169 `toolpkg_compose:` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494']
+core-plugin-js-bridge.md:169 `ui` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494']
+core-plugin-js-bridge.md:169 `sandbox` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494']
+core-plugin-js-bridge.md:169 `main` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2494']
+core-plugin-js-bridge.md:170 `main` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2504']
+core-plugin-js-bridge.md:170 `sandbox` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2504']
+core-plugin-js-bridge.md:170 `provider` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2504']
+core-plugin-js-bridge.md:170 `ToolPkg execution runtime is invalid` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2504']
+core-plugin-js-bridge.md:171 `"ToolPkg.ipc channel is required"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2529']
+core-plugin-js-bridge.md:172 `main` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2535']
+core-plugin-js-bridge.md:172 `sandbox` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2535']
+core-plugin-js-bridge.md:172 `provider` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2535']
+core-plugin-js-bridge.md:173 `clearThreadLocalCallState` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2556']
+core-plugin-js-bridge.md:174 `installThreadLocalCallContext` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2563']
+core-plugin-js-bridge.md:174 `JsCallContext` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2563']
+core-plugin-js-bridge.md:174 `CURRENT_CALL_CONTEXT` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2563']
+core-plugin-js-bridge.md:175 `packageTextResourceSource` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2572']
+core-plugin-js-bridge.md:209 `panic` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2841']
+core-plugin-js-bridge.md:212 `sendStructuredIntermediate` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2847']
+core-plugin-js-bridge.md:212 `CURRENT_ACTIVE_CALL_CONTEXTS` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2847']
+core-plugin-js-bridge.md:212 `"Compose response requires an active owning call"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2847']
+core-plugin-js-bridge.md:214 `requireHostObject` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3315']
+core-plugin-js-bridge.md:215 `storeExecutionResult` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3352']
+core-plugin-js-bridge.md:215 `"Completion requires an active owning call"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3352']
+core-plugin-js-bridge.md:216 `storeExecutionError` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3369']
+core-plugin-js-bridge.md:216 `on_failed` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3369']
+core-plugin-js-bridge.md:217 `"Plugin data directory must be an absolute VFS path"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2928']
+core-plugin-js-bridge.md:221 `__operit_package_caller_participant_id` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3398']
+core-plugin-js-bridge.md:222 `toolPkgId` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3424']
+core-plugin-js-bridge.md:223 `__operit_package_name` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3454']
+core-plugin-js-bridge.md:224 `setHostEnvironmentValue` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3473']
+core-plugin-js-bridge.md:224 `"Environment variable name is required"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3473']
+core-plugin-js-bridge.md:226 `currentExecutionHost` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3528']
+core-plugin-js-bridge.md:226 `CURRENT_CALL_CONTEXT` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3528']
+core-plugin-js-bridge.md:226 `"JavaScript execution host is unavailable"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3528']
+core-plugin-js-bridge.md:230 `__operitNativeJavaGetCurrentActivity` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3195']
+core-plugin-js-bridge.md:230 `"current activity is null"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3195']
+core-plugin-js-bridge.md:231 `__operitNativeJavaCallStaticSuspend` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3225']
+core-plugin-js-bridge.md:231 `__operitNativeJavaGetStaticField` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3225']
+core-plugin-js-bridge.md:231 `__operitNativeJavaSetStaticField` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3225']
+core-plugin-js-bridge.md:231 `"Java host operation is not implemented: {name}"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3225']
+core-plugin-js-bridge.md:239 `PreparedJsEngine` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:807']
+core-plugin-js-bridge.md:240 `JsPackageBinding` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:839']
+core-plugin-js-bridge.md:249 `registerHostBindings` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1911']
+core-plugin-js-bridge.md:250 `registerCoreRoute` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1889']
+core-plugin-js-bridge.md:251 `executeHostOperation` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1955']
+core-plugin-js-bridge.md:263 `__operitNativeCallToolStructured` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2043']
+core-plugin-js-bridge.md:270 `deliverAsyncCallback` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1831']
+core-plugin-js-bridge.md:276 `buildToolPkgApiRuntimeScript()` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1440']
+core-plugin-js-bridge.md:276 `buildToolPkgRegistrationBridgeScript(true)` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1440']
+core-plugin-js-bridge.md:277 `__operitReadRegistrationCapture` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1530']
+core-plugin-js-bridge.md:278 `buildToolPkgRegistrationBridgeScript(false)` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:1541']
+core-plugin-js-bridge.md:282 `__operit_ui_package_name` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2471']
+core-plugin-js-bridge.md:282 `packageTarget` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2471']
+core-plugin-js-bridge.md:283 `"ToolPkg.ipc channel is required"` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2529']
+core-plugin-js-bridge.md:285 `invoke_toolpkg_ipc_async` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409']
+core-plugin-js-bridge.md:285 `success` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409']
+core-plugin-js-bridge.md:285 `value` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409']
+core-plugin-js-bridge.md:285 `buildToolPkgIpcFailure` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2409']

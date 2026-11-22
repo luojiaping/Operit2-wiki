@@ -1,0 +1,8 @@
+# core-overview (batch-02, 102 facts, 7 bad)
+core-overview.md:84 `operit-util` not within ±5 of any ref ['core/crates/command/core/Cargo.toml:2', 'core/crates/command/core/Cargo.toml:12']
+core-overview.md:112 `AIToolHandler` not within ±5 of any ref ['core/crates/tool/services/src/tools/AIToolHandler.rs:1167', 'core/crates/tool/services/Cargo.toml:2']
+core-overview.md:112 `JsExecutionHost` not within ±5 of any ref ['core/crates/tool/services/src/tools/AIToolHandler.rs:1167', 'core/crates/tool/services/Cargo.toml:2']
+core-overview.md:113 `JsExecutionProvider` not within ±5 of any ref ['core/crates/plugin/sdk/src/javascript.rs:445', 'core/crates/plugin/sdk/src/javascript.rs:445']
+core-overview.md:116 `JsExecutionEngine` not within ±5 of any ref ['core/crates/plugin/sdk/src/javascript.rs:673', 'core/crates/plugin/sdk/src/javascript.rs:673']
+core-overview.md:178 `JsExecutionProvider` not within ±5 of any ref ['core/crates/plugin/sdk/src/javascript.rs:445']
+core-overview.md:180 `JsExecutionEngine` not within ±5 of any ref ['core/crates/plugin/sdk/src/javascript.rs:673']

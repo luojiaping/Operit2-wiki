@@ -537,7 +537,7 @@
 },
 {
 "fact": "`normalizeDriveLetter` 要求单个 ASCII 字母盘符并转为小写",
-"ref": "core/crates/foundation/vfs/src/PathMapper.rs:729"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:736"
 },
 {
 "fact": "`/virtual/android/sdcard` 解析到 `/sdcard`，未挂载时返回错误",
@@ -585,19 +585,19 @@
 },
 {
 "fact": "Windows 盘符路径 D:/... 映射为 /virtual/windows/d/...",
-"ref": "core/crates/foundation/vfs/src/PathMapper.rs:646"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:653"
 },
 {
 "fact": "非 VFS 的绝对宿主路径经 `nativePosixMount` 按当前 host 声明映射：macOS 进 /virtual/macos，Android 进 /virtual/android/root，其余 POSIX host 进各自的平台根，Windows 与浏览器返回错误",
-"ref": "core/crates/foundation/vfs/src/PathMapper.rs:672"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:679"
 },
 {
 "fact": "`mntMountEntries` 只列出已挂载的平台入口：Windows 盘符、Android、当前 host 的 POSIX 挂载名",
-"ref": "core/crates/foundation/vfs/src/PathMapper.rs:749"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:756"
 },
 {
 "fact": "`mntMountEntries` 在 `windowsDriveEntries` 非空时列出 Windows 盘符入口",
-"ref": "core/crates/foundation/vfs/src/PathMapper.rs:749"
+"ref": "core/crates/foundation/vfs/src/PathMapper.rs:756"
 },
 {
 "fact": "Windows 上 `windowsDriveExists` 检查 `盘符:/` 是否存在",

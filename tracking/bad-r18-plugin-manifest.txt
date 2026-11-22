@@ -1,0 +1,12 @@
+# plugin-manifest (batch-06, 80 facts, 11 bad)
+plugin-manifest.md:17 `installation_scope` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3391']
+plugin-manifest.md:17 `device` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3391']
+plugin-manifest.md:17 `space` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3391']
+plugin-manifest.md:64 `installation_scope` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3391']
+plugin-manifest.md:64 `device` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3391']
+plugin-manifest.md:64 `space` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3391']
+plugin-manifest.md:65 `workspace` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3395']
+plugin-manifest.md:65 `local` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3395']
+plugin-manifest.md:65 `SPACE` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3395']
+plugin-manifest.md:72 `main` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1342']
+plugin-manifest.md:141 `main` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1342']

@@ -1,0 +1,9 @@
+# sync-vfs (batch-07, 159 facts, 8 bad)
+sync-vfs.facts.json#148 `nativePosixMount` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:672
+sync-vfs.facts.json#149 `mntMountEntries` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:749
+sync-vfs.facts.json#150 `mntMountEntries` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:749
+sync-vfs.facts.json#150 `windowsDriveEntries` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:749
+sync-vfs.md:30 `mntMountEntries` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:749']
+sync-vfs.md:85 `mntMountEntries` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:749']
+sync-vfs.md:85 `windowsDriveEntries` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:749']
+sync-vfs.md:98 `nativePosixMount` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:672']

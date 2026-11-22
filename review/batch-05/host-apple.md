@@ -91,7 +91,7 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - `createOrGetSession` 使用 `primary` 解释器创建或复用会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:275`）。
 - 开启 `arm64-runtime` 特性时 `terminal` 为 `arm64` 的请求转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:132`）。
 - 开启 `arm64-runtime` 特性时 `macos-arm64-` 前缀的会话 ID 转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:215`）。
-- `executeHiddenCommand` 使用 `primary` 解释器执行隐藏命令（`hosts/apple/src/tools/terminal/terminal_macos.rs:347`）。
+- `executeHiddenCommand` 使用 `primary` 解释器执行隐藏命令（`hosts/apple/src/tools/terminal/terminal_macos.rs:364`）。
 - iOS 下 `terminalInfo` 返回“iOS does not expose a local PTY host”错误（`hosts/apple/src/tools/terminal/mod.rs:43`）。
 - iOS 下 `listSessions` 返回空列表而不报错（`hosts/apple/src/tools/terminal/mod.rs:78`）。
 

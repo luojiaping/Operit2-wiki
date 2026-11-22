@@ -5,7 +5,7 @@
 
 ## 1. 三层架构
 
-- **Raw sources（只读）**：`AAswordman/Operit2` 仓库代码，钉住 `a7920ad`（2026-11-22）。Agent 只读不改，这是真理源头。
+- **Raw sources（只读）**：`AAswordman/Operit2` 仓库代码，钉住 `24ad6ff`（2026-11-23）。Agent 只读不改，这是真理源头。
 - **Wiki（agent 全权）**：本仓库 `review/` 下的条目 markdown。agent 创建、更新、维护交叉引用。
 - **Schema（本文件）**：人和 agent 共同维护的纪律。
 

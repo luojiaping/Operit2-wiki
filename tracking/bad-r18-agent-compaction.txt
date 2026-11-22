@@ -1,0 +1,55 @@
+# agent-compaction (batch-04, 90 facts, 54 bad)
+agent-compaction.facts.json#1 `compactChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1635
+agent-compaction.facts.json#2 `compactChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1632
+agent-compaction.facts.json#3 `beginChatExecution` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1639
+agent-compaction.facts.json#4 `release` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1659
+agent-compaction.facts.json#5 `newEnhancedAiServiceForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1641
+agent-compaction.facts.json#6 `manuallySummarizeConversationForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1647
+agent-compaction.facts.json#7 `insertSummary` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1510
+agent-compaction.facts.json#8 `loadMessagesForSummaryInsertion` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1539
+agent-compaction.facts.json#9 `AIMessageManager::summarizeMemory` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1558
+agent-compaction.facts.json#10 `addSummaryMessage` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1578
+agent-compaction.facts.json#11 `refreshStableContextWindow` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1590
+agent-compaction.facts.json#16 `summaryTaskForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3800
+agent-compaction.facts.json#18 `maxContextLength` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3047
+agent-compaction.facts.json#18 `config.context.maxContextLength` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3047
+agent-compaction.facts.json#19 `currentWindowSizeFlow` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3188
+agent-compaction.facts.json#20 `inputTokenCountFlow` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3196
+agent-compaction.facts.json#21 `outputTokenCountFlow` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3204
+agent-compaction.facts.json#23 `resetTokenStatistics` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:2037
+agent-compaction.facts.json#23 `UsageStatisticsStore` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:2037
+agent-compaction.facts.json#24 `updateCumulativeStatistics` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:2054
+agent-compaction.facts.json#90 `currentWindowSizeFlow` not within ±5 of core/crates/runtime/application/src/services/core/TokenStatisticsDelegate.rs:74
+agent-compaction.md:6 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1631']
+agent-compaction.md:18 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1631']
+agent-compaction.md:19 `insertSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1510']
+agent-compaction.md:36 `chatInputMenuSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3025']
+agent-compaction.md:39 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1631']
+agent-compaction.md:46 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1631']
+agent-compaction.md:47 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1632']
+agent-compaction.md:48 `beginChatExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1639']
+agent-compaction.md:49 `release` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1659']
+agent-compaction.md:50 `newEnhancedAiServiceForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1641']
+agent-compaction.md:51 `manuallySummarizeConversationForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1647']
+agent-compaction.md:56 `insertSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1510']
+agent-compaction.md:57 `loadMessagesForSummaryInsertion` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1539']
+agent-compaction.md:58 `summarizeMemory` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1558']
+agent-compaction.md:59 `addSummaryMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1578']
+agent-compaction.md:60 `refreshStableContextWindow` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1590']
+agent-compaction.md:139 `maxContextLength` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3047']
+agent-compaction.md:139 `config.context.maxContextLength` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3047']
+agent-compaction.md:140 `currentWindowSizeFlow` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3188']
+agent-compaction.md:141 `inputTokenCountFlow` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3196']
+agent-compaction.md:142 `outputTokenCountFlow` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3204']
+agent-compaction.md:144 `resetTokenStatistics` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:2037']
+agent-compaction.md:144 `UsageStatisticsStore` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:2037']
+agent-compaction.md:145 `updateCumulativeStatistics` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:2054']
+agent-compaction.md:146 `currentWindowSizeFlow` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/TokenStatisticsDelegate.rs:74']
+agent-compaction.md:153 `summaryTaskForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3800']
+agent-compaction.md:158 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1631']
+agent-compaction.md:159 `insertSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1510']
+agent-compaction.md:176 `chatInputMenuSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3025']
+agent-compaction.md:182 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1631']
+agent-compaction.md:183 `beginChatExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1639']
+agent-compaction.md:184 `manuallySummarizeConversationForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1647']
+agent-compaction.md:187 `release` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1659']

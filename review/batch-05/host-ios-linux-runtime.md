@@ -24,7 +24,7 @@ Flutter / Rust / iOS 桥接以及外部 root 配置、目录 bookmark 和原位 
 `ort_arm64_load` — 从 guest 绝对路径装载可执行文件，argv 须有 argv[0]（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:68`）。
 `ort_arm64_run` — 以指令预算执行，预算耗尽保留任务状态（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:74`）。
 `ORT_ARM64_WAITING` — 表示阻塞等待（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:37`）。
-`ort_arm64_terminal_open` — 打开 guest 终端（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:78`）。
+`ort_arm64_terminal_open` — 打开 guest 终端（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:89`）。
 `ort_arm64_terminal_read` / `ort_arm64_terminal_write` — 终端字节输入与输出（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:79`）。
 `ort_arm64_terminal_resize` / `ort_arm64_terminal_signal` / `ort_arm64_terminal_close` — 终端尺寸、信号与关闭（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:81`）。
 `resident_memory_limit` — VM 配置中的常驻内存上限（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:20`）。
@@ -92,7 +92,7 @@ network / DNS / TLS 的实现体是 linux/network/socket.cpp、linux/network/mes
 ### PTY 与终端
 
 PTY / termios 的实现体是 linux/terminal/manager.cpp、linux/terminal/termios.cpp 与 runtime/console/*（`hosts/ios/linux-runtime/docs/completeness.md:40`）。
-ort_arm64_terminal_open、ort_arm64_terminal_read、ort_arm64_terminal_write、ort_arm64_terminal_resize、ort_arm64_terminal_signal、ort_arm64_terminal_close 提供 PTY 输入、输出、尺寸和信号接口（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:78`）。
+ort_arm64_terminal_open、ort_arm64_terminal_read、ort_arm64_terminal_write、ort_arm64_terminal_resize、ort_arm64_terminal_signal、ort_arm64_terminal_close 提供 PTY 输入、输出、尺寸和信号接口（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:89`）。
 宿主 PTY 初始化返回 EPERM/EACCES 时改用 socket 软件终端（`hosts/ios/linux-runtime/docs/delivery-status.md:21`）。
 
 ### 资源限制
@@ -141,7 +141,7 @@ Node Worker 尚未达原时限（`hosts/ios/linux-runtime/docs/completeness.md:4
 `ort_arm64_bind` — 在 load 前将已获授权的宿主目录绑定到 guest 绝对路径，flags 支持 `ORT_ARM64_BIND_READ_ONLY`（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:65`）。
 `ort_arm64_load` — 从 guest 绝对路径装载可执行文件，argv 须有 argv[0]（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:68`）。
 `ort_arm64_run` — 以指令预算执行，预算耗尽保留任务状态（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:74`）。
-`ort_arm64_terminal_open` — 打开 guest 终端（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:78`）。
+`ort_arm64_terminal_open` — 打开 guest 终端（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:89`）。
 `Machine::load` — ELF 接线的中央入口，CMake → `Machine::load` / exec 生命周期 → loader（`hosts/ios/linux-runtime/docs/completeness.md:35`）。
 `src/linux/syscalls.cpp` — 中央调用可沿该文件跟进（`hosts/ios/linux-runtime/docs/completeness.md:61`）。
 src/api/ — 负责 C ABI、实例生命周期与异常边界（`hosts/ios/linux-runtime/README.md:15`）。
@@ -163,7 +163,7 @@ src/base/ — 负责宿主 I/O、RAII、随机数与摘要（`hosts/ios/linux-ru
 5. ELF 接线路径为 CMake → Machine::load / exec 生命周期 → loader（`hosts/ios/linux-runtime/docs/completeness.md:35`）。
 6. 反复调用 `ort_arm64_run` 按指令预算执行，预算耗尽保留任务状态（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:74`）。
 7. 阻塞等待返回 `ORT_ARM64_WAITING`（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:37`）。
-8. PTY 会话经 `ort_arm64_terminal_open` 打开，输入输出走 `ort_arm64_terminal_read` 与 `ort_arm64_terminal_write`（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:78`）。
+8. PTY 会话经 `ort_arm64_terminal_open` 打开，输入输出走 `ort_arm64_terminal_read` 与 `ort_arm64_terminal_write`（`hosts/ios/linux-runtime/include/operit/arm64_runtime.h:89`）。
 9. 同一 VM 的公开调用须串行化，内部 executor 使用多个宿主执行线程（`hosts/ios/linux-runtime/README.md:68`）。
 10. 加载失败后销毁并重建 VM（`hosts/ios/linux-runtime/README.md:66`）。
 

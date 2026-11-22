@@ -1,0 +1,3 @@
+# host-apple (batch-05, 232 facts, 2 bad)
+host-apple.md:88 `executeHiddenCommand` not within ±5 of any ref ['hosts/apple/src/tools/terminal/terminal_macos.rs:347']
+host-apple.md:88 `primary` not within ±5 of any ref ['hosts/apple/src/tools/terminal/terminal_macos.rs:347']

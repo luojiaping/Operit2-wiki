@@ -41,7 +41,7 @@ date: 2026-11-11
 - 遗留 JSONL 路径用的 `storageSafeId` 把设备标识中非字母数字且非连字符、下划线的字符替换为下划线（`core/crates/persistence/store/src/SyncOperationStore.rs:1596`）。
 - `appendLocalOperation` 经 `withJournal` 把新操作写入当前 Journal（`core/crates/persistence/store/src/SyncOperationStore.rs:1885`）。
 - `appendLocalOperation` 生成的 `opId` 是 `originDeviceId` 与序列号以冒号连接，序列号是本地时钟与日志最高值加一（`core/crates/persistence/store/src/SyncOperationStore.rs:1885`）。
-- `appendLocalOperation` 生成的操作 `schemaVersion` 为 1，`createdAt` 取当前墙钟毫秒（`core/crates/persistence/store/src/SyncOperationStore.rs:1881``core/crates/persistence/store/src/SyncOperationStore.rs:1891`）。
+- `appendLocalOperation` 生成的操作 `schemaVersion` 为 1，`createdAt` 取当前墙钟毫秒与 `highest_business_time` 加一的较大者（混合逻辑时钟下限）（`core/crates/persistence/store/src/SyncOperationStore.rs:1881``core/crates/persistence/store/src/SyncOperationStore.rs:1896`）。
 - 本地设备标识格式是 core-{毫秒}-{UUID 简写}，首次生成后持久保存（`core/crates/persistence/store/src/SyncOperationStore.rs:783`）。
 - 本地设备标识存在 {root}/local_device_id 文件中（`core/crates/persistence/store/src/SyncOperationStore.rs:1436`）。
 - 已注册设备清单的 {root}/devices.json 是遗留文件，仅迁移导入时读取，导入提交后由 `cleanLegacyJournal` 删除（`core/crates/persistence/store/src/SyncOperationStore.rs:1431`）（`core/crates/persistence/store/src/SyncOperationStore.rs:1751`）。
@@ -71,9 +71,9 @@ date: 2026-11-11
 - `setExportFloor` 只提高导出下限不降低，已有值大于等于传入序列时直接返回（`core/crates/persistence/store/src/SyncOperationStore.rs:1014`）。
 - `exportFloorFor` 未设下限的来源返回 0（`core/crates/persistence/store/src/SyncOperationStore.rs:1037`）。
 - `markLocalOperationsUnexportable` 把本地设备及其 `preferences` 派生来源的当前序列设为导出下限（`core/crates/persistence/store/src/SyncOperationStore.rs:1003`）。
-- `receiveOperations` 经 `storeOriginals` 把接收到的操作以 `pending` 状态存入当前 Journal（`core/crates/persistence/store/src/SyncOperationStore.rs:1954`）。
+- `receiveOperations` 经 `storeOriginals` 把接收到的操作以 `pending` 状态存入当前 Journal（`core/crates/persistence/store/src/SyncOperationStore.rs:1958`）。
 - `operationsSinceWithInventory` 在 `domains` 为空或包含 `preferences` 时先发布偏好 outbox 再读日志（`core/crates/persistence/store/src/SyncOperationStore.rs:826`）。
-- 导出时跳过序列号不大于导出下限的记录（`core/crates/persistence/store/src/SyncOperationStore.rs:2084`）。
+- 导出时跳过序列号不大于导出下限的记录（`core/crates/persistence/store/src/SyncOperationStore.rs:2081`）。
 - `DEFAULT_SYNC_PAGE_BYTES` 是 4 MiB，单个同步交换页的序列化字节预算，超预算时截断但首条操作除外（见下）（`core/crates/persistence/store/src/SyncOperationStore.rs:42`）。
 - `boundSyncOperationPage` 按序列化字节预算截断同步操作页（`core/crates/persistence/store/src/SyncOperationStore.rs:1647`）。
 - 截断超预算页面时始终保留第一条操作，单个超大记录不阻塞导出（`core/crates/persistence/store/src/SyncOperationStore.rs:1658`）。
@@ -87,7 +87,7 @@ date: 2026-11-11
 - 新操作只在顺序大于已记录版本时才应用，未知实体默认应用（`core/crates/persistence/store/src/SyncOperationStore.rs:1115`）。
 - `recordAppliedOperations` 把已应用的操作批量记入实体版本日志（`core/crates/persistence/store/src/SyncOperationStore.rs:1136`）。
 - 顺序不大于已记录版本的操作被跳过，不写入实体版本日志（`core/crates/persistence/store/src/SyncOperationStore.rs:1153`）。
-- 导出时非 `preferences` 域的 `EntityState` 操作每实体只导出最新一条胜者（`core/crates/persistence/store/src/SyncOperationStore.rs:2093`）。
+- 导出时非 `preferences` 域的 `EntityState` 操作每实体只导出最新一条胜者（`core/crates/persistence/store/src/SyncOperationStore.rs:2100`）。
 - `compactSyncOperations` 压缩同步操作页，保留 `preferences` 历史用于身份重放（`core/crates/persistence/store/src/SyncOperationStore.rs:1667``core/crates/persistence/store/src/SyncOperationStore.rs:1679`）。
 - 压缩时保留全部 `preferences` 域操作与全部 `Transaction` 语义操作，`EntityState` 语义每实体只保留最新序列（`core/crates/persistence/store/src/SyncOperationStore.rs:1670``core/crates/persistence/store/src/SyncOperationStore.rs:1682`）。
 
@@ -227,7 +227,7 @@ date: 2026-11-11
 - `NewSyncOperation` — 新建本地操作时提交的域、实体与载荷（`core/crates/persistence/store/src/SyncOperationStore.rs:352`）
 - SyncOperationStore 的 `appendLocalOperation` — 追加本地操作并分配序列号（`core/crates/persistence/store/src/SyncOperationStore.rs:1881`）
 - SyncOperationStore 的 `operationsSinceWithInventory` — 按导出下限与实体胜者裁剪同步页（`core/crates/persistence/store/src/SyncOperationStore.rs:826`）
-- SyncOperationStore 的 `receiveOperations` — 接收到的操作以 `pending` 状态存入日志（`core/crates/persistence/store/src/SyncOperationStore.rs:1954`）
+- SyncOperationStore 的 `receiveOperations` — 接收到的操作以 `pending` 状态存入日志（`core/crates/persistence/store/src/SyncOperationStore.rs:1958`）
 - SyncOperationStore 的 `localDeviceId` — 生成或读取本地设备标识（`core/crates/persistence/store/src/SyncOperationStore.rs:783`）
 - SyncOperationStore 的 `scanOperationLog` — 逐行分类遗留 JSONL 操作日志的可解码与损坏行（`core/crates/persistence/store/src/SyncOperationStore.rs:1306`）
 - SyncOperationStore 的 `quarantineOperationLines` — 只处理遗留 JSONL 日志，把损坏行移入隔离边车（`core/crates/persistence/store/src/SyncOperationStore.rs:1483`）
@@ -284,10 +284,10 @@ date: 2026-11-11
 1. 本地写操作：`appendLocalOperation` 分配序列号并把操作追加到当前 Journal，`opId` 是 `originDeviceId` 与序列号以冒号连接（`core/crates/persistence/store/src/SyncOperationStore.rs:1885`）。
 2. 时钟推进：`observeOperations` 只在操作序列大于已知序列时推进本地时钟并写回 `clocks.json`（`core/crates/persistence/store/src/SyncOperationStore.rs:1182``core/crates/persistence/store/src/SyncOperationStore.rs:1193``core/crates/persistence/store/src/SyncOperationStore.rs:1424`）。
 3. 导出裁剪：`operationsSinceWithInventory` 在 `domains` 为空或包含 `preferences` 时先发布偏好 outbox 再读日志（`core/crates/persistence/store/src/SyncOperationStore.rs:826`）。
-4. 导出裁剪：导出时跳过序列号不大于导出下限的记录（`core/crates/persistence/store/src/SyncOperationStore.rs:2084`）。
-5. 导出裁剪：非 `preferences` 域的 `EntityState` 操作每实体只导出最新一条胜者（`core/crates/persistence/store/src/SyncOperationStore.rs:2093`）。
+4. 导出裁剪：导出时跳过序列号不大于导出下限的记录（`core/crates/persistence/store/src/SyncOperationStore.rs:2081`）。
+5. 导出裁剪：非 `preferences` 域的 `EntityState` 操作每实体只导出最新一条胜者（`core/crates/persistence/store/src/SyncOperationStore.rs:2100`）。
 6. 大操作传输：操作大小超过 32 KiB 时 `payload` 换成只含 `transactionBlob` 引用的小信封（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:352`）。
-7. 接收落库：`receiveOperations` 把接收到的操作以 `pending` 状态存入当前 Journal（`core/crates/persistence/store/src/SyncOperationStore.rs:1954`）。
+7. 接收落库：`receiveOperations` 把接收到的操作以 `pending` 状态存入当前 Journal（`core/crates/persistence/store/src/SyncOperationStore.rs:1958`）。
 8. 实体版本记录：`recordAppliedOperations` 把已应用的操作批量记入实体版本日志（`core/crates/persistence/store/src/SyncOperationStore.rs:1136`）。
 9. 文件快照：`recordSnapshot` 由文件内容直接算引用后以本地设备号追加本地操作，`initial` 时设备号加 `:initial` 后缀（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:120`）（`core/crates/persistence/store/src/RuntimeFileSyncStore.rs:130`）。
 10. 工作区扫描：`scan` 只遍历托管根，不查挂载的 VFS 目录（`core/crates/persistence/store/src/WorkspaceFileSyncStore.rs:110`）。

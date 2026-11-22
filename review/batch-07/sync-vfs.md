@@ -33,7 +33,7 @@ date: 2026-11-11
 - VFS 根目录 `/` 的条目只含 `hidden` 为 false 的 `VFS_ROOTS`，`ROOT_VIRTUAL` 仅在存在平台挂载时出现。`core/crates/foundation/vfs/src/PathMapper.rs:361`
 - /app 与 /operitapp 的虚拟条目为 data、workspaces、outputs。`core/crates/foundation/vfs/src/PathMapper.rs:368`
 - /mnt 与 /virtual 的条目来自 `mntMountEntries`，即已挂载的平台入口。`core/crates/foundation/vfs/src/PathMapper.rs:369`
-- `mntMountEntries` 只列出已挂载的平台入口：Windows 盘符、Android、当前 host 的 POSIX 挂载名。`core/crates/foundation/vfs/src/PathMapper.rs:749`
+- `mntMountEntries` 只列出已挂载的平台入口：Windows 盘符、Android、当前 host 的 POSIX 挂载名。`core/crates/foundation/vfs/src/PathMapper.rs:756`
 - VFS 直接解析两组根入口，不在插件、工具参数、返回值或持久化记录中把一个根名替换成另一个。`docs/vfs-mounts.md:7`
 - 文件结果保留调用者使用的 VFS 根目录。`docs/vfs-mounts.md:7`
 - 应用新生成的地址使用 `/operitapp` 与 `/virtual`，已有地址继续有效。`docs/vfs-mounts.md:7`
@@ -85,10 +85,10 @@ date: 2026-11-11
 - resolveFileResourcePath 对 VFS 根路径调用 `canonicalizeVfsPath`，对其他绝对路径调用 `normalizeAbsoluteHostWorkspacePath`。`core/crates/foundation/vfs/src/PathMapper.rs:271`
 - PathMapper 的 `canonicalizeVfsPath` 把 /sdcard 与 /storage/emulated/0 开头的旧共享存储别名转为身份拥有的插件存储路径（Android）。`core/crates/foundation/vfs/src/PathMapper.rs:163`
 - Windows 盘符经 `normalizeDriveLetter` 规范化，未挂载的盘符返回错误（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:430`
-- `normalizeDriveLetter` 要求单个 ASCII 字母盘符并转为小写。`core/crates/foundation/vfs/src/PathMapper.rs:729`
+- `normalizeDriveLetter` 要求单个 ASCII 字母盘符并转为小写。`core/crates/foundation/vfs/src/PathMapper.rs:736`
 - Windows 上 `windowsDriveExists` 检查 `盘符:/` 是否存在（Windows）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:93`
 - 非 Windows 上 `windowsDriveExists` 恒为假。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:93`
-- `mntMountEntries` 在 `windowsDriveEntries` 非空时列出 Windows 盘符入口（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:749`
+- `mntMountEntries` 在 `windowsDriveEntries` 非空时列出 Windows 盘符入口（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:756`
 - `/virtual/android/sdcard` 解析到 `/sdcard`，未挂载时返回错误（Android）。`core/crates/foundation/vfs/src/PathMapper.rs:450`
 - `/virtual/android/root` 解析到 `/`，未挂载时返回错误（Android）。`core/crates/foundation/vfs/src/PathMapper.rs:457`
 - `/virtual/linux` 是 Linux host 在 `POSIX_ROOTS` 中声明的挂载根，当前 host 为 Linux 时解析到 `/`，声明不符时报错（Linux）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:21`
@@ -100,8 +100,8 @@ date: 2026-11-11
 - 非 Linux host 在 `POSIX_ROOTS` 中声明的挂载名不为 `linux`（Linux）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:21`
 - macOS host 在 `POSIX_ROOTS` 中声明的 POSIX 挂载名为 `macos`（macOS）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:22`
 - 非 macOS host 在 `POSIX_ROOTS` 中声明的挂载名不为 `macos`（macOS）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:22`
-- Windows 盘符路径 D:/... 映射为 /virtual/windows/d/...（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:646`
-- 非 VFS 的绝对宿主路径经 `nativePosixMount` 按当前 host 声明映射：macOS 进 /virtual/macos，Android 进 /virtual/android/root，其余 POSIX host 进各自的平台根，Windows 与浏览器返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:672`
+- Windows 盘符路径 D:/... 映射为 /virtual/windows/d/...（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:653`
+- 非 VFS 的绝对宿主路径经 `nativePosixMount` 按当前 host 声明映射：macOS 进 /virtual/macos，Android 进 /virtual/android/root，其余 POSIX host 进各自的平台根，Windows 与浏览器返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:679`
 - `mapPhysicalChildToVfs` 对资源搜索结果校验 `backend` 与 `root` 与基路径一致，否则返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:491`
 - 宿主返回的原生子路径不在解析基路径之下时返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:509`
 - Compose DSL 文件选择器返回的 `path` 与 `uri` 是同一个规范 VFS 路径，可直接交给统一文件接口使用。`docs/vfs-mounts.md:11`

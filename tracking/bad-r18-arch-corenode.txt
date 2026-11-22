@@ -1,0 +1,4 @@
+# arch-corenode (batch-01, 141 facts, 3 bad)
+arch-corenode.md:113 `reachable` not within ±5 of any ref ['core/crates/tool/services/src/tools/ToolRegistration.rs:192']
+arch-corenode.md:113 `canExecute` not within ±5 of any ref ['core/crates/tool/services/src/tools/ToolRegistration.rs:192']
+arch-corenode.md:115 `relayPath` not within ±5 of any ref ['core/crates/tool/services/src/tools/ToolRegistration.rs:197']

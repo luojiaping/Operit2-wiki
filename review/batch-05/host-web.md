@@ -35,7 +35,7 @@ Web Host 的浏览器会话是模拟状态，不是应用内嵌的浏览器控�
 - `WebArchiveStagingHost` — 实现 `ArchiveStagingHost` 的归档暂存 Host（`hosts/web/src/tools/archive/mod.rs:21`）
 - `WebWebSocketHost` — 实现 `WebSocketHost` 的 WebSocket Host（`hosts/web/src/tools/websocket.rs:35`）
 - `WebBrowserSessionHost` — 模拟浏览器会话 Host（`hosts/web/src/tools/browser_session/mod.rs:24`）
-- `WebHostJavaScriptRuntimeHost` — 实现 `HostJavaScriptRuntimeHost` 的 JS 运行时 Host（`hosts/web/src/javascript_runtime.rs:451`）
+- `WebHostJavaScriptRuntimeHost` — 实现 `HostJavaScriptRuntimeHost` 的 JS 运行时 Host（`hosts/web/src/javascript_runtime.rs:486`）
 - `withToastHost` 与 `withClipboardHost` 都以系统操作 Host 注册（`hosts/web/src/lib.rs:51`）
 - 数据流向：Rust host trait 调用 → `bridge_module` 取 globalThis 的 `__operitHost` 同名模块 → 桥接方法执行 → 读回字段（`hosts/web/src/common.rs:106`）
 
@@ -105,10 +105,10 @@ Core 经同一个有作用域的 Promise 注册表交付异步 host 完成通知
 每帧复用前先确认，因此消息长度超过缓冲区大小（`hosts/web/README.md:27`）。
 Rust 保留结构化桥接的深度与节点上限以及安全整数表示（`hosts/web/README.md:27`）。
 插件 host 操作继续在 Core 执行器上以当前执行上下文执行（`hosts/web/README.md:28`）。
-`structuredResult` 限制结构化桥接深度 128、节点数 1,000,000（`hosts/web/src/javascript_runtime.rs:338`）。
+`structuredResult` 限制结构化桥接深度 128、节点数 1,000,000（`hosts/web/src/javascript_runtime.rs:379`）。
 JS 桥接把深度上限设为 128、节点上限设为 1000000（`hosts/web/src/javascript_promises.js:20`）。
 JS 桥接的待处理 Promise 注册表上限为 4096（`hosts/web/src/javascript_promises.js:19`）。
-安全整数范围内的小数部分为零的数字保留为 `i64` 或 `u64`（`hosts/web/src/javascript_runtime.rs:402`）。
+安全整数范围内的小数部分为零的数字保留为 `i64` 或 `u64`（`hosts/web/src/javascript_runtime.rs:446`）。
 Host 数据不支持 `BigInt`（`hosts/web/src/javascript_promises.js:33`）。
 Host 参数含循环引用时抛 `TypeError`（`hosts/web/src/javascript_promises.js:37`）。
 `ByteArray` 参数经 `transferValue` 转移底层的 buffer（`hosts/web/src/javascript_promises.js:85`）。
@@ -121,16 +121,16 @@ Promise 请求标识在 9007199254740991 处耗尽（`hosts/web/src/javascript_p
 中断信号是 16 字节 `SharedArrayBuffer` 上的 `Int32Array`（`hosts/web/src/javascript_runtime.rs:70`）。
 `cancel` 把信号字 1 置为 1 并经 `Atomics` 通知等待方（`hosts/web/src/javascript_runtime.rs:93`）。
 替换中断令牌时取最早期限，经 `Atomics` 把信号字 1 清零，再把期限写入信号字 2 与字 3（`hosts/web/src/javascript_runtime.rs:113`）。
-`createHostJavaScriptRuntime` 读取全局 `__operitCreateJavaScriptRuntime` 工厂（`hosts/web/src/javascript_runtime.rs:457`）。
-新建 JS 运行时以 `initialize` 操作装入 `javascript_promises.js` 源码（`hosts/web/src/javascript_runtime.rs:469`）。
-释放 `WebHostJavaScriptRuntime` 时调用浏览器侧 `dispose`（`hosts/web/src/javascript_runtime.rs:206`）。
-`registerHostJavaScriptFunction` 用 `syncBinding` 工厂注册同步绑定（`hosts/web/src/javascript_runtime.rs:316`）。
-`registerHostJavaScriptAsyncJsonFunction` 用 `binding` 工厂注册异步绑定（`hosts/web/src/javascript_runtime.rs:285`）。
-`settleHostJavaScriptPromise` 以 `settle` 操作发送标识、值与拒绝标志（`hosts/web/src/javascript_runtime.rs:299`）。
-`executePendingHostJavaScriptJobs` 以 `jobs` 操作让浏览器排空待处理 JS 任务（`hosts/web/src/javascript_runtime.rs:261`）。
-求值字符串用 `as_string` 取浏览器引擎的字符串转换，非字符串结果报错（`hosts/web/src/javascript_runtime.rs:254`）。
-`createHostJavaScriptRuntimeState` 创建浏览器亲和的 JS 状态并分配数字句柄（`hosts/web/src/javascript_runtime.rs:477`）。
-`destroyHostJavaScriptRuntimeState` 把状态标为已销毁并移除状态与锁（`hosts/web/src/javascript_runtime.rs:606`）。
+`createHostJavaScriptRuntime` 读取全局 `__operitCreateJavaScriptRuntime` 工厂（`hosts/web/src/javascript_runtime.rs:497`）。
+新建 JS 运行时以 `initialize` 操作装入 `javascript_promises.js` 源码（`hosts/web/src/javascript_runtime.rs:513`）。
+释放 `WebHostJavaScriptRuntime` 时调用浏览器侧 `dispose`（`hosts/web/src/javascript_runtime.rs:233`）。
+`registerHostJavaScriptFunction` 用 `syncBinding` 工厂注册同步绑定（`hosts/web/src/javascript_runtime.rs:360`）。
+`registerHostJavaScriptAsyncJsonFunction` 用 `binding` 工厂注册异步绑定（`hosts/web/src/javascript_runtime.rs:329`）。
+`settleHostJavaScriptPromise` 以 `settle` 操作发送标识、值与拒绝标志（`hosts/web/src/javascript_runtime.rs:343`）。
+`executePendingHostJavaScriptJobs` 以 `jobs` 操作让浏览器排空待处理 JS 任务（`hosts/web/src/javascript_runtime.rs:305`）。
+求值字符串用 `as_string` 取浏览器引擎的字符串转换，非字符串结果报错（`hosts/web/src/javascript_runtime.rs:298`）。
+`createHostJavaScriptRuntimeState` 创建浏览器亲和的 JS 状态并分配数字句柄（`hosts/web/src/javascript_runtime.rs:518`）。
+`destroyHostJavaScriptRuntimeState` 把状态标为已销毁并移除状态与锁（`hosts/web/src/javascript_runtime.rs:642`）。
 JS 运行时测试命令为从仓库根运行 `node --test tools/tests/web_javascript_runtime.test.mjs`（`hosts/web/README.md:35`）。
 
 ### 文件系统、存储与 SQLite（Web 平台）
@@ -186,14 +186,14 @@ Web 终端的平台为 `web-linux-vm`，终端为 `v86`，终端类型为 `shell
 工作目录解析把宿主目录映射到 `/mnt/operit-host/` 之下（`hosts/web/src/tools/terminal/mod.rs:59`）。
 启动 PTY 会话在 `rows` 或 `cols` 为零时报错（`hosts/web/src/tools/terminal/mod.rs:101`）。
 启动 PTY 会话调用桥接 `startPty` 并传入会话标识、行数与列数（`hosts/web/src/tools/terminal/mod.rs:106`）。
-终端会话标识按 `linux-vm-terminal-{value}` 分配（`hosts/web/src/tools/terminal/mod.rs:434`）。
+终端会话标识按 `linux-vm-terminal-{value}` 分配（`hosts/web/src/tools/terminal/mod.rs:455`）。
 桥接值为空或未定义时 `pollPtyExitCode` 返回 `None`（`hosts/web/src/tools/terminal/mod.rs:171`）。
 会话列表只列出未退出的会话，条目 `sessionKind` 为 `linux-vm`（`hosts/web/src/tools/terminal/mod.rs:200`）。
 按名创建或复用类型化会话时，遇到同名会话直接复用，`isNewSession` 为 false（`hosts/web/src/tools/terminal/mod.rs:233`）。
 新建终端会话从根目录 `/` 启动，默认 24 行 80 列（`hosts/web/src/tools/terminal/mod.rs:245`）。
 会话内流式调度拒绝非零 `timeoutMs`，要求会话自有执行（`hosts/web/src/tools/terminal/mod.rs:309`）。
-`executeHiddenCommand` 报错，浏览器本地 Linux 虚拟机终端不提供隐藏命令执行（`hosts/web/src/tools/terminal/mod.rs:344`）。
-会话屏幕用 `vt100::Parser` 渲染保留的串口屏幕内容（`hosts/web/src/tools/terminal/mod.rs:381`）。
+`executeHiddenCommand` 报错，浏览器本地 Linux 虚拟机终端不提供隐藏命令执行（`hosts/web/src/tools/terminal/mod.rs:338`）。
+会话屏幕用 `vt100::Parser` 渲染保留的串口屏幕内容（`hosts/web/src/tools/terminal/mod.rs:375`）。
 会话内执行命令返回 `output`、`exitCode`、`timedOut`、`workingDir`（`hosts/web/src/tools/terminal/mod.rs:277`）。
 
 ### 归档、WebSocket 与系统操作
@@ -233,8 +233,8 @@ WebSocket 关闭码 1000 或 1005 视为正常关闭，其余关闭码视为错�
 - `WebArchiveStagingHost` — 实现 `ArchiveStagingHost`（`hosts/web/src/tools/archive/mod.rs:21`）
 - `WebWebSocketHost` — 实现 `WebSocketHost`（`hosts/web/src/tools/websocket.rs:35`）
 - `WebBrowserSessionHost` — 模拟浏览器会话 Host（`hosts/web/src/tools/browser_session/mod.rs:24`）
-- `WebHostJavaScriptRuntimeHost` — 实现 `HostJavaScriptRuntimeHost`（`hosts/web/src/javascript_runtime.rs:451`）
-- `WebHostJavaScriptRuntime` — 释放时调用浏览器侧 `dispose` 的 JS 运行时（`hosts/web/src/javascript_runtime.rs:206`）
+- `WebHostJavaScriptRuntimeHost` — 实现 `HostJavaScriptRuntimeHost`（`hosts/web/src/javascript_runtime.rs:486`）
+- `WebHostJavaScriptRuntime` — 释放时调用浏览器侧 `dispose` 的 JS 运行时（`hosts/web/src/javascript_runtime.rs:233`）
 - `bridge_module` — 取 globalThis 的 `__operitHost` 同名桥接模块（`hosts/web/src/common.rs:106`）
 - `call_function` — 调用桥接方法（`hosts/web/src/common.rs:124`）
 - `__operitHostPromiseRegistry` — 冻结的 Promise 注册表（`hosts/web/src/javascript_promises.js:155`）

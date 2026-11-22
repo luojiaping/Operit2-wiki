@@ -70,7 +70,7 @@ ToolPkg API `2.0.0` 基本所有公共接口都通过统一 host 能力提供跨
 子包的 `enabled_by_default` 表示是否默认启用，默认为 `false`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:236`）。
 每个 ToolPkg 的 `registerToolPkg()` 在独立的临时 JavaScript engine 中执行，注册状态不会跨包共享（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
 格式指南要求主脚本注册在 60 秒内完成，并要求终止同步死循环和超过时限的异步注册（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
-注册链路实际未执行该期限：注册执行传入的中断参数是 `HostJavaScriptExecutionInterrupt::unlimited()`，即无截止时间（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:582`）。
+注册链路实际未执行该期限：注册执行传入的中断参数是 `HostJavaScriptExecutionInterrupt::unlimited()`，即无截止时间（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:593`）。
 注册期间禁止调用 `ToolPkg.readResource(...)` 和 `ToolPkg.wasm.call(...)`，调用会立即抛出异常（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
 `ToolPkg.registerToolboxUiModule` 注册 UI 模块，`runtime` 默认 `compose_dsl`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:473`）。
 `ToolPkg.registerUiRoute` 注册 UI 路由，不填 `route` 或 `routeId` 时宿主按 `toolpkg:<toolpkg_id>:ui:<id>` 自动生成稳定路由 ID（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:479`）。
@@ -101,7 +101,7 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 `@ToolPkg.route({ binding: 0 })` 装饰的方法可被路由，`binding` 是包含现有 Core Binding key 的参数的从零开始的位置（`docs/toolpkg-runtime.md:38`）。
 示例用 `ToolPkg.getSpaceDataDir()` 拼接 `goals.sqlite` 路径打开 Space 数据目录下的数据库（`docs/toolpkg-runtime.md:41`）。
 `ToolPkg.getConfigDir()` 在模块顶层、`registerToolPkg()` 内和执行期间均可用（`docs/toolpkg-runtime.md:115`）。
-只有 `submit_requested` 和 pre-hooks 共享一个总期限，默认 10 秒，可在高级工具设置中配置为 1 至 60 秒（`docs/toolpkg-runtime.md:176`）。
+只有 `submit_requested` 和 pre-hooks 共享一个总期限，默认 10 秒，可在高级工具设置中配置为 1 至 60 秒（`docs/toolpkg-runtime.md:182`）。
 `Tools.Files.write(path, content, append)` 返回 `FileApplyResultData`，与 `toolCall("write_file", ...)` 相同（`docs/toolpkg-runtime.md:105`）。
 
 ### 同 ID 更新与打包
@@ -138,7 +138,7 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 - `ToolPkg.getConfigDir` — 包配置目录（`docs/toolpkg-runtime.md:115`）
 - `ToolPkg.route` — 路由装饰器（`docs/toolpkg-runtime.md:38`）
 - `FileApplyResultData` — 文件写回执（`docs/toolpkg-runtime.md:105`）
-- `submit_requested` — 与 pre-hooks 共享总期限的提交事件（`docs/toolpkg-runtime.md:176`）
+- `submit_requested` — 与 pre-hooks 共享总期限的提交事件（`docs/toolpkg-runtime.md:182`）
 - `sync_plugin_packages.py` — 主仓库内置与 external 资源同步脚本（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:818`）
 - `types/` — 从 Rust SDK 生成的当前 v2 TypeScript 声明（`plugins/README.md:15`）
 - `types-v1/` — 独立手写的 v1 声明快照（`plugins/README.md:16`）
@@ -153,8 +153,8 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 6. `ToolPkg.registerToolboxUiModule` 与 `ToolPkg.registerUiRoute` 注册 UI 模块与路由（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:473`）。
 7. 运行时按 `main`、`ui`、`sandbox`、`provider` 分发执行上下文（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:538`）。
 8. 跨上下文共享状态或调用能力时显式使用 `ToolPkg.ipc`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:576`）。
-9. 只有 `submit_requested` 和 pre-hooks 共享一个总期限，默认 10 秒（`docs/toolpkg-runtime.md:176`）。
-10. 超时终止所属 hook，报告错误并中止依赖操作（`docs/toolpkg-runtime.md:179`）。
+9. 只有 `submit_requested` 和 pre-hooks 共享一个总期限，默认 10 秒（`docs/toolpkg-runtime.md:182`）。
+10. 超时终止所属 hook，报告错误并中止依赖操作（`docs/toolpkg-runtime.md:185`）。
 
 ## 来源
 

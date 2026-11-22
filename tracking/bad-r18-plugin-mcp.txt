@@ -1,0 +1,7 @@
+# plugin-mcp (batch-06, 165 facts, 6 bad)
+plugin-mcp.md:69 `github.com` not within ±5 of any ref ['core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:498']
+plugin-mcp.md:71 `api.github.com` not within ±5 of any ref ['core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:547']
+plugin-mcp.md:74 `mcpConfig` not within ±5 of any ref ['core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:351']
+plugin-mcp.md:75 `addOrUpdateMCPServerConfig` not within ±5 of any ref ['core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:362']
+plugin-mcp.md:76 `savePluginMetadata` not within ±5 of any ref ['core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:363']
+plugin-mcp.md:77 `reloadConfigurations` not within ±5 of any ref ['core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:364']

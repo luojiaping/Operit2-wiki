@@ -29,7 +29,7 @@ iOS README 记录原生 bootstrap 通道把已持久化的 runtime/workspace 根
 - `arm64RuntimeConfigurationId` — 读取原生运行时配置代次（`hosts/ios/src/bridge.rs:46`）。
 - `IosRuntimeStorageHost` — iOS 运行时存储 Host（`hosts/ios/src/lib.rs:48`）。
 - 主入口：`createRuntimeHostManager` 接收运行时根、workspace 根、网页访问 Host 与托管运行时 Host，返回组装好的 `HostManager`（`hosts/ios/src/lib.rs:41`）。
-- 数据流向：终端请求发给 `callArm64Terminal`（`hosts/ios/src/terminal.rs:216`）。
+- 数据流向：终端请求发给 `callArm64Terminal`（`hosts/ios/src/terminal.rs:207`）。
 - 数据流向：桥接再经原生 `Arm64TerminalBridge.mm` 进入 ARM64 Linux 运行时（`hosts/ios/README.md:5`）。
 
 ## 核心机制
@@ -41,10 +41,10 @@ iOS README 记录原生 bootstrap 通道把已持久化的 runtime/workspace 根
 - (`ARM64_TERMINAL`, `SHELL_TERMINAL_TYPE`) 映射为 `Arm64`（`hosts/ios/src/terminal.rs:100`）。
 - 仅在 `systemShellAvailable` 为真时，(`SYSTEM_SHELL_TERMINAL`, `SHELL_TERMINAL_TYPE`) 映射为 `SystemShell`（`hosts/ios/src/terminal.rs:104`）。
 - 系统 shell 不可用时，请求 (`SYSTEM_SHELL_TERMINAL`, `SHELL_TERMINAL_TYPE`) 返回 “iOS system /bin/sh is unavailable because this host cannot start a privileged PTY” 错误（`hosts/ios/src/terminal.rs:107`）。
-- `IosTerminalHost` 的 `new` 用 `systemShell.probe("/")` 探测系统 shell，`systemShellAvailable` 取探测是否成功（`hosts/ios/src/terminal.rs:57`）。
-- 终端信息把 `arm64` 终端标为可用，描述为 “Operit ARM64 Linux shell using the configured root filesystem”（`hosts/ios/src/terminal.rs:353`）。
-- 终端信息把系统 shell 的可用性记为 `systemShellAvailable`，描述为 “iOS system /bin/sh; requires a jailbroken or otherwise privileged host”（`hosts/ios/src/terminal.rs:349`）。
-- macOS 专用的 `arm64Only` 把 `systemShellAvailable` 设为 false，只用 Linux 后端（`hosts/ios/src/terminal.rs:72`）。
+- `IosTerminalHost` 的 `new` 用 `systemShell.probe("/")` 探测系统 shell，`systemShellAvailable` 取探测是否成功（`hosts/ios/src/terminal.rs:51`）。
+- 终端信息把 `arm64` 终端标为可用，描述为 “Operit ARM64 Linux shell using the configured root filesystem”（`hosts/ios/src/terminal.rs:313`）。
+- 终端信息把系统 shell 的可用性记为 `systemShellAvailable`，描述为 “iOS system /bin/sh; requires a jailbroken or otherwise privileged host”（`hosts/ios/src/terminal.rs:307`）。
+- macOS 专用的 `arm64Only` 把 `systemShellAvailable` 设为 false，只用 Linux 后端（`hosts/ios/src/terminal.rs:67`）。
 - 非 macOS 目标上 `PLATFORM` 为 `ios`，macOS 目标上 `PLATFORM` 为 `macos`（`hosts/ios/src/terminal.rs:18`）。
 
 ### 桥接与配置代次
@@ -56,40 +56,40 @@ iOS README 记录原生 bootstrap 通道把已持久化的 runtime/workspace 根
 - 原生响应先复制字节，再用 `operit_ios_arm64_terminal_free` 释放原生分配（`hosts/ios/src/bridge.rs:66`）。
 - 响应含 `error` 字段时，该字段作为 `HostError` 返回（`hosts/ios/src/bridge.rs:72`）。
 - 响应缺少 `result` 字段时返回 “ARM64 terminal bridge response has no result” 错误（`hosts/ios/src/bridge.rs:76`）。
-- 流式执行以 `terminalExecute` 为命令调用流式原生函数，并把 `receive` 作为输出回调传入（`hosts/ios/src/bridge.rs:131`）。
-- 输出回调收到无效帧（长度非零但指针为空，或长度超过 `isize::MAX`）时记录 “ARM64 terminal returned an invalid output frame” 错误并返回 false（`hosts/ios/src/bridge.rs:94`）。
-- 输出回调用 `catch_unwind` 包裹调用方回调，回调 panic 时记录 “ARM64 terminal output callback panicked” 错误（`hosts/ios/src/bridge.rs:108`）。
-- `arm64RuntimeConfigurationId` 查询 `arm64RuntimeState`，`configured` 为 false 时返回 `None`（`hosts/ios/src/bridge.rs:47`）。
-- 运行时状态缺少配置标识时返回 “ARM64 runtime state has no configuration identifier” 错误（`hosts/ios/src/bridge.rs:56`）。
-- 配置标识变化时仅丢弃 ARM64 会话的注册，系统 shell 会话保留；新标识取自 `arm64RuntimeConfigurationId`（`hosts/ios/src/terminal.rs:151`）。
-- ARM64 会话启动在取 `sessionId` 前用 `requireArm64Configuration` 校验创建响应（`hosts/ios/src/terminal.rs:225`）。
-- `requireArm64Configuration` 在响应 `configurationId` 与当前配置不一致时返回错误（`hosts/ios/src/terminal.rs:165`）。
-- `listSessions` 发送 `terminalList`，只保留 `configurationId` 与当前代次一致的 ARM64 会话（`hosts/ios/src/terminal.rs:506`）。
+- 异步执行以 `terminalExecuteAsync` 为命令调用异步原生函数，并把 `receive` 作为输出回调、`completed` 作为完成回调传入（`hosts/ios/src/bridge.rs:152`）。
+- 输出回调收到无效帧（长度非零但指针为空，或长度超过 `isize::MAX`）时经输出缓冲报告 “ARM64 terminal returned an invalid output frame” 错误（`hosts/ios/src/bridge.rs:108`）。
+- 输出回调 `receive` 把字节追加到会话输出缓冲，不再直接调用调用方回调（`hosts/ios/src/bridge.rs:106`）。
+- `arm64RuntimeConfigurationId` 查询 `arm64RuntimeState`，`configured` 为 false 时返回 `None`（`hosts/ios/src/bridge.rs:51`）。
+- 运行时状态缺少配置标识时返回 “ARM64 runtime state has no configuration identifier” 错误（`hosts/ios/src/bridge.rs:60`）。
+- 配置标识变化时仅丢弃 ARM64 会话的注册，系统 shell 会话保留；新标识取自 `arm64RuntimeConfigurationId`（`hosts/ios/src/terminal.rs:141`）。
+- ARM64 会话启动在取 `sessionId` 前用 `requireArm64Configuration` 校验创建响应（`hosts/ios/src/terminal.rs:217`）。
+- `requireArm64Configuration` 在响应 `configurationId` 与当前配置不一致时返回错误（`hosts/ios/src/terminal.rs:156`）。
+- `listSessions` 发送 `terminalList`，只保留 `configurationId` 与当前代次一致的 ARM64 会话（`hosts/ios/src/terminal.rs:432`）。
 
 ### 会话操作
 
-- ARM64 会话启动发送 `terminalStart`，携带 `sessionName`、`terminalType`（`SHELL_TERMINAL_TYPE`）、`workingDir`、`rows` 与 `cols`（`hosts/ios/src/terminal.rs:216`）。
-- ARM64 的 `terminalCreateOrGet` 响应同样经过 `requireArm64Configuration` 校验（`hosts/ios/src/terminal.rs:254`）。
-- ARM64 会话内执行发送 `terminalExecute`，输出取自 `outputBytes` 字段（`hosts/ios/src/terminal.rs:291`）。
-- ARM64 流式执行调用 `callArm64TerminalStreaming` 传输输出回调，命令结果仍从响应取 `outputBytes` 与 `exitCode`（`hosts/ios/src/terminal.rs:579`）。
-- ARM64 会话读取发送 `terminalRead`，返回 `bytes` 字段的字节（`hosts/ios/src/terminal.rs:388`）。
-- ARM64 写入按 16 KiB 分块重试，截止时间为 30 秒（`hosts/ios/src/terminal.rs:414`）。
-- ARM64 写入每块发送 `terminalWrite`，用 `acceptedBytes` 校验原生侧接受的字节数（`hosts/ios/src/terminal.rs:419`）。
-- ARM64 会话调整大小发送 `terminalResize`，携带 `rows` 与 `cols`（`hosts/ios/src/terminal.rs:450`）。
-- ARM64 退出码轮询发送 `terminalPoll`，`exitCode` 为 null 或缺失时返回 `None`（`hosts/ios/src/terminal.rs:473`）。
-- ARM64 会话屏幕查询发送 `terminalScreen`，内容取自 `contentBytes` 字段（`hosts/ios/src/terminal.rs:685`）。
-- ARM64 会话关闭发送 `terminalClose`，随后移除会话注册（`hosts/ios/src/terminal.rs:492`）。
-- 关闭会话返回 `TerminalCloseOutput`，`success` 为 true，消息为 “iOS terminal session closed”（`hosts/ios/src/terminal.rs:668`）。
-- 隐藏命令执行先创建或复用名为 `hidden:{executorKey}` 的会话，再在该会话内执行命令（`hosts/ios/src/terminal.rs:607`）。
-- ARM64 会话收到 `interrupt` 控制时发送 `terminalSignal`，`signal` 为 2（`hosts/ios/src/terminal.rs:651`）。
-- `controlSequence` 把 `interrupt` 映射为 U+0003，把 `eof` 映射为 U+0004，把 `newline` 映射为换行符（`hosts/ios/src/terminal.rs:852`）。
-- iOS 终端输入同时传入文本与控制序列时返回错误，文本与控制序列均缺失时也返回错误（`hosts/ios/src/terminal.rs:640`）。
-- `terminalText` 用 `String::from_utf8_lossy` 把 PTY 字节解码为文本（`hosts/ios/src/terminal.rs:820`）。
-- `requiredText` 去除首尾空白，空白值返回错误（`hosts/ios/src/terminal.rs:766`）。
-- `positiveDimension` 拒绝为零的行列尺寸（`hosts/ios/src/terminal.rs:778`）。
-- `shellTerminalType` 只接受 `shell` 类型，其他值返回错误（`hosts/ios/src/terminal.rs:756`）。
-- 未注册的会话标识返回 “iOS terminal session backend is not registered” 错误（`hosts/ios/src/terminal.rs:186`）。
-- 会话列表仅在 `systemShellAvailable` 为真时追加系统 shell 会话（`hosts/ios/src/terminal.rs:518`）。
+- ARM64 会话启动发送 `terminalStart`，携带 `sessionName`、`terminalType`（`SHELL_TERMINAL_TYPE`）、`workingDir`、`rows` 与 `cols`（`hosts/ios/src/terminal.rs:210`）。
+- ARM64 的 `terminalCreateOrGet` 响应同样经过 `requireArm64Configuration` 校验（`hosts/ios/src/terminal.rs:245`）。
+- ARM64 会话内执行以 `terminalExecuteAsync` 为命令提交异步原生调用，输出为收集的字节解码文本，退出码取自完成结果（`hosts/ios/src/bridge.rs:152`）。
+- ARM64 流式执行调用 `beginArm64TerminalCommand` 提交异步命令，输出与完成结果由返回的事件句柄持有（`hosts/ios/src/bridge.rs:133`）。
+- ARM64 会话读取发送 `terminalRead`，返回 `bytes` 字段的字节（`hosts/ios/src/terminal.rs:349`）。
+- ARM64 写入一次发送整段数据，`acceptedBytes` 与数据长度不一致时返回错误（`hosts/ios/src/terminal.rs:361`）。
+- ARM64 写入发送 `terminalWrite`，用 `acceptedBytes` 校验原生侧接受的字节数（`hosts/ios/src/terminal.rs:361`）。
+- ARM64 会话调整大小发送 `terminalResize`，携带 `rows` 与 `cols`（`hosts/ios/src/terminal.rs:377`）。
+- ARM64 退出码轮询发送 `terminalPoll`，`exitCode` 为 null 或缺失时返回 `None`（`hosts/ios/src/terminal.rs:397`）。
+- ARM64 会话屏幕查询发送 `terminalScreen`，内容取自 `contentBytes` 字段（`hosts/ios/src/terminal.rs:600`）。
+- ARM64 会话关闭发送 `terminalClose`，随后移除会话注册（`hosts/ios/src/terminal.rs:417`）。
+- 关闭会话返回 `TerminalCloseOutput`，`success` 为 true，消息为 “iOS terminal session closed”（`hosts/ios/src/terminal.rs:584`）。
+- 隐藏命令执行先创建或复用名为 `hidden:{executorKey}` 的会话，再在该会话内执行命令（`hosts/ios/src/terminal.rs:522`）。
+- ARM64 会话收到 `interrupt` 控制时发送 `terminalSignal`，`signal` 为 2（`hosts/ios/src/terminal.rs:566`）。
+- `controlSequence` 把 `interrupt` 映射为 U+0003，把 `eof` 映射为 U+0004，把 `newline` 映射为换行符（`hosts/ios/src/terminal.rs:767`）。
+- iOS 终端输入同时传入文本与控制序列时返回错误，文本与控制序列均缺失时也返回错误（`hosts/ios/src/terminal.rs:555`）。
+- `terminalText` 用 `String::from_utf8_lossy` 把 PTY 字节解码为文本（`hosts/ios/src/terminal.rs:734`）。
+- `requiredText` 去除首尾空白，空白值返回错误（`hosts/ios/src/terminal.rs:681`）。
+- `positiveDimension` 拒绝为零的行列尺寸（`hosts/ios/src/terminal.rs:693`）。
+- `shellTerminalType` 只接受 `shell` 类型，其他值返回错误（`hosts/ios/src/terminal.rs:671`）。
+- 未注册的会话标识返回 “iOS terminal session backend is not registered” 错误（`hosts/ios/src/terminal.rs:180`）。
+- 会话列表仅在 `systemShellAvailable` 为真时追加系统 shell 会话（`hosts/ios/src/terminal.rs:448`）。
 
 ### Bind Mount 与工作目录
 
@@ -99,8 +99,8 @@ iOS README 记录原生 bootstrap 通道把已持久化的 runtime/workspace 根
 - 创建会话时也可以挂载一个 Host 工作目录（`hosts/ios/README.md:18`）。
 - shell 与原生文件工具立即读写同一批文件（`hosts/ios/README.md:19`）。
 - 挂载在每次启动时重建，不涉及 workspace 复制或基于哈希的 MCP 路径（`hosts/ios/README.md:20`）。
-- ARM64 后端解析工作目录时发送 `terminalWorkspaceMount`，`hostDirectory` 与 `mountPoint` 取同一目录值（`hosts/ios/src/terminal.rs:328`）。
-- 系统 shell 后端解析工作目录时直接调用 `resolveHostDirectory`，不经过挂载（`hosts/ios/src/terminal.rs:336`）。
+- ARM64 后端解析工作目录时发送 `terminalWorkspaceMount`，`hostDirectory` 与 `mountPoint` 取同一目录值（`hosts/ios/src/terminal.rs:287`）。
+- 系统 shell 后端解析工作目录时直接调用 `resolveHostDirectory`，不经过挂载（`hosts/ios/src/terminal.rs:296`）。
 - 托管运行时目录挂载向原生侧发送 `managedRuntimeMount`，携带 `hostDirectory` 与 `mountPoint`（`hosts/ios/src/terminal.rs:82`）。
 - Host 父目录以自身绝对路径挂载，即 `mountManagedRuntimeDirectory(hostParent, hostParent)`（`hosts/ios/src/managed_runtime.rs:102`）。
 - `mountRuntimeWorkingDirectory` 拒绝非绝对路径的 Host 工作目录（`hosts/ios/src/managed_runtime.rs:86`）。
@@ -167,11 +167,11 @@ iOS README 记录原生 bootstrap 通道把已持久化的 runtime/workspace 根
 - `IosPluginSdkIpcHost` — iOS 插件 SDK IPC Host，内存通道（`hosts/ios/src/lib.rs:37`）。
 - `createRuntimeHostManager` — 组装 iOS 运行时 Host 管理器的入口（`hosts/ios/src/lib.rs:41`）。
 - `callArm64Terminal` — Rust 到原生 ARM64 终端的 JSON 桥接调用（`hosts/ios/src/bridge.rs:36`）。
-- `callArm64TerminalStreaming` — 流式桥接调用（`hosts/ios/src/bridge.rs:120`）。
+- `beginArm64TerminalCommand` — 提交异步 ARM64 终端命令，返回事件句柄（`hosts/ios/src/bridge.rs:133`）。
 - `arm64RuntimeConfigurationId` — 读取原生运行时配置代次（`hosts/ios/src/bridge.rs:46`）。
 - `decodeResponse` — 解码原生桥接响应（`hosts/ios/src/bridge.rs:59`）。
 - `operit_ios_arm64_terminal_call` — 原生 ARM64 终端调用外部函数（`hosts/ios/src/bridge.rs:10`）。
-- `operit_ios_arm64_terminal_execute_streaming` — 原生流式执行外部函数（`hosts/ios/src/bridge.rs:20`）。
+- `operit_ios_arm64_terminal_execute_async` — 原生异步执行外部函数（`hosts/ios/src/bridge.rs:23`）。
 - `ARM64_RUNTIME_WORKSPACE` — 托管运行时 workspace 常量，`/root/.operit/managed_runtime`（`hosts/ios/src/managed_runtime.rs:14`）。
 - `ARM64_TERMINAL` — ARM64 终端标识常量，`arm64`（`hosts/ios/src/terminal.rs:21`）。
 - `PLATFORM` — 平台标识常量，iOS 上为 `ios`（`hosts/ios/src/terminal.rs:18`）。
@@ -181,14 +181,14 @@ iOS README 记录原生 bootstrap 通道把已持久化的 runtime/workspace 根
 1. `createRuntimeHostManager` 接收 `runtimeRoot`、`workspaceRoot`、`webVisitHost` 与 `managedRuntimeHost`，返回组装好的 `HostManager`（`hosts/ios/src/lib.rs:41`）。
 2. `HostManager` 由 `IosFileSystemHost`、`webVisitHost` 与 `IosSystemOperationHost` 构建（`hosts/ios/src/lib.rs:57`）。
 3. `hostManager.serialPortHost` 设置为 `IosSerialPortHost`（`hosts/ios/src/lib.rs:65`）。
-4. 终端创建：发送 `terminalStart`（`hosts/ios/src/terminal.rs:216`）。
-5. 终端创建：创建响应在取 `sessionId` 前用 `requireArm64Configuration` 校验（`hosts/ios/src/terminal.rs:225`）。
-6. 工作目录解析：ARM64 后端发送 `terminalWorkspaceMount`，`hostDirectory` 与 `mountPoint` 取同一目录值（`hosts/ios/src/terminal.rs:328`）。
-7. 会话内执行：发送 `terminalExecute`，输出取自 `outputBytes`（`hosts/ios/src/terminal.rs:291`）。
-8. 流式执行：调用 `callArm64TerminalStreaming` 传输输出回调（`hosts/ios/src/terminal.rs:579`）。
+4. 终端创建：发送 `terminalStart`（`hosts/ios/src/terminal.rs:210`）。
+5. 终端创建：创建响应在取 `sessionId` 前用 `requireArm64Configuration` 校验（`hosts/ios/src/terminal.rs:217`）。
+6. 工作目录解析：ARM64 后端发送 `terminalWorkspaceMount`，`hostDirectory` 与 `mountPoint` 取同一目录值（`hosts/ios/src/terminal.rs:287`）。
+7. 会话内执行：以 `terminalExecuteAsync` 为命令提交异步原生调用（`hosts/ios/src/bridge.rs:152`）。
+8. 流式执行：调用 `beginArm64TerminalCommand` 提交异步命令（`hosts/ios/src/bridge.rs:133`）。
 9. 托管进程启动：`buildLaunch` 挂载 Host 工作目录后，`startProcess` 启动 `TerminalManagedRuntimeProcess`（`hosts/ios/src/managed_runtime.rs:115`）。
-10. 配置变化：取回当前配置标识，变化时仅丢弃 ARM64 会话的注册（`hosts/ios/src/terminal.rs:151`）。
-11. 配置变化：未注册的会话标识返回 “iOS terminal session backend is not registered” 错误（`hosts/ios/src/terminal.rs:186`）。
+10. 配置变化：取回当前配置标识，变化时仅丢弃 ARM64 会话的注册（`hosts/ios/src/terminal.rs:141`）。
+11. 配置变化：未注册的会话标识返回 “iOS terminal session backend is not registered” 错误（`hosts/ios/src/terminal.rs:180`）。
 12. 串口打开：`IosSerialPortHost` 的 `open` 恒返回错误，说明没有串口 accessory provider（`hosts/ios/src/serial.rs:13`）。
 
 ## 来源

@@ -20,7 +20,7 @@ date: 2026-11-11
 
 - `ToolPkgManifest` — 清单解析结构体，字段全称以它为准。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:660`
 - `ToolPkgConfigScope` — `installation_scope` 字段使用的安装作用域类型。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:696`
-- `installation_scope` 只接受 `device` 与 `space` 两个取值。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3391`
+- `installation_scope` 只接受 `device` 与 `space` 两个取值。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3404`
 - ToolPkgArchiveParser 的 `readInstallationScope` — 在注册脚本执行前读取安装限制。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:964`
 - `ToolPkgApiVersion` — 解析后的 `major.minor.patch` 版本值。`core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs:25`
 - `requireSupportedToolPkgApiVersion` — 校验声明的 api_version 是否在支持清单内。`core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs:84`
@@ -67,15 +67,15 @@ date: 2026-11-11
 
 - `installation_scope` 在 JSON 中写作 `installation_scope`，类型为 `Option<crate::javascript::ToolPkgConfigScope>`。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:696`
 - `installation_scope` 把安装限制为一个明确的 `device` 或 `space` 作用域。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:694`
-- `installation_scope` 只接受 `device` 与 `space` 两个取值。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3391`
-- `installation_scope` 取 `workspace`、`local`、`SPACE`、true 或 1 时解析失败。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3395`
+- `installation_scope` 只接受 `device` 与 `space` 两个取值。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3404`
+- `installation_scope` 取 `workspace`、`local`、`SPACE`、true 或 1 时解析失败。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:3408`
 - `installation_scope` 省略时字段值为 None。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:696`
 - `readInstallationScope` 在注册脚本执行前读取安装限制。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:964`
 - 声明的 `installation_scope` 会被写回运行时 `manifestExtensions` 的 `installation_scope` 键。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1450`
 
 ### 环境变量与配置归属
 
-- 子包脚本声明的环境变量名会传给 `main` 注册解析。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1342`
+- 子包脚本声明的环境变量名会传给 `main` 注册解析。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1344`
 - 文档声明：历史 V1 `SoftwareSettings` 声明保持不变。`plugins/docs/V1_COMPATIBILITY.md:96`
 - 文档声明：`readEnvironmentVariable` 与 `writeEnvironmentVariable` 在 `1.0.0` 与 `1.0.1` 下保留原签名。`plugins/docs/V1_COMPATIBILITY.md:97`
 - 文档声明：V2 通过 `Tools.Models`、`Tools.Tts`、`Tools.Theme` 与 `Tools.Catalog` 暴露已配置资源。`plugins/docs/V1_COMPATIBILITY.md:103`
@@ -144,7 +144,7 @@ date: 2026-11-11
 2. 解析清单文本为 `ToolPkgManifest`。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:660`
 3. `requireSupportedToolPkgApiVersion` 校验声明的 api_version。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1018`
 4. `applyCompatibilityRequirements` 为主版本为 1 的包追加兼容 `requires`。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1025`
-5. 子包脚本声明的环境变量名传给 `main` 注册解析。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1342`
+5. 子包脚本声明的环境变量名传给 `main` 注册解析。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1344`
 6. 声明的 `installation_scope` 写回运行时 `manifestExtensions`。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1450`
 7. 加载结果为 `ToolPkgLoadResult`，含 `containerRuntime`。`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:648`
 

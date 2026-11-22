@@ -297,7 +297,7 @@
   },
   {
     "fact": "installApplicationUpdate 在 Core 内解析回执并经本地 Host 准备安装。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:827"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:792"
   },
   {
     "fact": "coreVersion 返回编译进 runtime crate 的 CORE_VERSION。",
@@ -341,7 +341,7 @@
   },
   {
     "fact": "syncClock 还返回待处理操作数与 id、待传 blob 与错误列表。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:951"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:916"
   },
   {
     "fact": "syncClockDigest 返回 protocolVersion 1 与同步摘要。",
@@ -349,7 +349,7 @@
   },
   {
     "fact": "syncOperationsSince 从 clock JSON 读取 includeProgress 标志并校验 receipt。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1016"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:981"
   },
   {
     "fact": "syncApplyOperations 先经 RuntimeFileSyncStore 把文件类操作水合为原始操作，失败的记入 errors 并列入 deferred。",
@@ -357,7 +357,7 @@
   },
   {
     "fact": "syncApplyOperations 把操作接收进 journal 后应用待处理操作。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1047"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:1012"
   },
   {
     "fact": "syncApplyOperations 最后发布已应用变更。",

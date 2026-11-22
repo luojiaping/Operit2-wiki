@@ -1,0 +1,8 @@
+# core-tool-packages-mcp (batch-02, 126 facts, 7 bad)
+core-tool-packages-mcp.facts.json#125 `getSkillSystemPrompt` not within ±5 of core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1047
+core-tool-packages-mcp.facts.json#126 `usePackage` not within ±5 of core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1110
+core-tool-packages-mcp.md:13 `getSkillSystemPrompt` not within ±5 of any ref ['core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1047']
+core-tool-packages-mcp.md:165 `main` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2111']
+core-tool-packages-mcp.md:208 `executeUsePackageTool` not within ±5 of any ref ['core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1064', 'core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1110']
+core-tool-packages-mcp.md:208 `usePackage` not within ±5 of any ref ['core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1064', 'core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1110']
+core-tool-packages-mcp.md:209 `getSkillSystemPrompt` not within ±5 of any ref ['core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1047']

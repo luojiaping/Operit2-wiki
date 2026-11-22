@@ -15,7 +15,7 @@ date: 2026-11-11
 ## AI 速览
 
 - manifest.json — 目录包的清单，声明 `toolpkg_id` 与 `main` 入口（`plugins/packages/buildin/character_cards/manifest.json:6`）。
-- `METADATA` — 单文件包文件内含的元数据注释块，多在文件顶部，super_admin.ts:42 例外（`plugins/packages/buildin/ai_chat.ts:1`）（`plugins/packages/buildin/super_admin.ts:42`）。
+- `METADATA` — 单文件包文件内含的元数据注释块，多在文件顶部，super_admin.ts:35 例外（`plugins/packages/buildin/ai_chat.ts:1`）（`plugins/packages/buildin/super_admin.ts:35`）。
 - `enabledByDefault` — 单文件包是否默认启用，browser 为 true（`plugins/packages/buildin/browser.ts:13`）。
 - `enabled_by_default` — 目录包是否默认启用，角色卡为 true（`plugins/packages/buildin/character_cards/manifest.json:17`）。
 - `main` — 目录包主入口，角色卡为 `dist/main.js`（`plugins/packages/buildin/character_cards/manifest.json:6`）。
@@ -45,7 +45,7 @@ Browser 自动化操作（browser）— 严格对齐 Playwright MCP 默认 brows
 Crossref 学术文献查询（crossref）— Crossref 学术文献查询工具，提供 DOI 查询、关键词搜索、作者搜索等功能，帮助用户查找和获取学术文章元数据；默认启用（`plugins/packages/buildin/crossref.ts:14`）（`plugins/packages/buildin/crossref.ts:4`）。
 增强文件工具（`extended_file_tools`）— 基于 v2 VFS 的增强文件工具：检查存在、压缩、解压、打开和分享。移动、复制和文件信息由内置文件工具提供；默认启用（`plugins/packages/buildin/extended_file_tools.ts:7`）。
 Operit 平台编辑器（operit_editor）— 通过真实的 core command 执行入口管理 Operit2 的包、Skill、MCP、模型、偏好设置、聊天与工作区，返回实际执行结果；默认启用（`plugins/packages/buildin/operit_editor.ts:13`）（`plugins/packages/buildin/operit_editor.ts:4`）。
-超级管理员（super_admin）— 提供终端命令和会话控制；默认启用（`plugins/packages/buildin/super_admin.ts:52`）（`plugins/packages/buildin/super_admin.ts:45`）。
+超级管理员（super_admin）— 提供终端命令和会话控制；默认启用（`plugins/packages/buildin/super_admin.ts:46`）（`plugins/packages/buildin/super_admin.ts:39`）。
 系统工具（`system_tools`）— 提供系统设置、应用管理、通知、位置、设备信息和蓝牙操作；默认启用（`plugins/packages/buildin/system_tools.ts:7`）。
 时间（`time`）— 提供时间相关功能。实际上，激活本包的同时已经能够获取时间了；默认启用（`plugins/packages/buildin/time.ts:14`）（`plugins/packages/buildin/time.ts:4`）。
 
@@ -61,7 +61,7 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 
 ### 单文件包与目录包的区别
 
-单文件包是一个 .ts 文件，文件内含 `METADATA` 注释块，多在文件顶部，super_admin.ts:42 例外（`plugins/packages/buildin/ai_chat.ts:1`）（`plugins/packages/buildin/super_admin.ts:42`）。
+单文件包是一个 .ts 文件，文件内含 `METADATA` 注释块，多在文件顶部，super_admin.ts:35 例外（`plugins/packages/buildin/ai_chat.ts:1`）（`plugins/packages/buildin/super_admin.ts:35`）。
 解析器用正则全文查找 `extract_metadata`（`core/crates/plugin/sdk/src/JsPackageLoader.rs:156`），位置不影响解析。
 单文件包没有 manifest.json，元数据只在 `METADATA` 注释块里（`plugins/packages/buildin/ai_chat.ts:1`）。
 单文件包位于 buildin 根目录 tsconfig 的 include 范围内，其 include 包含根目录 `*.ts`（`plugins/packages/buildin/tsconfig.json:30`）。

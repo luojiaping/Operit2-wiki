@@ -1,10 +1,10 @@
 {
   "issue": 58,
-  "source_commit": "a7920ad",
+  "source_commit": "24ad6ff",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "ToolPkg 2.0.0 总览：ZIP 格式、manifest 三版本号、API 2.0.0 与 1.0.x 关系、buildin/external/examples 三类包打包区别",
-  "updated": "2026-11-22",
+  "updated": "2026-11-23",
   "approved_by_comment_id": 6867242507,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-13 23:18 UTC"

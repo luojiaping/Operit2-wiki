@@ -45,131 +45,131 @@
  },
  {
   "fact": "createRuntimeHostManager 接收 runtimeRoot、workspaceRoot 与 webVisitHost 三个参数",
-  "ref": "hosts/linux/src/lib.rs:54"
+  "ref": "hosts/linux/src/lib.rs:56"
  },
  {
   "fact": "HostManager 用 LinuxFileSystemHost、LinuxHttpHost、LinuxSystemOperationHost 与 LinuxManagedRuntimeHost 装配",
-  "ref": "hosts/linux/src/lib.rs:69"
- },
- {
-  "fact": "同一份 LinuxRuntimeStorageHost 实例兼任 Host 密钥库与 runtimeSqliteHost",
-  "ref": "hosts/linux/src/lib.rs:63"
- },
- {
-  "fact": "第二个 LinuxHttpHost 实例注册为 WebSocket Host",
-  "ref": "hosts/linux/src/lib.rs:80"
- },
- {
-  "fact": "运行时组合注册 NativeLocalInferenceHost 为本地推理 Host",
   "ref": "hosts/linux/src/lib.rs:75"
  },
  {
-  "fact": "运行时组合注册 ScriptUiAutomationHost 为 UI 自动化 Host，经 python3 执行 ui_automation.py",
-  "ref": "hosts/linux/src/lib.rs:76"
+  "fact": "同一份 LinuxRuntimeStorageHost 实例兼任 Host 密钥库与 runtimeSqliteHost",
+  "ref": "hosts/linux/src/lib.rs:66"
+ },
+ {
+  "fact": "第二个 LinuxHttpHost 实例注册为 WebSocket Host",
+  "ref": "hosts/linux/src/lib.rs:84"
+ },
+ {
+  "fact": "运行时组合注册 NativeLocalInferenceHost 为本地推理 Host",
+  "ref": "hosts/linux/src/lib.rs:79"
+ },
+ {
+  "fact": "运行时组合注册 ScriptUiAutomationHost 为 UI 自动化 Host，经 ui_provider 落盘 ui_automation.py 后用 python3 执行，窗口预览用同一命令",
+  "ref": "hosts/linux/src/lib.rs:80"
  },
  {
   "fact": "HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common",
-  "ref": "hosts/linux/src/lib.rs:82"
+  "ref": "hosts/linux/src/lib.rs:85"
  },
  {
   "fact": "LinuxHostJavaScriptRuntimeHost 是 operit-host-native-common 的 NativeHostJavaScriptRuntimeHost 的重导出",
-  "ref": "hosts/linux/src/lib.rs:32"
- },
- {
-  "fact": "LinuxHostRuntimeEventSchedulerHost 与 LinuxHostRuntimeTaskSchedulerHost 是 operit-host-native-common 的重导出",
   "ref": "hosts/linux/src/lib.rs:34"
  },
  {
+  "fact": "LinuxHostRuntimeEventSchedulerHost 与 LinuxHostRuntimeTaskSchedulerHost 是 operit-host-native-common 的重导出",
+  "ref": "hosts/linux/src/lib.rs:36"
+ },
+ {
   "fact": "服务发现 Host 使用 operit-host-native-common 的 ServiceDiscoveryProvider",
-  "ref": "hosts/linux/src/lib.rs:93"
+  "ref": "hosts/linux/src/lib.rs:97"
  },
  {
   "fact": "LinuxPluginSdkIpcHost 注册为插件 SDK IPC Host",
-  "ref": "hosts/linux/src/lib.rs:95"
+  "ref": "hosts/linux/src/lib.rs:99"
  },
  {
   "fact": "LinuxTerminalHost 是 Linux PTY 终端 Host",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:28"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:31"
  },
  {
   "fact": "PLATFORM 为 linux，TERMINAL 为 native，PRIMARY_TERMINAL_TYPE 为 bash",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:24"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:26"
  },
  {
   "fact": "terminalInfo 的 types 只含一项，terminalType 为 bash，描述为 Linux bash terminal",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:123"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:131"
  },
  {
   "fact": "normalizeTerminalType 只接受 PRIMARY_TERMINAL_TYPE",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:1320"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:936"
  },
  {
   "fact": "requireNativeTerminal 只接受 TERMINAL 这一种终端实现",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:1330"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:946"
  },
  {
   "fact": "linuxPtyCommand 构造 bash --noprofile --norc -i 子进程",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:637"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:779"
  },
  {
   "fact": "PTY 环境设置 TERM 为 xterm-256color、COLORTERM 为 truecolor、LANG 为 C.UTF-8、PS1 为 $PWD $ ",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:643"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:785"
  },
  {
   "fact": "PROMPT_COMMAND 在每次提示时输出 base64 编码的工作目录与退出码",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:648"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:790"
  },
  {
   "fact": "PTY 输出缓冲上限 PTY_OUTPUT_LIMIT 为 1024 * 1024 字节",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:19"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:23"
  },
  {
   "fact": "PTY 输出缓冲超限时从队首丢弃旧字节",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:684"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:591"
  },
  {
   "fact": "新建会话等待初始提示最长 10000 毫秒",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:616"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:754"
  },
  {
   "fact": "同一个终端会话同一时间只允许一条命令在执行",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:345"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:538"
  },
  {
   "fact": "命令超时时返回 exitCode -1 与 timedOut true",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:856"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:609"
  },
  {
   "fact": "取消超时命令时写入 \\x03",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:871"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:646"
  },
  {
-  "fact": "取消超时命令的等待上限 COMMAND_CANCEL_SETTLE_TIMEOUT_MS 为 3000 毫秒",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:22"
+  "fact": "取消超时命令后，共享的 waitForCommandEvent 以 3000 毫秒为限等待中断就绪",
+  "ref": "core/crates/foundation/host-contract/src/TerminalCommand.rs:153"
  },
  {
   "fact": "新建终端会话默认尺寸为 24 行 80 列",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:300"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:302"
  },
  {
   "fact": "executorKey 为空时默认取 default",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:403"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:353"
  },
  {
   "fact": "隐藏会话名形如 hidden:{executorLabel}",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:545"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:491"
  },
  {
   "fact": "input 与 control 至少一个非空",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:435"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:383"
  },
  {
   "fact": "getSessionScreen 返回会话当前屏幕内容与行列数",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:486"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:432"
  },
  {
   "fact": "PTY 提示标记前缀为 \\x1b]133;OperitPrompt=",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:20"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:24"
  },
  {
   "fact": "LinuxFileSystemHost 是 Linux 文件系统 Host",
@@ -717,11 +717,11 @@
  },
  {
   "fact": "listSessions 遍历全部 PTY 会话并刷新退出码",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:237"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:239"
  },
  {
   "fact": "会话列表条目的 sessionKind 为 pty",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:255"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:257"
  },
  {
   "fact": "getSystemLanguageCode 委托给 get_linux_system_language_code",
@@ -729,6 +729,6 @@
  },
  {
   "fact": "hiddenPtySessionId 按 executorKey 复用已存在的隐藏会话",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:525"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:471"
  }
 ]

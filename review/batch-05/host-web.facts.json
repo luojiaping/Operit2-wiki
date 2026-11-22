@@ -361,7 +361,7 @@
  },
  {
   "fact": "终端会话标识按 `linux-vm-terminal-{value}` 分配",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:434"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:455"
  },
  {
   "fact": "桥接值为空或未定义时 `pollPtyExitCode` 返回 `None`",
@@ -385,11 +385,11 @@
  },
  {
   "fact": "`executeHiddenCommand` 报错，浏览器本地 Linux 虚拟机终端不提供隐藏命令执行",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:344"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:338"
  },
  {
   "fact": "`getSessionScreen` 用 `vt100::Parser` 渲染保留的串口屏幕内容",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:381"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:375"
  },
  {
   "fact": "会话内执行命令返回 `output`、`exitCode`、`timedOut`、`workingDir`",
@@ -501,7 +501,7 @@
  },
  {
   "fact": "`structuredResult` 限制结构化桥接深度 128、节点数 1,000,000",
-  "ref": "hosts/web/src/javascript_runtime.rs:338"
+  "ref": "hosts/web/src/javascript_runtime.rs:379"
  },
  {
   "fact": "JS 桥接把深度上限设为 128、节点上限设为 1000000",
@@ -513,7 +513,7 @@
  },
  {
   "fact": "安全整数范围内的小数部分为零的数字保留为 `i64` 或 `u64`",
-  "ref": "hosts/web/src/javascript_runtime.rs:402"
+  "ref": "hosts/web/src/javascript_runtime.rs:446"
  },
  {
   "fact": "Host 数据不支持 `BigInt`",
@@ -549,43 +549,43 @@
  },
  {
   "fact": "`createHostJavaScriptRuntime` 读取全局 `__operitCreateJavaScriptRuntime` 工厂",
-  "ref": "hosts/web/src/javascript_runtime.rs:457"
+  "ref": "hosts/web/src/javascript_runtime.rs:497"
  },
  {
   "fact": "新建 JS 运行时以 `initialize` 操作装入 `javascript_promises.js` 源码",
-  "ref": "hosts/web/src/javascript_runtime.rs:469"
+  "ref": "hosts/web/src/javascript_runtime.rs:513"
  },
  {
   "fact": "释放 `WebHostJavaScriptRuntime` 时调用浏览器侧 `dispose`",
-  "ref": "hosts/web/src/javascript_runtime.rs:206"
+  "ref": "hosts/web/src/javascript_runtime.rs:233"
  },
  {
   "fact": "`registerHostJavaScriptFunction` 用 `syncBinding` 工厂注册同步绑定",
-  "ref": "hosts/web/src/javascript_runtime.rs:316"
+  "ref": "hosts/web/src/javascript_runtime.rs:360"
  },
  {
   "fact": "`registerHostJavaScriptAsyncJsonFunction` 用 `binding` 工厂注册异步绑定",
-  "ref": "hosts/web/src/javascript_runtime.rs:285"
+  "ref": "hosts/web/src/javascript_runtime.rs:329"
  },
  {
   "fact": "`settleHostJavaScriptPromise` 以 `settle` 操作发送标识、值与拒绝标志",
-  "ref": "hosts/web/src/javascript_runtime.rs:299"
+  "ref": "hosts/web/src/javascript_runtime.rs:343"
  },
  {
   "fact": "`executePendingHostJavaScriptJobs` 以 `jobs` 操作让浏览器排空待处理 JS 任务",
-  "ref": "hosts/web/src/javascript_runtime.rs:261"
+  "ref": "hosts/web/src/javascript_runtime.rs:305"
  },
  {
   "fact": "求值字符串用 `as_string` 取浏览器引擎的字符串转换，非字符串结果报错",
-  "ref": "hosts/web/src/javascript_runtime.rs:254"
+  "ref": "hosts/web/src/javascript_runtime.rs:298"
  },
  {
   "fact": "`createHostJavaScriptRuntimeState` 创建浏览器亲和的 JS 状态并分配数字句柄",
-  "ref": "hosts/web/src/javascript_runtime.rs:477"
+  "ref": "hosts/web/src/javascript_runtime.rs:518"
  },
  {
   "fact": "`destroyHostJavaScriptRuntimeState` 把状态标为已销毁并移除状态与锁",
-  "ref": "hosts/web/src/javascript_runtime.rs:606"
+  "ref": "hosts/web/src/javascript_runtime.rs:642"
  },
  {
   "fact": "同机引擎对比用 Chrome 155 与编译为 WASM 的 QuickJS-NG 0.16.2（-O3），预热后测七个样本并核对校验和",

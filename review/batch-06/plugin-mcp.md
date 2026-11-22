@@ -72,15 +72,15 @@ date: 2026-11-11
 - MCPRepository 的 `installMCPServerFromZip` 从本地 zip 与元数据对象安装 MCP 服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:98`
 - `installMCPServerWithObjectForFlutter` 供 Flutter 桥调用，从仓库 URL 安装 MCP 服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:119`
 - `installMCPServerFromZipForFlutter` 供 Flutter 桥调用，从本地 zip 安装 MCP 服务器。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:141`
-- `extractOwnerAndRepo` 只接受 `github.com` 及其子域。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:498`
-- 仓库 zip 按默认分支从 GitHub 归档地址下载。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:309`
-- `getGithubDefaultBranch` 查询 `api.github.com` 的仓库接口取默认分支。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:547`
+- `extractOwnerAndRepo` 只接受 `github.com` 及其子域。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:500` `core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:507`
+- 仓库 zip 按默认分支从 GitHub 归档地址下载。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:315`
+- `getGithubDefaultBranch` 查询 `api.github.com` 的仓库接口取默认分支。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:553`
 - 仓库下载的 `API_REQUEST_TIMEOUT_SECONDS` 为 15 秒、`ARCHIVE_DOWNLOAD_TIMEOUT_SECONDS` 为 30 秒。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:21`
-- `resolvePluginRoot` 要求归档解压后恰好含一个根目录。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:322`
-- `deployInstalledPlugin` 在 `mcpConfig` 为空时从项目生成配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:351`
-- 安装部署时，插件的服务器配置经 `addOrUpdateMCPServerConfig` 写入。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:362`
-- 安装部署时，插件元数据经 `savePluginMetadata` 保存。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:363`
-- 安装部署完成后调用 `reloadConfigurations` 重载配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:364`
+- `resolvePluginRoot` 要求归档解压后恰好含一个根目录。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:328`
+- `deployInstalledPlugin` 在 `mcpConfig` 为空时从项目生成配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:354`
+- 安装部署时，插件的服务器配置经 `addOrUpdateMCPServerConfig` 写入。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:368`
+- 安装部署时，插件元数据经 `savePluginMetadata` 保存。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:369`
+- 安装部署完成后调用 `reloadConfigurations` 重载配置。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:370`
 - 部署步骤失败时安装返回 `InstallResult` 的 `Error`。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:86`
 - `InstallResult` 分 `Success` 与 `Error` 两种结果。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:36`
 - `InstallProgress` 含 `Preparing`、`Downloading`、`Extracting` 进度事件。`core/crates/tool/services/src/tools/mcp_runtime/MCPRepository.rs:49`

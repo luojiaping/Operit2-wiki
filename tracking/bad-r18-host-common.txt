@@ -1,0 +1,26 @@
+# host-common (batch-05, 202 facts, 25 bad)
+host-common.facts.json#113 `executeHiddenCommand` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:641
+host-common.facts.json#114 `getSessionScreen` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:733
+host-common.facts.json#115 `requireNativeTerminal` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:1748 (ref 行号越界)
+host-common.facts.json#115 `TERMINAL` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:1748 (ref 行号越界)
+host-common.facts.json#116 `ptyCommandInput` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:992
+host-common.facts.json#116 `posixCommandLine` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:992
+host-common.facts.json#122 `scheduleNativeBlockingTask` not within ±5 of hosts/common/operit-host-native-scheduler/src/lib.rs:31
+host-common.facts.json#122 `scheduleNativeServiceTask` not within ±5 of hosts/common/operit-host-native-scheduler/src/lib.rs:31
+host-common.facts.json#122 `scheduleNativeServiceTasks` not within ±5 of hosts/common/operit-host-native-scheduler/src/lib.rs:31
+host-common.facts.json#122 `NativeTaskHandle` not within ±5 of hosts/common/operit-host-native-scheduler/src/lib.rs:31
+host-common.md:26 `NativePtyTerminalHost` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:26']
+host-common.md:126 `executeHiddenCommand` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:641']
+host-common.md:127 `getSessionScreen` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:733']
+host-common.md:128 `requireNativeTerminal` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:1748']
+host-common.md:128 `TERMINAL` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:1748']
+host-common.md:129 `ptyCommandInput` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:992']
+host-common.md:129 `posixCommandLine` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:992']
+host-common.md:147 `scheduleNativeBlockingTask` not within ±5 of any ref ['hosts/common/operit-host-native-scheduler/src/lib.rs:31']
+host-common.md:147 `scheduleNativeServiceTask` not within ±5 of any ref ['hosts/common/operit-host-native-scheduler/src/lib.rs:31']
+host-common.md:147 `scheduleNativeServiceTasks` not within ±5 of any ref ['hosts/common/operit-host-native-scheduler/src/lib.rs:31']
+host-common.md:147 `NativeTaskHandle` not within ±5 of any ref ['hosts/common/operit-host-native-scheduler/src/lib.rs:31']
+host-common.md:212 `ptyCommandInput` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:992']
+host-common.md:212 `posixCommandLine` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:992']
+host-common.md:284 `NativePtyTerminalHost` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:26']
+host-common.md:289 `scheduleNativeServiceTask` not within ±5 of any ref ['hosts/common/operit-host-native-scheduler/src/lib.rs:31']

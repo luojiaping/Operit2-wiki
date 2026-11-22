@@ -1,0 +1,3 @@
+# core-plugin-sdk (batch-03, 154 facts, 2 bad)
+core-plugin-sdk.md:43 `manifest.json` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2685']
+core-plugin-sdk.md:57 `com.operit.character_cards` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2445']

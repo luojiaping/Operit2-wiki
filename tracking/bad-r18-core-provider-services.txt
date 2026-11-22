@@ -1,0 +1,11 @@
+# core-provider-services (batch-02, 203 facts, 10 bad)
+core-provider-services.md:139 `prompt_function_type` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:681', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:3820']
+core-provider-services.md:139 `processed_input` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:681', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:3820']
+core-provider-services.md:211 `ToolRuntimeContext` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3530', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:3537']
+core-provider-services.md:212 `extensionOwner` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3540', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:3548']
+core-provider-services.md:212 `executionData` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3540', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:3548']
+core-provider-services.md:213 `function_type_name` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3555']
+core-provider-services.md:214 `prompt_function_type_name` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3571']
+core-provider-services.md:215 `resolve_workspace_path_mappings` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3640']
+core-provider-services.md:215 `VisualFileSystem` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3640']
+core-provider-services.md:215 `WorkspacePathMapping` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3640']

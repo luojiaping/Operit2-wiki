@@ -421,7 +421,7 @@
   },
   {
     "fact": "共享 PTY 宿主自报平台 `posix`、终端 `native`、默认类型 `bash`",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:26"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:32"
   },
   {
     "fact": "PTY 输出上限为 16 MiB",
@@ -449,19 +449,19 @@
   },
   {
     "fact": "NativePtyTerminalHost 的 `executeHiddenCommand` 按执行器键复用隐藏会话",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:641"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:577"
   },
   {
     "fact": "NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:733"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:665"
   },
   {
     "fact": "`requireNativeTerminal` 只接受 `TERMINAL` 终端实现",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1748"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1324"
   },
   {
     "fact": "`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:992"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1106"
   },
   {
     "fact": "超时取消的安顿等待为 3000 毫秒",
@@ -485,7 +485,7 @@
   },
   {
     "fact": "`scheduleNativeBlockingTask`、`scheduleNativeServiceTask`、`scheduleNativeServiceTasks` 与 `NativeTaskHandle` 由 `task_handle` 模块导出",
-    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:31"
+    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:37"
   },
   {
     "fact": "`LocalHostRuntimeTaskSchedulerHost` 与 `DEVICE_ASYNC_STACK_BYTES`、`DEVICE_BLOCKING_STACK_BYTES` 由 `local_task_scheduler` 模块导出",

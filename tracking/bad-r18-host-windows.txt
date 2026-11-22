@@ -1,0 +1,90 @@
+# host-windows (batch-05, 225 facts, 89 bad)
+host-windows.facts.json#5 `portable-pty` not within ±5 of hosts/windows/Cargo.toml:24
+host-windows.facts.json#11 `WindowsHttpHost` not within ±5 of hosts/windows/src/lib.rs:48
+host-windows.facts.json#11 `WindowsSystemOperationHost` not within ±5 of hosts/windows/src/lib.rs:48
+host-windows.facts.json#11 `WindowsManagedRuntimeHost` not within ±5 of hosts/windows/src/lib.rs:48
+host-windows.facts.json#14 `WindowsTtsPlaybackHost` not within ±5 of hosts/windows/src/lib.rs:69
+host-windows.facts.json#34 `terminalInfo` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:188
+host-windows.facts.json#36 `bundledBashExecutable` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:922
+host-windows.facts.json#37 `normalizeTerminalType` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:1880
+host-windows.facts.json#38 `native_pty_system` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:698
+host-windows.facts.json#40 `appendPtyOutput` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:998
+host-windows.facts.json#40 `PTY_OUTPUT_LIMIT` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:998
+host-windows.facts.json#42 `findLastPtyPromptMarker` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:1251
+host-windows.facts.json#44 `ptyCommandLine` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:761
+host-windows.facts.json#44 `posixCommandLine` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:761
+host-windows.facts.json#45 `Invoke-Expression` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:769
+host-windows.facts.json#46 `windowsPtyCommand` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:956
+host-windows.facts.json#46 `PowerShellSource` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:956
+host-windows.facts.json#46 `Bundled` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:956
+host-windows.facts.json#46 `OnDemand` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:956
+host-windows.facts.json#46 `powershell_runtime::executable` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:956
+host-windows.facts.json#47 `PROMPT_COMMAND` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:800
+host-windows.facts.json#47 `OperitPrompt` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:800
+host-windows.facts.json#48 `ptyCommand` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:776
+host-windows.facts.json#48 `bundledBashExecutable` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:776
+host-windows.facts.json#50 `quietPeriod` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:1143
+host-windows.facts.json#53 `COMMAND_CANCEL_SETTLE_TIMEOUT_MS` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:1201
+host-windows.facts.json#54 `createOrGetSession` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:358
+host-windows.facts.json#55 `isNewSession` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:381
+host-windows.facts.json#56 `executeHiddenCommand` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:504
+host-windows.facts.json#56 `HiddenTerminalCommandOutput` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:504
+host-windows.facts.json#57 `executorKey` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:513
+host-windows.facts.json#58 `PRIMARY_TERMINAL_TYPE` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:511
+host-windows.facts.json#59 `listSessions` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:331
+host-windows.facts.json#60 `sessionKind` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:349
+host-windows.facts.json#62 `pollPtyExitCode` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:298
+host-windows.facts.json#63 `try_wait` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:307
+host-windows.facts.json#64 `PtySession` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:81
+host-windows.facts.json#65 `normalizeControl` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:545
+host-windows.facts.json#66 `controlToSequence` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:1791
+host-windows.facts.json#67 `normalizeControl` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:1845
+host-windows.md:41 `WindowsHttpHost` not within ±5 of any ref ['hosts/windows/src/lib.rs:48']
+host-windows.md:41 `WindowsSystemOperationHost` not within ±5 of any ref ['hosts/windows/src/lib.rs:48']
+host-windows.md:41 `WindowsManagedRuntimeHost` not within ±5 of any ref ['hosts/windows/src/lib.rs:48']
+host-windows.md:46 `WindowsTtsPlaybackHost` not within ±5 of any ref ['hosts/windows/src/lib.rs:69']
+host-windows.md:57 `normalizeTerminalType` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:1880']
+host-windows.md:58 `terminalInfo` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:188']
+host-windows.md:60 `bundledBashExecutable` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:922']
+host-windows.md:61 `native_pty_system` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:698']
+host-windows.md:62 `windowsPtyCommand` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:956']
+host-windows.md:62 `PowerShellSource` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:956']
+host-windows.md:62 `Bundled` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:956']
+host-windows.md:62 `OnDemand` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:956']
+host-windows.md:62 `powershell_runtime::executable` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:956']
+host-windows.md:63 `ptyCommand` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:776']
+host-windows.md:63 `bundledBashExecutable` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:776']
+host-windows.md:64 `PROMPT_COMMAND` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:800']
+host-windows.md:64 `OperitPrompt` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:800']
+host-windows.md:65 `ptyCommandLine` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:761']
+host-windows.md:65 `posixCommandLine` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:761']
+host-windows.md:66 `Invoke-Expression` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:769']
+host-windows.md:68 `appendPtyOutput` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:998']
+host-windows.md:68 `PTY_OUTPUT_LIMIT` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:998']
+host-windows.md:70 `findLastPtyPromptMarker` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:1251']
+host-windows.md:73 `quietPeriod` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:1143']
+host-windows.md:76 `COMMAND_CANCEL_SETTLE_TIMEOUT_MS` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:1201']
+host-windows.md:77 `createOrGetSession` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:358']
+host-windows.md:78 `isNewSession` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:381']
+host-windows.md:79 `executeHiddenCommand` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:504']
+host-windows.md:79 `HiddenTerminalCommandOutput` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:504']
+host-windows.md:80 `executorKey` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:513']
+host-windows.md:81 `PRIMARY_TERMINAL_TYPE` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:511']
+host-windows.md:82 `listSessions` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:331']
+host-windows.md:83 `sessionKind` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:349']
+host-windows.md:85 `pollPtyExitCode` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:298']
+host-windows.md:86 `try_wait` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:307']
+host-windows.md:87 `PtySession` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:81']
+host-windows.md:88 `normalizeControl` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:545']
+host-windows.md:89 `controlToSequence` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:1791']
+host-windows.md:90 `normalizeControl` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:1845']
+host-windows.md:330 `createPtySession` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:684']
+host-windows.md:331 `normalizeTerminalType` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:1880']
+host-windows.md:332 `bundledBashExecutable` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:922']
+host-windows.md:333 `findLastPtyPromptMarker` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:1251']
+host-windows.md:373 `createOrGetSession` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:358']
+host-windows.md:374 `ptyCommandLine` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:761']
+host-windows.md:374 `posixCommandLine` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:761']
+host-windows.md:375 `Invoke-Expression` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:769']
+host-windows.md:376 `findLastPtyPromptMarker` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:1251']
+host-windows.md:377 `quietPeriod` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:1143']

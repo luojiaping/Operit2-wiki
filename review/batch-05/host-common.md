@@ -29,7 +29,7 @@ hosts/tests/daemon.rs 只有 Unix daemon 传输的测试脚手架，没有独立
 - `NativeHttpHost` — 共享原生 HTTP、WebSocket 与下载实现（`hosts/common/operit-host-native-http/src/lib.rs:31`）
 - `NativeRuntimeStorageHost` — 共享运行时存储实现（`hosts/common/operit-host-native-storage/src/lib.rs:21`）
 - `NativeArchiveStagingHost` — 共享归档暂存实现（`hosts/common/operit-host-native-storage/src/lib.rs:372`）
-- `NativePtyTerminalHost` — 共享 POSIX PTY 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:26`）
+- `NativePtyTerminalHost` — 共享 POSIX PTY 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:32`）
 - `NativeHostRuntimeTaskSchedulerHost` — 共享原生任务调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）
 - `MemoryPluginSdkIpcHost` — 共享插件 SDK 内存 IPC 实现（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:9`）
 - `NativeRescueSession` — 离线数据救援维护会话（`hosts/common/operit-host-data-rescue/src/lib.rs:70`）
@@ -122,17 +122,17 @@ SQLite 事务用 `Immediate` 行为先占写锁再读（`hosts/common/operit-hos
 
 ### 终端与托管运行时
 
-共享 PTY 宿主自报平台 `posix`、终端 `native`、默认类型 `bash`（`hosts/common/operit-host-native-terminal/src/lib.rs:26`）。
+共享 PTY 宿主自报平台 `posix`、终端 `native`、默认类型 `bash`（`hosts/common/operit-host-native-terminal/src/lib.rs:32`）。
 PTY 输出上限为 16 MiB（`hosts/common/operit-host-native-terminal/src/lib.rs:22`）。
 NativePtyTerminalHost 的 `systemShell` 启动系统 `/bin/sh` 终端（`hosts/common/operit-host-native-terminal/src/lib.rs:274`）。
 NativePtyTerminalHost 的 `customShell` 用 `NativePtyShellCommand` 配置启动一个显式 POSIX shell（`hosts/common/operit-host-native-terminal/src/lib.rs:282`）。
 NativePtyTerminalHost 的 `loginShell` 创建带登录启动参数的原生 shell（`hosts/common/operit-host-native-terminal/src/lib.rs:302`）。
 NativePtyTerminalHost 的 `withControllingTty` 选择 PTY 是否成为子进程的控制终端（`hosts/common/operit-host-native-terminal/src/lib.rs:296`）。
 NativePtyTerminalHost 的 `probe` 以 1 行 1 列启动并关闭会话验证能力（`hosts/common/operit-host-native-terminal/src/lib.rs:323`）。
-NativePtyTerminalHost 的 `executeHiddenCommand` 按执行器键复用隐藏会话（`hosts/common/operit-host-native-terminal/src/lib.rs:641`）。
-NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数（`hosts/common/operit-host-native-terminal/src/lib.rs:733`）。
-`requireNativeTerminal` 只接受 `TERMINAL` 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:1748`）。
-`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:992`）。
+NativePtyTerminalHost 的 `executeHiddenCommand` 按执行器键复用隐藏会话（`hosts/common/operit-host-native-terminal/src/lib.rs:577`）。
+NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数（`hosts/common/operit-host-native-terminal/src/lib.rs:665`）。
+`requireNativeTerminal` 只接受 `TERMINAL` 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:1324`）。
+`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:1106`）。
 超时取消的安顿等待为 3000 毫秒（`hosts/common/operit-host-native-terminal/src/lib.rs:25`）。
 `TerminalManagedRuntimeLaunch` 描述经指定终端启动的托管运行时程序（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:17`）。
 `TerminalManagedRuntimeProcess` 把终端 PTY 会话适配为 `ManagedRuntimeProcess`（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:29`）。
@@ -150,7 +150,7 @@ scheduler crate 默认启用 `javascript` feature（`hosts/common/operit-host-na
 `NativeHostJavaScriptRuntimeHost` 由 `javascript` feature 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:15`）。
 `NativeHostRuntimeEventSchedulerHost` 不经 `javascript` 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:16`）。
 `NativeHostRuntimeTaskSchedulerHost` 不经 `javascript` 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）。
-`scheduleNativeBlockingTask`、`scheduleNativeServiceTask`、`scheduleNativeServiceTasks` 与 `NativeTaskHandle` 由 `task_handle` 模块导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:31`）。
+`scheduleNativeBlockingTask`、`scheduleNativeServiceTask`、`scheduleNativeServiceTasks` 与 `NativeTaskHandle` 由 `task_handle` 模块导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:37`）。
 `LocalHostRuntimeTaskSchedulerHost` 与 `DEVICE_ASYNC_STACK_BYTES`、`DEVICE_BLOCKING_STACK_BYTES` 由 `local_task_scheduler` 模块导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:26`）。
 `withStackBudget` 由 `esp32-compat` feature 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:22`）。
 `PLUGIN_SDK_IPC_MAX_FRAME_BYTES` 与帧读写函数由 `framing` 模块导出（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:8`）。
@@ -215,7 +215,7 @@ Windows 终端工具以 #[path] 把 `../../../../common/terminal_command.rs` 编
 terminal crate 以 #[path] 把 `../../terminal_command.rs` 编为 `terminal_command` 模块（`hosts/common/operit-host-native-terminal/src/lib.rs:1`）。
 `posixCommandLine` 只在命令含控制字符或 `!` 时才编码（`hosts/common/terminal_command.rs:7`）。
 编码后的命令以 `eval` 加 `printf '%b'` 的形式提交（`hosts/common/terminal_command.rs:29`）。
-`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:992`）。
+`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记（`hosts/common/operit-host-native-terminal/src/lib.rs:1106`）。
 
 ### Chromium 浏览器自动化
 
@@ -287,12 +287,12 @@ operit-host-data-rescue 的 crate 文档称其为 `Native Host boundary for offl
 - `NativeRuntimeStorageHost` — 共享运行时存储实现（`hosts/common/operit-host-native-storage/src/lib.rs:21`）
 - `NativeArchiveStagingHost` — 共享归档暂存实现（`hosts/common/operit-host-native-storage/src/lib.rs:372`）
 - `NativeFileSecretStore` — 共享文件密钥库实现（`hosts/common/operit-host-native-storage/src/lib.rs:2`）
-- `NativePtyTerminalHost` — 共享 POSIX PTY 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:26`）
+- `NativePtyTerminalHost` — 共享 POSIX PTY 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:32`）
 - `NativePtyShellCommand` — 显式 POSIX shell 配置（`hosts/common/operit-host-native-terminal/src/lib.rs:52`）
 - `NativeHostJavaScriptRuntimeHost` — 共享 JS 运行时实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:15`）
 - `NativeHostRuntimeEventSchedulerHost` — 共享运行时事件调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:16`）
 - `NativeHostRuntimeTaskSchedulerHost` — 共享运行时任务调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）
-- `scheduleNativeServiceTask` — 调度原生服务任务（`hosts/common/operit-host-native-scheduler/src/lib.rs:31`）
+- `scheduleNativeServiceTask` — 调度原生服务任务（`hosts/common/operit-host-native-scheduler/src/lib.rs:37`）
 - `MemoryPluginSdkIpcHost` — 共享插件 SDK 内存 IPC 实现（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:9`）
 - `pluginSdkIpcInstanceName` — 插件 SDK IPC 实例名构造（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:13`）
 - `StorageLease` — 数据救援存储租约（`hosts/common/operit-host-data-rescue/src/lib.rs:28`）

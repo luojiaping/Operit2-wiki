@@ -1,0 +1,52 @@
+# host-web (batch-05, 166 facts, 51 bad)
+host-web.facts.json#91 `linux-vm-terminal-{value}` not within ±5 of hosts/web/src/tools/terminal/mod.rs:434
+host-web.facts.json#97 `executeHiddenCommand` not within ±5 of hosts/web/src/tools/terminal/mod.rs:344
+host-web.facts.json#98 `getSessionScreen` not within ±5 of hosts/web/src/tools/terminal/mod.rs:381
+host-web.facts.json#126 `structuredResult` not within ±5 of hosts/web/src/javascript_runtime.rs:338
+host-web.facts.json#129 `i64` not within ±5 of hosts/web/src/javascript_runtime.rs:402
+host-web.facts.json#129 `u64` not within ±5 of hosts/web/src/javascript_runtime.rs:402
+host-web.facts.json#138 `createHostJavaScriptRuntime` not within ±5 of hosts/web/src/javascript_runtime.rs:457
+host-web.facts.json#138 `__operitCreateJavaScriptRuntime` not within ±5 of hosts/web/src/javascript_runtime.rs:457
+host-web.facts.json#139 `initialize` not within ±5 of hosts/web/src/javascript_runtime.rs:469
+host-web.facts.json#139 `javascript_promises.js` not within ±5 of hosts/web/src/javascript_runtime.rs:469
+host-web.facts.json#140 `WebHostJavaScriptRuntime` not within ±5 of hosts/web/src/javascript_runtime.rs:206
+host-web.facts.json#140 `dispose` not within ±5 of hosts/web/src/javascript_runtime.rs:206
+host-web.facts.json#141 `registerHostJavaScriptFunction` not within ±5 of hosts/web/src/javascript_runtime.rs:316
+host-web.facts.json#141 `syncBinding` not within ±5 of hosts/web/src/javascript_runtime.rs:316
+host-web.facts.json#142 `registerHostJavaScriptAsyncJsonFunction` not within ±5 of hosts/web/src/javascript_runtime.rs:285
+host-web.facts.json#142 `binding` not within ±5 of hosts/web/src/javascript_runtime.rs:285
+host-web.facts.json#143 `settleHostJavaScriptPromise` not within ±5 of hosts/web/src/javascript_runtime.rs:299
+host-web.facts.json#143 `settle` not within ±5 of hosts/web/src/javascript_runtime.rs:299
+host-web.facts.json#144 `executePendingHostJavaScriptJobs` not within ±5 of hosts/web/src/javascript_runtime.rs:261
+host-web.facts.json#144 `jobs` not within ±5 of hosts/web/src/javascript_runtime.rs:261
+host-web.facts.json#145 `as_string` not within ±5 of hosts/web/src/javascript_runtime.rs:254
+host-web.facts.json#146 `createHostJavaScriptRuntimeState` not within ±5 of hosts/web/src/javascript_runtime.rs:477
+host-web.facts.json#147 `destroyHostJavaScriptRuntimeState` not within ±5 of hosts/web/src/javascript_runtime.rs:606
+host-web.md:32 `WebHostJavaScriptRuntimeHost` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:451']
+host-web.md:32 `HostJavaScriptRuntimeHost` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:451']
+host-web.md:102 `structuredResult` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:338']
+host-web.md:105 `i64` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:402']
+host-web.md:105 `u64` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:402']
+host-web.md:118 `createHostJavaScriptRuntime` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:457']
+host-web.md:118 `__operitCreateJavaScriptRuntime` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:457']
+host-web.md:119 `initialize` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:469']
+host-web.md:119 `javascript_promises.js` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:469']
+host-web.md:120 `WebHostJavaScriptRuntime` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:206']
+host-web.md:120 `dispose` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:206']
+host-web.md:121 `registerHostJavaScriptFunction` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:316']
+host-web.md:121 `syncBinding` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:316']
+host-web.md:122 `registerHostJavaScriptAsyncJsonFunction` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:285']
+host-web.md:122 `binding` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:285']
+host-web.md:123 `settleHostJavaScriptPromise` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:299']
+host-web.md:123 `settle` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:299']
+host-web.md:124 `executePendingHostJavaScriptJobs` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:261']
+host-web.md:124 `jobs` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:261']
+host-web.md:125 `as_string` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:254']
+host-web.md:126 `createHostJavaScriptRuntimeState` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:477']
+host-web.md:127 `destroyHostJavaScriptRuntimeState` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:606']
+host-web.md:183 `linux-vm-terminal-{value}` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:434']
+host-web.md:189 `executeHiddenCommand` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:344']
+host-web.md:230 `WebHostJavaScriptRuntimeHost` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:451']
+host-web.md:230 `HostJavaScriptRuntimeHost` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:451']
+host-web.md:231 `WebHostJavaScriptRuntime` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:206']
+host-web.md:231 `dispose` not within ±5 of any ref ['hosts/web/src/javascript_runtime.rs:206']

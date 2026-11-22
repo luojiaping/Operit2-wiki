@@ -309,7 +309,7 @@
   },
   {
     "fact": "executeHiddenCommand 使用 primary 解释器执行隐藏命令",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:347"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:364"
   },
   {
     "fact": "AppleWebVisitHost 的 visitWeb 通过临时 Chromium 会话访问网页",

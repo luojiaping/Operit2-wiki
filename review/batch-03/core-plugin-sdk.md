@@ -46,8 +46,8 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 - 省略 `api_version` 的清单按 1.0.0 解析（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:667`；缺省值函数见 `core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs:65`）。
 - enabled_by_default 省略时默认 true（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2789`）。
 - `ToolPkgSourceType` 只有 `ASSET`、`MARKET`、`EXTERNAL` 三种，默认 `ASSET`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:19`）。
-- `findManifestEntry` 先找根目录的 `manifest.hjson`，找不到再找 `manifest.json`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2685`）。
-- 根目录没有清单时，findManifestEntry 再按子目录 `manifest.hjson`、子目录 manifest.json 的顺序找（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2696`）。
+- `findManifestEntry` 先找根目录的 `manifest.hjson`，找不到再找 `manifest.json`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2687`）。
+- 根目录没有清单时，findManifestEntry 再按子目录 `manifest.hjson`、子目录 manifest.json 的顺序找（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2698`）。
 - `readToolPkgManifest` 只读归档清单并校验 toolpkg_id 非空，不触碰可执行条目（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:824`）。
 - `readToolPkgCatalog` 只读清单、子包元数据与资源路径，产出 `ToolPkgLoadResult`，不评估脚本（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:840`）。
 
@@ -60,7 +60,7 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 - 声明了子包但一个都未成功加载时解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1174`）。
 - wasm 模块的 `abi` 只接受 `scalar` 与 `memory`，其他值解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1253`）。
 - 一个 ToolPkg 最多注册一个 chat lifecycle hook，超过一个解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1592`）。
-- v1 契约自动补两条兼容依赖：`com.operit.workflow` 最低 0.2.0、`com.operit.character_cards` 最低 0.1.0（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2445`）。
+- v1 契约自动补两条兼容依赖：`com.operit.workflow` 最低 0.2.0、`com.operit.character_cards` 最低 0.1.0（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2450`）。
 - 兼容提供方自身不得使用 v1 契约，否则解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2465`）。
 - validateProtectedEntryPolicy 的函数体直接返回 `Ok`，未执行保护策略校验（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2013`）。
 
@@ -148,7 +148,7 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 
 - `ToolPkgUiModuleRuntime` 含 `id`、`runtime`、`screen`、`screenExport`、`title` 与 `keepAlive`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:57`）。
 - 注册的 UI 路由未声明 `runtime` 时，解析器以 `TOOLPKG_RUNTIME_COMPOSE_DSL` 补默认值（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1402`）。
-- 工具箱 UI 模块与导航条目的路由 id 由 `buildToolPkgRouteId` 按容器包名与模块 id 生成（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1363`）。
+- 工具箱 UI 模块与导航条目的路由 id 由 `buildToolPkgRouteId` 按容器包名与模块 id 生成（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1365`）。
 - 嵌入式 UI surface 的导航路由 id 必须以 toolpkg:{容器包名}:ui: 开头（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1518`）。
 - 嵌入式 UI surface 的导航路由必须使用 `TOOLPKG_RUNTIME_COMPOSE_DSL` 运行时（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1528`）。
 - 聊天输入框插槽只接受 `TOOLPKG_CHAT_COMPOSER_SLOT_ABOVE_INPUT` 一个 slot 值（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1473`）。
