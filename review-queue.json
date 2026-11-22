@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-22 17:22 UTC",
+  "updated": "2026-11-22 17:28 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -484,7 +484,7 @@
       "facts_count": 160,
       "refs_valid": "",
       "critic": "",
-      "summary": "插件——JS 桥：JsEngine 实现 JsExecutionEngine，HostJsExecutionProvider 实现 JsExecutionProvider，JS 经 35 个同步与 12 个异步宿主绑定调宿主操作。",
+      "summary": "插件——JS 桥：JsEngine 实现 JsExecutionEngine，HostJsExecutionProvider 实现 JsExecutionProvider，JS 经 37 个同步与 11 个异步宿主绑定、9 个 Core 路由调宿主操作。",
       "updated": "2026-11-23"
     },
     {
