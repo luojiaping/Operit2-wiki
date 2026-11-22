@@ -1,0 +1,258 @@
+{
+ "A": [],
+ "B": [
+  {
+   "page": "core-runtime-services",
+   "idx": 217,
+   "ref": "core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:740",
+   "text": "isChatProcessing 判断指定聊天是否正在处理",
+   "terms": [
+    "isChatProcessing"
+   ],
+   "window": "\n    fn chatAgentStatus(&self, chatId: &str) -> Result<operit_plugin_sdk::js_sdk::results::AgentStatusResultData, String> {\n        self.chatProcessingState.get()\n            .ok_or_else(|| \"Tool runtime chat processing state is not bound\".to_string())?\n            .agentStatus(chatId)\n    }\n",
+   "mapped": null,
+   "in_change": true
+  }
+ ],
+ "C": [
+  {
+   "page": "core-provider-services",
+   "idx": 86,
+   "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:286",
+   "text": "ChatGuidanceInbox 的 enqueue 拒绝空消息与已关闭的回合。",
+   "terms": [
+    "ChatGuidanceInbox",
+    "enqueue"
+   ],
+   "window": "        let message = message.trim().to_string();\n        if message.is_empty() {\n            return Err(\"Guidance message cannot be empty\".to_string());\n        }\n        let mut state = self.state.lock().expect(\"chat guidance inbox mutex poisoned\");\n        if !state.accepting {\n            return",
+   "mapped": 288,
+   "in_change": false
+  },
+  {
+   "page": "core-provider-services",
+   "idx": 87,
+   "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:315",
+   "text": "drainOrClose 在无待处理指导时关闭收件箱，之后 enqueue 全部拒绝；有待处理指导时返回全部条目且保持开放。",
+   "terms": [
+    "drainOrClose",
+    "enqueue"
+   ],
+   "window": "        if state.pending.is_empty() {\n            state.accepting = false;\n            return Vec::new();\n        }\n        state.pending.drain(..).collect()\n    }\n",
+   "mapped": 317,
+   "in_change": false
+  },
+  {
+   "page": "core-provider-services",
+   "idx": 108,
+   "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1086",
+   "text": "prepareConversationHistory 完成后把附件路径改写为相对路径。",
+   "terms": [
+    "prepareConversationHistory"
+   ],
+   "window": "                runtime.useEnglish,\n            )).await.map_err(AiServiceError::RequestFailed)?;\n        if let Some(base) = fileDirectory {\n            ConversationService::use_relative_attachment_paths(&mut history, &base);\n        }\n        Ok(history)\n    }",
+   "mapped": 1088,
+   "in_change": false
+  },
+  {
+   "page": "core-provider-services",
+   "idx": 114,
+   "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1259",
+   "text": "Full 暴露模式下工具列表取系统工具分类中已在 tool_handler 注册的工具，再追加 package_proxy 代理工具。",
+   "terms": [
+    "Full",
+    "package_proxy",
+    "tool_handler"
+   ],
+   "window": "            .into_iter()\n            .flat_map(|category| category.tools)\n            .filter(|tool| registered_tool_names.contains(&tool.name))\n            .map(systemToolPromptToModelToolPrompt)\n            .collect::<Vec<_>>();\n        available_tools.push(buildPackageProxyToolPrompt());\n        ",
+   "mapped": 1261,
+   "in_change": false
+  },
+  {
+   "page": "core-provider-services",
+   "idx": 115,
+   "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1313",
+   "text": "estimateRequestWindowFromMemory 先用 prepareConversationHistory 准备历史，再用 getAvailableToolsForFunction 取工具。",
+   "terms": [
+    "estimateRequestWindowFromMemory",
+    "getAvailableToolsForFunction",
+    "prepareConversationHistory"
+   ],
+   "window": "                promptFunctionType.clone(),\n                None,\n                participantId.clone(),\n                proxySenderName,\n                false,\n                FunctionType::CHAT,\n                chatProviderIdOverride.clone(),",
+   "mapped": 1315,
+   "in_change": false
+  },
+  {
+   "page": "core-provider-services",
+   "idx": 149,
+   "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2825",
+   "text": "纯思考回复且 disableWarning 为真时，completeResponseRound 直接定稿。",
+   "terms": [
+    "completeResponseRound",
+    "disableWarning"
+   ],
+   "window": "                        context.executionId, context.roundManager.roundIndex\n                    ),\n                );\n                self.finalizeAssistantResponse(&displayContent);\n                return ResponseRoundAction::Complete;\n            }\n            let pureThinkingWarning =",
+   "mapped": 2830,
+   "in_change": false
+  },
+  {
+   "page": "core-provider-services",
+   "idx": 150,
+   "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2829",
+   "text": "纯思考回复且 disableWarning 为假时，completeResponseRound 发出纯思考警告并继续一轮。",
+   "terms": [
+    "completeResponseRound",
+    "disableWarning"
+   ],
+   "window": "                return ResponseRoundAction::Complete;\n            }\n            let pureThinkingWarning =\n                ConversationMarkupManager::createWarningStatus(ENHANCED_PURE_THINKING_ONLY_WARNING);\n            context\n                .roundManager\n                .appendContent(&format!(\"\\n",
+   "mapped": 2834,
+   "in_change": false
+  },
+  {
+   "page": "core-provider-services",
+   "idx": 152,
+   "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2918",
+   "text": "无工具调用时，completeResponseRound 定稿助手回复并结束。",
+   "terms": [
+    "completeResponseRound"
+   ],
+   "window": "            ),\n            operit_util::AppLogger::VERBOSE_LEVEL_2,\n        );\n        self.finalizeAssistantResponse(&context.roundManager.getDisplayContent());\n        ResponseRoundAction::Complete\n    }\n",
+   "mapped": 2923,
+   "in_change": false
+  },
+  {
+   "page": "core-provider-services",
+   "idx": 160,
+   "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3213",
+   "text": "setCurrentTurnTokenCounts 把负数 token 计数钳制为 0。",
+   "terms": [
+    "setCurrentTurnTokenCounts",
+    "token"
+   ],
+   "window": "        cachedInputTokens: i64,\n    ) {\n        self.turnTokenUsage().setSnapshot(TurnTokenSnapshot {\n            inputTokens: inputTokens.max(0),\n            outputTokens: outputTokens.max(0),\n            cachedInputTokens: cachedInputTokens.max(0),\n        });",
+   "mapped": 3218,
+   "in_change": false
+  },
+  {
+   "page": "core-tool-execution",
+   "idx": 45,
+   "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:1098",
+   "text": "AI 策略下 resolveTarget 失败路径仍通知请求与结果 hook。",
+   "terms": [
+    "hook",
+    "resolveTarget"
+   ],
+   "window": "                if matches!(policy, ToolExecutionPolicy::Ai { .. }) {\n                    let _lifecycle = ToolInvocationLifecycle {\n                        context: context.clone(),\n                        tool: tool.clone(),\n                    };\n                    self.notifyToolCallRequested(&",
+   "mapped": 1098,
+   "in_change": false
+  },
+  {
+   "page": "core-tool-execution",
+   "idx": 76,
+   "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:528",
+   "text": "registerBuiltinTool 重复注册同名内置工具时断言失败。",
+   "terms": [
+    "registerBuiltinTool"
+   ],
+   "window": "        let toolName = name.as_str().to_string();\n        let mut guard = self.inner.lock().expect(\"AIToolHandler mutex poisoned\");\n        assert!(\n            !guard.toolExecutors.contains_key(&toolName),\n            \"Built-in tool is registered more than once: {toolName}\"\n        );\n        guard",
+   "mapped": 528,
+   "in_change": false
+  },
+  {
+   "page": "core-tool-execution",
+   "idx": 94,
+   "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:226",
+   "text": "unregisterMcpServerTools 按 服务器名: 前缀批量删除该 MCP 服务器的工具。",
+   "terms": [
+    "unregisterMcpServerTools"
+   ],
+   "window": "            .toolExecutors\n            .keys()\n            .filter(|toolName| {\n                matches!(toolName.split_once(':'), Some((name, _)) if name == serverName)\n            })\n            .cloned()\n            .collect::<Vec<_>>();",
+   "mapped": 226,
+   "in_change": false
+  },
+  {
+   "page": "core-tool-execution",
+   "idx": 111,
+   "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:806",
+   "text": "executeAccessPreflightAsync 读取当前权限模式失败时，返回失败结果而不是抛错。",
+   "terms": [
+    "executeAccessPreflightAsync"
+   ],
+   "window": "            .and_then(|context| context.callerChatId);\n        let mode = permissionSystem\n            .getAiPermissionMode()\n            .map_err(|error| ToolResult {\n                toolName: tool.name.clone(),\n                success: false,\n                result: stringResultData(\"\"),",
+   "mapped": 806,
+   "in_change": false
+  },
+  {
+   "page": "core-tool-execution",
+   "idx": 115,
+   "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3531",
+   "text": "包调用上下文绑定不再按包名判定是否为包工具；JS 执行时直接取回合上下文绑定 __operit_package_* 参数。",
+   "terms": [
+    "__operit_package_"
+   ],
+   "window": "\n/// Binds neutral native identity for all SDK versions; only the v1 adapter interprets card IDs.\n#[allow(non_snake_case)]\nfn bindCallerContext(params: &mut BTreeMap<String, Value>, host: Option<&dyn JsExecutionHost>) {\n    let Some(context) = host.and_then(JsExecutionHost::toolpkg_caller_context) e",
+   "mapped": 3546,
+   "in_change": false
+  },
+  {
+   "page": "core-runtime-services",
+   "idx": 5,
+   "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:507",
+   "text": "initializeChatConfiguration 首次调用恢复持久化历史并缓存结果，重复调用直接返回缓存结果",
+   "terms": [
+    "initializeChatConfiguration"
+   ],
+   "window": "\n    /// Initializes shared history synchronously before capturing an independent operation.\n    fn initializeChatHistory(&mut self) -> Result<(), String> {\n        if let Some(result) = &self.chatConfigurationInitialization {\n            return result.clone();\n        }\n        let result = self.ch",
+   "mapped": 507,
+   "in_change": false
+  },
+  {
+   "page": "core-runtime-services",
+   "idx": 84,
+   "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2550",
+   "text": "attachUploadedFile 仅当已上传附件已导入当前聊天文件目录且 VFS 定位与存储文件一致时才登记",
+   "terms": [
+    "attachUploadedFile"
+   ],
+   "window": "        if !self\n            .attachments\n            .iter()\n            .any(|item| item.filePath == attachment.filePath)\n        {\n            let message = format!(\"已添加附件: {}\", attachment.fileName);\n            self.attachments.push(attachment);",
+   "mapped": 2550,
+   "in_change": false
+  },
+  {
+   "page": "core-runtime-services",
+   "idx": 95,
+   "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2729",
+   "text": "chatMessagesWindowFlow 向前翻页时一次加载 14 条消息",
+   "terms": [
+    "chatMessagesWindowFlow"
+   ],
+   "window": "        let manager = self.chatHistoryDelegate.chatHistoryManager.clone();\n        self.localChatMessagesFlow(chatId.clone()).map(move |live| {\n            let messages = if let Some(timestamp) = beforeTimestamp {\n                let mut page = match manager.loadChatMessagesDescUpTo(chatId.clone(), ",
+   "mapped": 2729,
+   "in_change": false
+  },
+  {
+   "page": "core-runtime-services",
+   "idx": 98,
+   "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2827",
+   "text": "routeProbeChatMessagesFlow 构建带嵌入响应流的路由诊断聊天消息流",
+   "terms": [
+    "routeProbeChatMessagesFlow"
+   ],
+   "window": "                                requestId: Some(request.requestId.clone()),\n                                target: request.target.clone(),\n                                propertyName: request.propertyName.clone(),\n                                kind: CoreEventKind::Changed,\n                      ",
+   "mapped": 2827,
+   "in_change": false
+  },
+  {
+   "page": "core-runtime-services",
+   "idx": 111,
+   "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3139",
+   "text": "localChatStateFlow 返回本地 Core 上指定聊天的运行时状态流",
+   "terms": [
+    "Core",
+    "localChatStateFlow"
+   ],
+   "window": "                    chat.map(|chat| chat.title.clone()).unwrap_or_default(),\n                    chat.and_then(|chat| chat.workspacePrimaryPath.clone()),\n                    directory,\n                )\n            }\n        });\n        let pendingQueueStateFlow = self.pendingQueueStateFlow().asStat",
+   "mapped": 3139,
+   "in_change": false
+  }
+ ]
+}

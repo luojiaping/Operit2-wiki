@@ -168,7 +168,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - 请求的运行时与上下文键推断的运行时不一致时报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:323）
 - `main` 目标的上下文键必须等于 `toolpkg_main:` 后跟目标名（core/crates/tool/services/src/tools/ToolJsRuntime.rs:330）
 - 依赖调用要求被调用的提供方目标为 `main` 运行时，且提供方包不同于调用方包（core/crates/tool/services/src/tools/ToolJsRuntime.rs:347）
-- 依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 `main`（core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2223）
+- 依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 `main`（core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2230）
 - IPC 目标的 ToolPkg 容器不存在时报错 `ToolPkg container not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:342）
 - IPC 目标包被禁用时报错 `ToolPkg package is disabled`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:349）
 - 非 `main` 目标取不到已激活的执行引擎时报错 `ToolPkg runtime is not active`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:328）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:387）

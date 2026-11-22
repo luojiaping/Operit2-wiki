@@ -1,0 +1,23 @@
+agent-hooks.facts.json#36 `scheduleToolPkgNotification` not within ±5 of core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:58
+agent-hooks.facts.json#39 `TOOLPKG_EVENT_CHAT_RUNTIME` not within ±5 of core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:102
+agent-hooks.facts.json#42 `slot` not within ±5 of core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:157
+agent-hooks.facts.json#43 `toolName` not within ±5 of core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:163
+agent-hooks.facts.json#43 `progress` not within ±5 of core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:163
+agent-hooks.facts.json#43 `isActive` not within ±5 of core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:163
+agent-hooks.facts.json#43 `timestamp` not within ±5 of core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:163
+agent-hooks.facts.json#46 `stateToolName` not within ±5 of core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:209
+agent-hooks.facts.json#47 `stateProgress` not within ±5 of core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:218
+agent-hooks.facts.json#48 `stateIsActive` not within ±5 of core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:229
+agent-hooks.facts.json#53 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1177
+agent-hooks.facts.json#94 `systemPrompt` not within ±5 of core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1049
+agent-hooks.md:75 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1177']
+agent-hooks.md:77 `scheduleToolPkgNotification` not within ±5 of any ref ['core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:58']
+agent-hooks.md:80 `TOOLPKG_EVENT_CHAT_RUNTIME` not within ±5 of any ref ['core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:102']
+agent-hooks.md:86 `stateName` not within ±5 of any ref ['core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:174']
+agent-hooks.md:86 `InputProcessingState` not within ±5 of any ref ['core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:174']
+agent-hooks.md:88 `stateToolName` not within ±5 of any ref ['core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:209']
+agent-hooks.md:89 `stateProgress` not within ±5 of any ref ['core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:218']
+agent-hooks.md:90 `stateIsActive` not within ±5 of any ref ['core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:229']
+agent-hooks.md:161 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1177']
+agent-hooks.md:163 `scheduleToolPkgNotification` not within ±5 of any ref ['core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:58']
+agent-hooks.md:166 `TOOLPKG_EVENT_CHAT_RUNTIME` not within ±5 of any ref ['core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:102']

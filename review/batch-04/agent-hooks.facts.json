@@ -140,56 +140,56 @@
     "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:39"
   },
   {
-    "fact": "`dispatchStateChanged` 接收 `chatId`、新状态、`activeChatIds` 与三组计数，通知经 `scheduleToolPkgNotification` 异步发出。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:58"
+    "fact": "dispatchStateChanged 接收 `chatId`、新状态、`activeChatIds` 与三组计数、当前轮次与任务标题，通知经 `scheduleToolPkgNotification` 异步发出。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:60"
   },
   {
     "fact": "异步任务先取已注册的运行时，未注册时直接返回。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:69"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:71"
   },
   {
     "fact": "异步任务克隆当前注册列表，注册为空时直接返回，不执行任何 hook。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:74"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:76"
   },
   {
     "fact": "每个 hook 经 `runToolPkgMainHook` 执行，事件为 `TOOLPKG_EVENT_CHAT_RUNTIME`，事件名是 `CHAT_RUNTIME_EVENT_STATE_CHANGED`。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:102"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:109"
   },
   {
     "fact": "单个 hook 成功记 plugin.toolpkg.chat_runtime.run.done 日志。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:118"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:122"
   },
   {
     "fact": "单个 hook 执行失败记 plugin.toolpkg.chat_runtime.run.error 日志，循环继续执行下一个 hook。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:128"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:132"
   },
   {
     "fact": "载荷含 `chatId`，`slot` 固定为 main，`activeChatIds` 先排序。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:157"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:166"
   },
   {
-    "fact": "载荷含 `state`、`message`、`toolName`、`progress`、`isActive`、`activeChatIds` 与三组计数，`timestamp` 取当前毫秒时间。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:163"
+    "fact": "载荷含 `state`、`message`、`toolName`、`progress`、`isActive`、`activeChatIds` 与三组计数、`taskTitle` 与 `currentRound`，时间戳取当前毫秒时间。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:169"
   },
   {
     "fact": "11 种 `InputProcessingState` 映射为线名，如 idle、processing、executing_tool、summarizing、completed、error。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:181"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:182"
   },
   {
     "fact": "`stateMessage` 只对带 message 字段的状态返回展示文本，其余返回 None。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:197"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:200"
   },
   {
     "fact": "`stateToolName` 只对 ExecutingTool、ToolProgress、ProcessingToolResult 三种状态返回工具名。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:209"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:215"
   },
   {
     "fact": "`stateProgress` 只对 ToolProgress 返回进度值。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:218"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:226"
   },
   {
     "fact": "`stateIsActive` 在 Idle、Completed、Error 时为 false，其余状态为 true。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:229"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:235"
   },
   {
     "fact": "用 `INSTALLED` 原子标志保证各桥只注册一次。",
@@ -205,11 +205,11 @@
   },
   {
     "fact": "消息处理委托的 `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥。",
-    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1146"
+    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1150"
   },
   {
     "fact": "聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`。",
-    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1177"
+    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1183"
   },
   {
     "fact": "`TOOLPKG_EVENT_CHAT_RUNTIME` 的值是 toolpkg_chat_runtime。",
@@ -373,10 +373,10 @@
   },
   {
     "fact": "`ToolPkgSummaryHookObjectResult` 是 JS 侧的摘要 hook 对象结果，含 `chatHistory`、`preparedHistory` 与 `systemPrompt`。",
-    "ref": "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1049"
+    "ref": "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1052"
   },
   {
     "fact": "JS 侧摘要 hook 对象结果还含 `summaryPrompt` 与 `summaryResult`。",
-    "ref": "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1055"
+    "ref": "core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1058"
   }
 ]

@@ -1,0 +1,7 @@
+core-provider-services.md:126 `RequestCancelled` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:127', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:134']
+core-provider-services.md:129 `onTokenLimitExceeded` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:184', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:343', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:368']
+core-provider-services.md:143 `ConversationService` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:843']
+core-provider-services.md:171 `sendMessage` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:1550']
+core-provider-services.md:215 `VisualFileSystem` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3650']
+core-provider-services.md:215 `WorkspacePathMapping` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3650']
+core-provider-services.md:293 `sendMessage` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:1550']

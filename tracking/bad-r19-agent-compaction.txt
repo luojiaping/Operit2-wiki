@@ -1,0 +1,3 @@
+agent-compaction.facts.json#38 `chat.token_limit` not within ±5 of core/crates/provider/services/src/chat/EnhancedAIService.rs:2470
+agent-compaction.md:77 `chat.token_limit` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:2470']
+agent-compaction.md:193 `chat.token_limit` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:2470']

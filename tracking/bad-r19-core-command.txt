@@ -1,0 +1,80 @@
+core-command.facts.json#61 `provider-type-list` not within ±5 of core/crates/command/core/src/commands/model.rs:130
+core-command.facts.json#61 `ModelCatalog::providers()` not within ±5 of core/crates/command/core/src/commands/model.rs:130
+core-command.facts.json#61 `providerTypeId` not within ±5 of core/crates/command/core/src/commands/model.rs:130
+core-command.facts.json#62 `provider-list` not within ±5 of core/crates/command/core/src/commands/model.rs:147
+core-command.facts.json#62 `getProviderProfiles` not within ±5 of core/crates/command/core/src/commands/model.rs:147
+core-command.facts.json#63 `getProviderProfile` not within ±5 of core/crates/command/core/src/commands/model.rs:173
+core-command.facts.json#64 `createProvider` not within ±5 of core/crates/command/core/src/commands/model.rs:199
+core-command.facts.json#65 `updateProviderProfile` not within ±5 of core/crates/command/core/src/commands/model.rs:226
+core-command.facts.json#68 `isFetched` not within ±5 of core/crates/command/core/src/commands/model.rs:284
+core-command.facts.json#69 `provider-model-create` not within ±5 of core/crates/command/core/src/commands/model.rs:325
+core-command.facts.json#70 `createProviderModel` not within ±5 of core/crates/command/core/src/commands/model.rs:355
+core-command.facts.json#71 `getModelCatalogStatus` not within ±5 of core/crates/command/core/src/commands/model.rs:370
+core-command.facts.json#71 `refreshModelCatalog` not within ±5 of core/crates/command/core/src/commands/model.rs:370
+core-command.facts.json#71 `models.dev` not within ±5 of core/crates/command/core/src/commands/model.rs:370
+core-command.facts.json#72 `list` not within ±5 of core/crates/command/core/src/commands/model.rs:386
+core-command.facts.json#72 `getAllModelSummaries` not within ±5 of core/crates/command/core/src/commands/model.rs:386
+core-command.facts.json#72 `providerName` not within ±5 of core/crates/command/core/src/commands/model.rs:386
+core-command.facts.json#72 `modelId` not within ±5 of core/crates/command/core/src/commands/model.rs:386
+core-command.facts.json#73 `DEFAULT_PROVIDER_ID` not within ±5 of core/crates/command/core/src/commands/model.rs:411
+core-command.facts.json#73 `DEFAULT_MODEL_ID` not within ±5 of core/crates/command/core/src/commands/model.rs:411
+core-command.facts.json#74 `CHAT` not within ±5 of core/crates/command/core/src/commands/model.rs:432
+core-command.facts.json#75 `getModelParametersForModel` not within ±5 of core/crates/command/core/src/commands/model.rs:453
+core-command.facts.json#76 `updateParametersForModel` not within ±5 of core/crates/command/core/src/commands/model.rs:485
+core-command.facts.json#77 `updateBuiltinToolsForModel` not within ±5 of core/crates/command/core/src/commands/model.rs:515
+core-command.facts.json#79 `ModelContextSpec` not within ±5 of core/crates/command/core/src/commands/model.rs:563
+core-command.facts.json#79 `updateContextForModel` not within ±5 of core/crates/command/core/src/commands/model.rs:563
+core-command.facts.json#81 `summary-set` not within ±5 of core/crates/command/core/src/commands/model.rs:596
+core-command.facts.json#82 `updateSummaryForModel` not within ±5 of core/crates/command/core/src/commands/model.rs:609
+core-command.facts.json#83 `thinking` not within ±5 of core/crates/command/core/src/commands/model.rs:627
+core-command.facts.json#83 `ThinkingLevel::fromName` not within ±5 of core/crates/command/core/src/commands/model.rs:627
+core-command.facts.json#83 `setThinkingLevelForModel` not within ±5 of core/crates/command/core/src/commands/model.rs:627
+core-command.facts.json#84 `thinking` not within ±5 of core/crates/command/core/src/commands/model.rs:622
+core-command.facts.json#84 `off` not within ±5 of core/crates/command/core/src/commands/model.rs:622
+core-command.facts.json#84 `enabled` not within ±5 of core/crates/command/core/src/commands/model.rs:622
+core-command.facts.json#84 `minimal` not within ±5 of core/crates/command/core/src/commands/model.rs:622
+core-command.facts.json#84 `low` not within ±5 of core/crates/command/core/src/commands/model.rs:622
+core-command.facts.json#84 `medium` not within ±5 of core/crates/command/core/src/commands/model.rs:622
+core-command.facts.json#84 `high` not within ±5 of core/crates/command/core/src/commands/model.rs:622
+core-command.facts.json#84 `xhigh` not within ±5 of core/crates/command/core/src/commands/model.rs:622
+core-command.facts.json#84 `max` not within ±5 of core/crates/command/core/src/commands/model.rs:622
+core-command.facts.json#85 `functionTypes()` not within ±5 of core/crates/command/core/src/commands/model.rs:652
+core-command.facts.json#85 `getModelBindingForFunction` not within ±5 of core/crates/command/core/src/commands/model.rs:652
+core-command.facts.json#86 `function-show` not within ±5 of core/crates/command/core/src/commands/model.rs:676
+core-command.facts.json#86 `parseFunctionType` not within ±5 of core/crates/command/core/src/commands/model.rs:676
+core-command.facts.json#87 `setModelForFunction` not within ±5 of core/crates/command/core/src/commands/model.rs:712
+core-command.facts.json#88 `resetFunctionConfig` not within ±5 of core/crates/command/core/src/commands/model.rs:788
+core-command.facts.json#88 `resetAllFunctionConfigs` not within ±5 of core/crates/command/core/src/commands/model.rs:788
+core-command.facts.json#89 `CHAT` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#89 `SUMMARY` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#89 `TITLE_GENERATION` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#89 `MEMORY` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#89 `UI_CONTROLLER` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#89 `TRANSLATION` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#89 `GREP` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#89 `ROLE_RESPONSE_PLANNER` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#89 `IMAGE_RECOGNITION` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#89 `AUDIO_RECOGNITION` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#89 `VIDEO_RECOGNITION` not within ±5 of core/crates/command/core/src/commands/model.rs:820
+core-command.facts.json#90 `print_provider_profile` not within ±5 of core/crates/command/core/src/commands/model.rs:870
+core-command.facts.json#91 `apiKeyLength` not within ±5 of core/crates/command/core/src/commands/model.rs:1040
+core-command.facts.json#92 `id` not within ±5 of core/crates/command/core/src/commands/model.rs:1091
+core-command.facts.json#92 `keyLength` not within ±5 of core/crates/command/core/src/commands/model.rs:1091
+core-command.facts.json#93 `print_model_usage` not within ±5 of core/crates/command/core/src/commands/model.rs:1113
+core-command.facts.json#94 `model` not within ±5 of core/crates/command/core/src/commands/model.rs:799
+core-command.facts.json#94 `print_model_usage` not within ±5 of core/crates/command/core/src/commands/model.rs:799
+core-command.md:48 `codex-status` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:48']
+core-command.md:49 `function-reset` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:778']
+core-command.md:50 `models.dev` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:370']
+core-command.md:77 `print_provider_profile` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:870']
+core-command.md:78 `apiKeyLength` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:1040']
+core-command.md:89 `CHAT` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:432']
+core-command.md:90 `isFetched` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:284']
+core-command.md:91 `provider-model-create` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:325']
+core-command.md:92 `summary-set` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:596']
+core-command.md:95 `model` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:799']
+core-command.md:95 `print_model_usage` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:799']
+core-command.md:100 `print_model_usage` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:1113']
+core-command.md:100 `codex-login` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:1113']
+core-command.md:101 `model` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:799']
+core-command.md:101 `print_model_usage` not within ±5 of any ref ['core/crates/command/core/src/commands/model.rs:799']
