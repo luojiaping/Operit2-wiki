@@ -609,39 +609,39 @@
   },
   {
     "fact": "resolveIdentity 沿别名链传递解析，遇到循环报错。",
-    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:860"
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:852"
   },
   {
     "fact": "referenceKey 的格式是路径加分隔符加身份。",
-    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:877"
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:869"
   },
   {
     "fact": "rewriteReferenceValue 按 Field、ObjectValues、ArrayValues、Variant、Identity 路径段逐级改写引用。",
-    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:801"
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:793"
   },
   {
     "fact": "Identity 路径段必须在路径末尾。",
-    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:845"
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:837"
   },
   {
     "fact": "keyMatches 排除 retired_keys，要求身份非空。",
-    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:769"
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:761"
   },
   {
     "fact": "nameRecords 用 uniqueNames 分配确定性显示名，保留稳定的实体身份。",
-    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:731"
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:723"
   },
   {
     "fact": "currentRecords 读取属于一个声明配置目录的当前记录。",
-    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:695"
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:687"
   },
   {
     "fact": "记录的身份字段必须与键名一致。",
-    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:713"
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:705"
   },
   {
     "fact": "writeRecords 先删除旧记录与 retired 键，再写规范记录。",
-    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:779"
+    "ref": "core/crates/persistence/store/src/PreferenceMerge.rs:771"
   },
   {
     "fact": "SyncOperationStore 由 storageHost、rootPath 与 sharedState 三个字段组成。",

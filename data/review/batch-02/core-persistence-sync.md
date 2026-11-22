@@ -197,15 +197,15 @@ date: 2026-11-11
 - `applyIndependentOperations` 让每个数据集独立提交与独立失败，不共享提交或失败边界（`core/crates/persistence/store/src/PreferenceMerge.rs:269`）。
 - `PreferenceMergeOutcome` 由 `paths`、`operations`、`skipped`、`result` 四个字段组成（`core/crates/persistence/store/src/PreferenceMerge.rs:260`）。
 - `declaredAliases` 只解析已记录的别名决策，不从内容推断身份（`core/crates/persistence/store/src/PreferenceMerge.rs:436`）。
-- `resolveIdentity` 沿别名链传递解析，遇到循环报错（`core/crates/persistence/store/src/PreferenceMerge.rs:860`）。
-- `referenceKey` 的格式是路径加分隔符加身份（`core/crates/persistence/store/src/PreferenceMerge.rs:877`）。
-- `rewriteReferenceValue` 按 `Field`、`ObjectValues`、`ArrayValues`、`Variant`、`Identity` 路径段逐级改写引用（`core/crates/persistence/store/src/PreferenceMerge.rs:801``core/crates/persistence/store/src/PreferenceMerge.rs:821``core/crates/persistence/store/src/PreferenceMerge.rs:831``core/crates/persistence/store/src/PreferenceMerge.rs:840`）。
-- `Identity` 路径段必须在路径末尾（`core/crates/persistence/store/src/PreferenceMerge.rs:845`）。
-- `keyMatches` 排除 `retired_keys`，要求身份非空（`core/crates/persistence/store/src/PreferenceMerge.rs:769`）。
-- `nameRecords` 用 `uniqueNames` 分配确定性显示名，保留稳定的实体身份（`core/crates/persistence/store/src/PreferenceMerge.rs:731``core/crates/persistence/store/src/PreferenceMerge.rs:748`）。
-- `currentRecords` 读取属于一个声明配置目录的当前记录（`core/crates/persistence/store/src/PreferenceMerge.rs:695`）。
-- 记录的身份字段必须与键名一致（`core/crates/persistence/store/src/PreferenceMerge.rs:713`）。
-- `writeRecords` 先删除旧记录与 `retired` 键，再写规范记录（`core/crates/persistence/store/src/PreferenceMerge.rs:779``core/crates/persistence/store/src/PreferenceMerge.rs:792`）。
+- `resolveIdentity` 沿别名链传递解析，遇到循环报错（`core/crates/persistence/store/src/PreferenceMerge.rs:852`）。
+- `referenceKey` 的格式是路径加分隔符加身份（`core/crates/persistence/store/src/PreferenceMerge.rs:869`）。
+- `rewriteReferenceValue` 按 `Field`、`ObjectValues`、`ArrayValues`、`Variant`、`Identity` 路径段逐级改写引用（`core/crates/persistence/store/src/PreferenceMerge.rs:793``core/crates/persistence/store/src/PreferenceMerge.rs:813``core/crates/persistence/store/src/PreferenceMerge.rs:823``core/crates/persistence/store/src/PreferenceMerge.rs:832`）。
+- `Identity` 路径段必须在路径末尾（`core/crates/persistence/store/src/PreferenceMerge.rs:837`）。
+- `keyMatches` 排除 `retired_keys`，要求身份非空（`core/crates/persistence/store/src/PreferenceMerge.rs:761`）。
+- `nameRecords` 用 `uniqueNames` 分配确定性显示名，保留稳定的实体身份（`core/crates/persistence/store/src/PreferenceMerge.rs:723``core/crates/persistence/store/src/PreferenceMerge.rs:740`）。
+- `currentRecords` 读取属于一个声明配置目录的当前记录（`core/crates/persistence/store/src/PreferenceMerge.rs:687`）。
+- 记录的身份字段必须与键名一致（`core/crates/persistence/store/src/PreferenceMerge.rs:705`）。
+- `writeRecords` 先删除旧记录与 `retired` 键，再写规范记录（`core/crates/persistence/store/src/PreferenceMerge.rs:771``core/crates/persistence/store/src/PreferenceMerge.rs:784`）。
 - `canonicalContent` 排除身份字段与声明的忽略字段后比较完整的 JSON 内容（`core/crates/persistence/store/src/MergeRules.rs:6`）。
 - `canonicalValue` 把对象键按 `BTreeMap` 排序，保留数组顺序作为业务数据（`core/crates/persistence/store/src/MergeRules.rs:18`）。
 - `uniqueNames` 在名字冲突时加全角括号数字后缀，并跳过已被保留的名字（`core/crates/persistence/store/src/MergeRules.rs:33`）。
@@ -276,8 +276,8 @@ date: 2026-11-11
 - PreferenceMerge 的 `applyIndependentOperations` — 每个数据集独立提交与独立失败（`core/crates/persistence/store/src/PreferenceMerge.rs:269`）
 - `PreferenceMergeOutcome` — 一个数据集的合并结果（`core/crates/persistence/store/src/PreferenceMerge.rs:260`）
 - PreferenceMerge 的 `declaredAliases` — 只解析已记录的别名决策（`core/crates/persistence/store/src/PreferenceMerge.rs:436`）
-- PreferenceMerge 的 `resolveIdentity` — 沿别名链传递解析身份（`core/crates/persistence/store/src/PreferenceMerge.rs:860`）
-- PreferenceMerge 的 `referenceKey` — 路径加分隔符加身份的命名空间键（`core/crates/persistence/store/src/PreferenceMerge.rs:877`）
+- PreferenceMerge 的 `resolveIdentity` — 沿别名链传递解析身份（`core/crates/persistence/store/src/PreferenceMerge.rs:852`）
+- PreferenceMerge 的 `referenceKey` — 路径加分隔符加身份的命名空间键（`core/crates/persistence/store/src/PreferenceMerge.rs:869`）
 
 ## 调用链
 

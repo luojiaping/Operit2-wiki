@@ -125,11 +125,11 @@
   },
   {
     "fact": "更新器实现在 core/crates/foundation/util/src/GithubReleaseUtil.rs。",
-    "ref": "docs/release-versioning.md:429"
+    "ref": "docs/release-versioning.md:435"
   },
   {
     "fact": "App/CLI 发布版本不控制 Core 或 Edge 的配对、路由与同步。",
-    "ref": "docs/release-versioning.md:476"
+    "ref": "docs/release-versioning.md:482"
   },
   {
     "fact": "release notes 之一是 2.0.0-preview.22 · Apple Build 28，对比基线为 Build 27 / 2.0.0-preview.21。",
@@ -177,7 +177,7 @@
   },
   {
     "fact": "cli update check 只检查是否有可用更新，不下载。",
-    "ref": "docs/release-versioning.md:451"
+    "ref": "docs/release-versioning.md:457"
   },
   {
     "fact": "发布包命名的共享实现是 tools/build_scripts/release_artifacts.py。",

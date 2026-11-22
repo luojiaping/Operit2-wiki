@@ -1,6 +1,6 @@
 {
   "issue": 67,
-  "source_commit": "ab6508d",
+  "source_commit": "a7920ad",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "外置插件目录：external 目录 30 个插件与 tsconfig.json 的磁盘清点，subagents 五个工具、六个演示性质插件与 image_workbench、waifu、wechat、qqbot 的边界。",

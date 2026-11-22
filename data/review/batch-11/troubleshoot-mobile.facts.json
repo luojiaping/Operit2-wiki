@@ -133,7 +133,7 @@
  },
  {
   "fact": "文档记载，Magisk / KernelSU / APatch 真机验证仍需进行，JVM 测试不能替代设备级兼容性验证",
-  "ref": "docs/android-root-shell.md:112"
+  "ref": "docs/android-root-shell.md:123"
  },
  {
   "fact": "文档记载，iOS 性能采样对象是 iPhone 18 Pro Max / iOS 27 模拟器，进程 PID 31239，沿用 lib/main.dart 与 deepseek-flash 配置",

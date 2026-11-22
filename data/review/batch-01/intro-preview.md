@@ -24,7 +24,7 @@ Operit2 当前处于 `Preview Release` 阶段（`README.md:4`）。
 - `coreVersion` — App 从 operit-runtime 暴露的版本（`docs/release-versioning.md:207`）
 - `buildNumber` — Flutter 平台包元数据，App/full 构建成功后加 1（`docs/release-versioning.md:223`）
 - `OPERIT_ARM64_WASM` — preview.27 新增的构建配置，默认 OFF（`docs/release-notes/2.0.0-preview.27-build33.md:4`）
-- `GithubReleaseUtil.rs` — 更新器的实现文件（`docs/release-versioning.md:429`）
+- `GithubReleaseUtil.rs` — 更新器的实现文件（`docs/release-versioning.md:435`）
 - `build_release.py` — 构建发布脚本（`docs/release-versioning.md:239`）
 - `publish_dist.py` — 发布已 staged 文件的脚本（`docs/release-versioning.md:270`）
 - `tools/build_scripts/release_artifacts.py` — 共享的发布包命名实现（`docs/release-versioning.md:91`）
@@ -34,7 +34,7 @@ Operit2 当前处于 `Preview Release` 阶段（`README.md:4`）。
 
 带参形式：`operit2 cli update check <current-version>`，显式参数名为 `current_version`，覆盖版本比较基准（`apps/cli/src/cli/mod.rs:328`）。
 
-只检查不下载：`cli update check` 只检查是否有可用更新，不下载（`docs/release-versioning.md:451`）。
+只检查不下载：`cli update check` 只检查是否有可用更新，不下载（`docs/release-versioning.md:457`）。
 
 数据流向：已装版本 → 派生更新通道 → 更新发现按通道选出更新版本 → 下载安装（`docs/release-versioning.md:47`）。
 
@@ -100,9 +100,9 @@ App 与 full 构建成功后 `buildNumber` 加 1；CLI-only 构建不改 `buildN
 
 选中的版本只在新于已装版本时才提供；更新发现不降级已装应用（`docs/release-versioning.md:196`）。
 
-更新器实现在 `core/crates/foundation/util/src/GithubReleaseUtil.rs`（`docs/release-versioning.md:429`）。
+更新器实现在 `core/crates/foundation/util/src/GithubReleaseUtil.rs`（`docs/release-versioning.md:435`）。
 
-App/CLI 发布版本不控制 Core 或 Edge 的配对、路由与同步（`docs/release-versioning.md:476`）。
+App/CLI 发布版本不控制 Core 或 Edge 的配对、路由与同步（`docs/release-versioning.md:482`）。
 
 ### 发布流程
 
@@ -134,7 +134,7 @@ preview.27 声明上述结果不代表原始绘图脚本的完整耗时已得到
 
 release-versioning.md 没有写明版本的支持期限；它只定义了通道与更新发现规则（`docs/release-versioning.md:47`）。
 
-用户可核对的三件事：当前已装版本派生的通道（`docs/release-versioning.md:47`）；更新发现只提供新于已装版本的包、不降级（`docs/release-versioning.md:196`）；App/CLI 发布版本不控制 Core 或 Edge 的配对、路由与同步，协议兼容另见 peer-protocol-versioning.md（`docs/release-versioning.md:476`）。
+用户可核对的三件事：当前已装版本派生的通道（`docs/release-versioning.md:47`）；更新发现只提供新于已装版本的包、不降级（`docs/release-versioning.md:196`）；App/CLI 发布版本不控制 Core 或 Edge 的配对、路由与同步，协议兼容另见 peer-protocol-versioning.md（`docs/release-versioning.md:482`）。
 
 ## 关键符号
 
@@ -144,7 +144,7 @@ release-versioning.md 没有写明版本的支持期限；它只定义了通道�
 - `coreVersion` — App 从 operit-runtime 暴露的版本（`docs/release-versioning.md:207`）
 - `buildNumber` — Flutter 平台包元数据（`docs/release-versioning.md:221`）
 - `OPERIT_ARM64_WASM` — preview.27 新增的构建配置，默认 OFF（`docs/release-notes/2.0.0-preview.27-build33.md:4`）
-- `GithubReleaseUtil.rs` — 更新器的实现文件（`docs/release-versioning.md:429`）
+- `GithubReleaseUtil.rs` — 更新器的实现文件（`docs/release-versioning.md:435`）
 - `build_release.py` — 构建发布脚本（`docs/release-versioning.md:239`）
 - `publish_dist.py` — 发布已 staged 文件的脚本（`docs/release-versioning.md:270`）
 - `tools/build_scripts/release_artifacts.py` — 共享的发布包命名实现（`docs/release-versioning.md:91`）
@@ -154,10 +154,10 @@ release-versioning.md 没有写明版本的支持期限；它只定义了通道�
 1. 读取已装版本：CLI 取 `apps/cli/Cargo.toml` 的 `package.version` 作 `cliVersion`；App 取 `operit-runtime` 暴露的 `coreVersion`（`docs/release-versioning.md:207`）。
 2. 派生更新通道：stable 版本走 `stable channel`，prerelease 版本走 `preview channel`（`docs/release-versioning.md:47`）。
 3. 更新发现：从最近 30 个 releases 懒加载，按通道筛选，只在当前页无兼容包时加载更老页面（`docs/release-versioning.md:190`）。
-4. 选出更新版本：同页内选最高的、与产品、平台、架构与完整 tag 版本精确匹配的包；只在新于已装版本时才提供，不降级（`docs/release-versioning.md:196`；精确匹配规则见 `docs/release-versioning.md:437`）。
-5. 检查可用更新：`cli update check` 只检查不下载（`docs/release-versioning.md:451`）。
-6. 下载匹配资产：`cli update download` 下载匹配资产并显示进度而不安装（`docs/release-versioning.md:457`）。
-7. 走完整更新路径：`cli update run` 含当前目标匹配时的安装覆盖（`docs/release-versioning.md:463`）。
+4. 选出更新版本：同页内选最高的、与产品、平台、架构与完整 tag 版本精确匹配的包；只在新于已装版本时才提供，不降级（`docs/release-versioning.md:196`；精确匹配规则见 `docs/release-versioning.md:443`）。
+5. 检查可用更新：`cli update check` 只检查不下载（`docs/release-versioning.md:457`）。
+6. 下载匹配资产：`cli update download` 下载匹配资产并显示进度而不安装（`docs/release-versioning.md:463`）。
+7. 走完整更新路径：`cli update run` 含当前目标匹配时的安装覆盖（`docs/release-versioning.md:469`）。
 
 发布侧调用链：`tools/release/build_release.py` 按 `--scope` 构建发布资产（`docs/release-versioning.md:239`）；资产 staged 到 `tools/release/dist` 后，`publish_dist.py` 上传，不重新构建（`docs/release-versioning.md:270`）。
 发布使用当前已认证的 `gh` 会话（`docs/release-versioning.md:250`）。

@@ -1,6 +1,6 @@
 {
   "issue": 114,
-  "source_commit": "ab6508d",
+  "source_commit": "a7920ad",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "排障·移动端（Android / iOS）：Android root shell 能力边界与风险、iOS 性能定位、TestFlight 反馈排查",

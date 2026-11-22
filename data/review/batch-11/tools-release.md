@@ -24,13 +24,13 @@ docs/release-versioning.md 是 Operit2 app 与 CLI 发布版本的事实来源�
 
 - docs/release-versioning.md — 版本、tag、通道与包资产规则的事实来源。`docs/release-versioning.md:3`
 - `tools/release/build_release.py` — 构建发布资产的主入口，校验版本、构建各平台资产。`docs/release-versioning.md:239`
-- `tools/release/publish_dist.py` — 上传已暂存于 `tools/release/dist` 的文件，不重建。`docs/release-versioning.md:385`
-- tools/release/download_action_artifacts.py — 从成功的 GitHub Actions run 收集发布资产进 `tools/release/dist`。`docs/release-versioning.md:345`
+- `tools/release/publish_dist.py` — 上传已暂存于 `tools/release/dist` 的文件，不重建。`docs/release-versioning.md:391`
+- tools/release/download_action_artifacts.py — 从成功的 GitHub Actions run 收集发布资产进 `tools/release/dist`。`docs/release-versioning.md:351`
 - tools/release/release_interactive.py — 交互式拼出 build_release.py 命令并执行。`tools/release/release_interactive.py:117`
 - `release_version()` — 读取 CLI 与 runtime 的 Cargo 版本并校验一致。`tools/release/build_release.py:431`
 - `publish_release` — 创建或复用 GitHub 发布并上传 dist 资产。`tools/release/build_release.py:1195`
 - `cli_package_path` — 用 `release_asset_name` 生成版本化归档路径。`tools/release/build_release.py:696`
-- `GithubReleaseUtil.rs` — 更新器实现，位于 `core/crates/foundation/util/src/GithubReleaseUtil.rs`。`docs/release-versioning.md:429`
+- `GithubReleaseUtil.rs` — 更新器实现，位于 `core/crates/foundation/util/src/GithubReleaseUtil.rs`。`docs/release-versioning.md:435`
 - 主入口：build_release.py 的 `main()`，`--scope` 默认值为 “full”。`tools/release/build_release.py:1306`
 - 数据流向：Cargo 与 pubspec 版本 → `build_release.py` 校验与构建 → `tools/release/dist` 暂存资产 → `publish_dist.py` 上传到 GitHub Release → 更新器按通道与精确文件名发现更新。`docs/release-versioning.md:270`
 
@@ -54,7 +54,7 @@ Git tag 在版本号前加 `v`，例如 `v2.0.0-preview.1`、`v2.0.0-rc.1`、`v2
 
 首个稳定版使用 `v2.0.0`。`docs/release-versioning.md:79`
 
-首次公开预览的版本值为：两个 `Cargo.toml` 均为 `2.0.0-preview.1`，`pubspec.yaml` 为 `2.0.0+1`，GitHub tag 为 `v2.0.0-preview.1`。`docs/release-versioning.md:420`
+首次公开预览的版本值为：两个 `Cargo.toml` 均为 `2.0.0-preview.1`，`pubspec.yaml` 为 `2.0.0+1`，GitHub tag 为 `v2.0.0-preview.1`。`docs/release-versioning.md:426`
 
 ### 版本来源
 
@@ -72,7 +72,7 @@ App 与 full 运行先用当前 Flutter `buildNumber` 构建，全部所选 App 
 
 Android 模块安装器 ZIP 是独立的 `module` 发布产品，`module.prop` 使用共享完整发布版本，并用同一 Flutter `buildNumber` 作为 `versionCode`，两种 Android 形态都成功后 App/full 发布才一次性递增 build number。`docs/release-versioning.md:226`
 
-App/CLI 发布版本不控制 Core 或 Edge 的配对、路由或同步，协议版本见 `peer-protocol-versioning.md`。`docs/release-versioning.md:476`
+App/CLI 发布版本不控制 Core 或 Edge 的配对、路由或同步，协议版本见 `peer-protocol-versioning.md`。`docs/release-versioning.md:482`
 
 ### 更新通道
 
@@ -92,7 +92,7 @@ Draft release 被更新器忽略。`docs/release-versioning.md:66`
 
 选中的版本仅在比已安装版本新时才提供，发现过程不降级已安装应用。`docs/release-versioning.md:196`
 
-更新器实现规则为：严格解析 `major.minor.patch[-prerelease][+build]`，比较时忽略构建元数据，按更新通道选择发布，按精确的产品、平台、架构与完整发布 tag 版本匹配资产，拒绝不匹配的 GitHub prerelease 标志。`docs/release-versioning.md:434`
+更新器实现规则为：严格解析 `major.minor.patch[-prerelease][+build]`，比较时忽略构建元数据，按更新通道选择发布，按精确的产品、平台、架构与完整发布 tag 版本匹配资产，拒绝不匹配的 GitHub prerelease 标志。`docs/release-versioning.md:440`
 
 ### 包资产规则
 
@@ -140,11 +140,11 @@ MSI 描述与发布文件名保留完整 SemVer，大版本升级阻止降级，
 
 ### 构建与发布脚本必须执行的规则
 
-构建与发布脚本必须执行的规则包括：用 TOML 解析读 Cargo 包版本，从 `pubspec.yaml` 读 Flutter 平台构建元数据。`docs/release-versioning.md:402`
+构建与发布脚本必须执行的规则包括：用 TOML 解析读 Cargo 包版本，从 `pubspec.yaml` 读 Flutter 平台构建元数据。`docs/release-versioning.md:408`
 
-构建与发布脚本必须执行的规则包括：拒绝 CLI 与 runtime 版本不一致，拒绝含构建元数据的版本，拒绝 Flutter `major.minor.patch` 与 Cargo 发布版本不一致，拒绝与 Cargo 发布版本不同的 `--tag`。`docs/release-versioning.md:407`
+构建与发布脚本必须执行的规则包括：拒绝 CLI 与 runtime 版本不一致，拒绝含构建元数据的版本，拒绝 Flutter `major.minor.patch` 与 Cargo 发布版本不一致，拒绝与 Cargo 发布版本不同的 `--tag`。`docs/release-versioning.md:413`
 
-构建与发布脚本必须执行的规则包括：从发布版本导出 GitHub prerelease 标志，只构建所选 `--scope` 的资产，App/full 资产成功后 Flutter `buildNumber` 加 1，通过已认证的 `gh` 发布暂存的包、清单与增量文件，发布草稿前校验每个已上传资产的摘要，拒绝改动已公开的发布、只允许重试与其匹配的草稿。`docs/release-versioning.md:411`
+构建与发布脚本必须执行的规则包括：从发布版本导出 GitHub prerelease 标志，只构建所选 `--scope` 的资产，App/full 资产成功后 Flutter `buildNumber` 加 1，通过已认证的 `gh` 发布暂存的包、清单与增量文件，发布草稿前校验每个已上传资产的摘要，拒绝改动已公开的发布、只允许重试与其匹配的草稿。`docs/release-versioning.md:417`
 
 ### 发布 scope 与架构
 
@@ -160,10 +160,10 @@ Windows 上 `--cli-arches all` 在本地构建 Windows x86_64 与 aarch64，Linu
 
 GitHub 发布凭证位于 `tools/release/secrets/github.env`，该目录被 git 忽略。`docs/release-versioning.md:245`
 
-旧版构建助手与显式传入的 `--github-env` 可从 `tools/release/secrets/github.env` 读取 GitHub 凭证。`docs/release-versioning.md:366`
-凭证必需键为 `GITHUB_TOKEN` 与 `GITHUB_API_URL`。`docs/release-versioning.md:375`
+旧版构建助手与显式传入的 `--github-env` 可从 `tools/release/secrets/github.env` 读取 GitHub 凭证。`docs/release-versioning.md:372`
+凭证必需键为 `GITHUB_TOKEN` 与 `GITHUB_API_URL`。`docs/release-versioning.md:381`
 
-默认发布仓库为 `AAswordman/Operit2`，可用 `--repo owner/name` 发布到其他仓库。`docs/release-versioning.md:398`
+默认发布仓库为 `AAswordman/Operit2`，可用 `--repo owner/name` 发布到其他仓库。`docs/release-versioning.md:404`
 
 Windows 默认发布命令是 `.\.venv\Scripts\python.exe tools\release\publish_dist.py`。`docs/release-versioning.md:254`
 
@@ -171,37 +171,37 @@ Windows 默认发布命令是 `.\.venv\Scripts\python.exe tools\release\publish_
 
 云端发布构建可组合，全部平台工作流均为手动 `workflow_dispatch` 入口，macOS 与 iOS 还可通过 Apple Release Build 的 `workflow_call` 复用。`docs/release-versioning.md:308`
 
-Android Flutter Build 需要 `ANDROID_RELEASE_KEYSTORE_BASE64`、`ANDROID_RELEASE_STORE_PASSWORD`、`ANDROID_RELEASE_KEY_ALIAS`、`ANDROID_RELEASE_KEY_PASSWORD` 四个仓库 secret。`docs/release-versioning.md:327`
+Android Flutter Build 需要 `ANDROID_RELEASE_KEYSTORE_BASE64`、`ANDROID_RELEASE_STORE_PASSWORD`、`ANDROID_RELEASE_KEY_ALIAS`、`ANDROID_RELEASE_KEY_PASSWORD` 四个仓库 secret。`docs/release-versioning.md:333`
 
-Android keystore secret 必须 Base64 编码，OpenHarmony 仍为本地构建，因仓库没有其 SDK 与命令行工具的可复现分发 URL。`docs/release-versioning.md:330`
+Android keystore secret 必须 Base64 编码，OpenHarmony 仍为本地构建，因仓库没有其 SDK 与命令行工具的可复现分发 URL。`docs/release-versioning.md:336`
 
-云端构建流程为：用 `gh workflow run` 触发 Apple、macOS、iOS、Windows、Linux、Android 构建后，用 `download_action_artifacts.py --run-id <run-id>` 收集各 run 的资产。`docs/release-versioning.md:342`
+云端构建流程为：用 `gh workflow run` 触发 Apple、macOS、iOS、Windows、Linux、Android 构建后，用 `download_action_artifacts.py --run-id <run-id>` 收集各 run 的资产。`docs/release-versioning.md:348`
 
-`download_action_artifacts.py` 在把发布资产复制进 `tools/release/dist` 前验证每个请求的 run 以 `success` 结论完成。`docs/release-versioning.md:345`
+`download_action_artifacts.py` 在把发布资产复制进 `tools/release/dist` 前验证每个请求的 run 以 `success` 结论完成。`docs/release-versioning.md:351`
 
-收集完成后在发布集完整时通过 `publish_dist.py` 发布收集到的文件。`docs/release-versioning.md:347`
+收集完成后在发布集完整时通过 `publish_dist.py` 发布收集到的文件。`docs/release-versioning.md:353`
 
 ### 本地构建与 ESP32
 
-协作方用 `python3 tools/build_scripts/build_local.py --products all --cli-arches host` 在本地构建当前主机，`--products app` 可加 `--include-ios`，`--products esp32` 构建 ESP32。`docs/release-versioning.md:355`
+协作方用 `python3 tools/build_scripts/build_local.py --products all --cli-arches host` 在本地构建当前主机，`--products app` 可加 `--include-ios`，`--products esp32` 构建 ESP32。`docs/release-versioning.md:361`
 
-ESP32 本地构建需要 ESP-IDF Rust 工具链、`espflash`、`ldproxy` 与 `EMSDK` 环境变量。`docs/release-versioning.md:360`
+ESP32 本地构建需要 ESP-IDF Rust 工具链、`espflash`、`ldproxy` 与 `EMSDK` 环境变量。`docs/release-versioning.md:366`
 
-ESP32 固件包写入 `tools/release/dist/operit2-firmware-esp32-2432s028-<release-version>.zip`，包含完整 4 MiB 初始刷机镜像、拆分刷机镜像、`partitions.csv` 与带已验证偏移量和 SHA-256 摘要的 manifest。`docs/release-versioning.md:362`
+ESP32 固件包写入 `tools/release/dist/operit2-firmware-esp32-2432s028-<release-version>.zip`，包含完整 4 MiB 初始刷机镜像、拆分刷机镜像、`partitions.csv` 与带已验证偏移量和 SHA-256 摘要的 manifest。`docs/release-versioning.md:368`
 
 ### 更新测试
 
-更新测试命令 `cargo run --manifest-path apps/cli/Cargo.toml -- cli update target` 显示当前桌面 CLI 的更新目标。`docs/release-versioning.md:445`
+更新测试命令 `cargo run --manifest-path apps/cli/Cargo.toml -- cli update target` 显示当前桌面 CLI 的更新目标。`docs/release-versioning.md:451`
 
-更新测试命令 `cargo run --manifest-path apps/cli/Cargo.toml -- cli update check 0.0.0-preview.0` 检查是否有发布可用而不下载。`docs/release-versioning.md:451`
+更新测试命令 `cargo run --manifest-path apps/cli/Cargo.toml -- cli update check 0.0.0-preview.0` 检查是否有发布可用而不下载。`docs/release-versioning.md:457`
 
-更新测试命令 `cargo run --manifest-path apps/cli/Cargo.toml -- cli update download 0.0.0-preview.0` 下载匹配资产并显示进度而不安装。`docs/release-versioning.md:457`
+更新测试命令 `cargo run --manifest-path apps/cli/Cargo.toml -- cli update download 0.0.0-preview.0` 下载匹配资产并显示进度而不安装。`docs/release-versioning.md:463`
 
-更新测试命令 `cargo run --manifest-path apps/cli/Cargo.toml -- cli update run 0.0.0-preview.0` 走完整 CLI 更新路径，当前目标匹配时含安装覆盖。`docs/release-versioning.md:463`
+更新测试命令 `cargo run --manifest-path apps/cli/Cargo.toml -- cli update run 0.0.0-preview.0` 走完整 CLI 更新路径，当前目标匹配时含安装覆盖。`docs/release-versioning.md:469`
 
-测试命令 `cargo run --manifest-path apps/cli/Cargo.toml -- tui --update-current-version 0.0.0-preview.0` 用测试当前版本强制触发 TUI 启动更新提示。`docs/release-versioning.md:469`
+测试命令 `cargo run --manifest-path apps/cli/Cargo.toml -- tui --update-current-version 0.0.0-preview.0` 用测试当前版本强制触发 TUI 启动更新提示。`docs/release-versioning.md:475`
 
-用 `0.0.0-preview.0` 这类 prerelease 当前版本测试预览发布，`0.0.0` 这类稳定当前版本选择 stable channel 并忽略 GitHub prereleases。`docs/release-versioning.md:472`
+用 `0.0.0-preview.0` 这类 prerelease 当前版本测试预览发布，`0.0.0` 这类稳定当前版本选择 stable channel 并忽略 GitHub prereleases。`docs/release-versioning.md:478`
 
 ## 关键符号
 
@@ -422,11 +422,11 @@ download_action_artifacts.py 的 `main()` 逐个处理每个 --run-id，并打�
 7. main() 在未传 --no-wsl 且产品不为 “none” 时调用 `build_wsl_linux`。`tools/release/build_release.py:1344`
 8. main() 在 App 在所选产品内时调用 `increment_flutter_platform_build_number` 递增平台版本的 build number。`tools/release/build_release.py:1354`
 
-云端收集链路按以下顺序执行。`docs/release-versioning.md:342`
+云端收集链路按以下顺序执行。`docs/release-versioning.md:348`
 
-1. 用 `gh workflow run` 触发 Apple、macOS、iOS、Windows、Linux、Android 构建。`docs/release-versioning.md:342`
-2. `download_action_artifacts.py` 验证每个请求的 run 以 `success` 结论完成，再把发布资产复制进 `tools/release/dist`。`docs/release-versioning.md:345`
-3. 收集完成后在发布集完整时通过 `publish_dist.py` 发布收集到的文件。`docs/release-versioning.md:347`
+1. 用 `gh workflow run` 触发 Apple、macOS、iOS、Windows、Linux、Android 构建。`docs/release-versioning.md:348`
+2. `download_action_artifacts.py` 验证每个请求的 run 以 `success` 结论完成，再把发布资产复制进 `tools/release/dist`。`docs/release-versioning.md:351`
+3. 收集完成后在发布集完整时通过 `publish_dist.py` 发布收集到的文件。`docs/release-versioning.md:353`
 
 发布链路按以下顺序执行。`tools/release/publish_dist.py:79`
 
@@ -445,7 +445,7 @@ download_action_artifacts.py 的 `main()` 逐个处理每个 --run-id，并打�
 ## 来源
 
 - `tools/release/RELEASE_SPEC.md`（9 行）：版本、tag、通道与包资产规则的定义指向与 `build_release.py` 的遵循要求。`tools/release/RELEASE_SPEC.md:3`
-- `docs/release-versioning.md`（478 行）：版本格式、通道、包资产、版本来源、构建与发布规则、云端构建、更新测试。`docs/release-versioning.md:3`
+- `docs/release-versioning.md`（484 行）：版本格式、通道、包资产、版本来源、构建与发布规则、云端构建、更新测试。`docs/release-versioning.md:3`
 - `tools/release/build_release.py`（1373 行）：构建发布资产的主脚本，分段读完。`tools/release/build_release.py:1304`
 - `tools/release/publish_dist.py`（88 行）：上传已暂存资产的发布脚本。`tools/release/publish_dist.py:59`
 - `tools/release/release_interactive.py`（122 行）：交互式发布入口。`tools/release/release_interactive.py:95`
