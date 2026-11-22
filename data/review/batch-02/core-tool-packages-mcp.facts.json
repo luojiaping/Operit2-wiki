@@ -489,7 +489,7 @@
   },
   {
     "fact": "依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 main。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2223"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2230"
   },
   {
     "fact": "`package_name` 参数指定要激活的包。",

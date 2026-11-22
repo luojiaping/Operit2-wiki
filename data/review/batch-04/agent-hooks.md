@@ -78,22 +78,22 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - 同步时每个注册的包名取容器 `packageName`，hook 标识取 hook 的 id，函数名取 hook 的 function（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:39`）。
 - 各桥只注册一次，由 `INSTALLED` 原子标志保证（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:45`）。
 - 注册时订阅包目录变更监听，目录变化时重同步全部桥的注册（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:63`）。
-- 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1177`）。
-- `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1146`）。
-- `dispatchStateChanged` 接收聊天 id、新状态、活跃聊天 id 与三组计数，通知经 `scheduleToolPkgNotification` 异步发出（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:58`）。
-- 异步任务先取已注册的运行时，未注册时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:69`）。
-- 异步任务克隆当前注册列表，注册为空时直接返回，不执行任何 hook（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:74`）。
-- 每个 hook 经 `runToolPkgMainHook` 执行，事件为 `TOOLPKG_EVENT_CHAT_RUNTIME`，事件名是 `CHAT_RUNTIME_EVENT_STATE_CHANGED`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:102`）。
+- 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1183`）。
+- `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1150`）。
+- `dispatchStateChanged` 接收聊天 id、新状态、活跃聊天 id 与三组计数、当前轮次与任务标题，通知经 `scheduleToolPkgNotification` 异步发出（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:53`、`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:65`）。
+- 异步任务先取已注册的运行时，未注册时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:71`）。
+- 异步任务克隆当前注册列表，注册为空时直接返回，不执行任何 hook（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:76`）。
+- 每个 hook 经 `runToolPkgMainHook` 执行，事件为 `TOOLPKG_EVENT_CHAT_RUNTIME`，事件名是 `CHAT_RUNTIME_EVENT_STATE_CHANGED`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:109`）。
 - `TOOLPKG_EVENT_CHAT_RUNTIME` 的值是 toolpkg_chat_runtime（`core/crates/plugin/sdk/src/toolpkg/ToolPkgCommonPluginConstants.rs:29`）。
 - `CHAT_RUNTIME_EVENT_STATE_CHANGED` 的值是 state_changed（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:17`）。
-- 单个 hook 成功记 done 日志，失败记 error 日志，循环继续执行下一个 hook（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:128`）。
-- 载荷的 slot 固定为 main，活跃聊天 id 先排序再装入（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:157`）。
-- 载荷含状态、展示文本、工具名、进度、是否活跃、活跃聊天 id 与三组计数，时间戳取当前毫秒时间（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:163`）。
-- `stateName` 把 11 种 `InputProcessingState` 映射为线名（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:174`）。
-- `stateMessage` 只对带 message 字段的状态返回展示文本，其余返回 None（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:197`）。
-- `stateToolName` 只对 ExecutingTool、ToolProgress、ProcessingToolResult 三种状态返回工具名（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:209`）。
-- `stateProgress` 只对 ToolProgress 返回进度值（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:218`）。
-- `stateIsActive` 在 Idle、Completed、Error 时为 false，其余状态为 true（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:229`）。
+- 单个 hook 成功记 done 日志，失败记 error 日志，循环继续执行下一个 hook（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:132`）。
+- 载荷的 slot 固定为 main，活跃聊天 id 先排序再装入（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:166`）。
+- 载荷含状态、展示文本、工具名、进度、是否活跃、活跃聊天 id 与三组计数、任务标题与当前轮次，时间戳取当前毫秒时间（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:171`）。
+- `stateName` 把 11 种 `InputProcessingState` 映射为线名（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:182`）。
+- `stateMessage` 只对带 message 字段的状态返回展示文本，其余返回 None（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:200`）。
+- `stateToolName` 只对 ExecutingTool、ToolProgress、ProcessingToolResult 三种状态返回工具名（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:215`）。
+- `stateProgress` 只对 ToolProgress 返回进度值（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:226`）。
+- `stateIsActive` 在 Idle、Completed、Error 时为 false，其余状态为 true（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:235`）。
 - 聊天运行时 hook 用不限时的 `runToolPkgMainHook` 执行，未传入超时预算（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:4643`）。
 
 ### hook 超时
@@ -140,7 +140,7 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - 分发后用 `reconcileSummaryPreparedHistory` 对账，取 hook 改动后的 preparedHistory（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:524`）。
 - before_prepare_summary_prompt 与 before_send_to_model 在超时名单内（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:30`）。
 - after_generate_summary 不在名单内、不创建截止时间（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:150`）。
-- JS 侧摘要 hook 对象结果是 `ToolPkgSummaryHookObjectResult`，字段与摘要上下文对应（`core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1045`）。
+- JS 侧摘要 hook 对象结果是 `ToolPkgSummaryHookObjectResult`，字段与摘要上下文对应（`core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1048`）。
 - 摘要机制的完整说明见 [[agent-compaction|上下文压缩与摘要]]。
 
 ## 关键符号
@@ -164,14 +164,14 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 
 ### 聊天运行时状态通知
 
-1. 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1177`）。
-2. `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1146`）。
-3. `dispatchStateChanged` 经 `scheduleToolPkgNotification` 把通知异步发出（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:58`）。
-4. 异步任务先取已注册的运行时，未注册时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:69`）。
-5. 异步任务克隆当前注册列表，注册为空时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:74`）。
-6. 逐个 hook 经 `runToolPkgMainHook` 执行，事件为 `TOOLPKG_EVENT_CHAT_RUNTIME`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:102`）。
-7. 单个 hook 成功记 done 日志（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:118`）。
-8. 单个 hook 失败记 error 日志，循环继续执行下一个 hook（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:128`）。
+1. 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1183`）。
+2. `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1150`）。
+3. `dispatchStateChanged` 经 `scheduleToolPkgNotification` 把通知异步发出（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:53`、`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:65`）。
+4. 异步任务先取已注册的运行时，未注册时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:71`）。
+5. 异步任务克隆当前注册列表，注册为空时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:76`）。
+6. 逐个 hook 经 `runToolPkgMainHook` 执行，事件为 `TOOLPKG_EVENT_CHAT_RUNTIME`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:109`）。
+7. 单个 hook 成功记 done 日志（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:122`）。
+8. 单个 hook 失败记 error 日志，循环继续执行下一个 hook（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:132`）。
 
 ### 摘要生成
 

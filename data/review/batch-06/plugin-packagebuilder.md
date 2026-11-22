@@ -29,7 +29,7 @@ date: 2026-11-11
 - `main` — ToolPkg 主入口脚本路径，用于执行注册函数。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:177`
 - `registerToolPkg` — 主脚本注册函数，在独立的临时 JavaScript engine 中执行，须在 60 秒内完成。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`
 - `METADATA` — 每个脚本文件开头的注释块，AI 解析它得到可用工具。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:118`
-- `ToolPkg.ipc` — 跨上下文共享状态与调用能力的显式通道。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:576`
+- `ToolPkg.ipc` — 跨上下文共享状态与调用能力的显式通道。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:591`
 - `ToolPkg.wasm.call` — 调用 WASM 模块导出函数，当前 ABI 支持 `i32`、`i64`、`f32`、`f64` 标量参数与返回值。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`
 - `operit_editor` — 包管理工具，实际执行 core command 并返回真实结果与错误。`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:19`
 - 主入口函数：`registerToolPkg`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:343`
@@ -125,7 +125,7 @@ date: 2026-11-11
 - 文档声明：`LocalizedText` 支持简单字符串与多语言对象两种格式。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:188`
 - 文档声明：子包的 `enabled_by_default` 表示是否默认启用，默认为 `false`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:236`
 - 文档声明：子包脚本必须是标准的 JavaScript 文件；必须包含 `METADATA` 注释块；脚本中定义的工具会被注册为 `<subpackage_id>:<tool_name>` 格式。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:242`
-- 文档声明：资源声明的字段为 `key`、`path` 与 `mime`，其中 `key` 是资源的唯一键，用于在代码中引用。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:660`
+- 文档声明：资源声明的字段为 `key`、`path` 与 `mime`，其中 `key` 是资源的唯一键，用于在代码中引用。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:675`
 - 文档声明：WASM 模块的 `source_language` 是源语言标记，AssemblyScript 模块写 `assemblyscript`；`abi` 是调用约定标记，当前写 `scalar`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:264`
 - 文档声明：WASM 模块示例的 `exports` 为 `["isPrime", "nthPrime"]`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:129`
 - 文档声明：`ToolPkg.wasm.call(moduleId, exportName, args)` 已接入 native WASM runtime；当前 ABI 支持 `i32`、`i64`、`f32`、`f64` 标量参数与返回值。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`
@@ -145,44 +145,44 @@ date: 2026-11-11
 - 文档声明：`ToolPkg.registerAppLifecycleHook` 的 `event` 与 `function` 为必填项。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:499`
 - 文档声明：`ToolPkg.registerAppLifecycleHook` 支持的 application 事件包括 `application_on_create`、`application_on_foreground`、`application_on_background`、`application_on_low_memory`、`application_on_trim_memory`、`application_on_terminate`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:513`
 - 文档声明：该函数支持的 activity 事件包括 `activity_on_create`、`activity_on_start`、`activity_on_resume`、`activity_on_pause`、`activity_on_stop`、`activity_on_destroy`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:519`
-- 文档声明：`main` 上下文是 `manifest.main` 指向的包入口脚本，承载包级逻辑：注册 hook、执行 hook、注册/处理包级 IPC、承载包级内存态；同一个 ToolPkg 容器共用一个包级 JS engine，内部 context key 形如 `toolpkg_main:<toolpkg_id>`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:538`
-- 文档声明：`ui` 上下文是 `*.ui.js` 的 Compose DSL screen/action handler，渲染界面、响应点击、读取 UI state；每个 UI route、widget、XML render 实例有自己的 JS engine。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:539`
-- 文档声明：`sandbox` 上下文是独立工具脚本、子包工具脚本、调试脚本，执行一次性工具逻辑；可以通过 IPC 调用所属 ToolPkg 的 `main`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:540`
-- 文档声明：`provider` 上下文是 `ToolPkg.registerAiProvider(...)` 注册的 AI provider handler，处理自定义 AI provider 的模型列表、连接测试、发消息、token 估算；每个 ToolPkg provider 使用独立 JS engine，内部 context key 形如 `toolpkg_provider:<toolpkg_id>:<provider_id>`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:541`
-- 文档声明：`ToolPkg.ipc` 的 `meta.currentRuntime` 使用 `main`、`ui`、`sandbox`、`provider` 四种字面量。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:545`
-- 文档声明：跨上下文共享状态或调用能力时，显式使用 `ToolPkg.ipc`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:576`
-- 文档声明：`ToolPkg.ipc.on(channel, handler)` 在当前上下文注册通道处理函数；`ToolPkg.ipc.call(channel, payload)` 的语义是非 `main` 上下文调用同包 ToolPkg main，`main` 上下文调用本地 handler；`ToolPkg.ipc.call(channel, payload, options)` 可指定 `targetRuntime` 与 `targetContextKey` 调用目标 runtime 实例。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:622`
-- 文档声明：`ToolPkg.ipc` 的 payload 和返回值应使用 JSON 可序列化数据：字符串、数字、布尔值、数组、普通对象和 `null`；对象按数据复制传输，不保留引用身份、原型、方法闭包或类实例。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:625`
-- 文档声明：指定 `ui`、`provider`、`sandbox` 目标时需要提供明确的 `targetContextKey`；目标不存在会直接报错。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:628`
-- 文档声明：UI state 只服务当前界面展示时，放在 `ctx.useState` 与 `ctx.useMemo`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:634`
-- 文档声明：`ToolPkg.registerDesktopWidget` 是桌面小部件注册接口；桌宠和其他实时悬浮工具使用独立的 `ToolPkg.ui.floatingWindows` 窗口控制接口，内容复用已注册的 Compose UI 路由；方法、平台能力、权限与生命周期见 `../FLOATING_WINDOWS.md`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1413`
+- 文档声明：`main` 上下文是 `manifest.main` 指向的包入口脚本，承载包级逻辑：注册 hook、执行 hook、注册/处理包级 IPC、承载包级内存态；同一个 ToolPkg 容器共用一个包级 JS engine，内部 context key 形如 `toolpkg_main:<toolpkg_id>`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:553`
+- 文档声明：`ui` 上下文是 `*.ui.js` 的 Compose DSL screen/action handler，渲染界面、响应点击、读取 UI state；每个 UI route、widget、XML render 实例有自己的 JS engine。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:554`
+- 文档声明：`sandbox` 上下文是独立工具脚本、子包工具脚本、调试脚本，执行一次性工具逻辑；可以通过 IPC 调用所属 ToolPkg 的 `main`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:555`
+- 文档声明：`provider` 上下文是 `ToolPkg.registerAiProvider(...)` 注册的 AI provider handler，处理自定义 AI provider 的模型列表、连接测试、发消息、token 估算；每个 ToolPkg provider 使用独立 JS engine，内部 context key 形如 `toolpkg_provider:<toolpkg_id>:<provider_id>`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:556`
+- 文档声明：`ToolPkg.ipc` 的 `meta.currentRuntime` 使用 `main`、`ui`、`sandbox`、`provider` 四种字面量。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:560`
+- 文档声明：跨上下文共享状态或调用能力时，显式使用 `ToolPkg.ipc`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:591`
+- 文档声明：`ToolPkg.ipc.on(channel, handler)` 在当前上下文注册通道处理函数；`ToolPkg.ipc.call(channel, payload)` 的语义是非 `main` 上下文调用同包 ToolPkg main，`main` 上下文调用本地 handler；`ToolPkg.ipc.call(channel, payload, options)` 可指定 `targetRuntime` 与 `targetContextKey` 调用目标 runtime 实例。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:637`
+- 文档声明：`ToolPkg.ipc` 的 payload 和返回值应使用 JSON 可序列化数据：字符串、数字、布尔值、数组、普通对象和 `null`；对象按数据复制传输，不保留引用身份、原型、方法闭包或类实例。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:640`
+- 文档声明：指定 `ui`、`provider`、`sandbox` 目标时需要提供明确的 `targetContextKey`；目标不存在会直接报错。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:643`
+- 文档声明：UI state 只服务当前界面展示时，放在 `ctx.useState` 与 `ctx.useMemo`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:649`
+- 文档声明：`ToolPkg.registerDesktopWidget` 是桌面小部件注册接口；桌宠和其他实时悬浮工具使用独立的 `ToolPkg.ui.floatingWindows` 窗口控制接口，内容复用已注册的 Compose UI 路由；方法、平台能力、权限与生命周期见 `../FLOATING_WINDOWS.md`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1428`
 
 ### 资源、模板与 UI
 
-- 文档声明：资源访问在子包脚本中通过 PackageManager API，在 UI 模块中通过 `ToolPkg.readResource(key)`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:666`
-- 文档声明：当 `mime` 是目录类型（如 `inode/directory`、`vnd.android.document/directory`）时，`ToolPkg.readResource(key)` 会先将该目录压缩成 zip，再返回这个 zip 的临时文件路径；如果没有显式传 `outputFileName`，目录资源默认会自动补上 `.zip` 后缀。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:669`
-- 文档声明：工作流模板的 `resource_key` 指向 `resources` 中某个文件资源。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:704`
-- 文档声明：工作流模板的 `resource_key` 必须引用一个文件资源，不能是目录资源。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:707`
-- 文档声明：工作流模板导入时，宿主重新生成工作流 `id`；执行统计字段会被重置；导入成功后会落库成正式 `Workflow`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:712`
-- 文档声明：工作区模板的 `resource_key` 指向 `resources` 中某个目录资源。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:756`
-- 文档声明：工作区模板的 `resource_key` 必须引用一个目录资源，常见 `mime` 可写 `inode/directory` 或 `application/x-directory`；目录内容里必须包含 `.operit/config.json`；宿主导入时会把整个目录复制到当前 chat 的 workspace 目录。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:760`
-- 文档声明：参考实现应按插件创作流程提供的 VFS 入口查找当前已安装插件；选择实际声明了 `workflow_templates`、`workspace_templates` 或目录资源的包，读取其 manifest 和随包源码；没有对应安装包时，以本指南的格式和当前类型定义为准。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:777`
-- 文档声明：Compose DSL 是一种基于 JavaScript 的声明式 UI 框架，灵感来自 Jetpack Compose。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:987`
-- 文档声明：Compose DSL 的特点包括声明式语法、组件化设计、状态管理、事件处理。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:992`
-- 文档声明：Compose DSL 布局组件包括 `Column`（垂直布局）、`Row`（水平布局）、`Box`（容器）、`Spacer`（间距）。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1055`
-- 文档声明：Compose DSL 基础组件包括 `Text`、`TextField`、`Button`、`IconButton`、`Switch`、`Checkbox`、`Card`、`Icon`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1065`
-- 文档声明：UI 示例用 `ctx.useState` 管理 `url` 与 `token` 状态，用 ctx.callTool('windows_control:windows_test_connection', {...}) 调用工具。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1009`
-- 文档声明：UI 模块通过 `ctx.getEnv('API_KEY')` 读环境变量，通过 `ctx.setEnv` 与 `ctx.setEnvs` 写环境变量。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1116`
-- 文档声明：UI 模块通过 `ctx.isPackageImported`、`ctx.importPackage`、`ctx.removePackage`、`ctx.usePackage`、`ctx.listImportedPackages` 管理包。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1128`
-- 文档声明：UI 模块通过 ctx.resolveToolName({packageName, subpackageId, toolName, preferImported}) 解析工具名。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1137`
-- 文档声明：`ctx.navigate(route, args?)` 会触发真实路由跳转；`ctx.listRoutes()` 返回当前可导航路由列表，包含 `routeId`、`runtime` 等字段；`ctx.getHostRoutes()` 只返回宿主 Native 路由；Native 路由 ID 命名规则为 native.<Screen 对象名的 snake_case>，例如 `Screen.Toolbox` 对应 `native.toolbox`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1154`
-- 文档声明：`ctx.openFilePicker(options?)` 仅使用 `picker` 指定选择来源；未传入 `picker` 时打开文档选择器。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1161`
-- 文档声明：该 API 通过 Flutter `file_selector` 在 Android、iOS、Linux、macOS、Windows、Web 和 OpenHarmony 使用各平台的文件选择器；不适用该 `picker` 的选项会直接报错；结果提供平台文件路径或浏览器对象 URL。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1173`
-- 文档声明：`ctx.saveFile(options)` 将 UTF-8 文本交给宿主的跨平台文件保存服务，由用户在系统保存界面选择位置。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1177`
-- 文档声明：`ToolPkg.registerToolboxUiModule(...)` 仍然保留；宿主内部把它自动映射为注册一个 `compose_dsl` UI route 与自动挂载一个 `toolbox` 导航入口；旧接口不会自动创建主侧边栏插件入口，需要主侧边栏插件入口时额外调用 `ToolPkg.registerNavigationEntry(...)` 并使用 `surface` 为 `main_sidebar_plugins`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1193`
-- 文档声明：UI 模块可用 `getLang()` 取当前语言，返回 `zh` 或 `en`；可用 `ctx.getCurrentPackageName()`、`ctx.getCurrentToolPkgId()`、`ctx.getCurrentUiModuleId()`、`ctx.getModuleSpec()` 取当前包与模块信息。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1202`
-- 文档声明：子包环境变量声明示例中，`TIMEOUT` 为可选环境变量，`defaultValue` 为 `30000`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:930`
-- 文档声明：命名规范为 `toolpkg_id` 使用反向域名格式，如 `com.operit.windows_bundle`；子包 id 使用小写字母和下划线，如 `windows_control`；资源 key 使用小写字母和下划线，如 `pc_agent_zip`；UI 模块 id 使用小写字母和下划线，如 `windows_setup`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1274`
+- 文档声明：资源访问在子包脚本中通过 PackageManager API，在 UI 模块中通过 `ToolPkg.readResource(key)`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:681`
+- 文档声明：当 `mime` 是目录类型（如 `inode/directory`、`vnd.android.document/directory`）时，`ToolPkg.readResource(key)` 会先将该目录压缩成 zip，再返回这个 zip 的临时文件路径；如果没有显式传 `outputFileName`，目录资源默认会自动补上 `.zip` 后缀。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:684`
+- 文档声明：工作流模板的 `resource_key` 指向 `resources` 中某个文件资源。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:719`
+- 文档声明：工作流模板的 `resource_key` 必须引用一个文件资源，不能是目录资源。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:722`
+- 文档声明：工作流模板导入时，宿主重新生成工作流 `id`；执行统计字段会被重置；导入成功后会落库成正式 `Workflow`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:727`
+- 文档声明：工作区模板的 `resource_key` 指向 `resources` 中某个目录资源。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:771`
+- 文档声明：工作区模板的 `resource_key` 必须引用一个目录资源，常见 `mime` 可写 `inode/directory` 或 `application/x-directory`；目录内容里必须包含 `.operit/config.json`；宿主导入时会把整个目录复制到当前 chat 的 workspace 目录。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:775`
+- 文档声明：参考实现应按插件创作流程提供的 VFS 入口查找当前已安装插件；选择实际声明了 `workflow_templates`、`workspace_templates` 或目录资源的包，读取其 manifest 和随包源码；没有对应安装包时，以本指南的格式和当前类型定义为准。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:792`
+- 文档声明：Compose DSL 是一种基于 JavaScript 的声明式 UI 框架，灵感来自 Jetpack Compose。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1002`
+- 文档声明：Compose DSL 的特点包括声明式语法、组件化设计、状态管理、事件处理。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1007`
+- 文档声明：Compose DSL 布局组件包括 `Column`（垂直布局）、`Row`（水平布局）、`Box`（容器）、`Spacer`（间距）。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1070`
+- 文档声明：Compose DSL 基础组件包括 `Text`、`TextField`、`Button`、`IconButton`、`Switch`、`Checkbox`、`Card`、`Icon`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1080`
+- 文档声明：UI 示例用 `ctx.useState` 管理 `url` 与 `token` 状态，用 ctx.callTool('windows_control:windows_test_connection', {...}) 调用工具。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1024`
+- 文档声明：UI 模块通过 `ctx.getEnv('API_KEY')` 读环境变量，通过 `ctx.setEnv` 与 `ctx.setEnvs` 写环境变量。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1131`
+- 文档声明：UI 模块通过 `ctx.isPackageImported`、`ctx.importPackage`、`ctx.removePackage`、`ctx.usePackage`、`ctx.listImportedPackages` 管理包。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1143`
+- 文档声明：UI 模块通过 ctx.resolveToolName({packageName, subpackageId, toolName, preferImported}) 解析工具名。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1152`
+- 文档声明：`ctx.navigate(route, args?)` 会触发真实路由跳转；`ctx.listRoutes()` 返回当前可导航路由列表，包含 `routeId`、`runtime` 等字段；`ctx.getHostRoutes()` 只返回宿主 Native 路由；Native 路由 ID 命名规则为 native.<Screen 对象名的 snake_case>，例如 `Screen.Toolbox` 对应 `native.toolbox`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1169`
+- 文档声明：`ctx.openFilePicker(options?)` 仅使用 `picker` 指定选择来源；未传入 `picker` 时打开文档选择器。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1176`
+- 文档声明：该 API 通过 Flutter `file_selector` 在 Android、iOS、Linux、macOS、Windows、Web 和 OpenHarmony 使用各平台的文件选择器；不适用该 `picker` 的选项会直接报错；结果提供平台文件路径或浏览器对象 URL。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1188`
+- 文档声明：`ctx.saveFile(options)` 将 UTF-8 文本交给宿主的跨平台文件保存服务，由用户在系统保存界面选择位置。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1192`
+- 文档声明：`ToolPkg.registerToolboxUiModule(...)` 仍然保留；宿主内部把它自动映射为注册一个 `compose_dsl` UI route 与自动挂载一个 `toolbox` 导航入口；旧接口不会自动创建主侧边栏插件入口，需要主侧边栏插件入口时额外调用 `ToolPkg.registerNavigationEntry(...)` 并使用 `surface` 为 `main_sidebar_plugins`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1208`
+- 文档声明：UI 模块可用 `getLang()` 取当前语言，返回 `zh` 或 `en`；可用 `ctx.getCurrentPackageName()`、`ctx.getCurrentToolPkgId()`、`ctx.getCurrentUiModuleId()`、`ctx.getModuleSpec()` 取当前包与模块信息。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1217`
+- 文档声明：子包环境变量声明示例中，`TIMEOUT` 为可选环境变量，`defaultValue` 为 `30000`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:945`
+- 文档声明：命名规范为 `toolpkg_id` 使用反向域名格式，如 `com.operit.windows_bundle`；子包 id 使用小写字母和下划线，如 `windows_control`；资源 key 使用小写字母和下划线，如 `pc_agent_zip`；UI 模块 id 使用小写字母和下划线，如 `windows_setup`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1289`
 
 ### 首次安装与测试
 
@@ -228,27 +228,27 @@ date: 2026-11-11
 
 ### 内置同步与示例
 
-- 文档声明：资源同步脚本仅适用于贡献 Operit 主仓库，不是安装后的 Skill 自带命令；源码位于 `plugins/packages/buildin/` 和 `plugins/packages/external/`；资源同步脚本为 `plugins/tools/sync_plugin_packages.py`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:818`
-- 文档声明：同步脚本查看计划的命令是 `python plugins/tools/sync_plugin_packages.py --source runtime --dry-run --no-hot-reload`，不写入资源。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:824`
-- 文档声明：同步脚本构建并同步内置与 external 资源的命令是 `python plugins/tools/sync_plugin_packages.py --source runtime --no-hot-reload`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:827`
-- 文档声明：同步脚本会生成当前 SDK 类型、按包的构建契约处理源码，并更新 `core/crates/runtime/application/assets/plugins/buildin/` 与 `external/`；此步骤服务于应用资源构建，不等于向正在运行的应用安装插件。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:830`
-- 文档声明：贡献主项目时，通过第 4.2 节的同步脚本生成 `core/crates/runtime/application/assets/plugins/buildin/` 和 `external/` 中的资源；应用构建会嵌入这些资源；内置资源同步不是运行时安装命令。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1246`
+- 文档声明：资源同步脚本仅适用于贡献 Operit 主仓库，不是安装后的 Skill 自带命令；源码位于 `plugins/packages/buildin/` 和 `plugins/packages/external/`；资源同步脚本为 `plugins/tools/sync_plugin_packages.py`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:833`
+- 文档声明：同步脚本查看计划的命令是 `python plugins/tools/sync_plugin_packages.py --source runtime --dry-run --no-hot-reload`，不写入资源。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:839`
+- 文档声明：同步脚本构建并同步内置与 external 资源的命令是 `python plugins/tools/sync_plugin_packages.py --source runtime --no-hot-reload`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:842`
+- 文档声明：同步脚本会生成当前 SDK 类型、按包的构建契约处理源码，并更新 `core/crates/runtime/application/assets/plugins/buildin/` 与 `external/`；此步骤服务于应用资源构建，不等于向正在运行的应用安装插件。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:845`
+- 文档声明：贡献主项目时，通过第 4.2 节的同步脚本生成 `core/crates/runtime/application/assets/plugins/buildin/` 和 `external/` 中的资源；应用构建会嵌入这些资源；内置资源同步不是运行时安装命令。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1261`
 - 文档声明：本套件只携带当前版本类型和文档，不维护插件文件索引或示例副本；参考实现由 AI 通过 VFS 自行查找：先列举 `/operitapp/data/extensions/device/packages/` 和 `/operitapp/data/extensions/space/packages/`，再按需查看 `/operitapp/data/cache/toolpkg/` 中实际存在的缓存。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:543`
 - 文档声明：单文件包可直接阅读脚本；ToolPkg 优先读取与安装版本核对过的现有缓存中的 manifest、入口和随包源码；没有可读缓存时，只将需要参考的安装归档解压到独立临时目录。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:545`
 - 文档声明：具体查阅步骤和路径语义见插件创作流程；读取所选包的真实配置后再确定项目结构、API 版本和构建命令；API 签名始终以本 Skill 的当前版本 `types/` 为准。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:547`
-- 文档声明：本套件不复制插件示例或维护归档文件索引；AI 从 `/operitapp/data/extensions/device/packages/` 与 `/operitapp/data/extensions/space/packages/` 自行列举用户安装的插件，并按需读取 `/operitapp/data/cache/toolpkg/` 中已有的 ToolPkg 缓存；缓存不存在或过期时，应与实际安装文件核验，不能当作完整安装列表。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1383`
-- 文档声明：需要查看某个归档而没有可读缓存时，只将选中的 `.toolpkg` 解压到独立临时目录，不覆盖运行缓存或批量解压其他包；按所选插件实际附带的 manifest、`package.json` 和源码确定构建方式；成品未附带源码时明确说明，不把它当作完整开发项目。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1385`
-- 文档声明：贡献主项目时对应 Rust 源码为 `core/crates/command/core/src/commands/package.rs`（包命令）、`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs`（运行时包管理）、`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs`（ToolPkg 解析）、`core/crates/runtime/application/build.rs`（内置包与 Skill 附件的资源嵌入）。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1397`
-- 文档声明：格式指南更新日志 `v1.0.0`（2024-02-14）是初始版本：支持子包、UI 模块、资源文件，支持多语言，提供 Compose DSL UI 框架。此为指南文档的版本记录，与 api_version 无关。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1404`
-- 文档声明：版本管理建议使用语义化版本号 `MAJOR.MINOR.PATCH`，如 `1.2.3`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1264`
+- 文档声明：本套件不复制插件示例或维护归档文件索引；AI 从 `/operitapp/data/extensions/device/packages/` 与 `/operitapp/data/extensions/space/packages/` 自行列举用户安装的插件，并按需读取 `/operitapp/data/cache/toolpkg/` 中已有的 ToolPkg 缓存；缓存不存在或过期时，应与实际安装文件核验，不能当作完整安装列表。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1398`
+- 文档声明：需要查看某个归档而没有可读缓存时，只将选中的 `.toolpkg` 解压到独立临时目录，不覆盖运行缓存或批量解压其他包；按所选插件实际附带的 manifest、`package.json` 和源码确定构建方式；成品未附带源码时明确说明，不把它当作完整开发项目。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1400`
+- 文档声明：贡献主项目时对应 Rust 源码为 `core/crates/command/core/src/commands/package.rs`（包命令）、`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs`（运行时包管理）、`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs`（ToolPkg 解析）、`core/crates/runtime/application/build.rs`（内置包与 Skill 附件的资源嵌入）。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1412`
+- 文档声明：格式指南更新日志 `v1.0.0`（2024-02-14）是初始版本：支持子包、UI 模块、资源文件，支持多语言，提供 Compose DSL UI 框架。此为指南文档的版本记录，与 api_version 无关。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1419`
+- 文档声明：版本管理建议使用语义化版本号 `MAJOR.MINOR.PATCH`，如 `1.2.3`。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1279`
 
 ### 调试与故障排查
 
-- 文档声明：调试用 `["log", "package"]`、`["log", "show"]` 和 `["log", "path"]` 查看当前 runtime 日志；不要依赖某个平台的日志命令。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1367`
-- 文档声明：包无法导入时检查 `manifest.json` 格式是否正确、确认 `toolpkg_id` 是否唯一、验证 ZIP 文件结构是否正确。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1331`
-- 文档声明：子包无法加载时检查 `entry` 路径是否正确、确认脚本文件包含有效的 `METADATA`、查看应用日志获取详细错误信息。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1336`
-- 文档声明：资源无法访问时检查资源 `key` 是否正确、确认资源 `path` 在 ZIP 中存在、验证资源文件没有损坏。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1341`
-- 文档声明：UI 模块不显示时检查 `main.js` 是否导出 `registerToolPkg`、是否调用了 `ToolPkg.registerToolboxUiModule(...)`、确认 `runtime` 类型正确、确认 `screen` 传的是已导入的模块函数、验证 UI 脚本语法正确。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1346`
+- 文档声明：调试用 `["log", "package"]`、`["log", "show"]` 和 `["log", "path"]` 查看当前 runtime 日志；不要依赖某个平台的日志命令。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1382`
+- 文档声明：包无法导入时检查 `manifest.json` 格式是否正确、确认 `toolpkg_id` 是否唯一、验证 ZIP 文件结构是否正确。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1346`
+- 文档声明：子包无法加载时检查 `entry` 路径是否正确、确认脚本文件包含有效的 `METADATA`、查看应用日志获取详细错误信息。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1351`
+- 文档声明：资源无法访问时检查资源 `key` 是否正确、确认资源 `path` 在 ZIP 中存在、验证资源文件没有损坏。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1356`
+- 文档声明：UI 模块不显示时检查 `main.js` 是否导出 `registerToolPkg`、是否调用了 `ToolPkg.registerToolboxUiModule(...)`、确认 `runtime` 类型正确、确认 `screen` 传的是已导入的模块函数、验证 UI 脚本语法正确。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1361`
 
 ## 关键符号
 
@@ -267,10 +267,10 @@ date: 2026-11-11
 - `ToolPkg.registerMessageProcessingPlugin` — 注册消息处理插件。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:501`
 - `ToolPkg.registerXmlRenderPlugin` — 注册 XML 渲染插件。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:503`
 - `ToolPkg.registerInputMenuTogglePlugin` — 注册输入菜单开关插件。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:506`
-- `ToolPkg.registerAiProvider` — 注册自定义 AI provider。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:541`
-- `ToolPkg.ipc` — 跨上下文通道。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:576`
+- `ToolPkg.registerAiProvider` — 注册自定义 AI provider。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:556`
+- `ToolPkg.ipc` — 跨上下文通道。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:591`
 - `ToolPkg.wasm.call` — 调用 WASM 导出函数。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`
-- `ToolPkg.readResource` — 读资源。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:666`
+- `ToolPkg.readResource` — 读资源。`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:681`
 - `METADATA` — 脚本元数据注释块。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:118`
 - `states` — 动态工具集。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:173`
 - `getState` — 返回当前激活 state 的 id。`plugins/docs/package_builder/SCRIPT_DEV_GUIDE.md:219`

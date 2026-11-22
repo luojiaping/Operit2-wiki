@@ -15,7 +15,7 @@ date: 2026-11-11
 2026-10-13 差距调查把自动 compaction 缺失列为 P0，HEAD 上的实现与该结论相反，自动压缩已存在且默认启用（`core/crates/foundation/model/src/ModelConfigData.rs:147`）。
 自动摘要只取决于配置的上下文 token 阈值（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:653`）。
 摘要 hook 在摘要生成全过程分发三阶段事件，hook 可改写提示词与结果（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:89`）。
-压缩与 CoreNode 切换互不干扰：路由变更测试断言切换后不产生摘要任务（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3825`）。
+压缩与 CoreNode 切换互不干扰：路由变更测试断言切换后不产生摘要任务（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3829`）。
 上下文用量显示存在：chatInputMenuSummary 返回当前窗口大小与累计 token 数（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3042`）。
 摘要消息的 sender 为 summary、roleName 为 system（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:611`）。
 
@@ -79,9 +79,9 @@ date: 2026-11-11
 - 发送前摘要检查的开关在续跑、自动续跑与 resume 时为假，三个标志是 `isContinuation`、`isAutoContinuation` 与 `isResume`（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:709`）。
 - MessageCoordinationDelegate 的 `checkSummaryAfterReply` 在回复后调用 recalculateStableWindowSize 重算稳定窗口（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:856`）。
 - checkSummaryAfterReply 逐个参与者调用 `shouldGenerateSummary` 核对各自模型的摘要阈值（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:874`）。
-- 在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1175`）。
-- 执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2470`）。
-- 超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2489`）。
+- 在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1172`）。
+- 执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2475`）。
+- 超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2494`）。
 - MessageCoordinationDelegate 的 `handleTokenLimitExceeded` 先等 summaryTaskForChat 返回的进行中摘要任务完成，再调用 isCurrentChatTurn 校验回合归属（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1142`、`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1150`）。
 - handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1180`）。
 - handleTokenLimitExceeded 压缩后调用 `sendMessageInternal` 续跑同一已提交用户回合（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1192`）。
@@ -156,7 +156,7 @@ date: 2026-11-11
 - beforeChangeRoute 在路由变更前调用 `beginChatExecution` 取执行租约并立即释放，用于校验执行归属（`core/crates/runtime/application/src/services/ChatServiceCore.rs:904`）。
 - afterChangeRoute 在路由到达目标 Core 后调用 `resumeFromRouteContext` 续跑（`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`）。
 - resumeFromRouteContext 经 sendRoutedContinuation 把路由携带的 `runtimeChatHistory` 交给续跑发送（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:521`）。
-- 路由变更测试断言切换后不产生摘要任务，`summaryTaskForChat` 返回空（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3825`）。
+- 路由变更测试断言切换后不产生摘要任务，`summaryTaskForChat` 返回空（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3829`）。
 - 路由决策与跨节点调用写在 [[core-node-runtime|节点——节点运行时]]。
 
 ## 关键符号
@@ -194,10 +194,10 @@ date: 2026-11-11
 7. 发送前自动压缩：`prepareSummaryForSend` 做摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）。
 8. 发送前自动压缩：`SummarySendPolicy` 决策是否评估窗口占比（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:805`）。
 9. 发送前自动压缩：窗口占比达到阈值时 `shouldGenerateSummary` 判断并启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:821`）。
-10. 回复后自动压缩：在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1175`）。
+10. 回复后自动压缩：在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1172`）。
 11. 回复后自动压缩：checkSummaryAfterReply 逐个参与者核对摘要阈值（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:874`）。
-12. 执行中超限：`usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2470`）。
-13. 执行中超限：超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2489`）。
+12. 执行中超限：`usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2475`）。
+13. 执行中超限：超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2494`）。
 14. 执行中超限：handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1180`）。
 15. 执行中超限：压缩后 `sendMessageInternal` 续跑同一已提交用户回合（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1192`）。
 16. 摘要生成：summarizeMemory 只总结上一次摘要之后的用户与 AI 消息（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:547`）。
