@@ -237,7 +237,7 @@
   },
   {
     "fact": "`readRootfsSha256` 要求校验和为 64 位十六进制字符并转小写。",
-    "ref": "hosts/ohos/src/terminal.rs:747"
+    "ref": "hosts/ohos/src/terminal.rs:748"
   },
   {
     "fact": "打包安装经 apk 以 `--no-network` 离线运行。",
@@ -265,7 +265,7 @@
   },
   {
     "fact": "`verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`。",
-    "ref": "hosts/ohos/src/terminal.rs:813"
+    "ref": "hosts/ohos/src/terminal.rs:814"
   },
   {
     "fact": "`OhosTerminalHost` 的 `new` 接受显式的 runtimeRoot 与 workspaceRoot。",
@@ -277,51 +277,51 @@
   },
   {
     "fact": "`createVrootShell` 为 QEMU-vroot Alpine 创建 PTY 启动器。",
-    "ref": "hosts/ohos/src/terminal.rs:655"
+    "ref": "hosts/ohos/src/terminal.rs:656"
   },
   {
     "fact": "vroot shell 在 guest 内执行 cd \"$OPERIT_OHOS_HOST_WORKING_DIR\" && exec /bin/sh -i。",
-    "ref": "hosts/ohos/src/terminal.rs:670"
+    "ref": "hosts/ohos/src/terminal.rs:671"
   },
   {
     "fact": "vroot 会话默认工作目录为 `VROOT_HOST_MOUNT_ROOT` 拼接 workspaceRoot。",
-    "ref": "hosts/ohos/src/terminal.rs:674"
+    "ref": "hosts/ohos/src/terminal.rs:675"
   },
   {
     "fact": "`terminalInfo` 把 qemu-vroot 列为默认终端。",
-    "ref": "hosts/ohos/src/terminal.rs:438"
+    "ref": "hosts/ohos/src/terminal.rs:439"
   },
   {
     "fact": "qemu-vroot 条目 available 取 `isAvailable` 的结果。",
-    "ref": "hosts/ohos/src/terminal.rs:444"
+    "ref": "hosts/ohos/src/terminal.rs:445"
   },
   {
     "fact": "native 条目 available 取 `/bin/sh` 是否存在。",
-    "ref": "hosts/ohos/src/terminal.rs:451"
+    "ref": "hosts/ohos/src/terminal.rs:452"
   },
   {
     "fact": "`startPtySession` 对 qemu-vroot 要求工作目录为绝对路径。",
-    "ref": "hosts/ohos/src/terminal.rs:473"
+    "ref": "hosts/ohos/src/terminal.rs:474"
   },
   {
     "fact": "qemu-vroot 工作目录解析把原生目录映射为 `VROOT_HOST_MOUNT_ROOT` 前缀的 guest 路径。",
-    "ref": "hosts/ohos/src/terminal.rs:427"
+    "ref": "hosts/ohos/src/terminal.rs:428"
   },
   {
     "fact": "`createOrGetTypedSession` 固定走 `QEMU_VROOT_TERMINAL` 后端。",
-    "ref": "hosts/ohos/src/terminal.rs:547"
+    "ref": "hosts/ohos/src/terminal.rs:548"
   },
   {
     "fact": "`executeHiddenCommand` 固定走 QemuVroot 后端。",
-    "ref": "hosts/ohos/src/terminal.rs:604"
+    "ref": "hosts/ohos/src/terminal.rs:605"
   },
   {
     "fact": "`listSessions` 合并 native 与 vroot 两路会话并逐条记录后端。",
-    "ref": "hosts/ohos/src/terminal.rs:521"
+    "ref": "hosts/ohos/src/terminal.rs:522"
   },
   {
     "fact": "`closePtySession` 关闭 PTY 后移除会话后端记录。",
-    "ref": "hosts/ohos/src/terminal.rs:514"
+    "ref": "hosts/ohos/src/terminal.rs:515"
   },
   {
     "fact": "`OhosManagedRuntimeHost` 的 `new` 接受终端 Host 与 workspaceRoot。",

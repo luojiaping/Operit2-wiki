@@ -23,7 +23,7 @@ date: 2026-11-11
 - `wasm_modules` — 角色卡声明了 `usearch` 模块（`plugins/packages/buildin/character_cards/manifest.json:43`）。
 - `public_api` — 角色卡公开 API 的路径是 `src/api.ts`（`plugins/packages/buildin/character_cards/manifest.json:7`）。
 - `VectorIndex` — 角色卡记忆检索的向量索引类（`plugins/packages/buildin/character_cards/src/search/usearch.ts:3`）。
-- `defaultEnabledByDefault` — 清单省略默认启用字段时的默认值来源，返回 true（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2789`）。
+- `defaultEnabledByDefault` — 清单省略默认启用字段时的默认值来源，返回 true（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2834`）。
 - `bool_field` — 单文件包解析时字段缺失返回 `false`（`core/crates/plugin/sdk/src/JsPackageLoader.rs:187`）（`core/crates/plugin/sdk/src/JsPackageLoader.rs:196`）。
 - 数据流向：buildin 源码 → 打包进内置插件资产（`plugins/packages/buildin/README.md:3`）。
 
@@ -57,7 +57,7 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 解析单文件包 METADATA 时 `enabled_by_default` 取 `enabledByDefault` 与 `enabled_by_default` 两个字段的或（`core/crates/plugin/sdk/src/JsPackageLoader.rs:109`）。
 `bool_field` 在字段缺失时返回 `false`（`core/crates/plugin/sdk/src/JsPackageLoader.rs:187`）（`core/crates/plugin/sdk/src/JsPackageLoader.rs:196`）。
 因此 AI 相互对话按这段解析代码不默认启用（`core/crates/plugin/sdk/src/JsPackageLoader.rs:109`）。
-清单省略 `enabled_by_default` 时按 `defaultEnabledByDefault` 取 true（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:690`）。
+清单省略 `enabled_by_default` 时按 `defaultEnabledByDefault` 取 true（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:714`）。
 
 ### 单文件包与目录包的区别
 
@@ -82,11 +82,11 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 
 ### character_cards 为什么这么大
 
-角色卡的 src/ 共 105 个文件，其中 .ts 文件 102 个、合计 16209 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
+角色卡的 src/ 共 106 个文件，其中 .ts 文件 103 个、合计 16364 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
 对照：工作流的 src/ 共 14 个 .ts 文件、合计 2967 行（`plugins/packages/buildin/workflow/src/main.ts:1`）。
 角色卡另有 web/ 前端 3 个文件，其中 .ts 文件 2 个、合计 283 行（`plugins/packages/buildin/character_cards/web/app.ts:1`）。
 注：角色卡 src/ 的统计按上游 0f08fd43 清点，2026-11-15 对 ff5373fb6 复核无变化（102 个文件、99 个 .ts、15830 行）；web/ 按 ff5373fb6 重清点为 3 个文件、2 个 .ts、229 行；2026-11-18 对 753366ff4 复核：src/ 仍 102 个文件、99 个 .ts、合计 15865 行，web/ 仍 3 个文件、2 个 .ts、合计 236 行；行数只计 .ts 文件（src/ 另有 3 个 .json 文件不计）；2026-11-19 对 f9b7555 复核：src/ 仍 102 个文件、99 个 .ts、合计 15925 行，web/ 仍 3 个文件、2 个 .ts、合计 236 行。
-角色卡的记忆查询结果类型是 `MemoryQueryResult`（`plugins/packages/buildin/character_cards/src/api.ts:223`）。
+角色卡的记忆查询结果类型是 `MemoryQueryResult`（`plugins/packages/buildin/character_cards/src/api.ts:225`）。
 角色卡的聊天存储类 `CharacterChatStore` 定义在存储层（`plugins/packages/buildin/character_cards/src/storage/chats.ts:10`）。
 角色卡有群聊执行代码，executor.ts 引用 `ToolPkg` 类型（`plugins/packages/buildin/character_cards/src/group-execution/executor.ts:1`）。
 角色卡有向量检索代码，`VectorIndex` 基于 `ToolPkg.WasmInstance`（`plugins/packages/buildin/character_cards/src/search/usearch.ts:3`）。
@@ -109,9 +109,9 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 - `METADATA` — 单文件包元数据注释块（`plugins/packages/buildin/ai_chat.ts:1`）。
 - `enabledByDefault` — 单文件包是否默认启用（`plugins/packages/buildin/browser.ts:13`）。
 - `VectorIndex` — 向量索引类（`plugins/packages/buildin/character_cards/src/search/usearch.ts:3`）。
-- `MemoryQueryResult` — 记忆查询结果类型（`plugins/packages/buildin/character_cards/src/api.ts:223`）。
+- `MemoryQueryResult` — 记忆查询结果类型（`plugins/packages/buildin/character_cards/src/api.ts:225`）。
 - `CharacterChatStore` — 角色聊天存储（`plugins/packages/buildin/character_cards/src/storage/chats.ts:10`）。
-- `defaultEnabledByDefault` — 清单默认启用值来源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2789`）。
+- `defaultEnabledByDefault` — 清单默认启用值来源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2834`）。
 - `bool_field` — 单文件包布尔字段解析（`core/crates/plugin/sdk/src/JsPackageLoader.rs:187`）。
 - `outDir` — 根 tsconfig 输出目录（`plugins/packages/buildin/tsconfig.json:8`）。
 - `character_memory` — 角色卡记忆子包（`plugins/packages/buildin/character_cards/manifest.json:20`）。
@@ -131,7 +131,7 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 4. 目录包的子包从 `entry` 入口加载，角色卡记忆子包入口是 `dist/tools.js`（`plugins/packages/buildin/character_cards/manifest.json:20`）。
 5. 根 tsconfig 声明 `outDir` 为 `../../.out/buildin`（`plugins/packages/buildin/tsconfig.json:8`）。
 6. 角色卡记忆检索经 `VectorIndex` 调 WASM 实例（`plugins/packages/buildin/character_cards/src/search/usearch.ts:3`）。
-7. 清单省略 `enabled_by_default` 时按 `defaultEnabledByDefault` 取 true（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:690`）。
+7. 清单省略 `enabled_by_default` 时按 `defaultEnabledByDefault` 取 true（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:714`）。
 
 ## 来源
 

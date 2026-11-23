@@ -137,7 +137,7 @@
  },
  {
   "fact": "命令超时时返回 exitCode -1 与 timedOut true",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:609"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:611"
  },
  {
   "fact": "取消超时命令时写入 \\x03",

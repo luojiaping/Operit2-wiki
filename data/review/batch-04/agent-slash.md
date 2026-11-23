@@ -8,19 +8,19 @@ date: 2026-11-11
 
 ## 概述
 
-TUI 一侧的命令清单由 `COMMAND_SPECS` 静态表定义（apps/cli/src/tui/input/commands.rs:56）。
+TUI 一侧的命令清单由 `COMMAND_SPECS` 静态表定义（apps/cli/src/tui/input/commands.rs:181）。
 交互式 shell 一侧由 `handle_shell_command_with_core` 按首词 match 分发（apps/cli/src/chat_runtime.rs:517）。
-旧调查称 18 个内置命令，与当前 HEAD 实测的 81 条不符（apps/cli/src/tui/input/commands.rs:56）。
-commands.rs 只定义补全表与补全逻辑，不含执行分发（apps/cli/src/tui/input/commands.rs:610）。
+旧调查称 18 个内置命令，与当前 HEAD 实测的 79 条不符（apps/cli/src/tui/input/commands.rs:181）。
+commands.rs 只定义补全表与补全逻辑，不含执行分发（apps/cli/src/tui/input/commands.rs:971）。
 
 ## AI 速览
 
-- `COMMAND_SPECS` — TUI 内置 slash 命令静态表，81 条（apps/cli/src/tui/input/commands.rs:56）。
-- `TuiCommandSpec` — 一条内置命令的定义：名、用法、描述键、选项（apps/cli/src/tui/input/commands.rs:4）。
-- `TuiPluginCommandSpec` — 一条 Core 返回的插件命令（apps/cli/src/tui/input/commands.rs:17）。
-- `TuiCommandSuggestion` — 内置或插件命令建议（apps/cli/src/tui/input/commands.rs:25）。
-- `matching_command_specs` — 按前缀筛补全候选，混入插件命令（apps/cli/src/tui/input/commands.rs:656）。
-- `expand_plugin_command` — 把插件用法展开为多条子命令建议（apps/cli/src/tui/input/commands.rs:558）。
+- `COMMAND_SPECS` — TUI 内置 slash 命令静态表，79 条（apps/cli/src/tui/input/commands.rs:181）。
+- `TuiCommandSpec` — 一条内置命令的定义：名、描述键、位置参数、选项；用法由声明生成（apps/cli/src/tui/input/commands.rs:46）。
+- `TuiPluginCommandSpec` — 一条 Core 返回的插件命令，含结构化参数声明 args（apps/cli/src/tui/input/commands.rs:68）。
+- `TuiCommandSuggestion` — 内置、插件或参数值建议（apps/cli/src/tui/input/commands.rs:95）。
+- `matching_command_specs` — 按前缀筛补全候选，混入插件命令（apps/cli/src/tui/input/commands.rs:1042）。
+- `expand_plugin_command` — 把插件用法展开为多条子命令建议（apps/cli/src/tui/input/commands.rs:916）。
 - `handle_shell_command_with_core` — 交互式 shell 的命令分发器（apps/cli/src/chat_runtime.rs:517）。
 - `split_shell_command_line` — shell 输入切分器（apps/cli/src/chat_runtime.rs:643）。
 - `parse_shell_args` — shell 启动参数解析器，含 --resume（apps/cli/src/chat_runtime.rs:321）。
@@ -29,41 +29,41 @@ commands.rs 只定义补全表与补全逻辑，不含执行分发（apps/cli/sr
 - `run_cli_root_inner` — CLI 总分发器（apps/cli/src/cli/mod.rs:113）。
 - 主入口（shell）：`run_shell_command_with_core`（apps/cli/src/chat_runtime.rs:393）。
 - 主入口（CLI）：`run_cli_root_inner`（apps/cli/src/cli/mod.rs:113）。
-- 数据流向（补全）：TUI 输入 → `matching_command_specs` 筛候选（apps/cli/src/tui/input/commands.rs:656）。
+- 数据流向（补全）：TUI 输入 → `matching_command_specs` 筛候选（apps/cli/src/tui/input/commands.rs:1042）。
 - 数据流向（shell）：输入 → `split_shell_command_line` 切分 → `handle_shell_command_with_core` 分发（apps/cli/src/chat_runtime.rs:522）。
 
 ## 核心机制
 
-`COMMAND_SPECS` 共 81 条，覆盖 25 个顶层命令词：help、diff、new、switch、resume、language、network、model、approval、attach、attachments、clear-attachments、queue、quit、exit、character、group、skill、package、plugin、mcp、status、log、tag、update（apps/cli/src/tui/input/commands.rs:56）。
-`network` 一族 36 条，是最大的子树，含 network show、network bootstrap、network pair-confirm、network identity define 等（apps/cli/src/tui/input/commands.rs:120）。
-`model` 一族 6 条：model、model current、model list、model choose、model use、model config（apps/cli/src/tui/input/commands.rs:336）。
-`queue` 一族 5 条：queue、queue clear、queue delete、queue edit、queue send（apps/cli/src/tui/input/commands.rs:414）。
-`approval` 一族 4 条：approval、approval allow、approval ask、approval forbid（apps/cli/src/tui/input/commands.rs:372）。
-`new` 一族 3 条：new、new source、new input（apps/cli/src/tui/input/commands.rs:70）。
-`language` 一族 3 条：language、language en、language zh-cn（apps/cli/src/tui/input/commands.rs:100）。
-`character` 一族 2 条：character、character choose（apps/cli/src/tui/input/commands.rs:456）。
-`group` 一族 2 条：group、group choose（apps/cli/src/tui/input/commands.rs:468）。
-`package` 一族 2 条：package、package toggle（apps/cli/src/tui/input/commands.rs:486）。
-`plugin` 一族 2 条：plugin、plugin toggle（apps/cli/src/tui/input/commands.rs:498）。
-`mcp` 一族 2 条：mcp、mcp toggle（apps/cli/src/tui/input/commands.rs:510）。
-其余 14 个顶层词各 1 条：help、diff、switch、resume、attach、attachments、clear-attachments、quit、exit、status、log、tag、update、skill（apps/cli/src/tui/input/commands.rs:56）。
-`new` 是全表唯一声明 options 的条目，值为 `source` 与 `input`（apps/cli/src/tui/input/commands.rs:73）。
-只有名等于命令词的那条才声明 `options`，路径式子命令不声明（apps/cli/src/tui/input/commands.rs:11）。
-`language zh-cn` 用小写名做前缀匹配，usage 保留 zh-CN 拼写（apps/cli/src/tui/input/commands.rs:114）。
-`help` 是命令表首条，用法为 /help（apps/cli/src/tui/input/commands.rs:58）。
-`quit` 与 `exit` 是两条独立条目，共用 `CommandQuitDescription` 描述键（apps/cli/src/tui/input/commands.rs:447）。
-`matching_command_specs` 把内置表与 Core 返回的插件命令拼成同一候选集（apps/cli/src/tui/input/commands.rs:656）。
-空前缀时只列不含空格的裸命令名（apps/cli/src/tui/input/commands.rs:681）。
-`complete_command_input` 用 usage 中第一个 < 或 [ 之前的字面段补全输入（apps/cli/src/tui/input/commands.rs:698）。
-`active_command_prefix` 去掉前导斜杠并转小写，含换行的输入不补全（apps/cli/src/tui/input/commands.rs:731）。
-`keyword_options_for` 只在有条目名等于命令词且 options 非空时返回选项（apps/cli/src/tui/input/commands.rs:616）。
-补全与 TUI 的命令解析器共用 `keyword_options_for`，两边取同一份选项定义（apps/cli/src/tui/input/commands.rs:616）。
-`TuiPluginCommandSpec` 是 Core 返回的插件 slash 命令，有 name、usage、description 三个字段（apps/cli/src/tui/input/commands.rs:17）。
-`expand_plugin_command` 把 /name <a|b c|d> 形 usage 展开为每备选一条建议（apps/cli/src/tui/input/commands.rs:558）。
-备选必须以字面词开头，`<value>` 开头的 usage 不展开（apps/cli/src/tui/input/commands.rs:587）。
+`COMMAND_SPECS` 共 79 条，覆盖 25 个顶层命令词：help、diff、new、switch、resume、language、network、model、approval、attach、attachments、clear-attachments、queue、quit、exit、character、group、skill、package、plugin、mcp、status、log、tag、update（apps/cli/src/tui/input/commands.rs:181）。
+`network` 一族 36 条，是最大的子树，含 network show、network bootstrap、network pair-confirm、network identity define 等（apps/cli/src/tui/input/commands.rs:260）。
+`model` 一族 6 条：model、model current、model list、model choose、model use、model config（apps/cli/src/tui/input/commands.rs:649）。
+`queue` 一族 5 条：queue、queue clear、queue delete、queue edit、queue send（apps/cli/src/tui/input/commands.rs:745）。
+`approval` 一族 4 条：approval、approval allow、approval ask、approval forbid（apps/cli/src/tui/input/commands.rs:698）。
+`new` 一族 3 条：new、new source、new input（apps/cli/src/tui/input/commands.rs:200）。
+`language` 一族 1 条：language，语言值由枚举参数 `en|zh-CN` 补全（apps/cli/src/tui/input/commands.rs:249）。
+`character` 一族 2 条：character、character choose（apps/cli/src/tui/input/commands.rs:802）。
+`group` 一族 2 条：group、group choose（apps/cli/src/tui/input/commands.rs:814）。
+`package` 一族 2 条：package、package toggle（apps/cli/src/tui/input/commands.rs:832）。
+`plugin` 一族 2 条：plugin、plugin toggle（apps/cli/src/tui/input/commands.rs:849）。
+`mcp` 一族 2 条：mcp、mcp toggle（apps/cli/src/tui/input/commands.rs:866）。
+其余 14 个顶层词各 1 条：help、diff、switch、resume、attach、attachments、clear-attachments、quit、exit、status、log、tag、update、skill（apps/cli/src/tui/input/commands.rs:181）。
+`new` 是全表唯一声明 options 的条目，两个关键字为 `source` 与 `input`，分别带值占位 `chat-id` 与 `json-object`（apps/cli/src/tui/input/commands.rs:200、apps/cli/src/tui/input/commands.rs:211）。
+只有名等于命令词的那条才声明 `options`，路径式子命令不声明（apps/cli/src/tui/input/commands.rs:977）。
+`language` 的语言值由枚举参数 `en|zh-CN` 补全，值补全大小写不敏感（apps/cli/src/tui/input/commands.rs:249）。
+`help` 是命令表首条，用法为 /help（apps/cli/src/tui/input/commands.rs:183）。
+`quit` 与 `exit` 是两条独立条目，共用 `CommandQuitDescription` 描述键（apps/cli/src/tui/input/commands.rs:790、apps/cli/src/tui/input/commands.rs:796）。
+`matching_command_specs` 把内置表与 Core 返回的插件命令拼成同一候选集（apps/cli/src/tui/input/commands.rs:1042）。
+空前缀时只列不含空格的裸命令名（apps/cli/src/tui/input/commands.rs:1072）。
+`complete_command_input` 用 usage 中第一个 < 或 [ 之前的字面段补全输入（apps/cli/src/tui/input/commands.rs:1274）。
+`active_command_prefix` 去掉前导斜杠并转小写，含换行的输入不补全（apps/cli/src/tui/input/commands.rs:1402）。
+`keyword_options_for` 只在有条目名等于命令词且 options 非空时返回选项（apps/cli/src/tui/input/commands.rs:977）。
+补全与 TUI 的命令解析器共用 `keyword_options_for`，两边取同一份选项定义（apps/cli/src/tui/input/commands.rs:977）。
+`TuiPluginCommandSpec` 是 Core 返回的插件 slash 命令，有 name、usage、description 三个 String 字段与 args 结构化参数声明（apps/cli/src/tui/input/commands.rs:68）。
+`expand_plugin_command` 把 /name <a|b c|d> 形 usage 展开为每备选一条建议（apps/cli/src/tui/input/commands.rs:916）。
+备选必须以字面词开头，`<value>` 开头的 usage 不展开（apps/cli/src/tui/input/commands.rs:947）。
 插件命令的唯一来源是 Core：CLI 调 `plugin` `commands` `--json` 取目录（apps/cli/src/cli/mod.rs:1631），用户写文件定义 slash 命令的加载机制在 seed 内不存在。
 插件命令名与 `CLI_COMMANDS` 冲突时 CLI 报错拒绝启动（apps/cli/src/cli/mod.rs:1637）。
-三份 seed 内没有用户自定义 slash 命令的文件加载入口：custom 一词在三份文件里零命中，commands.rs 无文件读取调用；插件命令的唯一来源是 Core 返回的 `TuiPluginCommandSpec`（apps/cli/src/tui/input/commands.rs:17）。
+三份 seed 内没有用户自定义 slash 命令的文件加载入口：custom 一词在三份文件里零命中；commands.rs 唯一的文件读取是为补全文件路径参数读当前目录名（apps/cli/src/tui/input/commands.rs:1259），不加载命令定义；插件命令的唯一来源是 Core 返回的 `TuiPluginCommandSpec`（apps/cli/src/tui/input/commands.rs:68）。
 交互式 shell 的提示符由 `short_chat_label` 取 chat-id 前 8 个字符拼成（apps/cli/src/chat_runtime.rs:402）。
 空行跳过，以斜杠开头的输入进 `handle_shell_command_with_core`（apps/cli/src/chat_runtime.rs:416）。
 不以斜杠开头的输入经 `ChatSendArgs` 发为当前聊天的消息（apps/cli/src/chat_runtime.rs:422）。
@@ -108,14 +108,14 @@ CLI 命令的完整分发见 [[core-command|命令层——CLI 命令编排]]。
 
 ## 关键符号
 
-- `COMMAND_SPECS` — TUI 内置 slash 命令静态表，81 条（apps/cli/src/tui/input/commands.rs:56）。
-- `TuiCommandSpec` — 一条内置命令的定义：名、用法、描述键、选项（apps/cli/src/tui/input/commands.rs:4）。
-- `TuiPluginCommandSpec` — 一条 Core 返回的插件命令（apps/cli/src/tui/input/commands.rs:17）。
-- `TuiCommandSuggestion` — 内置或插件命令建议（apps/cli/src/tui/input/commands.rs:25）。
-- `matching_command_specs` — 按前缀筛补全候选，混入插件命令（apps/cli/src/tui/input/commands.rs:656）。
-- `expand_plugin_command` — 把插件用法展开为多条子命令建议（apps/cli/src/tui/input/commands.rs:558）。
-- `complete_command_input` — 用 usage 字面段补全输入（apps/cli/src/tui/input/commands.rs:698）。
-- `keyword_options_for` — 取某命令词声明的 keyword-value 选项（apps/cli/src/tui/input/commands.rs:616）。
+- `COMMAND_SPECS` — TUI 内置 slash 命令静态表，79 条（apps/cli/src/tui/input/commands.rs:181）。
+- `TuiCommandSpec` — 一条内置命令的定义：名、描述键、位置参数、选项；用法由声明生成（apps/cli/src/tui/input/commands.rs:46）。
+- `TuiPluginCommandSpec` — 一条 Core 返回的插件命令，含结构化参数声明 args（apps/cli/src/tui/input/commands.rs:68）。
+- `TuiCommandSuggestion` — 内置、插件或参数值建议（apps/cli/src/tui/input/commands.rs:95）。
+- `matching_command_specs` — 按前缀筛补全候选，混入插件命令（apps/cli/src/tui/input/commands.rs:1042）。
+- `expand_plugin_command` — 把插件用法展开为多条子命令建议（apps/cli/src/tui/input/commands.rs:916）。
+- `complete_command_input` — 用 usage 字面段补全输入（apps/cli/src/tui/input/commands.rs:1274）。
+- `keyword_options_for` — 取某命令词声明的 keyword-value 选项（apps/cli/src/tui/input/commands.rs:977）。
 - `handle_shell_command_with_core` — 交互式 shell 的命令分发器（apps/cli/src/chat_runtime.rs:517）。
 - `split_shell_command_line` — shell 输入切分器（apps/cli/src/chat_runtime.rs:643）。
 - `parse_shell_args` — shell 启动参数解析器（apps/cli/src/chat_runtime.rs:321）。
@@ -131,9 +131,9 @@ CLI 命令的完整分发见 [[core-command|命令层——CLI 命令编排]]。
 
 ## 调用链
 
-1. 用户在 TUI 输入 / 前缀，`matching_command_specs` 按前缀筛候选（apps/cli/src/tui/input/commands.rs:656）。
-2. 选中建议后 `complete_command_input` 补全字面段（apps/cli/src/tui/input/commands.rs:698）。
-3. 插件命令由 Core 返回，经 `expand_plugin_command` 展开后混入候选（apps/cli/src/tui/input/commands.rs:558）。
+1. 用户在 TUI 输入 / 前缀，`matching_command_specs` 按前缀筛候选（apps/cli/src/tui/input/commands.rs:1042）。
+2. 选中建议后 `complete_command_input` 补全字面段（apps/cli/src/tui/input/commands.rs:1274）。
+3. 插件命令由 Core 返回，经 `expand_plugin_command` 展开后混入候选（apps/cli/src/tui/input/commands.rs:916）。
 4. 交互式 shell 读行：斜杠开头进 `handle_shell_command_with_core`，其余当消息发（apps/cli/src/chat_runtime.rs:416）。
 5. `handle_shell_command_with_core` 用 `split_shell_command_line` 切分后按首词 match（apps/cli/src/chat_runtime.rs:522）。
 6. /resume 在除当前聊天外的历史里取 `max_by` 选出的最新聊天（apps/cli/src/chat_runtime.rs:569）。
@@ -144,7 +144,7 @@ CLI 命令的完整分发见 [[core-command|命令层——CLI 命令编排]]。
 
 ## 来源
 
-- apps/cli/src/tui/input/commands.rs（925 行，全文已读）
+- apps/cli/src/tui/input/commands.rs（1700 行，全文已读）
 - apps/cli/src/cli/mod.rs（2369 行，全文已读）
 - apps/cli/src/chat_runtime.rs（842 行，全文已读）
 - 基线 AAswordman/Operit2 @ ff5373fb6；三份 seed 合计 4136 行，全部读完。

@@ -61,12 +61,12 @@ daemon 模块只在 `daemon` 特性启用时编译（`hosts/windows/src/lib.rs:4
 
 Windows 终端的 `PLATFORM` 为 windows，`TERMINAL` 为 native，默认终端类型 `PRIMARY_TERMINAL_TYPE` 为 powershell（`hosts/windows/src/tools/terminal/mod.rs:30`）。
 `normalizeTerminalType` 只接受 powershell 与 bash 两种终端类型（`hosts/windows/src/tools/terminal/mod.rs:1589`）。
-`terminalInfo` 用 `bundledBashExecutable` 判断随包 Bash 是否可用（`hosts/windows/src/tools/terminal/mod.rs:183`）。
+`terminalInfo` 用 `bundledBashExecutable` 判断随包 Bash 是否可用（hosts/windows/src/tools/terminal/mod.rs:183、hosts/windows/src/tools/terminal/mod.rs:191）。
 PowerShell 类型的可用性按 `PowerShellSource` 区分：`OnDemand` 源始终报告可用，描述为 PowerShell 7 · downloads on first use；`Bundled` 源仍由 `bundledPowerShellExecutable` 解析随应用分发的 powershell/pwsh.exe 是否存在决定（`hosts/windows/src/tools/terminal/mod.rs:184`）。
 `bundledBashExecutable` 只解析运行程序同目录下的 bash/bin/bash.exe（`hosts/windows/src/tools/terminal/mod.rs:1042`）。
 PTY 会话经 `conpty::Process::spawn` 以 ConPTY 打开（`hosts/windows/src/tools/terminal/mod.rs:820`）。
 `windowsPtyCommand` 按 `PowerShellSource` 选择 PowerShell 7 可执行文件：`Bundled` 源用随应用分发的 powershell/pwsh.exe，`OnDemand` 源调用 `powershell_runtime::executable` 取缓存的按需下载版；仍加 -NoLogo、-NoProfile、-ExecutionPolicy Bypass、-NoExit 启动 PowerShell（`hosts/windows/src/tools/terminal/mod.rs:1076`）。
-`ptyCommand` 为 Bash 类型解析 `bundledBashExecutable` 的可执行文件（`hosts/windows/src/tools/terminal/mod.rs:896`）。
+`ptyCommand` 为 Bash 类型解析 `bundledBashExecutable` 的可执行文件（`hosts/windows/src/tools/terminal/mod.rs:903`）。
 Bash 会话的 `PROMPT_COMMAND` 在每次提示时输出 `OperitPrompt` 标记（`hosts/windows/src/tools/terminal/mod.rs:920`）。
 `ptyCommandLine` 把 Bash 命令交给 terminal_command 的 `posixCommandLine` 编码（`hosts/windows/src/tools/terminal/mod.rs:881`）。
 含控制字符的 PowerShell 命令经 Base64 编码后由 `Invoke-Expression` 执行（`hosts/windows/src/tools/terminal/mod.rs:889`）。
@@ -78,14 +78,14 @@ PTY 提示标记前缀 `PTY_PROMPT_MARKER_PREFIX` 的值为 ESC ] 133 ; OperitPr
 新建 PTY 会话等待初始提示最长 10000 毫秒（`hosts/windows/src/tools/terminal/mod.rs:858`）。
 命令完成以 `completedPtyPrompt` 检出提示标记并渲染出提示符确认，不再设 150 毫秒静默期（`hosts/windows/src/tools/terminal/mod.rs:691`）。
 会话已有命令运行时再次执行返回 Terminal session already has a command in progress 错误（`hosts/windows/src/tools/terminal/mod.rs:631`）。
-命令超时时返回 exitCode -1 与 timedOut true（`hosts/windows/src/tools/terminal/mod.rs:705`）。
+命令超时时返回 exitCode -1 与 timedOut true（`hosts/windows/src/tools/terminal/mod.rs:707`）。
 超时取消先向 PTY 写 0x03，再等待 shell 就绪提示标记；3000 毫秒内等不到则中断过期，会话关闭（`hosts/windows/src/tools/terminal/mod.rs:740`）。
 `createOrGetSession` 在默认 powershell 类型上创建或复用会话（`hosts/windows/src/tools/terminal/mod.rs:348`）。
 同名会话仍存在时直接复用，返回结果的 `isNewSession` 为 false（`hosts/windows/src/tools/terminal/mod.rs:371`）。
-`executeHiddenCommand` 执行隐藏命令并返回 `HiddenTerminalCommandOutput`（`hosts/windows/src/tools/terminal/mod.rs:430`）。
+`executeHiddenCommand` 执行隐藏命令并返回 `HiddenTerminalCommandOutput`（`hosts/windows/src/tools/terminal/mod.rs:436`）。
 隐藏命令的空 `executorKey` 记为 default（`hosts/windows/src/tools/terminal/mod.rs:431`）。
 隐藏命令固定使用 `PRIMARY_TERMINAL_TYPE`，即 PowerShell（`hosts/windows/src/tools/terminal/mod.rs:435`）。
-`listSessions` 枚举 PTY 会话并用 `try_wait` 刷新退出状态（`hosts/windows/src/tools/terminal/mod.rs:321`）。
+`listSessions` 枚举 PTY 会话并用 `try_wait` 刷新退出状态（`hosts/windows/src/tools/terminal/mod.rs:329`）。
 会话列表条目的 `sessionKind` 为 pty（`hosts/windows/src/tools/terminal/mod.rs:339`）。
 会话屏幕输出的 rows 取自内容行数，cols 取自最长行的字符数（`hosts/windows/src/tools/terminal/mod.rs:530`）。
 `pollPtyExitCode` 对不存在的会话返回 PTY session does not exist 错误（`hosts/windows/src/tools/terminal/mod.rs:291`）。
@@ -381,7 +381,7 @@ Plugin SDK 会话 ID 格式为 `plugin-sdk-windows-` 加序号（`hosts/windows/
 3. 含控制字符的 PowerShell 命令经 Base64 编码后由 `Invoke-Expression` 执行（`hosts/windows/src/tools/terminal/mod.rs:889`）
 4. `findLastPtyPromptMarker` 在 PTY 输出中定位最后一个提示标记（`hosts/windows/src/tools/terminal/mod.rs:1145`）
 5. 命令完成以 `completedPtyPrompt` 检出提示标记并渲染出提示符确认，不再设 150 毫秒静默期（`hosts/windows/src/tools/terminal/mod.rs:691`）
-6. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/windows/src/tools/terminal/mod.rs:705`）
+6. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/windows/src/tools/terminal/mod.rs:707`）
 
 ### Plugin SDK IPC
 

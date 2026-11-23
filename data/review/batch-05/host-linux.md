@@ -77,7 +77,7 @@ PTY 输出缓冲上限 `PTY_OUTPUT_LIMIT` 为 1024 * 1024 字节（`hosts/linux/
 PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:591`）。
 新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:754`）。
 同一个终端会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:538`）。
-命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:609`）。
+命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:611`）。
 取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:646`）。
 取消超时命令后，共享的 `waitForCommandEvent` 以 3000 毫秒为限等待中断就绪（`core/crates/foundation/host-contract/src/TerminalCommand.rs:153`）。
 `listSessions` 遍历全部 PTY 会话并刷新退出码（`hosts/linux/src/tools/terminal/mod.rs:239`）。
@@ -298,7 +298,7 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 1. `createOrGetSession` 新建或复用 bash 会话（`hosts/linux/src/tools/terminal/mod.rs:266`）
 2. 同一会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:538`）
 3. 新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:754`）
-4. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:609`）
+4. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:611`）
 5. 取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:646`）
 6. PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:591`）
 
