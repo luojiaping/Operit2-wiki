@@ -1,0 +1,9 @@
+# host-windows (batch-05, 8 bad / 225 facts)
+host-windows.facts.json#34 `bundledBashExecutable` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:183
+host-windows.facts.json#48 `bundledBashExecutable` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:896
+host-windows.facts.json#56 `HiddenTerminalCommandOutput` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:430
+host-windows.facts.json#59 `try_wait` not within ±5 of hosts/windows/src/tools/terminal/mod.rs:321
+host-windows.md:58 `bundledBashExecutable` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:183']
+host-windows.md:63 `bundledBashExecutable` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:896']
+host-windows.md:79 `HiddenTerminalCommandOutput` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:430']
+host-windows.md:82 `try_wait` not within ±5 of any ref ['hosts/windows/src/tools/terminal/mod.rs:321']

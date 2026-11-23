@@ -1,0 +1,4 @@
+# theme-sync (batch-08, 3 bad / 56 facts)
+theme-sync.facts.json#56 `CoreNodeStateStore` not within ±5 of core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:434
+theme-sync.facts.json#56 `withSchema` not within ±5 of core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:434
+theme-sync.facts.json#56 `bundled_external_imports` not within ±5 of core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:434

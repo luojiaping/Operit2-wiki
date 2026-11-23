@@ -329,7 +329,7 @@
   },
   {
     "fact": "`validateContentRange` 校验续传响应的起始位置与总量",
-    "ref": "hosts/common/operit-host-native-http/src/lib.rs:1115"
+    "ref": "hosts/common/operit-host-native-http/src/lib.rs:1121"
   },
   {
     "fact": "流式 HTTP 客户端把 `ignoreSsl` 传给 `danger_accept_invalid_certs`",
@@ -473,27 +473,27 @@
   },
   {
     "fact": "`NativeHostJavaScriptRuntimeHost` 由 `javascript` feature 门控导出",
-    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:15"
-  },
-  {
-    "fact": "`NativeHostRuntimeEventSchedulerHost` 不经 `javascript` 门控导出",
-    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:16"
-  },
-  {
-    "fact": "`NativeHostRuntimeTaskSchedulerHost` 不经 `javascript` 门控导出",
     "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:17"
   },
   {
+    "fact": "`NativeHostRuntimeEventSchedulerHost` 不经 `javascript` 门控导出",
+    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:18"
+  },
+  {
+    "fact": "`NativeHostRuntimeTaskSchedulerHost` 不经 `javascript` 门控导出",
+    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:19"
+  },
+  {
     "fact": "`scheduleNativeBlockingTask`、`scheduleNativeServiceTask`、`scheduleNativeServiceTasks` 与 `NativeTaskHandle` 由 `task_handle` 模块导出",
-    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:37"
+    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:38"
   },
   {
     "fact": "`LocalHostRuntimeTaskSchedulerHost` 与 `DEVICE_ASYNC_STACK_BYTES`、`DEVICE_BLOCKING_STACK_BYTES` 由 `local_task_scheduler` 模块导出",
-    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:26"
+    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:29"
   },
   {
     "fact": "`withStackBudget` 由 `esp32-compat` feature 门控导出",
-    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:22"
+    "ref": "hosts/common/operit-host-native-scheduler/src/lib.rs:25"
   },
   {
     "fact": "`PLUGIN_SDK_IPC_MAX_FRAME_BYTES` 与帧读写函数由 `framing` 模块导出",

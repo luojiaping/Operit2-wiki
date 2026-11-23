@@ -153,23 +153,23 @@
   },
   {
     "fact": "插件注册 `chat.configuration.delete` 公开 API，Core 删会话后用它释放插件侧绑定。",
-    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:80"
+    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:103"
   },
   {
     "fact": "`chat.configuration.draft.commit` 只发布 Core 认证提交选中的已预写绑定。",
-    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:480"
+    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:503"
   },
   {
     "fact": "`chat.configuration.draft.abort` 在 Core 复用已有会话后移除作废草稿。",
-    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:481"
+    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:504"
   },
   {
     "fact": "`chat.configuration.draft.resolve` 只解析已预写的创建草稿，不暴露已提交聊天查询。",
-    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:479"
+    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:502"
   },
   {
     "fact": "`chatConfigurationDeleteApi` 只接受 host 调用方；无绑定时直接返回已删除，不报错。",
-    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:48"
+    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:70"
   },
   {
     "fact": "`deleteChatBinding` 删 `binding_` 键并报告该绑定是否真实存在过。",

@@ -132,7 +132,7 @@
   "ref": "hosts/windows/src/tools/terminal/mod.rs:30"
  },
  {
-  "fact": "`terminalInfo` 用 `bundledBashExecutable` 判断随包 Bash 是否可用",
+  "fact": "`terminalInfo` 用 bundledBashExecutable 判断随包 Bash 是否可用",
   "ref": "hosts/windows/src/tools/terminal/mod.rs:183"
  },
  {
@@ -189,7 +189,7 @@
  },
  {
   "fact": "`ptyCommand` 为 Bash 类型解析 `bundledBashExecutable` 的可执行文件",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:896"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:903"
  },
  {
   "fact": "新建 PTY 会话等待初始提示最长 10000 毫秒",
@@ -205,7 +205,7 @@
  },
  {
   "fact": "命令超时时返回 exitCode -1 与 timedOut true",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:705"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:707"
  },
  {
   "fact": "超时取消先向 PTY 写 0x03，再等待 shell 就绪提示标记；3000 毫秒内等不到则中断过期，会话关闭",
@@ -221,7 +221,7 @@
  },
  {
   "fact": "`executeHiddenCommand` 执行隐藏命令并返回 `HiddenTerminalCommandOutput`",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:430"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:436"
  },
  {
   "fact": "隐藏命令的空 `executorKey` 记为 default",
@@ -233,7 +233,7 @@
  },
  {
   "fact": "`listSessions` 枚举 PTY 会话并用 `try_wait` 刷新退出状态",
-  "ref": "hosts/windows/src/tools/terminal/mod.rs:321"
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:329"
  },
  {
   "fact": "会话列表条目的 `sessionKind` 为 pty",

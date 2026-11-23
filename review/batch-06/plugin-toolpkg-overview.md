@@ -23,7 +23,7 @@ ToolPkg 支持将多个功能相关的子包（`subpackages`）组织在一起�
 - `toolpkg_id` — 包的唯一标识符，建议使用反向域名格式（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:174`）
 - `main` — ToolPkg 主入口脚本路径，用于执行注册函数（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:177`）
 - `registerToolPkg` — 包注册函数，在独立的临时 JavaScript engine 中执行，60 秒期限仅为格式指南要求，注册链路实际不执行该期限，详见“注册与执行上下文”一节（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）
-- `ToolPkg.ipc` — 跨上下文共享状态与调用能力的显式通道（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:591`）
+- `ToolPkg.ipc` — 跨上下文共享状态与调用能力的显式通道（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:597`）
 - `ToolPkg.wasm.call` — 调用 native WASM runtime 的导出函数，当前 ABI 支持 `i32`、`i64`、`f32`、`f64` 标量参数和返回值（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`）
 - `ToolPkg.getConfigDir` — 包配置目录，在模块顶层、`registerToolPkg()` 内和执行期间均可用（`docs/toolpkg-runtime.md:115`）
 - `ToolPkg.route` — 路由装饰器，`binding` 是包含现有 Core Binding key 的参数的从零开始的位置（`docs/toolpkg-runtime.md:38`）
@@ -57,8 +57,8 @@ ToolPkg API `2.0.0` 基本所有公共接口都通过统一 host 能力提供跨
 `packages/examples/` 是用于开发和手动测试的示例 ToolPkg 源码（`plugins/README.md:20`）。
 `packages/buildin/`、`packages/external/`、`packages/examples/` 使用相同的源码布局，区别是打包方式：`buildin` 作为当前内置插件加载，`external` 作为可选官方插件捆绑，`examples` 保留为开发示例（`plugins/README.md:34`）。
 `packages/external/image_workbench/` 提供可选的官方 Image Workbench，从 "more plugins" 提供，默认禁用（`plugins/README.md:28`）。
-主仓库内置与 external 资源同步脚本是 `plugins/tools/sync_plugin_packages.py`，同步更新 `core/crates/runtime/application/assets/plugins/buildin/` 与 `external/`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:845`）。
-内置资源同步服务于应用资源构建，不等于向正在运行的应用安装插件（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:845`）。
+主仓库内置与 external 资源同步脚本是 `plugins/tools/sync_plugin_packages.py`，同步更新 `core/crates/runtime/application/assets/plugins/buildin/` 与 `external/`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:851`）。
+内置资源同步服务于应用资源构建，不等于向正在运行的应用安装插件（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:851`）。
 
 ### 注册与执行上下文
 
@@ -76,20 +76,20 @@ ToolPkg API `2.0.0` 基本所有公共接口都通过统一 host 能力提供跨
 `ToolPkg.registerUiRoute` 注册 UI 路由，不填 `route` 或 `routeId` 时宿主按 `toolpkg:<toolpkg_id>:ui:<id>` 自动生成稳定路由 ID（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:479`）。
 `ToolPkg.registerNavigationEntry` 的挂载面 `surface` 支持 `toolbox`、`main_sidebar_plugins`、`app_bar`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:486`）。
 `ToolPkg.registerAppLifecycleHook` 的 `event` 字段是生命周期事件名（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:499`）。
-`ToolPkg.registerAppLifecycleHook` 支持的 `event` 包括 `application_on_create`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:513`）。
-`ToolPkg.registerDesktopWidget` 是桌面小部件注册接口（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1429`）。
-ToolPkg 运行时按执行来源分为 `main`、`ui`、`sandbox`、`provider` 四类上下文（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:553`）。
-同一个 ToolPkg 容器共用一个包级 JS engine，`main` 上下文的内部 context key 形如 `toolpkg_main:<toolpkg_id>`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:553`）。
-每个 UI route、widget、XML render 实例有自己的 JS engine（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:554`）。
-ToolPkg main 上下文导入一次、UI 上下文再导入一次同一模块时，`count` 是两份，模块顶层变量不会自动跨上下文共享（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:589`）。
-跨上下文共享状态或调用能力时显式使用 `ToolPkg.ipc`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:591`）。
-`ToolPkg.ipc.call(channel, payload)` 的语义是非 main 上下文调用同包 ToolPkg main，main 上下文调用本地 handler（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:638`）。
-`ToolPkg.ipc` 的 `payload` 和返回值使用 JSON 可序列化数据，包括字符串、数字、布尔值、数组、普通对象和 `null`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:640`）。
-UI 模块通过 `ToolPkg.readResource(key)` 访问资源（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:681`）。
-目录资源在 `ToolPkg.readResource(key)` 时先被压缩成 zip，再返回这个 zip 的临时文件路径（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:684`）。
+`ToolPkg.registerAppLifecycleHook` 支持的 `event` 包括 `application_on_create`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:519`）。
+`ToolPkg.registerDesktopWidget` 是桌面小部件注册接口（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1435`）。
+ToolPkg 运行时按执行来源分为 `main`、`ui`、`sandbox`、`provider` 四类上下文（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:559`）。
+同一个 ToolPkg 容器共用一个包级 JS engine，`main` 上下文的内部 context key 形如 `toolpkg_main:<toolpkg_id>`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:559`）。
+每个 UI route、widget、XML render 实例有自己的 JS engine（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:560`）。
+ToolPkg main 上下文导入一次、UI 上下文再导入一次同一模块时，`count` 是两份，模块顶层变量不会自动跨上下文共享（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:595`）。
+跨上下文共享状态或调用能力时显式使用 `ToolPkg.ipc`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:597`）。
+`ToolPkg.ipc.call(channel, payload)` 的语义是非 main 上下文调用同包 ToolPkg main，main 上下文调用本地 handler（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:644`）。
+`ToolPkg.ipc` 的 `payload` 和返回值使用 JSON 可序列化数据，包括字符串、数字、布尔值、数组、普通对象和 `null`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:646`）。
+UI 模块通过 `ToolPkg.readResource(key)` 访问资源（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:687`）。
+目录资源在 `ToolPkg.readResource(key)` 时先被压缩成 zip，再返回这个 zip 的临时文件路径（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:690`）。
 `ToolPkg.wasm.call(moduleId, exportName, args)` 已接入 native WASM runtime，当前 ABI 支持 `i32`、`i64`、`f32`、`f64` 标量参数和返回值（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`）。
 `i64` 结果以字符串返回，JS 传入 `i64` 时建议使用字符串，避免超过 JS safe integer 后丢精度（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:310`）。
-Java/Kotlin Bridge 仅适用于已提供 Java Bridge 的 host，不代表所有宿主都具备 Java 或 Android 类（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:953`）。
+Java/Kotlin Bridge 仅适用于已提供 Java Bridge 的 host，不代表所有宿主都具备 Java 或 Android 类（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:959`）。
 
 ### 安装范围与远程路由
 
@@ -106,8 +106,8 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 
 ### 同 ID 更新与打包
 
-通过 `Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 创建不含外层目录的归档，第三个参数 `false` 保证 manifest 位于归档根目录（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:829`）。
-普通本地外部 .toolpkg 可用同一个 `package import` 命令原地更新，不提供任意同名包覆盖或通用热更新（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1388`）。
+通过 `Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 创建不含外层目录的归档，第三个参数 `false` 保证 manifest 位于归档根目录（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:835`）。
+普通本地外部 .toolpkg 可用同一个 `package import` 命令原地更新，不提供任意同名包覆盖或通用热更新（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:1394`）。
 普通本地外部 .toolpkg 可通过相同 `toolpkg_id` 再次执行 `package import` 原地更新；新归档完整校验通过后替换旧归档，保留安装位置、配置和既有容器及子包的启用状态；新增子包默认关闭；更新仍是用户明确授权的修改操作（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:121`）。
 同 ID 更新第三步是直接调用 `["package", "import", "<artifact_host_path>"]`，不先卸载；导入失败时核对旧归档和安装状态的回滚结果，保留错误并停止；恢复失败也必须如实报告，不自动改 id 或执行删除重装（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:125`）。
 
@@ -130,8 +130,8 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 - `ToolPkg.registerMessageProcessingPlugin` — 注册消息处理插件（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:501`）
 - `ToolPkg.registerXmlRenderPlugin` — 注册 XML 渲染插件（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:503`）
 - `ToolPkg.registerInputMenuTogglePlugin` — 注册输入菜单开关插件（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:506`）
-- `ToolPkg.ipc` — 跨上下文通道（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:591`）
-- `ToolPkg.readResource` — 读取资源（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:681`）
+- `ToolPkg.ipc` — 跨上下文通道（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:597`）
+- `ToolPkg.readResource` — 读取资源（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:687`）
 - `ToolPkg.wasm.call` — 调用 WASM 导出函数（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:309`）
 - `installation_scope` — 固定安装范围为 `device` 或 `space`（`docs/toolpkg-runtime.md:9`）
 - `ToolPkg.getSpaceDataDir` — Space 数据目录（`docs/toolpkg-runtime.md:41`）
@@ -139,20 +139,20 @@ Goal 和 Plan 都要求 `space` 安装，状态保存在各自的数据库中，
 - `ToolPkg.route` — 路由装饰器（`docs/toolpkg-runtime.md:38`）
 - `FileApplyResultData` — 文件写回执（`docs/toolpkg-runtime.md:105`）
 - `submit_requested` — 与 pre-hooks 共享总期限的提交事件（`docs/toolpkg-runtime.md:182`）
-- `sync_plugin_packages.py` — 主仓库内置与 external 资源同步脚本（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:833`）
+- `sync_plugin_packages.py` — 主仓库内置与 external 资源同步脚本（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:839`）
 - `types/` — 从 Rust SDK 生成的当前 v2 TypeScript 声明（`plugins/README.md:15`）
 - `types-v1/` — 独立手写的 v1 声明快照（`plugins/README.md:16`）
 
 ## 调用链
 
 1. 具体 API 以 Operit 插件开发套件的当前版本 `types/` 为准，包名和目录树是格式示例（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:5`）。
-2. `Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 创建不含外层目录的 .toolpkg 归档，`manifest` 位于归档根目录（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:829`）。
+2. `Tools.Files.zip(sourceVfsPath, artifactVfsPath, false)` 创建不含外层目录的 .toolpkg 归档，`manifest` 位于归档根目录（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:835`）。
 3. 用户在包管理中执行 package import 导入成品，再执行 package enable 启用包（`plugins/docs/package_builder/PLUGIN_CREATION_WORKFLOW.md:104`）。
 4. `registerToolPkg()` 在独立的临时 JavaScript engine 中执行注册，60 秒期限仅为格式指南要求，注册链路实际不执行该期限，详见“注册与执行上下文”一节（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
 5. 子包工具按 `<subpackage_id>:<tool_name>` 注册（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:243`）。
 6. `ToolPkg.registerToolboxUiModule` 与 `ToolPkg.registerUiRoute` 注册 UI 模块与路由（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:473`）。
-7. 运行时按 `main`、`ui`、`sandbox`、`provider` 分发执行上下文（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:553`）。
-8. 跨上下文共享状态或调用能力时显式使用 `ToolPkg.ipc`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:591`）。
+7. 运行时按 `main`、`ui`、`sandbox`、`provider` 分发执行上下文（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:559`）。
+8. 跨上下文共享状态或调用能力时显式使用 `ToolPkg.ipc`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:597`）。
 9. 只有 `submit_requested` 和 pre-hooks 共享一个总期限，默认 10 秒（`docs/toolpkg-runtime.md:182`）。
 10. 超时终止所属 hook，报告错误并中止依赖操作（`docs/toolpkg-runtime.md:185`）。
 

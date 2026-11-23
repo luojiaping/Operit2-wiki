@@ -1,0 +1,133 @@
+[
+ {
+  "page": "intro-quickstart",
+  "idx": 88,
+  "ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:4970",
+  "text": "Flutter 扫码确认提示写明确认后直接连接并提交加入，无需输入配对码",
+  "terms": [
+   "Flutter"
+  ],
+  "window": "  String get runtimeActivityExpand => '查看后台任务';\n\n  @override\n  String get runtimeActivityLoadingPackages => '加载扩展';\n\n  @override\n  String get peerQrTitle => '二维码连接';"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 72,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1697",
+  "text": "openHttpResponseStream 默认返回不支持错误。",
+  "terms": [
+   "openHttpResponseStream"
+  ],
+  "window": "        &self,\n        _streamId: String,\n        _request: HttpRequestData,\n        _onResponse: HttpStreamResponseCallback,\n        _onChunk: HttpStreamChunkCallback,\n        _onClosed: HttpStreamClosedCallback,\n    ) -> HostResult<()> {"
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 45,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:743",
+  "text": "ToolPkgDependencyIssue 记录依赖 id、问题码、要求版本上下限、已安装版本与是否启用。",
+  "terms": [
+   "ToolPkgDependencyIssue"
+  ],
+  "window": "    pub id: String,\n    pub code: String,\n    pub requiredMinVersion: Option<String>,\n    pub requiredMaxVersion: Option<String>,\n    pub installedVersion: Option<String>,\n    pub enabled: bool,\n}"
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 64,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2826",
+  "text": "schema_version 省略时默认 1。",
+  "terms": [
+   "schema_version"
+  ],
+  "window": "    }\n}\n\n#[allow(non_snake_case)]\n/// Returns the default ToolPkg manifest schema version.\nfn defaultSchemaVersion() -> i32 {\n    1"
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 67,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2037",
+  "text": "validateProtectedEntryPolicy 的函数体直接返回 Ok，未执行保护策略校验。",
+  "terms": [
+   "validateProtectedEntryPolicy"
+  ],
+  "window": "    _sourceType: &ToolPkgSourceType,\n) -> Result<(), String>\nwhere\n    FReadEntryProtectionHeader: FnMut(&str) -> Option<Vec<u8>>,\n{\n    Ok(())\n}"
+ },
+ {
+  "page": "agent-character-cards",
+  "idx": 80,
+  "ref": "plugins/packages/buildin/character_cards/README.md:137",
+  "text": "主题引用为 null 表示保持当前主题，群组不借用成员的主题。",
+  "terms": [
+   "null"
+  ],
+  "window": "not substituted for a failed request. Selecting stages only the editor's\n`themeConfigId`; saving persists it, and activating the character/group applies\nthe exact configuration through `Tools.Theme.applyConfig(id)`.\nNull means keep the current theme, and groups never borrow a member's theme.\nCharact"
+ },
+ {
+  "page": "host-common",
+  "idx": 199,
+  "ref": "hosts/common/operit-host-native-http/src/lib.rs:547",
+  "text": "downloadToFileAsync 写完临时文件后重命名发布到目标路径",
+  "terms": [
+   "downloadToFileAsync"
+  ],
+  "window": "        }\n        output.flush().map_err(httpIoError)?;\n        drop(output);\n        fs::rename(&partialPath, target).map_err(httpIoError)?;\n        Ok(HttpFileDownloadResult {\n            finalUrl,\n            targetPath: targetPath.clone(),"
+ },
+ {
+  "page": "host-common",
+  "idx": 200,
+  "ref": "hosts/common/operit-host-native-http/src/lib.rs:556",
+  "text": "downloadToFileAsync 失败时删除临时文件",
+  "terms": [
+   "downloadToFileAsync"
+  ],
+  "window": "    }\n    .await;\n    if result.is_err() {\n        let _ = fs::remove_file(&partialPath);\n    }\n    result\n}"
+ },
+ {
+  "page": "host-windows",
+  "idx": 53,
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:740",
+  "text": "超时取消先向 PTY 写 0x03，再等待 shell 就绪提示标记；3000 毫秒内等不到则中断过期，会话关闭",
+  "terms": [
+   "shell"
+  ],
+  "window": "        self.commandOutput.clear()?;\n        self.collected.clear();\n        let mut writer = self\n            .writer\n            .lock()\n            .map_err(|_| HostError::new(\"pty writer mutex poisoned\"))?;\n        writer.write_all(b\"\\x03\")?;"
+ },
+ {
+  "page": "plugin-catalog-buildin",
+  "idx": 21,
+  "ref": "plugins/packages/buildin/character_cards/manifest.json:13",
+  "text": "character_cards 的中文显示名是角色卡，中文描述是：创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库。",
+  "terms": [
+   "character_cards"
+  ],
+  "window": "    \"en\": \"Characters\"\n  },\n  \"description\": {\n    \"zh\": \"创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库。\",\n    \"en\": \"Create AI characters or put several in a group chat; each keeps its own memory library.\"\n  },\n  \"logo\": \"package_logo\","
+ },
+ {
+  "page": "plugin-js-wasm-runtime",
+  "idx": 86,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:335",
+  "text": "captureMarketOrigin 在非注册期调用时直接返回，不改动注册捕获状态",
+  "terms": [
+   "captureMarketOrigin"
+  ],
+  "window": "            // Marketplace publishing appends this marker to a main module. Runtime hooks can\n            // evaluate that module repeatedly after registration, so marker calls there must\n            // not mutate registration capture state or interrupt the hook.\n            if (!registrationOnly) {"
+ },
+ {
+  "page": "plugin-manifest",
+  "idx": 44,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2504",
+  "text": "兼容 requires 只对 api_version 主版本为 1 的包追加",
+  "terms": [
+   "api_version",
+   "requires"
+  ],
+  "window": "fn applyCompatibilityRequirements(\n    apiVersion: ToolPkgApiVersion,\n    packageId: &str,\n    requirements: &mut Vec<ToolPkgManifestRequirement>,\n) -> Result<(), String> {\n    if apiVersion.major != 1 {\n        return Ok(());"
+ },
+ {
+  "page": "plugin-manifest",
+  "idx": 56,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1368",
+  "text": "子包脚本声明的环境变量名会传给 main 注册解析",
+  "terms": [
+   "main"
+  ],
+  "window": "                apiVersionText.clone(),\n                subpackagePackages\n                    .iter()\n                    .flat_map(|package| package.env.iter().map(|variable| variable.name.clone()))\n                    .collect::<Vec<_>>(),\n            ).await {\n                ToolPkgMainRegistra"
+ }
+]

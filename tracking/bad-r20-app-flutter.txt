@@ -1,0 +1,4 @@
+# app-flutter (batch-05, 3 bad / 77 facts)
+app-flutter.md:28 `operit_flutter_bridge_ffi_connect` not within ±5 of any ref ['apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:306']
+app-flutter.md:78 `reportFailure` not within ±5 of any ref ['apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:341']
+app-flutter.md:130 `operit_flutter_bridge_ffi_connect` not within ±5 of any ref ['apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:306']

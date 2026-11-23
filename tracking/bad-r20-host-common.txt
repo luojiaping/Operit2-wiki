@@ -1,0 +1,3 @@
+# host-common (batch-05, 2 bad / 202 facts)
+host-common.facts.json#83 `validateContentRange` not within ±5 of hosts/common/operit-host-native-http/src/lib.rs:1115
+host-common.md:90 `validateContentRange` not within ±5 of any ref ['hosts/common/operit-host-native-http/src/lib.rs:1115']

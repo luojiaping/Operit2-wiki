@@ -169,7 +169,7 @@
   },
   {
     "fact": "operit_flutter_bridge_ffi_connect 是 FFI 连接入口，位于 FfiTransport.rs",
-    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:306"
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:270"
   },
   {
     "fact": "Flutter Core 调用与流只用 ABI 版本 4，ABI v1 与 v2 已移除",
@@ -185,7 +185,7 @@
   },
   {
     "fact": "FFI 描述符的 version 字段是整数 4",
-    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:328"
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:292"
   },
   {
     "fact": "ABI v4 新增同步失败上报，独立于 VM 投递会话",
@@ -193,7 +193,7 @@
   },
   {
     "fact": "ABI v4 的连接描述符新增 reportFailure 字段",
-    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:341"
+    "ref": "apps/flutter/native/operit-flutter-bridge/src/FfiTransport.rs:305"
   },
   {
     "fact": "Web 用 WebWasmCoreProxy、JS interop、Runtime Worker 与 Rust WASM",

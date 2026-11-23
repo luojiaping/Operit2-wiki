@@ -1,0 +1,7 @@
+# plugin-catalog-buildin (batch-06, 6 bad / 99 facts)
+plugin-catalog-buildin.md:20 `defaultEnabledByDefault` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2789']
+plugin-catalog-buildin.md:54 `enabled_by_default` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:690']
+plugin-catalog-buildin.md:54 `defaultEnabledByDefault` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:690']
+plugin-catalog-buildin.md:108 `defaultEnabledByDefault` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2789']
+plugin-catalog-buildin.md:128 `enabled_by_default` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:690']
+plugin-catalog-buildin.md:128 `defaultEnabledByDefault` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:690']

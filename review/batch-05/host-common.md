@@ -30,7 +30,7 @@ hosts/tests/daemon.rs 只有 Unix daemon 传输的测试脚手架，没有独立
 - `NativeRuntimeStorageHost` — 共享运行时存储实现（`hosts/common/operit-host-native-storage/src/lib.rs:21`）
 - `NativeArchiveStagingHost` — 共享归档暂存实现（`hosts/common/operit-host-native-storage/src/lib.rs:372`）
 - `NativePtyTerminalHost` — 共享 POSIX PTY 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:32`）
-- `NativeHostRuntimeTaskSchedulerHost` — 共享原生任务调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）
+- `NativeHostRuntimeTaskSchedulerHost` — 共享原生任务调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:19`）
 - `MemoryPluginSdkIpcHost` — 共享插件 SDK 内存 IPC 实现（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:9`）
 - `NativeRescueSession` — 离线数据救援维护会话（`hosts/common/operit-host-data-rescue/src/lib.rs:70`）
 - `ChromiumBrowserAutomationHost` — 共享 Chromium 浏览器自动化实现（`hosts/common/chromium_browser.rs:34`）
@@ -93,7 +93,7 @@ downloadToFileAsync 失败时删除临时文件（`hosts/common/operit-host-nati
 NativeHttpHost 的 `downloadFiles` 批量下载多个文件并上报进度（`hosts/common/operit-host-native-http/src/lib.rs:474`）。
 批量下载的并发任务数（并行上限）取 `maxConcurrency` 与文件总数中较小者（`hosts/common/operit-host-native-http/src/lib.rs:711`）。
 断点续传时下载请求带 `RANGE` 头从已保留字节处继续（`hosts/common/operit-host-native-http/src/lib.rs:951`）。
-`validateContentRange` 校验续传响应的起始位置与总量（`hosts/common/operit-host-native-http/src/lib.rs:1115`）。
+`validateContentRange` 校验续传响应的起始位置与总量（`hosts/common/operit-host-native-http/src/lib.rs:1121`）。
 `buildHttpStreamClient` 构建 Host 的流式 HTTP 客户端（`hosts/common/operit-host-native-http/src/lib.rs:842`）。
 流式 HTTP 客户端把 `ignoreSsl` 传给 `danger_accept_invalid_certs`（`hosts/common/operit-host-native-http/src/lib.rs:852`）。
 `NativeHttpServerHost` 由 `server` 子模块提供并在 http crate 入口重导出（`hosts/common/operit-host-native-http/src/lib.rs:5`）。
@@ -147,12 +147,12 @@ TerminalManagedRuntimeProcess 的 `drainStderr` 返回空字符串，因为 PTY 
 ### 调度器与插件 SDK IPC
 
 scheduler crate 默认启用 `javascript` feature（`hosts/common/operit-host-native-scheduler/Cargo.toml:9`）。
-`NativeHostJavaScriptRuntimeHost` 由 `javascript` feature 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:15`）。
-`NativeHostRuntimeEventSchedulerHost` 不经 `javascript` 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:16`）。
-`NativeHostRuntimeTaskSchedulerHost` 不经 `javascript` 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）。
-`scheduleNativeBlockingTask`、`scheduleNativeServiceTask`、`scheduleNativeServiceTasks` 与 `NativeTaskHandle` 由 `task_handle` 模块导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:37`）。
-`LocalHostRuntimeTaskSchedulerHost` 与 `DEVICE_ASYNC_STACK_BYTES`、`DEVICE_BLOCKING_STACK_BYTES` 由 `local_task_scheduler` 模块导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:26`）。
-`withStackBudget` 由 `esp32-compat` feature 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:22`）。
+`NativeHostJavaScriptRuntimeHost` 由 `javascript` feature 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）。
+`NativeHostRuntimeEventSchedulerHost` 不经 `javascript` 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:18`）。
+`NativeHostRuntimeTaskSchedulerHost` 不经 `javascript` 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:19`）。
+`scheduleNativeBlockingTask`、`scheduleNativeServiceTask`、`scheduleNativeServiceTasks` 与 `NativeTaskHandle` 由 `task_handle` 模块导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:38`）。
+`LocalHostRuntimeTaskSchedulerHost` 与 `DEVICE_ASYNC_STACK_BYTES`、`DEVICE_BLOCKING_STACK_BYTES` 由 `local_task_scheduler` 模块导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:29`）。
+`withStackBudget` 由 `esp32-compat` feature 门控导出（`hosts/common/operit-host-native-scheduler/src/lib.rs:25`）。
 `PLUGIN_SDK_IPC_MAX_FRAME_BYTES` 与帧读写函数由 `framing` 模块导出（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:8`）。
 `MemoryPluginSdkIpcHost` 由 `memory` 模块导出（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:9`）。
 `pipes` 与 `stream` 是 plugin-sdk-ipc 的公开子模块（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:5`）。
@@ -289,10 +289,10 @@ operit-host-data-rescue 的 crate 文档称其为 `Native Host boundary for offl
 - `NativeFileSecretStore` — 共享文件密钥库实现（`hosts/common/operit-host-native-storage/src/lib.rs:2`）
 - `NativePtyTerminalHost` — 共享 POSIX PTY 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:32`）
 - `NativePtyShellCommand` — 显式 POSIX shell 配置（`hosts/common/operit-host-native-terminal/src/lib.rs:52`）
-- `NativeHostJavaScriptRuntimeHost` — 共享 JS 运行时实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:15`）
-- `NativeHostRuntimeEventSchedulerHost` — 共享运行时事件调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:16`）
-- `NativeHostRuntimeTaskSchedulerHost` — 共享运行时任务调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）
-- `scheduleNativeServiceTask` — 调度原生服务任务（`hosts/common/operit-host-native-scheduler/src/lib.rs:37`）
+- `NativeHostJavaScriptRuntimeHost` — 共享 JS 运行时实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）
+- `NativeHostRuntimeEventSchedulerHost` — 共享运行时事件调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:18`）
+- `NativeHostRuntimeTaskSchedulerHost` — 共享运行时任务调度器实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:19`）
+- `scheduleNativeServiceTask` — 调度原生服务任务（`hosts/common/operit-host-native-scheduler/src/lib.rs:38`）
 - `MemoryPluginSdkIpcHost` — 共享插件 SDK 内存 IPC 实现（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:9`）
 - `pluginSdkIpcInstanceName` — 插件 SDK IPC 实例名构造（`hosts/common/operit-host-native-plugin-sdk-ipc/src/lib.rs:13`）
 - `StorageLease` — 数据救援存储租约（`hosts/common/operit-host-data-rescue/src/lib.rs:28`）
