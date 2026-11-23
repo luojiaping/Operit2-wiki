@@ -1,6 +1,6 @@
 {
   "issue": 35,
-  "source_commit": "514873b",
+  "source_commit": "805120c",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Agent 回路总览：一轮发送链路、switch_core 切换边界、Binding 路由配合、切换不触发总结压缩",

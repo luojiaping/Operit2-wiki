@@ -1,6 +1,6 @@
 {
   "issue": 15,
-  "source_commit": "514873b",
+  "source_commit": "805120c",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "持久化 store 聚合 crate：SQLite 连接与事务、节点身份、Binding、Space 成员与选路、偏好存储的同步与节点本地两种形态。",

@@ -1,6 +1,6 @@
 {
   "issue": 37,
-  "source_commit": "514873b",
+  "source_commit": "805120c",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "上下文压缩与摘要：手动入口 compactChat，自动压缩存在且默认启用（阈值 0.85），三处触发与三阶段摘要 hook。",

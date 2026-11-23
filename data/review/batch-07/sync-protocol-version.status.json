@@ -1,6 +1,6 @@
 {
   "issue": 75,
-  "source_commit": "514873b",
+  "source_commit": "805120c",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Core 与 Edge 共用整数协议版本，构建指纹由 peer-protocol.json 记录，版本不匹配返回 PEER_PROTOCOL_MISMATCH。",

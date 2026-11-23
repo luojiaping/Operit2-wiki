@@ -3,7 +3,7 @@
   "approved_by": "luojiaping",
   "approved_by_comment_id": 6795387419,
   "issue": 26,
-  "source_commit": "514873b",
+  "source_commit": "805120c",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Runtime 总览与 OperitApplication：进程级运行时组装、启动生命周期、CORE_VERSION 与聊天消息管理",
