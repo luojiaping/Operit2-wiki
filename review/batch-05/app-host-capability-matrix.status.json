@@ -1,6 +1,6 @@
 {
   "issue": 56,
-  "source_commit": "514873b",
+  "source_commit": "805120c",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "能力 × 平台矩阵：34 个 HostManager 槽位能力 × 7 个平台共 238 格，由脚本按 host-api trait 定义与各平台 createRuntimeHostManager 注册生成",

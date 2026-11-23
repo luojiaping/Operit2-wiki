@@ -1,0 +1,21 @@
+{
+ "A": [],
+ "B": [],
+ "C": [
+  {
+   "page": "sync-vfs",
+   "idx": 126,
+   "ref": "core/crates/foundation/vfs/src/PathMapper.rs:368",
+   "text": "/app 与 /operitapp 的虚拟条目为 data、workspaces、outputs",
+   "terms": [
+    "data",
+    "operitapp",
+    "outputs",
+    "workspaces"
+   ],
+   "window": "                    .map(|root| directoryEntry(root.name))\n                    .collect())\n            }\n            [ROOT_APP | ROOT_OPERITAPP] => Some(vec![directoryEntry(APP_DATA), directoryEntry(APP_WORKSPACES), directoryEntry(APP_OUTPUTS)]),\n            [ROOT_MNT | ROOT_VIRTUAL] => { let entrie",
+   "mapped": 368,
+   "in_change": false
+  }
+ ]
+}
