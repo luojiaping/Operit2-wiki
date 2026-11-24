@@ -119,7 +119,7 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 - `JsExecutionProvider` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:451`（`core/crates/plugin/sdk/src/javascript.rs:451`）
 - `operit-js-bridge` 在 javascript/JsExecutionProvider.rs 中以 `HostJsExecutionProvider` 实现 `JsExecutionProvider`（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:91` `core/crates/plugin/javascript-bridge/Cargo.toml:2`）
 - `JsPackageExecutor` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:434`（`core/crates/plugin/sdk/src/javascript.rs:434`）
-- `JsExecutionEngine` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:679`（`core/crates/plugin/sdk/src/javascript.rs:679`）
+- `JsExecutionEngine` trait 定义在 `core/crates/plugin/sdk/src/javascript.rs:705`（`core/crates/plugin/sdk/src/javascript.rs:705`）
 
 ### 各边界归属
 
@@ -183,7 +183,7 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 - `JsExecutionHost` — JavaScript 到应用的执行边界 trait（`core/crates/plugin/sdk/src/javascript.rs:213`）
 - `JsExecutionProvider` — 引擎 Provider 边界 trait（`core/crates/plugin/sdk/src/javascript.rs:451`）
 - `JsPackageExecutor` — 绑定一个包运行时与执行宿主的 trait（`core/crates/plugin/sdk/src/javascript.rs:434`）
-- `JsExecutionEngine` — ToolPkg 引擎操作 trait（`core/crates/plugin/sdk/src/javascript.rs:679`）
+- `JsExecutionEngine` — ToolPkg 引擎操作 trait（`core/crates/plugin/sdk/src/javascript.rs:705`）
 - `HostJsExecutionProvider` — `operit-js-bridge` 实现 `JsExecutionProvider` 的结构体（`core/crates/plugin/javascript-bridge/src/javascript/JsExecutionProvider.rs:16` `core/crates/plugin/javascript-bridge/Cargo.toml:2`）
 - `HostManager` — 活动宿主能力集与面向生命周期的宿主句柄（`core/crates/foundation/host-api/src/HostManager.rs:139`）
 

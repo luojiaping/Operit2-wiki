@@ -158,9 +158,9 @@ README 声明 API 密钥、设备私钥、配对密钥、会话与本地平台�
 
 实现与该原则存在冲突：`ModelConfigManager` 的 `preferenceStore` 经 `PreferencesDataStore::newWithStorage` 打开 Space 偏好存储（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128`）。
 
-`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>` 键（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479`）。
+`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>` 键（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481`）。
 
-`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:603`）。
+`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:630`）。
 
 Space 偏好存储构造时创建同步描述符 `PreferencesSyncDescriptor`（`core/crates/persistence/store/src/PreferencesDataStore.rs:2999`）。
 

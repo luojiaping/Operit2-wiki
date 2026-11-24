@@ -1,0 +1,4 @@
+intro-not-what batch=batch-01 facts=63 bad=3
+intro-not-what.md:45 `ProviderProfile` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:605']
+intro-not-what.md:45 `apiKey` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:605']
+intro-not-what.md:45 `apiKeyPool` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:605']

@@ -1,0 +1,11 @@
+dev-contributing batch=batch-11 facts=59 bad=10
+dev-contributing.md:17 `DCO` not within ±5 of any ref ['CONTRIBUTING.md:50']
+dev-contributing.md:18 `Signed-off-by` not within ±5 of any ref ['CONTRIBUTING.md:56']
+dev-contributing.md:53 `git commit -s -m "fix(cli): preserve chat attachments"` not within ±5 of any ref ['CONTRIBUTING.md:53']
+dev-contributing.md:80 `Signed-off-by` not within ±5 of any ref ['.github/pull_request_template.md:35']
+dev-contributing.md:100 `DCO` not within ±5 of any ref ['CONTRIBUTING.md:50']
+dev-contributing.md:101 `Signed-off-by` not within ±5 of any ref ['CONTRIBUTING.md:56']
+dev-contributing.md:104 `git commit -s` not within ±5 of any ref ['CONTRIBUTING.md:53']
+dev-contributing.md:104 `-s` not within ±5 of any ref ['CONTRIBUTING.md:53']
+dev-contributing.md:104 `Signed-off-by` not within ±5 of any ref ['CONTRIBUTING.md:53']
+dev-contributing.md:117 `git commit -s` not within ±5 of any ref ['CONTRIBUTING.md:53']

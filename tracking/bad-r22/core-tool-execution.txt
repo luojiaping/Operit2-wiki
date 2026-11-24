@@ -1,0 +1,2 @@
+core-tool-execution batch=batch-02 facts=124 bad=1
+core-tool-execution.md:169 `bindCallerContext` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3531']

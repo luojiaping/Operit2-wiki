@@ -1,0 +1,2 @@
+plugin-catalog-external batch=batch-06 facts=101 bad=1
+plugin-catalog-external.md:154 `sourceType` not within ±5 of any ref ['plugins/packages/external/subagents/README.md:72']

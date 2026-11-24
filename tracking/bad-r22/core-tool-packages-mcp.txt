@@ -1,0 +1,5 @@
+core-tool-packages-mcp batch=batch-02 facts=126 bad=4
+core-tool-packages-mcp.facts.json#126 `usePackage` not within ±5 of core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1050
+core-tool-packages-mcp.md:165 `main` not within ±5 of any ref ['core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2230']
+core-tool-packages-mcp.md:208 `executeUsePackageTool` not within ±5 of any ref ['core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1103', 'core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1050']
+core-tool-packages-mcp.md:208 `usePackage` not within ±5 of any ref ['core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1103', 'core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1050']

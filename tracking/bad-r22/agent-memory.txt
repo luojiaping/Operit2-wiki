@@ -1,0 +1,18 @@
+agent-memory batch=batch-04 facts=143 bad=17
+agent-memory.facts.json#3 `embeddings` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:406
+agent-memory.facts.json#4 `MemoryJobState` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:409
+agent-memory.facts.json#4 `MemorySpace` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:409
+agent-memory.facts.json#4 `memories` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:409
+agent-memory.facts.json#5 `CharacterState` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:411
+agent-memory.facts.json#6 `owners` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:421
+agent-memory.facts.json#6 `MemorySpace` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:421
+agent-memory.facts.json#11 `readMemoryJobState` not within ±5 of plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:339
+agent-memory.facts.json#12 `writeMemoryJobState` not within ±5 of plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:349
+agent-memory.md:32 `MemorySpace` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:395']
+agent-memory.md:33 `MemoryJobState` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:409']
+agent-memory.md:34 `owners` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:421']
+agent-memory.md:35 `CharacterState` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:411']
+agent-memory.md:43 `readMemoryJobState` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:339']
+agent-memory.md:44 `writeMemoryJobState` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:349']
+agent-memory.md:181 `MemorySpace` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:395']
+agent-memory.md:182 `MemoryJobState` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:409']

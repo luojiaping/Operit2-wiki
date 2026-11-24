@@ -10,7 +10,7 @@ date: 2026-11-11
 
 - Operit2 把迁移视作个人设备连续性的一部分，CLI 提供身份、存储路径、快照导出与恢复、备份检查入口。`README.md:85`
 - 快照、配置与身份数据的确切范围由当前命令帮助与格式版本决定。`README.md:90`
-- 活动进程与实时会话留在原节点，有备份不等于全部运行时状态已能无缝迁移。`README.md:92`
+- 活动进程与实时会话留在原节点，有备份不等于全部运行时状态已能无缝迁移。`README.md:90`
 - Operit2 处于 Preview 阶段，底层结构、数据格式、插件契约与跨设备工作流仍会发生 breaking change。`README.md:14`
 - 详细的 Operit1→Operit2 FAQ 在 Operit-wiki 附录草稿里，本页不重写，只写 CLI 入口与边界。wiki-drafts/appendix-operit1-to-operit2-faq.md:2
 - 导入器的结构细节见 [[core-runtime-data|Runtime——数据与插件宿主]]。`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:351`
@@ -91,12 +91,12 @@ date: 2026-11-11
 - `--confirm` 仅对 import 与 resume 有效，export 或 inspect 传 `--confirm` 报错。`apps/cli/src/rescue.rs:35`
 - 顶层帮助把 `operit2 rescue <command>` 列为导出、检查、导入或恢复数据救援的入口。`apps/cli/src/cli/mod.rs:1566`
 - Flutter 维护界面是独立路由，不构造 `CoreApplicationService`、`RuntimeBootstrapManager`、常规日志路径与常规业务 UI。`docs/data-rescue.md:16`
-- 原生平台用 `operit.files.v1` 归档布局，浏览器用 `operit.browser.v1` 归档布局；归档是普通 ZIP 文件，不需要密码；每次恢复前按声明大小与 SHA-256 校验每个 payload。`docs/data-rescue.md:24`
-- 恢复先暂存校验再发布，原目录保留在生成的 `.operit-retained-*` 路径（原生平台）与 `data-rescue/retained-*`（浏览器）。`docs/data-rescue.md:28`
-- 正常进程持有租约时维护界面报告具体锁错误，Android 提供停止正常进程的命令，iOS 须冷启动。`docs/data-rescue.md:30`
-- 导入保留被置换的原生根与应用自有条目，持久的中断发布阻塞正常启动，仅由显式 `resume` 推进。`docs/data-rescue.md:32`
-- 原生与浏览器归档在本版本中故意不互通。`docs/data-rescue.md:34`
-- 恢复入口标签为 从备份恢复，导出、源读取、清单检查、完整性校验、暂存恢复、恢复文件验证、发布、中断导入完成、目标保存均报告实测阶段计数。`docs/data-rescue.md:38`
+- 原生平台用 `operit.files.v1` 归档布局，浏览器用 `operit.browser.v1` 归档布局；归档是普通 ZIP 文件，不需要密码；每次恢复前按声明大小与 SHA-256 校验每个 payload。`docs/data-rescue.md:20`
+- 恢复先暂存校验再发布，原目录保留在生成的 `.operit-retained-*` 路径（原生平台）与 `data-rescue/retained-*`（浏览器）。`docs/data-rescue.md:32`
+- 正常进程持有租约时维护界面报告具体锁错误，Android 提供停止正常进程的命令，iOS 须冷启动。`docs/data-rescue.md:34`
+- 导入保留被置换的原生根与应用自有条目，持久的中断发布阻塞正常启动，仅由显式 `resume` 推进。`docs/data-rescue.md:38`
+- 原生与浏览器归档在本版本中故意不互通。`docs/data-rescue.md:40`
+- 恢复入口标签为 从备份恢复，导出、源读取、清单检查、完整性校验、暂存恢复、恢复文件验证、发布、中断导入完成、目标保存均报告实测阶段计数。`docs/data-rescue.md:44`
 
 ## 关键符号
 

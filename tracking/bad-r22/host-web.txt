@@ -1,0 +1,7 @@
+host-web batch=batch-05 facts=166 bad=6
+host-web.facts.json#75 `None` not within ±5 of hosts/web/src/tools/storage/mod.rs:193
+host-web.facts.json#78 `length` not within ±5 of hosts/web/src/tools/storage/mod.rs:242
+host-web.facts.json#78 `CAST` not within ±5 of hosts/web/src/tools/storage/mod.rs:242
+host-web.md:149 `None` not within ±5 of any ref ['hosts/web/src/tools/storage/mod.rs:193']
+host-web.md:152 `length` not within ±5 of any ref ['hosts/web/src/tools/storage/mod.rs:242']
+host-web.md:152 `CAST` not within ±5 of any ref ['hosts/web/src/tools/storage/mod.rs:242']

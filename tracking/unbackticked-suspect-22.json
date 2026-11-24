@@ -1,0 +1,469 @@
+[
+ {
+  "page": "intro-not-what",
+  "idx": 13,
+  "ref": "README.md:39",
+  "text": "单节点 Agent 的能力并不在所有平台完全相同",
+  "terms": [
+   "Agent"
+  ],
+  "window": "- Web access, browser automation, workspace browsers, and runtime WebView session projections;\n- Memory, summarization, speech recognition, speech synthesis, and other built-in tools.\n\nThese capabilities are not identical across all platforms. Whether an operation can actually be executed depends on"
+ },
+ {
+  "page": "intro-overview",
+  "idx": 16,
+  "ref": "README.md:34",
+  "text": "单节点 Agent 已包含工作区、文件操作、项目模板、命令和备份/导入导出。",
+  "terms": [
+   "Agent"
+  ],
+  "window": "\n- Conversations, session branches, message management, attachments, character cards, character groups, and prompt configuration;\n- Provider configuration, model parameters, tool calls, request queues, and downloadable local chat models using embedded llama.cpp and MNN CPU inference;\n- Workspaces, f"
+ },
+ {
+  "page": "intro-overview",
+  "idx": 17,
+  "ref": "README.md:35",
+  "text": "单节点 Agent 已包含终端会话、PTY 输入和输出流。",
+  "terms": [
+   "Agent"
+  ],
+  "window": "- Conversations, session branches, message management, attachments, character cards, character groups, and prompt configuration;\n- Provider configuration, model parameters, tool calls, request queues, and downloadable local chat models using embedded llama.cpp and MNN CPU inference;\n- Workspaces, fi"
+ },
+ {
+  "page": "intro-overview",
+  "idx": 19,
+  "ref": "README.md:37",
+  "text": "单节点 Agent 已包含记忆、摘要、语音识别、语音合成以及其他内置工具。",
+  "terms": [
+   "Agent"
+  ],
+  "window": "- Workspaces, file operations, project templates, commands, and backup/import/export;\n- Terminal sessions, PTY input, and output streams;\n- Web access, browser automation, workspace browsers, and runtime WebView session projections;\n- Memory, summarization, speech recognition, speech synthesis, and "
+ },
+ {
+  "page": "intro-quickstart",
+  "idx": 88,
+  "ref": "apps/flutter/app/lib/l10n/generated/app_localizations_zh.dart:5081",
+  "text": "Flutter 扫码确认提示写明确认后直接连接并提交加入，无需输入配对码",
+  "terms": [
+   "Flutter"
+  ],
+  "window": "  String get peerQrConfirmJoin => '确认加入';\n\n  @override\n  String get peerQrConfirmJoinHint => '是否确认加入此设备的空间？确认后将直接连接并提交加入，无需输入配对码。';\n\n  @override\n  String get peerQrListenerRequired => '请先在连接设置中开启接收连接，并连接到可用的网络。';"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 72,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1697",
+  "text": "openHttpResponseStream 默认返回不支持错误。",
+  "terms": [
+   "openHttpResponseStream"
+  ],
+  "window": "        &self,\n        _streamId: String,\n        _request: HttpRequestData,\n        _onResponse: HttpStreamResponseCallback,\n        _onChunk: HttpStreamChunkCallback,\n        _onClosed: HttpStreamClosedCallback,\n    ) -> HostResult<()> {"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 86,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:291",
+  "text": "ChatGuidanceInbox 的 enqueue 拒绝空消息与已关闭的回合。",
+  "terms": [
+   "ChatGuidanceInbox",
+   "enqueue"
+  ],
+  "window": "        let message = message.trim().to_string();\n        if message.is_empty() {\n            return Err(\"Guidance message cannot be empty\".to_string());\n        }\n        let mut state = self.state.lock().expect(\"chat guidance inbox mutex poisoned\");\n        if !state.accepting {\n            return"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 87,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:320",
+  "text": "drainOrClose 在无待处理指导时关闭收件箱，之后 enqueue 全部拒绝；有待处理指导时返回全部条目且保持开放。",
+  "terms": [
+   "drainOrClose",
+   "enqueue"
+  ],
+  "window": "        if state.pending.is_empty() {\n            state.accepting = false;\n            return Vec::new();\n        }\n        state.pending.drain(..).collect()\n    }\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 108,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1091",
+  "text": "prepareConversationHistory 完成后把附件路径改写为相对路径。",
+  "terms": [
+   "prepareConversationHistory"
+  ],
+  "window": "                runtime.useEnglish,\n            )).await.map_err(AiServiceError::RequestFailed)?;\n        if let Some(base) = fileDirectory {\n            ConversationService::use_relative_attachment_paths(&mut history, &base);\n        }\n        Ok(history)\n    }"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 114,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1264",
+  "text": "Full 暴露模式下工具列表取系统工具分类中已在 tool_handler 注册的工具，再追加 package_proxy 代理工具。",
+  "terms": [
+   "Full",
+   "package_proxy",
+   "tool_handler"
+  ],
+  "window": "            .into_iter()\n            .flat_map(|category| category.tools)\n            .filter(|tool| registered_tool_names.contains(&tool.name))\n            .map(systemToolPromptToModelToolPrompt)\n            .collect::<Vec<_>>();\n        available_tools.push(buildPackageProxyToolPrompt());\n        "
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 115,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1318",
+  "text": "estimateRequestWindowFromMemory 先用 prepareConversationHistory 准备历史，再用 getAvailableToolsForFunction 取工具。",
+  "terms": [
+   "estimateRequestWindowFromMemory",
+   "getAvailableToolsForFunction",
+   "prepareConversationHistory"
+  ],
+  "window": "                promptFunctionType.clone(),\n                None,\n                participantId.clone(),\n                proxySenderName,\n                false,\n                FunctionType::CHAT,\n                chatProviderIdOverride.clone(),"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 149,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2860",
+  "text": "纯思考回复且 disableWarning 为真时，completeResponseRound 直接定稿。",
+  "terms": [
+   "completeResponseRound",
+   "disableWarning"
+  ],
+  "window": "                        context.executionId, context.roundManager.roundIndex\n                    ),\n                );\n                self.finalizeAssistantResponse(&displayContent);\n                return ResponseRoundAction::Complete;\n            }\n            let pureThinkingWarning ="
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 150,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2864",
+  "text": "纯思考回复且 disableWarning 为假时，completeResponseRound 发出纯思考警告并继续一轮。",
+  "terms": [
+   "completeResponseRound",
+   "disableWarning"
+  ],
+  "window": "                return ResponseRoundAction::Complete;\n            }\n            let pureThinkingWarning =\n                ConversationMarkupManager::createWarningStatus(ENHANCED_PURE_THINKING_ONLY_WARNING);\n            context\n                .roundManager\n                .appendContent(&format!(\"\\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 152,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2953",
+  "text": "无工具调用时，completeResponseRound 定稿助手回复并结束。",
+  "terms": [
+   "completeResponseRound"
+  ],
+  "window": "            ),\n            operit_util::AppLogger::VERBOSE_LEVEL_2,\n        );\n        self.finalizeAssistantResponse(&context.roundManager.getDisplayContent());\n        ResponseRoundAction::Complete\n    }\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 160,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3248",
+  "text": "setCurrentTurnTokenCounts 把负数 token 计数钳制为 0。",
+  "terms": [
+   "setCurrentTurnTokenCounts",
+   "token"
+  ],
+  "window": "        cachedInputTokens: i64,\n    ) {\n        self.turnTokenUsage().setSnapshot(TurnTokenSnapshot {\n            inputTokens: inputTokens.max(0),\n            outputTokens: outputTokens.max(0),\n            cachedInputTokens: cachedInputTokens.max(0),\n        });"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 45,
+  "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:1098",
+  "text": "AI 策略下 resolveTarget 失败路径仍通知请求与结果 hook。",
+  "terms": [
+   "hook",
+   "resolveTarget"
+  ],
+  "window": "                if matches!(policy, ToolExecutionPolicy::Ai { .. }) {\n                    let _lifecycle = ToolInvocationLifecycle {\n                        context: context.clone(),\n                        tool: tool.clone(),\n                    };\n                    self.notifyToolCallRequested(&"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 76,
+  "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:528",
+  "text": "registerBuiltinTool 重复注册同名内置工具时断言失败。",
+  "terms": [
+   "registerBuiltinTool"
+  ],
+  "window": "        let toolName = name.as_str().to_string();\n        let mut guard = self.inner.lock().expect(\"AIToolHandler mutex poisoned\");\n        assert!(\n            !guard.toolExecutors.contains_key(&toolName),\n            \"Built-in tool is registered more than once: {toolName}\"\n        );\n        guard"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 94,
+  "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:226",
+  "text": "unregisterMcpServerTools 按 服务器名: 前缀批量删除该 MCP 服务器的工具。",
+  "terms": [
+   "unregisterMcpServerTools"
+  ],
+  "window": "            .toolExecutors\n            .keys()\n            .filter(|toolName| {\n                matches!(toolName.split_once(':'), Some((name, _)) if name == serverName)\n            })\n            .cloned()\n            .collect::<Vec<_>>();"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 111,
+  "ref": "core/crates/tool/services/src/tools/AIToolHandler.rs:806",
+  "text": "executeAccessPreflightAsync 读取当前权限模式失败时，返回失败结果而不是抛错。",
+  "terms": [
+   "executeAccessPreflightAsync"
+  ],
+  "window": "            .and_then(|context| context.callerChatId);\n        let mode = permissionSystem\n            .getAiPermissionMode()\n            .map_err(|error| ToolResult {\n                toolName: tool.name.clone(),\n                success: false,\n                result: stringResultData(\"\"),"
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 115,
+  "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3573",
+  "text": "包调用上下文绑定不再按包名判定是否为包工具；JS 执行时直接取回合上下文绑定 __operit_package_* 参数。",
+  "terms": [
+   "__operit_package_"
+  ],
+  "window": "\n/// Binds neutral native identity for all SDK versions; only the v1 adapter interprets card IDs.\n#[allow(non_snake_case)]\nfn bindCallerContext(params: &mut BTreeMap<String, Value>, host: Option<&dyn JsExecutionHost>) {\n    let Some(context) = host.and_then(JsExecutionHost::toolpkg_caller_context) e"
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 45,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:743",
+  "text": "ToolPkgDependencyIssue 记录依赖 id、问题码、要求版本上下限、已安装版本与是否启用。",
+  "terms": [
+   "ToolPkgDependencyIssue"
+  ],
+  "window": "    pub id: String,\n    pub code: String,\n    pub requiredMinVersion: Option<String>,\n    pub requiredMaxVersion: Option<String>,\n    pub installedVersion: Option<String>,\n    pub enabled: bool,\n}"
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 64,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2826",
+  "text": "schema_version 省略时默认 1。",
+  "terms": [
+   "schema_version"
+  ],
+  "window": "    }\n}\n\n#[allow(non_snake_case)]\n/// Returns the default ToolPkg manifest schema version.\nfn defaultSchemaVersion() -> i32 {\n    1"
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 67,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2037",
+  "text": "validateProtectedEntryPolicy 的函数体直接返回 Ok，未执行保护策略校验。",
+  "terms": [
+   "validateProtectedEntryPolicy"
+  ],
+  "window": "    _sourceType: &ToolPkgSourceType,\n) -> Result<(), String>\nwhere\n    FReadEntryProtectionHeader: FnMut(&str) -> Option<Vec<u8>>,\n{\n    Ok(())\n}"
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 74,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:109",
+  "text": "ToolPkgManager 持有容器运行时表、子包运行时表、运行时修订表、变更监听器、执行引擎注册表与三组宿主接口。",
+  "terms": [
+   "ToolPkgManager"
+  ],
+  "window": "    containers: Arc<RwLock<BTreeMap<String, ToolPkgContainerRuntime>>>,\n    subpackageByPackageName: Arc<RwLock<BTreeMap<String, ToolPkgSubpackageRuntime>>>,\n    runtimeRevisions: Arc<RwLock<BTreeMap<String, Option<u64>>>>,\n    runtimeChangeListeners: Arc<Mutex<Vec<ToolPkgRuntimeChangeListener>>>,\n "
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 80,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:360",
+  "text": "registerToolPkg 先发布替换再撤销容器执行上下文，避免竞态创建者绑定旧元数据。",
+  "terms": [
+   "registerToolPkg"
+  ],
+  "window": "        drop(subpackages);\n        // Publish the replacement before revoking: a racing creator must never\n        // bind old metadata using the replacement generation.\n        self.revokeContainerExecutionContexts(&containerName);\n        loadResult.subpackagePackages\n    }\n"
+ },
+ {
+  "page": "core-plugin-sdk",
+  "idx": 103,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1099",
+  "text": "dispatchToolPkgHook 无 timeoutMillis 时走普通执行入口。",
+  "terms": [
+   "dispatchToolPkgHook",
+   "timeoutMillis"
+  ],
+  "window": "                        )\n                        .await\n                }\n                None => {\n                    engine\n                        .execute_script_function(\n                            &script,"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 84,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2586",
+  "text": "attachUploadedFile 仅当已上传附件已导入当前聊天文件目录且 VFS 定位与存储文件一致时才登记",
+  "terms": [
+   "attachUploadedFile"
+  ],
+  "window": "        if !self\n            .attachments\n            .iter()\n            .any(|item| item.filePath == attachment.filePath)\n        {\n            let message = format!(\"已添加附件: {}\", attachment.fileName);\n            self.attachments.push(attachment);"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 95,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2765",
+  "text": "chatMessagesWindowFlow 向前翻页时一次加载 14 条消息",
+  "terms": [
+   "chatMessagesWindowFlow"
+  ],
+  "window": "        let manager = self.chatHistoryDelegate.chatHistoryManager.clone();\n        self.localChatMessagesFlow(chatId.clone()).map(move |live| {\n            let messages = if let Some(timestamp) = beforeTimestamp {\n                let mut page = match manager.loadChatMessagesDescUpTo(chatId.clone(), "
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 98,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2863",
+  "text": "routeProbeChatMessagesFlow 构建带嵌入响应流的路由诊断聊天消息流",
+  "terms": [
+   "routeProbeChatMessagesFlow"
+  ],
+  "window": "                                requestId: Some(request.requestId.clone()),\n                                target: request.target.clone(),\n                                propertyName: request.propertyName.clone(),\n                                kind: CoreEventKind::Changed,\n                      "
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 111,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3179",
+  "text": "localChatStateFlow 返回本地 Core 上指定聊天的运行时状态流",
+  "terms": [
+   "Core",
+   "localChatStateFlow"
+  ],
+  "window": "                    chat.map(|chat| chat.title.clone()).unwrap_or_default(),\n                    chat.and_then(|chat| chat.workspacePrimaryPath.clone()),\n                    directory,\n                )\n            }\n        });\n        let pendingQueueStateFlow = self.pendingQueueStateFlow().asStat"
+ },
+ {
+  "page": "agent-character-cards",
+  "idx": 63,
+  "ref": "plugins/packages/buildin/character_cards/src/domain.ts:368",
+  "text": "主记忆 owner 在资源表里可读可写。",
+  "terms": [
+   "owner"
+  ],
+  "window": "      allowedBuiltinTools: [...card.toolAccessConfig.allowedBuiltinTools], allowedPackages: [...card.toolAccessConfig.allowedPackages],\n      allowedSkills: [...card.toolAccessConfig.allowedSkills], allowedMcpServers: [...card.toolAccessConfig.allowedMcpServers],\n    },\n    resources: [...routes.val"
+ },
+ {
+  "page": "agent-character-cards",
+  "idx": 80,
+  "ref": "plugins/packages/buildin/character_cards/README.md:137",
+  "text": "主题引用为 null 表示保持当前主题，群组不借用成员的主题。",
+  "terms": [
+   "null"
+  ],
+  "window": "not substituted for a failed request. Selecting stages only the editor's\n`themeConfigId`; saving persists it, and activating the character/group applies\nthe exact configuration through `Tools.Theme.applyConfig(id)`.\nNull means keep the current theme, and groups never borrow a member's theme.\nCharact"
+ },
+ {
+  "page": "agent-subagents",
+  "idx": 79,
+  "ref": "plugins/packages/external/subagents/src/storage.ts:70",
+  "text": "用一条 promise 链串行化写操作",
+  "terms": [
+   "promise"
+  ],
+  "window": "  }\n\n  /** Commits one immutable snapshot and the parent's list in the same host transaction. */\n  save(agent: Agent): Promise<void> {\n    const pending = this.writes.then(async () => {\n      const next = new Map(this.committed);\n      next.set(agent.id, summary(agent));"
+ },
+ {
+  "page": "plugin-catalog-buildin",
+  "idx": 21,
+  "ref": "plugins/packages/buildin/character_cards/manifest.json:13",
+  "text": "character_cards 的中文显示名是角色卡，中文描述是：创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库。",
+  "terms": [
+   "character_cards"
+  ],
+  "window": "    \"en\": \"Characters\"\n  },\n  \"description\": {\n    \"zh\": \"创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库。\",\n    \"en\": \"Create AI characters or put several in a group chat; each keeps its own memory library.\"\n  },\n  \"logo\": \"package_logo\","
+ },
+ {
+  "page": "plugin-catalog-buildin",
+  "idx": 82,
+  "ref": "plugins/packages/buildin/super_admin/manifest.json:9",
+  "text": "super_admin 提供终端命令和会话管理，闲置 10 分钟的工具终端自动关闭",
+  "terms": [
+   "super_admin"
+  ],
+  "window": "  \"main\": \"dist/main.js\",\n  \"display_name\": { \"zh\": \"超级管理员\", \"en\": \"Super Admin\" },\n  \"description\": {\n    \"zh\": \"终端命令和会话管理，自动关闭闲置10分钟的工具终端。\",\n    \"en\": \"Terminal commands and session management with automatic cleanup after 10 idle minutes.\"\n  },\n  \"enabled_by_default\": true,"
+ },
+ {
+  "page": "plugin-catalog-external",
+  "idx": 41,
+  "ref": "plugins/packages/external/subagents/README.md:22",
+  "text": "插件导入后 subagents 的 sourceType 为 EXTERNAL，并发现全部六个工具",
+  "terms": [
+   "EXTERNAL",
+   "sourceType",
+   "subagents"
+  ],
+  "window": "| 工具 | 参数 | 行为 |\n| --- | --- | --- |\n| `spawn_agent` | `name`, `task` | 创建并立即返回 agent ID，后台执行 |\n| `get_capacity` | 无 | 查询全空间共享的并发上限、占用和可用名额 |\n| `wait_agent` | `agent_ids`, 可选 `timeout_ms` | 等待任一所选当前轮次结束，允许 1..30000 毫秒；省略时使用设置页默认值，超时可再次等待 |\n| `send_input` | `agent_id`, `message`, `interrupt=false` | "
+ },
+ {
+  "page": "plugin-catalog-external",
+  "idx": 70,
+  "ref": "plugins/packages/external/qqbot/manifest.json:12",
+  "text": "qqbot 通过宿主原生网络连接腾讯 QQ Bot，提供 C2C/群消息收发、事件队列和 AI 自动回复",
+  "terms": [
+   "qqbot"
+  ],
+  "window": "    \"en\": \"QQ Bot\"\n  },\n  \"description\": {\n    \"zh\": \"通过宿主原生网络连接腾讯 QQ Bot，提供 C2C/群多模态消息收发、原生引用、结构化事件和 AI 自动回复。\",\n    \"en\": \"Connect Tencent QQ Bot through host networking with C2C/group multimodal messaging, native quotes, structured events and AI replies.\"\n  },\n  \"enabled_by_default\": false,"
+ },
+ {
+  "page": "plugin-js-wasm-runtime",
+  "idx": 86,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:335",
+  "text": "captureMarketOrigin 在非注册期调用时直接返回，不改动注册捕获状态",
+  "terms": [
+   "captureMarketOrigin"
+  ],
+  "window": "            // Marketplace publishing appends this marker to a main module. Runtime hooks can\n            // evaluate that module repeatedly after registration, so marker calls there must\n            // not mutate registration capture state or interrupt the hook.\n            if (!registrationOnly) {"
+ },
+ {
+  "page": "plugin-manifest",
+  "idx": 44,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2504",
+  "text": "兼容 requires 只对 api_version 主版本为 1 的包追加",
+  "terms": [
+   "api_version",
+   "requires"
+  ],
+  "window": "fn applyCompatibilityRequirements(\n    apiVersion: ToolPkgApiVersion,\n    packageId: &str,\n    requirements: &mut Vec<ToolPkgManifestRequirement>,\n) -> Result<(), String> {\n    if apiVersion.major != 1 {\n        return Ok(());"
+ },
+ {
+  "page": "plugin-manifest",
+  "idx": 56,
+  "ref": "core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1368",
+  "text": "子包脚本声明的环境变量名会传给 main 注册解析",
+  "terms": [
+   "main"
+  ],
+  "window": "                apiVersionText.clone(),\n                subpackagePackages\n                    .iter()\n                    .flat_map(|package| package.env.iter().map(|variable| variable.name.clone()))\n                    .collect::<Vec<_>>(),\n            ).await {\n                ToolPkgMainRegistra"
+ },
+ {
+  "page": "model-catalog",
+  "idx": 47,
+  "ref": "docs/model-catalog.md:25",
+  "text": "文档称本地运行的模型不依赖此目录（文档说法，本页 seed 代码未验证）",
+  "terms": [
+   "seed"
+  ],
+  "window": "- 下载失败保留当前目录，只记诊断日志和 `getModelCatalogStatus.lastError`，不作为模型配置命令\n  错误上抛，界面也不显示后台下载失败。30 分钟内不会自动重试；界面「更新」按钮可手动重试\n  （`refreshModelCatalog`）。两份目录完整下载、解析和保存成功才替换，失败不会采用半份目录。\n- 本地运行的模型不依赖此目录。模型服务商自身的模型列表请求和连接错误仍按原流程处理。\n- 没有模型列表接口的服务商（ChatGPT Codex）使用 `core/crates/foundation/model/collects/ModelCatalog.rs"
+ },
+ {
+  "page": "model-catalog",
+  "idx": 56,
+  "ref": "docs/model-catalog.md:54",
+  "text": "文档称本机安装的本地模型不参与识别，按本地运行配置描述（文档说法，本页 seed 代码未验证）",
+  "terms": [
+   "seed"
+  ],
+  "window": "## 用户设置与目录的关系\n\n- 模型配置里的 `*Override` 字段只保存用户改过的值，按字段区分。没改过的字段在读取时按目录计算，\n  所以目录更新后，已添加模型里用户没改过的字段会跟着更新。\n- 保存时，和目录值相同的字段不会记为用户设置。上下文按整千 token 比较，因为设置页按整千显示。\n- 目录识别不了的模型，使用添加时服务商列表自带的信息（目前只有 OpenRouter 提供），再使用默认值。\n- 本机安装的本地模型不参与识别，按本地运行配置描述。"
+ },
+ {
+  "page": "model-catalog",
+  "idx": 61,
+  "ref": "docs/model-catalog.md:73",
+  "text": "文档称本机运行的本地模型由内置运行时处理，每个模型都可开关思考（文档说法，本页 seed 代码未验证）",
+  "terms": [
+   "seed"
+  ],
+  "window": "  显示这些写法。预算档位按 2k/8k/16k/32k token 换算并限制在目录给的范围内，范围上限超过 32k 时\n  再加一个 `max`。\n- 档位按模型保存（`ModelProfile.thinkingLevel`）。没设置过的模型沿用最近一次在任意模型上设置的\n  档位，换成这个模型最接近的一档：先保持开或关，再取强度最接近的，一样近取更强的；从没设置过\n  时为 `off`。存的档位后来不再提供时按同样规则换算。\n- 目录没有或说得不对的模型，用户可以自己描述（`ModelProfile.thinkingOverride`），描述整体替换\n  目录的说法。本机运行的本地模型由"
+ },
+ {
+  "page": "edge-overview",
+  "idx": 42,
+  "ref": "edge/boards/android_phone/README.md:21",
+  "text": "Android phone Edge 此阶段没有录音、语音识别/播放、聊天界面、直接模型请求、摄像头或手表专用布局",
+  "terms": [
+   "Android",
+   "Edge",
+   "phone"
+  ],
+  "window": "- 氛围配色、点按触感和亮屏由[手表桌宠 ToolPkg](../../../plugins/packages/external/edge_watch_pet/README.md)设置，保存在设备端。升级时继承旧版亮屏选择。\n\n## 接入\n\n1. 在邀请设备的 Operit「设备空间」打开 TCP 监听并显示标准设备二维码。两台设备需要在可互通的网络上。\n2. 有摄像头的手表点「扫码加入」，扫邀请设备的二维码并确认。手表向邀请设备所在的空间提交加入请求。\n3. 无摄像头的手表进入「设备空间 → 手动配对」，输入邀请设备的 TCP 地址和六位配对码。配对后在手表申请加入，在空间管理员端批准。"
+ },
+ {
+  "page": "tools-runtime-kits",
+  "idx": 15,
+  "ref": "tools/android-runtime/README.md:36",
+  "text": "Android 构建时补丁与可编辑源码树都存在，脚本从可编辑树重新生成补丁。",
+  "terms": [
+   "Android"
+  ],
+  "window": "`patches/termux-proot-operit-android.patch` and that editable source tree in\nsync before compiling. When the patch exists and the editable source tree has\nnot been created, the script creates the editable tree from clean Termux PRoot\nand applies the patch. When both exist, the script regenerates the"
+ }
+]

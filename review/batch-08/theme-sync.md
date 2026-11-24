@@ -25,9 +25,9 @@ date: 2026-11-11
 - `themePaletteJson` — 可选的完整明暗配色外观字段。`docs/theme-v1-contract.md:49`
 - `Tools.Storage.dataStore` — 暴露 Rust `PreferencesDataStore` 的插件偏好入口。`docs/plugin-storage.md:3`
 - `withSchema` — 为每个版本声明一个可移植规则数组。`docs/plugin-storage.md:22`
-- `withMigration` — 注册用户偏好文件的格式迁移，目标格式版本为 5。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36`
-- `migrateLegacyThemePreferences` — 解码旧主题偏好。`core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:643`
-- `migrateLegacyThemeSnapshot` — 迁移历史主题快照并去掉当前 schema 不再拥有的字段。`core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:656`
+- `withMigration` — 注册用户偏好文件的格式迁移，目标格式版本为 5。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
+- `migrateLegacyThemePreferences` — 解码旧主题偏好。`core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:659`
+- `migrateLegacyThemeSnapshot` — 迁移历史主题快照并去掉当前 schema 不再拥有的字段。`core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:672`
 - `PreferenceMergeStore` — 绑定共享合并声明与其所属偏好 store。`core/crates/persistence/store/src/PreferenceMerge.rs:31`
 - PreferenceMergeSchema 的 `owner` — 按路径解析偏好 owner。`core/crates/persistence/store/src/PreferenceMerge.rs:76`
 - `declarePlugin` — 登记插件偏好合并声明。`core/crates/persistence/store/src/PreferenceMerge.rs:92`
@@ -107,14 +107,14 @@ date: 2026-11-11
 - 状态迁移与声明发布共享一次持久提交并保留原始业务 revision；不支持的规则保持待处理等待引擎升级，独立 owner 继续；任意 JavaScript schema 回调会被拒绝。`docs/plugin-storage.md:26`
 - 这些声明描述的是格式迁移；跨文件所有权变更仍是布局迁移，使用共享原生布局机制：提交目标、发布其路由或退役决定、保留本地进度；带编号的格式步骤不意味着旧路径退役。`docs/plugin-storage.md:28`
 - 第一个插件 schema 是 v1；不存在未发布的插件 v2 格式，也不存在 v1 到 v2 的迁移；已发布的备份格式各有独立版本号。`docs/plugin-storage.md:57`
-- Rust 侧执行点：`store` 打开 `USER_PREFERENCES_PATH` 时以 `withMigration(5, Self::migration)` 注册迁移，目标格式版本为 5。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36`
-- `migratePreferences` 的 3 分支先调用 `migrateLegacyThemePreferences` 解码旧主题偏好，再逐条处理 `THEME_CONFIG_PREFIX` 开头的配置。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:58` `core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:90`
-- 逐条配置反序列化为 `ThemeConfig` 后调用 `migrateLegacyThemeSnapshot` 迁移快照，再经 `validateConfig` 校验后写回。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:98`
-- 4 分支把 `chat_style` 拆分为 `user_chat_style` 与 `ai_chat_style`，只在新键缺失时继承旧值。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106`
-- 4 分支同时把已存配置快照里的 `chatStyle` 拆分为 `userChatStyle` 与 `aiChatStyle`，已显式设置的值不被覆盖。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:124`
-- 插件 schema（当前 v1）与用户偏好文件 format 0–5 是两套体系；不存在未发布的插件 v2 格式，也不存在 v1 到 v2 的迁移。`docs/plugin-storage.md:57` `core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36`
-- 偏好文件侧是 format 0–5：`store` 打开 `USER_PREFERENCES_PATH` 时以 `withMigration(5, Self::migration)` 注册迁移，目标格式版本为 5。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36`
-- 原先只搜 `withSchema` 会漏检：`withSchema(3` 的两处生产代码命中分别是同步偏好布局与包管理器偏好，均非主题偏好迁移；真正的主题偏好迁移走 `withMigration`。`core/crates/runtime/application/src/data/preferences/PreferenceSpaceMerge.rs:196` `core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:452` `core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36`
+- Rust 侧执行点：`store` 打开 `USER_PREFERENCES_PATH` 时以 `withMigration(5, Self::migration)` 注册迁移，目标格式版本为 5。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
+- `migratePreferences` 的 3 分支先调用 `migrateLegacyThemePreferences` 解码旧主题偏好，再逐条处理 `THEME_CONFIG_PREFIX` 开头的配置。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:67` `core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:99`
+- 逐条配置反序列化为 `ThemeConfig` 后调用 `migrateLegacyThemeSnapshot` 迁移快照，再经 `validateConfig` 校验后写回。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106`
+- 4 分支把 `chat_style` 拆分为 `user_chat_style` 与 `ai_chat_style`，只在新键缺失时继承旧值。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:115`
+- 4 分支同时把已存配置快照里的 `chatStyle` 拆分为 `userChatStyle` 与 `aiChatStyle`，已显式设置的值不被覆盖。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:131`
+- 插件 schema（当前 v1）与用户偏好文件 format 0–5 是两套体系；不存在未发布的插件 v2 格式，也不存在 v1 到 v2 的迁移。`docs/plugin-storage.md:57` `core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
+- 偏好文件侧是 format 0–5：`store` 打开 `USER_PREFERENCES_PATH` 时以 `withMigration(5, Self::migration)` 注册迁移，目标格式版本为 5。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
+- 原先只搜 `withSchema` 会漏检：`withSchema(3` 的两处生产代码命中分别是同步偏好布局与包管理器偏好，均非主题偏好迁移；真正的主题偏好迁移走 `withMigration`。`core/crates/runtime/application/src/data/preferences/PreferenceSpaceMerge.rs:196` `core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:447` `core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
 - `data()` 返回不可变快照；`get()` 把已存的 `null` 与缺失键（`undefined`）区分开；`edit()` 接受同步或异步回调，通过原生偏好事务发布变更；回调抛异常时不发布任何偏好变更。`docs/plugin-storage.md:20`
 - 原生快照校验拒绝并发编辑且不重跑回调；回调结束后可变视图不可再用。`docs/plugin-storage.md:20`
 
@@ -144,15 +144,15 @@ date: 2026-11-11
 - `Tools.Storage.dataStore` — 暴露 Rust `PreferencesDataStore` 的插件偏好入口。`docs/plugin-storage.md:3`
 - `PreferencesDataStore` — Rust 偏好存储，类型化 JSON 存 `.preferences.json` 文件。`docs/plugin-storage.md:3`
 - `withSchema` — 声明各版本的可移植迁移规则。`docs/plugin-storage.md:22`
-- `store` — 打开用户偏好文件并注册格式迁移。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36`
-- `withMigration` — 注册用户偏好文件的格式迁移。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36`
-- `USER_PREFERENCES_PATH` — 用户偏好文件的存储路径。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36`
-- `migratePreferences` — 按版本号执行用户偏好迁移。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:58`
-- `migrateLegacyThemePreferences` — 解码旧主题偏好。`core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:643`
-- `migrateLegacyThemeSnapshot` — 迁移历史主题快照并去掉当前 schema 不再拥有的字段。`core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:656`
-- `chat_style` — 旧版聊天样式键，4 分支拆分为用户与 AI 两键。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106`
-- `user_chat_style` — 拆分出的用户聊天样式键。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106`
-- `ai_chat_style` — 拆分出的 AI 聊天样式键。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106`
+- `store` — 打开用户偏好文件并注册格式迁移。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
+- `withMigration` — 注册用户偏好文件的格式迁移。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
+- `USER_PREFERENCES_PATH` — 用户偏好文件的存储路径。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
+- `migratePreferences` — 按版本号执行用户偏好迁移。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:67`
+- `migrateLegacyThemePreferences` — 解码旧主题偏好。`core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:659`
+- `migrateLegacyThemeSnapshot` — 迁移历史主题快照并去掉当前 schema 不再拥有的字段。`core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:672`
+- `chat_style` — 旧版聊天样式键，4 分支拆分为用户与 AI 两键。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:115`
+- `user_chat_style` — 拆分出的用户聊天样式键。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:115`
+- `ai_chat_style` — 拆分出的 AI 聊天样式键。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:115`
 - `rename_key` — 迁移规则：重命名键。`docs/plugin-storage.md:22`
 - `decode_json` — 迁移规则：解码 JSON 字符串。`docs/plugin-storage.md:22`
 - `Transaction::migration::Context` — 原生引擎执行迁移规则的上下文。`docs/plugin-storage.md:26`
@@ -207,6 +207,7 @@ date: 2026-11-11
 - 复核（2026-11-18，新基线 753366ff4）：`docs/theme-v1-contract.md` 旧 :57 整段改写为新 :57（单张背景/气泡图片/背景视频加载失败只降级对应资源，其余设置不清空）、:59（配色/字体/外观偏好无法准备仍展示错误及“重试”“重置外观”，应用旧版配置清除新增字段）与 :61（局部回退不放宽模板校验要求）；事实 #11 已按新 :57/:59 改写，事实条数不变（56 条）；其余 5 份 seed 文件及 `RuntimePackageManager.rs`、`PreferenceSpaceMerge.rs` 0 行改动，锚点 :413/:196 不变；seed 合计行数 2086→2090。
 - 复核（2026-11-19，新基线 f9b7555）：`PreferenceMerge.rs` 在 `applyDeclaredOperations` 内新增 incoming 为空时复用已提交状态的 early-return（新 :472–492）与新函数 `aliasesAbsorbed`（新 :638–667）；`migrateSyncedEntries` 调用点 :516→:537，`rewriteReferences` :620→:671，`rewriteReferenceValue` :750→:801，`resolveIdentity` :809→:860，`referenceKey` :826→:877；无反引号的 :764（引用值须为字符串或 null）→:815、:818（别名成环）→:869；其余 4 份 seed 文件 0 行改动，`RuntimePackageManager.rs:413`、`PreferenceSpaceMerge.rs:196` 锚点不变，2 分支仍删 `bundled_external_imports`（新 :416）；seed 合计行数 2090→2141；事实条数不变（56 条）。
 - 复核（2026-11-23，新基线 514873b）：`docs/theme-v1-contract.md` 在旧 :51 后新增灰阶配色段（新 :51：自定义主色为纯黑、纯白或 RGB 三通道相等的灰色且副色未设或同为灰阶时，客户端用 Material `monochrome` 生成明暗两套灰阶配色；含彩色主色或副色的组合继续用 `tonalSpot`），不在大纲四问范围内，未立事实；旧 :51→新 :53、旧 :57→新 :59、旧 :59→新 :61；`RuntimePackageManager.rs` 的 `withSchema(3, …)` 锚点 :434→:452，2 分支仍删 `bundled_external_imports`；其余 4 份 seed 文件 0 行改动，56 条事实锚行逐字相同；事实条数不变（56 条）。
+- 复核（2026-11-25，新基线 62dacc0）：`UserPreferencesManager.rs` 的 `getInstance()` 改走新 `languageStore()`（`CoreNodeStateStore` + `APP_LANGUAGE_PREFERENCES_PATH`，设备本地语言，不产生 Space 同步操作），`dataStore` 字段类型 `PreferencesDataStore`→`CoreNodeStateStore`；`store()` 本体不变，`withMigration(5, …)` 锚点 :36→:44，`migratePreferences` 定义 :58→:67，3 分支 :90→:99，4 分支 :106→:115、:124→:131；`ThemePreferenceSnapshot.rs` 的 `EXTENDED_SNAPSHOT_FIELDS` 新增 `codeFontType` / `codeFontSystemName` / `codeFontPath` 三字段（新 :489–503），字体三元组新增 `codeFont` 一组（新 :563），`migrateLegacyThemePreferences` :643→:659、`migrateLegacyThemeSnapshot` :656→:672；`docs/theme-v1-contract.md` 仅 :51 灰阶配色段整段改写（主辅色原样使用保存值，明暗模式不再改变色相/饱和度/明度；彩色用 `fidelity`、灰阶用 `monochrome`；默认品牌主题仍用 `tonalSpot`），未立事实；`docs/plugin-storage.md` 内容 0 改动；`PreferenceSpaceMerge.rs` 仅新增测试 `app_language_stays_local_across_space_replay`（新 :294–341），:196 锚点不变；`RuntimePackageManager.rs` 的 `withSchema(3, …)` 锚点 :452→:447，2 分支仍删 `bundled_external_imports`（新 :450）；`PreferenceMerge.rs` 0 行改动；事实条数不变（56 条），事实 #48–#54、#56 只改锚行，正文不变。
 - 主题契约见 [[core-plugin-theme|插件——主题 v1 契约]]；主题即插件见 [[plugin-theme|主题即插件（theme-as-ToolPkg）]]。
 - “主题偏好 schema 3→4 迁移”已定位（2026-11-12，基线 `364d1d594`）：`UserPreferencesManager.rs:36` 的 `store` 以 `.withMigration(5, Self::migration)` 打开 `USER_PREFERENCES_PATH`；`migratePreferences` 的 3 分支（`:89`–`:103`）调用 `migrateLegacyThemePreferences`（`ThemePreferenceSnapshot.rs:643`）解码旧主题偏好，再逐条对 `theme_config_*` 配置做 `migrateLegacyThemeSnapshot`（`ThemePreferenceSnapshot.rs:656`）并 `validateConfig`；4 分支（`:104` 起）把 `chat_style` 拆分为 `user_chat_style` / `ai_chat_style`。原 grep 只搜 `withSchema` 未覆盖 `withMigration`，因而漏检；`withSchema(3` 的生产代码命中另有所指：`PreferenceSpaceMerge.rs:196`（同步偏好布局，`core/crates/runtime/application/src/data/preferences/PreferenceSpaceMerge.rs`）与 `RuntimePackageManager.rs:452`（包管理器偏好，`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs`），均非主题偏好迁移。
 - 结论：大纲备注的“主题偏好 schema 3→4 迁移”已有实现，本页按上述锚点写该迁移；插件 schema（当前 v1）与用户偏好文件 format 0–5 是两套体系。

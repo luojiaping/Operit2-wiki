@@ -1,0 +1,4 @@
+arch-overview batch=batch-01 facts=110 bad=3
+arch-overview.md:157 `ProviderProfile` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:603']
+arch-overview.md:157 `apiKey` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:603']
+arch-overview.md:157 `apiKeyPool` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:603']

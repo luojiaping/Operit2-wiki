@@ -19,7 +19,7 @@ Android 运行时工具包的构建说明在 `BUILDING.md`。`tools/android-runt
 `BusyBox 1.38.0` — Android 运行时二进制之一。`tools/android-runtime/README.md:5`
 `Termux PRoot v5.1.107.78` — Android 运行时二进制之一。`tools/android-runtime/README.md:6`
 `talloc 2.4.3` — PRoot 的依赖库。`tools/android-runtime/README.md:7`
-`build_android_tools_wsl.sh` — Android 构建脚本，保持补丁与可编辑源码树同步。`tools/android-runtime/README.md:25`
+`build_android_tools_wsl.sh` — Android 构建脚本，保持补丁与可编辑源码树同步。`tools/android-runtime/README.md:32`
 `arm64` — iOS 的 Rust 终端实现标识符。`tools/ios-runtime/README.md:13`
 `ios/build_arm64_runtime.sh` — 构建 iOS 的 ARM64 静态库。`tools/ios-runtime/README.md:9`
 `build.sh` — iOS 的 ARM64 构建脚本，负责 host、iOS device、iOS Simulator 与 XCFramework。`tools/ios-runtime/arm64/README.md:7`
@@ -29,11 +29,11 @@ Android 运行时工具包的构建说明在 `BUILDING.md`。`tools/android-runt
 `build_v86_runtime_wsl.sh` — Web 的 V86 运行时构建脚本。`tools/web-runtime/README.md:15`
 `publish_v86_runtime_r2.py` — Web 的 V86 运行时发布脚本。`tools/web-runtime/README.md:26`
 `v86_runtime_smoke.mjs` — Web 的 V86 运行时冒烟测试。`tools/web-runtime/README.md:61`
-Android 的构建入口是 `build_android_tools_wsl.sh`。`tools/android-runtime/README.md:25`
+Android 的构建入口是 `build_android_tools_wsl.sh`。`tools/android-runtime/README.md:32`
 iOS 的 ARM64 构建入口是 `build.sh`。`tools/ios-runtime/arm64/README.md:7`
 OpenHarmony 的构建入口是 `build_vroot_hnp_linux.sh` 与 `build_alpine_rootfs_linux.sh`。`tools/ohos-runtime/README.md:34`
 Web 的构建入口是 `build_v86_runtime_wsl.sh`。`tools/web-runtime/README.md:15`
-Android 产物去向是 `apps/flutter/app/android/app/src/main/jniLibs/<abi>/` 与 `apps/flutter/app/android/app/src/main/assets/android-runtime/<abi>/`。`tools/android-runtime/README.md:44`
+Android 产物去向是 `apps/flutter/app/android/app/src/main/jniLibs/<abi>/` 与 `apps/flutter/app/android/app/src/main/assets/android-runtime/<abi>/`。`tools/android-runtime/README.md:51`
 iOS 产物去向是 `Runner/arm64-rootfs.tar.gz`，导入持久的 ARM64 根目录。`tools/ios-runtime/README.md:10`
 OpenHarmony 的 HNP 产物去向是 `apps/flutter/app/ohos/entry/hnp/arm64-v8a/`。`tools/ohos-runtime/README.md:20`
 OpenHarmony 的 Alpine 产物去向是 `apps/flutter/app/ohos/entry/src/main/resources/rawfile/ohos-vroot/`。`tools/ohos-runtime/README.md:26`
@@ -52,15 +52,15 @@ Android 运行时工具包准备 Alpine v3.23 minirootfs，内含 bash、python3
 Android 打包的 rootfs 内含 `/etc/resolv.conf`，其中 `nameserver` 为 223.5.5.5。`tools/android-runtime/README.md:14`
 Android 的 resolv.conf 配置让新安装的 PRoot 环境解析终端命令与 MCP 进程的域名。`tools/android-runtime/README.md:15`
 Android 的 resolv.conf 配置随 rootfs 生成，不对已有环境应用迁移。`tools/android-runtime/README.md:16`
-Android 的 PRoot 修改位于 `tools/android-runtime/sources/termux-proot-operit` 可编辑源码树。`tools/android-runtime/README.md:22`
-Android 的 `build_android_tools_wsl.sh` 在编译前保持 `patches/termux-proot-operit-android.patch` 与可编辑源码树同步。`tools/android-runtime/README.md:25`
-Android 构建时补丁存在而可编辑源码树未创建，脚本从干净的 Termux PRoot 创建可编辑树并应用补丁。`tools/android-runtime/README.md:28`
-Android 构建时补丁与可编辑源码树都存在，脚本从可编辑树重新生成补丁。`tools/android-runtime/README.md:29`
-Android 构建时补丁不存在，脚本从干净的 Termux PRoot 创建可编辑树后写入新补丁。`tools/android-runtime/README.md:30`
-Android 构建中修改 PRoot 的方式是编辑可编辑源码树，然后运行常规 PRoot 构建。`tools/android-runtime/README.md:32`
-Android 构建的中间文件写在 Fedora WSL 下的 `~/.cache/operit-android-runtime/build/assistance2`。`tools/android-runtime/README.md:38`
-Android 编译出的 `liboperit_busybox.so`、`liboperit_proot.so`、`liboperit_loader.so` 复制到 `apps/flutter/app/android/app/src/main/jniLibs/<abi>/`。`tools/android-runtime/README.md:44`
-Android 的 `rootfs.tar.gz.bin` 与 `rootfs.tar.gz.bin.sha256` 复制到 `apps/flutter/app/android/app/src/main/assets/android-runtime/<abi>/`。`tools/android-runtime/README.md:47`
+Android 的 PRoot 修改位于 `tools/android-runtime/sources/termux-proot-operit` 可编辑源码树。`tools/android-runtime/README.md:29`
+Android 的 `build_android_tools_wsl.sh` 在编译前保持 `patches/termux-proot-operit-android.patch` 与可编辑源码树同步。`tools/android-runtime/README.md:32`
+Android 构建时补丁存在而可编辑源码树未创建，脚本从干净的 Termux PRoot 创建可编辑树并应用补丁。`tools/android-runtime/README.md:35`
+Android 构建时补丁与可编辑源码树都存在，脚本从可编辑树重新生成补丁。`tools/android-runtime/README.md:36`
+Android 构建时补丁不存在，脚本从干净的 Termux PRoot 创建可编辑树后写入新补丁。`tools/android-runtime/README.md:37`
+Android 构建中修改 PRoot 的方式是编辑可编辑源码树，然后运行常规 PRoot 构建。`tools/android-runtime/README.md:39`
+Android 构建的中间文件写在 Fedora WSL 下的 `~/.cache/operit-android-runtime/build/assistance2`。`tools/android-runtime/README.md:45`
+Android 编译出的 `liboperit_busybox.so`、`liboperit_proot.so`、`liboperit_loader.so` 复制到 `apps/flutter/app/android/app/src/main/jniLibs/<abi>/`。`tools/android-runtime/README.md:51`
+Android 的 `rootfs.tar.gz.bin` 与 `rootfs.tar.gz.bin.sha256` 复制到 `apps/flutter/app/android/app/src/main/assets/android-runtime/<abi>/`。`tools/android-runtime/README.md:54`
 
 ### iOS：独立的 AArch64 Linux 运行时，不是 V86
 
@@ -149,12 +149,12 @@ iOS、OpenHarmony、Web 三个目录下不存在 BUILDING.md，核验方法见 #
 `talloc 2.4.3` — PRoot 的依赖库。`tools/android-runtime/README.md:7`
 `Android NDK r29-beta4` — Android 的 WSL 构建工具链。`tools/android-runtime/README.md:9`
 `BUILDING.md` — Android 运行时工具包的构建说明。`tools/android-runtime/README.md:12`
-`build_android_tools_wsl.sh` — Android 构建脚本，保持补丁与可编辑源码树同步。`tools/android-runtime/README.md:25`
-`patches/termux-proot-operit-android.patch` — Android 的 PRoot 补丁。`tools/android-runtime/README.md:25`
-`liboperit_busybox.so` — Android 编译出的 BusyBox 动态库。`tools/android-runtime/README.md:44`
-`liboperit_proot.so` — Android 编译出的 PRoot 动态库。`tools/android-runtime/README.md:44`
-`liboperit_loader.so` — Android 编译出的加载器动态库。`tools/android-runtime/README.md:44`
-`rootfs.tar.gz.bin` — Android 打包的 rootfs 产物。`tools/android-runtime/README.md:47`
+`build_android_tools_wsl.sh` — Android 构建脚本，保持补丁与可编辑源码树同步。`tools/android-runtime/README.md:32`
+`patches/termux-proot-operit-android.patch` — Android 的 PRoot 补丁。`tools/android-runtime/README.md:32`
+`liboperit_busybox.so` — Android 编译出的 BusyBox 动态库。`tools/android-runtime/README.md:51`
+`liboperit_proot.so` — Android 编译出的 PRoot 动态库。`tools/android-runtime/README.md:51`
+`liboperit_loader.so` — Android 编译出的加载器动态库。`tools/android-runtime/README.md:51`
+`rootfs.tar.gz.bin` — Android 打包的 rootfs 产物。`tools/android-runtime/README.md:54`
 `arm64` — iOS 的 Rust 终端实现标识符。`tools/ios-runtime/README.md:13`
 `ios/build_arm64_runtime.sh` — 构建 iOS 的 ARM64 静态库。`tools/ios-runtime/README.md:9`
 `Runner/arm64-rootfs.tar.gz` — iOS 导入持久 ARM64 根目录的归档。`tools/ios-runtime/README.md:10`
@@ -175,8 +175,8 @@ iOS、OpenHarmony、Web 三个目录下不存在 BUILDING.md，核验方法见 #
 
 ## 调用链
 
-Android：`build_android_tools_wsl.sh` 同步补丁与可编辑源码树后编译。`tools/android-runtime/README.md:25`
-Android：编译产物复制到 `apps/flutter/app/android/app/src/main/jniLibs/<abi>/`，rootfs 产物复制到 `apps/flutter/app/android/app/src/main/assets/android-runtime/<abi>/`。`tools/android-runtime/README.md:44`
+Android：`build_android_tools_wsl.sh` 同步补丁与可编辑源码树后编译。`tools/android-runtime/README.md:32`
+Android：编译产物复制到 `apps/flutter/app/android/app/src/main/jniLibs/<abi>/`，rootfs 产物复制到 `apps/flutter/app/android/app/src/main/assets/android-runtime/<abi>/`。`tools/android-runtime/README.md:51`
 Android：新安装的 PRoot 环境用 rootfs 内含的 resolv.conf 解析终端命令与 MCP 进程的域名。`tools/android-runtime/README.md:15`
 iOS：`build.sh` 构建 host、iOS device、iOS Simulator 与 XCFramework。`tools/ios-runtime/arm64/README.md:7`
 iOS：Flutter Runner 通过 `ios/build_arm64_runtime.sh` 构建 ARM64 静态库，并把 `Runner/arm64-rootfs.tar.gz` 导入持久的 ARM64 根目录。`tools/ios-runtime/README.md:9`

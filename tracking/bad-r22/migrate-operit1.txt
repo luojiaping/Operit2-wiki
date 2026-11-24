@@ -1,0 +1,2 @@
+migrate-operit1 batch=batch-11 facts=70 bad=1
+migrate-operit1.md:91 `resume` not within ±5 of any ref ['docs/data-rescue.md:32']

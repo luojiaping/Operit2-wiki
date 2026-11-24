@@ -33,7 +33,7 @@
   },
   {
     "fact": "`ChatBinding` 只有 `chatId` 与 `selection` 两个字段。",
-    "ref": "plugins/packages/buildin/character_cards/src/model.ts:439"
+    "ref": "plugins/packages/buildin/character_cards/src/model.ts:445"
   },
   {
     "fact": "绑定存在插件自己的偏好文件里，键名是 `binding_` 加聊天 id。",
@@ -157,15 +157,15 @@
   },
   {
     "fact": "`chat.configuration.draft.commit` 只发布 Core 认证提交选中的已预写绑定。",
-    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:503"
+    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:508"
   },
   {
     "fact": "`chat.configuration.draft.abort` 在 Core 复用已有会话后移除作废草稿。",
-    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:504"
+    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:509"
   },
   {
     "fact": "`chat.configuration.draft.resolve` 只解析已预写的创建草稿，不暴露已提交聊天查询。",
-    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:502"
+    "ref": "plugins/packages/buildin/character_cards/src/public-api.ts:507"
   },
   {
     "fact": "`chatConfigurationDeleteApi` 只接受 host 调用方；无绑定时直接返回已删除，不报错。",
@@ -209,19 +209,19 @@
   },
   {
     "fact": "`combinePrompts` 先按 id 取卡片，再调 `combineCharacterPrompt` 组装。",
-    "ref": "plugins/packages/buildin/character_cards/src/operations.ts:524"
+    "ref": "plugins/packages/buildin/character_cards/src/operations.ts:513"
   },
   {
     "fact": "公开解析 API 先按 chatId 读取插件自己的绑定，再临时构造 {version: 1, selection} 写入内部 `request.chatExtension`，交给领域解析；执行侧再从聊天扩展解码标记并用 `parseChatSelection` 解析选择串。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:382"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:383"
   },
   {
     "fact": "单卡解析出的提示词直接作为参与者的 `introPrompt`。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:361"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:362"
   },
   {
     "fact": "`withGroupParticipantPrompt` 为群组成员的执行档案追加角色规划提示与有序成员名。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:413"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:414"
   },
   {
     "fact": "群组追加提示直接拼在参与者原 `introPrompt` 之后返回新档案。",
@@ -233,7 +233,7 @@
   },
   {
     "fact": "群组执行的历史策略是参与者隔离、用户消息打标签。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:441"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:425"
   },
   {
     "fact": "纯模型执行的档案 `introPrompt` 为空、主记忆 owner 为空串。",
@@ -241,19 +241,19 @@
   },
   {
     "fact": "`userPreferencesText` 只在全局记忆偏好开启用户描述时才读，否则为空串。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:357"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:358"
   },
   {
     "fact": "记忆主 owner：CHARACTER 模式为 `character:` 加卡片 id，SHARED 模式为 `shared:` 加共享库 id。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:340"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:341"
   },
   {
     "fact": "主记忆 owner 在资源表里可读可写。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:366"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:368"
   },
   {
     "fact": "卡片未指定 TTS 配置时用请求的默认 TTS 配置。",
-    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:352"
+    "ref": "plugins/packages/buildin/character_cards/src/domain.ts:336"
   },
   {
     "fact": "执行数据 `ExecutionData` 含 version、selection、promptFunctionType、primaryOwnerKey、profile 与 participants。",

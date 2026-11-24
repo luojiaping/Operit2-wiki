@@ -1,0 +1,28 @@
+tools-runtime-kits batch=batch-11 facts=84 bad=27
+tools-runtime-kits.facts.json#12 `tools/android-runtime/sources/termux-proot-operit` not within ±5 of tools/android-runtime/README.md:22
+tools-runtime-kits.facts.json#13 `build_android_tools_wsl.sh` not within ±5 of tools/android-runtime/README.md:25
+tools-runtime-kits.facts.json#13 `patches/termux-proot-operit-android.patch` not within ±5 of tools/android-runtime/README.md:25
+tools-runtime-kits.facts.json#18 `~/.cache/operit-android-runtime/build/assistance2` not within ±5 of tools/android-runtime/README.md:38
+tools-runtime-kits.facts.json#19 `liboperit_busybox.so` not within ±5 of tools/android-runtime/README.md:44
+tools-runtime-kits.facts.json#19 `liboperit_proot.so` not within ±5 of tools/android-runtime/README.md:44
+tools-runtime-kits.facts.json#19 `liboperit_loader.so` not within ±5 of tools/android-runtime/README.md:44
+tools-runtime-kits.facts.json#20 `rootfs.tar.gz.bin` not within ±5 of tools/android-runtime/README.md:47
+tools-runtime-kits.facts.json#20 `rootfs.tar.gz.bin.sha256` not within ±5 of tools/android-runtime/README.md:47
+tools-runtime-kits.md:16 `build_android_tools_wsl.sh` not within ±5 of any ref ['tools/android-runtime/README.md:25']
+tools-runtime-kits.md:26 `build_android_tools_wsl.sh` not within ±5 of any ref ['tools/android-runtime/README.md:25']
+tools-runtime-kits.md:49 `tools/android-runtime/sources/termux-proot-operit` not within ±5 of any ref ['tools/android-runtime/README.md:22']
+tools-runtime-kits.md:50 `build_android_tools_wsl.sh` not within ±5 of any ref ['tools/android-runtime/README.md:25']
+tools-runtime-kits.md:50 `patches/termux-proot-operit-android.patch` not within ±5 of any ref ['tools/android-runtime/README.md:25']
+tools-runtime-kits.md:55 `~/.cache/operit-android-runtime/build/assistance2` not within ±5 of any ref ['tools/android-runtime/README.md:38']
+tools-runtime-kits.md:56 `liboperit_busybox.so` not within ±5 of any ref ['tools/android-runtime/README.md:44']
+tools-runtime-kits.md:56 `liboperit_proot.so` not within ±5 of any ref ['tools/android-runtime/README.md:44']
+tools-runtime-kits.md:56 `liboperit_loader.so` not within ±5 of any ref ['tools/android-runtime/README.md:44']
+tools-runtime-kits.md:57 `rootfs.tar.gz.bin` not within ±5 of any ref ['tools/android-runtime/README.md:47']
+tools-runtime-kits.md:57 `rootfs.tar.gz.bin.sha256` not within ±5 of any ref ['tools/android-runtime/README.md:47']
+tools-runtime-kits.md:146 `build_android_tools_wsl.sh` not within ±5 of any ref ['tools/android-runtime/README.md:25']
+tools-runtime-kits.md:147 `patches/termux-proot-operit-android.patch` not within ±5 of any ref ['tools/android-runtime/README.md:25']
+tools-runtime-kits.md:148 `liboperit_busybox.so` not within ±5 of any ref ['tools/android-runtime/README.md:44']
+tools-runtime-kits.md:149 `liboperit_proot.so` not within ±5 of any ref ['tools/android-runtime/README.md:44']
+tools-runtime-kits.md:150 `liboperit_loader.so` not within ±5 of any ref ['tools/android-runtime/README.md:44']
+tools-runtime-kits.md:151 `rootfs.tar.gz.bin` not within ±5 of any ref ['tools/android-runtime/README.md:47']
+tools-runtime-kits.md:172 `build_android_tools_wsl.sh` not within ±5 of any ref ['tools/android-runtime/README.md:25']

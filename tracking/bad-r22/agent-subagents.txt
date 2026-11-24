@@ -1,0 +1,120 @@
+agent-subagents batch=batch-04 facts=101 bad=119
+agent-subagents.facts.json#16 `agent_ids` not within ±5 of plugins/packages/external/subagents/src/tools.ts:23
+agent-subagents.facts.json#17 `timeout_ms` not within ±5 of plugins/packages/external/subagents/src/tools.ts:24
+agent-subagents.facts.json#19 `message` not within ±5 of plugins/packages/external/subagents/src/tools.ts:31
+agent-subagents.facts.json#22 `reserveStart` not within ±5 of plugins/packages/external/subagents/src/manager.ts:159
+agent-subagents.facts.json#23 `reserveStart` not within ±5 of plugins/packages/external/subagents/src/manager.ts:132
+agent-subagents.facts.json#24 `reserveStart` not within ±5 of plugins/packages/external/subagents/src/manager.ts:299
+agent-subagents.facts.json#27 `agent_ids` not within ±5 of plugins/packages/external/subagents/src/manager.ts:370
+agent-subagents.facts.json#28 `timeoutMs` not within ±5 of plugins/packages/external/subagents/src/manager.ts:371
+agent-subagents.facts.json#29 `timed_out` not within ±5 of plugins/packages/external/subagents/src/manager.ts:377
+agent-subagents.facts.json#30 `finishWait` not within ±5 of plugins/packages/external/subagents/src/manager.ts:384
+agent-subagents.facts.json#31 `finishWait` not within ±5 of plugins/packages/external/subagents/src/manager.ts:390
+agent-subagents.facts.json#31 `timed_out` not within ±5 of plugins/packages/external/subagents/src/manager.ts:390
+agent-subagents.facts.json#32 `runNumber` not within ±5 of plugins/packages/external/subagents/src/manager.ts:399
+agent-subagents.facts.json#33 `publish` not within ±5 of plugins/packages/external/subagents/src/manager.ts:368
+agent-subagents.facts.json#36 `notifyReply` not within ±5 of plugins/packages/external/subagents/src/manager.ts:190
+agent-subagents.facts.json#38 `interrupted` not within ±5 of plugins/packages/external/subagents/src/manager.ts:77
+agent-subagents.facts.json#42 `isActive` not within ±5 of plugins/packages/external/subagents/src/model.ts:100
+agent-subagents.facts.json#44 `AgentStatus` not within ±5 of plugins/packages/external/subagents/src/model.ts:10
+agent-subagents.facts.json#45 `runNumber` not within ±5 of plugins/packages/external/subagents/src/model.ts:38
+agent-subagents.facts.json#45 `lastInput` not within ±5 of plugins/packages/external/subagents/src/model.ts:38
+agent-subagents.facts.json#45 `error` not within ±5 of plugins/packages/external/subagents/src/model.ts:38
+agent-subagents.facts.json#45 `result` not within ±5 of plugins/packages/external/subagents/src/model.ts:38
+agent-subagents.facts.json#47 `summary` not within ±5 of plugins/packages/external/subagents/src/model.ts:82
+agent-subagents.facts.json#48 `parseAgent` not within ±5 of plugins/packages/external/subagents/src/model.ts:105
+agent-subagents.facts.json#49 `WaitResult` not within ±5 of plugins/packages/external/subagents/src/model.ts:56
+agent-subagents.facts.json#49 `timed_out` not within ±5 of plugins/packages/external/subagents/src/model.ts:56
+agent-subagents.facts.json#50 `spawn` not within ±5 of plugins/packages/external/subagents/src/manager.ts:131
+agent-subagents.facts.json#51 `starting` not within ±5 of plugins/packages/external/subagents/src/manager.ts:142
+agent-subagents.facts.json#51 `runNumber` not within ±5 of plugins/packages/external/subagents/src/manager.ts:142
+agent-subagents.facts.json#51 `lastInput` not within ±5 of plugins/packages/external/subagents/src/manager.ts:142
+agent-subagents.facts.json#53 `launch` not within ±5 of plugins/packages/external/subagents/src/manager.ts:146
+agent-subagents.facts.json#54 `execute` not within ±5 of plugins/packages/external/subagents/src/manager.ts:180
+agent-subagents.facts.json#57 `command` not within ±5 of plugins/packages/external/subagents/src/manager.ts:166
+agent-subagents.facts.json#58 `interrupt` not within ±5 of plugins/packages/external/subagents/src/manager.ts:296
+agent-subagents.facts.json#59 `cancelExecution` not within ±5 of plugins/packages/external/subagents/src/manager.ts:297
+agent-subagents.facts.json#60 `cancelExecution` not within ±5 of plugins/packages/external/subagents/src/manager.ts:280
+agent-subagents.facts.json#61 `isProcessing` not within ±5 of plugins/packages/external/subagents/src/manager.ts:301
+agent-subagents.facts.json#62 `runNumber` not within ±5 of plugins/packages/external/subagents/src/manager.ts:303
+agent-subagents.facts.json#62 `starting` not within ±5 of plugins/packages/external/subagents/src/manager.ts:303
+agent-subagents.facts.json#63 `summary` not within ±5 of plugins/packages/external/subagents/src/manager.ts:314
+agent-subagents.facts.json#64 `close` not within ±5 of plugins/packages/external/subagents/src/manager.ts:317
+agent-subagents.facts.json#67 `closed` not within ±5 of plugins/packages/external/subagents/src/manager.ts:329
+agent-subagents.facts.json#69 `part` not within ±5 of plugins/packages/external/subagents/src/manager.ts:214
+agent-subagents.facts.json#75 `list` not within ±5 of plugins/packages/external/subagents/src/manager.ts:122
+agent-subagents.facts.json#80 `watchParent` not within ±5 of plugins/packages/external/subagents/src/storage.ts:63
+agent-subagents.facts.json#81 `watchAgent` not within ±5 of plugins/packages/external/subagents/src/storage.ts:81
+agent-subagents.facts.json#82 `registerService` not within ±5 of plugins/packages/external/subagents/src/service.ts:81
+agent-subagents.facts.json#82 `receive` not within ±5 of plugins/packages/external/subagents/src/service.ts:81
+agent-subagents.facts.json#82 `CHANNEL` not within ±5 of plugins/packages/external/subagents/src/service.ts:81
+agent-subagents.facts.json#85 `registerService` not within ±5 of plugins/packages/external/subagents/src/service.ts:80
+agent-subagents.facts.json#91 `watchDetail` not within ±5 of plugins/packages/external/subagents/src/client.ts:41
+agent-subagents.facts.json#95 `test_connection` not within ±5 of plugins/packages/external/subagents/src/main.ts:19
+agent-subagents.facts.json#96 `listChats` not within ±5 of plugins/packages/external/subagents/src/main.ts:25
+agent-subagents.md:22 `AgentStatus` not within ±5 of any ref ['plugins/packages/external/subagents/src/model.ts:10']
+agent-subagents.md:28 `request` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:85']
+agent-subagents.md:31 `Repository` not within ±5 of any ref ['plugins/packages/external/subagents/src/storage.ts:15']
+agent-subagents.md:32 `watchParent` not within ±5 of any ref ['plugins/packages/external/subagents/src/storage.ts:63']
+agent-subagents.md:33 `watchAgent` not within ±5 of any ref ['plugins/packages/external/subagents/src/storage.ts:81']
+agent-subagents.md:43 `agent_ids` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:23']
+agent-subagents.md:44 `timeout_ms` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:24']
+agent-subagents.md:54 `reserveStart` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:159']
+agent-subagents.md:57 `reserveStart` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:132']
+agent-subagents.md:58 `reserveStart` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:299']
+agent-subagents.md:59 `command` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:166']
+agent-subagents.md:65 `agent_ids` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:370']
+agent-subagents.md:66 `timeoutMs` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:371']
+agent-subagents.md:67 `timed_out` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:377']
+agent-subagents.md:69 `finishWait` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:384']
+agent-subagents.md:70 `finishWait` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:390']
+agent-subagents.md:70 `timed_out` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:390']
+agent-subagents.md:71 `runNumber` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:399']
+agent-subagents.md:72 `publish` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:368']
+agent-subagents.md:78 `notifyReply` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:190']
+agent-subagents.md:85 `interrupted` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:77']
+agent-subagents.md:89 `isActive` not within ±5 of any ref ['plugins/packages/external/subagents/src/model.ts:100']
+agent-subagents.md:99 `watchParent` not within ±5 of any ref ['plugins/packages/external/subagents/src/storage.ts:63']
+agent-subagents.md:100 `watchAgent` not within ±5 of any ref ['plugins/packages/external/subagents/src/storage.ts:81']
+agent-subagents.md:101 `summary` not within ±5 of any ref ['plugins/packages/external/subagents/src/model.ts:82']
+agent-subagents.md:102 `parseAgent` not within ±5 of any ref ['plugins/packages/external/subagents/src/model.ts:105']
+agent-subagents.md:111 `starting` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:142']
+agent-subagents.md:111 `runNumber` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:142']
+agent-subagents.md:111 `lastInput` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:142']
+agent-subagents.md:125 `test_connection` not within ±5 of any ref ['plugins/packages/external/subagents/src/main.ts:19']
+agent-subagents.md:126 `listChats` not within ±5 of any ref ['plugins/packages/external/subagents/src/main.ts:25']
+agent-subagents.md:138 `AgentStatus` not within ±5 of any ref ['plugins/packages/external/subagents/src/model.ts:10']
+agent-subagents.md:140 `AgentSummary` not within ±5 of any ref ['plugins/packages/external/subagents/src/model.ts:26']
+agent-subagents.md:141 `WaitResult` not within ±5 of any ref ['plugins/packages/external/subagents/src/model.ts:56']
+agent-subagents.md:141 `timed_out` not within ±5 of any ref ['plugins/packages/external/subagents/src/model.ts:56']
+agent-subagents.md:144 `registerService` not within ±5 of any ref ['plugins/packages/external/subagents/src/service.ts:81']
+agent-subagents.md:144 `receive` not within ±5 of any ref ['plugins/packages/external/subagents/src/service.ts:81']
+agent-subagents.md:144 `CHANNEL` not within ±5 of any ref ['plugins/packages/external/subagents/src/service.ts:81']
+agent-subagents.md:153 `spawn_agent` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:58']
+agent-subagents.md:153 `name` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:58']
+agent-subagents.md:157 `request` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:89']
+agent-subagents.md:157 `spawn` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:89']
+agent-subagents.md:158 `reserveStart` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:132']
+agent-subagents.md:159 `starting` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:142']
+agent-subagents.md:159 `runNumber` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:142']
+agent-subagents.md:160 `launch` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:146']
+agent-subagents.md:161 `notifyReply` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:190']
+agent-subagents.md:162 `part` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:214']
+agent-subagents.md:168 `wait_agent` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:65']
+agent-subagents.md:168 `agent_ids` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:65']
+agent-subagents.md:168 `timeout_ms` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:65']
+agent-subagents.md:170 `timed_out` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:377']
+agent-subagents.md:171 `finishWait` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:384']
+agent-subagents.md:172 `publish` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:368']
+agent-subagents.md:176 `send_input` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:71']
+agent-subagents.md:176 `message` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:71']
+agent-subagents.md:176 `interrupt` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:71']
+agent-subagents.md:177 `interrupt` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:296']
+agent-subagents.md:178 `cancelExecution` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:297']
+agent-subagents.md:179 `isProcessing` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:301']
+agent-subagents.md:180 `runNumber` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:303']
+agent-subagents.md:180 `starting` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:303']
+agent-subagents.md:184 `close_agent` not within ±5 of any ref ['plugins/packages/external/subagents/src/tools.ts:77']
+agent-subagents.md:185 `close` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:317']
+agent-subagents.md:188 `closed` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:329']
+agent-subagents.md:193 `interrupted` not within ±5 of any ref ['plugins/packages/external/subagents/src/manager.ts:77']

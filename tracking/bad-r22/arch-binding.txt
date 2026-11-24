@@ -1,0 +1,2 @@
+arch-binding batch=batch-01 facts=73 bad=1
+arch-binding.md:202 `beginChatExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:868']

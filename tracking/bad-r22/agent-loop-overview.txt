@@ -1,0 +1,26 @@
+agent-loop-overview batch=batch-04 facts=135 bad=25
+agent-loop-overview.facts.json#6 `expectedByteLength` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:659
+agent-loop-overview.facts.json#25 `beginChatExecution` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:868
+agent-loop-overview.facts.json#32 `beforeChangeRoute` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3779
+agent-loop-overview.facts.json#33 `summaryTaskForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3825
+agent-loop-overview.facts.json#34 `insertSummary` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1521
+agent-loop-overview.facts.json#35 `summarizeMemory` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1570
+agent-loop-overview.facts.json#36 `addSummaryMessage` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1593
+agent-loop-overview.facts.json#37 `compactChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1646
+agent-loop-overview.facts.json#38 `compactChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1651
+agent-loop-overview.facts.json#38 `beginChatExecution` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1651
+agent-loop-overview.facts.json#39 `manuallySummarizeConversationForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1662
+agent-loop-overview.facts.json#40 `executionLease` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1673
+agent-loop-overview.md:23 `insertSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1521']
+agent-loop-overview.md:24 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1646']
+agent-loop-overview.md:91 `beforeChangeRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3779']
+agent-loop-overview.md:104 `beginChatExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:868']
+agent-loop-overview.md:113 `summaryTaskForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3825']
+agent-loop-overview.md:139 `insertSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1521']
+agent-loop-overview.md:140 `summarizeMemory` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1570']
+agent-loop-overview.md:141 `addSummaryMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1593']
+agent-loop-overview.md:142 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1646']
+agent-loop-overview.md:143 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1651']
+agent-loop-overview.md:143 `beginChatExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1651']
+agent-loop-overview.md:144 `manuallySummarizeConversationForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1662']
+agent-loop-overview.md:145 `executionLease` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1673']

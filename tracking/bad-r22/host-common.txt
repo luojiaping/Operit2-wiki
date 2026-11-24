@@ -1,0 +1,31 @@
+host-common batch=batch-05 facts=202 bad=30
+host-common.facts.json#92 `commitFast` not within ±5 of hosts/common/operit-host-native-storage/src/lib.rs:76
+host-common.facts.json#101 `openSqliteDatabase` not within ±5 of hosts/common/operit-host-native-storage/src/lib.rs:1015
+host-common.facts.json#102 `Immediate` not within ±5 of hosts/common/operit-host-native-storage/src/lib.rs:1088
+host-common.facts.json#104 `publishStagedFile` not within ±5 of hosts/common/operit-host-native-storage/src/lib.rs:849
+host-common.facts.json#134 `NativeRescueHost` not within ±5 of hosts/common/operit-host-data-rescue/src/lib.rs:588
+host-common.facts.json#134 `layout` not within ±5 of hosts/common/operit-host-data-rescue/src/lib.rs:588
+host-common.facts.json#134 `operit.files.v1` not within ±5 of hosts/common/operit-host-data-rescue/src/lib.rs:588
+host-common.facts.json#137 `commit_restore` not within ±5 of hosts/common/operit-host-data-rescue/src/lib.rs:702
+host-common.facts.json#138 `resume_restore` not within ±5 of hosts/common/operit-host-data-rescue/src/lib.rs:792
+host-common.facts.json#140 `verified_files` not within ±5 of hosts/common/operit-host-data-rescue/src/lib.rs:216
+host-common.facts.json#142 `save_journal` not within ±5 of hosts/common/operit-host-data-rescue/src/lib.rs:477
+host-common.facts.json#142 `runtime/commit.json` not within ±5 of hosts/common/operit-host-data-rescue/src/lib.rs:477
+host-common.facts.json#143 `list_files` not within ±5 of hosts/common/operit-host-data-rescue/src/lib.rs:602
+host-common.md:102 `commitFast` not within ±5 of any ref ['hosts/common/operit-host-native-storage/src/lib.rs:76']
+host-common.md:103 `publishStagedFile` not within ±5 of any ref ['hosts/common/operit-host-native-storage/src/lib.rs:849']
+host-common.md:113 `openSqliteDatabase` not within ±5 of any ref ['hosts/common/operit-host-native-storage/src/lib.rs:1015']
+host-common.md:114 `Immediate` not within ±5 of any ref ['hosts/common/operit-host-native-storage/src/lib.rs:1088']
+host-common.md:249 `NativeRescueHost` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:588']
+host-common.md:249 `layout` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:588']
+host-common.md:249 `operit.files.v1` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:588']
+host-common.md:252 `verified_files` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:216']
+host-common.md:254 `save_journal` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:477']
+host-common.md:254 `runtime/commit.json` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:477']
+host-common.md:255 `commit_restore` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:702']
+host-common.md:256 `resume_restore` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:792']
+host-common.md:258 `list_files` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:602']
+host-common.md:322 `commit_restore` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:702']
+host-common.md:323 `save_journal` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:477']
+host-common.md:323 `runtime/commit.json` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:477']
+host-common.md:325 `resume_restore` not within ±5 of any ref ['hosts/common/operit-host-data-rescue/src/lib.rs:792']

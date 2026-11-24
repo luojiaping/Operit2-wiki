@@ -172,10 +172,10 @@ use_package 激活包成功后调用 `registerPackageTools` 注册该包的工�
 
 ### 包调用上下文
 
-`bindCallerContext` 先删除传入的同名 __operit_package_* 参数，再按回合上下文写入给定值。`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3531`
+`bindCallerContext` 先删除传入的同名 __operit_package_* 参数，再按回合上下文写入给定值。`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3573`
 包调用注入不再覆盖 PACKAGE_CALLER_NAME_PARAM、PACKAGE_CHAT_ID_PARAM 与 PACKAGE_CALLER_PARTICIPANT_ID_PARAM 三个参数；调用方名字、聊天与参与者改为由 `ToolRuntimeContext` 的 `callerName`、`callerChatId`、`callerParticipantId` 字段承载。`core/crates/tool/services/src/ToolExecutionManager.rs:86`
 PACKAGE_CALLER_OWNER_PARAM 不再由批处理注入；调用方所有者仍由 `ToolRuntimeContext` 的 `extensionOwner` 承载，并经 `toolpkg_caller_context` 提供给 JS 执行侧。`core/crates/tool/services/src/ToolExecutionManager.rs:83` `core/crates/tool/services/src/ToolExecutionManager.rs:93` `core/crates/tool/services/src/tools/AIToolHandler.rs:1262`
-包调用上下文绑定不再按包名判定是否为包工具；JS 执行时直接取回合上下文绑定 __operit_package_* 参数。`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3531`
+包调用上下文绑定不再按包名判定是否为包工具；JS 执行时直接取回合上下文绑定 __operit_package_* 参数。`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:3573`
 
 ### 展示名与目录
 
@@ -249,4 +249,4 @@ PACKAGE_CALLER_OWNER_PARAM 不再由批处理注入；调用方所有者仍由 `
 - `core/crates/tool/services/src/tools/AIToolHandler.rs`（4258 行，100% 已读）
 - `core/crates/tool/services/src/tools/ToolRegistration.rs`（1822 行，100% 已读）
 - `core/crates/tool/services/src/tools/ToolPermissionSystem.rs`（254 行，100% 已读）
-- `core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs`（3742 行，`bindCallerContext` 相关段落已读）
+- `core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs`（3784 行，`bindCallerContext` 相关段落已读）

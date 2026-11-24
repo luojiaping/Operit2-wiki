@@ -1,10 +1,10 @@
 {
   "issue": 15,
-  "source_commit": "805120c",
+  "source_commit": "62dacc0",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "持久化 store 聚合 crate：SQLite 连接与事务、节点身份、Binding、Space 成员与选路、偏好存储的同步与节点本地两种形态。",
-  "updated": "2026-11-23",
+  "updated": "2026-11-25",
   "approved_by_comment_id": 6791244694,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-11 09:21 UTC"

@@ -1,0 +1,3 @@
+arch-routing batch=batch-01 facts=94 bad=2
+arch-routing.md:160 `beginChatExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:868']
+arch-routing.md:273 `beginChatExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:868']

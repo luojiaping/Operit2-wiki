@@ -154,7 +154,7 @@ Operit2 采用从外到内逐层收紧的能力模型（README.md:109）：
 - 同步偏好存储创建时建立 `PreferencesSyncDescriptor`（core/crates/persistence/store/src/PreferencesDataStore.rs:2999）
 - 同步偏好存储创建时建立 `SyncOperationStore` 同步操作存储（core/crates/persistence/store/src/PreferencesDataStore.rs:3005）
 - ModelConfigManager 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>`（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360）
-- 该 `ProviderProfile` 包含 `apiKey` 和 `apiKeyPool`（core/crates/foundation/model/src/ModelConfigData.rs:604）
+- 该 `ProviderProfile` 包含 `apiKey` 和 `apiKeyPool`（core/crates/foundation/model/src/ModelConfigData.rs:631）
 - 因此 Provider 凭证存在随配置同步的路径，不能把它与设备身份、配对密钥、OS 权限统称“不复制”（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360）
 - 该路径与 README.md:128 的“不复制”原则存在冲突（README.md:128）
 - 本页未做真实双设备同步实验，上述路径是否实际触发同步未验证
@@ -214,8 +214,8 @@ Rust Core、平台 Host、节点连接、持久化同步和插件运行时已经
 
 ## 来源
 
-- README.md（262 行，全文已读）
-- README-zh.md（262 行，全文已读）
+- README.md（269 行，全文已读）
+- README-zh.md（264 行，全文已读）
 - core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs（核对 preferenceStore、writeProvider 相关行）
 - core/crates/foundation/model/src/ModelConfigData.rs（核对 ProviderProfile 字段）
 - core/crates/persistence/store/src/PreferencesDataStore.rs（核对 newWithStorage 与同步存储创建）

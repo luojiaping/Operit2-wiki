@@ -1,0 +1,14 @@
+agent-character-cards batch=batch-04 facts=87 bad=13
+agent-character-cards.facts.json#9 `ChatBinding` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:439
+agent-character-cards.facts.json#9 `chatId` not within ±5 of plugins/packages/buildin/character_cards/src/model.ts:439
+agent-character-cards.facts.json#53 `combinePrompts` not within ±5 of plugins/packages/buildin/character_cards/src/operations.ts:524
+agent-character-cards.facts.json#53 `combineCharacterPrompt` not within ±5 of plugins/packages/buildin/character_cards/src/operations.ts:524
+agent-character-cards.md:14 `ChatBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:439']
+agent-character-cards.md:14 `chatId` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:439']
+agent-character-cards.md:36 `ChatBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:439']
+agent-character-cards.md:36 `chatId` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:439']
+agent-character-cards.md:88 `combinePrompts` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/operations.ts:524']
+agent-character-cards.md:88 `combineCharacterPrompt` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/operations.ts:524']
+agent-character-cards.md:133 `ChatBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:439']
+agent-character-cards.md:133 `chatId` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/model.ts:439']
+agent-character-cards.md:143 `combinePrompts` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/operations.ts:524']

@@ -105,8 +105,8 @@ NativeRuntimeStorageHost 的 `resolve` 把虚拟前缀映射到物理根（`host
 运行时存储路径必须以 `runtime/`、`workspaces/` 或 `secure/` 开头（`hosts/common/operit-host-native-storage/src/lib.rs:537`）。
 `managedRoot` 把 `workspaces` 与三条 `runtime/data` 聊天目录划为托管根（`hosts/common/operit-host-native-storage/src/lib.rs:547`）。
 NativeRuntimeStorageWriteSession 的 `commitInternal` 关闭文件后原子重命名发布（`hosts/common/operit-host-native-storage/src/lib.rs:35`）。
-`commit` 提交时强制设备刷盘，`commitFast` 提交时不强制刷盘（`hosts/common/operit-host-native-storage/src/lib.rs:76`）。
-`publishStagedFile` 先原子替换、同步时再同步父目录（`hosts/common/operit-host-native-storage/src/lib.rs:849`）。
+`commit` 提交时强制设备刷盘，`commitFast` 提交时不强制刷盘（`hosts/common/operit-host-native-storage/src/lib.rs:82`）。
+`publishStagedFile` 先原子替换、同步时再同步父目录（`hosts/common/operit-host-native-storage/src/lib.rs:856`）。
 Windows 原子发布用 `MoveFileExW` 加 `MOVEFILE_REPLACE_EXISTING` 与 `MOVEFILE_WRITE_THROUGH`（`hosts/common/operit-host-native-storage/src/lib.rs:891`）。
 `ARCHIVE_STAGING_DIRECTORY_NAME` 的值是 `archive_staging`（`hosts/common/operit-host-native-storage/src/lib.rs:96`）。
 `stagingRootForRuntimeRoot` 把 staging 根放在运行时父目录下的 `ARCHIVE_STAGING_DIRECTORY_NAME` 命名空间（`hosts/common/operit-host-native-storage/src/lib.rs:195`）。
@@ -116,9 +116,9 @@ NativeArchiveStagingHost 的 `appendArchive` 追加分块时不允许超过声�
 NativeArchiveStagingHost 的 `sealArchive` 校验实际长度等于声明长度后把上传文件重命名为密封文件（`hosts/common/operit-host-native-storage/src/lib.rs:462`）。
 NativeArchiveStagingHost 的 `writeExportArchive` 单块写入上限为 64 KiB（`hosts/common/operit-host-native-storage/src/lib.rs:383`）。
 NativeArchiveStagingHost 的 `archiveFileReference` 只对已密封归档返回文件引用（`hosts/common/operit-host-native-storage/src/lib.rs:410`）。
-NativeRuntimeStorageHost 的 `openSqliteDatabase` 在存储根下打开 SQLite 数据库（`hosts/common/operit-host-native-storage/src/lib.rs:1015`）。
-SQLite 事务用 `Immediate` 行为先占写锁再读（`hosts/common/operit-host-native-storage/src/lib.rs:1088`）。
-`NativeFileSecretStore` 由 storage crate 从 `secrets` 子模块重导出（`hosts/common/operit-host-native-storage/src/lib.rs:2`）。
+NativeRuntimeStorageHost 的 `openSqliteDatabase` 在存储根下打开 SQLite 数据库（`hosts/common/operit-host-native-storage/src/lib.rs:1022`）。
+SQLite 事务用 `Immediate` 行为先占写锁再读（`hosts/common/operit-host-native-storage/src/lib.rs:1095`）。
+`NativeFileSecretStore` 由 storage crate 从 `secrets` 子模块重导出（`hosts/common/operit-host-native-storage/src/lib.rs:3`）。
 
 ### 终端与托管运行时
 
@@ -206,11 +206,11 @@ Android 上 `registerAndroidClient` 注册 SDK 提供的激活客户端（`hosts
 ### 顶层源文件：为什么不是 crate
 
 `chromium_browser.rs` 是 hosts/common 下的顶层源文件，各平台 Host 以 #[path] 直接包含编译（`hosts/apple/src/lib.rs:4`）。
-`terminal_command.rs` 是 hosts/common 下的顶层源文件，各平台 Host 与 terminal crate 以 #[path] 直接包含编译（`hosts/android/src/lib.rs:33`）。
+`terminal_command.rs` 是 hosts/common 下的顶层源文件，各平台 Host 与 terminal crate 以 #[path] 直接包含编译（`hosts/android/src/lib.rs:34`）。
 Apple 的 macOS 目标以 #[path] 把 `../../common/chromium_browser.rs` 编为 `chromium_browser` 模块（`hosts/apple/src/lib.rs:4`）。
 Linux 以 #[path] 把 `../../common/chromium_browser.rs` 编为 `chromium_browser` 模块（`hosts/linux/src/lib.rs:18`）。
 Windows 以 #[path] 把 `../../common/chromium_browser.rs` 编为 `chromium_browser` 模块（`hosts/windows/src/lib.rs:7`）。
-Android 以 #[path] 把 `../../common/terminal_command.rs` 编为 `terminal_command` 模块（`hosts/android/src/lib.rs:33`）。
+Android 以 #[path] 把 `../../common/terminal_command.rs` 编为 `terminal_command` 模块（`hosts/android/src/lib.rs:34`）。
 Windows 终端工具以 #[path] 把 `../../../../common/terminal_command.rs` 编为 `terminal_command` 模块（`hosts/windows/src/tools/terminal/mod.rs:1`）。
 terminal crate 以 #[path] 把 `../../terminal_command.rs` 编为 `terminal_command` 模块（`hosts/common/operit-host-native-terminal/src/lib.rs:1`）。
 `posixCommandLine` 只在命令含控制字符或 `!` 时才编码（`hosts/common/terminal_command.rs:7`）。
@@ -252,23 +252,23 @@ StorageLease 的 `acquire` 在维护模式取独占锁、在普通模式取共�
 NativeRescueSession 的 `open` 不解析启动配置即取得独占维护访问（`hosts/common/operit-host-data-rescue/src/lib.rs:70`）。
 NativeRescueSession 的 `open_file_secrets` 启用 CLI profile-file 密钥契约（`hosts/common/operit-host-data-rescue/src/lib.rs:77`）。
 启动描述返回体中标注布局 `operit.files.v1`（`hosts/common/operit-host-data-rescue/src/lib.rs:118`）。
-`NativeRescueHost` 的 `layout` 返回 `operit.files.v1`（`hosts/common/operit-host-data-rescue/src/lib.rs:588`）。
+NativeRescueHost 的 `layout` 返回 `operit.files.v1`（`hosts/common/operit-host-data-rescue/src/lib.rs:640`）。
 `RescueRoots` 包含 `runtime_root`、`workspace_root` 与可选的 `cli_config_root`（`hosts/common/operit-host-data-rescue/src/lib.rs:48`）。
 `SECRET_KEYS` 只注册两项密钥（`core/crates/persistence/rescue/src/secrets.rs:9`）。
-`Journal` 记录 `publications`、`secret_envelope` 与 `verified_files`（`hosts/common/operit-host-data-rescue/src/lib.rs:216`）。
+`Journal` 记录 `publications`、`secret_envelope` 与 `verified_files`（`hosts/common/operit-host-data-rescue/src/lib.rs:219`）。
 `Publication` 记录 `staged`、`retained` 与 `had_original`（`hosts/common/operit-host-data-rescue/src/lib.rs:207`）。
-`save_journal` 把日志原子写入 `runtime/commit.json`（`hosts/common/operit-host-data-rescue/src/lib.rs:477`）。
-NativeRescueHost 的 `commit_restore` 校验清单后写日志再发布（`hosts/common/operit-host-data-rescue/src/lib.rs:702`）。
-NativeRescueHost 的 `resume_restore` 只恢复已持久化的发布计划（`hosts/common/operit-host-data-rescue/src/lib.rs:792`）。
-NativeRescueHost 的 `discard_restore` 拒绝丢弃已发布导入的日志（`hosts/common/operit-host-data-rescue/src/lib.rs:838`）。
-导出前若存在未完成导入，`list_files` 直接拒绝（`hosts/common/operit-host-data-rescue/src/lib.rs:602`）。
+`save_journal` 把日志原子写入 `runtime/commit.json`（`hosts/common/operit-host-data-rescue/src/lib.rs:485`）。
+NativeRescueHost 的 `commit_restore` 校验清单后写日志再发布（`hosts/common/operit-host-data-rescue/src/lib.rs:750`）。
+NativeRescueHost 的 `resume_restore` 只恢复已持久化的发布计划（`hosts/common/operit-host-data-rescue/src/lib.rs:840`）。
+NativeRescueHost 的 `discard_restore` 拒绝丢弃已发布导入的日志（`hosts/common/operit-host-data-rescue/src/lib.rs:886`）。
+导出前若存在未完成导入，`list_files` 直接拒绝（`hosts/common/operit-host-data-rescue/src/lib.rs:649`）。
 
 ### 数据救援、CLI rescue 与 docs/data-rescue.md 的关系
 
 数据救援入口独立运行，不依赖 Core、SQLite、插件加载、常规启动解析或用户偏好（`docs/data-rescue.md:3`）。
 CLI 入口为 `operit2 rescue describe`、`export`、`inspect`、`import` 或 `resume`（`docs/data-rescue.md:14`）。
 原生归档用 `operit.files.v1` 布局，浏览器存储用独立的 `operit.browser.v1` 布局（`docs/data-rescue.md:20`）。
-原生与浏览器归档在本版本中故意不互通（`docs/data-rescue.md:34`）。
+原生与浏览器归档在本版本中故意不互通（`docs/data-rescue.md:40`）。
 CLI rescue 入口不启动 Core、不打开 SQLite（`apps/cli/src/rescue.rs:1`）。
 CLI rescue 帮助列出 describe、export、inspect、import、resume 五条命令（`apps/cli/src/rescue.rs:85`）。
 CLI rescue 的 import 要求 `--confirm`（`apps/cli/src/rescue.rs:150`）。
@@ -286,7 +286,7 @@ operit-host-data-rescue 的 crate 文档称其为 `Native Host boundary for offl
 - `HttpClientPolicy` — HTTP 连接池策略标识（`hosts/common/operit-host-native-http/src/lib.rs:68`）
 - `NativeRuntimeStorageHost` — 共享运行时存储实现（`hosts/common/operit-host-native-storage/src/lib.rs:21`）
 - `NativeArchiveStagingHost` — 共享归档暂存实现（`hosts/common/operit-host-native-storage/src/lib.rs:372`）
-- `NativeFileSecretStore` — 共享文件密钥库实现（`hosts/common/operit-host-native-storage/src/lib.rs:2`）
+- `NativeFileSecretStore` — 共享文件密钥库实现（`hosts/common/operit-host-native-storage/src/lib.rs:3`）
 - `NativePtyTerminalHost` — 共享 POSIX PTY 终端实现（`hosts/common/operit-host-native-terminal/src/lib.rs:32`）
 - `NativePtyShellCommand` — 显式 POSIX shell 配置（`hosts/common/operit-host-native-terminal/src/lib.rs:52`）
 - `NativeHostJavaScriptRuntimeHost` — 共享 JS 运行时实现（`hosts/common/operit-host-native-scheduler/src/lib.rs:17`）
@@ -298,7 +298,7 @@ operit-host-data-rescue 的 crate 文档称其为 `Native Host boundary for offl
 - `StorageLease` — 数据救援存储租约（`hosts/common/operit-host-data-rescue/src/lib.rs:28`）
 - `NativeRescueSession` — 离线数据救援维护会话（`hosts/common/operit-host-data-rescue/src/lib.rs:70`）
 - `RescueRoots` — 数据救援根目录选择（`hosts/common/operit-host-data-rescue/src/lib.rs:48`）
-- `Journal` — 导入发布持久化日志（`hosts/common/operit-host-data-rescue/src/lib.rs:216`）
+- `Journal` — 导入发布持久化日志（`hosts/common/operit-host-data-rescue/src/lib.rs:219`）
 - `ChromiumBrowserAutomationHost` — 共享 Chromium 浏览器自动化实现（`hosts/common/chromium_browser.rs:34`）
 - `visit_with_chromium` — 一次性 Chromium 访问（`hosts/common/chromium_browser.rs:21`）
 - `posixCommandLine` — POSIX 交互式 shell 命令编码（`hosts/common/terminal_command.rs:7`）
@@ -325,10 +325,10 @@ operit-host-data-rescue 的 crate 文档称其为 `Native Host boundary for offl
 9. 托管运行时启动命令以 `stty -echo` 开头并打印就绪标记（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:276`）。
 10. 托管运行时启动超时为 30 秒（`hosts/common/operit-host-native-common/src/ManagedRuntimePty.rs:12`）。
 11. 数据救援由 NativeRescueSession 的 `open` 不解析启动配置即取得独占维护访问（`hosts/common/operit-host-data-rescue/src/lib.rs:70`）。
-12. NativeRescueHost 的 `commit_restore` 校验清单后写日志再发布（`hosts/common/operit-host-data-rescue/src/lib.rs:702`）。
-13. `save_journal` 把日志原子写入 `runtime/commit.json`（`hosts/common/operit-host-data-rescue/src/lib.rs:477`）。
+12. NativeRescueHost 的 `commit_restore` 校验清单后写日志再发布（`hosts/common/operit-host-data-rescue/src/lib.rs:750`）。
+13. `save_journal` 把日志原子写入 `runtime/commit.json`（`hosts/common/operit-host-data-rescue/src/lib.rs:485`）。
 14. 普通启动时若 `data-rescue/commit.json` 存在则拒绝启动（`hosts/common/operit-host-data-rescue/src/lib.rs:38`）。
-15. 中断的导入由 NativeRescueHost 的 `resume_restore` 只恢复已持久化的发布计划（`hosts/common/operit-host-data-rescue/src/lib.rs:792`）。
+15. 中断的导入由 NativeRescueHost 的 `resume_restore` 只恢复已持久化的发布计划（`hosts/common/operit-host-data-rescue/src/lib.rs:840`）。
 16. CLI rescue 的 describe 在无显式根时用 `NativeRescueSession::open` 打开默认运行时，CLI 侧见 [[app-cli|CLI]]（`apps/cli/src/rescue.rs:91`）。
 17. 浏览器访问由 `visit_with_chromium` 分配调试端口、建临时 profile、启动浏览器、跑 CDP 访问后清理（`hosts/common/chromium_browser.rs:21`）。
 18. `wait_for_browser` 轮询 DevTools 端点直到就绪或超时（`hosts/common/chromium_browser.rs:1110`）。

@@ -1,0 +1,48 @@
+theme-sync batch=batch-08 facts=56 bad=47
+theme-sync.facts.json#48 `store` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36
+theme-sync.facts.json#48 `USER_PREFERENCES_PATH` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36
+theme-sync.facts.json#48 `withMigration(5, Self::migration)` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36
+theme-sync.facts.json#49 `migrateLegacyThemePreferences` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:90
+theme-sync.facts.json#49 `THEME_CONFIG_PREFIX` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:90
+theme-sync.facts.json#50 `ThemeConfig` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:98
+theme-sync.facts.json#50 `migrateLegacyThemeSnapshot` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:98
+theme-sync.facts.json#50 `validateConfig` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:98
+theme-sync.facts.json#51 `chat_style` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106
+theme-sync.facts.json#51 `user_chat_style` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106
+theme-sync.facts.json#51 `ai_chat_style` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106
+theme-sync.facts.json#52 `chatStyle` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:124
+theme-sync.facts.json#52 `userChatStyle` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:124
+theme-sync.facts.json#52 `aiChatStyle` not within ±5 of core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:124
+theme-sync.facts.json#53 `migrateLegacyThemePreferences` not within ±5 of core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:643
+theme-sync.facts.json#53 `snapshotFields` not within ±5 of core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:643
+theme-sync.facts.json#54 `migrateLegacyThemeSnapshot` not within ±5 of core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:656
+theme-sync.facts.json#54 `snapshotFields` not within ±5 of core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:656
+theme-sync.facts.json#56 `CoreNodeStateStore` not within ±5 of core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:452
+theme-sync.md:22 `withMigration` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:23 `migrateLegacyThemePreferences` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:643']
+theme-sync.md:24 `migrateLegacyThemeSnapshot` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:656']
+theme-sync.md:104 `store` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:104 `USER_PREFERENCES_PATH` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:104 `withMigration(5, Self::migration)` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:105 `migrateLegacyThemePreferences` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:58', 'core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:90']
+theme-sync.md:106 `ThemeConfig` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:98']
+theme-sync.md:106 `migrateLegacyThemeSnapshot` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:98']
+theme-sync.md:106 `validateConfig` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:98']
+theme-sync.md:107 `chat_style` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106']
+theme-sync.md:107 `user_chat_style` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106']
+theme-sync.md:107 `ai_chat_style` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106']
+theme-sync.md:108 `chatStyle` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:124']
+theme-sync.md:108 `userChatStyle` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:124']
+theme-sync.md:108 `aiChatStyle` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:124']
+theme-sync.md:110 `store` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:110 `USER_PREFERENCES_PATH` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:110 `withMigration(5, Self::migration)` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:111 `withMigration` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/PreferenceSpaceMerge.rs:196', 'core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:452', 'core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:141 `store` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:142 `withMigration` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:143 `USER_PREFERENCES_PATH` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:36']
+theme-sync.md:145 `migrateLegacyThemePreferences` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:643']
+theme-sync.md:146 `migrateLegacyThemeSnapshot` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:656']
+theme-sync.md:147 `chat_style` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106']
+theme-sync.md:148 `user_chat_style` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106']
+theme-sync.md:149 `ai_chat_style` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:106']

@@ -1,0 +1,16 @@
+ui-display batch=batch-08 facts=86 bad=15
+ui-display.facts.json#18 `default` not within ±5 of apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:160
+ui-display.facts.json#20 `ToolResultRenderer.text` not within ±5 of apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:148
+ui-display.facts.json#25 `tap` not within ±5 of apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302
+ui-display.facts.json#25 `double_tap` not within ±5 of apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302
+ui-display.facts.json#25 `long_press` not within ±5 of apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302
+ui-display.facts.json#25 `swipe` not within ±5 of apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302
+ui-display.facts.json#25 `keyboard` not within ±5 of apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302
+ui-display.md:54 `default` not within ±5 of any ref ['apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:160']
+ui-display.md:57 `ToolResultRenderer.text` not within ±5 of any ref ['apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:148']
+ui-display.md:62 `tap` not within ±5 of any ref ['apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302']
+ui-display.md:62 `double_tap` not within ±5 of any ref ['apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302']
+ui-display.md:62 `long_press` not within ±5 of any ref ['apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302']
+ui-display.md:62 `swipe` not within ±5 of any ref ['apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302']
+ui-display.md:62 `keyboard` not within ±5 of any ref ['apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302']
+ui-display.md:137 `default` not within ±5 of any ref ['apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:160']

@@ -5,19 +5,19 @@
   },
   {
     "fact": "manifest 的 `enabled_by_default` 是 false，安装范围是 space",
-    "ref": "plugins/packages/external/subagents/manifest.json:12"
-  },
-  {
-    "fact": "manifest 的 subpackages 只有一项 `subagents`，入口是 `dist/tools.js`",
     "ref": "plugins/packages/external/subagents/manifest.json:15"
   },
   {
+    "fact": "manifest 的 subpackages 只有一项 `subagents`，入口是 `dist/tools.js`",
+    "ref": "plugins/packages/external/subagents/manifest.json:17"
+  },
+  {
     "fact": "tools.ts 的 METADATA 把 `enabled_by_default` 写成 true",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:4"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:5"
   },
   {
     "fact": "README 说明工具子包的默认启用声明在 tools.ts 的 METADATA，容器本身仍默认关闭",
-    "ref": "plugins/packages/external/subagents/README.md:57"
+    "ref": "plugins/packages/external/subagents/README.md:66"
   },
   {
     "fact": "`PACKAGE_ID` 常量是 `com.operit.subagents`",
@@ -37,67 +37,67 @@
   },
   {
     "fact": "`wait_agent` 等待指定子代理的当前轮次，任一结束即返回",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:21"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:26"
   },
   {
     "fact": "`send_input` 给子代理发送新指令",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:29"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:34"
   },
   {
     "fact": "`close_agent` 取消并关闭子代理及其后代",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:38"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:43"
   },
   {
     "fact": "`list_agents` 列出当前聊天的子代理、轮次、运行状态及最终结果",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:43"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:48"
   },
   {
     "fact": "`spawn_agent` 的参数只有 `name` 与 `task`，均为必填",
     "ref": "plugins/packages/external/subagents/src/tools.ts:15"
   },
   {
-    "fact": "`spawn_agent` 的描述写明空间内最多同时运行 8 个子代理",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:13"
+    "fact": "`spawn_agent` 的描述写明独立任务可同时运行，达到上限时等待已有代理完成再创建",
+    "ref": "plugins/packages/external/subagents/src/tools.ts:14"
   },
   {
     "fact": "`wait_agent` 的 `agent_ids` 接受 1 到 16 个不重复的本聊天子代理 ID",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:23"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:29"
   },
   {
-    "fact": "`wait_agent` 的 `timeout_ms` 范围是 1 到 30000 毫秒，默认 30000",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:24"
+    "fact": "`wait_agent` 的 `timeout_ms` 范围是 1 到 30000 毫秒，省略时使用设置页的默认值",
+    "ref": "plugins/packages/external/subagents/src/tools.ts:30"
   },
   {
-    "fact": "`wait_agent` 的描述写明超时只结束本次等待，任务继续执行，可继续调用 `wait_agent`",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:21"
+    "fact": "`wait_agent` 的描述写明未指定超时时使用用户设置的默认等待时间，超时只结束本次等待，任务继续执行",
+    "ref": "plugins/packages/external/subagents/src/tools.ts:27"
   },
   {
     "fact": "`send_input` 的 `agent_id` 与 `message` 均为必填，`interrupt` 默认是 false",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:31"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:38"
   },
   {
     "fact": "`close_agent` 的参数只有 `agent_id`，必填",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:39"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:45"
   },
   {
     "fact": "`MAX_ACTIVE_AGENTS` 是 8",
     "ref": "plugins/packages/external/subagents/src/model.ts:8"
   },
   {
-    "fact": "`reserveStart` 在未结算执行数加待启动数达到 8 时抛错，拒绝创建",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:159"
+    "fact": "`reserveStart` 在占用数达到当前并发上限（默认 8，可设 1–8）时抛错，拒绝创建",
+    "ref": "plugins/packages/external/subagents/src/manager.ts:220"
   },
   {
     "fact": "创建子代理前调用 `reserveStart` 占位",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:132"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:183"
   },
   {
     "fact": "发新轮次前同样调用 `reserveStart` 占位",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:299"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:360"
   },
   {
-    "fact": "新建和后续轮次共享同一个 8 个并发上限",
-    "ref": "plugins/packages/external/subagents/README.md:27"
+    "fact": "新建、后续轮次和嵌套子代理共享同一个并发上限（默认 8，可设 1–8）",
+    "ref": "plugins/packages/external/subagents/README.md:28"
   },
   {
     "fact": "`DEFAULT_WAIT_MS` 是 30000 毫秒",
@@ -105,243 +105,243 @@
   },
   {
     "fact": "`wait` 要求 `agent_ids` 为 1 到 16 个不重复 ID",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:370"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:426"
   },
   {
     "fact": "`wait` 要求 `timeoutMs` 为 1 到 30000 的整数",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:371"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:427"
   },
   {
     "fact": "等待任一目标轮次不活跃时立即返回，`timed_out` 为 false",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:377"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:433"
   },
   {
     "fact": "超时回调调用 `finishWait`，以超时标记结束本次等待",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:384"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:446"
   },
   {
     "fact": "`finishWait` 用观察到的轮次快照结束等待，`timed_out` 只属于本次等待",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:390"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:446"
   },
   {
     "fact": "`publish` 按 `runNumber` 匹配等待目标，不匹配的轮次不结束等待",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:399"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:453"
   },
   {
     "fact": "`publish` 只在目标轮次结算为非活跃状态时结束等待",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:368"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:453"
   },
   {
     "fact": "`wait_agent` 观察的是调用时的轮次，打断启动新轮次后旧 wait 返回旧轮次的取消回执",
-    "ref": "plugins/packages/external/subagents/README.md:29"
+    "ref": "plugins/packages/external/subagents/README.md:32"
   },
   {
     "fact": "多选等待采用任一结束语义",
-    "ref": "plugins/packages/external/subagents/README.md:29"
+    "ref": "plugins/packages/external/subagents/README.md:32"
   },
   {
     "fact": "原生发送请求的 `notifyReply` 是 false",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:190"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:251"
   },
   {
     "fact": "插件不会在结果完成后自动恢复主模型生成，主聊天用 `wait_agent` 获取结果并继续自己的轮次",
-    "ref": "plugins/packages/external/subagents/README.md:43"
+    "ref": "plugins/packages/external/subagents/README.md:52"
   },
   {
     "fact": "`initialize` 加载已保存记录时，把仍活跃的记录改成 `interrupted`",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:77"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:83"
   },
   {
     "fact": "重启标记的错误文本写明观察已丢失，原生执行仍在运行",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:77"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:86"
   },
   {
     "fact": "重启后改写的记录会重新保存",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:80"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:90"
   },
   {
     "fact": "重启加载时非活跃记录保持原状态",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:78"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:86"
   },
   {
     "fact": "`isActive` 把 starting、running、closing 视为活跃",
-    "ref": "plugins/packages/external/subagents/src/model.ts:100"
+    "ref": "plugins/packages/external/subagents/src/model.ts:120"
   },
   {
     "fact": "SDK 当前没有重新附着到已有执行流或直接向生成中模型注入指令的接口",
-    "ref": "plugins/packages/external/subagents/README.md:41"
+    "ref": "plugins/packages/external/subagents/README.md:50"
   },
   {
     "fact": "`AgentStatus` 有 8 个状态：starting、running、completed、cancelled、failed、closing、closed、interrupted",
-    "ref": "plugins/packages/external/subagents/src/model.ts:10"
+    "ref": "plugins/packages/external/subagents/src/model.ts:30"
   },
   {
     "fact": "AgentSummary 含 `runNumber`、`lastInput`、`error` 与 `result` 字段",
-    "ref": "plugins/packages/external/subagents/src/model.ts:38"
+    "ref": "plugins/packages/external/subagents/src/model.ts:59"
   },
   {
     "fact": "`Agent` 在摘要之外多一个 messages 快照数组",
-    "ref": "plugins/packages/external/subagents/src/model.ts:45"
+    "ref": "plugins/packages/external/subagents/src/model.ts:66"
   },
   {
     "fact": "`summary` 去掉 messages 后返回摘要",
-    "ref": "plugins/packages/external/subagents/src/model.ts:82"
-  },
-  {
-    "fact": "`parseAgent` 拒绝 schemaVersion 不是 1 的记录",
     "ref": "plugins/packages/external/subagents/src/model.ts:105"
   },
   {
+    "fact": "`parseAgent` 拒绝 schemaVersion 不是 1 的记录",
+    "ref": "plugins/packages/external/subagents/src/model.ts:125"
+  },
+  {
     "fact": "`WaitResult` 只有 `timed_out` 与 agents 两个字段",
-    "ref": "plugins/packages/external/subagents/src/model.ts:56"
+    "ref": "plugins/packages/external/subagents/src/model.ts:77"
   },
   {
     "fact": "父会话本身是子代理且正在关闭或已有控制操作时，`spawn` 拒绝创建",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:131"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:179"
   },
   {
     "fact": "新建子代理状态为 `starting`，`runNumber` 为 1，`lastInput` 是任务文本",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:142"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:202"
   },
   {
     "fact": "原生创建返回已用过的会话身份时抛错",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:137"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:197"
   },
   {
     "fact": "保存记录后调用 `launch` 在后台启动执行，立即返回摘要",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:146"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:206"
   },
   {
     "fact": "把 `execute` 挂到后台执行，不等它完成",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:180"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:240"
   },
   {
     "fact": "`spawn_agent` 用宿主提供的调用者参与者 ID 创建子代理",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:60"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:67"
   },
   {
     "fact": "工具层经 `parentChat` 取宿主认证的聊天 ID，不接受调用者自拟的父会话 ID",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:65"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:75"
   },
   {
     "fact": "同一子代理同一时间只允许一个控制操作，已有控制操作进行中时 `command` 抛错",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:166"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:225"
   },
   {
     "fact": "运行中且 `interrupt` 为 false 时明确抛错",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:296"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:357"
   },
   {
     "fact": "interrupt 为 true 时先 `cancelExecution` 等真实结束再发新指令",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:297"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:358"
   },
   {
     "fact": "`cancelExecution` 循环请求取消直到收到确认，再等执行真正结束",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:280"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:339"
   },
   {
     "fact": "发新轮次前先查 `isProcessing`，原生仍在执行就抛错",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:301"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:362"
   },
   {
     "fact": "新轮次把 `runNumber` 加 1，状态回到 `starting`，清空消息与结果",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:303"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:364"
   },
   {
     "fact": "关闭已是 closed 的子代理直接返回 `summary`，不重复执行",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:314"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:403"
   },
   {
     "fact": "关闭先递归调用 `close` 关闭未关闭的子任务",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:317"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:401"
   },
   {
     "fact": "关闭运行中的执行时先把状态存为 `closing` 再取消",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:353"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:409"
   },
   {
     "fact": "关闭时原生仍在执行就请求取消并每 100 毫秒轮询直到空闲",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:327"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:416"
   },
   {
     "fact": "关闭完成把状态存为 `closed` 并发布",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:329"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:418"
   },
   {
     "fact": "`close_agent` 的描述写明关闭保留会话与执行记录",
-    "ref": "plugins/packages/external/subagents/src/tools.ts:38"
+    "ref": "plugins/packages/external/subagents/src/tools.ts:44"
   },
   {
     "fact": "`part` 事件按 messageTimestamp 整体替换消息快照",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:214"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:275"
   },
   {
     "fact": "修订号不前进的快照被拒绝",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:257"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:318"
   },
   {
     "fact": "观察流结束而没有终态回执时记为失败",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:208"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:269"
   },
   {
     "fact": "终态按原生 outcome 映射：committed 与 not_persisted 取 outcome 的状态，blocked 与 consumed 记为 failed",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:228"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:289"
   },
   {
     "fact": "终态时若状态是 closing 则记为 closed",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:234"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:295"
   },
   {
     "fact": "观察失败时 `finishFailure` 把状态记为 failed 并发布",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:273"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:330"
   },
   {
     "fact": "`list` 返回指定父会话的全部子代理摘要，包括已结束的",
-    "ref": "plugins/packages/external/subagents/src/manager.ts:122"
+    "ref": "plugins/packages/external/subagents/src/manager.ts:174"
   },
   {
     "fact": "记录存在 `subagents.sqlite`，路径在包数据目录下",
-    "ref": "plugins/packages/external/subagents/src/storage.ts:15"
+    "ref": "plugins/packages/external/subagents/src/storage.ts:19"
   },
   {
     "fact": "按每页 200 条读全部记录，身份不匹配或重复时抛错",
-    "ref": "plugins/packages/external/subagents/src/storage.ts:30"
+    "ref": "plugins/packages/external/subagents/src/storage.ts:57"
   },
   {
     "fact": "把详细记录与父会话列表放在同一次宿主事务 `commit` 里提交",
-    "ref": "plugins/packages/external/subagents/src/storage.ts:51"
+    "ref": "plugins/packages/external/subagents/src/storage.ts:78"
   },
   {
     "fact": "用一条 promise 链串行化写操作",
-    "ref": "plugins/packages/external/subagents/src/storage.ts:44"
+    "ref": "plugins/packages/external/subagents/src/storage.ts:70"
   },
   {
     "fact": "`watchParent` 用 exact-key watch 订阅父会话快照",
-    "ref": "plugins/packages/external/subagents/src/storage.ts:63"
+    "ref": "plugins/packages/external/subagents/src/storage.ts:90"
   },
   {
     "fact": "`watchAgent` 订阅单个代理的快照，记录不存在时抛错",
-    "ref": "plugins/packages/external/subagents/src/storage.ts:81"
+    "ref": "plugins/packages/external/subagents/src/storage.ts:108"
   },
   {
     "fact": "`registerService` 把 `receive` 挂到 `CHANNEL` 通道",
-    "ref": "plugins/packages/external/subagents/src/service.ts:81"
+    "ref": "plugins/packages/external/subagents/src/service.ts:91"
   },
   {
     "fact": "`receive` 先 `decodeRequest` 校验再交给 manager",
-    "ref": "plugins/packages/external/subagents/src/service.ts:76"
+    "ref": "plugins/packages/external/subagents/src/service.ts:75"
   },
   {
     "fact": "manager 由 `owner()` 懒加载创建",
-    "ref": "plugins/packages/external/subagents/src/service.ts:39"
+    "ref": "plugins/packages/external/subagents/src/service.ts:42"
   },
   {
     "fact": "`registerService` 只注册 IPC 处理器，不创建 manager",
-    "ref": "plugins/packages/external/subagents/src/service.ts:80"
+    "ref": "plugins/packages/external/subagents/src/service.ts:91"
   },
   {
     "fact": "`decodeRequest` 校验 parentChatId 为非空文本",
-    "ref": "plugins/packages/external/subagents/src/service.ts:46"
+    "ref": "plugins/packages/external/subagents/src/service.ts:48"
   },
   {
     "fact": "创建子会话用 `Tools.Chat.createNew`，不设为当前聊天，源会话配置继承自 `sourceChatId`",
@@ -349,39 +349,39 @@
   },
   {
     "fact": "`isProcessing` 用 `Tools.Chat.agentStatus` 并校验返回的 chatId 与 isProcessing 类型",
-    "ref": "plugins/packages/external/subagents/src/service.ts:19"
+    "ref": "plugins/packages/external/subagents/src/service.ts:22"
   },
   {
     "fact": "`Agents` 的调用都经 `ToolPkg.ipc.call` 发到 targetRuntime main",
-    "ref": "plugins/packages/external/subagents/src/client.ts:6"
+    "ref": "plugins/packages/external/subagents/src/client.ts:10"
   },
   {
     "fact": "`watch` 先取一次列表再订阅父会话快照",
-    "ref": "plugins/packages/external/subagents/src/client.ts:36"
+    "ref": "plugins/packages/external/subagents/src/client.ts:40"
   },
   {
     "fact": "`watchDetail` 先列一次再订阅单个代理",
-    "ref": "plugins/packages/external/subagents/src/client.ts:41"
+    "ref": "plugins/packages/external/subagents/src/client.ts:47"
   },
   {
     "fact": "`registerToolPkg` 注册 `conversation` 路由，用 compose_dsl 渲染并 keepAlive",
-    "ref": "plugins/packages/external/subagents/src/main.ts:10"
+    "ref": "plugins/packages/external/subagents/src/main.ts:13"
   },
   {
     "fact": "`registerToolPkg` 注册工作区导航入口，图标是 account_tree",
-    "ref": "plugins/packages/external/subagents/src/main.ts:12"
+    "ref": "plugins/packages/external/subagents/src/main.ts:17"
   },
   {
     "fact": "`registerToolPkg` 注册 `above_input` 插槽，顺序是 20 并 keepAlive",
-    "ref": "plugins/packages/external/subagents/src/main.ts:14"
+    "ref": "plugins/packages/external/subagents/src/main.ts:15"
   },
   {
     "fact": "`test_connection` 不创建会话或任务就返回 passed",
-    "ref": "plugins/packages/external/subagents/src/main.ts:19"
+    "ref": "plugins/packages/external/subagents/src/main.ts:25"
   },
   {
     "fact": "`test_tool_call` 用 `listChats` 取 1 条聊天做只读检查",
-    "ref": "plugins/packages/external/subagents/src/main.ts:25"
+    "ref": "plugins/packages/external/subagents/src/main.ts:31"
   },
   {
     "fact": "子代理只由 AI 经 `spawn_agent` 创建，面板不提供手动创建入口",

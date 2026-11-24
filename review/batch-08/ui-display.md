@@ -57,16 +57,16 @@ date: 2026-11-11
 
 ### 标签、图标与结果视图的选择
 
-- 客户端解析 `label` 时依次选择完整语言标签、语言代码、`default`、`en`、首个声明文本。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:160`
+- 客户端解析 `label` 时依次选择完整语言标签、语言代码、`default`、`en`、首个声明文本。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:167`
 - 没有声明文本时显示原始工具名。`docs/tool-display-semantics.md:40`
 - Rust 侧 `ToolResultRenderer` 用 `#[serde(other)]` 把未知值反序列化为 `Text`。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:12`
-- `resultRenderer` 缺省或未知值时，Flutter 侧回退为通用文本视图 `ToolResultRenderer.text`。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:148`
+- `resultRenderer` 缺省或未知值时，Flutter 侧回退为通用文本视图 `ToolResultRenderer.text`。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:155`
 - Flutter 不根据工具名、返回值的 `__type` 或对象是否含有某些字段自动选择结果视图。`docs/tool-display-semantics.md:42`
 - 目录视图读取含 `path` 与 `entries` 数组的结构，条目含 `name`、`isDirectory`、`size`。`docs/tool-display-semantics.md:44`
 - 文件差异视图读取含 `operation` 与 `diffContent` 的结构，`operation` 含 `path` 与 `details`。`docs/tool-display-semantics.md:44`
 - `icon` 支持 `file`、`folder`、`edit`、`delete`、`search`、`terminal`、`web`、`download`、`package`、`time`、`notification`、`clipboard`、`audio`。`docs/tool-display-semantics.md:46`
-- Flutter 侧图标映射新增 `info`、`screen`、`tap`、`double_tap`、`long_press`、`swipe`、`keyboard` 七个图标。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:302`
-- `icon` 缺省时 Flutter 侧解析为通用工具图标 `tool`。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:143`
+- Flutter 侧图标映射新增 `info`、`screen`、`tap`、`double_tap`、`long_press`、`swipe`、`keyboard` 七个图标。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:308`
+- `icon` 缺省时 Flutter 侧解析为通用工具图标 `tool`。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:150`
 - `icon` 不改变执行行为或权限。`docs/tool-display-semantics.md:46`
 
 ### 结果与消息链路
@@ -140,7 +140,7 @@ date: 2026-11-11
 - `ToolDisplayDeclaration` — 展示声明，含本地化 `label`、语义 `icon`、可选 `target_parameter` 与 `result_renderer`。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:21`
 - `ToolResultRenderer` — 结果视图枚举，`Directory` / `FileDiff` / 默认 `Text`。`core/crates/plugin/sdk/src/js_sdk/tool_display.rs:9`
 - `PackageTool` 的 `display` — 插件工具的可选展示声明。`core/crates/plugin/sdk/src/package.rs:127`
-- `labelFor` — Flutter 侧标签回退解析，依次试完整语言标签、语言代码、`default`、`en`、首个声明文本。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:160`
+- `labelFor` — Flutter 侧标签回退解析，依次试完整语言标签、语言代码、`default`、`en`、首个声明文本。`apps/flutter/app/lib/ui/features/chat/components/part/ToolDisplayComponents.dart:167`
 - `WebViewScaleScope` — 应用缩放作用域，不改变 host DPR。`docs/webview-rendering.md:10`
 - `requiresNativeApplicationZoom` — 后端能力开关，默认 `false`。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408`
 - `NativeWebViewZoom` — 双因子缩放组合器，校验输入并串行化原生更新。`apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/native_webview_zoom.dart:6`

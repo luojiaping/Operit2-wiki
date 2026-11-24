@@ -8,26 +8,26 @@ date: 2026-11-11
 
 ## 概述
 
-上下文压缩把过长的对话历史压缩成检查点摘要，压缩后对话以摘要为历史继续（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
-手动压缩入口是 ChatServiceCore 的 `compactChat`，未传 chatId 时取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
-手动压缩无视阈值，把当前聊天压缩成检查点（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
+上下文压缩把过长的对话历史压缩成检查点摘要，压缩后对话以摘要为历史继续（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1684`）。
+手动压缩入口是 ChatServiceCore 的 `compactChat`，未传 chatId 时取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1684`）。
+手动压缩无视阈值，把当前聊天压缩成检查点（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1684`）。
 自动压缩存在：ModelSummarySettings 默认启用摘要，默认阈值 0.85（`core/crates/foundation/model/src/ModelConfigData.rs:147`）。
 2026-10-13 差距调查把自动 compaction 缺失列为 P0，HEAD 上的实现与该结论相反，自动压缩已存在且默认启用（`core/crates/foundation/model/src/ModelConfigData.rs:147`）。
 自动摘要只取决于配置的上下文 token 阈值（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:653`）。
 摘要 hook 在摘要生成全过程分发三阶段事件，hook 可改写提示词与结果（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:89`）。
-压缩与 CoreNode 切换互不干扰：路由变更测试断言切换后不产生摘要任务（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3829`）。
-上下文用量显示存在：chatInputMenuSummary 返回当前窗口大小与累计 token 数（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3042`）。
+压缩与 CoreNode 切换互不干扰：路由变更测试断言切换后不产生摘要任务（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3869`）。
+上下文用量显示存在：chatInputMenuSummary 返回当前窗口大小与累计 token 数（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3079`）。
 摘要消息的 sender 为 summary、roleName 为 system（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:611`）。
 
 ## AI 速览
 
-- `compactChat` — 手动压缩入口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）
-- `insertSummary` — 在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1521`）
-- `ModelSummarySettings` — 摘要开关与阈值配置（`core/crates/foundation/model/src/ModelConfigData.rs:320`）
+- `compactChat` — 手动压缩入口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1684`）
+- `insertSummary` — 在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1559`）
+- `ModelSummarySettings` — 摘要开关与阈值配置（`core/crates/foundation/model/src/ModelConfigData.rs:340`）
 - SummarySendPolicy — 发送前摘要策略（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:74`）
 - `prepareSummaryForSend` — 发送前摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）
 - checkSummaryAfterReply — 回复后摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:858`）
-- handleTokenLimitExceeded — 执行中超限处理（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1142`）
+- handleTokenLimitExceeded — 执行中超限处理（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1150`）
 - manuallySummarizeConversationForChat — 手动摘要执行（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1080`）
 - launchSummary — 摘要任务调度（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:947`）
 - generateAndStoreSummary — 摘要生成与持久化（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1029`）
@@ -39,37 +39,37 @@ date: 2026-11-11
 - ToolPkgSummaryHookBridge — ToolPkg 摘要 hook 桥（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:62`）
 - FunctionalPrompts 的 `buildSummarySystemPrompt` — 摘要系统提示词（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:159`）
 - FunctionalPrompts 的 `SUMMARY_PROMPT` — 摘要指令（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:3`）
-- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3042`）
+- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3079`）
 - beforeChangeRoute — 路由变更前钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:904`）
 - afterChangeRoute — 路由变更后钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`）
-- 主入口：`compactChat`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）
+- 主入口：`compactChat`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1684`）
 - 数据流向：消息发送 / 回复 / 执行 → 阈值检查 → 摘要生成 → 摘要消息落库 → 窗口重算。
 
 ## 核心机制
 
 ### 手动压缩
 
-- `compactChat` 未传 chatId 时取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
-- `compactChat` 的文档注明手动压缩无视阈值，把当前聊天压缩成检查点（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1642`）。
-- compactChat 压缩前通过 `beginChatExecution` 取执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1654`）。
-- compactChat 压缩完成后调用 `release` 释放执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1674`）。
-- compactChat 在 `newEnhancedAiServiceForChat` 返回空时返回 false，不执行压缩（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1656`）。
-- compactChat 把压缩交给 `manuallySummarizeConversationForChat`，返回值表示是否压缩成功（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1662`）。
-- manuallySummarizeConversationForChat 在 `summaryTaskForChat` 返回进行中任务时直接返回 false（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1087`）。
-- manuallySummarizeConversationForChat 以 `autoContinue` 为假、`requireCurrentChat` 为假启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1118`）。
-- manuallySummarizeConversationForChat 摘要失败时改由 `reportSummaryFailure` 上报：记日志并向 UI 弹 toast 提示上下文压缩失败（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1101`）。
-- MessageCoordinationDelegate 的 `manuallySummarizeConversation` 对当前聊天调用 `manuallySummarizeConversationForChat`（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1135`）。
-- ChatServiceCore 的 `insertSummary` 只在用户或 AI 消息处插入总结，其他发送者直接失败（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1521`）。
-- insertSummary 通过 `loadMessagesForSummaryInsertion` 取选中消息前后的待总结消息（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1550`）。
-- insertSummary 调用 AIMessageManager 的 `summarizeMemory` 生成摘要，第三个参数传 false（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1570`）。
-- insertSummary 通过 `addSummaryMessage` 持久化摘要，相邻位置已有总结时插入失败（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1593`）。
-- insertSummary 插入摘要后调用 `refreshStableContextWindow` 重新计算稳定上下文窗口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1605`）。
+- `compactChat` 未传 chatId 时取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1684`）。
+- `compactChat` 的文档注明手动压缩无视阈值，把当前聊天压缩成检查点（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1681`）。
+- compactChat 压缩前通过 `ChatModelBindingService::beginExecution` 取执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1689`）。
+- compactChat 压缩完成后调用 `release` 释放执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1710`）。
+- compactChat 在 `newEnhancedAiServiceForChat` 返回空时返回 false，不执行压缩（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1692`）。
+- compactChat 把压缩交给 `manuallySummarizeConversationForChat`，返回值表示是否压缩成功（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1698`）。
+- manuallySummarizeConversationForChat 在 `summaryTaskForChat` 返回进行中任务时直接返回 false（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1095`）。
+- manuallySummarizeConversationForChat 以 `autoContinue` 为假、`requireCurrentChat` 为假启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1126`）。
+- manuallySummarizeConversationForChat 摘要失败时改由 `reportSummaryFailure` 上报：记日志并向 UI 弹 toast 提示上下文压缩失败（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1109`）。
+- MessageCoordinationDelegate 的 `manuallySummarizeConversation` 对当前聊天调用 `manuallySummarizeConversationForChat`（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1141`）。
+- ChatServiceCore 的 `insertSummary` 只在用户或 AI 消息处插入总结，其他发送者直接失败（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1559`）。
+- insertSummary 通过 `loadMessagesForSummaryInsertion` 取选中消息前后的待总结消息（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1588`）。
+- insertSummary 调用 AIMessageManager 的 `summarizeMemory` 生成摘要，第三个参数传 false（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1608`）。
+- insertSummary 通过 `addSummaryMessage` 持久化摘要，相邻位置已有总结时插入失败（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）。
+- insertSummary 插入摘要后调用 `refreshStableContextWindow` 重新计算稳定上下文窗口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1643`）。
 
 ### 自动压缩：配置与三处触发
 
-- `ModelSummarySettings` 含 `enableSummary` 与 `summaryTokenThreshold` 两个字段（`core/crates/foundation/model/src/ModelConfigData.rs:320`）。
+- `ModelSummarySettings` 含 `enableSummary` 与 `summaryTokenThreshold` 两个字段（`core/crates/foundation/model/src/ModelConfigData.rs:340`）。
 - ModelSummarySettings 默认启用摘要，默认阈值 `DEFAULT_SUMMARY_TOKEN_THRESHOLD` 为 0.85（`core/crates/foundation/model/src/ModelConfigData.rs:147`）。
-- ModelSummarySettings 的 `tokenThresholdRatio` 把大于 1 的旧百分比阈值除以 100，并钳制到 0 到 1（`core/crates/foundation/model/src/ModelConfigData.rs:337`）。
+- ModelSummarySettings 的 `tokenThresholdRatio` 把大于 1 的旧百分比阈值除以 100，并钳制到 0 到 1（`core/crates/foundation/model/src/ModelConfigData.rs:364`）。
 - 发送前摘要策略的启用条件是 `settings.enableSummary` 与 `turnOptions.persistTurn` 同时成立，禁用时阈值为 `f64::MAX`（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:76`）。
 - SummarySendPolicy 的 `checkBeforeSend` 要求启用、允许发送前检查、非后台发送且未 `deferSummary`（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:80`）。
 - MessageCoordinationDelegate 的 `prepareSummaryForSend` 在发送前做摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）。
@@ -80,20 +80,20 @@ date: 2026-11-11
 - MessageCoordinationDelegate 的 `checkSummaryAfterReply` 在回复后调用 recalculateStableWindowSize 重算稳定窗口（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:856`）。
 - checkSummaryAfterReply 逐个参与者调用 `shouldGenerateSummary` 核对各自模型的摘要阈值（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:874`）。
 - 在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1172`）。
-- 执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2475`）。
-- 超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2494`）。
-- MessageCoordinationDelegate 的 `handleTokenLimitExceeded` 先等 summaryTaskForChat 返回的进行中摘要任务完成，再调用 isCurrentChatTurn 校验回合归属（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1142`、`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1150`）。
-- handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1180`）。
-- handleTokenLimitExceeded 压缩后调用 `sendMessageInternal` 续跑同一已提交用户回合（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1192`）。
-- 续跑时原执行租约以 `Some(request.executionLease)` 传入（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1209`）。
+- 执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2508`）。
+- 超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2528`）。
+- MessageCoordinationDelegate 的 `handleTokenLimitExceeded` 先等 summaryTaskForChat 返回的进行中摘要任务完成，再调用 isCurrentChatTurn 校验回合归属（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1150`、`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1160`）。
+- handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1188`）。
+- handleTokenLimitExceeded 压缩后调用 `sendMessageInternal` 续跑同一已提交用户回合（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1205`）。
+- 续跑时原执行租约以 `Some(request.executionLease)` 传入（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1222`）。
 - AIMessageManager 的 `shouldGenerateSummary` 的文档注明自动摘要只取决于配置的上下文 token 阈值（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:653`）。
 - AIMessageManager 的 `shouldGenerateSummary` 在启用、`maxTokens` 大于 0 且当前 token 数占比达到 `tokenUsageThreshold` 时返回真（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:657`）。
-- MessageCoordinationDelegate 的 `launchSummary` 把摘要排成名为 chat-summary 的可取消 host 任务（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:882`）。
+- MessageCoordinationDelegate 的 `launchSummary` 把摘要排成名为 chat-summary 的可取消 host 任务（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:903`）。
 - launchSummary 把输入处理状态置为 `Summarizing`，消息为 `chat_compressing_history`（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:940`）。
-- 摘要插入位置取最新 AI 消息之后，由 `findProperSummaryPosition` 计算（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1039`）。
-- generateAndStoreSummary 生成摘要后调用 `addSummaryMessage` 持久化，再调用 `refreshStableContextWindow` 重算窗口（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1062`）。
-- ChatHistoryDelegate 的 `addSummaryMessage` 把摘要消息持久化到相邻消息时间戳之间（`core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2463`）。
-- ChatHistoryDelegate 的 `findProperSummaryPosition` 返回最新 AI 消息之后的位置（`core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2494`）。
+- 摘要插入位置取最新 AI 消息之后，由 `findProperSummaryPosition` 计算（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1047`）。
+- generateAndStoreSummary 生成摘要后调用 `addSummaryMessage` 持久化，再调用 `refreshStableContextWindow` 重算窗口（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1070`）。
+- ChatHistoryDelegate 的 `addSummaryMessage` 把摘要消息持久化到相邻消息时间戳之间（`core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2471`）。
+- ChatHistoryDelegate 的 `findProperSummaryPosition` 返回最新 AI 消息之后的位置（`core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2502`）。
 - ChatServiceCore 在注册委托时挂钩 `setBeforeDestructiveHistoryMutation`，破坏性历史变更前取消该聊天的摘要任务（`core/crates/runtime/application/src/services/ChatServiceCore.rs:489`）。
 
 ### 摘要生成：只总结上一次摘要之后
@@ -142,13 +142,13 @@ date: 2026-11-11
 ### 上下文用量显示
 
 - `ChatInputMenuSummary` 含 `currentWindowSize`、`inputTokenCount`、`outputTokenCount` 与 `maxContextLength` 四个值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:132`）。
-- chatInputMenuSummary 的 `maxContextLength` 取自已解析模型配置的 `config.context.maxContextLength`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3074`）。
-- ChatServiceCore 的 `currentWindowSizeFlow` 暴露当前上下文窗口大小的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3215`）。
-- ChatServiceCore 的 `inputTokenCountFlow` 暴露累计输入 token 数的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3223`）。
-- ChatServiceCore 的 `outputTokenCountFlow` 暴露累计输出 token 数的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3231`）。
+- chatInputMenuSummary 的 `maxContextLength` 取自已解析模型配置的 `config.context.maxContextLength`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3114`）。
+- ChatServiceCore 的 `currentWindowSizeFlow` 暴露当前上下文窗口大小的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3255`）。
+- ChatServiceCore 的 `inputTokenCountFlow` 暴露累计输入 token 数的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3263`）。
+- ChatServiceCore 的 `outputTokenCountFlow` 暴露累计输出 token 数的状态流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3271`）。
 - syncTokenStatisticsForCurrentChat 把 ChatHistory 的 `inputTokens`、`outputTokens`、`currentWindowSize` 同步进 `tokenStatisticsDelegate`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:534`）。
-- ChatServiceCore 的 `resetTokenStatistics` 清空 `UsageStatisticsStore` 的全部 token 用量记录（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2052`）。
-- ChatServiceCore 的 `updateCumulativeStatistics` 为当前聊天重算累计 token 统计（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2069`）。
+- ChatServiceCore 的 `resetTokenStatistics` 清空 `UsageStatisticsStore` 的全部 token 用量记录（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2088`）。
+- ChatServiceCore 的 `updateCumulativeStatistics` 为当前聊天重算累计 token 统计（`core/crates/runtime/application/src/services/ChatServiceCore.rs:2105`）。
 - 从缓存刷新活跃聊天统计时，`currentWindowSize` 被写入缓存的窗口大小并推送 `currentWindowSizeFlow`（`core/crates/runtime/application/src/services/core/TokenStatisticsDelegate.rs:76`）。
 
 ### 压缩与 CoreNode 切换的时序
@@ -156,18 +156,18 @@ date: 2026-11-11
 - beforeChangeRoute 在路由变更前调用 `beginChatExecution` 取执行租约并立即释放，用于校验执行归属（`core/crates/runtime/application/src/services/ChatServiceCore.rs:904`）。
 - afterChangeRoute 在路由到达目标 Core 后调用 `resumeFromRouteContext` 续跑（`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`）。
 - resumeFromRouteContext 经 sendRoutedContinuation 把路由携带的 `runtimeChatHistory` 交给续跑发送（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:521`）。
-- 路由变更测试断言切换后不产生摘要任务，`summaryTaskForChat` 返回空（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3829`）。
+- 路由变更测试断言切换后不产生摘要任务，`summaryTaskForChat` 返回空（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3869`）。
 - 路由决策与跨节点调用写在 [[core-node-runtime|节点——节点运行时]]。
 
 ## 关键符号
 
-- `compactChat` — 手动压缩入口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）
-- `insertSummary` — 在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1521`）
-- `ModelSummarySettings` — 摘要开关与阈值配置（`core/crates/foundation/model/src/ModelConfigData.rs:320`）
+- `compactChat` — 手动压缩入口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1684`）
+- `insertSummary` — 在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1559`）
+- `ModelSummarySettings` — 摘要开关与阈值配置（`core/crates/foundation/model/src/ModelConfigData.rs:340`）
 - SummarySendPolicy — 发送前摘要策略（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:74`）
 - `prepareSummaryForSend` — 发送前摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）
 - checkSummaryAfterReply — 回复后摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:858`）
-- handleTokenLimitExceeded — 执行中超限处理（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1142`）
+- handleTokenLimitExceeded — 执行中超限处理（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1150`）
 - manuallySummarizeConversationForChat — 手动摘要执行（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1080`）
 - launchSummary — 摘要任务调度（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:947`）
 - generateAndStoreSummary — 摘要生成与持久化（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1029`）
@@ -179,34 +179,34 @@ date: 2026-11-11
 - ToolPkgSummaryHookBridge — ToolPkg 摘要 hook 桥（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:62`）
 - FunctionalPrompts 的 `buildSummarySystemPrompt` — 摘要系统提示词（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:159`）
 - FunctionalPrompts 的 `SUMMARY_PROMPT` — 摘要指令（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:3`）
-- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3042`）
+- `chatInputMenuSummary` — 上下文用量显示（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3079`）
 - beforeChangeRoute — 路由变更前钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:904`）
 - afterChangeRoute — 路由变更后钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`）
 
 ## 调用链
 
-1. 手动压缩：`compactChat` 取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
-2. 手动压缩：`beginChatExecution` 取执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1654`）。
-3. 手动压缩：`manuallySummarizeConversationForChat` 启动摘要（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1662`）。
+1. 手动压缩：`compactChat` 取当前聊天（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1684`）。
+2. 手动压缩：`ChatModelBindingService::beginExecution` 取执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1689`）。
+3. 手动压缩：`manuallySummarizeConversationForChat` 启动摘要（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1698`）。
 4. 手动压缩：launchSummary 把摘要排成 `chat-summary` 任务（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:947`）。
 5. 手动压缩：generateAndStoreSummary 生成摘要并持久化（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1029`）。
-6. 手动压缩：压缩完成后 `release` 释放执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1674`）。
+6. 手动压缩：压缩完成后 `release` 释放执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1710`）。
 7. 发送前自动压缩：`prepareSummaryForSend` 做摘要检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）。
 8. 发送前自动压缩：`SummarySendPolicy` 决策是否评估窗口占比（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:805`）。
 9. 发送前自动压缩：窗口占比达到阈值时 `shouldGenerateSummary` 判断并启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:821`）。
 10. 回复后自动压缩：在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1172`）。
 11. 回复后自动压缩：checkSummaryAfterReply 逐个参与者核对摘要阈值（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:874`）。
-12. 执行中超限：`usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2475`）。
-13. 执行中超限：超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2494`）。
-14. 执行中超限：handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1180`）。
-15. 执行中超限：压缩后 `sendMessageInternal` 续跑同一已提交用户回合（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1192`）。
+12. 执行中超限：`usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2508`）。
+13. 执行中超限：超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2528`）。
+14. 执行中超限：handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1188`）。
+15. 执行中超限：压缩后 `sendMessageInternal` 续跑同一已提交用户回合（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1205`）。
 16. 摘要生成：summarizeMemory 只总结上一次摘要之后的用户与 AI 消息（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:547`）。
 17. 摘要生成：`buildSummarySystemPrompt` 把上一次摘要拼进系统提示（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:159`）。
 18. 摘要生成：三阶段 hook 分发从 `before_prepare_summary_prompt` 开始（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:511`）。
 19. 摘要生成：`before_send_to_model` 阶段 `prepared_history` 已生成（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:537`）。
 20. 摘要生成：`after_generate_summary` 阶段 `summary_result` 为已生成内容（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:603`）。
-21. 摘要生成：`addSummaryMessage` 把摘要持久化到最新 AI 消息之后（`core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2463`）。
-22. 摘要生成：`refreshStableContextWindow` 重算稳定上下文窗口（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1065`）。
+21. 摘要生成：`addSummaryMessage` 把摘要持久化到最新 AI 消息之后（`core/crates/runtime/application/src/services/core/ChatHistoryDelegate.rs:2471`）。
+22. 摘要生成：`refreshStableContextWindow` 重算稳定上下文窗口（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1070`）。
 23. 路由切换：beforeChangeRoute 取租约并立即释放，校验执行归属（`core/crates/runtime/application/src/services/ChatServiceCore.rs:904`）。
 24. 路由切换：afterChangeRoute 调用 `resumeFromRouteContext` 续跑（`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`）。
 

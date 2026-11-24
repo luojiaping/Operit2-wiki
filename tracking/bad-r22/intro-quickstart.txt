@@ -1,0 +1,6 @@
+intro-quickstart batch=batch-01 facts=88 bad=5
+intro-quickstart.md:28 `ProviderProfile` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:603']
+intro-quickstart.md:150 `ProviderProfile` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:603']
+intro-quickstart.md:150 `apiKey` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:603']
+intro-quickstart.md:150 `apiKeyPool` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:603']
+intro-quickstart.md:165 `ProviderProfile` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:603']

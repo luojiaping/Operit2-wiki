@@ -1,0 +1,6 @@
+core-persistence-rescue batch=batch-02 facts=96 bad=5
+core-persistence-rescue.md:48 `archiveId` not within ±5 of any ref ['core/crates/persistence/rescue/src/lib.rs:108']
+core-persistence-rescue.md:86 `finish_restore_file` not within ±5 of any ref ['core/crates/persistence/rescue/src/lib.rs:220', 'core/crates/persistence/rescue/src/lib.rs:226']
+core-persistence-rescue.md:119 `ArchiveIo` not within ±5 of any ref ['core/crates/persistence/rescue/src/lib.rs:331']
+core-persistence-rescue.md:159 `path` not within ±5 of any ref ['core/crates/persistence/rescue/src/lib.rs:179']
+core-persistence-rescue.md:182 `archiveId` not within ±5 of any ref ['core/crates/persistence/rescue/src/lib.rs:108']

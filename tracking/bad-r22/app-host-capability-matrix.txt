@@ -1,0 +1,98 @@
+app-host-capability-matrix batch=batch-05 facts=344 bad=97
+app-host-capability-matrix.facts.json#1 `ArchiveStagingHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2256
+app-host-capability-matrix.facts.json#3 `AudioPlaybackHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2936
+app-host-capability-matrix.facts.json#5 `BluetoothHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3131
+app-host-capability-matrix.facts.json#11 `ClipboardHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3417
+app-host-capability-matrix.facts.json#15 `DeviceIoHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3214
+app-host-capability-matrix.facts.json#17 `FileSystemHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3598
+app-host-capability-matrix.facts.json#19 `FloatingWindowHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3444
+app-host-capability-matrix.facts.json#21 `HostJavaScriptRuntimeHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2652
+app-host-capability-matrix.facts.json#23 `HostRuntimeEventHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2408
+app-host-capability-matrix.facts.json#25 `HostRuntimeEventSchedulerHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2440
+app-host-capability-matrix.facts.json#27 `HostRuntimeTaskSchedulerHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2695
+app-host-capability-matrix.facts.json#29 `HostSecretStore` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2282
+app-host-capability-matrix.facts.json#35 `LocalInferenceHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3359
+app-host-capability-matrix.facts.json#41 `RobotFaceHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3238
+app-host-capability-matrix.facts.json#43 `RuntimeSqliteHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2400
+app-host-capability-matrix.facts.json#47 `RuntimeStorageWriteHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2250
+app-host-capability-matrix.facts.json#53 `SystemOperationHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3515
+app-host-capability-matrix.facts.json#59 `ToastHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3412
+app-host-capability-matrix.facts.json#61 `TtsPlaybackHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3292
+app-host-capability-matrix.facts.json#63 `TtsSynthesisHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3264
+app-host-capability-matrix.facts.json#78 `AudioPlaybackHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2936
+app-host-capability-matrix.facts.json#79 `AudioPlaybackHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2936
+app-host-capability-matrix.facts.json#81 `AudioPlaybackHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2936
+app-host-capability-matrix.facts.json#82 `AudioPlaybackHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2936
+app-host-capability-matrix.facts.json#85 `BluetoothHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3131
+app-host-capability-matrix.facts.json#86 `BluetoothHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3131
+app-host-capability-matrix.facts.json#88 `BluetoothHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3131
+app-host-capability-matrix.facts.json#89 `BluetoothHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3131
+app-host-capability-matrix.facts.json#106 `ClipboardHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3417
+app-host-capability-matrix.facts.json#107 `ClipboardHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3417
+app-host-capability-matrix.facts.json#108 `ClipboardHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3417
+app-host-capability-matrix.facts.json#109 `ClipboardHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3417
+app-host-capability-matrix.facts.json#110 `ClipboardHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3417
+app-host-capability-matrix.facts.json#112 `ClipboardHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3417
+app-host-capability-matrix.facts.json#120 `DeviceIoHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3214
+app-host-capability-matrix.facts.json#121 `DeviceIoHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3214
+app-host-capability-matrix.facts.json#122 `DeviceIoHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3214
+app-host-capability-matrix.facts.json#123 `DeviceIoHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3214
+app-host-capability-matrix.facts.json#124 `DeviceIoHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3214
+app-host-capability-matrix.facts.json#125 `DeviceIoHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3214
+app-host-capability-matrix.facts.json#126 `DeviceIoHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3214
+app-host-capability-matrix.facts.json#134 `FloatingWindowHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3444
+app-host-capability-matrix.facts.json#135 `FloatingWindowHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3444
+app-host-capability-matrix.facts.json#136 `FloatingWindowHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3444
+app-host-capability-matrix.facts.json#137 `FloatingWindowHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3444
+app-host-capability-matrix.facts.json#138 `FloatingWindowHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3444
+app-host-capability-matrix.facts.json#139 `FloatingWindowHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3444
+app-host-capability-matrix.facts.json#140 `FloatingWindowHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3444
+app-host-capability-matrix.facts.json#148 `HostRuntimeEventHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2408
+app-host-capability-matrix.facts.json#149 `HostRuntimeEventHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2408
+app-host-capability-matrix.facts.json#152 `HostRuntimeEventHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2408
+app-host-capability-matrix.facts.json#173 `HostSecretStore` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:2282
+app-host-capability-matrix.facts.json#211 `RobotFaceHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3238
+app-host-capability-matrix.facts.json#212 `RobotFaceHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3238
+app-host-capability-matrix.facts.json#213 `RobotFaceHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3238
+app-host-capability-matrix.facts.json#214 `RobotFaceHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3238
+app-host-capability-matrix.facts.json#215 `RobotFaceHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3238
+app-host-capability-matrix.facts.json#216 `RobotFaceHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3238
+app-host-capability-matrix.facts.json#217 `RobotFaceHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3238
+app-host-capability-matrix.facts.json#274 `ToastHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3412
+app-host-capability-matrix.facts.json#275 `ToastHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3412
+app-host-capability-matrix.facts.json#276 `ToastHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3412
+app-host-capability-matrix.facts.json#277 `ToastHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3412
+app-host-capability-matrix.facts.json#278 `ToastHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3412
+app-host-capability-matrix.facts.json#280 `ToastHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3412
+app-host-capability-matrix.facts.json#281 `TtsPlaybackHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3292
+app-host-capability-matrix.facts.json#282 `TtsPlaybackHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3292
+app-host-capability-matrix.facts.json#284 `TtsPlaybackHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3292
+app-host-capability-matrix.facts.json#285 `TtsPlaybackHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3292
+app-host-capability-matrix.facts.json#288 `TtsSynthesisHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3264
+app-host-capability-matrix.facts.json#289 `TtsSynthesisHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3264
+app-host-capability-matrix.facts.json#291 `TtsSynthesisHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3264
+app-host-capability-matrix.facts.json#293 `TtsSynthesisHost` not within ±5 of core/crates/foundation/host-contract/src/lib.rs:3264
+app-host-capability-matrix.md:16 `ArchiveStagingHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2256']
+app-host-capability-matrix.md:17 `AudioPlaybackHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2936']
+app-host-capability-matrix.md:18 `BluetoothHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3131']
+app-host-capability-matrix.md:21 `ClipboardHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3417']
+app-host-capability-matrix.md:23 `DeviceIoHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3214']
+app-host-capability-matrix.md:24 `FileSystemHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3598']
+app-host-capability-matrix.md:25 `FloatingWindowHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3444']
+app-host-capability-matrix.md:26 `HostJavaScriptRuntimeHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2652']
+app-host-capability-matrix.md:27 `HostRuntimeEventHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2408']
+app-host-capability-matrix.md:28 `HostRuntimeEventSchedulerHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2440']
+app-host-capability-matrix.md:29 `HostRuntimeTaskSchedulerHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2695']
+app-host-capability-matrix.md:30 `HostSecretStore` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2282']
+app-host-capability-matrix.md:33 `LocalInferenceHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3359']
+app-host-capability-matrix.md:36 `RobotFaceHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3238']
+app-host-capability-matrix.md:37 `RuntimeSqliteHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2400']
+app-host-capability-matrix.md:39 `RuntimeStorageWriteHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2250']
+app-host-capability-matrix.md:42 `SystemOperationHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3515']
+app-host-capability-matrix.md:45 `ToastHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3412']
+app-host-capability-matrix.md:46 `TtsPlaybackHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3292']
+app-host-capability-matrix.md:47 `TtsSynthesisHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3264']
+app-host-capability-matrix.md:70 `FileAppendHandle` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3591']
+app-host-capability-matrix.md:74 `HostJavaScriptRuntime` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2519']
+app-host-capability-matrix.md:75 `HostRuntimeEventRegistration` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2406']
+app-host-capability-matrix.md:79 `RuntimeSqliteConnection` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2365']
