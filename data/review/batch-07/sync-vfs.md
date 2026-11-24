@@ -30,10 +30,10 @@ date: 2026-11-11
 - `/app`、`/mnt`、`/sdcard`、`/data` 为隐藏入口，不出现在 `list /` 的结果中，直接指定路径仍可访问，列出其子目录也不受影响。`docs/vfs-mounts.md:5`
 - VFS 根目录展示 `/operitapp`，存在可用平台挂载时再展示 `/virtual`。`docs/vfs-mounts.md:5`
 - `VFS_ROOTS` 中 `ROOT_APP`、`ROOT_MNT`、`ROOT_SDCARD`、`ROOT_DATA` 的 `hidden` 为 `true`，`ROOT_OPERITAPP` 与 `ROOT_VIRTUAL` 的 `hidden` 为 `false`。`core/crates/foundation/vfs/src/PathMapper.rs:27`
-- VFS 根目录 `/` 的条目只含 `hidden` 为 false 的 `VFS_ROOTS`，`ROOT_VIRTUAL` 仅在存在平台挂载时出现。`core/crates/foundation/vfs/src/PathMapper.rs:361`
-- /app 与 /operitapp 的虚拟条目为 data、workspaces、outputs。`core/crates/foundation/vfs/src/PathMapper.rs:368`
-- /mnt 与 /virtual 的条目来自 `mntMountEntries`，即已挂载的平台入口。`core/crates/foundation/vfs/src/PathMapper.rs:369`
-- `mntMountEntries` 只列出已挂载的平台入口：Windows 盘符、Android、当前 host 的 POSIX 挂载名。`core/crates/foundation/vfs/src/PathMapper.rs:756`
+- VFS 根目录 `/` 的条目只含 `hidden` 为 false 的 `VFS_ROOTS`，`ROOT_VIRTUAL` 仅在存在平台挂载时出现。`core/crates/foundation/vfs/src/PathMapper.rs:391`
+- /app 与 /operitapp 的虚拟条目为 data、workspaces、outputs。`core/crates/foundation/vfs/src/PathMapper.rs:398`
+- /mnt 与 /virtual 的条目来自 `mntMountEntries`，即已挂载的平台入口。`core/crates/foundation/vfs/src/PathMapper.rs:399`
+- `mntMountEntries` 只列出已挂载的平台入口：Windows 盘符、Android、当前 host 的 POSIX 挂载名。`core/crates/foundation/vfs/src/PathMapper.rs:786`
 - VFS 直接解析两组根入口，不在插件、工具参数、返回值或持久化记录中把一个根名替换成另一个。`docs/vfs-mounts.md:7`
 - 文件结果保留调用者使用的 VFS 根目录。`docs/vfs-mounts.md:7`
 - 应用新生成的地址使用 `/operitapp` 与 `/virtual`，已有地址继续有效。`docs/vfs-mounts.md:7`
@@ -61,17 +61,17 @@ date: 2026-11-11
 - 需要原生归档的包加载器收到经 VFS 解析的路径。`docs/filesystem-access-boundary.md:13`
 - 资源挂载暂存进运行时拥有的存储，导入完成后移除，导入流水线其余部分只见到解析出的原生文件。`docs/filesystem-access-boundary.md:13`
 - 边界与工具测试用 `cd core` 后 `cargo test -p operit-tools --lib --test native_filesystem_boundary` 运行。`docs/filesystem-access-boundary.md:19`
-- PathMapper 的 `resolve` 先查注册挂载，`mountRelativePath` 命中时按挂载解析。`core/crates/foundation/vfs/src/PathMapper.rs:396`
-- `native` 后端挂载把 `mount.root` 与相对路径拼接为物理路径。`core/crates/foundation/vfs/src/PathMapper.rs:403`
-- 非 `native` 后端挂载把挂载编码为 `FileSystemResource` 定位符。`core/crates/foundation/vfs/src/PathMapper.rs:406`
-- /app 或 /operitapp 下的 data 解析到 `runtimeStoreRoot`。`core/crates/foundation/vfs/src/PathMapper.rs:416`
-- /app 或 /operitapp 下的 `outputs` 解析到 `runtimeStoreRoot` 下的 `data/chat_outputs`。`core/crates/foundation/vfs/src/PathMapper.rs:421`
-- /app 或 /operitapp 下的 workspaces 解析到 `workspaceCollectionRoot`。`core/crates/foundation/vfs/src/PathMapper.rs:425`
+- PathMapper 的 `resolve` 先查注册挂载，`mountRelativePath` 命中时按挂载解析。`core/crates/foundation/vfs/src/PathMapper.rs:426`
+- `native` 后端挂载把 `mount.root` 与相对路径拼接为物理路径。`core/crates/foundation/vfs/src/PathMapper.rs:433`
+- 非 `native` 后端挂载把挂载编码为 `FileSystemResource` 定位符。`core/crates/foundation/vfs/src/PathMapper.rs:436`
+- /app 或 /operitapp 下的 data 解析到 `runtimeStoreRoot`。`core/crates/foundation/vfs/src/PathMapper.rs:446`
+- /app 或 /operitapp 下的 `outputs` 解析到 `runtimeStoreRoot` 下的 `data/chat_outputs`。`core/crates/foundation/vfs/src/PathMapper.rs:451`
+- /app 或 /operitapp 下的 workspaces 解析到 `workspaceCollectionRoot`。`core/crates/foundation/vfs/src/PathMapper.rs:455`
 - PathMapper 的 `workspaceCollectionPath` 返回 `/operitapp/workspaces`。`core/crates/foundation/vfs/src/PathMapper.rs:128`
-- VFS 根 `/` 与裸挂载根是虚拟目录，resolve 返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:397`
-- 未知 VFS 根返回 `Unknown VFS root` 错误。`core/crates/foundation/vfs/src/PathMapper.rs:481`
-- VFS 路径必须以 `/` 开头，否则返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:520`
-- VFS 路径段 `.` 与 `..` 被拒绝。`core/crates/foundation/vfs/src/PathMapper.rs:578`
+- VFS 根 `/` 与裸挂载根是虚拟目录，resolve 返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:427`
+- 未知 VFS 根返回 `Unknown VFS root` 错误。`core/crates/foundation/vfs/src/PathMapper.rs:511`
+- VFS 路径必须以 `/` 开头，否则返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:550`
+- VFS 路径段 `.` 与 `..` 被拒绝。`core/crates/foundation/vfs/src/PathMapper.rs:608`
 - `physicalPath` 保留旧名，资源后端目标是不透明定位符，需要真实操作系统路径时调用 `nativePath` 或 `terminalDirectory`。`core/crates/foundation/vfs/src/PathMapper.rs:41`
 - ResolvedVfsPath 的 `nativePath` 对文档/资源挂载返回错误，对原生后端返回 `physicalPath`。`core/crates/foundation/vfs/src/PathMapper.rs:63`
 - `ResolvedVfsPath` 的 `terminalDirectory` 让终端宿主翻译受支持的文档后端目录。`core/crates/foundation/vfs/src/PathMapper.rs:56`
@@ -79,31 +79,31 @@ date: 2026-11-11
 - 工具调用的 `directory` 取自 `ToolExecutionManager` 的 `currentToolRuntimeContext` 与 `context` 的 `fileDirectory`。`docs/filesystem-access-boundary.md:7`
 - 无文件目录的相对路径仍是明确错误。`docs/filesystem-access-boundary.md:7`
 - `/` VFS 目录对目录操作仍有效。`docs/filesystem-access-boundary.md:7`
-- PathMapper 的 `resolveFileToolPath` 在相对路径且无当前文件目录时返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:243`
-- 相对路径的 `..` 越出 VFS 根时返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:251`
-- 原生兼容路径在任何宿主访问前先进入已挂载的 VFS。`core/crates/foundation/vfs/src/PathMapper.rs:261`
-- resolveFileResourcePath 对 VFS 根路径调用 `canonicalizeVfsPath`，对其他绝对路径调用 `normalizeAbsoluteHostWorkspacePath`。`core/crates/foundation/vfs/src/PathMapper.rs:271`
+- PathMapper 的 `resolveFileToolPath` 在相对路径且无当前文件目录时返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:273`
+- 相对路径的 `..` 越出 VFS 根时返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:281`
+- 原生兼容路径在任何宿主访问前先进入已挂载的 VFS。`core/crates/foundation/vfs/src/PathMapper.rs:291`
+- resolveFileResourcePath 对 VFS 根路径调用 `canonicalizeVfsPath`，对其他绝对路径调用 `normalizeAbsoluteHostWorkspacePath`。`core/crates/foundation/vfs/src/PathMapper.rs:301`
 - PathMapper 的 `canonicalizeVfsPath` 把 /sdcard 与 /storage/emulated/0 开头的旧共享存储别名转为身份拥有的插件存储路径（Android）。`core/crates/foundation/vfs/src/PathMapper.rs:163`
-- Windows 盘符经 `normalizeDriveLetter` 规范化，未挂载的盘符返回错误（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:430`
-- `normalizeDriveLetter` 要求单个 ASCII 字母盘符并转为小写。`core/crates/foundation/vfs/src/PathMapper.rs:736`
+- Windows 盘符经 `normalizeDriveLetter` 规范化，未挂载的盘符返回错误（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:460`
+- `normalizeDriveLetter` 要求单个 ASCII 字母盘符并转为小写。`core/crates/foundation/vfs/src/PathMapper.rs:766`
 - Windows 上 `windowsDriveExists` 检查 `盘符:/` 是否存在（Windows）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:93`
 - 非 Windows 上 `windowsDriveExists` 恒为假。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:93`
-- `mntMountEntries` 在 `windowsDriveEntries` 非空时列出 Windows 盘符入口（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:756`
-- `/virtual/android/sdcard` 解析到 `/sdcard`，未挂载时返回错误（Android）。`core/crates/foundation/vfs/src/PathMapper.rs:450`
-- `/virtual/android/root` 解析到 `/`，未挂载时返回错误（Android）。`core/crates/foundation/vfs/src/PathMapper.rs:457`
+- `mntMountEntries` 在 `windowsDriveEntries` 非空时列出 Windows 盘符入口（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:786`
+- `/virtual/android/sdcard` 解析到 `/sdcard`，未挂载时返回错误（Android）。`core/crates/foundation/vfs/src/PathMapper.rs:480`
+- `/virtual/android/root` 解析到 `/`，未挂载时返回错误（Android）。`core/crates/foundation/vfs/src/PathMapper.rs:487`
 - `/virtual/linux` 是 Linux host 在 `POSIX_ROOTS` 中声明的挂载根，当前 host 为 Linux 时解析到 `/`，声明不符时报错（Linux）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:21`
 - `/virtual/macos` 是 macOS host 在 `POSIX_ROOTS` 中声明的挂载根，当前 host 为 macOS 时解析到 `/`，声明不符时报错（macOS）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:22`
-- `/data` 解析到 `/data`，未挂载时返回错误（Android）。`core/crates/foundation/vfs/src/PathMapper.rs:473`
+- `/data` 解析到 `/data`，未挂载时返回错误（Android）。`core/crates/foundation/vfs/src/PathMapper.rs:503`
 - Android 上 `androidPathExists` 检查该路径是否存在（Android）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:98`
 - 非 Android 上 `androidPathExists` 恒为假。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:98`
 - Linux host 在 `POSIX_ROOTS` 中声明的 POSIX 挂载名为 `linux`（Linux）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:21`
 - 非 Linux host 在 `POSIX_ROOTS` 中声明的挂载名不为 `linux`（Linux）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:21`
 - macOS host 在 `POSIX_ROOTS` 中声明的 POSIX 挂载名为 `macos`（macOS）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:22`
 - 非 macOS host 在 `POSIX_ROOTS` 中声明的挂载名不为 `macos`（macOS）。`core/crates/foundation/host-contract/src/HostFileSystemRoots.rs:22`
-- Windows 盘符路径 D:/... 映射为 /virtual/windows/d/...（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:653`
-- 非 VFS 的绝对宿主路径经 `nativePosixMount` 按当前 host 声明映射：macOS 进 /virtual/macos，Android 进 /virtual/android/root，其余 POSIX host 进各自的平台根，Windows 与浏览器返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:679`
-- `mapPhysicalChildToVfs` 对资源搜索结果校验 `backend` 与 `root` 与基路径一致，否则返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:491`
-- 宿主返回的原生子路径不在解析基路径之下时返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:509`
+- Windows 盘符路径 D:/... 映射为 /virtual/windows/d/...（Windows）。`core/crates/foundation/vfs/src/PathMapper.rs:683`
+- 非 VFS 的绝对宿主路径经 `nativePosixMount` 按当前 host 声明映射：macOS 进 /virtual/macos，Android 进 /virtual/android/root，其余 POSIX host 进各自的平台根，Windows 与浏览器返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:709`
+- `mapPhysicalChildToVfs` 对资源搜索结果校验 `backend` 与 `root` 与基路径一致，否则返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:521`
+- 宿主返回的原生子路径不在解析基路径之下时返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:539`
 - Compose DSL 文件选择器返回的 `path` 与 `uri` 是同一个规范 VFS 路径，可直接交给统一文件接口使用。`docs/vfs-mounts.md:11`
 - 原生物理路径、文档提供者 URI 与浏览器对象 URL 由 host 内部持有。`docs/vfs-mounts.md:11`
 - 选中的文件经 Flutter `XFile` 分块读取、经运行时 `RuntimeStorageWriteHost` 写入私有暂存文件，字节数验证通过并提交后才返回 `/operitapp/data/temp/clean_on_exit/file_picker/<id>/<name>`。`docs/vfs-mounts.md:13`
@@ -172,14 +172,14 @@ date: 2026-11-11
 - PathMapper 的 `runtimeDataPath` — 要求存储路径以 `runtime/` 开头，并把它接在 `/operitapp/data` 之下。`core/crates/foundation/vfs/src/PathMapper.rs:151`
 - PathMapper 的 `canonicalizeVfsPath` — 把 /sdcard 与 /storage/emulated/0 开头的旧共享存储别名转为身份拥有的插件存储路径。`core/crates/foundation/vfs/src/PathMapper.rs:163`
 - PathMapper 的 `normalizeWorkspaceBindingPath` — 接受绝对 VFS 路径或绝对宿主路径。`core/crates/foundation/vfs/src/PathMapper.rs:178`
-- PathMapper 的 `resolveFileToolPath` — 在相对路径且无当前文件目录时返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:243`
-- PathMapper 的 `resolveFileResourcePath` — 接受 VFS 路径、原生绝对路径与相对于文件目录的路径。`core/crates/foundation/vfs/src/PathMapper.rs:263`
-- PathMapper 的 `joinVfsPath` — 连接规范化 VFS 基路径与相对路径。`core/crates/foundation/vfs/src/PathMapper.rs:289`
-- PathMapper 的 `relativePath` — 在首段把 `ROOT_APP` 与 `ROOT_OPERITAPP`、ROOT_MNT 与 ROOT_VIRTUAL 视为同一挂载身份。`core/crates/foundation/vfs/src/PathMapper.rs:308`
-- PathMapper 的 `relativeFileToolPath` — 按同一挂载身份比较根别名，表达当前文件目录的稳定 VFS 定位符。`core/crates/foundation/vfs/src/PathMapper.rs:338`
-- PathMapper 的 `virtualDirectoryEntries` — 返回不由宿主目录支撑的 VFS 目录的合成条目。`core/crates/foundation/vfs/src/PathMapper.rs:352`
-- PathMapper 的 `resolve` — 把规范化 VFS 路径解析为宿主物理路径或资源定位符。`core/crates/foundation/vfs/src/PathMapper.rs:396`
-- PathMapper 的 `mapPhysicalChildToVfs` — 把宿主搜索/列举结果映回解析基路径下的 VFS 树。`core/crates/foundation/vfs/src/PathMapper.rs:491`
+- PathMapper 的 `resolveFileToolPath` — 在相对路径且无当前文件目录时返回错误。`core/crates/foundation/vfs/src/PathMapper.rs:273`
+- PathMapper 的 `resolveFileResourcePath` — 接受 VFS 路径、原生绝对路径与相对于文件目录的路径。`core/crates/foundation/vfs/src/PathMapper.rs:293`
+- PathMapper 的 `joinVfsPath` — 连接规范化 VFS 基路径与相对路径。`core/crates/foundation/vfs/src/PathMapper.rs:319`
+- PathMapper 的 `relativePath` — 在首段把 `ROOT_APP` 与 `ROOT_OPERITAPP`、ROOT_MNT 与 ROOT_VIRTUAL 视为同一挂载身份。`core/crates/foundation/vfs/src/PathMapper.rs:338`
+- PathMapper 的 `relativeFileToolPath` — 按同一挂载身份比较根别名，表达当前文件目录的稳定 VFS 定位符。`core/crates/foundation/vfs/src/PathMapper.rs:368`
+- PathMapper 的 `virtualDirectoryEntries` — 返回不由宿主目录支撑的 VFS 目录的合成条目。`core/crates/foundation/vfs/src/PathMapper.rs:382`
+- PathMapper 的 `resolve` — 把规范化 VFS 路径解析为宿主物理路径或资源定位符。`core/crates/foundation/vfs/src/PathMapper.rs:426`
+- PathMapper 的 `mapPhysicalChildToVfs` — 把宿主搜索/列举结果映回解析基路径下的 VFS 树。`core/crates/foundation/vfs/src/PathMapper.rs:521`
 - `ResolvedVfsPath` — 公开 VFS 路径到宿主定位符的解析结果，含 `vfsPath` 与 `physicalPath`。`core/crates/foundation/vfs/src/PathMapper.rs:48`
 - ResolvedVfsPath 的 `nativePath` — 对文档/资源挂载返回错误，对原生后端返回 `physicalPath`。`core/crates/foundation/vfs/src/PathMapper.rs:63`
 - `ResolvedVfsPath` 的 `terminalDirectory` — 让终端宿主翻译受支持的文档后端目录。`core/crates/foundation/vfs/src/PathMapper.rs:56`
@@ -191,7 +191,7 @@ date: 2026-11-11
 2. 解析文件输入：用 `PathMapper` 的 `resolveFileResourcePath` 解析文件输入。`docs/filesystem-access-boundary.md:7`
 3. 工具调用的 `directory` 取自 `ToolExecutionManager` 的 `currentToolRuntimeContext` 与 `context` 的 `fileDirectory`。`docs/filesystem-access-boundary.md:7`
 4. 解析 VFS 路径：VisualFileSystem 的 `resolvePath` 经 `mapper.resolve` 把虚拟路径解析为映射宿主路径与 VFS 元数据。`core/crates/foundation/vfs/src/VisualFileSystem.rs:140`
-5. 注册挂载优先：PathMapper 的 `resolve` 先查注册挂载，`mountRelativePath` 命中时按挂载解析。`core/crates/foundation/vfs/src/PathMapper.rs:396`
+5. 注册挂载优先：PathMapper 的 `resolve` 先查注册挂载，`mountRelativePath` 命中时按挂载解析。`core/crates/foundation/vfs/src/PathMapper.rs:426`
 6. 执行文件操作：VisualFileSystem 的 `readFile` 解析路径后读宿主 `physicalPath` 的文本。`core/crates/foundation/vfs/src/VisualFileSystem.rs:219`
 7. 结果回映：搜索结果经 `mapPhysicalChildToVfs` 映回 VFS 路径。`core/crates/foundation/vfs/src/VisualFileSystem.rs:367`
 8. 元数据回映：VisualFileSystem 的 `fileInfo` 把宿主返回元数据的 `path` 改写为解析出的 `vfsPath`。`core/crates/foundation/vfs/src/VisualFileSystem.rs:383`

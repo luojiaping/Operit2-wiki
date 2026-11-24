@@ -3,7 +3,7 @@
   "approved_by": "luojiaping",
   "approved_by_comment_id": 6796550239,
   "issue": 41,
-  "source_commit": "62dacc0",
+  "source_commit": "f020fc4",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "ToolPkg hook 注册类型、聊天运行时桥接、before-hook 超时与 SummaryHook 关系",

@@ -1,6 +1,6 @@
 {
   "issue": 84,
-  "source_commit": "62dacc0",
+  "source_commit": "f020fc4",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Edge 总览：edge/ 收纳厂商 SDK、接入文档与完整产品三类东西，产品形态由厂商决定，新增旧安卓手机 Edge APK（上游 0f08fd43），ESP32 完整模拟器验收入口为 npm run test:device-budget。",

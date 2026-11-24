@@ -333,14 +333,14 @@
   },
   {
     "fact": "维护检查从 `apps/flutter/app` 运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。",
-    "ref": "docs/webview-rendering.md:93"
+    "ref": "docs/webview-rendering.md:138"
   },
   {
     "fact": "`windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。",
-    "ref": "docs/webview-rendering.md:97"
+    "ref": "docs/webview-rendering.md:142"
   },
   {
     "fact": "`webview_zoom.test.mjs` 检查脚本与通道契约。",
-    "ref": "docs/webview-rendering.md:99"
+    "ref": "docs/webview-rendering.md:144"
   }
 ]

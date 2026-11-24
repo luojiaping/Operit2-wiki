@@ -1,6 +1,6 @@
 {
   "issue": 90,
-  "source_commit": "62dacc0",
+  "source_commit": "f020fc4",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "厂商接入指南：三种需求的功能开关、最小装配六步、配对与空间授权的区分及 ESP32 模拟器内存预算。",

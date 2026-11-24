@@ -1,6 +1,6 @@
 {
   "issue": 74,
-  "source_commit": "62dacc0",
+  "source_commit": "f020fc4",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "大同步进度：首次加入与离线增量走同一链路，3 秒加 256 条/1 MiB 门槛后才向界面发布可见进度，接收成功不等于业务应用成功，附 2026-10-25 与 2026-11-11 iOS/macOS 模拟器联调记录。",

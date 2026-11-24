@@ -1,6 +1,6 @@
 {
   "issue": 52,
-  "source_commit": "62dacc0",
+  "source_commit": "f020fc4",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Windows Host：PowerShell 默认、随包 Bash 双终端 PTY、命名管道 daemon 控制端点、MSI/ZIP 退出后静默更新、MCI 音频与 TTS、WinSock 经典蓝牙与 WinRT BLE、命名管道 Plugin SDK IPC",

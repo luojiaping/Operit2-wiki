@@ -107,17 +107,17 @@ date: 2026-11-11
 - iOS 后端用 `OperitSafeWebView` 在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:82`
 - 无效几何尺寸会禁用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，并在布局调用结束后经已有导航错误通道上报一次。`docs/webview-rendering.md:84`
 - 失败的 iOS 视图不再布局、不再复用。`docs/webview-rendering.md:86`
-- 引擎或 SDK 变更后，原生渲染、IME 与手势行为必须在对应设备上检查。`docs/webview-rendering.md:100`
+- 引擎或 SDK 变更后，原生渲染、IME 与手势行为必须在对应设备上检查。`docs/webview-rendering.md:146`
 - Flutter 测试验证共享生命周期与控制器契约，各平台真实 WebView 的渲染、输入与后台行为仍需设备验证。`docs/browser-session-lifecycle.md:127`
 
 ### 维护检查命令
 
 - SDK 版本锁定在 `apps/flutter/app/.fvmrc`，SDK 与应用命令从 `apps/flutter/app` 运行。`docs/webview-rendering.md:70`
 - Windows 构建命令依次是 `fvm install --skip-pub-get`、`fvm flutter precache --windows`、`fvm flutter pub get`、`fvm flutter run -d windows`。`docs/webview-rendering.md:74`
-- 维护检查命令是 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`，从 `apps/flutter/app` 运行。`docs/webview-rendering.md:93`
-- 浏览器端缩放检查命令是 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:94`
-- `windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。`docs/webview-rendering.md:98`
-- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:99`
+- 维护检查命令是 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`，从 `apps/flutter/app` 运行。`docs/webview-rendering.md:138`
+- 浏览器端缩放检查命令是 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:139`
+- `windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。`docs/webview-rendering.md:142`
+- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:144`
 - Flutter 测试覆盖并发创建的正序与逆序返回、排队创建及错误传播、未打开工作区的访问、延迟展示、展示异常、并发完成与取消、迟到创建、脚本无响应、嵌套休眠、视图实例保持和偏移后的触摸命中。`docs/browser-session-lifecycle.md:127`
 
 ## 关键符号
@@ -156,7 +156,7 @@ date: 2026-11-11
 ## 来源
 
 - `apps/flutter/app/web/README.md`（57 行）：Web Access 部署、开发运行、运行时布局。`apps/flutter/app/web/README.md:1`
-- `docs/webview-rendering.md`（101 行）：WebView 渲染策略、七后端缩放表、Windows 合成、iOS 几何、维护检查。`docs/webview-rendering.md:1`
+- `docs/webview-rendering.md`（146 行）：WebView 渲染策略、七后端缩放表、Windows 合成、iOS 几何、维护检查。`docs/webview-rendering.md:1`
 - `docs/webview-rendering.md` 新增「Android legacy WebView scripts」一节（:41–57），属 Android 端内容，不在本页 Web 与桌面端排障范围内，未立事实。`docs/webview-rendering.md:41`
 - `docs/browser-session-lifecycle.md`（146 行）：浏览器会话与工作区展示生命周期、请求链路、超时与回归验证。`docs/browser-session-lifecycle.md:1`
 - 本页事实均引自上述三份文档原文，属于文档声明，未逐项核验对应实现代码。`apps/flutter/app/web/README.md:1`
