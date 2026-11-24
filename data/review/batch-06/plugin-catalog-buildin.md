@@ -2,7 +2,7 @@
 title: 内置插件目录
 module: plugins
 platforms: [all]
-sources: [plugins/packages/buildin/README.md, plugins/packages/buildin/character_cards/manifest.json, plugins/packages/buildin/workflow/manifest.json, plugins/packages/buildin/tsconfig.json, plugins/packages/buildin/change_review/manifest.json, plugins/packages/buildin/change_review/tsconfig.json, plugins/packages/buildin/daily_life/manifest.json, plugins/packages/buildin/goal_mode/manifest.json, plugins/packages/buildin/message_translation/manifest.json, plugins/packages/buildin/plan_mode/manifest.json, plugins/packages/buildin/ai_chat.ts, plugins/packages/buildin/automatic_ui_base/manifest.json, plugins/packages/buildin/automatic_ui_base/src/tools.ts, plugins/packages/buildin/browser.ts, plugins/packages/buildin/crossref.ts, plugins/packages/buildin/extended_file_tools.ts, plugins/packages/buildin/operit_editor.ts, plugins/packages/buildin/super_admin.ts, plugins/packages/buildin/system_tools.ts, plugins/packages/buildin/time.ts, plugins/packages/buildin/character_cards/src/main.ts, plugins/packages/buildin/character_cards/src/memory-recall.ts, plugins/packages/buildin/character_cards/src/storage/database.ts, plugins/packages/buildin/character_cards/src/group-execution/executor.ts, plugins/packages/buildin/character_cards/src/search/usearch.ts, plugins/packages/buildin/character_cards/web/app.ts, plugins/packages/buildin/character_cards/vendor/usearch/index.cpp, plugins/packages/buildin/workflow/src/main.ts, core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs, core/crates/plugin/sdk/src/JsPackageLoader.rs, plugins/packages/buildin/docs_editor/manifest.json]
+sources: [plugins/packages/buildin/README.md, plugins/packages/buildin/character_cards/manifest.json, plugins/packages/buildin/workflow/manifest.json, plugins/packages/buildin/tsconfig.json, plugins/packages/buildin/change_review/manifest.json, plugins/packages/buildin/change_review/tsconfig.json, plugins/packages/buildin/daily_life/manifest.json, plugins/packages/buildin/goal_mode/manifest.json, plugins/packages/buildin/message_translation/manifest.json, plugins/packages/buildin/plan_mode/manifest.json, plugins/packages/buildin/ai_chat.ts, plugins/packages/buildin/automatic_ui_base/manifest.json, plugins/packages/buildin/automatic_ui_base/src/tools.ts, plugins/packages/buildin/browser.ts, plugins/packages/buildin/crossref.ts, plugins/packages/buildin/extended_file_tools.ts, plugins/packages/buildin/operit_editor.ts, plugins/packages/buildin/super_admin/manifest.json, plugins/packages/buildin/system_tools.ts, plugins/packages/buildin/time.ts, plugins/packages/buildin/character_cards/src/main.ts, plugins/packages/buildin/character_cards/src/memory-recall.ts, plugins/packages/buildin/character_cards/src/storage/database.ts, plugins/packages/buildin/character_cards/src/group-execution/executor.ts, plugins/packages/buildin/character_cards/src/search/usearch.ts, plugins/packages/buildin/character_cards/web/app.ts, plugins/packages/buildin/character_cards/vendor/usearch/index.cpp, plugins/packages/buildin/workflow/src/main.ts, core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs, core/crates/plugin/sdk/src/JsPackageLoader.rs, plugins/packages/buildin/docs_editor/manifest.json]
 date: 2026-11-11
 ---
 
@@ -10,12 +10,12 @@ date: 2026-11-11
 
 内置插件是 plugins/packages/buildin/ 下的 ToolPkg 源码，会被打包进 Operit2 内置插件资产（`plugins/packages/buildin/README.md:3`）。
 磁盘清点：buildin 共 20 项，17 个插件加 README.md、tsconfig.json 与 resources/ 目录（仅含 character-memory.html，未见代码引用）。
-17 个插件分两类：8 个单文件 .ts 包与 9 个目录包（磁盘清点，方法见 tracking/read-batch-06/plugin-catalog-buildin.txt）。
+17 个插件分两类：7 个单文件 .ts 包与 10 个目录包（磁盘清点，方法见 tracking/read-batch-06/plugin-catalog-buildin.txt）。
 
 ## AI 速览
 
 - manifest.json — 目录包的清单，声明 `toolpkg_id` 与 `main` 入口（`plugins/packages/buildin/character_cards/manifest.json:6`）。
-- `METADATA` — 单文件包文件内含的元数据注释块，多在文件顶部，super_admin.ts:35 例外（`plugins/packages/buildin/ai_chat.ts:1`）（`plugins/packages/buildin/super_admin.ts:35`）。
+- `METADATA` — 单文件包文件内含的元数据注释块，多在文件顶部（`plugins/packages/buildin/ai_chat.ts:1`）。
 - `enabledByDefault` — 单文件包是否默认启用，browser 为 true（`plugins/packages/buildin/browser.ts:13`）。
 - `enabled_by_default` — 目录包是否默认启用，角色卡为 true（`plugins/packages/buildin/character_cards/manifest.json:17`）。
 - `main` — 目录包主入口，角色卡为 `dist/main.js`（`plugins/packages/buildin/character_cards/manifest.json:6`）。
@@ -45,7 +45,7 @@ Browser 自动化操作（browser）— 严格对齐 Playwright MCP 默认 brows
 Crossref 学术文献查询（crossref）— Crossref 学术文献查询工具，提供 DOI 查询、关键词搜索、作者搜索等功能，帮助用户查找和获取学术文章元数据；默认启用（`plugins/packages/buildin/crossref.ts:14`）（`plugins/packages/buildin/crossref.ts:4`）。
 增强文件工具（`extended_file_tools`）— 基于 v2 VFS 的增强文件工具：检查存在、压缩、解压、打开和分享。移动、复制和文件信息由内置文件工具提供；默认启用（`plugins/packages/buildin/extended_file_tools.ts:7`）。
 Operit 平台编辑器（operit_editor）— 通过真实的 core command 执行入口管理 Operit2 的包、Skill、MCP、模型、偏好设置、聊天与工作区，返回实际执行结果；默认启用（`plugins/packages/buildin/operit_editor.ts:13`）（`plugins/packages/buildin/operit_editor.ts:4`）。
-超级管理员（super_admin）— 提供终端命令和会话控制；默认启用（`plugins/packages/buildin/super_admin.ts:46`）（`plugins/packages/buildin/super_admin.ts:39`）。
+超级管理员（`com.operit.super_admin`）— 终端命令和会话管理，自动关闭闲置 10 分钟的工具终端；默认启用（`plugins/packages/buildin/super_admin/manifest.json:3`）（`plugins/packages/buildin/super_admin/manifest.json:9`）（`plugins/packages/buildin/super_admin/manifest.json:12`）。
 系统工具（`system_tools`）— 提供系统设置、应用管理、通知、位置、设备信息和蓝牙操作；默认启用（`plugins/packages/buildin/system_tools.ts:7`）。
 时间（`time`）— 提供时间相关功能。实际上，激活本包的同时已经能够获取时间了；默认启用（`plugins/packages/buildin/time.ts:14`）（`plugins/packages/buildin/time.ts:4`）。
 
@@ -61,7 +61,7 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 
 ### 单文件包与目录包的区别
 
-单文件包是一个 .ts 文件，文件内含 `METADATA` 注释块，多在文件顶部，super_admin.ts:35 例外（`plugins/packages/buildin/ai_chat.ts:1`）（`plugins/packages/buildin/super_admin.ts:35`）。
+单文件包是一个 .ts 文件，文件内含 `METADATA` 注释块，多在文件顶部（`plugins/packages/buildin/ai_chat.ts:1`）。
 解析器用正则全文查找 `extract_metadata`（`core/crates/plugin/sdk/src/JsPackageLoader.rs:156`），位置不影响解析。
 单文件包没有 manifest.json，元数据只在 `METADATA` 注释块里（`plugins/packages/buildin/ai_chat.ts:1`）。
 单文件包位于 buildin 根目录 tsconfig 的 include 范围内，其 include 包含根目录 `*.ts`（`plugins/packages/buildin/tsconfig.json:30`）。
@@ -82,11 +82,11 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 
 ### character_cards 为什么这么大
 
-角色卡的 src/ 共 106 个文件，其中 .ts 文件 103 个、合计 16364 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
+角色卡的 src/ 共 106 个文件，其中 .ts 文件 103 个、合计 16297 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
 对照：工作流的 src/ 共 14 个 .ts 文件、合计 2967 行（`plugins/packages/buildin/workflow/src/main.ts:1`）。
 角色卡另有 web/ 前端 3 个文件，其中 .ts 文件 2 个、合计 283 行（`plugins/packages/buildin/character_cards/web/app.ts:1`）。
 注：角色卡 src/ 的统计按上游 0f08fd43 清点，2026-11-15 对 ff5373fb6 复核无变化（102 个文件、99 个 .ts、15830 行）；web/ 按 ff5373fb6 重清点为 3 个文件、2 个 .ts、229 行；2026-11-18 对 753366ff4 复核：src/ 仍 102 个文件、99 个 .ts、合计 15865 行，web/ 仍 3 个文件、2 个 .ts、合计 236 行；行数只计 .ts 文件（src/ 另有 3 个 .json 文件不计）；2026-11-19 对 f9b7555 复核：src/ 仍 102 个文件、99 个 .ts、合计 15925 行，web/ 仍 3 个文件、2 个 .ts、合计 236 行。
-角色卡的记忆查询结果类型是 `MemoryQueryResult`（`plugins/packages/buildin/character_cards/src/api.ts:225`）。
+角色卡的记忆查询结果类型是 `MemoryQueryResult`（`plugins/packages/buildin/character_cards/src/api.ts:239`）。
 角色卡的聊天存储类 `CharacterChatStore` 定义在存储层（`plugins/packages/buildin/character_cards/src/storage/chats.ts:10`）。
 角色卡有群聊执行代码，executor.ts 引用 `ToolPkg` 类型（`plugins/packages/buildin/character_cards/src/group-execution/executor.ts:1`）。
 角色卡有向量检索代码，`VectorIndex` 基于 `ToolPkg.WasmInstance`（`plugins/packages/buildin/character_cards/src/search/usearch.ts:3`）。
@@ -109,7 +109,7 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 - `METADATA` — 单文件包元数据注释块（`plugins/packages/buildin/ai_chat.ts:1`）。
 - `enabledByDefault` — 单文件包是否默认启用（`plugins/packages/buildin/browser.ts:13`）。
 - `VectorIndex` — 向量索引类（`plugins/packages/buildin/character_cards/src/search/usearch.ts:3`）。
-- `MemoryQueryResult` — 记忆查询结果类型（`plugins/packages/buildin/character_cards/src/api.ts:225`）。
+- `MemoryQueryResult` — 记忆查询结果类型（`plugins/packages/buildin/character_cards/src/api.ts:239`）。
 - `CharacterChatStore` — 角色聊天存储（`plugins/packages/buildin/character_cards/src/storage/chats.ts:10`）。
 - `defaultEnabledByDefault` — 清单默认启用值来源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2834`）。
 - `bool_field` — 单文件包布尔字段解析（`core/crates/plugin/sdk/src/JsPackageLoader.rs:187`）。
@@ -136,13 +136,13 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 ## 来源
 
 Seed 文件（100% 读完）：
-- plugins/packages/buildin/README.md（8 行）
+- plugins/packages/buildin/README.md（11 行）
 - plugins/packages/buildin/character_cards/manifest.json（66 行）
 - plugins/packages/buildin/workflow/manifest.json（38 行）
 
 目录核对时读过的文件：
-- 9 个目录包的 manifest.json：automatic_ui_base、change_review、character_cards、daily_life、docs_editor、goal_mode、message_translation、plan_mode、workflow
-- 8 个单文件 .ts 的 METADATA 块：ai_chat.ts、browser.ts、crossref.ts、extended_file_tools.ts、operit_editor.ts、super_admin.ts、system_tools.ts、time.ts
+- 10 个目录包的 manifest.json：automatic_ui_base、change_review、character_cards、daily_life、docs_editor、goal_mode、message_translation、plan_mode、super_admin、workflow
+- 7 个单文件 .ts 的 METADATA 块：ai_chat.ts、browser.ts、crossref.ts、extended_file_tools.ts、operit_editor.ts、system_tools.ts、time.ts
 - plugins/packages/buildin/tsconfig.json、plugins/packages/buildin/change_review/tsconfig.json
 - core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs（defaultEnabledByDefault 相关行）、core/crates/plugin/sdk/src/JsPackageLoader.rs（parse_metadata 与 bool_field 相关行）
 - character_cards 体量核对：src/main.ts、src/memory-recall.ts、src/storage/database.ts、src/group-execution/executor.ts、src/search/usearch.ts、web/app.ts、vendor/usearch/index.cpp、workflow/src/main.ts；符号定义核对：src/api.ts、src/storage/chats.ts
@@ -154,5 +154,6 @@ Seed 文件（100% 读完）：
 2026-11-19 基线前移至 6192d22e3：character_cards 的 version 由 0.2.3 改为 0.2.5；src/ 行数 15925→15971、web/ 行数 236→283、workflow src/ 行数 2966→2967（均按 find + wc -l 重清点，文件数不变）；9 个单文件 .ts 包的 METADATA 各新增 api_version 2.0.0 一行，行号 +1；JsPackageLoader 新增 api_version 解析（省略时默认 1.0.0 并校验）与子包继承容器 api_version（ToolPkgParser 子包解析改走 parse_metadata_with_default_api_version），本页无相关事实、未立新事实。
 2026-11-21 基线前移至 7fdb667：automatic_ui_base.ts 改为目录包 automatic_ui_base/（子包 src/tools.ts 的 enabledByDefault 由 false 改为 true，包级 manifest 的 enabled_by_default 为 false；README 同步改写）；单文件包 9→8、目录包 7→8，插件总数仍 16；character_cards 的 version 由 0.2.5 改为 0.2.6，src/ 行数 15971→16206（105 个文件、102 个 .ts，新增 group-avatar.ts、group-avatar-image.ts、storage/avatars.ts，按 find + wc -l 重清点），web/ 仍 283 行、workflow src/ 仍 2967 行。
 2026-11-21 基线前移至 2dafe6b：新增目录包 docs_editor（Office 文档编辑器，com.operit.office，0.1.5，默认禁用）；单文件包仍 8、目录包 8→9，插件总数 16→17；character_cards 的 version 由 0.2.6 改为 0.2.7，src/ 行数 16206→16207（105 个文件、102 个 .ts，按 find + wc -l 重清点），web/ 仍 283 行、workflow src/ 仍 2967 行。
+2026-11-25 基线前移至 62dacc0：super_admin.ts 改为目录包 super_admin/（toolpkg_id com.operit.super_admin，version 1.0.0，manifest 的 enabled_by_default 为 true，新增闲置 10 分钟自动关闭会话）；单文件包 8→7、目录包 9→10，插件总数仍 17；character_cards 的 version 由 0.2.9 改为 0.2.10，src/ 行数 16364→16297（仍 106 个文件、103 个 .ts，按 find + wc -l 重清点；api.ts +17、search/state.ts +18、storage/memory-repository.ts +13、memory-search.ts +8、public-api.ts +6、model.ts +5、domain.ts +1、runtime-tools/memory.ts -66、search/text-index.ts -39、ui-memory-workspace.ts -17、operations.ts -8、canonical.ts -3、search/chunks.ts -2），web/ 仍 283 行、workflow src/ 仍 2967 行；api.ts 新增 MemoryPageOptions、MemoryLinkView，memory.graph/memory.list 支持分页、新增 memory.links 接口、memory.chunks 新增 start 参数（以上均未立新事实）；README.md 新增 super_admin 段落致 automatic_ui_base 段落下移（行号 5→9）。
 
 相关页：[[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]]、[[plugin-manifest|清单 manifest 与安装作用域]]。

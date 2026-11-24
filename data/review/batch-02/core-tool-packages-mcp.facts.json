@@ -501,6 +501,6 @@
   },
   {
     "fact": "激活经 `usePackage` 执行。",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1050"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1059"
   }
 ]

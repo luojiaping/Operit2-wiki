@@ -8,9 +8,9 @@ date: 2026-11-11
 
 ## 概述
 
-`ToolPkgLoader` 的 `loadToolPkgFromExternalFile` 是外部 ToolPkg 归档的加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:17`）。
+外部 ToolPkg 归档加载不再经 loadToolPkgFromExternalFile（已删除），调用方直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）。
 `buildToolPkgRegistrationBridgeScript` 接受 `restrictHostCapabilities` 参数生成注册桥脚本（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:3`）。
-桥脚本经 `installGlobal` 把 `ToolPkg` 对象安装为全局（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:671`）。
+桥脚本经 `installGlobal` 把 `ToolPkg` 对象安装为全局（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:674`）。
 JS 运行时类型声明文件名为 quickjs-runtime.d.ts，声明了 `QuickJsTimerHandler` 等运行时全局（`plugins/types/quickjs-runtime.d.ts:20`）。
 5 个 seed 文件没有给出 JS 引擎的 Rust 侧实现代码，引擎名只体现在类型声明文件名与 `QuickJsTimerHandler` 声明中（`plugins/types/quickjs-runtime.d.ts:20`）。
 Rust 侧 Wasm 宿主基于 wasmi，只在非 wasm32 目标上执行（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:7`）。
@@ -23,16 +23,16 @@ ToolPkg.wasm 在注册期间不可用（`core/crates/plugin/sdk/src/toolpkg/Tool
 - `Engine::default` — wasmi 引擎创建（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:32`）
 - `__operitCreateToolPkgWasmApi` — JS 侧 ToolPkg.wasm API 工厂（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:67`）
 - `__operitNativeLoadToolPkgWasm` — JS 侧取回 Wasm 模块字节与元数据的宿主函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:79`）
-- `ToolPkgLoader` 的 `loadToolPkgFromExternalFile` — 外部归档加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:17`）
+- `loadToolPkgFromArchiveBytes` — 归档字节加载入口，四个旧入口已删除（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:16`）
 - `buildToolPkgRegistrationBridgeScript` — 注册桥脚本生成器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:3`）
-- `registerMessageTransformHook` — 消息变换钩子注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:613`）
-- `registerMessageStreamTransform` — 消息流变换注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:614`）
+- `registerMessageTransformHook` — 消息变换钩子注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:616`）
+- `registerMessageStreamTransform` — 消息流变换注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:617`）
 - ToolPkg.wasm 的 `call` — JS 侧 Wasm 导出调用入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:103`）
 - `parseWasmArg` — JS ABI 参数到 wasmi 标量值的转换（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:79`）
 - `encodeWasmResult` — wasmi 标量结果到 JS 结果信封的转换（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:148`）
 - `setTimeout` — 声明的计时器创建函数，返回 number 计时器 id（`plugins/types/quickjs-runtime.d.ts:22`）
 - 主入口函数是 `callWasmExport`（Rust 侧 Wasm 调用）（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmRuntime.rs:10`）
-- 数据流向一句话：归档字节由 `ZipArchive` 打开后进入解析与注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:139`）
+- 数据流向一句话：归档字节由 `ZipArchive` 打开后进入解析与注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:39`）
 
 ## 核心机制
 
@@ -96,32 +96,32 @@ tests 模块的 `callsPrimeDemoExports` 用内置 PRIME_WASM 演示模块验证 
 
 ### 注册流程
 
-`ToolPkgLoader` 的 `loadToolPkgFromExternalFile` 是外部文件加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:17`）。
-外部文件加载经 `filesystem` 的 `readFileBytes` 读入归档字节（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:28`）。
-外部文件加载以 `ToolPkgSourceType::EXTERNAL` 标记来源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:32`）。
-ToolPkgLoader 的 `loadToolPkgFromBundledExternalAsset` 是捆绑外部资源加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:43`）。
-捆绑外部资源加载时，归档未声明安装范围默认使用 `ToolPkgConfigScope::Device`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:52`）。
-ToolPkgLoader 的 `loadToolPkgFromBuiltInAsset` 是内置资源加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:69`）。
-内置资源加载以 `ToolPkgSourceType::ASSET` 标记来源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:80`）。
-ToolPkgLoader 的 `loadToolPkgFromMarketFile` 是市场文件加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:91`）。
-市场文件加载以 `ToolPkgSourceType::MARKET` 标记来源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:106`）。
-非内置加载时，归档要求的安装范围与传入范围不一致时返回错误（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:133`）。
-归档加载调用 `readThemeTemplates` 校验主题模板（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:137`）。
-归档字节用 `ZipArchive` 打开（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:139`）。
-归档字节解析入口 `loadToolPkgFromArchiveBytes` 是公开函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:117`）。
-归档加载调用 `readToolPkgTextResources` 预读归档文本资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:141`）。
-主脚本交给 `parseMainRegistration` 解析注册声明（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:165`）。
-主注册解析委托给 `ToolPkgMainRegistrationScriptParser` 的 `parseWithTextResources`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:192`）。
-`readToolPkgTextResources` 以小写条目名作键缓存文本资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:211`）。
-`readIndexedTextResource` 经 `entryIndex` 的 `resolveEntryName` 解析资源路径（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:226`）。
+外部文件加载不再经 loadToolPkgFromExternalFile（已删除），调用方直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）。
+归档字节由调用方直接传入 `loadToolPkgFromArchiveBytes`，Loader 不再接收 filesystem 参数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:16`）。
+外部文件加载以 `ToolPkgSourceType::EXTERNAL` 标记来源（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:123`）。
+loadToolPkgFromBundledExternalAsset 已删除，捆绑外部资源加载改由调用方直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）。
+捆绑外部资源加载时，归档未声明安装范围默认使用 `ToolPkgConfigScope::Device`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:482`）。
+loadToolPkgFromBuiltInAsset 已删除，内置资源加载改由包注册表扫描直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）。
+内置资源加载以 `ToolPkgSourceType::ASSET` 标记来源（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:65`）。
+loadToolPkgFromMarketFile 已删除，市场文件加载改由 RuntimePackageManager 导入路径直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5138`）。
+市场文件加载以 `ToolPkgSourceType::MARKET` 标记来源（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5135`）。
+非内置加载时，归档要求的安装范围与传入范围不一致时返回错误（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:32`）。
+归档加载调用 `readThemeTemplates` 校验主题模板（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:37`）。
+归档字节用 `ZipArchive` 打开（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:39`）。
+归档字节解析入口 `loadToolPkgFromArchiveBytes` 是公开函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:16`）。
+归档加载不再本地预读文本资源，文本资源由调用方以 `ToolPkgTextResourceHost` 传入（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:23`）。
+主脚本直接由 `ToolPkgMainRegistrationScriptParser` 的 `parseWithTextResources` 解析注册声明（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:65`）。
+主注册解析委托给 `ToolPkgMainRegistrationScriptParser` 的 `parseWithTextResources`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:65`）。
+归档加载不再本地建小写键文本资源缓存，文本资源改由调用方传入的 `ToolPkgTextResourceHost` 提供（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:23`）。
+归档文本资源改为由 `ToolPkgArchiveParser` 的 `readZipEntryText` 按条目名直接读取（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:44`）。
 `buildToolPkgRegistrationBridgeScript` 在 `restrictHostCapabilities` 为真时把 `registrationOnly` 置为 `true` 字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:4`）。
-桥脚本模板把 ToolPkgWasmApi.js 内联进来（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:675`）。
-桥脚本模板把 `registrationOnly` 占位符替换为 true 或 false 字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:676`）。
+桥脚本模板把 ToolPkgWasmApi.js 内联进来（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:678`）。
+桥脚本模板把 `registrationOnly` 占位符替换为 true 或 false 字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:679`）。
 桥脚本把 `capture` 对象挂到 `__operitToolPkgRegistrationCapture` 上（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:54`）。
 `capture` 收集 `publicApis`、`toolboxUiModules`、`uiRoutes` 等注册桶（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:19`）。
 capture 新增 `messageTransformHooks` 与 `messageStreamTransforms` 两个注册桶（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:33`）。
-ToolPkg 新增 `registerMessageTransformHook` 与 `registerMessageStreamTransform` 两个注册函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:613`）。
-ToolPkg.wasm 的值是 `__operitCreateToolPkgWasmApi` 的返回值（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:664`）。
+ToolPkg 新增 `registerMessageTransformHook` 与 `registerMessageStreamTransform` 两个注册函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:616`）。
+ToolPkg.wasm 的值是 `__operitCreateToolPkgWasmApi` 的返回值（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:667`）。
 `registerApi` 要求 `definition` 的 `name` 为非空字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:525`）。
 `registerApi` 用 `normalizeFunctionField` 处理 `definition` 的 `function`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:527`）。
 规范化后的公开 API 定义写入 `capture.publicApis`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:530`）。
@@ -160,13 +160,13 @@ ToolPkg.wasm 的 `call` 参数只有模块 id、导出名与 `args`，无超时�
 - `__operitCreateToolPkgWasmApi` — JS 侧 ToolPkg.wasm API 工厂（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:67`）
 - `__operitNativeLoadToolPkgWasm` — JS 侧取回 Wasm 模块字节与元数据的宿主函数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:79`）
 - `scalarArguments` — JS 侧 Wasm 标量参数校验与转换（`core/crates/plugin/sdk/src/toolpkg/ToolPkgWasmApi.js:8`）
-- `ToolPkgLoader` — ToolPkg 归档加载器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:12`）
-- `loadToolPkgFromExternalFile` — 外部文件加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:17`）
-- `loadToolPkgFromBundledExternalAsset` — 捆绑外部资源加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:43`）
-- `loadToolPkgFromBuiltInAsset` — 内置资源加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:69`）
-- `loadToolPkgFromMarketFile` — 市场文件加载入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:91`）
-- `loadToolPkgFromArchiveBytes` — 归档字节解析与主脚本注册入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:117`）
-- `parseMainRegistration` — 主注册脚本解析入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:182`）
+- `ToolPkgLoader` — ToolPkg 归档加载器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:11`）
+- loadToolPkgFromExternalFile — 已删除，外部文件加载改由调用方直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）
+- loadToolPkgFromBundledExternalAsset — 已删除，捆绑外部资源加载改由调用方直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）
+- loadToolPkgFromBuiltInAsset — 已删除，内置资源加载改由包注册表扫描直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）
+- loadToolPkgFromMarketFile — 已删除，市场文件加载改由 RuntimePackageManager 导入路径直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5138`）
+- `loadToolPkgFromArchiveBytes` — 归档字节解析与主脚本注册入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:16`）
+- `parseWithTextResources` — 主注册脚本解析入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:65`）
 - `buildToolPkgRegistrationBridgeScript` — 注册桥脚本生成器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:3`）
 - `normalizeFunctionField` — 注册函数字段的规范化（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:236`）
 - `resolveDurableFunctionRef` — 函数到 durable 引用的解析（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:215`）
@@ -181,14 +181,14 @@ ToolPkg.wasm 的 `call` 参数只有模块 id、导出名与 `args`，无超时�
 
 **归档加载与注册：**
 
-1. 调用方经四个入口之一传入归档，外部文件入口是 `loadToolPkgFromExternalFile`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:17`）
-2. 外部文件与市场文件入口经 `filesystem` 的 `readFileBytes` 读入归档字节；捆绑与内置资源入口直接传入归档字节（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:28`）
-3. 非内置加载时，归档要求的安装范围与传入范围不一致时返回错误（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:133`）
-4. 归档加载调用 `readThemeTemplates` 校验主题模板（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:137`）
-5. 归档字节用 `ZipArchive` 打开（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:139`）
-6. 归档加载调用 `readToolPkgTextResources` 预读归档文本资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:141`）
-7. 主脚本交给 `parseMainRegistration` 解析注册声明（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:165`）
-8. 主注册解析委托给 `ToolPkgMainRegistrationScriptParser` 的 `parseWithTextResources`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:192`）
+1. 调用方直接以归档字节调 `loadToolPkgFromArchiveBytes` 传入归档，四个旧入口已删除（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）
+2. 归档字节由调用方读入后传入 `loadToolPkgFromArchiveBytes`，Loader 不再接收 filesystem 参数（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:16`）
+3. 非内置加载时，归档要求的安装范围与传入范围不一致时返回错误（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:32`）
+4. 归档加载调用 `readThemeTemplates` 校验主题模板（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:37`）
+5. 归档字节用 `ZipArchive` 打开（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:39`）
+6. 文本资源由调用方以 `ToolPkgTextResourceHost` 传入，不再本地预读（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:23`）
+7. 主脚本直接由 `ToolPkgMainRegistrationScriptParser` 的 `parseWithTextResources` 解析注册声明（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:65`）
+8. 主注册解析委托给 `ToolPkgMainRegistrationScriptParser` 的 `parseWithTextResources`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:65`）
 9. 桥脚本把 `capture` 对象挂到 `__operitToolPkgRegistrationCapture` 上（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:54`）
 10. 规范化后的公开 API 定义写入 `capture.publicApis`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:530`）
 

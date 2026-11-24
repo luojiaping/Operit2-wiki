@@ -277,39 +277,39 @@
  },
  {
   "fact": "`readBytesRange` 从 Worker 拥有的 OPFS 运行时存储读一段有界字节范围",
-  "ref": "hosts/web/src/tools/storage/mod.rs:63"
+  "ref": "hosts/web/src/tools/storage/mod.rs:68"
  },
  {
   "fact": "`writeBytesAtomically` 直接调用 `writeBytes`",
-  "ref": "hosts/web/src/tools/storage/mod.rs:100"
+  "ref": "hosts/web/src/tools/storage/mod.rs:105"
  },
  {
   "fact": "`createWriteSession` 返回会话标识字符串",
-  "ref": "hosts/web/src/tools/storage/mod.rs:183"
+  "ref": "hosts/web/src/tools/storage/mod.rs:188"
  },
  {
   "fact": "`commit` 调用桥接 `commitWriteSession`",
-  "ref": "hosts/web/src/tools/storage/mod.rs:169"
+  "ref": "hosts/web/src/tools/storage/mod.rs:174"
  },
  {
   "fact": "`discard` 调用桥接 `discardWriteSession`",
-  "ref": "hosts/web/src/tools/storage/mod.rs:175"
+  "ref": "hosts/web/src/tools/storage/mod.rs:180"
  },
  {
   "fact": "桥接值为空或未定义时 `readSecret` 返回 `None`",
-  "ref": "hosts/web/src/tools/storage/mod.rs:193"
+  "ref": "hosts/web/src/tools/storage/mod.rs:198"
  },
  {
   "fact": "`openSqliteDatabase` 调用桥接 `open` 并持有返回的连接标识字符串",
-  "ref": "hosts/web/src/tools/storage/mod.rs:216"
+  "ref": "hosts/web/src/tools/storage/mod.rs:221"
  },
  {
   "fact": "`readColumnRange` 把读取长度限制在 64 KiB 以内",
-  "ref": "hosts/web/src/tools/storage/mod.rs:247"
+  "ref": "hosts/web/src/tools/storage/mod.rs:252"
  },
  {
   "fact": "`columnSize` 用 `length` 加 `CAST` 到 `BLOB` 的 SQL 查询列字节数",
-  "ref": "hosts/web/src/tools/storage/mod.rs:242"
+  "ref": "hosts/web/src/tools/storage/mod.rs:247"
  },
  {
   "fact": "`toast` 把消息转发到桥接 `toast` 方法",

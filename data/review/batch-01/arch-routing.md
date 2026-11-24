@@ -163,7 +163,7 @@ Watch 路由在生成的 Core 路由元数据中声明一个分发类：`Unicast
 安装 Binding operation：`installRouteBindingOnTarget` 把 Binding operation 安装到目标节点。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1089）
 调用 `AfterChangeRoute`：`callChatCoreLifecycle` 触发目标节点的 `AfterChangeRoute` 生命周期回调，传入交接上下文。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1108）
 目标接收上下文：`resumeFromRouteContext` 接收 `CoreRouteResumeContext`。（core/crates/runtime/application/src/services/ChatServiceCore.rs:836）
-取得本地执行 lease：目标节点打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatServiceCore.rs:868）
+取得本地执行 lease：目标节点打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatModelBindingService.rs:20）
 交给续接：目标节点把执行 lease 和交接上下文交给 `sendRoutedContinuation` 续接。（core/crates/runtime/application/src/services/ChatServiceCore.rs:885）
 续接使用上下文历史：目标节点续接时使用交接上下文中的 `runtimeChatHistory` 作为聊天历史发起下一轮。（core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:521）
 续接前校验配置身份：配置身份校验只在 `extensionOwner` 不是 `MODEL_CONFIGURATION_OWNER` 时执行，要求 `extensionOwner` 及 `profile.id` 与交接上下文身份一致，否则返回错误。（core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:496）
@@ -276,7 +276,7 @@ Transport 消息协议和共享 Link 客户端均已覆盖 Call、Watch、Push�
 7. Router 把 Binding operation 安装到 node-D。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1089）
 8. Router 调用 `AfterChangeRoute`，把交接上下文交给 node-D。（core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1108）
 9. node-D 的 `resumeFromRouteContext` 接收 `CoreRouteResumeContext`。（core/crates/runtime/application/src/services/ChatServiceCore.rs:836）
-10. node-D 打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatServiceCore.rs:868）
+10. node-D 打开聊天历史，并通过 `beginChatExecution` 取得本地执行 lease。（core/crates/runtime/application/src/services/ChatModelBindingService.rs:20）
 11. node-D 把执行 lease 和交接上下文交给 `sendRoutedContinuation` 续接。（core/crates/runtime/application/src/services/ChatServiceCore.rs:885）
 12. sendRoutedContinuation 用交接上下文中的 `runtimeChatHistory` 作为聊天历史发起下一轮模型请求。（core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:521）
 13. node-D 的输出事件继续写入原来的逻辑响应流。（docs/core-node-space-binding-architecture.md:404）

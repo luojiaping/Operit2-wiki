@@ -8,53 +8,53 @@ date: 2026-11-11
 
 ## 概述
 
-本页描述一轮 Agent 请求在 Core 层的完整链路，从用户输入经模型工具循环到回填（`core/crates/runtime/application/src/services/ChatServiceCore.rs:637`）。
-回路逻辑在 Rust Core 层实现，全部平台共用；`ChatInputMenuSettings` 的设置属于聊天绑定选定的执行 Core，不属于 UI 设备（`core/crates/runtime/application/src/services/ChatServiceCore.rs:122`）。
-ChatServiceCore 是 Runtime 域的聊天服务核心（见 [[core-runtime|Runtime 总览与 OperitApplication]]），持有四个委托与服务字段（`core/crates/runtime/application/src/services/ChatServiceCore.rs:244`）。
+本页描述一轮 Agent 请求在 Core 层的完整链路，从用户输入经模型工具循环到回填（`core/crates/runtime/application/src/services/ChatServiceCore.rs:638`）。
+回路逻辑在 Rust Core 层实现，全部平台共用；`ChatInputMenuSettings` 的设置属于聊天绑定选定的执行 Core，不属于 UI 设备（`core/crates/runtime/application/src/services/ChatServiceCore.rs:123`）。
+ChatServiceCore 是 Runtime 域的聊天服务核心（见 [[core-runtime|Runtime 总览与 OperitApplication]]），持有四个委托与服务字段（`core/crates/runtime/application/src/services/ChatServiceCore.rs:245`）。
 模型工具循环本体在 EnhancedAIService 内，本页 seed 未通读其实现，只核实调用点（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467`）。
-轮次编排本体在 MessageCoordinationDelegate，本页只读过其中 `sendRoutedContinuation` 与总结检查相关区段（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:486`）。
+轮次编排本体在 MessageCoordinationDelegate，本页只读过其中 `sendRoutedContinuation` 与总结检查相关区段（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:482`）。
 
 ## AI 速览
 
-- `sendUserMessage` — `operit_core_route` 路由入口，绑定键为 `chatIdOverride`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:637`）
-- `startUserMessage` — 发送入口，跑输入钩子后交协调委托（`core/crates/runtime/application/src/services/ChatServiceCore.rs:650`）
-- sendUserMessageStream — 按 `expectedByteLength` 收完流式文本再发送（`core/crates/runtime/application/src/services/ChatServiceCore.rs:664`）
-- `newEnhancedAiServiceForChat` — 按会话 id 取独占 `EnhancedAIService`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:459`）
-- MessageCoordinationDelegate.sendUserMessage — 协调委托的发送入口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:357`）
+- `sendUserMessage` — `operit_core_route` 路由入口，绑定键为 `chatIdOverride`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:638`）
+- `startUserMessage` — 发送入口，跑输入钩子后交协调委托（`core/crates/runtime/application/src/services/ChatServiceCore.rs:651`）
+- sendUserMessageStream — 按 `expectedByteLength` 收完流式文本再发送（`core/crates/runtime/application/src/services/ChatServiceCore.rs:665`）
+- `newEnhancedAiServiceForChat` — 按会话 id 取独占 `EnhancedAIService`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:460`）
+- MessageCoordinationDelegate.sendUserMessage — 协调委托的发送入口（`core/crates/runtime/application/src/services/ChatServiceCore.rs:358`）
 - AIMessageManager.sendMessage — 登记本次发送操作（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:325`）
 - `getMemoryFromMessages` — 从最后一条总结起取历史（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:666`）
 - prepare_conversation_history — 跑钩子、注入系统提示、归一化工具结果轮次（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:150`）
 - summarizeMemory — 只总结上一次总结之后的消息（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:543`）
 - `shouldGenerateSummary` — 只看配置的上下文 token 阈值（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:656`）
-- `insertSummary` — 只在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1521`）
-- `compactChat` — 手动压缩为检查点，不论阈值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）
+- `insertSummary` — 只在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1559`）
+- `compactChat` — 手动压缩为检查点，不论阈值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1684`）
 - switch_core — 内置工具，预检目标节点（`core/crates/tool/services/src/tools/ToolRegistration.rs:219`）
 - `resolveSwitchCoreTarget` — 解析目标节点引用（`core/crates/tool/services/src/tools/ToolRegistration.rs:1596`）
-- `beforeChangeRoute` — Binding 移动前检查执行归属（`core/crates/runtime/application/src/services/ChatServiceCore.rs:901`）
-- `afterChangeRoute` — 路由变更到达目标 Core 后恢复目标会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:920`）
-- `resumeFromRouteContext` — 用路由上下文恢复轮次（`core/crates/runtime/application/src/services/ChatServiceCore.rs:836`）
-- `sendRoutedContinuation` — 路由续发，不先做总结检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:486`）
-- `generateLocalLlm` — 只在 Binding 归属节点做模型推理（`core/crates/runtime/application/src/services/ChatServiceCore.rs:417`）
-- `callToolPkgRoute` — 经 Binding 路由执行插件方法（`core/crates/runtime/application/src/services/ChatServiceCore.rs:436`）
+- `beforeChangeRoute` — Binding 移动前检查执行归属（`core/crates/runtime/application/src/services/ChatServiceCore.rs:900`）
+- `afterChangeRoute` — 路由变更到达目标 Core 后恢复目标会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:919`）
+- `resumeFromRouteContext` — 用路由上下文恢复轮次（`core/crates/runtime/application/src/services/ChatServiceCore.rs:837`）
+- `sendRoutedContinuation` — 路由续发，不先做总结检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:482`）
+- `generateLocalLlm` — 只在 Binding 归属节点做模型推理（`core/crates/runtime/application/src/services/ChatServiceCore.rs:418`）
+- `callToolPkgRoute` — 经 Binding 路由执行插件方法（`core/crates/runtime/application/src/services/ChatServiceCore.rs:437`）
 - cancelOperationForId — 先取消令牌再关流、调 cancelConversation（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1114`）
-- `steerMessage` — 只引导当前逻辑轮次（`core/crates/runtime/application/src/services/ChatServiceCore.rs:963`）
+- `steerMessage` — 只引导当前逻辑轮次（`core/crates/runtime/application/src/services/ChatServiceCore.rs:962`）
 
 ## 核心机制
 
 ### 一轮发送链路
 
-`sendUserMessage` 是 `operit_core_route` 路由入口，绑定键为 `chatIdOverride`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:637`）。
-路由入口把一轮发送交给 `startUserMessage` 执行（`core/crates/runtime/application/src/services/ChatServiceCore.rs:650`）。
-没有显式会话 id 时，发送入口先调 `initializeChatConfiguration` 再解析输入会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:501`）。
-原生序列执行要求 `admittedLease` 与 `deferSequenceCompletion`、`nativeExecutionId` 同时有或同时无（`core/crates/runtime/application/src/services/ChatServiceCore.rs:710`）。
-非续发（`continuation` 为空）且 `chatInputSubmitRequestedHandled` 未处理过时，发送前派发 `CHAT_INPUT_EVENT_SUBMIT_REQUESTED` 输入钩子，由 `dispatchRegisteredChatInputHooks` 执行（`core/crates/runtime/application/src/services/ChatServiceCore.rs:307`）。
-非续发且未处理过时，钩子返回 `CHAT_INPUT_SUBMIT_ACTION_BLOCK` 或 `CHAT_INPUT_SUBMIT_ACTION_CONSUME` 时本轮不发送（`core/crates/runtime/application/src/services/ChatServiceCore.rs:315`）。
-非续发且未处理过时，钩子返回 `CHAT_INPUT_SUBMIT_ACTION_REPLACE` 或 `CHAT_INPUT_SUBMIT_ACTION_ALLOW` 时继续发送，`REPLACE` 在钩子给出文本时用该文本替换输入（`core/crates/runtime/application/src/services/ChatServiceCore.rs:329`）。
-非续发且 `chatInputSubmittedHandled` 未处理过时，提交后派发 `CHAT_INPUT_EVENT_SUBMITTED` 输入钩子，钩子错误用 `?` 直接传播（`core/crates/runtime/application/src/services/ChatServiceCore.rs:341`）。
-钩子跑完后调用 `invalidateToggleDefinitions` 使输入菜单开关定义失效（`core/crates/runtime/application/src/services/ChatServiceCore.rs:347`）。
-有增强 AI 服务与协调可用时，发送启动器把该会话非空的待处理队列标记为阻塞（`wasBlocked`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:351`）。
-每轮发送通过 `newEnhancedAiServiceForChat` 取该会话独占的 AI 服务实例，未初始化时返回错误（`core/crates/runtime/application/src/services/ChatServiceCore.rs:716`）。
-发送入口经 ChatUserMessageStarter 捕获协调委托，再由启动器把本轮交给委托的 `sendUserMessage`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:357`）。
+`sendUserMessage` 是 `operit_core_route` 路由入口，绑定键为 `chatIdOverride`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:638`）。
+路由入口把一轮发送交给 `startUserMessage` 执行（`core/crates/runtime/application/src/services/ChatServiceCore.rs:651`）。
+没有显式会话 id 时，发送入口先调 `initializeChatConfiguration` 再解析输入会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:502`）。
+原生序列执行要求 `admittedLease` 与 `deferSequenceCompletion`、`nativeExecutionId` 同时有或同时无（`core/crates/runtime/application/src/services/ChatServiceCore.rs:711`）。
+非续发（`continuation` 为空）且 `chatInputSubmitRequestedHandled` 未处理过时，发送前派发 `CHAT_INPUT_EVENT_SUBMIT_REQUESTED` 输入钩子，由 `dispatchRegisteredChatInputHooks` 执行（`core/crates/runtime/application/src/services/ChatServiceCore.rs:308`）。
+非续发且未处理过时，钩子返回 `CHAT_INPUT_SUBMIT_ACTION_BLOCK` 或 `CHAT_INPUT_SUBMIT_ACTION_CONSUME` 时本轮不发送（`core/crates/runtime/application/src/services/ChatServiceCore.rs:316`）。
+非续发且未处理过时，钩子返回 `CHAT_INPUT_SUBMIT_ACTION_REPLACE` 或 `CHAT_INPUT_SUBMIT_ACTION_ALLOW` 时继续发送，`REPLACE` 在钩子给出文本时用该文本替换输入（`core/crates/runtime/application/src/services/ChatServiceCore.rs:330`）。
+非续发且 `chatInputSubmittedHandled` 未处理过时，提交后派发 `CHAT_INPUT_EVENT_SUBMITTED` 输入钩子，钩子错误用 `?` 直接传播（`core/crates/runtime/application/src/services/ChatServiceCore.rs:342`）。
+钩子跑完后调用 `invalidateToggleDefinitions` 使输入菜单开关定义失效（`core/crates/runtime/application/src/services/ChatServiceCore.rs:348`）。
+有增强 AI 服务与协调可用时，发送启动器把该会话非空的待处理队列标记为阻塞（`wasBlocked`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:352`）。
+每轮发送通过 `newEnhancedAiServiceForChat` 取该会话独占的 AI 服务实例，未初始化时返回错误（`core/crates/runtime/application/src/services/ChatServiceCore.rs:717`）。
+发送入口经 ChatUserMessageStarter 捕获协调委托，再由启动器把本轮交给委托的 `sendUserMessage`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:358`）。
 sendMessage 先在 `activeChatOperations` 登记本次发送操作，取操作 id（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:325`）。
 sendMessage 用 `promptHistoryOverride` 覆盖时跳过 `getMemoryFromMessages`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:352`）。
 图片链接默认只保留最近 2 轮用户回合，媒体链接默认只保留最近 1 轮（`maxImageHistoryUserTurnsFlow`、`maxMediaHistoryUserTurnsFlow`）（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359`）。
@@ -77,8 +77,8 @@ prepare_conversation_history 对工具结果轮次做模型侧标记归一化（
 总结消息在历史投影里是 `SUMMARY` 轮次（`PromptTurnKind::SUMMARY`）（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:707`）。
 工具调用部件转为 `TOOL_CALL` 轮次，工具名保留在轮次上（`PromptTurnKind::TOOL_CALL`）（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:733`）。
 工具结果部件转为 `TOOL_RESULT` 轮次（`PromptTurnKind::TOOL_RESULT`）（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:748`）。
-取消后，若当前轮次要求持久化（`persistTurn`）且有已生成部分消息，经 `commitAssistantMessageSegment` 提交为助手消息段（`core/crates/runtime/application/src/services/ChatServiceCore.rs:947`）。
-`steerMessage` 只引导当前逻辑轮次，不取消当前模型或工具回合（`core/crates/runtime/application/src/services/ChatServiceCore.rs:963`）。
+取消后，若当前轮次要求持久化（`persistTurn`）且有已生成部分消息，经 `commitAssistantMessageSegment` 提交为助手消息段（`core/crates/runtime/application/src/services/ChatServiceCore.rs:946`）。
+`steerMessage` 只引导当前逻辑轮次，不取消当前模型或工具回合（`core/crates/runtime/application/src/services/ChatServiceCore.rs:962`）。
 cancelOperationForId 先取消本次操作的取消令牌（`cancellationToken`）（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1131`）。
 取消操作随后调 `cancelConversation` 取消会话（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1147`）。
 
@@ -92,37 +92,37 @@ switch_core 目标不是当前设备空间成员时工具调用直接失败（`C
 switch_core 目标有歧义时工具调用直接失败，并列出候选（`CoreNodeReferenceMatch::Ambiguous`）（`core/crates/tool/services/src/tools/ToolRegistration.rs:1622`）。
 switch_core 的实际 Binding 移动发生在当前模型轮次结束后，工具调用时只做预检（`core/crates/tool/services/src/tools/ToolRegistration.rs:246`）。
 switch_core 调用成功时返回规范节点 id（`stringResultData`、`targetNodeId`）（`core/crates/tool/services/src/tools/ToolRegistration.rs:266`）。
-`beforeChangeRoute` 在 Binding 移动前检查执行归属，保留当前上下文（`core/crates/runtime/application/src/services/ChatServiceCore.rs:901`）。
-beforeChangeRoute 先申请执行租约（`beginChatExecution`）再释放它（`core/crates/runtime/application/src/services/ChatServiceCore.rs:909`）。
-路由变更测试断言：执行中的会话拒绝切换，`beforeChangeRoute` 返回含 Conversation is executing 的错误（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3779`）。
-`afterChangeRoute` 在路由变更到达目标 Core 后恢复目标会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:920`）。
+`beforeChangeRoute` 在 Binding 移动前检查执行归属，保留当前上下文（`core/crates/runtime/application/src/services/ChatServiceCore.rs:900`）。
+beforeChangeRoute 先申请执行租约（`beginChatExecution`）再释放它（`core/crates/runtime/application/src/services/ChatServiceCore.rs:908`）。
+路由变更测试断言：执行中的会话拒绝切换，`beforeChangeRoute` 返回含 Conversation is executing 的错误（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3823`）。
+`afterChangeRoute` 在路由变更到达目标 Core 后恢复目标会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:919`）。
 
 ### Binding 路由与模型工具循环的配合
 
-`generateLocalLlm` 只在 Binding 归属节点上做模型推理，会话与工具各自走自己的路由（`bindingKey`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:417`）。
-`callToolPkgRoute` 经普通 Binding 路由目录执行带装饰的插件方法（`ToolPkgRouteRuntime::invoke`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:436`）。
-`watchToolPkgRoute` 返回被捕获的 Core 流（`ToolPkgRouteRuntime::stream`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:443`）。
-`pushToolPkgRoute` 在装饰插件的所属运行时消费有类型反向流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:451`）。
-`toolPkgRouteHost` 在释放借用的聊天核心前克隆插件执行宿主（`core/crates/runtime/application/src/services/ChatServiceCore.rs:429`）。
-`resume` 在已拥有该会话 Binding 的 CoreNode 上恢复 AI 轮次（`core/crates/runtime/application/src/services/ChatServiceCore.rs:788`）。
-恢复轮次前先调 `resolveChatConfigurationForOptions` 解析该会话的执行配置（`core/crates/runtime/application/src/services/ChatServiceCore.rs:795`）。
-`resumeFromRouteContext` 用随路由变更带来的 `CoreRouteResumeContext` 恢复轮次（`core/crates/runtime/application/src/services/ChatServiceCore.rs:836`）。
-路由恢复先为会话申请执行租约（`beginChatExecution`），租约保存在 `executionLease` 里（`core/crates/runtime/application/src/services/ChatServiceCore.rs:868`）。
-路由恢复用 `ChatConfigurationApi::ready` 解析执行配置（`core/crates/runtime/application/src/services/ChatServiceCore.rs:870`）。
-路由恢复按 `ChatConfigurationPurpose::Execution` 解析配置，参与者取自路由上下文（`core/crates/runtime/application/src/services/ChatServiceCore.rs:874`）。
-路由恢复把轮次交给 `sendRoutedContinuation`，并把 `executionLease` 传过去（`core/crates/runtime/application/src/services/ChatServiceCore.rs:885`）。
-当配置的 `extensionOwner` 不是 `MODEL_CONFIGURATION_OWNER` 时，路由续发校验配置与执行快照的身份一致，扩展归属或参与者不符时返回错误（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:495`）。
-路由续发以恢复模式发送，不把空消息记入历史（`suppressUserMessageInHistory`、`isResume`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:534`）。
+`generateLocalLlm` 只在 Binding 归属节点上做模型推理，会话与工具各自走自己的路由（`bindingKey`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:418`）。
+`callToolPkgRoute` 经普通 Binding 路由目录执行带装饰的插件方法（`ToolPkgRouteRuntime::invoke`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:437`）。
+`watchToolPkgRoute` 返回被捕获的 Core 流（`ToolPkgRouteRuntime::stream`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:444`）。
+`pushToolPkgRoute` 在装饰插件的所属运行时消费有类型反向流（`core/crates/runtime/application/src/services/ChatServiceCore.rs:452`）。
+`toolPkgRouteHost` 在释放借用的聊天核心前克隆插件执行宿主（`core/crates/runtime/application/src/services/ChatServiceCore.rs:430`）。
+`resume` 在已拥有该会话 Binding 的 CoreNode 上恢复 AI 轮次（`core/crates/runtime/application/src/services/ChatServiceCore.rs:789`）。
+恢复轮次前先调 `resolveChatConfigurationForOptions` 解析该会话的执行配置（`core/crates/runtime/application/src/services/ChatServiceCore.rs:796`）。
+`resumeFromRouteContext` 用随路由变更带来的 `CoreRouteResumeContext` 恢复轮次（`core/crates/runtime/application/src/services/ChatServiceCore.rs:837`）。
+路由恢复先为会话申请执行租约（`ChatModelBindingService::beginExecution`），租约保存在 `executionLease` 里（`core/crates/runtime/application/src/services/ChatServiceCore.rs:866`）。
+路由恢复用 `ChatConfigurationApi::ready` 解析执行配置（`core/crates/runtime/application/src/services/ChatServiceCore.rs:869`）。
+路由恢复按 `ChatConfigurationPurpose::Execution` 解析配置，参与者取自路由上下文（`core/crates/runtime/application/src/services/ChatServiceCore.rs:873`）。
+路由恢复把轮次交给 `sendRoutedContinuation`，并把 `executionLease` 传过去（`core/crates/runtime/application/src/services/ChatServiceCore.rs:884`）。
+当配置的 `extensionOwner` 不是 `MODEL_CONFIGURATION_OWNER` 时，路由续发校验配置与执行快照的身份一致，扩展归属或参与者不符时返回错误（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:491`）。
+路由续发以恢复模式发送，不把空消息记入历史（`suppressUserMessageInHistory`、`isResume`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:530`）。
 
 ### 切换与总结压缩
 
-路由变更测试断言：切换不总结、不改写会话，且切换后该会话无待处理总结任务（`summaryTaskForChat` 为空）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3825`）。
-`sendRoutedContinuation` 直接调用消息处理委托发送续发，不先做总结检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:486`）。
-`prepareSummaryForSend` 在发送前启动快照压缩且不延迟发送（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:783`）。
-快照压缩只在发送前检查开启且该会话无进行中总结任务时启动（`checkBeforeSend`、`summaryTaskForChat`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:805`）。
-发送前检查用 `shouldGenerateSummary` 判断当前窗口是否达到阈值（`currentWindowSize`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:821`）。
-达到阈值时以后台任务启动总结（`launchSummary`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:828`）。
-回复完成后按每位参与者的配置阈值复查是否需要总结（`checkSummaryAfterReply`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:856`）。
+路由变更测试断言：切换不总结、不改写会话，且切换后该会话无待处理总结任务（`summaryTaskForChat` 为空）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3869`）。
+`sendRoutedContinuation` 直接调用消息处理委托发送续发，不先做总结检查（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:482`）。
+`prepareSummaryForSend` 在发送前启动快照压缩且不延迟发送（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:781`）。
+快照压缩只在发送前检查开启且该会话无进行中总结任务时启动（`checkBeforeSend`、`summaryTaskForChat`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:803`）。
+发送前检查用 `shouldGenerateSummary` 判断当前窗口是否达到阈值（`currentWindowSize`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:819`）。
+达到阈值时以后台任务启动总结（`launchSummary`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:826`）。
+回复完成后按每位参与者的配置阈值复查是否需要总结（`checkSummaryAfterReply`）（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:854`）。
 `shouldGenerateSummary` 只看配置的上下文 token 阈值：开启总结、最大 token 大于 0、当前占比达到 `tokenUsageThreshold`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:656`）。
 summarizeMemory 只总结上一次总结之后的消息（`lastSummaryIndex`）（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:543`）。
 总结沿用上一次总结的正文作为前序总结（`previousSummary`）（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:546`）。
@@ -142,24 +142,24 @@ summarizeMemory 只总结上一次总结之后的消息（`lastSummaryIndex`）�
 总结的 token 用量写回 Provider 模型（`updateTokensForProviderModel`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:633`）。
 总结请求按 `SUMMARY_GENERATION` 来源记用量统计（`recordProviderModelRequest`、`UsageRequestSource::SUMMARY_GENERATION`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:644`）。
 总结提示由 buildSummaryPreparedHistory 按系统提示、历史、总结提问三段组装（`PromptTurnKind::SYSTEM`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:919`）。
-`insertSummary` 只在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1521`）。
-insertSummary 用 `summarizeMemory` 生成总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1570`）。
-insertSummary 生成有效总结后经 `addSummaryMessage` 插入到选定位置（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1593`）。
-`compactChat` 手动把当前会话压缩为检查点，不论阈值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1646`）。
-`compactChat` 压缩前先为目标会话申请执行租约（`beginChatExecution`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1651`）。
-compactChat 压缩经 `manuallySummarizeConversationForChat` 执行（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1662`）。
-compactChat 压缩完成后释放执行租约（`executionLease`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1673`）。
+`insertSummary` 只在用户或 AI 消息处插入总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1559`）。
+insertSummary 用 `summarizeMemory` 生成总结（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1608`）。
+insertSummary 生成有效总结后经 `addSummaryMessage` 插入到选定位置（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1631`）。
+`compactChat` 手动把当前会话压缩为检查点，不论阈值（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1684`）。
+`compactChat` 压缩前先为目标会话申请执行租约（`ChatModelBindingService::beginExecution`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1689`）。
+compactChat 压缩经 `manuallySummarizeConversationForChat` 执行（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1698`）。
+compactChat 压缩完成后释放执行租约（`executionLease`）（`core/crates/runtime/application/src/services/ChatServiceCore.rs:1709`）。
 
 ## 关键符号
 
-- ChatServiceCore — 聊天服务核心，持有四个委托与服务字段（`core/crates/runtime/application/src/services/ChatServiceCore.rs:244`）
-- `chatEnhancedAiServicesByChatId` — 每会话独占 AI 服务缓存（`core/crates/runtime/application/src/services/ChatServiceCore.rs:255`）
+- ChatServiceCore — 聊天服务核心，持有四个委托与服务字段（`core/crates/runtime/application/src/services/ChatServiceCore.rs:245`）
+- `chatEnhancedAiServicesByChatId` — 每会话独占 AI 服务缓存（`core/crates/runtime/application/src/services/ChatServiceCore.rs:256`）
 - `AIMessageManager` — 无字段的单元结构体，负责发送、摘要与取消（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:43`）
 - `ChatOperationRegistry` — 按会话键保存操作，操作 id 全局递增（`nextOperationId`）（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:112`）
 - `ConversationService` — 绑定 Provider 运行时上下文（`runtime_context`）（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:130`）
 - `ToolExposureMode` — `Full` 与 `Cli` 两档，控制提示历史里暴露多少工具元数据（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:60`）
-- `CoreRouteResumeContext` — 随路由变更带来的恢复上下文（`core/crates/runtime/application/src/services/ChatServiceCore.rs:839`）
-- `ChatConfigurationPurpose::Execution` — 路由恢复解析配置的目的（`core/crates/runtime/application/src/services/ChatServiceCore.rs:874`）
+- `CoreRouteResumeContext` — 随路由变更带来的恢复上下文（`core/crates/runtime/application/src/services/ChatServiceCore.rs:840`）
+- `ChatConfigurationPurpose::Execution` — 路由恢复解析配置的目的（`core/crates/runtime/application/src/services/ChatServiceCore.rs:873`）
 - `BuiltinToolName::SwitchCore` — switch_core 的内置工具注册名（`core/crates/tool/services/src/tools/ToolRegistration.rs:219`）
 - `resolveSwitchCoreTarget` — 解析目标节点引用（`core/crates/tool/services/src/tools/ToolRegistration.rs:1596`）
 - `CoreNodeReferenceMatch::Unknown` — 目标不是设备空间成员的匹配结果（`core/crates/tool/services/src/tools/ToolRegistration.rs:1619`）
@@ -167,37 +167,37 @@ compactChat 压缩完成后释放执行租约（`executionLease`）（`core/crat
 - `PromptTurnKind::TOOL_CALL` — 工具调用轮次（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:733`）
 - `PromptTurnKind::TOOL_RESULT` — 工具结果轮次（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:748`）
 - `PromptTurnKind::SUMMARY` — 总结轮次（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:707`）
-- `ChatInputMenuSettings` — 设置属于执行 Core，不属于 UI 设备（`core/crates/runtime/application/src/services/ChatServiceCore.rs:122`）
-- `ChatRuntime::Main` — `FOLLOW_GLOBAL` 选主运行时；`ChatRuntime::Floating` — `LOCAL_ONLY` 选悬浮运行时（`core/crates/runtime/application/src/services/ChatServiceCore.rs:367`）
+- `ChatInputMenuSettings` — 设置属于执行 Core，不属于 UI 设备（`core/crates/runtime/application/src/services/ChatServiceCore.rs:123`）
+- `ChatRuntime::Main` — `FOLLOW_GLOBAL` 选主运行时；`ChatRuntime::Floating` — `LOCAL_ONLY` 选悬浮运行时（`core/crates/runtime/application/src/services/ChatServiceCore.rs:368`）
 
 ## 调用链
 
 一轮发送链：
 
-1. sendUserMessage（路由入口）把一轮发送交给 `startUserMessage`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:650`）。
-2. 非续发且未处理过时，startUserMessage 派发 `SUBMIT_REQUESTED` 钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:309`）。
-3. 非续发且未处理过时，钩子放行后派发 `SUBMITTED` 钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:343`）。
-4. 取会话独占 EnhancedAIService（`core/crates/runtime/application/src/services/ChatServiceCore.rs:716`）。
-5. 协调委托 `sendUserMessage`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:357`）。
+1. sendUserMessage（路由入口）把一轮发送交给 `startUserMessage`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:651`）。
+2. 非续发且未处理过时，startUserMessage 派发 `SUBMIT_REQUESTED` 钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:310`）。
+3. 非续发且未处理过时，钩子放行后派发 `SUBMITTED` 钩子（`core/crates/runtime/application/src/services/ChatServiceCore.rs:344`）。
+4. 取会话独占 EnhancedAIService（`core/crates/runtime/application/src/services/ChatServiceCore.rs:717`）。
+5. 协调委托 `sendUserMessage`（`core/crates/runtime/application/src/services/ChatServiceCore.rs:358`）。
 6. AIMessageManager.sendMessage 登记本次发送操作（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:325`）。
 7. 投影历史，`promptHistoryOverride` 有值时跳过 `getMemoryFromMessages`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:352`）。
 8. 裁剪媒体链接（`limitImageLinksInChatHistory`、`limitMediaLinksInChatHistory`）（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:367`）。
 9. 插件消息处理钩子命中时由插件执行接管（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:371`）。
 10. `resume` 为真时以 `ResumeRequest` 调 `resume`，否则调 `sendMessageWithConfiguration`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467`）。
 11. 历史准备：prepare_conversation_history 跑钩子、注入系统提示、归一化工具结果轮次（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:150`）。
-12. 回填：取消后，若当前轮次要求持久化（`persistTurn`）且有已生成部分消息，经 `commitAssistantMessageSegment` 提交已生成的部分消息（`core/crates/runtime/application/src/services/ChatServiceCore.rs:947`）。
+12. 回填：取消后，若当前轮次要求持久化（`persistTurn`）且有已生成部分消息，经 `commitAssistantMessageSegment` 提交已生成的部分消息（`core/crates/runtime/application/src/services/ChatServiceCore.rs:946`）。
 
 切换节点链：
 
 1. switch_core 只做预检，实际 Binding 移动发生在当前模型轮次结束后（`core/crates/tool/services/src/tools/ToolRegistration.rs:246`）。
-2. 轮次结束后走 `beforeChangeRoute` 检查执行归属（`core/crates/runtime/application/src/services/ChatServiceCore.rs:901`）。
-3. 到达目标 Core 后 `afterChangeRoute` 恢复目标会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:920`）。
-4. 恢复时 resumeFromRouteContext 先申请执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:868`）。
-5. 路由恢复把轮次交给 `sendRoutedContinuation`，并把 `executionLease` 传过去（`core/crates/runtime/application/src/services/ChatServiceCore.rs:885`）。
+2. 轮次结束后走 `beforeChangeRoute` 检查执行归属（`core/crates/runtime/application/src/services/ChatServiceCore.rs:900`）。
+3. 到达目标 Core 后 `afterChangeRoute` 恢复目标会话（`core/crates/runtime/application/src/services/ChatServiceCore.rs:919`）。
+4. 恢复时 resumeFromRouteContext 先申请执行租约（`core/crates/runtime/application/src/services/ChatServiceCore.rs:866`）。
+5. 路由恢复把轮次交给 `sendRoutedContinuation`，并把 `executionLease` 传过去（`core/crates/runtime/application/src/services/ChatServiceCore.rs:884`）。
 
 ## 来源
 
-- `core/crates/runtime/application/src/services/ChatServiceCore.rs`（3890 行，全文通读）
+- `core/crates/runtime/application/src/services/ChatServiceCore.rs`（4231 行，全文通读）
 - `core/crates/runtime/application/src/core/chat/AIMessageManager.rs`（1967 行，全文通读）
 - `core/crates/provider/services/src/chat/enhance/ConversationService.rs`（1250 行，全文通读）
 - `core/crates/tool/services/src/tools/ToolRegistration.rs`（补充：switch_core 工具注册与 `resolveSwitchCoreTarget` 相关区段）

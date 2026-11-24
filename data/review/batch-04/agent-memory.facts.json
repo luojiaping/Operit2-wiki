@@ -1,27 +1,27 @@
 [
  {
   "fact": "`MemorySpace` 的 `memories`、`links`、`chunks`、`candidates` 四个集合与 `ownerKey` 同属一个按 owner 划分的记忆空间。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:401"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:406"
  },
  {
   "fact": "`MemorySpace` 还包含 `settings`、`searchConfig`、`userDocumentPath`、`rebuildProgress`、`rebuildTask`。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:406"
- },
- {
-  "fact": "记忆空间的 `embeddings` 字段保存记忆向量。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:406"
- },
- {
-  "fact": "`MemoryJobState` 是 `MemorySpace` 去掉 `memories`、`links`、`chunks`、`embeddings` 后的调度状态类型。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:409"
- },
- {
-  "fact": "`CharacterState` 的注释写明它只拥有本插件的文件模式，不施加全运行时范围的存储模式。",
   "ref": "plugins/packages/buildin/character_cards/src/model.ts:411"
  },
  {
+  "fact": "记忆空间的 `embeddings` 字段保存记忆向量。",
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:412"
+ },
+ {
+  "fact": "`MemoryJobState` 是 `MemorySpace` 去掉 `memories`、`links`、`chunks`、`embeddings` 后的调度状态类型。",
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:415"
+ },
+ {
+  "fact": "`CharacterState` 的注释写明它只拥有本插件的文件模式，不施加全运行时范围的存储模式。",
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:418"
+ },
+ {
   "fact": "角色卡状态的 `owners` 字段是 `MemorySpace` 数组。",
-  "ref": "plugins/packages/buildin/character_cards/src/model.ts:421"
+  "ref": "plugins/packages/buildin/character_cards/src/model.ts:427"
  },
  {
   "fact": "`CharacterMemoryDatabase` 的注释写明它保存同步化的记忆记录并执行有界数据库查询。",
@@ -41,11 +41,11 @@
  },
  {
   "fact": "`readMemoryJobState` 按 `ownerKey` 读出该记忆空间的任务状态。",
-  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:339"
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:356"
  },
  {
   "fact": "`writeMemoryJobState` 按 `ownerKey` 写回该记忆空间的任务状态。",
-  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:349"
+  "ref": "plugins/packages/buildin/character_cards/src/storage/memory-repository.ts:366"
  },
  {
   "fact": "`CandidateSource` 只有 `reply_finalized_auto` 与 `selected_user_message` 两种取值。",
@@ -373,15 +373,15 @@
  },
  {
   "fact": "`autoCategorizeMemory` 只处理放在根文件夹的记忆（`folderPath` 为空或空字符串）。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:278"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:279"
  },
  {
   "fact": "分类调用要求模型恰好为每条记忆返回一个文件夹，否则抛错。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:287"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:286"
  },
  {
   "fact": "分类结果用 `moveMemories` 按标题把记忆移入指定文件夹。",
-  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:292"
+  "ref": "plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:291"
  },
  {
   "fact": "`assertChat` 要求聊天摘要含 `messageCount`、`inputTokens`、`outputTokens` 等字段。",

@@ -168,7 +168,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - 请求的运行时与上下文键推断的运行时不一致时报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:323）
 - `main` 目标的上下文键必须等于 `toolpkg_main:` 后跟目标名（core/crates/tool/services/src/tools/ToolJsRuntime.rs:330）
 - 依赖调用要求被调用的提供方目标为 `main` 运行时，且提供方包不同于调用方包（core/crates/tool/services/src/tools/ToolJsRuntime.rs:347）
-- 依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 `main`（core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2230）
+- 依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 `main`（core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2262）
 - IPC 目标的 ToolPkg 容器不存在时报错 `ToolPkg container not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:342）
 - IPC 目标包被禁用时报错 `ToolPkg package is disabled`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:349）
 - 非 `main` 目标取不到已激活的执行引擎时报错 `ToolPkg runtime is not active`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:328）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:387）
@@ -211,7 +211,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 1. SkillManager 的 `refreshAvailableSkills` 扫描 device 与 space 两个位置（core/crates/tool/services/src/tools/skill/SkillManager.rs:53）
 2. 扫描按 `SKILL.md` 优先、`skill.md` 兜底解析元数据，冲突与缺失记入错误集合（core/crates/tool/services/src/tools/skill/SkillManager.rs:127）
 3. 模型调用 use_package 工具，`package_name` 参数指定技能名（core/crates/tool/services/src/tools/ToolRegistration.rs:84）
-4. `executeUsePackageTool` 调 `usePackage` 执行激活（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1103）（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1050）
+4. `executeUsePackageTool` 调 `usePackage` 执行激活（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1112）（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1059）
 5. 命中技能时返回 `getSkillSystemPrompt` 生成的提示词（core/crates/tool/services/src/tools/skill/SkillManager.rs:434）
 6. `getSkillSystemPrompt` 生成含目录树与 `SKILL.md` 全文的激活提示词（core/crates/tool/services/src/tools/skill/SkillManager.rs:434）（core/crates/tool/services/src/tools/skill/SkillManager.rs:465）
 

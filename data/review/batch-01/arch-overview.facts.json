@@ -97,11 +97,11 @@
   },
   {
     "fact": "writeProvider 把完整 ProviderProfile 作为同步偏好值写入 provider_<id> 键",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481"
   },
   {
     "fact": "ProviderProfile 包含 apiKey 与 apiKeyPool",
-    "ref": "core/crates/foundation/model/src/ModelConfigData.rs:603"
+    "ref": "core/crates/foundation/model/src/ModelConfigData.rs:630"
   },
   {
     "fact": "Space 偏好存储构造时创建同步描述符 PreferencesSyncDescriptor",
@@ -125,7 +125,7 @@
   },
   {
     "fact": "标记为 target、plan 或 direction of evolution 的架构文档不表示各平台已实现；当前实际行为以源码、命令帮助输出、构建结果与目标平台运行时结果为准",
-    "ref": "README.md:246"
+    "ref": "README.md:249"
   },
   {
     "fact": "执行模型只包含 CoreNode 与 Binding 两个概念",

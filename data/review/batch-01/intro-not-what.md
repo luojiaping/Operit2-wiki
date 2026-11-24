@@ -12,7 +12,7 @@ date: 2026-11-11
 
 Operit2 的定位是一个连接用户设备空间的 `Agent` 核心，见 `README.md:3`。本页只讲 Operit2 不是什么：以 README 与架构文档原文划出的边界为准，不做引申，见 [[intro-overview|Operit2 是什么]]。
 
-预览阶段，底层结构、数据格式、插件契约和跨设备流程仍未冻结，见 `README.md:14`。架构文档中标注为目标、计划或演进方向的内容不代表所有平台已经实现，判断当前实际行为以源码、命令帮助输出、构建结果和目标平台运行结果为准，见 `README.md:246`。
+预览阶段，底层结构、数据格式、插件契约和跨设备流程仍未冻结，见 `README.md:14`。架构文档中标注为目标、计划或演进方向的内容不代表所有平台已经实现，判断当前实际行为以源码、命令帮助输出、构建结果和目标平台运行结果为准，见 `README.md:249`。
 
 ## AI 速览
 
@@ -47,9 +47,9 @@ README 声明 `API` key、设备私钥、配对密钥、session 和本地平台�
 PreferencesDataStore 的 `newWithStorage` 创建 `Space` 偏好存储，见 `core/crates/persistence/store/src/PreferencesDataStore.rs:2968`。
 该存储为存储路径创建 `PreferencesSyncDescriptor` 形式的 `syncDescriptor`，见 `core/crates/persistence/store/src/PreferencesDataStore.rs:2999`。
 该存储挂接 `syncOperationStore`，见 `core/crates/persistence/store/src/PreferencesDataStore.rs:3005`。
-`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>`，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479`。
-`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`，见 `core/crates/foundation/model/src/ModelConfigData.rs:605`。
-因此 `Provider` 凭证存在随配置同步的路径，不要把 `Provider` 凭证与设备身份、配对密钥、操作系统权限统称不复制，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479`。
+`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>`，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481`。
+`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`，见 `core/crates/foundation/model/src/ModelConfigData.rs:630`。
+因此 `Provider` 凭证存在随配置同步的路径，不要把 `Provider` 凭证与设备身份、配对密钥、操作系统权限统称不复制，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481`。
 以上同步路径只核对到代码，未做真实双设备同步实验。
 `Full` 只表示 AI 能力限制放宽，不表示 `Host` 提权，也不能创造操作系统没有的能力，见 `README.md:129`。
 设备身份、配对 secret 和 `Host` 授权保持节点本地，`Space` 成员资格不授予其他节点直接读取本机文件或终端的能力，见 `docs/core-node-space-binding-architecture.md:472`。
@@ -92,7 +92,7 @@ PreferencesDataStore 的 `newWithStorage` 创建 `Space` 偏好存储，见 `cor
 
 单节点 Agent 的能力取决于平台 `Host`、模型 Provider 和本地配置，见 `README.md:30`。
 单节点 Agent 的能力并不在所有平台完全相同，见 `README.md:39`。
-架构文档中标注为目标、计划或演进方向的内容不代表所有平台已经实现，见 `README.md:246`。
+架构文档中标注为目标、计划或演进方向的内容不代表所有平台已经实现，见 `README.md:249`。
 
 ### 配对不等于加入
 

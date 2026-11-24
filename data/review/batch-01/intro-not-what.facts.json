@@ -101,15 +101,15 @@
   },
   {
     "fact": "writeProvider 把完整 ProviderProfile 作为同步偏好值写入 provider_<id>",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481"
   },
   {
     "fact": "ProviderProfile 包含 apiKey 与 apiKeyPool",
-    "ref": "core/crates/foundation/model/src/ModelConfigData.rs:605"
+    "ref": "core/crates/foundation/model/src/ModelConfigData.rs:630"
   },
   {
     "fact": "Provider 凭证存在随配置同步的路径",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1479"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481"
   },
   {
     "fact": "Full 只表示 AI 能力限制放宽，不表示 Host 提权，也不能创造操作系统没有的能力",
@@ -125,7 +125,7 @@
   },
   {
     "fact": "架构文档中标注为目标、计划或演进方向的内容不代表所有平台已经实现，判断当前实际行为以源码、命令帮助输出、构建结果和目标平台运行结果为准",
-    "ref": "README.md:246"
+    "ref": "README.md:249"
   },
   {
     "fact": "身份不进入设备空间同步，也不通过 Link 传播",

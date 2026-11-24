@@ -147,15 +147,15 @@ JS 运行时测试命令为从仓库根运行 `node --test tools/tests/web_javas
 `GrepCodeResult` 含 `totalMatches` 与 `filesSearched`（`hosts/web/src/tools/fs/mod.rs:254`）。
 `defaultRuntimeRoot` 返回 `runtime` 路径（`hosts/web/src/tools/storage/mod.rs:25`）。
 `defaultWorkspaceRoot` 返回 `workspaces` 路径（`hosts/web/src/tools/storage/mod.rs:31`）。
-`readBytesRange` 从 Worker 拥有的 OPFS 运行时存储读一段有界字节范围（`hosts/web/src/tools/storage/mod.rs:63`）。
-`writeBytesAtomically` 直接调用 `writeBytes`（`hosts/web/src/tools/storage/mod.rs:100`）。
-`createWriteSession` 返回会话标识字符串（`hosts/web/src/tools/storage/mod.rs:183`）。
-`commit` 调用桥接 `commitWriteSession`（`hosts/web/src/tools/storage/mod.rs:169`）。
-`discard` 调用桥接 `discardWriteSession`（`hosts/web/src/tools/storage/mod.rs:175`）。
-桥接值为空或未定义时 `readSecret` 返回 `None`（`hosts/web/src/tools/storage/mod.rs:193`）。
-`openSqliteDatabase` 调用桥接 `open` 并持有返回的连接标识字符串（`hosts/web/src/tools/storage/mod.rs:216`）。
-`readColumnRange` 把读取长度限制在 64 KiB 以内（`hosts/web/src/tools/storage/mod.rs:247`）。
-`columnSize` 用 `length` 加 `CAST` 到 `BLOB` 的 SQL 查询列字节数（`hosts/web/src/tools/storage/mod.rs:242`）。
+`readBytesRange` 从 Worker 拥有的 OPFS 运行时存储读一段有界字节范围（`hosts/web/src/tools/storage/mod.rs:68`）。
+`writeBytesAtomically` 直接调用 `writeBytes`（`hosts/web/src/tools/storage/mod.rs:105`）。
+`createWriteSession` 返回会话标识字符串（`hosts/web/src/tools/storage/mod.rs:188`）。
+`commit` 调用桥接 `commitWriteSession`（`hosts/web/src/tools/storage/mod.rs:174`）。
+`discard` 调用桥接 `discardWriteSession`（`hosts/web/src/tools/storage/mod.rs:180`）。
+桥接值为空或未定义时 `readSecret` 返回 `None`（`hosts/web/src/tools/storage/mod.rs:198`）。
+`openSqliteDatabase` 调用桥接 `open` 并持有返回的连接标识字符串（`hosts/web/src/tools/storage/mod.rs:221`）。
+`readColumnRange` 把读取长度限制在 64 KiB 以内（`hosts/web/src/tools/storage/mod.rs:252`）。
+`columnSize` 用 `length` 加 `CAST` 到 `BLOB` 的 SQL 查询列字节数（`hosts/web/src/tools/storage/mod.rs:247`）。
 运行时自有文件由专用运行时 Worker 存入 OPFS，host 桥接不把完整运行时树加载到主线程映射里（`hosts/web/README.md:78`）。
 存储 Worker 在 OPFS 句柄整个生命周期持有身份专属的排他 Web Lock 与共享维护访问（`hosts/web/README.md:80`）。
 旧 Worker 仍拥有存储时，新页面打不开同一存储（`hosts/web/README.md:82`）。
