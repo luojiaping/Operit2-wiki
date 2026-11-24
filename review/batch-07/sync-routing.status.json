@@ -1,6 +1,6 @@
 {
   "issue": 76,
-  "source_commit": "62dacc0",
+  "source_commit": "f020fc4",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "设备间路由与实时分发：承载层与 Operit 选路分层、Dijkstra 代价选路、SharedWatchHub 一条边只发一次再分发，及 PeerSync 对端同步调用面。",

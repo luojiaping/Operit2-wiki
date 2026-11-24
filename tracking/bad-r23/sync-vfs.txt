@@ -1,0 +1,84 @@
+batch-07/sync-vfs: 83 bad / 159 facts
+sync-vfs.facts.json#116 `Workspace binding must use a VFS path or an absolute host path: {path}` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:200
+sync-vfs.facts.json#117 `resolveFileToolPath` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:243
+sync-vfs.facts.json#119 `resolveFileResourcePath` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:263
+sync-vfs.facts.json#121 `canonicalizeVfsPath` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:271
+sync-vfs.facts.json#121 `normalizeAbsoluteHostWorkspacePath` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:271
+sync-vfs.facts.json#122 `joinVfsPath` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:289
+sync-vfs.facts.json#123 `relativePath` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:308
+sync-vfs.facts.json#123 `ROOT_APP` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:308
+sync-vfs.facts.json#123 `ROOT_OPERITAPP` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:308
+sync-vfs.facts.json#124 `relativeFileToolPath` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:338
+sync-vfs.facts.json#125 `hidden` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:361
+sync-vfs.facts.json#125 `VFS_ROOTS` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:361
+sync-vfs.facts.json#125 `ROOT_VIRTUAL` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:361
+sync-vfs.facts.json#127 `mntMountEntries` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:369
+sync-vfs.facts.json#128 `resolve` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:396
+sync-vfs.facts.json#128 `mountRelativePath` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:396
+sync-vfs.facts.json#129 `native` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:403
+sync-vfs.facts.json#129 `mount.root` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:403
+sync-vfs.facts.json#130 `native` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:406
+sync-vfs.facts.json#130 `FileSystemResource` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:406
+sync-vfs.facts.json#131 `runtimeStoreRoot` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:416
+sync-vfs.facts.json#132 `outputs` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:421
+sync-vfs.facts.json#132 `runtimeStoreRoot` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:421
+sync-vfs.facts.json#132 `data/chat_outputs` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:421
+sync-vfs.facts.json#133 `workspaceCollectionRoot` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:425
+sync-vfs.facts.json#134 `normalizeDriveLetter` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:430
+sync-vfs.facts.json#135 `normalizeDriveLetter` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:736
+sync-vfs.facts.json#136 `/virtual/android/sdcard` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:450
+sync-vfs.facts.json#136 `/sdcard` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:450
+sync-vfs.facts.json#137 `/virtual/android/root` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:457
+sync-vfs.facts.json#140 `/data` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:473
+sync-vfs.facts.json#140 `/data` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:473
+sync-vfs.facts.json#142 `Unknown VFS root` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:481
+sync-vfs.facts.json#143 `mapPhysicalChildToVfs` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:491
+sync-vfs.facts.json#143 `backend` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:491
+sync-vfs.facts.json#148 `nativePosixMount` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:679
+sync-vfs.facts.json#149 `mntMountEntries` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:756
+sync-vfs.facts.json#150 `mntMountEntries` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:756
+sync-vfs.facts.json#150 `windowsDriveEntries` not within ±5 of core/crates/foundation/vfs/src/PathMapper.rs:756
+sync-vfs.md:27 `hidden` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:361']
+sync-vfs.md:27 `VFS_ROOTS` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:361']
+sync-vfs.md:27 `ROOT_VIRTUAL` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:361']
+sync-vfs.md:29 `mntMountEntries` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:369']
+sync-vfs.md:30 `mntMountEntries` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:756']
+sync-vfs.md:58 `resolve` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:396']
+sync-vfs.md:58 `mountRelativePath` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:396']
+sync-vfs.md:59 `native` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:403']
+sync-vfs.md:59 `mount.root` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:403']
+sync-vfs.md:60 `native` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:406']
+sync-vfs.md:60 `FileSystemResource` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:406']
+sync-vfs.md:61 `runtimeStoreRoot` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:416']
+sync-vfs.md:62 `outputs` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:421']
+sync-vfs.md:62 `runtimeStoreRoot` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:421']
+sync-vfs.md:62 `data/chat_outputs` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:421']
+sync-vfs.md:63 `workspaceCollectionRoot` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:425']
+sync-vfs.md:66 `Unknown VFS root` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:481']
+sync-vfs.md:76 `resolveFileToolPath` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:243']
+sync-vfs.md:79 `canonicalizeVfsPath` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:271']
+sync-vfs.md:79 `normalizeAbsoluteHostWorkspacePath` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:271']
+sync-vfs.md:81 `normalizeDriveLetter` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:430']
+sync-vfs.md:82 `normalizeDriveLetter` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:736']
+sync-vfs.md:85 `mntMountEntries` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:756']
+sync-vfs.md:85 `windowsDriveEntries` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:756']
+sync-vfs.md:86 `/virtual/android/sdcard` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:450']
+sync-vfs.md:86 `/sdcard` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:450']
+sync-vfs.md:87 `/virtual/android/root` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:457']
+sync-vfs.md:90 `/data` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:473']
+sync-vfs.md:90 `/data` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:473']
+sync-vfs.md:98 `nativePosixMount` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:679']
+sync-vfs.md:99 `mapPhysicalChildToVfs` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:491']
+sync-vfs.md:99 `backend` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:491']
+sync-vfs.md:169 `resolveFileToolPath` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:243']
+sync-vfs.md:170 `resolveFileResourcePath` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:263']
+sync-vfs.md:171 `joinVfsPath` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:289']
+sync-vfs.md:172 `relativePath` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:308']
+sync-vfs.md:172 `ROOT_APP` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:308']
+sync-vfs.md:172 `ROOT_OPERITAPP` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:308']
+sync-vfs.md:173 `relativeFileToolPath` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:338']
+sync-vfs.md:174 `virtualDirectoryEntries` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:352']
+sync-vfs.md:175 `resolve` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:396']
+sync-vfs.md:176 `mapPhysicalChildToVfs` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:491']
+sync-vfs.md:188 `resolve` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:396']
+sync-vfs.md:188 `mountRelativePath` not within ±5 of any ref ['core/crates/foundation/vfs/src/PathMapper.rs:396']

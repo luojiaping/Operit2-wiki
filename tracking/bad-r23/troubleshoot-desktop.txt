@@ -1,0 +1,9 @@
+batch-11/troubleshoot-desktop: 8 bad / 66 facts
+troubleshoot-desktop.md:86 `apps/flutter/app` not within ±5 of any ref ['docs/webview-rendering.md:93']
+troubleshoot-desktop.md:86 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart` not within ±5 of any ref ['docs/webview-rendering.md:93']
+troubleshoot-desktop.md:87 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome` not within ±5 of any ref ['docs/webview-rendering.md:94']
+troubleshoot-desktop.md:88 `windows_native_composition_probe.dart` not within ±5 of any ref ['docs/webview-rendering.md:97']
+troubleshoot-desktop.md:89 `webview_zoom.test.mjs` not within ±5 of any ref ['docs/webview-rendering.md:99']
+troubleshoot-desktop.md:107 `windows_native_composition_probe.dart` not within ±5 of any ref ['docs/webview-rendering.md:97']
+troubleshoot-desktop.md:121 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart` not within ±5 of any ref ['docs/webview-rendering.md:93']
+troubleshoot-desktop.md:121 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome` not within ±5 of any ref ['docs/webview-rendering.md:93']

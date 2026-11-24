@@ -1,0 +1,3 @@
+batch-06/plugin-catalog-buildin: 2 bad / 99 facts
+plugin-catalog-buildin.md:83 `MemoryQueryResult` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/api.ts:239']
+plugin-catalog-buildin.md:106 `MemoryQueryResult` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/api.ts:239']

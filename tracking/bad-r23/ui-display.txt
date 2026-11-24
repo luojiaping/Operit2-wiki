@@ -1,0 +1,9 @@
+batch-08/ui-display: 8 bad / 86 facts
+ui-display.facts.json#84 `apps/flutter/app` not within ±5 of docs/webview-rendering.md:93
+ui-display.facts.json#84 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart` not within ±5 of docs/webview-rendering.md:93
+ui-display.facts.json#85 `windows_native_composition_probe.dart` not within ±5 of docs/webview-rendering.md:97
+ui-display.facts.json#86 `webview_zoom.test.mjs` not within ±5 of docs/webview-rendering.md:99
+ui-display.md:125 `apps/flutter/app` not within ±5 of any ref ['docs/webview-rendering.md:93']
+ui-display.md:125 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart` not within ±5 of any ref ['docs/webview-rendering.md:93']
+ui-display.md:126 `windows_native_composition_probe.dart` not within ±5 of any ref ['docs/webview-rendering.md:97']
+ui-display.md:127 `webview_zoom.test.mjs` not within ±5 of any ref ['docs/webview-rendering.md:99']

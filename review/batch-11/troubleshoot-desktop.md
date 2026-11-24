@@ -89,11 +89,11 @@ date: 2026-11-11
 - iOS 后端使用 `OperitSafeWebView` 在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:82`
 - 无效几何禁用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，并在布局调用结束后经已有的导航错误通道上报一次。`docs/webview-rendering.md:83`
 - 失败的视图不再布局或复用。`docs/webview-rendering.md:85`
-- 维护检查在 `apps/flutter/app` 下运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。`docs/webview-rendering.md:93`
-- 维护检查还运行 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:94`
-- `windows_native_composition_probe.dart` 是独立的验收夹具，覆盖裁剪、顺序、对话框与指针路由。`docs/webview-rendering.md:97`
-- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:99`
-- 引擎或 SDK 变更后，原生渲染、IME 与手势行为须在相应设备上检查。`docs/webview-rendering.md:100`
+- 维护检查在 `apps/flutter/app` 下运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。`docs/webview-rendering.md:138`
+- 维护检查还运行 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:139`
+- `windows_native_composition_probe.dart` 是独立的验收夹具，覆盖裁剪、顺序、对话框与指针路由。`docs/webview-rendering.md:142`
+- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:144`
+- 引擎或 SDK 变更后，原生渲染、IME 与手势行为须在相应设备上检查。`docs/webview-rendering.md:145`
 
 ## 关键符号
 
@@ -110,7 +110,7 @@ date: 2026-11-11
 - `WebView2` — Windows 上直接向 Windows 引擎提供合成视觉。`docs/webview-rendering.md:61`
 - `DirectComposition` — 按 Flutter 由后向前的绘制顺序追加层。`docs/webview-rendering.md:66`
 - `OperitSafeWebView` — iOS 后端在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:82`
-- `windows_native_composition_probe.dart` — 独立的验收夹具，覆盖裁剪、顺序、对话框与指针路由。`docs/webview-rendering.md:97`
+- `windows_native_composition_probe.dart` — 独立的验收夹具，覆盖裁剪、顺序、对话框与指针路由。`docs/webview-rendering.md:142`
 
 ## 调用链
 
@@ -124,14 +124,15 @@ date: 2026-11-11
 8. Windows 合成链：`WebView2` 直接向 Windows 引擎提供合成视觉 → Flutter platform-view 层决定放置、变换、裁剪与绘制顺序 → 后备存储使用预乘 alpha 的 `DXGI` swapchain。`docs/webview-rendering.md:61`
 9. Windows 绘制顺序：`ANGLE` 保持帧缓冲方向，`DirectComposition` 按 Flutter 由后向前的绘制顺序以 `AddVisual(visual, FALSE, nullptr)` 追加层。`docs/webview-rendering.md:66`
 10. Windows 运行命令：`fvm install --skip-pub-get` → `fvm flutter precache --windows` → `fvm flutter pub get` → `fvm flutter run -d windows`，均在 `apps/flutter/app` 下运行。`docs/webview-rendering.md:74`
-11. 维护检查链：`fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`，再运行 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:93`
+11. 维护检查链：`fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`，再运行 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:138`
 
 ## 来源
 
 - seed 文件 1：docs/flutter-impeller-render-target-failure.md（87 行，Impeller 渲染目标分配失败处理）。
-- seed 文件 2：docs/webview-rendering.md（101 行，WebView 渲染与缩放，含 Windows composition 小节；新基线较旧基线新增 19 行 Android legacy WebView scripts 小节，见下）。
-- 两份 seed 共 188 行（大纲 est_lines 169 为旧基线数；webview-rendering.md 在新基线下新增 19 行）；两份文件已 100% 读完。
+- seed 文件 2：docs/webview-rendering.md（146 行，WebView 渲染与缩放，含 Windows composition 小节；较 62dacc0 基线新增 45 行 Embedded Compose pages / Embedded page checks 小节，见下）。
+- 两份 seed 共 233 行（大纲 est_lines 169 为旧基线数；webview-rendering.md 在新基线下为 146 行）；两份文件已 100% 读完。
 - 新增小节说明：新基线 docs/webview-rendering.md:41 新增“Android legacy WebView scripts”小节（19 行）：Android 按提供方是否支持 DOCUMENT_START_SCRIPT 能力注册用户脚本，不支持的提供方（含受影响的厂商 WebView）改用 evaluateJavascript 在页面启动、提交与完成时注入，脚本按注册顺序每文档执行一次；生命周期注入不保证在页面自身首个脚本前执行，仅针对主 frame，需宿主接口的页面应等 operitComposeDslInterfacesReady。该小节属 Android 端内容，不在本页桌面端（Windows / macOS / Linux）排障范围内，本次未立事实。
+- 新增小节说明（第 23 轮）：新基线 docs/webview-rendering.md:88 新增“Embedded Compose pages”小节（:88–:116）与 docs/webview-rendering.md:117 新增“Embedded page checks”小节（:117–:131），共 45 行：Compose 嵌入页以执行上下文与显式 key 定身份、文档比较不用序列化 HTML 作缓存键、纵向滚动内嵌页装共享 document-start 滚动桥接、OpenUI 单 React 根与单在途发布、以及 compose_webview_scroll / compose_dsl_webview_bridge / openui 检查命令。该小节属 Compose 嵌入页内容，不在本页桌面端（Windows / macOS / Linux）排障范围内，本次未立事实。
 - windows-webview-composition.md 核实：2026-11-11 对基线 AAswordman/Operit2 @ 364d1d594 核验，docs/ 目录清单中无 windows-webview-composition.md；以 grep -rI "windows-webview-composition" 检索 docs/ 与 apps/flutter/app/，零命中；2026-11-15 对新基线 ff5373fb6 重核，仍无该文件、仍零命中；webview-rendering.md 以 ## Windows composition 小节承载 Windows 合成内容（见正文引用 docs/webview-rendering.md:59）。该文件不存在的结论按上述方法核验，不引用该文件。
 - Windows GNU 工具链问题：大纲（outline/outline-v1.yaml）将其归属 [[dev-building|构建指南]]，seed 为 BUILDING.md；本页未读 BUILDING.md，正文只做跨页指向，不复述其内容。
 - 范围说明：Impeller 一节的崩溃证据来自 iOS（TestFlight build 26、iPhone10,3 / iOS 16.7.16），修复位于引擎共享的 Impeller 层；本页 seed 不含 macOS 或 Linux 专属的 Impeller 故障步骤，也不含桌面端 WebView 崩溃日志类排障步骤。

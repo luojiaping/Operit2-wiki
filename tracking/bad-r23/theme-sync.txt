@@ -1,0 +1,2 @@
+batch-08/theme-sync: 1 bad / 56 facts
+theme-sync.facts.json#53 `snapshotFields` not within ±5 of core/crates/runtime/application/src/data/preferences/ThemePreferenceSnapshot.rs:659

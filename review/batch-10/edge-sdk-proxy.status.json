@@ -1,6 +1,6 @@
 {
   "issue": 88,
-  "source_commit": "62dacc0",
+  "source_commit": "f020fc4",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Edge 代理 crate：在内部封装 Link 请求构造与响应/事件解码，调用方只用类型化方法。",

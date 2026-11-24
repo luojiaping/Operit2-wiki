@@ -1,0 +1,178 @@
+{
+ "A": [],
+ "B": [],
+ "C": [
+  {
+   "page": "intro-not-what",
+   "idx": 13,
+   "ref": "README.md:39",
+   "text": "单节点 Agent 的能力并不在所有平台完全相同",
+   "terms": [
+    "Agent"
+   ],
+   "window": "- Web access, browser automation, workspace browsers, and runtime WebView session projections;\n- Memory, summarization, speech recognition, speech synthesis, and other built-in tools.\n\nThese capabilities are not identical across all platforms. Whether an operation can actually be executed depends on",
+   "mapped": 39,
+   "in_change": false
+  },
+  {
+   "page": "intro-overview",
+   "idx": 16,
+   "ref": "README.md:34",
+   "text": "单节点 Agent 已包含工作区、文件操作、项目模板、命令和备份/导入导出。",
+   "terms": [
+    "Agent"
+   ],
+   "window": "\n- Conversations, session branches, message management, attachments, character cards, character groups, and prompt configuration;\n- Provider configuration, model parameters, tool calls, request queues, and downloadable local chat models using embedded llama.cpp and MNN CPU inference;\n- Workspaces, f",
+   "mapped": 34,
+   "in_change": false
+  },
+  {
+   "page": "intro-overview",
+   "idx": 17,
+   "ref": "README.md:35",
+   "text": "单节点 Agent 已包含终端会话、PTY 输入和输出流。",
+   "terms": [
+    "Agent"
+   ],
+   "window": "- Conversations, session branches, message management, attachments, character cards, character groups, and prompt configuration;\n- Provider configuration, model parameters, tool calls, request queues, and downloadable local chat models using embedded llama.cpp and MNN CPU inference;\n- Workspaces, fi",
+   "mapped": 35,
+   "in_change": false
+  },
+  {
+   "page": "intro-overview",
+   "idx": 19,
+   "ref": "README.md:37",
+   "text": "单节点 Agent 已包含记忆、摘要、语音识别、语音合成以及其他内置工具。",
+   "terms": [
+    "Agent"
+   ],
+   "window": "- Workspaces, file operations, project templates, commands, and backup/import/export;\n- Terminal sessions, PTY input, and output streams;\n- Web access, browser automation, workspace browsers, and runtime WebView session projections;\n- Memory, summarization, speech recognition, speech synthesis, and ",
+   "mapped": 37,
+   "in_change": false
+  },
+  {
+   "page": "core-runtime-services",
+   "idx": 84,
+   "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2586",
+   "text": "attachUploadedFile 仅当已上传附件已导入当前聊天文件目录且 VFS 定位与存储文件一致时才登记",
+   "terms": [
+    "attachUploadedFile"
+   ],
+   "window": "        if !self\n            .attachments\n            .iter()\n            .any(|item| item.filePath == attachment.filePath)\n        {\n            let message = format!(\"已添加附件: {}\", attachment.fileName);\n            self.attachments.push(attachment);",
+   "mapped": 2586,
+   "in_change": false
+  },
+  {
+   "page": "core-runtime-services",
+   "idx": 95,
+   "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2765",
+   "text": "chatMessagesWindowFlow 向前翻页时一次加载 14 条消息",
+   "terms": [
+    "chatMessagesWindowFlow"
+   ],
+   "window": "        let manager = self.chatHistoryDelegate.chatHistoryManager.clone();\n        self.localChatMessagesFlow(chatId.clone()).map(move |live| {\n            let messages = if let Some(timestamp) = beforeTimestamp {\n                let mut page = match manager.loadChatMessagesDescUpTo(chatId.clone(), ",
+   "mapped": 2765,
+   "in_change": false
+  },
+  {
+   "page": "core-runtime-services",
+   "idx": 98,
+   "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2863",
+   "text": "routeProbeChatMessagesFlow 构建带嵌入响应流的路由诊断聊天消息流",
+   "terms": [
+    "routeProbeChatMessagesFlow"
+   ],
+   "window": "                                requestId: Some(request.requestId.clone()),\n                                target: request.target.clone(),\n                                propertyName: request.propertyName.clone(),\n                                kind: CoreEventKind::Changed,\n                      ",
+   "mapped": 2863,
+   "in_change": false
+  },
+  {
+   "page": "core-runtime-services",
+   "idx": 111,
+   "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3179",
+   "text": "localChatStateFlow 返回本地 Core 上指定聊天的运行时状态流",
+   "terms": [
+    "Core",
+    "localChatStateFlow"
+   ],
+   "window": "                    chat.map(|chat| chat.title.clone()).unwrap_or_default(),\n                    chat.and_then(|chat| chat.workspacePrimaryPath.clone()),\n                    directory,\n                )\n            }\n        });\n        let pendingQueueStateFlow = self.pendingQueueStateFlow().asStat",
+   "mapped": 3179,
+   "in_change": false
+  },
+  {
+   "page": "agent-character-cards",
+   "idx": 80,
+   "ref": "plugins/packages/buildin/character_cards/README.md:137",
+   "text": "主题引用为 null 表示保持当前主题，群组不借用成员的主题。",
+   "terms": [
+    "null"
+   ],
+   "window": "not substituted for a failed request. Selecting stages only the editor's\n`themeConfigId`; saving persists it, and activating the character/group applies\nthe exact configuration through `Tools.Theme.applyConfig(id)`.\nNull means keep the current theme, and groups never borrow a member's theme.\nCharact",
+   "mapped": 137,
+   "in_change": false
+  },
+  {
+   "page": "agent-chat-branch",
+   "idx": 56,
+   "ref": "core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1651",
+   "text": "searchChatIdsByContent 的空查询返回空集",
+   "terms": [
+    "searchChatIdsByContent"
+   ],
+   "window": "        query: String,\n    ) -> ChatHistoryManagerResult<HashSet<String>> {\n        if query.trim().is_empty() {\n            return Ok(HashSet::new());\n        }\n        let escapedQuery = query\n            .trim()",
+   "mapped": 1680,
+   "in_change": false
+  },
+  {
+   "page": "agent-slash",
+   "idx": 86,
+   "ref": "apps/cli/src/cli/mod.rs:1656",
+   "text": "cli_usage_lines 先列固有命令族，再追加插件命令",
+   "terms": [
+    "cli_usage_lines"
+   ],
+   "window": "        \"Commands:\".to_string(),\n    ];\n    for (name, description) in CLI_COMMANDS {\n        lines.push(format!(\"  {name:<15}  {description}\"));\n    }\n    for command in pluginCommands {\n        lines.push(format!(\"  {:<15}  {}\", command.name, command.description));",
+   "mapped": 1656,
+   "in_change": false
+  },
+  {
+   "page": "plugin-catalog-buildin",
+   "idx": 21,
+   "ref": "plugins/packages/buildin/character_cards/manifest.json:13",
+   "text": "character_cards 的中文显示名是角色卡，中文描述是：创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库。",
+   "terms": [
+    "character_cards"
+   ],
+   "window": "    \"en\": \"Characters\"\n  },\n  \"description\": {\n    \"zh\": \"创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库。\",\n    \"en\": \"Create AI characters or put several in a group chat; each keeps its own memory library.\"\n  },\n  \"logo\": \"package_logo\",",
+   "mapped": 13,
+   "in_change": false
+  },
+  {
+   "page": "plugin-catalog-external",
+   "idx": 74,
+   "ref": "plugins/packages/external/waifu/manifest.json:13",
+   "text": "waifu 提供普通聊天中的分句气泡、打字节奏、角色绑定、情绪表情和自拍提示",
+   "terms": [
+    "waifu"
+   ],
+   "window": "    \"en\": \"Waifu Mode\"\n  },\n  \"description\": {\n    \"zh\": \"普通聊天中的分句气泡、打字节奏、角色绑定、情绪表情和自拍提示，并提供依赖插件公开 API。\",\n    \"en\": \"Role-bound sentence bubbles, typing rhythm, stickers and selfie prompts for native chat and dependent plugins.\"\n  },\n  \"enabled_by_default\": false,",
+   "mapped": 13,
+   "in_change": false
+  },
+  {
+   "page": "sync-vfs",
+   "idx": 126,
+   "ref": "core/crates/foundation/vfs/src/PathMapper.rs:398",
+   "text": "/app 与 /operitapp 的虚拟条目为 data、workspaces、outputs",
+   "terms": [
+    "data",
+    "operitapp",
+    "outputs",
+    "workspaces"
+   ],
+   "window": "                    .map(|root| directoryEntry(root.name))\n                    .collect())\n            }\n            [ROOT_APP | ROOT_OPERITAPP] => Some(vec![directoryEntry(APP_DATA), directoryEntry(APP_WORKSPACES), directoryEntry(APP_OUTPUTS)]),\n            [ROOT_MNT | ROOT_VIRTUAL] => { let entrie",
+   "mapped": 428,
+   "in_change": false
+  }
+ ]
+}

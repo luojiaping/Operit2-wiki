@@ -1,0 +1,20 @@
+batch-04/agent-character-cards: 19 bad / 87 facts
+agent-character-cards.facts.json#39 `chat.configuration.delete` not within ±5 of plugins/packages/buildin/character_cards/src/public-api.ts:103
+agent-character-cards.facts.json#40 `chat.configuration.draft.commit` not within ±5 of plugins/packages/buildin/character_cards/src/public-api.ts:508
+agent-character-cards.facts.json#41 `chat.configuration.draft.abort` not within ±5 of plugins/packages/buildin/character_cards/src/public-api.ts:509
+agent-character-cards.facts.json#42 `chat.configuration.draft.resolve` not within ±5 of plugins/packages/buildin/character_cards/src/public-api.ts:507
+agent-character-cards.facts.json#43 `chatConfigurationDeleteApi` not within ±5 of plugins/packages/buildin/character_cards/src/public-api.ts:70
+agent-character-cards.md:71 `chat.configuration.draft.commit` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:508']
+agent-character-cards.md:72 `chat.configuration.draft.abort` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:509']
+agent-character-cards.md:73 `chat.configuration.draft.resolve` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:507']
+agent-character-cards.md:74 `chat.configuration.delete` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:103']
+agent-character-cards.md:75 `chatConfigurationDeleteApi` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:70']
+agent-character-cards.md:89 `chatSelection` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:45']
+agent-character-cards.md:89 `request.chatExtension` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:45']
+agent-character-cards.md:149 `chat.configuration.delete` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:103']
+agent-character-cards.md:150 `chat.configuration.draft.commit` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:508']
+agent-character-cards.md:151 `chat.configuration.draft.abort` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:509']
+agent-character-cards.md:162 `chat.configuration.draft.commit` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:508']
+agent-character-cards.md:163 `chatSelection` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:45']
+agent-character-cards.md:163 `request.chatExtension` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:45']
+agent-character-cards.md:167 `chat.configuration.delete` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/public-api.ts:103']

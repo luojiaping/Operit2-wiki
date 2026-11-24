@@ -128,9 +128,9 @@ date: 2026-11-11
 
 ### 维护检查
 
-- 维护检查从 `apps/flutter/app` 运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。`docs/webview-rendering.md:93`
-- `windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。`docs/webview-rendering.md:97`
-- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:99`
+- 维护检查从 `apps/flutter/app` 运行 `fvm flutter test test/application_zoom_webview_test.dart test/windows_native_composition_test.dart`。`docs/webview-rendering.md:138`
+- `windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。`docs/webview-rendering.md:142`
+- `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:144`
 
 ## 关键符号
 

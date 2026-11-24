@@ -9,7 +9,7 @@ date: 2026-11-11
 ## 概述
 
 - `ChatHistoryManager` 是会话、消息、变体、分支与同步记录的仓库（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:208）。
-- 消息主行存 `messages` 表，按 `timestamp` 排序；全量读出入口已删，历史改为按需加载：`loadChatMessagesAscAfter` 自时间戳后升序取，`loadOlderChatMessages` 向前分页取（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1761）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1773）。
+- 消息主行存 `messages` 表，按 `timestamp` 排序；全量读出入口已删，历史改为按需加载：`loadChatMessagesAscAfter` 自时间戳后升序取，`loadOlderChatMessages` 向前分页取（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1790）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1802）。
 - 变体修订存 `message_variants` 表（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:144）。
 - 各修订的 part 行存 `message_parts` 表（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:166）。
 - 插件发送消息的契约入口只有 `sendMessage`、`sendMessageStreaming`、`cancel` 三个方法（docs/chat-send-api.md:8）。
@@ -28,7 +28,7 @@ date: 2026-11-11
 - `commitAssistantMessageSegment` — 原子提交一段助手消息（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1117）。
 - `newChatDraft` — 建未持久化会话草稿（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1354）。
 - `commitChatDraft` — 提交草稿，或按 source 提交为源会话分支（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1377）。
-- `getBranches` — 按 parentChatId 取分支会话（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1637）。
+- `getBranches` — 按 parentChatId 取分支会话（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1666）。
 - `deleteChatHistory` — 删除整段会话（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1338）。
 - `Tools.Chat.sendMessage` — 插件发送消息的入口（docs/chat-send-api.md:8）。
 - `Tools.Chat.sendMessageStreaming` — 流式发送消息的入口（docs/chat-send-api.md:9）。
@@ -100,23 +100,23 @@ date: 2026-11-11
 
 **消息读取**
 
-- `loadChatMessagesRange` 要求 0 <= start <= end，否则报 `range requires 0 <= start <= end`（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1583）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1592）。
-- loadChatMessagesRange 读取上限为 end - start + 1（`checked_sub` 后 `checked_add(1)`，由 `LIMIT` 执行，历史不足时返回更少）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1597）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1612）。
-- loadRuntimeChatMessages 从最新一条 `summary` 消息起（含该摘要）加载消息，供模型上下文（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1707）。
-- `hasUserMessageAfter` 不加载会话消息即查指定时间戳后是否有更新的用户回合（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1695）。
-- `loadRuntimeChatMessagesUpTo` 从一条历史消息起加载模型上下文，含该时间点前的最新摘要（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1717）。
-- `loadChatMessageDepths` 只计数指定时间戳后已持久化的消息数，不水合预览、part 或变体（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1738）。
-- `loadChatMessageIndexPosition` 不读消息体即解析一条已持久化消息的精确位置（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1756）。
-- loadMessagesAfterLatestSummaryInRange 只取最新摘要之后的消息，不含摘要本身（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1663）。
-- `getLatestSummaryTimestamp` 返回一个会话里最新摘要消息的时间戳（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1655）。
-- `searchChatIdsByContent` 的空查询返回空集（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1617）。
+- `loadChatMessagesRange` 要求 0 <= start <= end，否则报 `range requires 0 <= start <= end`（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1612）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1621）。
+- loadChatMessagesRange 读取上限为 end - start + 1（`checked_sub` 后 `checked_add(1)`，由 `LIMIT` 执行，历史不足时返回更少）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1626）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1641）。
+- loadRuntimeChatMessages 从最新一条 `summary` 消息起（含该摘要）加载消息，供模型上下文（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1736）。
+- `hasUserMessageAfter` 不加载会话消息即查指定时间戳后是否有更新的用户回合（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1724）。
+- `loadRuntimeChatMessagesUpTo` 从一条历史消息起加载模型上下文，含该时间点前的最新摘要（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1746）。
+- `loadChatMessageDepths` 只计数指定时间戳后已持久化的消息数，不水合预览、part 或变体（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1767）。
+- `loadChatMessageIndexPosition` 不读消息体即解析一条已持久化消息的精确位置（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1785）。
+- loadMessagesAfterLatestSummaryInRange 只取最新摘要之后的消息，不含摘要本身（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1692）。
+- `getLatestSummaryTimestamp` 返回一个会话里最新摘要消息的时间戳（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1684）。
+- `searchChatIdsByContent` 的空查询返回空集（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1646）。
 - 消息定位预览截断长度 `LOCATOR_PREVIEW_CHAR_COUNT` 为 48 字符（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:37）。
-- `loadChatMessageLocatorPreviews` 读全局消息索引返回有界预览，不水合消息体（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1745）。
+- `loadChatMessageLocatorPreviews` 读全局消息索引返回有界预览，不水合消息体（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1774）。
 
 **分支**
 
-- `getBranches` 按 `parentChatId` 取一个父会话的分支会话列表（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1637）。
-- `getBranchesFlow` 与 `getBranches` 返回相同结果（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1647）。
+- `getBranches` 按 `parentChatId` 取一个父会话的分支会话列表（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1666）。
+- `getBranchesFlow` 与 `getBranches` 返回相同结果（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1676）。
 - `promoteChatToRoot` 把会话从父会话脱离为根会话（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:795）。
 - `ensureOutputDirectory` 沿父会话链上溯找输出目录（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:497）。
 - 父会话链成环时 ensureOutputDirectory 报 IllegalState，错误含 `Cyclic parent conversations`（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:503）。
@@ -152,7 +152,7 @@ date: 2026-11-11
 - `getMessageCountsByChatId` 按会话分组计数消息（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:552）。
 - `updateChatLocked` 改锁定态后记同步元数据（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:779）。
 - `updateChatPinned` 改置顶态后记同步元数据（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:787）。
-- `renameRoleNameInMessages` 批量改名消息行里的 roleName（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1838）。
+- `renameRoleNameInMessages` 批量改名消息行里的 roleName（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1867）。
 - `updateMessage` 经 `persistMessageLocked` 更新消息内容与选中变体元数据（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1113）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1107）。
 - `setMessageFavorite` 只在收藏态变化时才写库并记快照（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1162）。
 
@@ -206,16 +206,16 @@ date: 2026-11-11
 - `resolveAnchoredMessageLocked` — 解析锚定消息时间戳（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:885）。
 - `newChatDraft` — 建未持久化会话草稿（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1354）。
 - `commitChatDraft` — 提交草稿或源会话分支（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1377）。
-- `getBranches` — 按 parentChatId 取分支会话（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1637）。
+- `getBranches` — 按 parentChatId 取分支会话（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1666）。
 - `deleteChatHistory` — 删除整段会话（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1338）。
 - `canDeleteChatHistory` — 查会话是否允许删除（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1330）。
 - `setCurrentChatId` — 把当前会话 id 写入偏好存储（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1304）。
 - `clearCurrentChatId` — 从偏好存储移除当前会话 id（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1312）。
-- `loadRuntimeChatMessages` — 从最新摘要起加载模型上下文消息（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1700）。
-- `hasUserMessageAfter` — 不加载会话消息即查指定时间戳后是否有更新的用户回合（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1695）。
-- `loadRuntimeChatMessagesUpTo` — 从一条历史消息起加载模型上下文，含该时间点前的最新摘要（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1717）。
-- `loadChatMessageDepths` — 只计数指定时间戳后已持久化的消息数（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1738）。
-- `loadChatMessageIndexPosition` — 不读消息体即解析一条消息的精确位置（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1756）。
+- `loadRuntimeChatMessages` — 从最新摘要起加载模型上下文消息（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1729）。
+- `hasUserMessageAfter` — 不加载会话消息即查指定时间戳后是否有更新的用户回合（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1724）。
+- `loadRuntimeChatMessagesUpTo` — 从一条历史消息起加载模型上下文，含该时间点前的最新摘要（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1746）。
+- `loadChatMessageDepths` — 只计数指定时间戳后已持久化的消息数（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1767）。
+- `loadChatMessageIndexPosition` — 不读消息体即解析一条消息的精确位置（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1785）。
 - `Tools.Chat.sendMessage` — 插件发送消息的入口（docs/chat-send-api.md:8）。
 - `Tools.Chat.sendMessageStreaming` — 流式发送消息的入口（docs/chat-send-api.md:9）。
 - `Tools.Chat.cancel` — 取消发送的入口（docs/chat-send-api.md:10）。
@@ -234,7 +234,7 @@ date: 2026-11-11
 8. 完成时收 `completed` 事件，携带实际定稿收据（docs/chat-send-api.md:172）。
 9. 分支创建：`newChatDraft` 带 `parentChatId` 建草稿（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1348）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1354）。
 10. `commitChatDraft` 按 `source` 提交为源会话分支，并从父会话继承输出目录（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1383）。
-11. 读分支：`getBranches` 按 `parentChatId` 取分支会话列表（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1637）。
+11. 读分支：`getBranches` 按 `parentChatId` 取分支会话列表（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1666）。
 12. 整段删除：`deleteChatHistory` 先冻结子会话输出目录绑定（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1339）。
 13. 若被删会话是当前会话，清除当前会话 id（`clearCurrentChatId`）（core/crates/persistence/store/src/repository/ChatHistoryManager.rs:1348）。
 
