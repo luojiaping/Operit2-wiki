@@ -3,7 +3,7 @@
   "approved_by": "luojiaping",
   "approved_by_comment_id": 6795387806,
   "issue": 27,
-  "source_commit": "f020fc4",
+  "source_commit": "d0f7619",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Runtime 业务服务：ChatServiceCore 聊天管线、Provider/Tool 两座运行时支持桥、终端 PTY 服务",

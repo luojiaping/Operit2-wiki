@@ -1,6 +1,6 @@
 {
   "issue": 73,
-  "source_commit": "f020fc4",
+  "source_commit": "d0f7619",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "局域网发现、配对与加入 Space：mDNS 发现、Link 三操作、配对授权边界与 space_join 的 refresh 流程。",
