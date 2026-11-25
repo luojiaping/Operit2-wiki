@@ -21,8 +21,8 @@ date: 2026-11-11
 - `release_version` — 读取并校验 App 与 CLI 共用的单一发布版本。`tools/build_scripts/release_artifacts.py:42`
 - `validate_release_assets` — 拒绝文件名不在当前版本命名集合内的资产。`tools/build_scripts/release_artifacts.py:87`
 - build_local.py 的 `main` — 当前宿主构建入口。`tools/build_scripts/build_local.py:98`
-- build_flutter_android.py 的 `main` — Android 构建入口。`tools/build_scripts/build_flutter_android.py:118`
-- build_flutter_windows.py 的 `main` — Windows Flutter 构建入口。`tools/build_scripts/build_flutter_windows.py:50`
+- build_flutter_android.py 的 `main` — Android 构建入口。`tools/build_scripts/build_flutter_android.py:119`
+- build_flutter_windows.py 的 `main` — Windows Flutter 构建入口。`tools/build_scripts/build_flutter_windows.py:48`
 - build_cli_windows.py 的 `main` — Windows CLI 构建入口。`tools/build_scripts/build_cli_windows.py:16`
 - `build_esp32` — ESP32 固件构建与打包入口。`tools/build_scripts/build_esp32.py:137`
 - `build_windows_msi` — Windows MSI 打包入口。`tools/build_scripts/build_windows_msi.py:110`
@@ -31,7 +31,7 @@ date: 2026-11-11
 - `package_windows_app` — 以 cmake --install 把 Windows 载荷装进临时目录再打包。`tools/build_scripts/build_flutter_windows.py:22`
 - `prepare_build_catalog` — Cargo 构建前刷新内嵌模型目录。`tools/build_scripts/models_dev_bundle.py:50`
 - 主入口函数为 build_local.py 的 `main`。`tools/build_scripts/build_local.py:98`
-- 数据流向一句话：Android APK 以 `release_asset_name("app", "android", "arm64-v8a", "apk")` 命名发布到 `dist_dir`。`tools/build_scripts/build_flutter_android.py:111`
+- 数据流向一句话：Android APK 以 `release_asset_name("app", "android", "arm64-v8a", "apk")` 命名发布到 `dist_dir`。`tools/build_scripts/build_flutter_android.py:112`
 
 ## 核心机制
 
@@ -61,20 +61,20 @@ date: 2026-11-11
 
 - `build_flutter_<platform>.py` 覆盖 Android、iOS、Linux、macOS、OpenHarmony、Windows 六个平台的 Flutter 构建。`tools/build_scripts/README.md:23`
 - `build_flutter_macos.py` 缺省为 `sandbox`。`tools/build_scripts/README.md:160`
-- Android 构建执行 flutter build apk --release --split-per-abi。`tools/build_scripts/build_flutter_android.py:133`
-- Android 构建限定 --target-platform android-arm64。`tools/build_scripts/build_flutter_android.py:139`
-- Android 构建传入 `--android-project-arg=operitRuntime=app`。`tools/build_scripts/build_flutter_android.py:140`
-- Android 构建产物为 `app-arm64-v8a-release.apk`。`tools/build_scripts/build_flutter_android.py:154`
-- 普通 Android App 发布包不得包含 `operit-android-module.json`。`tools/build_scripts/build_flutter_android.py:86`
-- Android APK 以 `release_asset_name("app", "android", "arm64-v8a", "apk")` 命名发布。`tools/build_scripts/build_flutter_android.py:111`
-- `--impeller-backend` 只接受 `vulkan` 或 `opengles`。`tools/build_scripts/build_flutter_android.py:72`
-- `ensure_android_signing` 在缺失 Android 签名属性时抛错。`tools/build_scripts/build_flutter_android.py:25`
-- `ensure_android_signing` 读取 `RELEASE_DIR` 下 secrets/android-signing.properties。`tools/build_scripts/build_flutter_android.py:26`
-- `configure_android_flutter_sdk` 把 FVM 选定的 Flutter SDK 写入 `ANDROID_LOCAL_PROPERTIES`。`tools/build_scripts/build_flutter_android.py:45`
-- Windows Flutter 构建执行 flutter build windows --release --no-pub。`tools/build_scripts/build_flutter_windows.py:53`
-- Windows 构建以 `cmake` 的 `--install` 把 `build/windows/x64` 的 `Runtime` 组件装进临时 staging 目录。`tools/build_scripts/build_flutter_windows.py:30`
-- Windows App 安装器默认名为 `release_asset_name("app", "windows", "x86_64", "msi")`，不再产出 ZIP 归档。`tools/build_scripts/build_flutter_windows.py:56`
-- Windows MSI 安装器路径缺省为 `DIST_DIR` 下 `release_asset_name("app", "windows", "x86_64", "msi")`。`tools/build_scripts/build_flutter_windows.py:56`
+- Android 构建执行 flutter build apk --release --split-per-abi。`tools/build_scripts/build_flutter_android.py:135`
+- Android 构建限定 --target-platform android-arm64。`tools/build_scripts/build_flutter_android.py:141`
+- Android 构建传入 `--android-project-arg=operitRuntime=app`。`tools/build_scripts/build_flutter_android.py:142`
+- Android 构建产物为 `app-arm64-v8a-release.apk`。`tools/build_scripts/build_flutter_android.py:156`
+- 普通 Android App 发布包不得包含 `operit-android-module.json`。`tools/build_scripts/build_flutter_android.py:87`
+- Android APK 以 `release_asset_name("app", "android", "arm64-v8a", "apk")` 命名发布。`tools/build_scripts/build_flutter_android.py:112`
+- `--impeller-backend` 只接受 `vulkan` 或 `opengles`。`tools/build_scripts/build_flutter_android.py:75`
+- `ensure_android_signing` 在缺失 Android 签名属性时抛错。`tools/build_scripts/build_flutter_android.py:26`
+- `ensure_android_signing` 读取 `RELEASE_DIR` 下 secrets/android-signing.properties。`tools/build_scripts/build_flutter_android.py:27`
+- `configure_android_flutter_sdk` 把 FVM 选定的 Flutter SDK 写入 `ANDROID_LOCAL_PROPERTIES`。`tools/build_scripts/build_flutter_android.py:46`
+- Windows Flutter 构建执行 flutter build windows --release --no-pub。`tools/build_scripts/build_flutter_windows.py:52`
+- Windows 构建以 `cmake` 的 `--install` 把 `build/windows/x64` 的 `Runtime` 组件装进临时 staging 目录。`tools/build_scripts/build_flutter_windows.py:31`
+- Windows App 安装器默认名为 `release_asset_name("app", "windows", "x86_64", "msi")`，不再产出 ZIP 归档。`tools/build_scripts/build_flutter_windows.py:58`
+- Windows MSI 安装器路径缺省为 `DIST_DIR` 下 `release_asset_name("app", "windows", "x86_64", "msi")`。`tools/build_scripts/build_flutter_windows.py:58`
 - Windows Flutter 构建的打包阶段调用 `build_windows_msi` 生成安装器。`tools/build_scripts/build_flutter_windows.py:34`
 
 ### CLI 构建入口
@@ -168,10 +168,10 @@ date: 2026-11-11
 - `RELEASE_TARGETS` — 列出发布资产的目标组合，含产品、平台、架构与扩展名。`tools/build_scripts/release_artifacts.py:13`
 - `main`（build_local.py）— 当前宿主构建的入口。`tools/build_scripts/build_local.py:98`
 - `build_script` — 按 `{name}_{platform_name}.py` 拼出平台构建脚本路径。`tools/build_scripts/build_local.py:32`
-- `ensure_android_signing` — 在缺失 Android 签名属性时抛错。`tools/build_scripts/build_flutter_android.py:25`
-- `configure_android_flutter_sdk` — 把 FVM 选定的 Flutter SDK 写入 `ANDROID_LOCAL_PROPERTIES`。`tools/build_scripts/build_flutter_android.py:45`
-- `verify_android_runtime_assets` — 校验 APK 运行时资产与请求 ABI 一致。`tools/build_scripts/build_flutter_android.py:83`
-- `publish_android_apk` — 把 APK 复制到 `dist_dir` 并以共享命名发布。`tools/build_scripts/build_flutter_android.py:110`
+- `ensure_android_signing` — 在缺失 Android 签名属性时抛错。`tools/build_scripts/build_flutter_android.py:26`
+- `configure_android_flutter_sdk` — 把 FVM 选定的 Flutter SDK 写入 `ANDROID_LOCAL_PROPERTIES`。`tools/build_scripts/build_flutter_android.py:46`
+- `verify_android_runtime_assets` — 校验 APK 运行时资产与请求 ABI 一致。`tools/build_scripts/build_flutter_android.py:84`
+- `publish_android_apk` — 把 APK 复制到 `dist_dir` 并以共享命名发布。`tools/build_scripts/build_flutter_android.py:111`
 - `build_windows_msi` — 把 Windows 发布目录打包为 MSI。`tools/build_scripts/build_windows_msi.py:110`
 - `msi_version` — 把 SemVer 通道映射为严格递增的 Windows Installer 版本。`tools/build_scripts/build_windows_msi.py:36`
 - `build_esp32` — 依次执行固件构建、清单校验与归档打包。`tools/build_scripts/build_esp32.py:137`
@@ -193,9 +193,9 @@ date: 2026-11-11
 1. build_local.py 的 `main` 用 `host_platform()` 判定当前宿主平台。`tools/build_scripts/build_local.py:99`
 2. build_local.py 的 `main` 是当前宿主构建的入口。`tools/build_scripts/build_local.py:98`
 3. `build_script` 按 `{name}_{platform_name}.py` 拼出平台构建脚本路径。`tools/build_scripts/build_local.py:32`
-4. Android 构建执行 flutter build apk --release --split-per-abi。`tools/build_scripts/build_flutter_android.py:133`
-5. `verify_android_runtime_assets` 校验 APK 运行时资产与请求 ABI 一致。`tools/build_scripts/build_flutter_android.py:83`
-6. `publish_android_apk` 把 APK 复制到 `dist_dir` 并以共享命名发布。`tools/build_scripts/build_flutter_android.py:110`
+4. Android 构建执行 flutter build apk --release --split-per-abi。`tools/build_scripts/build_flutter_android.py:135`
+5. `verify_android_runtime_assets` 校验 APK 运行时资产与请求 ABI 一致。`tools/build_scripts/build_flutter_android.py:84`
+6. `publish_android_apk` 把 APK 复制到 `dist_dir` 并以共享命名发布。`tools/build_scripts/build_flutter_android.py:111`
 7. Windows Flutter 构建的打包阶段调用 `build_windows_msi` 生成安装器。`tools/build_scripts/build_flutter_windows.py:34`
 8. `args.products` 为 `esp32` 时调用 `build_esp32()`。`tools/build_scripts/build_local.py:117`
 9. `build_esp32` 依次执行固件构建、清单校验与归档打包。`tools/build_scripts/build_esp32.py:137`

@@ -1,6 +1,6 @@
 {
   "issue": 42,
-  "source_commit": "f020fc4",
+  "source_commit": "d0f7619",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "TUI 补全表 81 条、25 个顶层词；交互式 shell 分发 13 个命令词；/resume 切最新聊天；插件命令来自 Core，seed 内无用户自定义 slash 加载机制",

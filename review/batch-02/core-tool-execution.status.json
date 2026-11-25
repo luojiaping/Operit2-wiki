@@ -1,6 +1,6 @@
 {
   "issue": 20,
-  "source_commit": "f020fc4",
+  "source_commit": "d0f7619",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "工具系统执行与注册：解析、批处理、注册表、权限与 hook 的完整链路。",

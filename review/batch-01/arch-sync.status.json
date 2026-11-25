@@ -1,6 +1,6 @@
 {
   "issue": 10,
-  "source_commit": "f020fc4",
+  "source_commit": "d0f7619",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "持久化同步总览：Space 内持久化操作与 Blob 的交换、事务模型与强制校正",

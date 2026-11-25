@@ -145,63 +145,63 @@
   },
   {
     "fact": "`ensure_android_signing` 在缺失 Android 签名属性时抛错。",
-    "ref": "tools/build_scripts/build_flutter_android.py:25"
-  },
-  {
-    "fact": "`ensure_android_signing` 读取 `RELEASE_DIR` 下 secrets/android-signing.properties。",
     "ref": "tools/build_scripts/build_flutter_android.py:26"
   },
   {
+    "fact": "`ensure_android_signing` 读取 `RELEASE_DIR` 下 secrets/android-signing.properties。",
+    "ref": "tools/build_scripts/build_flutter_android.py:27"
+  },
+  {
     "fact": "`configure_android_flutter_sdk` 把 FVM 选定的 Flutter SDK 写入 `ANDROID_LOCAL_PROPERTIES`。",
-    "ref": "tools/build_scripts/build_flutter_android.py:45"
+    "ref": "tools/build_scripts/build_flutter_android.py:46"
   },
   {
     "fact": "Android 构建执行 flutter build apk --release --split-per-abi。",
-    "ref": "tools/build_scripts/build_flutter_android.py:133"
+    "ref": "tools/build_scripts/build_flutter_android.py:135"
   },
   {
     "fact": "Android 构建限定 --target-platform android-arm64。",
-    "ref": "tools/build_scripts/build_flutter_android.py:139"
+    "ref": "tools/build_scripts/build_flutter_android.py:141"
   },
   {
     "fact": "Android 构建传入 `--android-project-arg=operitRuntime=app`。",
-    "ref": "tools/build_scripts/build_flutter_android.py:140"
+    "ref": "tools/build_scripts/build_flutter_android.py:142"
   },
   {
     "fact": "Android 构建产物为 `app-arm64-v8a-release.apk`。",
-    "ref": "tools/build_scripts/build_flutter_android.py:154"
+    "ref": "tools/build_scripts/build_flutter_android.py:156"
   },
   {
     "fact": "普通 Android App 发布包不得包含 `operit-android-module.json`。",
-    "ref": "tools/build_scripts/build_flutter_android.py:86"
+    "ref": "tools/build_scripts/build_flutter_android.py:87"
   },
   {
     "fact": "Android APK 以 `release_asset_name(\"app\", \"android\", \"arm64-v8a\", \"apk\")` 命名发布。",
-    "ref": "tools/build_scripts/build_flutter_android.py:111"
+    "ref": "tools/build_scripts/build_flutter_android.py:112"
   },
   {
     "fact": "`--impeller-backend` 只接受 `vulkan` 或 `opengles`。",
-    "ref": "tools/build_scripts/build_flutter_android.py:72"
+    "ref": "tools/build_scripts/build_flutter_android.py:75"
   },
   {
     "fact": "build_flutter_android.py 的 `main` 是 Android 构建入口。",
-    "ref": "tools/build_scripts/build_flutter_android.py:118"
+    "ref": "tools/build_scripts/build_flutter_android.py:119"
   },
   {
     "fact": "Windows Flutter 构建执行 flutter build windows --release --no-pub。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:53"
+    "ref": "tools/build_scripts/build_flutter_windows.py:52"
   },
   {
     "fact": "Windows 构建以 `cmake` 的 `--install` 把 `build/windows/x64` 的 `Runtime` 组件装进临时 staging 目录。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:30"
+    "ref": "tools/build_scripts/build_flutter_windows.py:31"
   },
   {
     "fact": "Windows App 安装器默认名为 `release_asset_name(\"app\", \"windows\", \"x86_64\", \"msi\")`，不再产出 ZIP 归档。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:56"
+    "ref": "tools/build_scripts/build_flutter_windows.py:58"
   },
   {
     "fact": "Windows MSI 安装器路径缺省为 `DIST_DIR` 下 `release_asset_name(\"app\", \"windows\", \"x86_64\", \"msi\")`。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:56"
+    "ref": "tools/build_scripts/build_flutter_windows.py:58"
   },
   {
     "fact": "Windows Flutter 构建的打包阶段调用 `build_windows_msi` 生成安装器。",
@@ -209,7 +209,7 @@
   },
   {
     "fact": "build_flutter_windows.py 的 `main` 是 Windows Flutter 构建入口。",
-    "ref": "tools/build_scripts/build_flutter_windows.py:50"
+    "ref": "tools/build_scripts/build_flutter_windows.py:48"
   },
   {
     "fact": "`msi_version` 把 SemVer 通道映射为严格递增的 Windows Installer 版本。",
@@ -417,11 +417,11 @@
   },
   {
     "fact": "`verify_android_runtime_assets` 校验 APK 运行时资产与请求 ABI 一致。",
-    "ref": "tools/build_scripts/build_flutter_android.py:83"
+    "ref": "tools/build_scripts/build_flutter_android.py:84"
   },
   {
     "fact": "`publish_android_apk` 把 APK 复制到 `dist_dir` 并以共享命名发布。",
-    "ref": "tools/build_scripts/build_flutter_android.py:110"
+    "ref": "tools/build_scripts/build_flutter_android.py:111"
   },
   {
     "fact": "`build_windows_msi` 把 Windows 发布目录打包为 MSI。",

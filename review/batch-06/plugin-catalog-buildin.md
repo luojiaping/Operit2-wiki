@@ -82,7 +82,7 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 
 ### character_cards 为什么这么大
 
-角色卡的 src/ 共 107 个文件，其中 .ts 文件 104 个、合计 16441 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
+角色卡的 src/ 共 107 个文件，其中 .ts 文件 104 个、合计 16442 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
 对照：工作流的 src/ 共 14 个 .ts 文件、合计 2967 行（`plugins/packages/buildin/workflow/src/main.ts:1`）。
 角色卡另有 web/ 前端 3 个文件，其中 .ts 文件 2 个、合计 283 行（`plugins/packages/buildin/character_cards/web/app.ts:1`）。
 注：角色卡 src/ 的统计按上游 0f08fd43 清点，2026-11-15 对 ff5373fb6 复核无变化（102 个文件、99 个 .ts、15830 行）；web/ 按 ff5373fb6 重清点为 3 个文件、2 个 .ts、229 行；2026-11-18 对 753366ff4 复核：src/ 仍 102 个文件、99 个 .ts、合计 15865 行，web/ 仍 3 个文件、2 个 .ts、合计 236 行；行数只计 .ts 文件（src/ 另有 3 个 .json 文件不计）；2026-11-19 对 f9b7555 复核：src/ 仍 102 个文件、99 个 .ts、合计 15925 行，web/ 仍 3 个文件、2 个 .ts、合计 236 行。
@@ -156,5 +156,6 @@ Seed 文件（100% 读完）：
 2026-11-21 基线前移至 2dafe6b：新增目录包 docs_editor（Office 文档编辑器，com.operit.office，0.1.5，默认禁用）；单文件包仍 8、目录包 8→9，插件总数 16→17；character_cards 的 version 由 0.2.6 改为 0.2.7，src/ 行数 16206→16207（105 个文件、102 个 .ts，按 find + wc -l 重清点），web/ 仍 283 行、workflow src/ 仍 2967 行。
 2026-11-25 基线前移至 62dacc0：super_admin.ts 改为目录包 super_admin/（toolpkg_id com.operit.super_admin，version 1.0.0，manifest 的 enabled_by_default 为 true，新增闲置 10 分钟自动关闭会话）；单文件包 8→7、目录包 9→10，插件总数仍 17；character_cards 的 version 由 0.2.9 改为 0.2.10，src/ 行数 16364→16297（仍 106 个文件、103 个 .ts，按 find + wc -l 重清点；api.ts +17、search/state.ts +18、storage/memory-repository.ts +13、memory-search.ts +8、public-api.ts +6、model.ts +5、domain.ts +1、runtime-tools/memory.ts -66、search/text-index.ts -39、ui-memory-workspace.ts -17、operations.ts -8、canonical.ts -3、search/chunks.ts -2），web/ 仍 283 行、workflow src/ 仍 2967 行；api.ts 新增 MemoryPageOptions、MemoryLinkView，memory.graph/memory.list 支持分页、新增 memory.links 接口、memory.chunks 新增 start 参数（以上均未立新事实）；README.md 新增 super_admin 段落致 automatic_ui_base 段落下移（行号 5→9）。
 2026-11-25 基线前移至 f020fc4：character_cards 的 version 由 0.2.10 改为 0.2.12，src/ 行数 16297→16441（107 个文件、104 个 .ts，按 find + wc -l 重清点；新增 group-execution/public-turn.ts 102 行、api.ts +23、public-api.ts +14、native-transport.ts +5），web/ 仍 283 行、workflow src/ 仍 2967 行；api.ts 新增 ChatPresentation、ChatGroupTurnRequest/Reply/Status，新增 chat.presentation 与 chat.groupTurn 公开 API（以上均未立新事实）。
+2026-11-25 基线前移至 d0f7619：character_cards 的 version 由 0.2.12 改为 0.2.13；src/ 行数 16441→16442（仍 107 个文件、104 个 .ts，按 find + wc -l 重清点；public-api.ts +1，新增 `export { groupTurnApi }` 重导出），web/ 仍 283 行、workflow src/ 仍 2967 行；ai_chat_presentation（外部包，本页未收录）的 version 由 0.2.0 改为 0.2.1，src/ui.ts 更名为 src/settings.ui.ts（以上均未立新事实）。
 
 相关页：[[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]]、[[plugin-manifest|清单 manifest 与安装作用域]]。

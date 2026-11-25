@@ -1,0 +1,288 @@
+[
+ {
+  "page": "plugin-catalog-buildin",
+  "idx": 21,
+  "ref": "plugins/packages/buildin/character_cards/manifest.json:13",
+  "text": "character_cards 的中文显示名是角色卡，中文描述是：创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库。",
+  "terms": [
+   "character_cards"
+  ],
+  "window": "    \"en\": \"Characters\"\n  },\n  \"description\": {\n    \"zh\": \"创建和编辑 AI 角色，或让多个角色一起群聊；每个角色都有自己的记忆库。\",\n    \"en\": \"Create AI characters or put several in a group chat; each keeps its own memory library.\"\n  },\n  \"logo\": \"package_logo\","
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 16,
+  "ref": "plugins/types/compose-dsl.d.ts:4965",
+  "text": "UI 字段是核心、Material 3 与宿主注册组件工厂的交集，类型为 ComposeDslContextUIIntersection。",
+  "terms": [
+   "ComposeDslContextUIIntersection",
+   "Material"
+  ],
+  "window": "  subscribe(listener: (arg0: ComposeThemeSnapshot) => ComposeThemeListenerOutput): () => void;\n}\n\n/**\n * Theme, modifier builder, and component factories supplied to a screen renderer.\n */\nexport interface ComposeDslContext {"
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 18,
+  "ref": "plugins/types/compose-dsl.d.ts:4522",
+  "text": "ComposeUiFactoryRegistry 提供通过 ComposeDslContext::UI 访问的核心组件工厂。",
+  "terms": [
+   "ComposeDslContext",
+   "ComposeUiFactoryRegistry"
+  ],
+  "window": "  titleContentColor?: ComposeColor;\n  /**\n   * Body foreground color.\n   */\n  textContentColor?: ComposeColor;\n  /**\n   * Modal elevation."
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 19,
+  "ref": "plugins/types/compose-dsl.d.ts:4330",
+  "text": "ComposeNode 由 type 与 props 字段组成，type 是宿主渲染器解析的组件工厂名。",
+  "terms": [
+   "ComposeNode",
+   "props",
+   "type"
+  ],
+  "window": "  onStateChanged?: (arg0: ComposeWebViewState) => WebViewPropsOnStateChangedOutput;\n  /**\n   * Receives native WebView creation, disposal, commit, and renderer events.\n   */\n  onLifecycleEvent?: (arg0: ComposeWebViewLifecycleEvent) => WebViewPropsOnLifecycleEventOutput;\n  /**\n   * Selects whether a "
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 20,
+  "ref": "plugins/types/compose-dsl.d.ts:4338",
+  "text": "children 是在该元素内渲染的有序后代节点。",
+  "terms": [
+   "children"
+  ],
+  "window": "  onShouldOverrideUrlLoading?: (arg0: ComposeWebViewNavigationRequest) => WebViewPropsOnShouldOverrideUrlLoadingOutput | null | undefined;\n  /**\n   * Selects whether a resource request is allowed, blocked, rewritten, or answered locally.\n   */\n  onInterceptRequest?: (arg0: ComposeWebViewResourceRequ"
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 21,
+  "ref": "plugins/types/compose-dsl.d.ts:4349",
+  "text": "ComposeNodeFactory 把组件属性与子节点编码为 ComposeNode。",
+  "terms": [
+   "ComposeNode",
+   "ComposeNodeFactory"
+  ],
+  "window": "  /**\n   * Component factory name resolved by the host renderer.\n   */\n  type: string;\n  /**\n   * Component-specific properties encoded for the selected node type.\n   */"
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 23,
+  "ref": "plugins/types/compose-dsl.d.ts:4973",
+  "text": "useState 按键保留跨渲染的值，并返回调度更新的 setter。",
+  "terms": [
+   "setter",
+   "useState"
+  ],
+  "window": "   * Reads and observes the resolved theme of the current plugin UI host.\n   */\n  Theme: ComposeTheme;\n  /**\n   * Active Material theme values resolved by the host.\n   */\n  MaterialTheme: ComposeMaterialTheme;"
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 24,
+  "ref": "plugins/types/compose-dsl.d.ts:4977",
+  "text": "useMutable 按键保留可变值，并返回替换该值的回调。",
+  "terms": [
+   "useMutable"
+  ],
+  "window": "   * Active Material theme values resolved by the host.\n   */\n  MaterialTheme: ComposeMaterialTheme;\n  /**\n   * Empty modifier chain from which node modifiers are built.\n   */\n  Modifier: ComposeModifierProxy;"
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 25,
+  "ref": "plugins/types/compose-dsl.d.ts:4981",
+  "text": "useRef 按键返回跨重渲染保持当前值的稳定引用。",
+  "terms": [
+   "useRef"
+  ],
+  "window": "   * Empty modifier chain from which node modifiers are built.\n   */\n  Modifier: ComposeModifierProxy;\n  /**\n   * Core, Material 3, and host-registered component factories.\n   */\n  UI: ComposeDslContextUIIntersection;"
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 26,
+  "ref": "plugins/types/compose-dsl.d.ts:4985",
+  "text": "useMemo 按键复用计算值，直至依赖列表变化。",
+  "terms": [
+   "useMemo"
+  ],
+  "window": "   * Core, Material 3, and host-registered component factories.\n   */\n  UI: ComposeDslContextUIIntersection;\n  /**\n   * Builds the requested range using stable item keys and a fixed main-axis extent.\n   */\n  lazyItems(options: ComposeLazyItemOptions, itemBuilder: (arg0: number) => ComposeNode): Comp"
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 27,
+  "ref": "plugins/types/compose-dsl.d.ts:4989",
+  "text": "useEffect 运行组合拥有的工作，并在依赖变化或处置时执行清理。",
+  "terms": [
+   "useEffect"
+  ],
+  "window": "   * Builds the requested range using stable item keys and a fixed main-axis extent.\n   */\n  lazyItems(options: ComposeLazyItemOptions, itemBuilder: (arg0: number) => ComposeNode): ComposeLazyItems;\n  /**\n   * Retains a keyed value across renders and returns a setter that schedules updates.\n   */\n  "
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 28,
+  "ref": "plugins/types/compose-dsl.d.ts:4969",
+  "text": "lazyItems 用稳定条目键与固定主轴尺寸构建指定范围，返回 ComposeLazyItems。",
+  "terms": [
+   "ComposeLazyItems",
+   "lazyItems"
+  ],
+  "window": " * Theme, modifier builder, and component factories supplied to a screen renderer.\n */\nexport interface ComposeDslContext {\n  /**\n   * Reads and observes the resolved theme of the current plugin UI host.\n   */\n  Theme: ComposeTheme;"
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 29,
+  "ref": "plugins/types/compose-dsl.d.ts:4020",
+  "text": "ComposeLazyItems 的 content 是带稳定条目标识的已物化节点数组。",
+  "terms": [
+   "ComposeLazyItems",
+   "content"
+  ],
+  "window": "  itemCount: number;\n  /**\n   * Unscaled main-axis item extent; Flutter applies the current text scale.\n   */\n  itemExtent: number;\n  /**\n   * Number of eager items before the windowed items in a sliver host."
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 30,
+  "ref": "plugins/types/compose-dsl.d.ts:4024",
+  "text": "ComposeLazyViewport 是所属 Flutter 列表的视口元数据。",
+  "terms": [
+   "ComposeLazyViewport",
+   "Flutter"
+  ],
+  "window": "  itemExtent: number;\n  /**\n   * Number of eager items before the windowed items in a sliver host.\n   */\n  staticItemCount?: number;\n  /**\n   * Requests the next materialized range through normal action dispatch."
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 31,
+  "ref": "plugins/types/compose-dsl.d.ts:3990",
+  "text": "ComposeLazyViewport 的 contentRevision 在插件内容变化时使已测量的占位尺寸失效。",
+  "terms": [
+   "ComposeLazyViewport",
+   "contentRevision"
+  ],
+  "window": "export interface ComposeLazyRange {\n  /**\n   * First materialized item index.\n   */\n  firstIndex: number;\n  /**\n   * Exclusive end of the materialized interval."
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 32,
+  "ref": "plugins/types/compose-dsl.d.ts:4916",
+  "text": "ComposeThemeSnapshot 包含 brightness 与 colors，colors 是以 CSS RRGGBBAA 十六进制字符串编码的已解析 Material 颜色角色。",
+  "terms": [
+   "ComposeThemeSnapshot",
+   "Material",
+   "RRGGBBAA",
+   "brightness",
+   "colors"
+  ],
+  "window": "  routeId: string;\n  /**\n   * Runtime responsible for rendering the destination.\n   */\n  runtime: string;\n  /**\n   * Human-readable destination title when available."
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 33,
+  "ref": "plugins/types/compose-dsl.d.ts:4939",
+  "text": "ComposeTheme 的 getCurrent 返回当前已解析主题，在没有 UI 宿主提供主题时抛出错误。",
+  "terms": [
+   "ComposeTheme",
+   "getCurrent"
+  ],
+  "window": "  /**\n   * Effective host brightness, either light or dark.\n   */\n  brightness: string;\n  /**\n   * Resolved Material color roles encoded as CSS RRGGBBAA hex strings.\n   */"
+ },
+ {
+  "page": "plugin-compose-dsl",
+  "idx": 34,
+  "ref": "plugins/types/compose-dsl.d.ts:4943",
+  "text": "ComposeTheme 的 subscribe 观察后续主题变化，并返回取消订阅函数。",
+  "terms": [
+   "ComposeTheme",
+   "subscribe"
+  ],
+  "window": "  /**\n   * Resolved Material color roles encoded as CSS RRGGBBAA hex strings.\n   */\n  colors: Record<string, string>;\n}\n\n/**"
+ },
+ {
+  "page": "dev-contributing",
+  "idx": 23,
+  "ref": "CONTRIBUTING.md:49",
+  "text": "提交信息使用简短、祈使语气的英文主题，推荐采用 type(scope): summary 格式，例如 fix(cli): preserve chat attachments",
+  "terms": [
+   "attachments",
+   "chat",
+   "preserve",
+   "scope",
+   "summary",
+   "type"
+  ],
+  "window": "fvm flutter analyze\nfvm flutter test\n```\n\nRust 或 Flutter bridge 改动也应按照 [BUILDING.md](BUILDING.md) 中对应平台章节执行检查。涉及构建脚本、发布工具或 Web runtime 的改动，请运行对应目录已有的 smoke test 或验证脚本。\n\n## 分支和提交"
+ },
+ {
+  "page": "dev-contributing",
+  "idx": 25,
+  "ref": "CONTRIBUTING.md:77",
+  "text": "当前流程不再要求每个提交包含 DCO 的 Signed-off-by 行",
+  "terms": [
+   "Signed"
+  ],
+  "window": "本项目要求贡献者签署 [Operit2 贡献者许可协议（CLA）](CLA.md)。你保留自己原创贡献的版权，并授予项目维护者协议约定的版权及专利许可。该许可允许维护者按 AGPL-3.0、其他开源许可证或专有商业许可证再许可你的贡献，包括双重许可及闭源商业发行，无需就已授予的权利再次征得同意或支付报酬。请在签署前阅读完整协议。\n\n签署时，你确认：\n\n- 你有权提交该内容，或已获得必要授权；\n- 你能够授予 CLA 中约定的权利，涉及雇主或组织权利时已取得必要授权；\n- 你会标注第三方材料的来源与许可限制；"
+ },
+ {
+  "page": "dev-contributing",
+  "idx": 26,
+  "ref": "CONTRIBUTING.md:51",
+  "text": "首次贡献时按照 CLA.md 的签署步骤，在 PR 中发表独立的同意评论，并明确协议版本、协议文本提交 SHA 和贡献范围",
+  "terms": [
+   "CLA.md"
+  ],
+  "window": "```\n\nRust 或 Flutter bridge 改动也应按照 [BUILDING.md](BUILDING.md) 中对应平台章节执行检查。涉及构建脚本、发布工具或 Web runtime 的改动，请运行对应目录已有的 smoke test 或验证脚本。\n\n## 分支和提交\n\n1. 从最新的默认分支创建主题分支，每个分支聚焦一个问题。"
+ },
+ {
+  "page": "dev-contributing",
+  "idx": 29,
+  "ref": "CONTRIBUTING.md:59",
+  "text": "PR 应当列出涉及的平台；跨平台能力应说明 host API 和 Flutter/Rust 边界是否变化",
+  "terms": [
+   "Flutter",
+   "Rust",
+   "host"
+  ],
+  "window": "3. 将格式化、重命名和功能改动分开提交，便于审查。\n4. 首次贡献时，按照 [CLA.md](CLA.md) 的签署步骤，在 PR 中发表独立的同意评论，并明确协议版本、协议文本提交 SHA 和贡献范围。后续贡献沿用已签署版本；协议实质性变更时需要重新取得同意。\n\n## 创建 Pull Request\n\nPR 应当：\n"
+ },
+ {
+  "page": "dev-contributing",
+  "idx": 35,
+  "ref": "CONTRIBUTING.md:68",
+  "text": "本项目要求贡献者签署 Operit2 贡献者许可协议（CLA）；贡献者保留自己原创贡献的版权，并授予项目维护者协议约定的版权及专利许可，维护者可按 AGPL-3.0、其他开源许可证或专有商业许可证再许可",
+  "terms": [
+   "3.0",
+   "AGPL",
+   "Operit2"
+  ],
+  "window": "- 列出涉及的平台；跨平台能力应说明 host API 和 Flutter/Rust 边界是否变化。\n- 为用户可见的行为变化附上截图、日志或复现步骤。\n- 说明迁移、配置、数据库或兼容性影响。\n- 确认每位贡献者均已完成 CLA 签署，在 PR 描述中附上签署评论链接，并完成 PR 模板中的检查项。代表组织签署时应说明组织名称、代表权限及覆盖范围。\n\n维护者会关注正确性、跨平台一致性、数据安全、许可证合规性和测试覆盖。审查意见处理完毕后，维护者会合并或要求继续修改；提交 PR 不代表改动一定会被接受。\n"
+ },
+ {
+  "page": "dev-contributing",
+  "idx": 44,
+  "ref": "CONTRIBUTING.md:83",
+  "text": "仓库当前公开版本使用 AGPL-3.0，接收者仍须按照其所取得版本的许可证履行义务；发布 CLA 不会撤销已发布副本的 AGPL-3.0 许可，也不会使整个仓库自动具备闭源发行条件",
+  "terms": [
+   "3.0",
+   "AGPL"
+  ],
+  "window": "- 你会标注第三方材料的来源与许可限制；\n- 你理解贡献及签署记录会成为项目公开历史的一部分。\n\n维护者在合并前核对并留存签署记录。仅勾选 PR 模板不构成 CLA 签署。第三方代码仍受其原始许可证约束；此前仅按 DCO 提交的贡献不会自动获得额外授权，需要由相应权利人另行明确同意 CLA。当前流程不再要求每个提交包含 DCO 的 `Signed-off-by` 行。\n\n## 商业化说明\n"
+ },
+ {
+  "page": "dev-contributing",
+  "idx": 53,
+  "ref": ".github/pull_request_template.md:34",
+  "text": "PR 模板的提交者确认要求确认已阅读 CONTRIBUTING.md",
+  "terms": [
+   "CONTRIBUTING.md"
+  ],
+  "window": "在此填写验证命令和结果\n```\n\n## 截图或日志\n\n<!-- 用户可见的变更请附截图、日志或复现步骤；无内容时删除本节。 -->\n"
+ },
+ {
+  "page": "dev-contributing",
+  "idx": 54,
+  "ref": ".github/pull_request_template.md:35",
+  "text": "PR 模板的提交者确认要求已按 CLA.md 流程签署协议，或提供了覆盖本次贡献的既有签署记录；所有共同贡献者均有相应签署记录",
+  "terms": [
+   "CLA.md"
+  ],
+  "window": "```\n\n## 截图或日志\n\n<!-- 用户可见的变更请附截图、日志或复现步骤；无内容时删除本节。 -->\n\n## 提交者确认"
+ }
+]
