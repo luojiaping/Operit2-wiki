@@ -573,7 +573,7 @@
   },
   {
     "fact": "sendMessage 在 promptHistoryOverride 给定时直接用它，否则从聊天记录经 getMemoryFromMessages 生成记忆。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:349"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:356"
   },
   {
     "fact": "sendMessage 把历史中的图片与媒体链接上限均取 i32::MAX，不再按 ApiPreferences 的每用户回合数截断。",
@@ -581,7 +581,7 @@
   },
   {
     "fact": "sendMessage 先问 MessageProcessingPluginRegistry 是否有匹配的消息处理插件。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:363"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:367"
   },
   {
     "fact": "插件匹配时 sendMessage 直接返回插件执行流并结束本次操作，不调用 Provider。",
@@ -593,7 +593,7 @@
   },
   {
     "fact": "预发送钩子等待期间操作被取消时，sendMessage 返回 RequestCancelled。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:449"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:453"
   },
   {
     "fact": "resume 为 true 时 sendMessage 调用 EnhancedAIService::resume，否则调用 sendMessageWithConfiguration。",
@@ -601,7 +601,7 @@
   },
   {
     "fact": "Provider 返回流后先登记到操作记录，未登记成功时关闭流并返回 RequestCancelled。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:483"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:487"
   },
   {
     "fact": "响应清理以 ai-message-manager-response-cleanup 为名提交给 Host 任务调度器，收完流后结束操作。",
@@ -621,7 +621,7 @@
   },
   {
     "fact": "summarizeMemory 在 autoContinue 为 true 时在摘要后追加中文继续句。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:592"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:597"
   },
   {
     "fact": "summarizeMemory 的输入 token 估算为摘要长度乘 3 除 2（至少 1），输出 token 估算为最终摘要长度除 2（至少 1）。",
@@ -637,7 +637,7 @@
   },
   {
     "fact": "getMemoryFromMessages 从最后一条 summary 消息起取相关消息，无 summary 时取全部消息。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:670"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:677"
   },
   {
     "fact": "isolateParticipants 开启时，getMemoryFromMessages 按持久化参与者 id 区分己方与他人消息，他人发言转为 [From role: 名字] 的用户回合。",
@@ -657,7 +657,7 @@
   },
   {
     "fact": "assistantPromptTurnsFromParts 把 Markdown、Thinking、Status 部分累积为 ASSISTANT 回合，遇到 ToolCall 时先 flush 已累积文本。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:740"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:744"
   },
   {
     "fact": "ToolCall 部分转为带 tool_name 的 TOOL_CALL 回合。",
@@ -669,7 +669,7 @@
   },
   {
     "fact": "buildReplyTag 把回复内容截断到 100 字符并加省略号。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:796"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:800"
   },
   {
     "fact": "buildAttachmentTag 对有 VFS 定位的同步附件先在本地解析物理路径并核对存在性与大小。",
@@ -737,11 +737,11 @@
   },
   {
     "fact": "cancelAllOperations 把各聊天的取消错误用分号连接后返回。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1186"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1191"
   },
   {
     "fact": "appendConversationReview 把对话回顾上限控制在 100 条：超限时保留前 30 条与后 70 条，中间省略并注明条数。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1241"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1248"
   },
   {
     "fact": "cleanSummarySourceMessage 去掉 meta 标签、AI 消息的 think 内容与媒体链接。",
@@ -749,7 +749,7 @@
   },
   {
     "fact": "condenseAssistantMessageForReview 丢弃 Thinking 部分。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1318"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1325"
   },
   {
     "fact": "condenseAssistantMessageForReview 超过 25 段时只保留前 12 段与后 10 段并注明省略段数。",
@@ -765,7 +765,7 @@
   },
   {
     "fact": "calculateStableContextWindow 委托 calculateStableContextWindowWithBreakdown 估算窗口，该方法经 getMemoryFromMessages 生成记忆后调用 estimateRequestWindowFromMemoryWithBreakdown。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:622"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:627"
   },
   {
     "fact": "FileSystemHost 缺失时，newWithContext 在 chatFileSystemHost 处用 expect 直接 panic（无条件）。截至基线，聊天初始化直接要求 FileSystemHost；上游 053c6686 已改为 hostManager.vfs().expect(\"Chat runtime requires VFS\")（OperitApplication.rs:185）。",

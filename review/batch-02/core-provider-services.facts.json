@@ -641,43 +641,43 @@
   },
   {
     "fact": "apply_finalized_current_user_turn 在末轮 USER 内容与定稿相同时不改，与原文相同时替换为定稿内容（定稿为空时把该轮清空）；定稿为空且不命中前两种情况时返回历史，不追加新轮。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3450"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3456"
   },
   {
     "fact": "apply_finalized_current_user_turn 在其他情况下追加一个新的 USER 轮。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3450"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3456"
   },
   {
     "fact": "resolveToolDisplayName 把 package_proxy 与 proxy 解析为 tool_name 参数值，其他工具直接用工具名。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3480"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3486"
   },
   {
     "fact": "package_proxy 有 tool_name 参数，类型 string，必填。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3504"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3510"
   },
   {
     "fact": "package_proxy 有 params 参数，类型 object，必填。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3511"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3517"
   },
   {
     "fact": "toolRuntimeContextForConfiguration 先校验 ChatConfigurationResult，再构建 ToolRuntimeContext。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3756"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3762"
   },
   {
     "fact": "工具运行时上下文含 callerParticipantId（取配置 profile.id）、extensionOwner 与 executionData，暴露模式 Full 映射 FULL、Cli 映射 CLI。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3763"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3769"
   },
   {
     "fact": "function_type_name 覆盖 CHAT、SUMMARY、TITLE_GENERATION、MEMORY、UI_CONTROLLER、TRANSLATION、GREP、ROLE_RESPONSE_PLANNER、IMAGE_RECOGNITION、AUDIO_RECOGNITION、VIDEO_RECOGNITION 共 11 种功能类型。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3774"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3780"
   },
   {
     "fact": "prompt_function_type_name 只有 CHAT 与 VOICE 两种。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3790"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3796"
   },
   {
     "fact": "resolve_workspace_path_mappings 经 VisualFileSystem 校验并规范化路径，按规范化后的 vfs 路径去重，返回 WorkspacePathMapping 列表。",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3859"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3865"
   },
   {
     "fact": "ProviderFunctionModelBinding 含 providerId 与 modelId。",

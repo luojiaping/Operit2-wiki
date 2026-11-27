@@ -1,6 +1,6 @@
 {
   "issue": 49,
-  "source_commit": "7a79245",
+  "source_commit": "b3b897c",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "iOS Host：ARM64 与系统 shell 双后端终端经 JSON 桥接调用原生运行时，Host 目录以原始绝对路径 bind mount，串口无原生 accessory provider，容器 UUID 变化时靠配置代次丢弃旧会话注册。",

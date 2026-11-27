@@ -1,0 +1,13 @@
+{
+  "agent-compaction": {
+    "batch": "batch-04",
+    "facts": 90,
+    "bad": 4,
+    "items": [
+      "agent-compaction.facts.json#57 `sender` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:614",
+      "agent-compaction.facts.json#57 `summary` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:614",
+      "agent-compaction.md:98 `sender` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:614']",
+      "agent-compaction.md:98 `summary` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:614']"
+    ]
+  }
+}

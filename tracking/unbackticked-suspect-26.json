@@ -1,0 +1,622 @@
+[
+ {
+  "page": "core-provider-services",
+  "idx": 86,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:298",
+  "text": "ChatGuidanceInbox 的 enqueue 拒绝空消息与已关闭的回合。",
+  "terms": [
+   "ChatGuidanceInbox",
+   "enqueue"
+  ],
+  "window": "        let message = message.trim().to_string();\n        if message.is_empty() {\n            return Err(\"Guidance message cannot be empty\".to_string());\n        }\n        let mut state = self.state.lock().expect(\"chat guidance inbox mutex poisoned\");\n        if !state.accepting {\n            return"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 87,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:327",
+  "text": "drainOrClose 在无待处理指导时关闭收件箱，之后 enqueue 全部拒绝；有待处理指导时返回全部条目且保持开放。",
+  "terms": [
+   "drainOrClose",
+   "enqueue"
+  ],
+  "window": "        if state.pending.is_empty() {\n            state.accepting = false;\n            return Vec::new();\n        }\n        state.pending.drain(..).collect()\n    }\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 108,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1131",
+  "text": "prepareConversationHistory 完成后把附件路径改写为相对路径。",
+  "terms": [
+   "prepareConversationHistory"
+  ],
+  "window": "                runtime.useEnglish,\n            )).await.map_err(AiServiceError::RequestFailed)?;\n        if let Some(base) = fileDirectory {\n            ConversationService::use_relative_attachment_paths(&mut history, &base);\n        }\n        Ok(history)\n    }"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 114,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1377",
+  "text": "Full 暴露模式下工具列表取系统工具分类中已在 tool_handler 注册的工具，再追加 package_proxy 代理工具。",
+  "terms": [
+   "Full",
+   "package_proxy",
+   "tool_handler"
+  ],
+  "window": "            .into_iter()\n            .flat_map(|category| category.tools)\n            .filter(|tool| registered_tool_names.contains(&tool.name))\n            .map(systemToolPromptToModelToolPrompt)\n            .collect::<Vec<_>>();\n        available_tools.push(buildPackageProxyToolPrompt());\n        "
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 115,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1466",
+  "text": "estimateRequestWindowFromMemory 先用 prepareConversationHistory 准备历史，再用 getAvailableToolsForFunction 取工具。",
+  "terms": [
+   "estimateRequestWindowFromMemory",
+   "getAvailableToolsForFunction",
+   "prepareConversationHistory"
+  ],
+  "window": "                workspaceFolders.clone(),\n                promptFunctionType.clone(),\n                participantId.clone(),\n                proxySenderName,\n                false,\n                FunctionType::CHAT,\n                chatProviderIdOverride.clone(),"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 149,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3023",
+  "text": "纯思考回复且 disableWarning 为真时，completeResponseRound 直接定稿。",
+  "terms": [
+   "completeResponseRound",
+   "disableWarning"
+  ],
+  "window": "                        context.executionId, context.roundManager.roundIndex\n                    ),\n                );\n                self.finalizeAssistantResponse(&displayContent);\n                return ResponseRoundAction::Complete;\n            }\n            let pureThinkingWarning ="
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 150,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3027",
+  "text": "纯思考回复且 disableWarning 为假时，completeResponseRound 发出纯思考警告并继续一轮。",
+  "terms": [
+   "completeResponseRound",
+   "disableWarning"
+  ],
+  "window": "                return ResponseRoundAction::Complete;\n            }\n            let pureThinkingWarning =\n                ConversationMarkupManager::createWarningStatus(ENHANCED_PURE_THINKING_ONLY_WARNING);\n            context\n                .roundManager\n                .appendContent(&format!(\"\\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 152,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3116",
+  "text": "无工具调用时，completeResponseRound 定稿助手回复并结束。",
+  "terms": [
+   "completeResponseRound"
+  ],
+  "window": "            ),\n            operit_util::AppLogger::VERBOSE_LEVEL_2,\n        );\n        self.finalizeAssistantResponse(&context.roundManager.getDisplayContent());\n        ResponseRoundAction::Complete\n    }\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 160,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3416",
+  "text": "setCurrentTurnTokenCounts 把负数 token 计数钳制为 0。",
+  "terms": [
+   "setCurrentTurnTokenCounts",
+   "token"
+  ],
+  "window": "        cachedInputTokens: i64,\n    ) {\n        self.turnTokenUsage().setSnapshot(TurnTokenSnapshot {\n            inputTokens: inputTokens.max(0),\n            outputTokens: outputTokens.max(0),\n            cachedInputTokens: cachedInputTokens.max(0),\n        });"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 161,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3450",
+  "text": "apply_finalized_current_user_turn 在末轮 USER 内容与定稿相同时不改，与原文相同时替换为定稿内容（定稿为空时把该轮清空）；定稿为空且不命中前两种情况时返回历史，不追加新轮。",
+  "terms": [
+   "USER",
+   "apply_finalized_current_user_turn"
+  ],
+  "window": "}\n\nimpl std::fmt::Debug for EnhancedAIService {\n    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {\n        formatter.debug_struct(\"EnhancedAIService\").finish_non_exhaustive()\n    }\n}"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 162,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3450",
+  "text": "apply_finalized_current_user_turn 在其他情况下追加一个新的 USER 轮。",
+  "terms": [
+   "USER",
+   "apply_finalized_current_user_turn"
+  ],
+  "window": "}\n\nimpl std::fmt::Debug for EnhancedAIService {\n    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {\n        formatter.debug_struct(\"EnhancedAIService\").finish_non_exhaustive()\n    }\n}"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 168,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3774",
+  "text": "function_type_name 覆盖 CHAT、SUMMARY、TITLE_GENERATION、MEMORY、UI_CONTROLLER、TRANSLATION、GREP、ROLE_RESPONSE_PLANNER、IMAGE_RE",
+  "terms": [
+   "AUDIO_RECOGNITION",
+   "CHAT",
+   "GREP",
+   "IMAGE_RECOGNITION",
+   "MEMORY",
+   "ROLE_RESPONSE_PLANNER",
+   "SUMMARY",
+   "TITLE_GENERATION",
+   "TRANSLATION",
+   "UI_CONTROLLER",
+   "VIDEO_RECOGNITION",
+   "function_type_name"
+  ],
+  "window": "        },\n        extensionOwner: configuration.extensionOwner.clone(),\n        executionData: configuration.executionData.clone(),\n    };\n    context.validateExecutionContext().map_err(AiServiceError::RequestFailed)?;\n    Ok(context)\n}"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 169,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3790",
+  "text": "prompt_function_type_name 只有 CHAT 与 VOICE 两种。",
+  "terms": [
+   "CHAT",
+   "VOICE",
+   "prompt_function_type_name"
+  ],
+  "window": "        FunctionType::TRANSLATION => \"TRANSLATION\",\n        FunctionType::GREP => \"GREP\",\n        FunctionType::ROLE_RESPONSE_PLANNER => \"ROLE_RESPONSE_PLANNER\",\n        FunctionType::IMAGE_RECOGNITION => \"IMAGE_RECOGNITION\",\n        FunctionType::AUDIO_RECOGNITION => \"AUDIO_RECOGNITION\",\n        Fu"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 170,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3859",
+  "text": "resolve_workspace_path_mappings 经 VisualFileSystem 校验并规范化路径，按规范化后的 vfs 路径去重，返回 WorkspacePathMapping 列表。",
+  "terms": [
+   "VisualFileSystem",
+   "WorkspacePathMapping",
+   "resolve_workspace_path_mappings"
+  ],
+  "window": "    kinds.into_iter().flat_map(|kind| directories.iter().map(|path| {\n        TerminalPathMapping {\n            terminal: kind.terminal.clone(), terminal_type: kind.terminalType.clone(), vfs_path: (*path).into(),\n            path: host.resolveWorkingDirectory(&kind.terminal, &kind.terminalType, path"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 36,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1133",
+  "text": "setPendingQueueExpanded 更新指定聊天待发消息队列在界面上的展开状态",
+  "terms": [
+   "setPendingQueueExpanded"
+  ],
+  "window": "    }\n\n    /// Observes enabled transform handlers and their explicitly invalidated settings.\n    pub fn messageTransformRevisionFlow(&self) -> StateFlow<i64> {\n        ToolPkgMessageTransformBridge::revisionFlow()\n    }\n"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 57,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:1776",
+  "text": "compactChat 手动把当前聊天压缩为检查点，不论阈值是否达到",
+  "terms": [
+   "compactChat"
+  ],
+  "window": "        self.chatHistoryDelegate.updateChatPinned(chatId, pinned);\n    }\n\n    /// Promotes a child conversation to a root without changing its contents or bindings.\n    pub fn promoteChatToRoot(&mut self, chatId: String) -> Result<(), String> {\n        self.chatHistoryDelegate.promoteChatToRoot(chat"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 84,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2638",
+  "text": "attachUploadedFile 仅当已上传附件已导入当前聊天文件目录且 VFS 定位与存储文件一致时才登记",
+  "terms": [
+   "attachUploadedFile"
+  ],
+  "window": "        if !self\n            .attachments\n            .iter()\n            .any(|item| item.filePath == attachment.filePath)\n        {\n            let message = format!(\"已添加附件: {}\", attachment.fileName);\n            self.attachments.push(attachment);"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 95,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2817",
+  "text": "chatMessagesWindowFlow 向前翻页时一次加载 14 条消息",
+  "terms": [
+   "chatMessagesWindowFlow"
+  ],
+  "window": "        let manager = self.chatHistoryDelegate.chatHistoryManager.clone();\n        self.localChatMessagesFlow(chatId.clone()).map(move |live| {\n            let messages = if let Some(timestamp) = beforeTimestamp {\n                let mut page = match manager.loadChatMessagesDescUpTo(chatId.clone(), "
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 98,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:2915",
+  "text": "routeProbeChatMessagesFlow 构建带嵌入响应流的路由诊断聊天消息流",
+  "terms": [
+   "routeProbeChatMessagesFlow"
+  ],
+  "window": "                                requestId: Some(request.requestId.clone()),\n                                target: request.target.clone(),\n                                propertyName: request.propertyName.clone(),\n                                kind: CoreEventKind::Changed,\n                      "
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 109,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3350",
+  "text": "localChatMessagesFlow 返回本地 Core 上指定聊天的消息流",
+  "terms": [
+   "Core",
+   "localChatMessagesFlow"
+  ],
+  "window": "    }\n\n    /// Returns mutable access to message coordination state when enhanced AI is initialized.\n    pub fn getMessageCoordinationDelegate(&mut self) -> Option<&mut MessageCoordinationDelegate> {\n        self.messageCoordinationDelegate.as_mut()\n    }\n"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 111,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3288",
+  "text": "localChatStateFlow 返回本地 Core 上指定聊天的运行时状态流",
+  "terms": [
+   "Core",
+   "localChatStateFlow"
+  ],
+  "window": "                    chat.map(|chat| chat.title.clone()).unwrap_or_default(),\n                    chat.and_then(|chat| chat.workspacePrimaryPath.clone()),\n                    directory,\n                )\n            }\n        });\n        let pendingQueueStateFlow = self.pendingQueueStateFlow().asStat"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 115,
+  "ref": "core/crates/runtime/application/src/services/ChatServiceCore.rs:3449",
+  "text": "getChatHistoryDelegate 返回聊天历史操作的可变访问",
+  "terms": [
+   "getChatHistoryDelegate"
+  ],
+  "window": "\n    /// Searches a chat and returns lightweight message previews for navigation.\n    #[allow(non_snake_case)]\n    pub fn loadChatMessageLocatorPreviews(\n        &self,\n        chatId: String,\n        query: String,"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 139,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:296",
+  "text": "buildUserMessageContent 过滤掉空白部分后用空格连接成最终内容。",
+  "terms": [
+   "buildUserMessageContent"
+  ],
+  "window": "            replyTag,\n        ]\n        .into_iter()\n        .filter(|part| !part.trim().is_empty())\n        .collect::<Vec<_>>()\n        .join(\" \"))\n    }"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 144,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:349",
+  "text": "sendMessage 在 promptHistoryOverride 给定时直接用它，否则从聊天记录经 getMemoryFromMessages 生成记忆。",
+  "terms": [
+   "getMemoryFromMessages",
+   "promptHistoryOverride",
+   "sendMessage"
+  ],
+  "window": "                (\"operationId\", operationId.to_string()),\n                (\n                    \"messageChars\",\n                    ChainLogger::lenField(&request.messageContent),\n                ),\n                (\"historyCount\", request.chatHistory.len().to_string()),\n            ],"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 146,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:363",
+  "text": "sendMessage 先问 MessageProcessingPluginRegistry 是否有匹配的消息处理插件。",
+  "terms": [
+   "MessageProcessingPluginRegistry",
+   "sendMessage"
+  ],
+  "window": "\n        let apiPreferences = ApiPreferences::getInstance();\n        let memoryAfterImageLimit =\n            Self::limitImageLinksInChatHistory(memory, i32::MAX);\n        let memoryForRequest =\n            Self::limitMediaLinksInChatHistory(memoryAfterImageLimit, i32::MAX);\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 147,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:394",
+  "text": "插件匹配时 sendMessage 直接返回插件执行流并结束本次操作，不调用 Provider。",
+  "terms": [
+   "Provider",
+   "sendMessage"
+  ],
+  "window": "            Self::finishOperation(&chatKey, operationId);\n            return Ok(SharedAiResponseStream::from(with_event_channel_shared(\n                pluginExecution.stream,\n                operit_util::stream::HotStream::mutable_shared_stream(usize::MAX),\n            )));\n        }\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 149,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:449",
+  "text": "预发送钩子等待期间操作被取消时，sendMessage 返回 RequestCancelled。",
+  "terms": [
+   "RequestCancelled",
+   "sendMessage"
+  ],
+  "window": "            operit_util::AppLogger::VERBOSE_LEVEL_2,\n        );\n        // A pre-send hook may have yielded while the user cancelled this operation.\n        if activeChatOperations()\n            .lock()\n            .expect(\"active chat operations mutex poisoned\")\n            .get_mut(&chatKey, opera"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 151,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:483",
+  "text": "Provider 返回流后先登记到操作记录，未登记成功时关闭流并返回 RequestCancelled。",
+  "terms": [
+   "Provider",
+   "RequestCancelled"
+  ],
+  "window": "                    if let Some(operation) = operations.get_mut(&chatKey, operationId) {\n                        operation.responseStream = Some(stream.clone());\n                        true\n                    } else {\n                        false\n                    }\n                };"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 154,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:552",
+  "text": "summarizeMemory 只汇总上一次 summary 之后的用户与 AI 消息。",
+  "terms": [
+   "summarizeMemory",
+   "summary"
+  ],
+  "window": "                Some(content)\n            }\n        });\n\n        let messagesToSummarize = match lastSummaryIndex {\n            Some(index) => messages[index + 1..]\n                .iter()"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 156,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:592",
+  "text": "summarizeMemory 在 autoContinue 为 true 时在摘要后追加中文继续句。",
+  "terms": [
+   "autoContinue",
+   "summarizeMemory",
+   "true"
+  ],
+  "window": "        if summary.trim().is_empty() {\n            return Ok(None);\n        }\n\n        let mut summaryWithQuotes = summary.trim().to_string();\n        // Keep the review in the same language as the summary prompt.\n        appendConversationReview(&mut summaryWithQuotes, &conversationReviewEntries, f"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 157,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:599",
+  "text": "summarizeMemory 的输入 token 估算为摘要长度乘 3 除 2（至少 1），输出 token 估算为最终摘要长度除 2（至少 1）。",
+  "terms": [
+   "summarizeMemory",
+   "token"
+  ],
+  "window": "\n        let finalSummary = if autoContinue {\n            format!(\n                \"{}\\n\\n如果任务尚未完成，请基于以上摘要继续。\",\n                summaryWithQuotes.trim_end()\n            )\n        } else {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 160,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:670",
+  "text": "getMemoryFromMessages 从最后一条 summary 消息起取相关消息，无 summary 时取全部消息。",
+  "terms": [
+   "getMemoryFromMessages",
+   "summary"
+  ],
+  "window": "        tokenUsageThreshold: f64,\n        enableSummary: bool,\n    ) -> bool {\n        enableSummary\n            && maxTokens > 0\n            && currentTokens as f64 / f64::from(maxTokens) >= tokenUsageThreshold\n    }"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 164,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:701",
+  "text": "getMemoryFromMessages 把 sender 为 summary 的消息转为 SUMMARY 回合。",
+  "terms": [
+   "SUMMARY",
+   "getMemoryFromMessages",
+   "sender",
+   "summary"
+  ],
+  "window": "                            .filter(|name| !name.trim().is_empty())\n                            .ok_or_else(|| AiServiceError::RequestFailed(format!(\n                                \"History message has no recorded display identity: {}\", message.timestamp)))?;\n                        let speech = Me"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 165,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:740",
+  "text": "assistantPromptTurnsFromParts 把 Markdown、Thinking、Status 部分累积为 ASSISTANT 回合，遇到 ToolCall 时先 flush 已累积文本。",
+  "terms": [
+   "ASSISTANT",
+   "Markdown",
+   "Status",
+   "Thinking",
+   "ToolCall",
+   "assistantPromptTurnsFromParts",
+   "flush"
+  ],
+  "window": "            .all(|message| message.sender == \"ai\");\n        if !baseUnchanged || !onlyAssistantAdditions { return Ok(None); }\n        Self::getMemoryFromMessages(messages, configuration).map(Some)\n    }\n\n    /// Converts stored assistant parts into provider turns while preserving tool boundaries.\n  "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 168,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:796",
+  "text": "buildReplyTag 把回复内容截断到 100 字符并加省略号。",
+  "terms": [
+   "buildReplyTag"
+  ],
+  "window": "    /// Serializes one assistant message part into provider protocol markup.\n    #[allow(non_snake_case)]\n    fn assistantMarkupForPart(part: &MessagePart) -> String {\n        MessagePartCodec::assistantMarkup(&[part.clone()])\n    }\n\n    /// Builds display-only reply markup without selecting an exec"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 169,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:805",
+  "text": "buildAttachmentTag 对有 VFS 定位的同步附件先在本地解析物理路径并核对存在性与大小。",
+  "terms": [
+   "buildAttachmentTag"
+  ],
+  "window": "        let clipped = if cleanContent.chars().count() > 100 {\n            let mut text = cleanContent.chars().take(100).collect::<String>();\n            text.push_str(\"...\");\n            text\n        } else {\n            cleanContent\n        };"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 172,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:853",
+  "text": "直接音频附件经 buildDirectMediaAttachmentTag 生成媒体链接。",
+  "terms": [
+   "buildDirectMediaAttachmentTag"
+  ],
+  "window": "            if ![\"/operitapp/outputs/\", \"/operitapp/workspaces/\", \"/operitapp/data/data/chat_attachments/\", \"/app/workspaces/\", \"/app/outputs/\", \"/app/data/data/chat_attachments/\"].iter().any(|root| path.starts_with(root)) { return None; }\n            let found = files.fileExists(&path).ok()?;\n     "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 173,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:861",
+  "text": "直接视频附件经 buildDirectMediaAttachmentTag 生成媒体链接。",
+  "terms": [
+   "buildDirectMediaAttachmentTag"
+  ],
+  "window": "        if replica.is_none() && !attachment.isLocalToNode(currentNodeId.as_deref()) {\n            // File hosts and media pools are node-local. Preserve the source locator instead\n            // of attempting to open a remote path (especially fatal for audio/video).\n            return Ok(format!(\n  "
+ },
+ {
+  "page": "core-runtime",
+  "idx": 174,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:893",
+  "text": "直接图片附件注册要求 FileSystemHost，读不到字节或文件为空时报错。截至基线，直接图片读取走 FileSystemHost 边界；上游 053c6686 的注册入口已接收 Option<&VisualFileSystem>（AI",
+  "terms": [
+   "AIMessageManager.rs",
+   "FileSource",
+   "FileSystemHost",
+   "Option",
+   "VisualFileSystem",
+   "c6686",
+   "fileResource",
+   "readBytes"
+  ],
+  "window": "                .mimeType\n                .to_ascii_lowercase()\n                .starts_with(\"audio/\")\n        {\n            return Self::buildDirectMediaAttachmentTag(attachment, filesystem, \"audio\");\n        }\n        if enableDirectVideoProcessing"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 175,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:904",
+  "text": "图片池返回 imageId 为 error 时直接图片附件注册失败。",
+  "terms": [
+   "error",
+   "imageId"
+  ],
+  "window": "        {\n            return Self::buildDirectMediaAttachmentTag(attachment, filesystem, \"video\");\n        }\n\n        let attributes = Self::buildAttachmentAttributes(attachment);\n        Ok(format!(\n            \"<attachment {attributes}>{}</attachment>\","
+ },
+ {
+  "page": "core-runtime",
+  "idx": 176,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:975",
+  "text": "附件属性含 id、filename、type，nodeId 非空时加 node_id。",
+  "terms": [
+   "filename",
+   "nodeId",
+   "node_id",
+   "type"
+  ],
+  "window": "    }\n\n    /// Registers an audio or video attachment in the process media pool.\n    fn registerDirectMediaAttachment(\n        attachment: &AttachmentInfo,\n        filesystem: Option<&VisualFileSystem>,\n        mediaType: &str,"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 177,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:986",
+  "text": "工具路径以 /app/、/operitapp/、/mnt/、/virtual/ 开头时附件属性加 path，fileSize 大于 0 时加 size。",
+  "terms": [
+   "fileSize",
+   "operitapp",
+   "path",
+   "size",
+   "virtual"
+  ],
+  "window": "            ));\n        };\n        let source = filesystem.fileResource(None, &attachment.filePath)?;\n        let bytes = operit_host_api::FileSource::readBytes(&source).map_err(|error| error.message)?;\n        if bytes.is_empty() {\n            return Err(format!(\n                \"{mediaType} attach"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 178,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1082",
+  "text": "cancelCurrentOperation 取消最近活跃聊天的操作。",
+  "terms": [
+   "cancelCurrentOperation"
+  ],
+  "window": "                } else {\n                    turn\n                }\n            })\n            .collect()\n    }\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 179,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1091",
+  "text": "cancelOperation 把空 chatId 当作默认聊天键。",
+  "terms": [
+   "cancelOperation",
+   "chatId"
+  ],
+  "window": "        history: Vec<PromptTurn>,\n        keepLastUserImageTurns: i32,\n    ) -> Vec<PromptTurn> {\n        let limit = keepLastUserImageTurns.max(0) as usize;\n        let totalUserTurns = history\n            .iter()\n            .filter(|turn| turn.kind == PromptTurnKind::USER)"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 181,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1116",
+  "text": "取消时立即调用 cancellationToken.cancel()。",
+  "terms": [
+   "cancellationToken.cancel"
+  ],
+  "window": "                    } else {\n                        removed\n                    })\n                } else {\n                    turn\n                }\n            })"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 182,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1130",
+  "text": "取消时关闭 operation.responseStream。",
+  "terms": [
+   "operation.responseStream"
+  ],
+  "window": "            .lock()\n            .expect(\"last active chat key mutex poisoned\")\n            .clone();\n        Self::cancelOperation(chatKey).await\n    }\n\n    /// Cancels the chat's registered send."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 183,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1132",
+  "text": "取消最后调用 enhancedAiService.cancelConversation 并返回其结果。",
+  "terms": [
+   "enhancedAiService.cancelConversation"
+  ],
+  "window": "            .clone();\n        Self::cancelOperation(chatKey).await\n    }\n\n    /// Cancels the chat's registered send.\n    #[allow(non_snake_case)]\n    pub async fn cancelOperation(chatId: String) -> Result<(), AiServiceError> {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 184,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1152",
+  "text": "cancelAllOperations 快照当前全部操作并逐个按 id 取消。",
+  "terms": [
+   "cancelAllOperations"
+  ],
+  "window": "                .expect(\"active chat operations mutex poisoned\");\n            match expectedOperationId {\n                Some(operationId) => operations\n                    .remove(chatKey, operationId)\n                    .map(|operation| (operationId, operation)),\n                None => operatio"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 185,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1186",
+  "text": "cancelAllOperations 把各聊天的取消错误用分号连接后返回。",
+  "terms": [
+   "cancelAllOperations"
+  ],
+  "window": "                (\"chatKey\", chatKey.to_string()),\n                (\"operationId\", operationId.to_string()),\n            ],\n        );\n        usageResult\n    }\n"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 186,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1241",
+  "text": "appendConversationReview 把对话回顾上限控制在 100 条：超限时保留前 30 条与后 70 条，中间省略并注明条数。",
+  "terms": [
+   "appendConversationReview"
+  ],
+  "window": "    input\n        .replace(\"<status>\", \" \")\n        .replace(\"</status>\", \" \")\n        .replace(\"<status/>\", \" \")\n        .trim()\n        .to_string()\n}"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 187,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1243",
+  "text": "cleanSummarySourceMessage 去掉 meta 标签、AI 消息的 think 内容与媒体链接。",
+  "terms": [
+   "cleanSummarySourceMessage",
+   "meta",
+   "think"
+  ],
+  "window": "        .replace(\"</status>\", \" \")\n        .replace(\"<status/>\", \" \")\n        .trim()\n        .to_string()\n}\n\n/// Keeps the earliest context and the latest exchanges, omitting the middle of long reviews."
+ },
+ {
+  "page": "core-runtime",
+  "idx": 188,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1318",
+  "text": "condenseAssistantMessageForReview 丢弃 Thinking 部分。",
+  "terms": [
+   "Thinking",
+   "condenseAssistantMessageForReview"
+  ],
+  "window": "            ),\n            \"attachment\",\n        ),\n        \"reply_to\",\n    );\n    condense_head_tail(&strip_xml_tags(&pruned), 240, 96)\n}"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 189,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1359",
+  "text": "condenseAssistantMessageForReview 超过 25 段时只保留前 12 段与后 10 段并注明省略段数。",
+  "terms": [
+   "condenseAssistantMessageForReview"
+  ],
+  "window": "                            )\n                        )\n                    })\n                    .collect::<Vec<_>>();\n                let params_text = if params.is_empty() {\n                    String::new()\n                } else {"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 191,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:181",
+  "text": "logMessageTiming 按“阶段 耗时=Nms”记录阶段耗时。",
+  "terms": [
+   "logMessageTiming"
+  ],
+  "window": "    let now = operit_host_api::TimeUtils::currentTimeMillis() as u64;\n    let elapsed = now.saturating_sub(startTimeMs.startedAtMs);\n    let suffix = details\n        .filter(|value| !value.trim().is_empty())\n        .map(|value| format!(\", {value}\"))\n        .unwrap_or_default();\n    AppLogger::v_wi"
+ },
+ {
+  "page": "core-runtime",
+  "idx": 192,
+  "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:622",
+  "text": "calculateStableContextWindow 委托 calculateStableContextWindowWithBreakdown 估算窗口，该方法经 getMemoryFromMessages 生成记忆后调用 estima",
+  "terms": [
+   "calculateStableContextWindow",
+   "calculateStableContextWindowWithBreakdown",
+   "estimateRequestWindowFromMemoryWithBreakdown",
+   "getMemoryFromMessages"
+  ],
+  "window": "            sentAt: startTime,\n            completedAt: endTime,\n            ..ChatMessage::new(\"summary\".to_string())\n        }))\n    }\n\n    /// Calculates a stable context window with the complete workspace folder set."
+ }
+]

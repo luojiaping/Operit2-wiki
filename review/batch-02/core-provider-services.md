@@ -142,7 +142,7 @@ date: 2026-11-11
 - PreparedRequestWindow 的 `completeHistory` 只在历史长度等于请求时的长度时补一条助手回复，且同一轮最多补一次；空回复不产生合成回合。（core/crates/provider/services/src/chat/EnhancedAIService.rs:519）
 - `SendMessageLifecycleStage` 列出从 `SetProcessingState` 到 `UnregisterExecutionContext` 的 22 个发送阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:539）（core/crates/provider/services/src/chat/EnhancedAIService.rs:551）（core/crates/provider/services/src/chat/EnhancedAIService.rs:560）
 - `SendMessageRuntime` 含 `modelConfig`、`modelParameters`、`availableTools` 与 `aiService`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:574）（core/crates/provider/services/src/chat/EnhancedAIService.rs:591）（core/crates/provider/services/src/chat/EnhancedAIService.rs:594）
-- `RuntimePromptHistoryHooks` 把 `HistoryHookContext` 转为 `PromptHookContext` 分发历史钩子，并要求钩子保留 `prompt_function_type` 与 `processed_input`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:710）（core/crates/provider/services/src/chat/EnhancedAIService.rs:4041）
+- `RuntimePromptHistoryHooks` 把 `HistoryHookContext` 转为 `PromptHookContext` 分发历史钩子，并要求钩子保留 `prompt_function_type` 与 `processed_input`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:710）（core/crates/provider/services/src/chat/EnhancedAIService.rs:4047）
 - `RuntimeSystemPromptComposer` 从 `tool_handler` 的 Host 环境与运行时存储 Host 解析工作区路径，每次请求重新解析。（core/crates/provider/services/src/chat/EnhancedAIService.rs:745）（core/crates/provider/services/src/chat/EnhancedAIService.rs:746）
 - 系统提示词组合从 `provider_runtime_context` 取 `aiVisibleSkillPackages`，取不到时 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:806）（core/crates/provider/services/src/chat/EnhancedAIService.rs:808）
 - 启用的包列表排除 ToolPkg 容器包。（core/crates/provider/services/src/chat/EnhancedAIService.rs:788）
@@ -162,7 +162,7 @@ date: 2026-11-11
 - `generateSummaryForConfiguration` 在已选定的原生参与者下运行摘要，并走 `ToolExposureMode::Full` 的工具运行时上下文。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1193）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1220）
 - `getAvailableToolsForFunction` 在 `runtime.availableTools` 非空时直接返回，否则在 `functionType` 不是 CHAT 或模型不支持 `toolCall` 时返回空列表。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1328）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1338）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1341）
 - Cli 暴露模式下工具列表由 `CliToolModeSupport::buildCliPublicToolPrompts` 生成。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1346）
-- Full 暴露模式下工具列表取系统工具分类中已在 `tool_handler` 注册的工具，再追加 `package_proxy` 代理工具。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1349）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1377）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3481）
+- Full 暴露模式下工具列表取系统工具分类中已在 `tool_handler` 注册的工具，再追加 `package_proxy` 代理工具。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1349）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1377）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3487）
 - `estimateRequestWindowFromMemory` 先用 `prepareConversationHistory` 准备历史，再用 `getAvailableToolsForFunction` 取工具。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1406）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1458）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1466）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1394）
 - `estimateRequestWindowFromMemory` 转调 `estimateRequestWindowFromMemoryWithBreakdown`，由后者调用 `estimatePreparedRequestWindowWithBreakdown` 估算已准备请求的窗口大小。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1406）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1442）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1520）
 - `registerExecutionContext` 与 `unregisterExecutionContext` 把执行上下文登记进或移出共享状态。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1529）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1535）
@@ -209,16 +209,16 @@ date: 2026-11-11
 - `cancelConversation` 使全部执行上下文失效、取消全部流式发送、结束当前 token 请求，并把输入处理状态置回 Idle。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3308）
 - `beginRequestTokenUsage` 在上下文不活跃或已取消时返回 `RequestCancelled`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3378）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3388）
 - `setCurrentTurnTokenCounts` 把负数 token 计数钳制为 0。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3409）
-- `apply_finalized_current_user_turn` 在末轮 USER 内容与定稿相同时不改，与原文相同时替换为定稿内容（定稿为空时把该轮清空）；定稿为空且不命中前两种情况时返回历史，不追加新轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3450）
-- `apply_finalized_current_user_turn` 在其他情况下追加一个新的 USER 轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3450）
-- `resolveToolDisplayName` 把 `package_proxy` 与 `proxy` 解析为 `tool_name` 参数值，其他工具直接用工具名。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3480）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3486）
-- `package_proxy` 有 `tool_name` 参数，类型 string，必填。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3495）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3504）
-- `package_proxy` 有 `params` 参数，类型 object，必填。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3495）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3508）
-- `toolRuntimeContextForConfiguration` 先校验 `ChatConfigurationResult`，再构建 `ToolRuntimeContext`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3748）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3756）
-- 工具运行时上下文含 `callerParticipantId`（取配置 `profile.id`）、`extensionOwner` 与 `executionData`，暴露模式 Full 映射 FULL、Cli 映射 CLI。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3759）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3767）
-- `function_type_name` 覆盖 CHAT、SUMMARY、TITLE_GENERATION、MEMORY、UI_CONTROLLER、TRANSLATION、GREP、ROLE_RESPONSE_PLANNER、IMAGE_RECOGNITION、AUDIO_RECOGNITION、VIDEO_RECOGNITION 共 11 种功能类型。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3774）
-- `prompt_function_type_name` 只有 CHAT 与 VOICE 两种。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3790）
-- `resolve_workspace_path_mappings` 经 `VisualFileSystem` 校验并规范化路径，按规范化后的 vfs 路径去重，返回 `WorkspacePathMapping` 列表。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3859）
+- `apply_finalized_current_user_turn` 在末轮 USER 内容与定稿相同时不改，与原文相同时替换为定稿内容（定稿为空时把该轮清空）；定稿为空且不命中前两种情况时返回历史，不追加新轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3456）
+- `apply_finalized_current_user_turn` 在其他情况下追加一个新的 USER 轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3456）
+- `resolveToolDisplayName` 把 `package_proxy` 与 `proxy` 解析为 `tool_name` 参数值，其他工具直接用工具名。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3486）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3492）
+- `package_proxy` 有 `tool_name` 参数，类型 string，必填。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3501）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3510）
+- `package_proxy` 有 `params` 参数，类型 object，必填。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3501）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3514）
+- `toolRuntimeContextForConfiguration` 先校验 `ChatConfigurationResult`，再构建 `ToolRuntimeContext`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3754）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3762）
+- 工具运行时上下文含 `callerParticipantId`（取配置 `profile.id`）、`extensionOwner` 与 `executionData`，暴露模式 Full 映射 FULL、Cli 映射 CLI。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3765）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3773）
+- `function_type_name` 覆盖 CHAT、SUMMARY、TITLE_GENERATION、MEMORY、UI_CONTROLLER、TRANSLATION、GREP、ROLE_RESPONSE_PLANNER、IMAGE_RECOGNITION、AUDIO_RECOGNITION、VIDEO_RECOGNITION 共 11 种功能类型。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3780）
+- `prompt_function_type_name` 只有 CHAT 与 VOICE 两种。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3796）
+- `resolve_workspace_path_mappings` 经 `VisualFileSystem` 校验并规范化路径，按规范化后的 vfs 路径去重，返回 `WorkspacePathMapping` 列表。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3865）
 
 ### ProviderRuntimeSupport：向运行时索取能力
 

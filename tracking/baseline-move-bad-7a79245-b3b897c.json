@@ -1,0 +1,68 @@
+{
+  "core-provider-services": {
+    "batch": "batch-02",
+    "facts": 203,
+    "bad": 11,
+    "items": [
+      "core-provider-services.md:159 `package_proxy` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:1349', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:1377', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:3481']",
+      "core-provider-services.md:206 `apply_finalized_current_user_turn` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3450']",
+      "core-provider-services.md:207 `apply_finalized_current_user_turn` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3450']",
+      "core-provider-services.md:210 `package_proxy` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3495', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:3508']",
+      "core-provider-services.md:210 `params` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3495', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:3508']",
+      "core-provider-services.md:212 `executionData` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3759', 'core/crates/provider/services/src/chat/EnhancedAIService.rs:3767']",
+      "core-provider-services.md:213 `function_type_name` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3774']",
+      "core-provider-services.md:214 `prompt_function_type_name` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3790']",
+      "core-provider-services.md:215 `resolve_workspace_path_mappings` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3859']",
+      "core-provider-services.md:215 `VisualFileSystem` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3859']",
+      "core-provider-services.md:215 `WorkspacePathMapping` not within ±5 of any ref ['core/crates/provider/services/src/chat/EnhancedAIService.rs:3859']"
+    ]
+  },
+  "agent-compaction": {
+    "batch": "batch-04",
+    "facts": 90,
+    "bad": 6,
+    "items": [
+      "agent-compaction.facts.json#57 `roleName` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:606",
+      "agent-compaction.facts.json#57 `system` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:606",
+      "agent-compaction.facts.json#58 `usage.cached_input` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:611",
+      "agent-compaction.md:98 `roleName` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:606']",
+      "agent-compaction.md:98 `system` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:606']",
+      "agent-compaction.md:99 `usage.cached_input` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:611']"
+    ]
+  },
+  "agent-hooks": {
+    "batch": "batch-04",
+    "facts": 95,
+    "bad": 6,
+    "items": [
+      "agent-hooks.facts.json#52 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1150",
+      "agent-hooks.facts.json#53 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1183",
+      "agent-hooks.md:75 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1183']",
+      "agent-hooks.md:76 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1150']",
+      "agent-hooks.md:161 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1183']",
+      "agent-hooks.md:162 `dispatchToolPkgChatRuntimeStateChange` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1150']"
+    ]
+  },
+  "agent-loop-overview": {
+    "batch": "batch-04",
+    "facts": 135,
+    "bad": 6,
+    "items": [
+      "agent-loop-overview.facts.json#65 `limitMediaLinksInChatHistory` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359",
+      "agent-loop-overview.facts.json#79 `usage.cached_input` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:611",
+      "agent-loop-overview.facts.json#84 `lastSummaryIndex` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:673",
+      "agent-loop-overview.md:54 `limitMediaLinksInChatHistory` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359']",
+      "agent-loop-overview.md:70 `lastSummaryIndex` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:673']",
+      "agent-loop-overview.md:126 `usage.cached_input` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:611']"
+    ]
+  },
+  "troubleshoot-web": {
+    "batch": "batch-11",
+    "facts": 78,
+    "bad": 2,
+    "items": [
+      "troubleshoot-web.md:145 `BrowserSessions` not within ±5 of any ref ['docs/browser-session-lifecycle.md:20']",
+      "troubleshoot-web.md:145 `RuntimeBrowserService` not within ±5 of any ref ['docs/browser-session-lifecycle.md:20']"
+    ]
+  }
+}
