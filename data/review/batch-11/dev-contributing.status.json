@@ -1,6 +1,6 @@
 {
   "issue": 112,
-  "source_commit": "7a79245",
+  "source_commit": "b3b897c",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "贡献指南：改动范围、本地检查、分支提交、PR 流程、AGPL-3.0 许可与行为规范。",

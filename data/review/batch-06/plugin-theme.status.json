@@ -1,6 +1,6 @@
 {
   "issue": 68,
-  "source_commit": "7a79245",
+  "source_commit": "b3b897c",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "主题即插件：manifest 的 themes 数组声明模板，模板只是创建源，应用时烘焙成独立 ThemeConfig，安装同步卸载由普通包管理系统负责，moss_atelier 含 moss 与 dune 两套模板。",

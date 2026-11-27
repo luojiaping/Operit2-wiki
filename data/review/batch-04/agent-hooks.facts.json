@@ -205,11 +205,11 @@
   },
   {
     "fact": "消息处理委托的 `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥。",
-    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1150"
+    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1163"
   },
   {
     "fact": "聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`。",
-    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1183"
+    "ref": "core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1196"
   },
   {
     "fact": "`TOOLPKG_EVENT_CHAT_RUNTIME` 的值是 toolpkg_chat_runtime。",

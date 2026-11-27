@@ -17,7 +17,7 @@ date: 2026-11-11
 摘要 hook 在摘要生成全过程分发三阶段事件，hook 可改写提示词与结果（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:89`）。
 压缩与 CoreNode 切换互不干扰：路由变更测试断言切换后不产生摘要任务（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3978`）。
 上下文用量显示存在：chatInputMenuSummary 返回当前窗口大小与累计 token 数（`core/crates/runtime/application/src/services/ChatServiceCore.rs:3131`）。
-摘要消息的 sender 为 summary、roleName 为 system（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:606`）。
+摘要消息的 sender 为 summary、roleName 为 system（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:610`）。
 
 ## AI 速览
 
@@ -101,8 +101,8 @@ date: 2026-11-11
 - summarizeMemory 只总结 `lastSummaryIndex` 之后的用户与 AI 消息，无上一次摘要时总结全部用户与 AI 消息（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:537`）。
 - summarizeMemory 取上一次 `sender` 为 `summary` 的消息正文作 `previousSummary`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:540`）。
 - summarizeMemory 在 `autoContinue` 为真时在摘要末尾追加如果任务尚未完成请基于以上摘要继续（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:593`）。
-- summarizeMemory 生成的摘要消息 `sender` 为 `summary`，`roleName` 为 `system`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:606`）。
-- 摘要消息的 token 数取自摘要生成的真实用量：输入 token 为 `usage.input`、输出 token 为 `usage.output`，另记缓存输入 token `usage.cached_input`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:611`）。
+- summarizeMemory 生成的摘要消息 `sender` 为 `summary`，`roleName` 为 `system`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:610`）。
+- 摘要消息的 token 数取自摘要生成的真实用量：输入 token 为 `usage.input`、输出 token 为 `usage.output`，另记缓存输入 token `usage.cached_input`（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:617`）。
 - AIMessageManager 的 `getMemoryFromMessages` 只取上一次摘要消息起的后续消息作提示记忆（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:673`）。
 - FunctionalPrompts 的 `summaryContinuationInstruction` 生成摘要指令：先写仅总结本条消息之前对话的压缩说明，再附摘要指令；上一次摘要不再拼进系统提示，改为随历史中的摘要回合原样进入待总结历史（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:199`）。
 - `FunctionalPrompts` 的 `SUMMARY_PROMPT` 要求新摘要完全取代旧摘要，成为后续对话的唯一历史参考（`core/crates/provider/services/src/chat/config/FunctionalPrompts.rs:3`）。

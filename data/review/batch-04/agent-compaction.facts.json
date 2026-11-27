@@ -225,11 +225,11 @@
   },
   {
     "fact": "summarizeMemory 生成的摘要消息 `sender` 为 `summary`，`roleName` 为 `system`",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:606"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:610"
   },
   {
     "fact": "总结消息的 token 数取自摘要生成的真实用量：输入 token 为 `usage.input`、输出 token 为 `usage.output`，另记缓存输入 token `usage.cached_input`，不再按正文长度估算",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:611"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:617"
   },
   {
     "fact": "AIMessageManager 的 `getMemoryFromMessages` 只取上一次摘要消息起的后续消息作提示记忆",

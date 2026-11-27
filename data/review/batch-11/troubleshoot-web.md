@@ -26,13 +26,13 @@ date: 2026-11-11
 - `PlatformWebViewController.requiresNativeApplicationZoom` — 按后端能力选择缩放策略。`docs/webview-rendering.md:11`
 - `NativeWebViewZoom` — 保留应用缩放与页面缩放两个因子，校验输入并序列化原生更新。`docs/webview-rendering.md:26`
 - `OperitSafeWebView` — iOS 后端在 UIKit 布局前校验有限的 frame 与 bounds 值。`docs/webview-rendering.md:82`
-- `RuntimeBrowserOwnerSurfaceHost` — 为每个存活会话保留一个真实 WebView，始终位于全局宿主。`docs/browser-session-lifecycle.md:36`
-- `WorkspaceBrowserSurface` — 普通浏览器与临时网页访问共用的展示入口。`docs/browser-session-lifecycle.md:37`
-- `RuntimeWebVisitSession` — 收到请求时直接创建会话并开始加载、检测与提取。`docs/browser-session-lifecycle.md:45`
-- `visit_web` — 总执行期限 45 秒的临时网页访问工具。`docs/browser-session-lifecycle.md:63`
+- `RuntimeBrowserOwnerSurfaceHost` — 为每个存活会话保留一个真实 WebView，始终位于全局宿主。`docs/browser-session-lifecycle.md:38`
+- `WorkspaceBrowserSurface` — 普通浏览器与临时网页访问共用的展示入口。`docs/browser-session-lifecycle.md:39`
+- `RuntimeWebVisitSession` — 收到请求时直接创建会话并开始加载、检测与提取。`docs/browser-session-lifecycle.md:47`
+- `visit_web` — 总执行期限 45 秒的临时网页访问工具。`docs/browser-session-lifecycle.md:65`
 - 主入口：开发运行从 `apps/flutter/app` 执行 `fvm flutter run -d edge`；已部署访问走 `https://web.operit.app/`。`apps/flutter/app/web/README.md:28` `apps/flutter/app/web/README.md:55`
-- 数据流向：`browser_*` 工具 → `BrowserAutomationBridge` → `RuntimeBrowserOwnerHost` → `RuntimeBrowserOwner` 持有的 `WebViewController`。`docs/browser-session-lifecycle.md:11`
-- 数据流向：`visit_web` 工具 → `WebVisitBridge` → `RuntimeWebVisitSession` → `BrowserSessions` 协议。`docs/browser-session-lifecycle.md:23`
+- 数据流向：`browser_*` 工具 → `BrowserAutomationBridge` → `RuntimeBrowserOwnerHost` → `RuntimeBrowserOwner` 持有的 `WebViewController`。`docs/browser-session-lifecycle.md:13`
+- 数据流向：`visit_web` 工具 → `WebVisitBridge` → `RuntimeWebVisitSession` → `BrowserSessions` 协议。`docs/browser-session-lifecycle.md:25`
 
 ## 核心机制
 
@@ -62,23 +62,23 @@ date: 2026-11-11
 
 - 浏览器执行属于运行时宿主，会话是否存在不由工作区是否打开决定。`docs/browser-session-lifecycle.md:3`
 - 通用浏览器使用现有会话协议；Android 的 `visit_web` 由进程级原生 Host 执行，工作区通过平台能力接口直接展示同一个 WebView；其他宿主继续使用运行时浏览器会话。`docs/browser-session-lifecycle.md:3`
-- Core 会话及事件协议没有添加 Android 专用操作。`docs/browser-session-lifecycle.md:30`
-- `RuntimeBrowserOwnerSurfaceHost` 为每个存活会话保留一个真实 WebView，始终位于全局宿主，打开、隐藏、切换工作区不迁移它的 Element，不重建平台视图。`docs/browser-session-lifecycle.md:36`
-- `WorkspaceBrowserSurface` 是普通浏览器与临时网页访问共用的展示入口，原生展示提供 `RuntimeBrowserSurfaceTarget` 锚点，Web 展示继续使用已有的合成画面传输。`docs/browser-session-lifecycle.md:37`
-- 锚点通过 RenderObject 的 attach、layout、detach 发布展示位置与大小，`RetainedPage` 隐藏嵌套页面时即使 widget 未 dispose 也释放锚点，恢复时重新提供锚点，不依赖休眠子树完成构建。`docs/browser-session-lifecycle.md:38`
-- `RuntimeBrowserSurface` 在相同挂载位置跟随锚点，没有锚点时禁用绘制、触摸与语义，但保留 WebView 及最后的非零视口，首次后台创建使用宿主视口，不使用屏幕外 1×1 布局。`docs/browser-session-lifecycle.md:39`
-- 锚点只表达展示权，不表达会话存活权，显式关闭会话才销毁浏览器，多个展示锚点使用最后注册的存活锚点，释放后可回到先前锚点。`docs/browser-session-lifecycle.md:40`
-- TTS 与运行时浮层位于浏览器宿主之上，避免全局浏览器展示覆盖应用浮层。`docs/browser-session-lifecycle.md:41`
-- 创建浏览器会话时，宿主打开标签的操作直接返回该标签的会话 ID，运行时按这个 ID 返回对应会话。`docs/browser-session-lifecycle.md:32`
-- 并发创建与宿主尚未挂载时排队的创建各自保留返回值与错误。`docs/browser-session-lifecycle.md:32`
-- 请求归属不得通过全局新增会话列表或当前活动标签推断，否则两个访问会绑定到同一会话，并在其中一个完成清理时影响另一个。`docs/browser-session-lifecycle.md:32`
-- `RuntimeWebVisitSession` 在收到请求时直接创建会话并开始加载、检测与提取，工作区展示回调尚未注册或已被移除时执行仍可完成，后注册的工作区可以展示仍在执行的访问，展示失败只记录日志。`docs/browser-session-lifecycle.md:45`
-- 工作区观察任务状态并提供手动提取、取消等操作，不拥有定时器、加载过程或工具返回的 Completer，工作区销毁不取消任务。`docs/browser-session-lifecycle.md:61`
-- 用户明确关闭访问标签才取消该请求，正常完成、失败与取消都会关闭临时会话，创建请求迟到时也会关闭已经失去任务所有者的会话。`docs/browser-session-lifecycle.md:61`
-- `visit_web` 总执行期限为 45 秒，单次脚本与清理分别最多 10 秒，为 Rust 宿主现有的 60 秒请求期限留出返回时间。`docs/browser-session-lifecycle.md:63`
-- 脚本等待同时观察任务完成，取消时释放本地超时，事件订阅取消与会话关闭同时发起，避免互相等待。`docs/browser-session-lifecycle.md:63`
-- `browser_wait_for` 的文本条件由宿主进行限时轮询，不依赖页面内定时器或原生 WebView 对 Promise 返回值的处理。`docs/browser-session-lifecycle.md:63`
-- 宿主交互订阅并发处理请求，`visit_web` 等待期间仍可处理它发起的浏览器会话命令。`docs/browser-session-lifecycle.md:30`
+- Core 会话及事件协议没有添加 Android 专用操作。`docs/browser-session-lifecycle.md:32`
+- `RuntimeBrowserOwnerSurfaceHost` 为每个存活会话保留一个真实 WebView，始终位于全局宿主，打开、隐藏、切换工作区不迁移它的 Element，不重建平台视图。`docs/browser-session-lifecycle.md:38`
+- `WorkspaceBrowserSurface` 是普通浏览器与临时网页访问共用的展示入口，原生展示提供 `RuntimeBrowserSurfaceTarget` 锚点，Web 展示继续使用已有的合成画面传输。`docs/browser-session-lifecycle.md:39`
+- 锚点通过 RenderObject 的 attach、layout、detach 发布展示位置与大小，`RetainedPage` 隐藏嵌套页面时即使 widget 未 dispose 也释放锚点，恢复时重新提供锚点，不依赖休眠子树完成构建。`docs/browser-session-lifecycle.md:40`
+- `RuntimeBrowserSurface` 在相同挂载位置跟随锚点，没有锚点时禁用绘制、触摸与语义，但保留 WebView 及最后的非零视口，首次后台创建使用宿主视口，不使用屏幕外 1×1 布局。`docs/browser-session-lifecycle.md:41`
+- 锚点只表达展示权，不表达会话存活权，显式关闭会话才销毁浏览器，多个展示锚点使用最后注册的存活锚点，释放后可回到先前锚点。`docs/browser-session-lifecycle.md:42`
+- TTS 与运行时浮层位于浏览器宿主之上，避免全局浏览器展示覆盖应用浮层。`docs/browser-session-lifecycle.md:43`
+- 创建浏览器会话时，宿主打开标签的操作直接返回该标签的会话 ID，运行时按这个 ID 返回对应会话。`docs/browser-session-lifecycle.md:34`
+- 并发创建与宿主尚未挂载时排队的创建各自保留返回值与错误。`docs/browser-session-lifecycle.md:34`
+- 请求归属不得通过全局新增会话列表或当前活动标签推断，否则两个访问会绑定到同一会话，并在其中一个完成清理时影响另一个。`docs/browser-session-lifecycle.md:34`
+- `RuntimeWebVisitSession` 在收到请求时直接创建会话并开始加载、检测与提取，工作区展示回调尚未注册或已被移除时执行仍可完成，后注册的工作区可以展示仍在执行的访问，展示失败只记录日志。`docs/browser-session-lifecycle.md:47`
+- 工作区观察任务状态并提供手动提取、取消等操作，不拥有定时器、加载过程或工具返回的 Completer，工作区销毁不取消任务。`docs/browser-session-lifecycle.md:63`
+- 用户明确关闭访问标签才取消该请求，正常完成、失败与取消都会关闭临时会话，创建请求迟到时也会关闭已经失去任务所有者的会话。`docs/browser-session-lifecycle.md:63`
+- `visit_web` 总执行期限为 45 秒，单次脚本与清理分别最多 10 秒，为 Rust 宿主现有的 60 秒请求期限留出返回时间。`docs/browser-session-lifecycle.md:65`
+- 脚本等待同时观察任务完成，取消时释放本地超时，事件订阅取消与会话关闭同时发起，避免互相等待。`docs/browser-session-lifecycle.md:65`
+- `browser_wait_for` 的文本条件由宿主进行限时轮询，不依赖页面内定时器或原生 WebView 对 Promise 返回值的处理。`docs/browser-session-lifecycle.md:65`
+- 宿主交互订阅并发处理请求，`visit_web` 等待期间仍可处理它发起的浏览器会话命令。`docs/browser-session-lifecycle.md:32`
 - Web Host 的完整实现见 [[host-web|Web/WASM Host]]，桌面端排障见 [[troubleshoot-desktop|排障·桌面端（Windows / macOS / Linux）]]。`docs/browser-session-lifecycle.md:3`
 
 ### Web 端与桌面端渲染差异排查
@@ -108,7 +108,7 @@ date: 2026-11-11
 - 无效几何尺寸会禁用受影响的原生视图，`CALayerInvalidGeometry` 在 Objective-C 边界隔离，并在布局调用结束后经已有导航错误通道上报一次。`docs/webview-rendering.md:84`
 - 失败的 iOS 视图不再布局、不再复用。`docs/webview-rendering.md:86`
 - 引擎或 SDK 变更后，原生渲染、IME 与手势行为必须在对应设备上检查。`docs/webview-rendering.md:146`
-- Flutter 测试验证共享生命周期与控制器契约，各平台真实 WebView 的渲染、输入与后台行为仍需设备验证。`docs/browser-session-lifecycle.md:137`
+- Flutter 测试验证共享生命周期与控制器契约，各平台真实 WebView 的渲染、输入与后台行为仍需设备验证。`docs/browser-session-lifecycle.md:139`
 
 ### 维护检查命令
 
@@ -118,7 +118,7 @@ date: 2026-11-11
 - 浏览器端缩放检查命令是 `fvm flutter test test/webview_zoom_browser_test.dart --platform chrome`。`docs/webview-rendering.md:139`
 - `windows_native_composition_probe.dart` 是裁剪、排序、对话框与指针路由的独立验收夹具。`docs/webview-rendering.md:142`
 - `webview_zoom.test.mjs` 检查脚本与通道契约。`docs/webview-rendering.md:144`
-- Flutter 测试覆盖并发创建的正序与逆序返回、排队创建及错误传播、未打开工作区的访问、延迟展示、展示异常、并发完成与取消、迟到创建、脚本无响应、嵌套休眠、视图实例保持和偏移后的触摸命中。`docs/browser-session-lifecycle.md:137`
+- Flutter 测试覆盖并发创建的正序与逆序返回、排队创建及错误传播、未打开工作区的访问、延迟展示、展示异常、并发完成与取消、迟到创建、脚本无响应、嵌套休眠、视图实例保持和偏移后的触摸命中。`docs/browser-session-lifecycle.md:139`
 
 ## 关键符号
 
@@ -133,32 +133,32 @@ date: 2026-11-11
 - `NativeWebViewZoom` — 保留两个缩放因子，校验输入并序列化原生更新。`docs/webview-rendering.md:26`
 - `OperitSafeWebView` — iOS 后端校验有限 frame 与 bounds 值的视图。`docs/webview-rendering.md:82`
 - `CALayerInvalidGeometry` — iOS 几何异常，在 Objective-C 边界隔离并经导航错误通道上报一次。`docs/webview-rendering.md:84`
-- `RuntimeBrowserOwnerSurfaceHost` — 为每个存活会话保留一个真实 WebView。`docs/browser-session-lifecycle.md:36`
-- `WorkspaceBrowserSurface` — 普通浏览器与临时网页访问共用的展示入口。`docs/browser-session-lifecycle.md:37`
-- `RuntimeBrowserSurfaceTarget` — 原生展示提供的展示锚点。`docs/browser-session-lifecycle.md:37`
-- `RuntimeBrowserSurface` — 在相同挂载位置跟随锚点的展示面。`docs/browser-session-lifecycle.md:39`
-- `RuntimeWebVisitSession` — 收到请求时直接创建会话并开始加载、检测与提取。`docs/browser-session-lifecycle.md:45`
-- `RuntimeBrowserSessionRegistry` — `browser_*` 链路中的会话注册表。`docs/browser-session-lifecycle.md:12`
-- `RuntimeWebVisitRegistry` — `visit_web` 链路中的临时访问注册表。`docs/browser-session-lifecycle.md:23`
-- `BrowserSessions` — create / evaluate / events / close 协议。`docs/browser-session-lifecycle.md:24`
-- `browser_wait_for` — 文本条件由宿主限时轮询的等待工具。`docs/browser-session-lifecycle.md:63`
+- `RuntimeBrowserOwnerSurfaceHost` — 为每个存活会话保留一个真实 WebView。`docs/browser-session-lifecycle.md:38`
+- `WorkspaceBrowserSurface` — 普通浏览器与临时网页访问共用的展示入口。`docs/browser-session-lifecycle.md:39`
+- `RuntimeBrowserSurfaceTarget` — 原生展示提供的展示锚点。`docs/browser-session-lifecycle.md:39`
+- `RuntimeBrowserSurface` — 在相同挂载位置跟随锚点的展示面。`docs/browser-session-lifecycle.md:41`
+- `RuntimeWebVisitSession` — 收到请求时直接创建会话并开始加载、检测与提取。`docs/browser-session-lifecycle.md:47`
+- `RuntimeBrowserSessionRegistry` — `browser_*` 链路中的会话注册表。`docs/browser-session-lifecycle.md:14`
+- `RuntimeWebVisitRegistry` — `visit_web` 链路中的临时访问注册表。`docs/browser-session-lifecycle.md:25`
+- `BrowserSessions` — create / evaluate / events / close 协议。`docs/browser-session-lifecycle.md:26`
+- `browser_wait_for` — 文本条件由宿主限时轮询的等待工具。`docs/browser-session-lifecycle.md:65`
 
 ## 调用链
 
 1. 部署访问：部署服务器或反向代理为每个应用资产发送三个跨域隔离头 → 浏览器打开 `https://web.operit.app/` → 启动时检查跨域隔离前提条件，取得运行时所有权后同步 Host 通道与插件工作线程使用 SharedArrayBuffer。`apps/flutter/app/web/README.md:8` `apps/flutter/app/web/README.md:55`
 2. 开发运行：从 `apps/flutter/app` 执行 `fvm flutter run -d edge`（或 `-d chrome`、`-d web-server`）→ `web_dev_config.yaml` 配置的内置服务器在 `http://127.0.0.1:4835` 发送三个跨域隔离头 → Flutter 调试连接与热重载使用该源。`apps/flutter/app/web/README.md:21` `apps/flutter/app/web/README.md:28`
-3. `browser_*` 工具 → `StandardBrowserAutomationTools` / `BrowserAutomationHost` → `FlutterHostAdapters` → `RuntimeHostInteractionService` → `RuntimeHostInteractionSubscriber` → `BrowserAutomationBridge` → `RuntimeBrowserOwnerHost` → `RuntimeBrowserSessionRegistry` → `RuntimeBrowserOwner` 持有的 `WebViewController`。`docs/browser-session-lifecycle.md:11`
-4. 其他宿主及 Android 独立模块发起的 `visit_web` → `FlutterHostAdapters` → `RuntimeHostInteractionService` → `RuntimeHostInteractionSubscriber` → `WebVisitBridge` → `RuntimeBrowserOwnerHost` → `RuntimeWebVisitRegistry` / `RuntimeWebVisitSession` → `BrowserSessions`（create / evaluate / events / close 协议）→ `RuntimeBrowserService` → 同一个 `RuntimeBrowserOwner`；Android 通用 `visit_web` 改走 `AndroidWebVisitHost` → `HostWebVisitManager` 原生执行，`PlatformWebVisitHost` 观察状态并借用同一个 WebView 给工作区。`docs/browser-session-lifecycle.md:20`
-5. 展示链路：`RuntimeBrowserOwnerSurfaceHost` 为存活会话保留真实 WebView → `WorkspaceBrowserSurface` 经 `RuntimeBrowserSurfaceTarget` 锚点展示，原生展示用锚点，Web 展示用已有合成画面传输。`docs/browser-session-lifecycle.md:36`
+3. `browser_*` 工具 → `StandardBrowserAutomationTools` / `BrowserAutomationHost` → `FlutterHostAdapters` → `RuntimeHostInteractionService` → `RuntimeHostInteractionSubscriber` → `BrowserAutomationBridge` → `RuntimeBrowserOwnerHost` → `RuntimeBrowserSessionRegistry` → `RuntimeBrowserOwner` 持有的 `WebViewController`。`docs/browser-session-lifecycle.md:13`
+4. 其他宿主及 Android 独立模块发起的 `visit_web` → `FlutterHostAdapters` → `RuntimeHostInteractionService` → `RuntimeHostInteractionSubscriber` → `WebVisitBridge` → `RuntimeBrowserOwnerHost` → `RuntimeWebVisitRegistry` / `RuntimeWebVisitSession` → `BrowserSessions`（create / evaluate / events / close 协议）→ `RuntimeBrowserService` → 同一个 `RuntimeBrowserOwner`；Android 通用 `visit_web` 改走 `AndroidWebVisitHost` → `HostWebVisitManager` 原生执行，`PlatformWebVisitHost` 观察状态并借用同一个 WebView 给工作区。`docs/browser-session-lifecycle.md:22`
+5. 展示链路：`RuntimeBrowserOwnerSurfaceHost` 为存活会话保留真实 WebView → `WorkspaceBrowserSurface` 经 `RuntimeBrowserSurfaceTarget` 锚点展示，原生展示用锚点，Web 展示用已有合成画面传输。`docs/browser-session-lifecycle.md:38`
 6. 缩放链路（原生覆盖后端）：视口周围抵消应用绘制缩放，按显示尺寸布局视口 → `NativeWebViewZoom` 把 `applicationZoom * pageZoom` 发给原生页面 API。`docs/webview-rendering.md:26`
-7. 超时链路：`visit_web` 总期限 45 秒，单次脚本与清理分别最多 10 秒，为 Rust 宿主现有的 60 秒请求期限留出返回时间。`docs/browser-session-lifecycle.md:63`
+7. 超时链路：`visit_web` 总期限 45 秒，单次脚本与清理分别最多 10 秒，为 Rust 宿主现有的 60 秒请求期限留出返回时间。`docs/browser-session-lifecycle.md:65`
 
 ## 来源
 
 - `apps/flutter/app/web/README.md`（57 行）：Web Access 部署、开发运行、运行时布局。`apps/flutter/app/web/README.md:1`
 - `docs/webview-rendering.md`（146 行）：WebView 渲染策略、七后端缩放表、Windows 合成、iOS 几何、维护检查。`docs/webview-rendering.md:1`
 - `docs/webview-rendering.md` 新增「Android legacy WebView scripts」一节（:41–57），属 Android 端内容，不在本页 Web 与桌面端排障范围内，未立事实。`docs/webview-rendering.md:41`
-- `docs/browser-session-lifecycle.md`（156 行）：浏览器会话与工作区展示生命周期、请求链路、超时与回归验证。`docs/browser-session-lifecycle.md:1`
+- `docs/browser-session-lifecycle.md`（158 行）：浏览器会话与工作区展示生命周期、请求链路、超时与回归验证。`docs/browser-session-lifecycle.md:1`
 - 本页事实均引自上述三份文档原文，属于文档声明，未逐项核验对应实现代码。`apps/flutter/app/web/README.md:1`
 - `docs/browser-session-lifecycle.md` 在大纲备注中列为待补测 seed，实测 156 行，已纳入本页 seed。`docs/browser-session-lifecycle.md:1`
 - 否定性核验：2026-11-12 对基线 `364d1d594` 的本地 checkout 执行 `ls docs/openharmony-flutter-adaptation-checklist.md`，返回 No such file or directory，该文件在 HEAD 上不存在，本页未引用它。`docs/browser-session-lifecycle.md:1`

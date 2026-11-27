@@ -1,6 +1,6 @@
 {
   "issue": 18,
-  "source_commit": "7a79245",
+  "source_commit": "b3b897c",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Provider 服务聚合：AIService 接口、ClaudeProvider 适配器、EnhancedAIService 对话编排与 ProviderRuntimeSupport 运行时支持",

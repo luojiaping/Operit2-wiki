@@ -78,8 +78,8 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - 同步时每个注册的包名取容器 `packageName`，hook 标识取 hook 的 id，函数名取 hook 的 function（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:39`）。
 - 各桥只注册一次，由 `INSTALLED` 原子标志保证（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:45`）。
 - 注册时订阅包目录变更监听，目录变化时重同步全部桥的注册（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgCommonBridgePlugin.rs:63`）。
-- 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1183`）。
-- `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1150`）。
+- 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1196`）。
+- `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1163`）。
 - `dispatchStateChanged` 接收聊天 id、新状态、活跃聊天 id 与三组计数、当前轮次与任务标题，通知经 `scheduleToolPkgNotification` 异步发出（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:53`、`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:65`）。
 - 异步任务先取已注册的运行时，未注册时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:71`）。
 - 异步任务克隆当前注册列表，注册为空时直接返回，不执行任何 hook（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:76`）。
@@ -164,8 +164,8 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 
 ### 聊天运行时状态通知
 
-1. 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1183`）。
-2. `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1150`）。
+1. 聊天执行状态更新的发布路径调用 `dispatchToolPkgChatRuntimeStateChange`（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1196`）。
+2. `dispatchToolPkgChatRuntimeStateChange` 把聊天执行状态变更交给聊天运行时桥（`core/crates/runtime/application/src/services/core/MessageProcessingDelegate.rs:1163`）。
 3. `dispatchStateChanged` 经 `scheduleToolPkgNotification` 把通知异步发出（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:53`、`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:65`）。
 4. 异步任务先取已注册的运行时，未注册时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:71`）。
 5. 异步任务克隆当前注册列表，注册为空时直接返回（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatRuntimeHookBridge.rs:76`）。
