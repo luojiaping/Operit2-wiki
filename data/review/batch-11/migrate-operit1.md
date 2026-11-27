@@ -92,11 +92,11 @@ date: 2026-11-11
 - 顶层帮助把 `operit2 rescue <command>` 列为导出、检查、导入或恢复数据救援的入口。`apps/cli/src/cli/mod.rs:1566`
 - Flutter 维护界面是独立路由，不构造 `CoreApplicationService`、`RuntimeBootstrapManager`、常规日志路径与常规业务 UI。`docs/data-rescue.md:16`
 - 原生平台用 `operit.files.v1` 归档布局，浏览器用 `operit.browser.v1` 归档布局；归档是普通 ZIP 文件，不需要密码；每次恢复前按声明大小与 SHA-256 校验每个 payload。`docs/data-rescue.md:20`
-- 恢复先暂存校验再发布，原目录保留在生成的 `.operit-retained-*` 路径（原生平台）与 `data-rescue/retained-*`（浏览器）。`docs/data-rescue.md:32`
-- 正常进程持有租约时维护界面报告具体锁错误，Android 提供停止正常进程的命令，iOS 须冷启动。`docs/data-rescue.md:34`
-- 导入保留被置换的原生根与应用自有条目，持久的中断发布阻塞正常启动，仅由显式 `resume` 推进。`docs/data-rescue.md:38`
-- 原生与浏览器归档在本版本中故意不互通。`docs/data-rescue.md:40`
-- 恢复入口标签为 从备份恢复，导出、源读取、清单检查、完整性校验、暂存恢复、恢复文件验证、发布、中断导入完成、目标保存均报告实测阶段计数。`docs/data-rescue.md:44`
+- 恢复先暂存校验再发布，原目录保留在生成的 `.operit-retained-*` 路径（原生平台）与 `data-rescue/retained-*`（浏览器）。`docs/data-rescue.md:34`
+- 正常进程持有租约时维护界面报告具体锁错误，Android 提供停止正常进程的命令，iOS 须冷启动。`docs/data-rescue.md:36`
+- 导入保留被置换的原生根与应用自有条目，持久的中断发布阻塞正常启动，仅由显式 `resume` 推进。`docs/data-rescue.md:40`
+- 原生与浏览器归档在本版本中故意不互通。`docs/data-rescue.md:42`
+- 恢复入口标签为 从备份恢复，导出、源读取、清单检查、完整性校验、暂存恢复、恢复文件验证、发布、中断导入完成、目标保存均报告实测阶段计数。`docs/data-rescue.md:46`
 
 ## 关键符号
 

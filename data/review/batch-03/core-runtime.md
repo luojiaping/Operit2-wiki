@@ -119,12 +119,12 @@ sendMessage 把本次发送登记进 ChatOperationRegistry 并分配递增的操
 ChatOperationRegistry::register 用 checked_add 递增操作 id，溢出时 expect 报错（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:130`）。
 ChatOperationRegistry 的 get_mut 与 remove 只在 operationId 匹配时操作，避免旧清理删掉新发送（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:140`）。
 sendMessage 在 promptHistoryOverride 给定时直接用它，否则从聊天记录经 getMemoryFromMessages 生成记忆（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:349`）。
-sendMessage 把历史中的图片与媒体链接上限取值自 ApiPreferences，流无值时分别缺省 2 与 1 个用户回合（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:360`）。
-sendMessage 先问 MessageProcessingPluginRegistry 是否有匹配的消息处理插件（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:370`）。
+sendMessage 把历史中的图片与媒体链接上限均取 i32::MAX，不再按 ApiPreferences 的每用户回合数截断（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359`）。
+sendMessage 先问 MessageProcessingPluginRegistry 是否有匹配的消息处理插件（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:363`）。
 插件匹配时 sendMessage 直接返回插件执行流并结束本次操作，不调用 Provider（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:394`）。
-sendMessage 的流式开关取自 ApiPreferences 的 disableStreamOutput，缺省为 false 即开启流式（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:403`）。
-预发送钩子等待期间操作被取消时，sendMessage 返回 RequestCancelled（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:456`）。
-resume 为 true 时 sendMessage 调用 EnhancedAIService::resume，否则调用 sendMessageWithConfiguration（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:465`）。
+sendMessage 的流式开关取自 ApiPreferences 的 disableStreamOutput，缺省为 false 即开启流式（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:396`）。
+预发送钩子等待期间操作被取消时，sendMessage 返回 RequestCancelled（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:449`）。
+resume 为 true 时 sendMessage 调用 EnhancedAIService::resume，否则调用 sendMessageWithConfiguration（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:458`）。
 Provider 返回流后先登记到操作记录，未登记成功时关闭流并返回 RequestCancelled（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:483`）。
 响应清理以 ai-message-manager-response-cleanup 为名提交给 Host 任务调度器，收完流后结束操作（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:495`）。
 清理任务提交失败时取消本次操作并返回 RequestFailed（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:503`）。
@@ -136,14 +136,14 @@ buildUserMessageContent 先经 InputProcessor::process_user_input 处理用户�
 buildUserMessageContent 在 proxySenderName 非空且正文不含 proxy_sender 标记时追加 proxy_sender 标签（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:244`）。
 buildUserMessageContent 在 workspacePath 非空且正文不含 workspace_attachment 标记时追加 workspace_attachment 标签（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:266`）。
 buildUserMessageContent 经 buildReplyTag 为回复消息生成 reply 标签（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:255`）。
-buildReplyTag 把回复内容截断到 100 字符并加省略号（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:769`）。
+buildReplyTag 把回复内容截断到 100 字符并加省略号（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:796`）。
 buildUserMessageContent 过滤掉空白部分后用空格连接成最终内容（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:296`）。
 buildRecordedUserMessageContent 只序列化原始用户输入，不选参与者、不调模型、不改写已提交文本（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:301`）。
 
 ### 附件标记：buildAttachmentTag
 
 buildAttachmentTag 对有 VFS 定位的同步附件先在本地解析物理路径并核对存在性与大小（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:805`）。
-非本节点附件直接返回普通 attachment 标签，不读文件 Host（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:816`）。
+非本节点附件直接返回普通 attachment 标签，不读文件 Host（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:854`）。
 直接图片附件失败时记错误日志并回退为普通附件，不中止整次发送（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:833`）。
 直接音频附件经 buildDirectMediaAttachmentTag 生成媒体链接（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:853`）。
 直接视频附件经 buildDirectMediaAttachmentTag 生成媒体链接（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:861`）。
@@ -154,39 +154,39 @@ buildAttachmentTag 对有 VFS 定位的同步附件先在本地解析物理路�
 
 ### 历史投影与摘要
 
-getMemoryFromMessages 从最后一条 summary 消息起取相关消息，无 summary 时取全部消息（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:663`）。
+getMemoryFromMessages 从最后一条 summary 消息起取相关消息，无 summary 时取全部消息（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:670`）。
 getMemoryFromMessages 把 sender 为 summary 的消息转为 SUMMARY 回合（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:701`）。
-labelUserMessages 开启时，getMemoryFromMessages 给用户消息加 [From user] 前缀（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:696`）。
-isolateParticipants 开启时，getMemoryFromMessages 按持久化参与者 id 区分己方与他人消息，他人发言转为 [From role: 名字] 的用户回合（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:685`）。
+labelUserMessages 开启时，getMemoryFromMessages 给用户消息加 [From user] 前缀（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:703`）。
+isolateParticipants 开启时，getMemoryFromMessages 按持久化参与者 id 区分己方与他人消息，他人发言转为 [From role: 名字] 的用户回合（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:692`）。
 isolateParticipants 开启时，AI 消息缺持久化作者或缺展示身份时 getMemoryFromMessages 返回错误（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:678`）。
 applyConfigurationIdentity 给 sender 为 ai 的消息写入 host.chat.identity（配置档案名与头像 URI），其余 sender 移除该键（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:198`）。
 applyConfigurationIdentity 在 extensionOwner 键下写入 participantId（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:206`）。
-assistantPromptTurnsFromParts 把 Markdown、Thinking、Status 部分累积为 ASSISTANT 回合，遇到 ToolCall 时先 flush 已累积文本（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:716`）。
-ToolCall 部分转为带 tool_name 的 TOOL_CALL 回合（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:727`）。
-ToolResult 部分转为带 tool_name 的 TOOL_RESULT 回合（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:740`）。
-shouldGenerateSummary 要求开启摘要、maxTokens 大于 0 且当前 token 占比达到 tokenUsageThreshold（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:653`）。
+assistantPromptTurnsFromParts 把 Markdown、Thinking、Status 部分累积为 ASSISTANT 回合，遇到 ToolCall 时先 flush 已累积文本（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:740`）。
+ToolCall 部分转为带 tool_name 的 TOOL_CALL 回合（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:751`）。
+ToolResult 部分转为带 tool_name 的 TOOL_RESULT 回合（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:764`）。
+shouldGenerateSummary 要求开启摘要、maxTokens 大于 0 且当前 token 占比达到 tokenUsageThreshold（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:660`）。
 summarizeMemory 只汇总上一次 summary 之后的用户与 AI 消息（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:552`）。
 待汇总消息为空时 summarizeMemory 返回 Ok(None)（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:560`）。
 summarizeMemory 在 autoContinue 为 true 时在摘要后追加中文继续句（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:592`）。
 summarizeMemory 的输入 token 估算为摘要长度乘 3 除 2（至少 1），输出 token 估算为最终摘要长度除 2（至少 1）（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:599`）。
 summarizeMemory 返回 sender 为 summary 的 ChatMessage（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:603`）。
 对话回顾条目上限为 100 条，其中头部保留 30 条（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:40`）。
-appendConversationReview 把对话回顾上限控制在 100 条：超限时保留前 30 条与后 70 条，中间省略并注明条数（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1215`）。
+appendConversationReview 把对话回顾上限控制在 100 条：超限时保留前 30 条与后 70 条，中间省略并注明条数（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1241`）。
 cleanSummarySourceMessage 去掉 meta 标签、AI 消息的 think 内容与媒体链接（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1243`）。
-condenseAssistantMessageForReview 丢弃 Thinking 部分（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1292`）。
+condenseAssistantMessageForReview 丢弃 Thinking 部分（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1318`）。
 condenseAssistantMessageForReview 超过 25 段时只保留前 12 段与后 10 段并注明省略段数（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1359`）。
-calculateStableContextWindow 经 getMemoryFromMessages 生成记忆后调用 estimateRequestWindowFromMemory 估算窗口（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:627`）。
+calculateStableContextWindow 委托 calculateStableContextWindowWithBreakdown 估算窗口，该方法经 getMemoryFromMessages 生成记忆后调用 estimateRequestWindowFromMemoryWithBreakdown（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:622`）。
 
 ### 取消
 
 cancelCurrentOperation 取消最近活跃聊天的操作（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1082`）。
 cancelOperation 把空 chatId 当作默认聊天键（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1091`）。
-cancelOperationForId 先从注册表取走操作，无操作时直接返回 Ok（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1108`）。
+cancelOperationForId 先从注册表取走操作，无操作时直接返回 Ok（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1140`）。
 取消时立即调用 cancellationToken.cancel()（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1116`）。
 取消时关闭 operation.responseStream（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1130`）。
 取消最后调用 enhancedAiService.cancelConversation 并返回其结果（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1132`）。
 cancelAllOperations 快照当前全部操作并逐个按 id 取消（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1152`）。
-cancelAllOperations 把各聊天的取消错误用分号连接后返回（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1160`）。
+cancelAllOperations 把各聊天的取消错误用分号连接后返回（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1186`）。
 
 ### 同步入口
 
@@ -237,7 +237,7 @@ installMarketArtifact 要求 SHA-256 为 64 位十六进制字符，输入先统
 installMarketArtifact 先调用 prepareMarketArtifactDownload 准备下载目标（`core/crates/runtime/application/src/core/application/OperitApplication.rs:784`）。
 installMarketArtifact 下载产物文件后以归一化 SHA-256 登记产物文件（`core/crates/runtime/application/src/core/application/OperitApplication.rs:791`）。
 checkApplicationUpdate 使用 ApplicationUpdateManager 与 systemOperationHost 检查应用更新（`core/crates/runtime/application/src/core/application/OperitApplication.rs:849`）。
-applicationUpdateProgressFlow 观测 Host 下载进度而不暴露 URL 或原生文件路径（`core/crates/runtime/application/src/core/application/OperitApplication.rs:854`）。
+applicationUpdateProgressFlow 观测 Host 下载进度而不暴露 URL 或原生文件路径（`core/crates/runtime/application/src/core/application/OperitApplication.rs:749`）。
 downloadApplicationUpdate 下载选定版本并返回不透明原生回执（`core/crates/runtime/application/src/core/application/OperitApplication.rs:860`）。
 installApplicationUpdate 在 Core 内解析回执并经本地 Host 准备安装（`core/crates/runtime/application/src/core/application/OperitApplication.rs:792`）。
 ThemePreviewAsset 是只交给预览界面的内存资产，不是库记录，预览 API 从不写入它（`core/crates/runtime/application/src/core/application/OperitApplication.rs:76`）。
@@ -296,9 +296,9 @@ logMessageTiming 按“阶段 耗时=Nms”记录阶段耗时（`core/crates/run
 聊天发送链：
 1. AIMessageManager::sendMessage 把本次发送登记进 ChatOperationRegistry 并分配递增的操作 id（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:321`）。
 2. sendMessage 从聊天记录经 getMemoryFromMessages 生成记忆，或直接使用 promptHistoryOverride（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:349`）。
-3. sendMessage 把历史中的图片与媒体链接上限取值自 ApiPreferences，流无值时分别缺省 2 与 1 个用户回合（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:360`）。
+3. sendMessage 把历史中的图片与媒体链接上限均取 i32::MAX，不再按 ApiPreferences 的每用户回合数截断（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359`）。
 4. sendMessage 先问 MessageProcessingPluginRegistry 是否有匹配的消息处理插件，匹配时直接返回插件执行流（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:394`）。
-5. sendMessage 按 resume 标志调用 EnhancedAIService::resume 或 sendMessageWithConfiguration（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:465`）。
+5. sendMessage 按 resume 标志调用 EnhancedAIService::resume 或 sendMessageWithConfiguration（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:458`）。
 6. Provider 返回流后先登记到操作记录，未登记成功时关闭流并返回 RequestCancelled（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:483`）。
 7. 响应清理以 ai-message-manager-response-cleanup 为名提交给 Host 任务调度器，收完流后结束操作（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:495`）。
 

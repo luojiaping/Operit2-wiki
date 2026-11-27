@@ -64,7 +64,7 @@
     "ref": "tools/check_peer_protocol.py:50"
   },
   {
-    "fact": "core/peer-protocol.json 的 revisions 共 26 条。",
+    "fact": "core/peer-protocol.json 的 revisions 共 30 条。",
     "ref": "core/peer-protocol.json:2"
   },
   {
@@ -76,12 +76,12 @@
     "ref": "core/peer-protocol.json:4"
   },
   {
-    "fact": "core/peer-protocol.json 的最新 revision 为 version 26。",
-    "ref": "core/peer-protocol.json:104"
+    "fact": "core/peer-protocol.json 的最新 revision 为 version 30。",
+    "ref": "core/peer-protocol.json:120"
   },
   {
-    "fact": "core/peer-protocol.json 的最新 revision 的 hash 为 bb3372520ca577f16c2ba1b2ff265d777eac047fa50f844a1baf928481cd0cf9。",
-    "ref": "core/peer-protocol.json:105"
+    "fact": "core/peer-protocol.json 的最新 revision 的 hash 为 eda16101e2c0806b0a6e45d37dca37548674cb8131695b394c88e82cbfdde32b。",
+    "ref": "core/peer-protocol.json:121"
   },
   {
     "fact": "node-runtime 的 build.rs 只在启用 CARGO_FEATURE_ROUTE_CATALOG 特性时执行路由目录生成，否则直接返回。",

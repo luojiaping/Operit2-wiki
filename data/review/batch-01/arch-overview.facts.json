@@ -93,15 +93,15 @@
   },
   {
     "fact": "ModelConfigManager 的 preferenceStore 经 PreferencesDataStore::newWithStorage 打开 Space 偏好存储",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:130"
   },
   {
     "fact": "writeProvider 把完整 ProviderProfile 作为同步偏好值写入 provider_<id> 键",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572"
   },
   {
     "fact": "ProviderProfile 包含 apiKey 与 apiKeyPool",
-    "ref": "core/crates/foundation/model/src/ModelConfigData.rs:630"
+    "ref": "core/crates/foundation/model/src/ModelConfigData.rs:672"
   },
   {
     "fact": "Space 偏好存储构造时创建同步描述符 PreferencesSyncDescriptor",

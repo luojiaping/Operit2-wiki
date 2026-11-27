@@ -165,7 +165,7 @@
   },
   {
     "fact": "地址更新成功后记一条 \"Authenticated pairing endpoint refreshed\" 日志并调用 `changed()`。",
-    "ref": "core/crates/node/runtime/src/peer/discovery.rs:234"
+    "ref": "core/crates/node/runtime/src/peer/discovery.rs:235"
   },
   {
     "fact": "`DiscoveryState` 是发现共享缓存：`records` 缓存与 `directory` 目录共用同一缓存与刷新路径。",
@@ -233,7 +233,7 @@
   },
   {
     "fact": "回补后的令牌数不超过容量上限。",
-    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:57"
+    "ref": "core/crates/node/runtime/src/peer/pairing_throttle.rs:59"
   },
   {
     "fact": "`available` 先回补再检查令牌数是否大于 0。",
@@ -396,8 +396,8 @@
     "ref": "core/peer-protocol.json:2"
   },
   {
-    "fact": "截至基线 ff5373fb6，最新修订为 version 24，hash 前缀 bb337252。",
-    "ref": "core/peer-protocol.json:96"
+    "fact": "截至基线 7a79245，最新修订为 version 30，hash 前缀 eda16101。",
+    "ref": "core/peer-protocol.json:120"
   },
   {
     "fact": "StateFlow 远端订阅失败时，生成的包装器以 panic 报错，而不是返回错误。",

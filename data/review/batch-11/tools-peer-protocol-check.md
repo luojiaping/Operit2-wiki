@@ -51,8 +51,8 @@ tools/check_peer_protocol.py 是检查 `core/peer-protocol.json` 修订记录的
 替换旧哈希会改变 `revisions` 前缀，传 `--base` 的检查抛 `ValueError`。`tools/check_peer_protocol.py:33`
 替换旧哈希也使末条 `hash` 与构建算出的指纹不一致，构建侧校验报错。`core/crates/node/runtime/build_support/peer_protocol.rs:27`
 唯一合法的变更方式是在末尾追加更高 `version` 与新 `hash` 的 `revision`。`core/crates/node/runtime/build_support/peer_protocol.rs:28`
-清单现状：`revisions` 共 26 条，从 `version` 1 开始。`core/peer-protocol.json:2`
-清单现状：最新 revision 为 `version` 26，`hash` 为 `bb3372520ca577f16c2ba1b2ff265d777eac047fa50f844a1baf928481cd0cf9`。`core/peer-protocol.json:105`
+清单现状：`revisions` 共 30 条，从 `version` 1 开始。`core/peer-protocol.json:2`
+清单现状：最新 revision 为 `version` 30，`hash` 为 `eda16101e2c0806b0a6e45d37dca37548674cb8131695b394c88e82cbfdde32b`。`core/peer-protocol.json:121`
 `v23` 是切换至路由签名规则的首次记录，v1–v22 的历史 hash 保持原样。`docs/peer-protocol-versioning.md:21`
 v24 把认证会话分块格式的显式修订标识 `operit-peer-session-fragments-v1` 纳入指纹；v24 端点要求对端同为 v24，原有身份和配对凭据保留。`docs/peer-protocol-versioning.md:30`
 
@@ -70,7 +70,7 @@ v24 把认证会话分块格式的显式修订标识 `operit-peer-session-fragme
 `requireCompatible` — 本地 `version` 与 `VERSION` 不一致时返回 `PEER_PROTOCOL_MISMATCH`。`core/crates/node/runtime/src/PeerProtocol.rs:20`
 `requireAdvertised` — 协议声明缺失时返回 `PEER_PROTOCOL_UPGRADE_REQUIRED`。`core/crates/node/runtime/src/PeerProtocol.rs:35`
 `VERSION` — 构建生成的协议版本号常量，写进 `peer_protocol_identity.rs`。`core/crates/node/runtime/build_support/peer_protocol.rs:41`
-`revisions` — 清单中的版本记录数组，共 26 条。`core/peer-protocol.json:2`
+`revisions` — 清单中的版本记录数组，共 30 条。`core/peer-protocol.json:2`
 
 ## 调用链
 
@@ -94,4 +94,4 @@ v24 把认证会话分块格式的显式修订标识 `operit-peer-session-fragme
 `tools/tests/test_peer_protocol.py`（全文已读，与脚本行为断言直接相关）。`tools/tests/test_peer_protocol.py:16`
 `docs/peer-protocol-versioning.md`（全文已读，仅作背景对照，正文事实以代码为准）。`docs/peer-protocol-versioning.md:45`
 否定性结论核验方法：2026-11-15，对基线 AAswordman/Operit2 @ ff5373fb6，用 `grep -n "hashlib\|sha256\|Sha256\|hash(" tools/check_peer_protocol.py` 在脚本全文 56 行内零命中，确认脚本本身不计算源码 SHA-256。`tools/check_peer_protocol.py:5`
-时效：本页事实以基线 ff5373fb6 为准。
+时效：本页事实以基线 7a79245 为准。

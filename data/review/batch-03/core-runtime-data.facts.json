@@ -389,119 +389,119 @@
   },
   {
     "fact": "ToolPkgChatCreationKind 分 New 与 Branch 两类，序列化为小写。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:26"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:28"
   },
   {
     "fact": "ToolPkgChatCreationChat 含 id、title、workspaceId、parentChatId，只携带通用已分配草稿身份。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:37"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:39"
   },
   {
     "fact": "ToolPkgChatCreationDraft 含 creationKind、chat、sourceChatId、sourceMessageTimestamp、input，不含角色、群组、记忆或完整扩展映射字段。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:48"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:50"
   },
   {
     "fact": "ToolPkgChatLifecycleDispatchContext 持有分离的已就绪运行时快照，await 期间不保留包管理器互斥锁。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:55"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:57"
   },
   {
     "fact": "ToolPkgChatLifecycleHookBridge::register 覆盖当前运行时，应用重启后合法替换前任所有者。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:64"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:66"
   },
   {
     "fact": "snapshot 返回 ToolPkgChatLifecycleDispatchContext。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:73"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:75"
   },
   {
     "fact": "运行时未注册时报错 Chat lifecycle runtime is not registered。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:84"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:86"
   },
   {
     "fact": "dispatchBeforeCreate 先调 validateCreationDraft 校验草稿，再按序执行各所有者钩子。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:95"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:97"
   },
   {
     "fact": "无钩子时直接返回空 BTreeMap。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:102"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:104"
   },
   {
     "fact": "钩子超时预算取自 ApiPreferences::getToolPkgPreHookTimeoutSeconds，经 ToolPkgPreHookTimeout::fromSeconds 换算。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:105"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:107"
   },
   {
     "fact": "每个钩子经 ToolPkgPreHookTimeout::runHook 以 TOOLPKG_EVENT_CHAT_LIFECYCLE 与 CHAT_LIFECYCLE_BEFORE_CREATE 事件执行。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:112"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:114"
   },
   {
     "fact": "同一包名重复出现时报错 Duplicate chat lifecycle hook owner。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:130"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:132"
   },
   {
     "fact": "validateCreationDraft 要求草稿 id 非空。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:155"
-  },
-  {
-    "fact": "sourceChatId 与 parentChatId 须与草稿 id 不同。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:168"
-  },
-  {
-    "fact": "New 创建不得带 sourceMessageTimestamp。",
     "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:180"
   },
   {
+    "fact": "sourceChatId 与 parentChatId 须与草稿 id 不同。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:193"
+  },
+  {
+    "fact": "New 创建不得带 sourceMessageTimestamp。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:205"
+  },
+  {
     "fact": "Branch 创建必须带 sourceChatId 与正数 sourceMessageTimestamp，且 parentChatId 等于 sourceChatId。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:192"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:217"
   },
   {
     "fact": "collectLifecycleHooks 跳过无钩子的容器，空包名报错。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:208"
-  },
-  {
-    "fact": "每包多于 1 个聊天生命周期钩子即报 Duplicate chat lifecycle hook owner。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:213"
-  },
-  {
-    "fact": "钩子 id 或函数为空时报错。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:220"
-  },
-  {
-    "fact": "包名重复时报 Duplicate chat lifecycle hook owner。",
     "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:233"
   },
   {
+    "fact": "每包多于 1 个聊天生命周期钩子即报 Duplicate chat lifecycle hook owner。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:238"
+  },
+  {
+    "fact": "钩子 id 或函数为空时报错。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:245"
+  },
+  {
+    "fact": "包名重复时报 Duplicate chat lifecycle hook owner。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:258"
+  },
+  {
     "fact": "只把选中所有者自己的源扩展放进载荷，非对象源扩展报错。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:256"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:281"
   },
   {
     "fact": "创建载荷含 eventName、creationKind、chat、sourceChatId、sourceMessageTimestamp、input、sourceExtension 七个键。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:268"
-  },
-  {
-    "fact": "钩子返回 undefined 时 parseCreationResult 报错 Lifecycle handler returned undefined。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:274"
-  },
-  {
-    "fact": "钩子须返回恰好含 extension 一个字段的 JSON 对象。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:283"
-  },
-  {
-    "fact": "extension 为对象时返回 Some，为 null 时返回 None，其他类型报错。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:291"
-  },
-  {
-    "fact": "ToolPkgChatLifecycleHookBridge.rs 末尾含 #[cfg(test)] 测试模块。",
     "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:293"
   },
   {
+    "fact": "钩子返回 undefined 时 parseCreationResult 报错 Lifecycle handler returned undefined。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:299"
+  },
+  {
+    "fact": "钩子须返回恰好含 extension 一个字段的 JSON 对象。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:308"
+  },
+  {
+    "fact": "extension 为对象时返回 Some，为 null 时返回 None，其他类型报错。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:316"
+  },
+  {
+    "fact": "ToolPkgChatLifecycleHookBridge.rs 末尾含 #[cfg(test)] 测试模块。",
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:318"
+  },
+  {
     "fact": "测试 new_with_persisted_source_keeps_workspace_and_isolated_owner_event 用 v27 SQLite 夹具验证新建会话保留 workspace 且源扩展按所有者隔离。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:315"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:340"
   },
   {
     "fact": "测试 source_extensions_are_strictly_isolated_by_real_owner 断言每个所有者只看到自己的命名空间。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:450"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:475"
   },
   {
     "fact": "测试 duplicate_owner_handlers_are_errors_before_any_dispatch 断言同一所有者多个钩子在分发前即报错。",
-    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:526"
+    "ref": "core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:551"
   },
   {
     "fact": "ToolboxPlugin 实现 OperitPlugin，id 为 builtin.toolbox。",

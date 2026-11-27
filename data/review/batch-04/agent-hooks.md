@@ -135,9 +135,9 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 - 任一摘要 hook 改了内容就返回 `Some` 包裹的 `SummaryHookMutation`，否则返回 None（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:135`）。
 - 摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:521`）。
 - 摘要生成在 before_send_to_model 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:555`）。
-- 摘要生成在 after_generate_summary 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:598`）。
-- `before_prepare_summary_prompt` 分发前先用 `buildSummaryPreparedHistory` 预生成 `prepared_history`，不再传空历史（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:510`）。
-- 分发后用 `reconcileSummaryPreparedHistory` 对账，取 hook 改动后的 preparedHistory（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:524`）。
+- 摘要生成在 after_generate_summary 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:587`）。
+- `before_prepare_summary_prompt` 分发前先用 `buildSummaryPreparedHistory` 预生成 `prepared_history`，不再传空历史（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:494`）。
+- 分发后用 `reconcileSummaryPreparedHistory` 对账，取 hook 改动后的 preparedHistory（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:508`）。
 - before_prepare_summary_prompt 与 before_send_to_model 在超时名单内（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:30`）。
 - after_generate_summary 不在名单内、不创建截止时间（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgPreHookTimeout.rs:150`）。
 - JS 侧摘要 hook 对象结果是 `ToolPkgSummaryHookObjectResult`，字段与摘要上下文对应（`core/crates/plugin/sdk/src/js_sdk/toolpkg.rs:1048`）。
@@ -177,7 +177,7 @@ Hooks 是 ToolPkg 向应用暴露的扩展机制：每个 hook 是一次注册�
 
 1. 摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:521`）。
 2. 摘要生成在 before_send_to_model 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:555`）。
-3. 摘要生成在 after_generate_summary 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:598`）。
+3. 摘要生成在 after_generate_summary 阶段派发摘要 hook（`core/crates/provider/services/src/chat/enhance/ConversationService.rs:587`）。
 4. `dispatchSummaryGenerateHooks` 先快照当前 hook 列表再按序执行（`core/crates/provider/services/src/chat/hooks/SummaryHookRegistry.rs:84`）。
 5. 摘要桥按当前阶段取超时预算（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:79`）。
 6. 每个 ToolPkg 摘要 hook 经带预算的执行入口运行，事件为 `TOOLPKG_EVENT_SUMMARY_GENERATE`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgSummaryHookBridge.rs:97`）。

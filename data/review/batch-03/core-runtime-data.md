@@ -27,7 +27,7 @@ date: 2026-11-11
 - `OperitPlugin` — 运行时插件契约：`id`() 与 `register`()（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:10`）。
 - `ToolboxPlugin` — id 为 `builtin.toolbox`、注册为空实现的内置插件（`core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs:6`）。
 - 构建期生成的插件资产引入点，全文件只有一行 `include!`（`core/crates/runtime/application/src/plugins/BuiltinPluginAssets.rs:1`）。
-- `snapshot()` — 会话创建前钩子桥的快照入口（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:73`）。
+- `snapshot()` — 会话创建前钩子桥的快照入口（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:75`）。
 - `CHAT_LIFECYCLE_BEFORE_CREATE` — 唯一创建生命周期阶段 `before_create`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:20`）。
 - `AgreementPreferences` — 空 struct，全文件只有一行声明（`core/crates/runtime/application/src/data/preferences/AgreementPreferences.rs:1`）。
 - 主入口函数：数据侧为 `importSnapshotSource`（`core/crates/runtime/application/src/data/backup/Operit1SnapshotImportManager.rs:382`）。
@@ -126,33 +126,33 @@ date: 2026-11-11
 
 - `CHAT_LIFECYCLE_RUNTIME` 是进程级 `Mutex<Option<ToolPkgBridgeRuntime>>`，`OperitApplication` 为进程级所有者，主、浮窗、分离聊天槽共享同一运行时（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:17`）。
 - `CHAT_LIFECYCLE_BEFORE_CREATE` 为 `before_create`，是唯一支持的创建生命周期阶段（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:20`）。
-- `ToolPkgChatCreationKind` 分 `New` 与 `Branch` 两类，序列化为小写（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:26`）。
-- `ToolPkgChatCreationChat` 含 `id`、`title`、`workspaceId`、`parentChatId`，只携带通用已分配草稿身份（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:37`）。
-- `ToolPkgChatCreationDraft` 含 `creationKind`、`chat`、`sourceChatId`、`sourceMessageTimestamp`、`input`，不含角色、群组、记忆或完整扩展映射字段（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:48`）。
-- `ToolPkgChatLifecycleDispatchContext` 持有分离的已就绪运行时快照，`await` 期间不保留包管理器互斥锁（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:55`）。
-- `register` 覆盖当前运行时，应用重启后合法替换前任所有者（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:64`）。
-- `snapshot` 返回 `ToolPkgChatLifecycleDispatchContext`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:73`）。
-- 运行时未注册时报错 `Chat lifecycle runtime is not registered`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:84`）。
-- `dispatchBeforeCreate` 先调 `validateCreationDraft` 校验草稿，再按序执行各所有者钩子（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:95`）。
-- 无钩子时直接返回空 `BTreeMap`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:102`）。
-- 钩子超时预算取自 ApiPreferences 的 `getToolPkgPreHookTimeoutSeconds`，经 `ToolPkgPreHookTimeout::fromSeconds` 换算（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:105`）。
-- 每个钩子经 `ToolPkgPreHookTimeout::runHook` 以 `TOOLPKG_EVENT_CHAT_LIFECYCLE` 与 `CHAT_LIFECYCLE_BEFORE_CREATE` 事件执行（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:112`）。
-- 同一包名重复出现时报错 `Duplicate chat lifecycle hook owner`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:130`）。
-- 草稿校验要求草稿 id 非空（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:155`）。
-- 草稿校验要求 `sourceChatId` 与 `parentChatId` 与草稿 id 不同（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:168`）。
-- `New` 创建不得带 `sourceMessageTimestamp`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:180`）。
-- `Branch` 创建必须带 `sourceChatId` 与正数 `sourceMessageTimestamp`，且 `parentChatId` 等于 `sourceChatId`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:192`）。
-- `collectLifecycleHooks` 跳过无钩子的容器，空包名报错（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:208`）。
-- 每包多于 1 个聊天生命周期钩子即报 `Duplicate chat lifecycle hook owner`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:213`）。
-- 钩子 id 或函数为空时报错（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:220`）。
-- 包名重复时报 `Duplicate chat lifecycle hook owner`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:233`）。
-- 载荷只把选中所有者自己的源扩展放进 `sourceExtension`，非对象源扩展报错（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:256`）。
-- 创建载荷含 `eventName`、`creationKind`、`chat`、`sourceChatId`、`sourceMessageTimestamp`、`input`、`sourceExtension` 七个键（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:268`）。
-- 钩子返回 `undefined` 时报错 `Lifecycle handler returned undefined`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:274`）。
-- 钩子须返回恰好含 `extension` 一个字段的 JSON 对象（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:283`）。
-- `extension` 为对象时返回 `Some`，为 `null` 时返回 `None`，其他类型报错（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:291`）。
-- 桥的包工具与 MCP 执行细节见 [[core-tool-packages-mcp|工具系统——包、技能与 MCP]]（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:112`）。
-- 桥文件末尾含 `#[cfg(test)]` 测试模块，含新建、分支、源扩展隔离与重复所有者等测试（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:293`）。
+- `ToolPkgChatCreationKind` 分 `New` 与 `Branch` 两类，序列化为小写（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:28`）。
+- `ToolPkgChatCreationChat` 含 `id`、`title`、`workspaceId`、`parentChatId`，只携带通用已分配草稿身份（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:39`）。
+- `ToolPkgChatCreationDraft` 含 `creationKind`、`chat`、`sourceChatId`、`sourceMessageTimestamp`、`input`，不含角色、群组、记忆或完整扩展映射字段（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:50`）。
+- `ToolPkgChatLifecycleDispatchContext` 持有分离的已就绪运行时快照，`await` 期间不保留包管理器互斥锁（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:57`）。
+- `register` 覆盖当前运行时，应用重启后合法替换前任所有者（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:66`）。
+- `snapshot` 返回 `ToolPkgChatLifecycleDispatchContext`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:75`）。
+- 运行时未注册时报错 `Chat lifecycle runtime is not registered`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:86`）。
+- `dispatchBeforeCreate` 先调 `validateCreationDraft` 校验草稿，再按序执行各所有者钩子（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:97`）。
+- 无钩子时直接返回空 `BTreeMap`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:104`）。
+- 钩子超时预算取自 ApiPreferences 的 `getToolPkgPreHookTimeoutSeconds`，经 `ToolPkgPreHookTimeout::fromSeconds` 换算（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:107`）。
+- 每个钩子经 `ToolPkgPreHookTimeout::runHook` 以 `TOOLPKG_EVENT_CHAT_LIFECYCLE` 与 `CHAT_LIFECYCLE_BEFORE_CREATE` 事件执行（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:114`）。
+- 同一包名重复出现时报错 `Duplicate chat lifecycle hook owner`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:132`）。
+- 草稿校验要求草稿 id 非空（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:180`）。
+- 草稿校验要求 `sourceChatId` 与 `parentChatId` 与草稿 id 不同（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:193`）。
+- `New` 创建不得带 `sourceMessageTimestamp`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:205`）。
+- `Branch` 创建必须带 `sourceChatId` 与正数 `sourceMessageTimestamp`，且 `parentChatId` 等于 `sourceChatId`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:217`）。
+- `collectLifecycleHooks` 跳过无钩子的容器，空包名报错（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:233`）。
+- 每包多于 1 个聊天生命周期钩子即报 `Duplicate chat lifecycle hook owner`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:238`）。
+- 钩子 id 或函数为空时报错（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:245`）。
+- 包名重复时报 `Duplicate chat lifecycle hook owner`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:258`）。
+- 载荷只把选中所有者自己的源扩展放进 `sourceExtension`，非对象源扩展报错（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:281`）。
+- 创建载荷含 `eventName`、`creationKind`、`chat`、`sourceChatId`、`sourceMessageTimestamp`、`input`、`sourceExtension` 七个键（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:293`）。
+- 钩子返回 `undefined` 时报错 `Lifecycle handler returned undefined`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:299`）。
+- 钩子须返回恰好含 `extension` 一个字段的 JSON 对象（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:308`）。
+- `extension` 为对象时返回 `Some`，为 `null` 时返回 `None`，其他类型报错（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:316`）。
+- 桥的包工具与 MCP 执行细节见 [[core-tool-packages-mcp|工具系统——包、技能与 MCP]]（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:114`）。
+- 桥文件末尾含 `#[cfg(test)]` 测试模块，含新建、分支、源扩展隔离与重复所有者等测试（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:318`）。
 
 ## 关键符号
 
@@ -169,12 +169,12 @@ date: 2026-11-11
 - `OperitPlugin` — 运行时插件契约（`core/crates/runtime/application/src/plugins/PluginRegistry.rs:10`）。
 - `ToolboxPlugin` — 内置工具箱插件，注册为空实现（`core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs:6`）。
 - 构建期生成的插件资产引入点，全文件只有一行 `include!`（`core/crates/runtime/application/src/plugins/BuiltinPluginAssets.rs:1`）。
-- `snapshot()` — 会话创建前钩子桥的快照入口（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:73`）。
-- `ToolPkgChatLifecycleDispatchContext` — 分离的已就绪运行时快照（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:55`）。
-- `ToolPkgChatCreationDraft` — 会话创建草稿（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:48`）。
-- `validateCreationDraft` — 草稿校验（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:155`）。
-- `collectLifecycleHooks` — 收集已启用容器的生命周期钩子（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:208`）。
-- `parseCreationResult` — 解析钩子返回结果（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:272`）。
+- `snapshot()` — 会话创建前钩子桥的快照入口（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:75`）。
+- `ToolPkgChatLifecycleDispatchContext` — 分离的已就绪运行时快照（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:57`）。
+- `ToolPkgChatCreationDraft` — 会话创建草稿（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:50`）。
+- `validateCreationDraft` — 草稿校验（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:180`）。
+- `collectLifecycleHooks` — 收集已启用容器的生命周期钩子（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:233`）。
+- `parseCreationResult` — 解析钩子返回结果（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:297`）。
 
 ## 调用链
 
@@ -194,14 +194,14 @@ date: 2026-11-11
 
 ### 会话创建前钩子分发
 
-1. ToolPkgChatLifecycleHookBridge 的 `register` 绑定进程级运行时（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:64`）。
-2. `snapshot()` 取分离的已就绪运行时快照并收集已启用钩子（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:73`）。
-3. `dispatchBeforeCreate` 先调 `validateCreationDraft` 校验草稿（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:95`）。
-4. 无钩子时直接返回空 `BTreeMap`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:102`）。
-5. 超时预算取自 ApiPreferences 的 `getToolPkgPreHookTimeoutSeconds`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:105`）。
-6. 每个钩子经 `ToolPkgPreHookTimeout::runHook` 按序执行（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:112`）。
-7. 钩子结果由 `parseCreationResult` 解析（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:272`）。
-8. 全部钩子成功后返回按包名分组的扩展映射（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:130`）。
+1. ToolPkgChatLifecycleHookBridge 的 `register` 绑定进程级运行时（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:66`）。
+2. `snapshot()` 取分离的已就绪运行时快照并收集已启用钩子（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:75`）。
+3. `dispatchBeforeCreate` 先调 `validateCreationDraft` 校验草稿（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:97`）。
+4. 无钩子时直接返回空 `BTreeMap`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:104`）。
+5. 超时预算取自 ApiPreferences 的 `getToolPkgPreHookTimeoutSeconds`（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:107`）。
+6. 每个钩子经 `ToolPkgPreHookTimeout::runHook` 按序执行（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:114`）。
+7. 钩子结果由 `parseCreationResult` 解析（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:297`）。
+8. 全部钩子成功后返回按包名分组的扩展映射（`core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs:132`）。
 
 ### 内置插件初始化
 
@@ -215,5 +215,5 @@ date: 2026-11-11
 - `core/crates/runtime/application/src/data/preferences/AgreementPreferences.rs`（1 行）
 - `core/crates/runtime/application/src/plugins/PluginRegistry.rs`（104 行）
 - `core/crates/runtime/application/src/plugins/BuiltinPluginAssets.rs`（1 行）
-- `core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs`（563 行）
+- `core/crates/runtime/application/src/plugins/toolpkg/ToolPkgChatLifecycleHookBridge.rs`（588 行）
 - `core/crates/runtime/application/src/plugins/toolbox/ToolboxPlugin.rs`（11 行）

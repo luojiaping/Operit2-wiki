@@ -3,9 +3,9 @@
   "approved_by": "luojiaping",
   "approved_by_comment_id": 6796550239,
   "issue": 41,
-  "source_commit": "d0f7619",
+  "source_commit": "7a79245",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "ToolPkg hook 注册类型、聊天运行时桥接、before-hook 超时与 SummaryHook 关系",
-  "updated": "2026-11-25"
+  "updated": "2026-11-27"
 }

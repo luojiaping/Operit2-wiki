@@ -31,7 +31,7 @@ Operit2 处于 Preview 阶段，底层结构、数据格式、插件契约与跨
 - `nodeId` — 发现广播与连接码中的节点标识（`docs/device-space-lan-discovery.md:9`）
 - `ServiceDiscovery` — 记录发现接口、地址、守护进程错误与扫描总数的日志来源（`docs/device-space-lan-discovery.md:52`）
 - `RuntimePeerService` — 记录广播总数与四类过滤总数的组件（`docs/device-space-lan-discovery.md:57`）
-- `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:631`）
+- `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:669`）
 - ModelConfigManager 的 `preferenceStore` — 模型配置管理器入口，用 newWithStorage 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128`）
 - PreferencesDataStore 的 `newWithStorage` — 创建 Space 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2968`）
 - `SpaceJoinRequest` — 加入申请记录，状态字段是 SpaceJoinStatus（`core/crates/node/runtime/src/NodeSpaceService.rs:313`）
@@ -152,9 +152,9 @@ Provider 配置走另一条路，与上面这句 README 原则冲突：
 ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128`）。
 `preferenceStore` 用 PreferencesDataStore 的 `newWithStorage` 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:132`）。
 `newWithStorage` 创建的是 `Space` 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2968`）。
-`writeProvider` 把整个 `ProviderProfile` 以 `provider_<id>` 为键写入同步偏好（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481`）。
-`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:631`）。
-结论：Provider 凭证存在随配置同步的实现路径，加入 Space 不会自动复制不能作为当前实现的保证（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481`）。
+`writeProvider` 把整个 `ProviderProfile` 以 `provider_<id>` 为键写入同步偏好（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572`）。
+`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:673`）。
+结论：Provider 凭证存在随配置同步的实现路径，加入 Space 不会自动复制不能作为当前实现的保证（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572`）。
 范围说明：以上只核实了代码里的同步偏好写入路径，没有做真实双设备同步实验，不保证另一台设备实际收到凭证。
 
 ## 关键符号
@@ -168,7 +168,7 @@ ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/cr
 - `nodeId` — 发现广播与连接码中的节点标识（`docs/device-space-lan-discovery.md:9`）
 - `ServiceDiscovery` — 记录发现接口、地址、守护进程错误与扫描总数的日志来源（`docs/device-space-lan-discovery.md:52`）
 - `RuntimePeerService` — 记录广播总数与四类过滤总数的组件（`docs/device-space-lan-discovery.md:57`）
-- `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:631`）
+- `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:673`）
 - ModelConfigManager 的 `preferenceStore` — 模型配置管理器入口，用 newWithStorage 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128`）
 - PreferencesDataStore 的 `newWithStorage` — 创建 Space 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2968`）
 - `SpaceJoinRequest` — 加入申请记录，状态字段是 SpaceJoinStatus（`core/crates/node/runtime/src/NodeSpaceService.rs:313`）
@@ -186,7 +186,7 @@ ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/cr
 6. 连接码配对——接收方：`operit2 cli link pair <connection-code>`，`operit://` 分支配对成功后直接返回，不出现六位码提示（`apps/cli/src/cli/link.rs:271`）。
 7. 手动配对：`operit2 cli link pair <device-name>` 后在接收设备上读六位码，CLI 提示输入配对码完成配对（`apps/cli/src/cli/link.rs:276`）。
 8. 加入 Space：operit2 cli link space join [device-name|number] 只提交加入申请并打印回执，底层调用 `requestDeviceSpaceJoin`（`apps/cli/src/cli/link.rs:996`）。
-9. 加入审批：Space 一侧用 `incomingDeviceSpaceJoins` 查看收到的申请，用 `decideDeviceSpaceJoin` 以 approve 或 reject 做决定（`apps/cli/src/cli/link.rs:1027`）。
+9. 加入审批：Space 一侧用 `incomingDeviceSpaceJoins` 查看收到的申请，用 `decideDeviceSpaceJoin` 以 approve 或 reject 做决定（`apps/cli/src/cli/link.rs:1030`）。
 10. 查申请状态：申请人用 `outgoingDeviceSpaceJoins` 列出已发出的申请（`apps/cli/src/cli/link.rs:1003`）。
 11. 刷新申请：link space refresh [space-name] 对发出的申请调用 `refreshDeviceSpaceJoin` 并打印更新后的回执（`apps/cli/src/cli/link.rs:1021`）。
 12. 成功判据：已批准的加入申请经 `adoptApprovedMembership` 落为 `Joined`（`core/crates/node/runtime/src/peer/space_join.rs:1328`）。

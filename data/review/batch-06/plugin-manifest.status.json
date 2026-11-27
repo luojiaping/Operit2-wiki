@@ -1,10 +1,10 @@
 {
   "issue": 59,
-  "source_commit": "d0f7619",
+  "source_commit": "7a79245",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "ToolPkg 清单 manifest 字段、device/space 安装作用域、环境变量与配置归属及 1.0.x 在 2.0.0 运行时的加载兼容性",
-  "updated": "2026-11-25",
+  "updated": "2026-11-27",
   "approved_by_comment_id": 6854351936,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-13 13:33 UTC"

@@ -105,31 +105,31 @@
  },
  {
   "fact": "terminalInfo 把 PROOT_TERMINAL 列为默认终端、PRIMARY_TERMINAL_TYPE 列为默认终端类型",
-  "ref": "hosts/android/src/terminal.rs:423"
+  "ref": "hosts/android/src/terminal.rs:443"
  },
  {
   "fact": "ANDROID_SYSTEM_TERMINAL 与 shell 列为可用终端类型",
-  "ref": "hosts/android/src/terminal.rs:434"
+  "ref": "hosts/android/src/terminal.rs:454"
  },
  {
   "fact": "Android Host 只接受 PROOT_TERMINAL 与 bash、CHROOT_TERMINAL 与 bash、TERMUX_TERMINAL 与 bash、ANDROID_SYSTEM_TERMINAL 与 shell 四组实现与类型配对",
-  "ref": "hosts/android/src/terminal.rs:1228"
+  "ref": "hosts/android/src/terminal.rs:1232"
  },
  {
   "fact": "normalizeAndroidTerminalType 只接受 bash 与 shell 两种终端类型",
-  "ref": "hosts/android/src/terminal.rs:1214"
+  "ref": "hosts/android/src/terminal.rs:1218"
  },
  {
   "fact": "bash 会话的初始工作目录是 /root（Termux 终端除外，其初始工作目录为 Termux HOME）",
-  "ref": "hosts/android/src/terminal.rs:1252"
+  "ref": "hosts/android/src/terminal.rs:1256"
  },
  {
   "fact": "shell 会话的初始工作目录取自 OPERIT_ANDROID_INTERNAL_ROOT",
-  "ref": "hosts/android/src/terminal.rs:1253"
+  "ref": "hosts/android/src/terminal.rs:1257"
  },
  {
   "fact": "bash 会话经 `buildAndroidProotPtyCommand` 以 `--login` `-i` 启动",
-  "ref": "hosts/android/src/terminal.rs:1501"
+  "ref": "hosts/android/src/terminal.rs:1532"
  },
  {
   "fact": "bash 会话设置 PROOT_LOADER、TERM 为 xterm-256color、LANG 为 C.UTF-8",
@@ -137,127 +137,127 @@
  },
  {
   "fact": "shell 会话执行 exec /system/bin/sh -i",
-  "ref": "hosts/android/src/terminal.rs:1566"
+  "ref": "hosts/android/src/terminal.rs:1611"
  },
  {
   "fact": "Root 传输的系统 shell 脚本先校验 id -u 为 0，否则 exit 126",
-  "ref": "hosts/android/src/terminal.rs:1592"
+  "ref": "hosts/android/src/terminal.rs:1638"
  },
  {
-  "fact": "shell 会话的启动输入内嵌 system_shell_init.sh 的内容",
-  "ref": "hosts/android/src/terminal.rs:1639"
+  "fact": "交互式 shell 会话的启动输入内嵌 system_shell_init.sh 的内容",
+  "ref": "hosts/android/src/terminal.rs:1685"
  },
  {
   "fact": "PTY 提示标记前缀是 `\\x1b]133;OperitPrompt=`",
-  "ref": "hosts/android/src/terminal.rs:31"
- },
- {
-  "fact": "androidPtyPromptCommand 在每次提示时输出 base64 编码的 $PWD 与退出码",
-  "ref": "hosts/android/src/terminal.rs:1648"
- },
- {
-  "fact": "PTY 输出缓冲上限 PTY_OUTPUT_LIMIT 为 16 MiB",
   "ref": "hosts/android/src/terminal.rs:30"
  },
  {
+  "fact": "androidPtyPromptCommand 在每次提示时输出 base64 编码的 $PWD 与退出码",
+  "ref": "hosts/android/src/terminal.rs:1694"
+ },
+ {
+  "fact": "PTY 输出缓冲上限 PTY_OUTPUT_LIMIT 为 16 MiB",
+  "ref": "hosts/android/src/terminal.rs:29"
+ },
+ {
   "fact": "PTY 输出缓冲超过 PTY_OUTPUT_LIMIT 时从队首丢弃旧字节",
-  "ref": "hosts/android/src/terminal.rs:788"
+  "ref": "hosts/android/src/terminal.rs:807"
  },
  {
   "fact": "新建 PTY 会话时 `waitForTerminalPrompt` 等待初始提示最长 10000 毫秒",
-  "ref": "hosts/android/src/terminal.rs:1006"
+  "ref": "hosts/android/src/terminal.rs:1032"
  },
  {
   "fact": "PTY 命令执行以 `findLastAndroidPtyPromptMarker` 检出提示标记确认命令完成",
-  "ref": "hosts/android/src/terminal.rs:793"
+  "ref": "hosts/android/src/terminal.rs:812"
  },
  {
   "fact": "会话已有命令在运行时，再次执行返回 Terminal session already has a command in progress 错误",
-  "ref": "hosts/android/src/terminal.rs:744"
+  "ref": "hosts/android/src/terminal.rs:763"
  },
  {
   "fact": "超时命令取消时先向 PTY 写 `b\"\\x03\"`，再以 3000 毫秒为限等提示标记确认 shell 就绪",
-  "ref": "hosts/android/src/terminal.rs:841"
+  "ref": "hosts/android/src/terminal.rs:860"
  },
  {
   "fact": "超时命令中断失败时会话关闭并移除，错误文本含 could not be interrupted",
-  "ref": "hosts/android/src/terminal.rs:887"
+  "ref": "hosts/android/src/terminal.rs:906"
  },
  {
   "fact": "隐藏命令固定使用 PRIMARY_TERMINAL_TYPE（bash），空 executorKey 记为 default",
-  "ref": "hosts/android/src/terminal.rs:600"
+  "ref": "hosts/android/src/terminal.rs:621"
  },
  {
   "fact": "同名会话仍存在时直接复用，返回结果的 isNewSession 为 false",
-  "ref": "hosts/android/src/terminal.rs:535"
+  "ref": "hosts/android/src/terminal.rs:556"
  },
  {
   "fact": "createOrGetSession 在默认 PRIMARY_TERMINAL_TYPE 上创建或复用会话",
-  "ref": "hosts/android/src/terminal.rs:511"
+  "ref": "hosts/android/src/terminal.rs:532"
  },
  {
-  "fact": "会话列表只包含未退出的会话，条目 sessionKind 为 pty",
-  "ref": "hosts/android/src/terminal.rs:502"
+  "fact": "会话列表只包含未退出的交互式会话，条目 sessionKind 为 pty",
+  "ref": "hosts/android/src/terminal.rs:523"
  },
  {
   "fact": "会话屏幕输出的 rows 取自内容行数，cols 取自最长行的字符数",
-  "ref": "hosts/android/src/terminal.rs:688"
+  "ref": "hosts/android/src/terminal.rs:707"
  },
  {
   "fact": "Shizuku PTY 以 operation start 请求创建，响应给出 pid、readFd 与 writeFd",
-  "ref": "hosts/android/src/terminal.rs:1723"
+  "ref": "hosts/android/src/terminal.rs:1769"
  },
  {
   "fact": "本地 PTY 子进程在 Android 上以 forkpty 创建",
-  "ref": "hosts/android/src/terminal.rs:1919"
+  "ref": "hosts/android/src/terminal.rs:1965"
  },
  {
   "fact": "非 Android 目标上返回 Android PTY is only available on Android target 错误",
-  "ref": "hosts/android/src/terminal.rs:1904"
+  "ref": "hosts/android/src/terminal.rs:1950"
  },
  {
   "fact": "Shizuku 进程退出码经 terminal_privilege 的 call 发 operation poll 查询",
-  "ref": "hosts/android/src/terminal.rs:2187"
+  "ref": "hosts/android/src/terminal.rs:2233"
  },
  {
   "fact": "本地 PTY 进程退出码用 waitpid 加 WNOHANG 轮询",
-  "ref": "hosts/android/src/terminal.rs:2213"
+  "ref": "hosts/android/src/terminal.rs:2259"
  },
  {
   "fact": "终止本地 PTY 进程时先发 SIGHUP 再发 SIGKILL",
-  "ref": "hosts/android/src/terminal.rs:1778"
+  "ref": "hosts/android/src/terminal.rs:1824"
  },
  {
   "fact": "终止 Shizuku 会话经 terminal_privilege 的 call 发 operation close",
-  "ref": "hosts/android/src/terminal.rs:1763"
+  "ref": "hosts/android/src/terminal.rs:1809"
  },
  {
   "fact": "调整 Shizuku 会话窗口大小经 terminal_privilege 的 call 发 operation resize",
-  "ref": "hosts/android/src/terminal.rs:1801"
+  "ref": "hosts/android/src/terminal.rs:1847"
  },
  {
   "fact": "androidPrivilegedPtyOperation 为特权 Binder 服务提供 PTY 原语，不调用应用运行时",
-  "ref": "hosts/android/src/terminal.rs:2271"
+  "ref": "hosts/android/src/terminal.rs:2317"
  },
  {
   "fact": "特权 PTY 支持 start 操作",
-  "ref": "hosts/android/src/terminal.rs:2282"
+  "ref": "hosts/android/src/terminal.rs:2328"
  },
  {
   "fact": "特权 PTY 的 poll 操作调用 pollPidExitCode 返回 exitCode",
-  "ref": "hosts/android/src/terminal.rs:2297"
+  "ref": "hosts/android/src/terminal.rs:2343"
  },
  {
   "fact": "特权 PTY 的 close 操作调用 terminateAndroidPtyProcess 终止本地进程",
-  "ref": "hosts/android/src/terminal.rs:2300"
+  "ref": "hosts/android/src/terminal.rs:2346"
  },
  {
   "fact": "特权 PTY 调整窗口时调用 setPtyWindowSize",
-  "ref": "hosts/android/src/terminal.rs:2310"
+  "ref": "hosts/android/src/terminal.rs:2356"
  },
  {
   "fact": "特权 PTY 启动以 forkPtyExecve 创建进程，响应含 pid 与 fd",
-  "ref": "hosts/android/src/terminal.rs:2288"
+  "ref": "hosts/android/src/terminal.rs:2334"
  },
  {
   "fact": "PTY 读取器收到 `\\x1b[6n` 光标位置查询时回写当前行列",
@@ -265,27 +265,27 @@
  },
  {
   "fact": "PTY 读取器先经 `stripPtyDeviceStatusReports` 得命令块，再经 `stripPtyPromptMarkers` 得可见块",
-  "ref": "hosts/android/src/terminal.rs:1049"
+  "ref": "hosts/android/src/terminal.rs:1075"
  },
  {
   "fact": "bash 工作目录用 TerminalWorkingDirectory 的 resolveLinuxGuestDirectory 解析",
-  "ref": "hosts/android/src/terminal.rs:379"
+  "ref": "hosts/android/src/terminal.rs:399"
  },
  {
   "fact": "shell 工作目录解析先调用 terminal_privilege 的 privileges，再经 androidSystemShellWorkingDirectory 映射",
-  "ref": "hosts/android/src/terminal.rs:394"
+  "ref": "hosts/android/src/terminal.rs:414"
  },
  {
   "fact": "Shizuku 系统 shell 把应用私有目录下的工作目录映射到 /sdcard",
-  "ref": "hosts/android/src/terminal.rs:1535"
+  "ref": "hosts/android/src/terminal.rs:1569"
  },
  {
   "fact": "android_documents 资源的工作目录经文档提供方的 resolveNativeDirectory 解析为原生目录",
-  "ref": "hosts/android/src/terminal.rs:50"
+  "ref": "hosts/android/src/terminal.rs:54"
  },
  {
   "fact": "非 android_documents 后端的终端文件系统后端被拒绝",
-  "ref": "hosts/android/src/terminal.rs:48"
+  "ref": "hosts/android/src/terminal.rs:52"
  },
  {
   "fact": "hosts/android/src/terminal.rs 拥有 PTY 执行，Flutter 拥有 xterm 视图与附加逻辑",
@@ -705,7 +705,7 @@
  },
  {
   "fact": "AndroidTerminalHost 是 Android PTY 终端 Host",
-  "ref": "hosts/android/src/terminal.rs:74"
+  "ref": "hosts/android/src/terminal.rs:78"
  },
  {
   "fact": "AndroidFileSystemHost 是 Android 文件系统 Host",
@@ -749,7 +749,7 @@
  },
  {
   "fact": "AndroidPtyProcess 区分本地子进程、Shizuku 远程进程与 Termux 进程",
-  "ref": "hosts/android/src/terminal.rs:106"
+  "ref": "hosts/android/src/terminal.rs:111"
  },
  {
   "fact": "acquireMulticastLease 在共享守护进程建 socket 前获取 Wi-Fi 组播访问",

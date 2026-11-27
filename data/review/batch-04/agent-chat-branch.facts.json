@@ -457,22 +457,22 @@
   },
   {
     "fact": "对话级上下文刷新取各绑定参与者估计值中的最大值作为存储窗口",
-    "ref": "docs/chat-send-api.md:244"
+    "ref": "docs/chat-send-api.md:262"
   },
   {
     "fact": "配置执行结果要求完整的 historyPolicy 对象，含 isolateParticipants 与 labelUserMessages；普通模型对话两者都为 false",
-    "ref": "docs/chat-send-api.md:263"
+    "ref": "docs/chat-send-api.md:282"
   },
   {
     "fact": "其他参与者的有序 Markdown 发言以前缀 [From role: name] 作为用户参考上下文",
-    "ref": "docs/chat-send-api.md:271"
+    "ref": "docs/chat-send-api.md:289"
   },
   {
     "fact": "群组用户输入加前缀 [From user]",
-    "ref": "docs/chat-send-api.md:273"
+    "ref": "docs/chat-send-api.md:291"
   },
   {
     "fact": "发送契约的可重复校验入口包括 chat-send-contracts.test.mjs 的 node 测试",
-    "ref": "docs/chat-send-api.md:225"
+    "ref": "docs/chat-send-api.md:243"
   }
 ]

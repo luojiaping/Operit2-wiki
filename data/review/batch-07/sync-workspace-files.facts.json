@@ -61,19 +61,19 @@
  },
  {
   "fact": "默认策略的 maxFileBytes 为 16777216，maxTotalBytes 为 268435456",
-  "ref": "docs/workspace-file-sync.md:29"
+  "ref": "docs/workspace-file-sync.md:31"
  },
  {
   "fact": "默认单文件 16 MiB，每个受管理目录自动同步总量 256 MiB",
-  "ref": "docs/workspace-file-sync.md:34"
+  "ref": "docs/workspace-file-sync.md:36"
  },
  {
   "fact": "maxFileBytes 与 maxTotalBytes 只控制自动复制，不限制本地原件大小，也不是设备总磁盘配额",
-  "ref": "docs/workspace-file-sync.md:34"
+  "ref": "docs/workspace-file-sync.md:36"
  },
  {
   "fact": ".operit/sync.json 本身始终参与同步",
-  "ref": "docs/workspace-file-sync.md:34"
+  "ref": "docs/workspace-file-sync.md:36"
  },
  {
   "fact": "FileSyncPolicy 的 ensure 只在策略文件不存在时写入默认策略，已有配置保留",
@@ -157,23 +157,23 @@
  },
  {
   "fact": "排除文件继续保留在原设备，已有副本不会因为策略收紧而自动删除",
-  "ref": "docs/workspace-file-sync.md:60"
+  "ref": "docs/workspace-file-sync.md:62"
  },
  {
   "fact": "新增忽略规则、文件变大或超过总量预算只会停止自动复制，不会作为删除广播，也不清理其他设备已有副本",
-  "ref": "docs/workspace-file-sync.md:38"
+  "ref": "docs/workspace-file-sync.md:40"
  },
  {
   "fact": "取消忽略或放宽限额后，保留的远端最新状态可重新应用",
-  "ref": "docs/workspace-file-sync.md:38"
+  "ref": "docs/workspace-file-sync.md:40"
  },
  {
   "fact": "无效 JSON、超大的规则文件或非法规则会报告错误并停止该次扫描，不发布一批错误删除",
-  "ref": "docs/workspace-file-sync.md:38"
+  "ref": "docs/workspace-file-sync.md:40"
  },
  {
   "fact": "超限原件保留在本机，分享 <原文件名>.operit-ref.json 定位文件",
-  "ref": "docs/workspace-file-sync.md:36"
+  "ref": "docs/workspace-file-sync.md:38"
  },
  {
   "fact": "FileReference 的 format 为 operit_file_reference，version 为 1",
@@ -213,15 +213,15 @@
  },
  {
   "fact": "文件只按修改时间和大小判同，没有创建时间或定期内容哈希检查",
-  "ref": "docs/workspace-file-sync.md:48"
+  "ref": "docs/workspace-file-sync.md:50"
  },
  {
   "fact": "未变化的文件不读内容，文件有变化时只读取一次",
-  "ref": "docs/workspace-file-sync.md:48"
+  "ref": "docs/workspace-file-sync.md:50"
  },
  {
   "fact": "upsert 携带源文件修改时间（Unix 微秒），接收端写入字节后恢复该时间",
-  "ref": "docs/workspace-file-sync.md:49"
+  "ref": "docs/workspace-file-sync.md:51"
  },
  {
   "fact": "writePending 写入字节后按快照的 modifiedAt 调用 setModifiedAt 恢复修改时间",
@@ -229,11 +229,11 @@
  },
  {
   "fact": "文件内容改变生成 upsert，消失生成 delete，重命名表示旧路径删除、新路径写入",
-  "ref": "docs/workspace-file-sync.md:50"
+  "ref": "docs/workspace-file-sync.md:52"
  },
  {
   "fact": "删除优先于新增，以支持文件与目录之间切换",
-  "ref": "docs/workspace-file-sync.md:50"
+  "ref": "docs/workspace-file-sync.md:52"
  },
  {
   "fact": "扫描时先为被替换路径记 tombstone 再发布 upsert",
@@ -241,15 +241,15 @@
  },
  {
   "fact": "收到文件后更新清单，不把远端内容当成新本地修改再次广播",
-  "ref": "docs/workspace-file-sync.md:52"
+  "ref": "docs/workspace-file-sync.md:54"
  },
  {
   "fact": "接收前先持久化待应用内容，异常退出后重放待应用写入",
-  "ref": "docs/workspace-file-sync.md:53"
+  "ref": "docs/workspace-file-sync.md:55"
  },
  {
   "fact": "扫描失败不发布缺失文件删除",
-  "ref": "docs/workspace-file-sync.md:53"
+  "ref": "docs/workspace-file-sync.md:55"
  },
  {
   "fact": "受管根不可用且清单中仍有该根下文件时，scanUnlocked 报错拒绝批量删除",
@@ -257,7 +257,7 @@
  },
  {
   "fact": "首次加入 Space 后重新登记设备已有的本体文件，避免旧操作日志不再导出而使本地文件无法分享",
-  "ref": "docs/workspace-file-sync.md:54"
+  "ref": "docs/workspace-file-sync.md:56"
  },
  {
   "fact": "trackPaths 在写入前登记重扫意图，不直接扫描；应用写入由定时扫描发现",
@@ -265,39 +265,39 @@
  },
  {
   "fact": "定时扫描 2 秒起、空闲退避上限 5 秒，发现变更回到 2 秒；应用写入、终端与外部编辑器的修改由定时扫描统一发现",
-  "ref": "docs/workspace-file-sync.md:45"
+  "ref": "docs/workspace-file-sync.md:47"
  },
  {
   "fact": "关闭 Core 后不后台运行，重新启动时补扫",
-  "ref": "docs/workspace-file-sync.md:45"
+  "ref": "docs/workspace-file-sync.md:47"
  },
  {
   "fact": "停止 Space 同步服务时停止定时扫描",
-  "ref": "docs/workspace-file-sync.md:55"
+  "ref": "docs/workspace-file-sync.md:57"
  },
  {
   "fact": "本地清单保存在 runtime/sync/workspace_inventory.json，记录已观察到的文件修改时间和大小，不同步给其他设备",
-  "ref": "docs/workspace-file-sync.md:43"
+  "ref": "docs/workspace-file-sync.md:45"
  },
  {
   "fact": "删除后清理空的子目录，保留工作区根目录",
-  "ref": "docs/workspace-file-sync.md:61"
+  "ref": "docs/workspace-file-sync.md:63"
  },
  {
   "fact": "独立空目录、文件权限和执行位不作为同步对象",
-  "ref": "docs/workspace-file-sync.md:61"
+  "ref": "docs/workspace-file-sync.md:63"
  },
  {
   "fact": "同时修改同一文件时按现有同步操作的确定性顺序（时间、设备 ID、序号）决定最终版本，不做逐行合并",
-  "ref": "docs/workspace-file-sync.md:60"
+  "ref": "docs/workspace-file-sync.md:62"
  },
  {
   "fact": "同步复制文件字节，不是 Git 或文本协同编辑",
-  "ref": "docs/workspace-file-sync.md:60"
+  "ref": "docs/workspace-file-sync.md:62"
  },
  {
   "fact": "目录随文件创建",
-  "ref": "docs/workspace-file-sync.md:61"
+  "ref": "docs/workspace-file-sync.md:63"
  },
  {
   "fact": "产出目录绑定保存在 runtime/data/chat_output_bindings/<chatId>.json，随 Space 同步",
@@ -341,15 +341,15 @@
  },
  {
   "fact": "同步复用 runtime_file 域、SHA-256 Blob、原有向量时钟、成员校验与传输，不增加第二套同步协议",
-  "ref": "docs/workspace-file-sync.md:42"
+  "ref": "docs/workspace-file-sync.md:44"
  },
  {
   "fact": "每个接收批次只扫一次工作区，应用整批操作后才推进同步时钟",
-  "ref": "docs/workspace-file-sync.md:52"
+  "ref": "docs/workspace-file-sync.md:54"
  },
  {
   "fact": "同一文件的一组待处理状态只落盘最终胜者",
-  "ref": "docs/workspace-file-sync.md:51"
+  "ref": "docs/workspace-file-sync.md:53"
  },
  {
   "fact": "scanRead 对 NotFound 与 PermissionDenied 跳过该路径并保留先前清单",
@@ -357,19 +357,19 @@
  },
  {
   "fact": "聊天文件变更快照保存在对应工作区的 .operit/backups/<聊天作用域>/，state.json 记录最近编辑轮次的文件变更，objects/ 保存按内容哈希寻址的文件字节",
-  "ref": "docs/workspace-file-sync.md:89"
+  "ref": "docs/workspace-file-sync.md:91"
  },
  {
   "fact": "每个聊天只保留最近一次涉及文件修改的轮次",
-  "ref": "docs/workspace-file-sync.md:81"
+  "ref": "docs/workspace-file-sync.md:92"
  },
  {
   "fact": ".operit 被快照捕获规则排除，避免备份把自身再次备份",
-  "ref": "docs/workspace-file-sync.md:85"
+  "ref": "docs/workspace-file-sync.md:96"
  },
  {
   "fact": "工作区本体中的备份文件按普通文件同步规则处理，外部挂载内的备份仍遵循外部挂载不参与同步的边界",
-  "ref": "docs/workspace-file-sync.md:86"
+  "ref": "docs/workspace-file-sync.md:96"
  },
  {
   "fact": "VFS 的 /virtual 入口挂到平台文件系统及授权资源后端，挂载与访问边界见 sync-vfs 页",
@@ -377,11 +377,11 @@
  },
  {
   "fact": "被排除的目录在遍历前剪枝，不复制内容，也不逐文件生成定位索引",
-  "ref": "docs/workspace-file-sync.md:84"
+  "ref": "docs/workspace-file-sync.md:86"
  },
  {
   "fact": "不得整体排除存放附件和定位文件的 .operit/",
-  "ref": "docs/workspace-file-sync.md:84"
+  "ref": "docs/workspace-file-sync.md:86"
  },
  {
   "fact": "WorkspaceFileSyncStore 的 owns 在操作域为 RUNTIME_FILE_SYNC_DOMAIN 且 manages 覆盖 entityId 时判定归属",
@@ -433,7 +433,7 @@
  },
  {
   "fact": "文件名兼容规则：任一目录名或文件名含禁用字符、设备保留名、末尾空格/句点或超过 255 UTF-8 字节时，整个路径直接排除，不上传、下载或落盘；旧同步记录和待写入状态也忽略，不改名、不迁移引用、不生成删除通知",
-  "ref": "docs/workspace-file-sync.md:62"
+  "ref": "docs/workspace-file-sync.md:64"
  },
  {
   "fact": "scanUnlocked 在扫描开始时忽略已有非便携路径的操作记录，并从文件清单、定位文件清单与推迟清单中剔除非便携路径",
@@ -457,6 +457,6 @@
  },
  {
   "fact": "isPortableFilePath 要求路径的每一段都通过 isPortableFileName 检查",
-  "ref": "core/crates/foundation/util/src/FileUtils.rs:34"
+  "ref": "core/crates/foundation/util/src/FileUtils.rs:27"
  }
 ]

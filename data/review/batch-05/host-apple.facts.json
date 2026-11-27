@@ -13,19 +13,19 @@
   },
   {
     "fact": "Apple Host 依赖 operit-host-api",
-    "ref": "hosts/apple/Cargo.toml:20"
+    "ref": "hosts/apple/Cargo.toml:18"
   },
   {
     "fact": "Apple Host 依赖 operit-host-native-common，并启用 fs、http、scheduler、storage 四个特性",
-    "ref": "hosts/apple/Cargo.toml:21"
+    "ref": "hosts/apple/Cargo.toml:19"
   },
   {
     "fact": "iOS 与 macOS 目标依赖 security-framework 与 core-foundation",
-    "ref": "hosts/apple/Cargo.toml:31"
+    "ref": "hosts/apple/Cargo.toml:29"
   },
   {
     "fact": "macOS 目标额外依赖 tungstenite，并为 operit-host-native-common 启用 terminal 特性",
-    "ref": "hosts/apple/Cargo.toml:35"
+    "ref": "hosts/apple/Cargo.toml:33"
   },
   {
     "fact": "hosts/apple/src/lib.rs 以 pub mod tools 公开工具模块",
@@ -105,159 +105,159 @@
   },
   {
     "fact": "AppleFileOpener 是打开单个文件的回调函数类型",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:22"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:20"
   },
   {
     "fact": "AppleFileSystemHost 的 new 以默认值构造",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:39"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:37"
   },
   {
     "fact": "AppleFileSystemHost 的 fromFileOpener 构造带文件打开回调的 Host",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:43"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:41"
   },
   {
     "fact": "openAppendFile 打开追加文件句柄供重复日志追加使用",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:53"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:51"
   },
   {
     "fact": "validatePath 要求路径为非空的 Apple 平台绝对路径",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:67"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:65"
   },
   {
     "fact": "environmentDescriptor 返回 appleEnvironmentDescriptor 构造的环境描述符",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:60"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:58"
   },
   {
     "fact": "环境描述符的 privilege 为 HostPrivilege::Normal",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:547"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:482"
   },
   {
     "fact": "环境描述符的 isolation 取自 sandbox 的 processIsolation",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:548"
-  },
-  {
-    "fact": "能力列表含 fs.read、fs.write、fs.search 与 fs.archive",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:562"
-  },
-  {
-    "fact": "能力列表含 os.open、os.share、audio.playback 与 music.playback",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:566"
-  },
-  {
-    "fact": "能力列表含 bluetooth.classic、bluetooth.ble、tts.synthesis 与 tts.playback",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:570"
-  },
-  {
-    "fact": "能力列表含 system.notifications.send、system.location 与 ocr.recognition",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:574"
-  },
-  {
-    "fact": "能力列表含 runtime.process、runtime.storage 与 runtime.sqlite",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:577"
-  },
-  {
-    "fact": "结构化能力含 system.location，域为 System，操作为 Read",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:583"
-  },
-  {
-    "fact": "结构化能力含 ocr.recognition，域为 Media，操作为 Read",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:589"
-  },
-  {
-    "fact": "结构化能力含 fs.read 与 fs.write",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:598"
-  },
-  {
-    "fact": "结构化能力含 runtime.process 与 system.notifications.send",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:610"
-  },
-  {
-    "fact": "macOS 沙盒下容器外文件需用户选择文件夹授权（user-selected folder authorization），子进程仍受沙盒限制",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:626"
-  },
-  {
-    "fact": "macOS 非沙盒时 workspaceRoots 把物理根 / 映射为 VFS 的 /virtual/macos",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:639"
-  },
-  {
-    "fact": "macOS 下描述符追加 screen.capture 能力",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:645"
-  },
-  {
-    "fact": "入门要求只有通知一项，isRequired 为 true，初始状态为 Missing",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:666"
-  },
-  {
-    "fact": "非 iOS 与非 macOS 目标上 appleOnboardingRequirements 返回空列表",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:658"
-  },
-  {
-    "fact": "readFile 以 UTF-8 文本读文件",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:102"
-  },
-  {
-    "fact": "writeFile 在写入前自动创建父目录",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:143"
-  },
-  {
-    "fact": "deleteFile 删除目录时按 recursive 标志选择 remove_dir_all 或 remove_dir",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:175"
-  },
-  {
-    "fact": "moveFile 用 fs::rename 移动文件",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:213"
-  },
-  {
-    "fact": "复制目录时要求 recursive 标志，否则报错",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:230"
-  },
-  {
-    "fact": "用 GlobBuilder 按 pattern 匹配，并用 WalkBuilder 按 maxDepth 限制遍历深度",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:268"
-  },
-  {
-    "fact": "用 RegexMatcherBuilder 编译正则",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:348"
-  },
-  {
-    "fact": "以 BinaryDetection::quit 在 NUL 字节处停止，并以 maxResults 限制匹配数",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:359"
-  },
-  {
-    "fact": "用 CompressionMethod::Deflated 压缩",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:421"
-  },
-  {
-    "fact": "用 enclosed_name 校验 zip 条目路径",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:457"
-  },
-  {
-    "fact": "openFile 优先调用已注册的 opener 回调打开文件",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:477"
-  },
-  {
-    "fact": "macOS 上无 opener 时调用 open 命令打开文件",
     "ref": "hosts/apple/src/tools/fs/mod.rs:483"
   },
   {
+    "fact": "能力列表含 fs.read、fs.write、fs.search 与 fs.archive",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:497"
+  },
+  {
+    "fact": "能力列表含 os.open、os.share、audio.playback 与 music.playback",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:501"
+  },
+  {
+    "fact": "能力列表含 bluetooth.classic、bluetooth.ble、tts.synthesis 与 tts.playback",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:505"
+  },
+  {
+    "fact": "能力列表含 system.notifications.send、system.location 与 ocr.recognition",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:509"
+  },
+  {
+    "fact": "能力列表含 runtime.process、runtime.storage 与 runtime.sqlite",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:512"
+  },
+  {
+    "fact": "结构化能力含 system.location，域为 System，操作为 Read",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:518"
+  },
+  {
+    "fact": "结构化能力含 ocr.recognition，域为 Media，操作为 Read",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:524"
+  },
+  {
+    "fact": "结构化能力含 fs.read 与 fs.write",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:533"
+  },
+  {
+    "fact": "结构化能力含 runtime.process 与 system.notifications.send",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:545"
+  },
+  {
+    "fact": "macOS 沙盒下容器外文件需用户选择文件夹授权（user-selected folder authorization），子进程仍受沙盒限制",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:561"
+  },
+  {
+    "fact": "macOS 非沙盒时 workspaceRoots 把物理根 / 映射为 VFS 的 /virtual/macos",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:574"
+  },
+  {
+    "fact": "macOS 下描述符追加 screen.capture 能力",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:580"
+  },
+  {
+    "fact": "入门要求只有通知一项，isRequired 为 true，初始状态为 Missing",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:601"
+  },
+  {
+    "fact": "非 iOS 与非 macOS 目标上 appleOnboardingRequirements 返回空列表",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:593"
+  },
+  {
+    "fact": "readFile 以 UTF-8 文本读文件",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:100"
+  },
+  {
+    "fact": "writeFile 在写入前自动创建父目录",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:141"
+  },
+  {
+    "fact": "deleteFile 删除目录时按 recursive 标志选择 remove_dir_all 或 remove_dir",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:173"
+  },
+  {
+    "fact": "moveFile 用 fs::rename 移动文件",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:211"
+  },
+  {
+    "fact": "复制目录时要求 recursive 标志，否则报错",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:228"
+  },
+  {
+    "fact": "用 GlobBuilder 按 pattern 匹配，并用 WalkBuilder 按 maxDepth 限制遍历深度",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:266"
+  },
+  {
+    "fact": "用 RegexMatcherBuilder 编译正则",
+    "ref": "hosts/common/operit-host-native-filesystem/src/grep.rs:21"
+  },
+  {
+    "fact": "以 BinaryDetection::quit 在 NUL 字节处停止，并以 maxResults 限制匹配数",
+    "ref": "hosts/common/operit-host-native-filesystem/src/grep.rs:38"
+  },
+  {
+    "fact": "用 CompressionMethod::Deflated 压缩",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:356"
+  },
+  {
+    "fact": "用 enclosed_name 校验 zip 条目路径",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:392"
+  },
+  {
+    "fact": "openFile 优先调用已注册的 opener 回调打开文件",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:412"
+  },
+  {
+    "fact": "macOS 上无 opener 时调用 open 命令打开文件",
+    "ref": "hosts/apple/src/tools/fs/mod.rs:418"
+  },
+  {
     "fact": "非 macOS 且无 opener 时报错，提示应用方未注册 Apple file opener",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:491"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:426"
   },
   {
     "fact": "shareFile 在 macOS 上用 open -R 在 Finder 中揭示文件",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:503"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:438"
   },
   {
     "fact": "iOS 上文件分享报错，要求由 Flutter 方 UI 发起",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:515"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:450"
   },
   {
     "fact": "applePlatformName 在 iOS 下返回 ios，在 macOS 下返回 macos",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:690"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:625"
   },
   {
     "fact": "appleHostPlatform 在 iOS 下返回 HostPlatform::Ios，在 macOS 下返回 HostPlatform::Macos",
-    "ref": "hosts/apple/src/tools/fs/mod.rs:676"
+    "ref": "hosts/apple/src/tools/fs/mod.rs:611"
   },
   {
     "fact": "AppleTerminalHost 的 new 先以 processIsolation 判定进程是否处于 OsAppSandbox",
@@ -277,11 +277,11 @@
   },
   {
     "fact": "沙盒下终端类型描述为 macOS sandbox PTY（without controlling TTY）",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:161"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:170"
   },
   {
     "fact": "非沙盒下终端类型描述为 macOS native 登录 PTY，带作业控制",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:163"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:172"
   },
   {
     "fact": "只接受 terminal 为 native 的请求，否则报 Unsupported macOS terminal 错误",
@@ -293,23 +293,23 @@
   },
   {
     "fact": "createOrGetSession 使用 primary 解释器创建或复用会话",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:275"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:284"
   },
   {
     "fact": "开启 arm64-runtime 特性时 terminal 为 arm64 的请求转交给 arm64 终端 Host",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:132"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:141"
   },
   {
     "fact": "开启 arm64-runtime 特性时 macos-arm64- 前缀的会话 ID 转交给 arm64 终端 Host",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:215"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:224"
   },
   {
     "fact": "开启 arm64-runtime 特性时 terminalType 为 shell 的类型会话转交给 arm64 终端 Host",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:286"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:295"
   },
   {
     "fact": "executeHiddenCommand 使用 primary 解释器执行隐藏命令",
-    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:364"
+    "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:373"
   },
   {
     "fact": "AppleWebVisitHost 的 visitWeb 通过临时 Chromium 会话访问网页",

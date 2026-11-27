@@ -54,7 +54,7 @@ date: 2026-11-11
 
 ### 传输契约与载体
 
-- `PeerTransport` 只选 Host 传输方式，不定义另一种应用协议（`core/crates/node/peer-link/src/lib.rs:22`）。
+- `PeerTransport` 只选 Host 传输方式，不定义另一种应用协议（`core/crates/node/peer-link/src/lib.rs:23`）。
 - 单条消息默认上限 4 MiB（`core/crates/node/peer-link/src/lib.rs:14`）。
 - 4 MiB 是默认编码物理帧上限，已鉴权运行时可重组更大的逻辑消息（`core/crates/node/peer-link/src/lib.rs:14`）。
 - 超限消息返回 `MESSAGE_TOO_LARGE_ERROR`，调用方按容量上限归类，不按鉴权故障归类（`core/crates/node/peer-link/src/lib.rs:18`）。
@@ -89,7 +89,7 @@ date: 2026-11-11
 - 发现记录由 `rememberDiscoveryRecords` 按 lan、fullName、nodeId 分组存入共享缓存，LAN 记录不过期（`core/crates/node/runtime/src/peer/discovery.rs:50`）。
 - 目录公告由 `rememberDirectoryRecords` 存入同一缓存，带过期租约（`core/crates/node/runtime/src/peer/discovery.rs:59`）。
 - `refreshDiscovery` 并行刷新 LAN 与目录发现，交互与后台调用方用同一来源与部分失败语义（`core/crates/node/runtime/src/peer/discovery.rs:121`）。
-- 目录查询失败时，未过期的目录提示仍可用，扫描结果记为成功（`core/crates/node/runtime/src/peer/discovery.rs:148`）。
+- 目录查询失败时，未过期的目录提示仍可用，扫描结果记为成功（`core/crates/node/runtime/src/peer/discovery.rs:146`）。
 - 订阅失败记一条警告并返回 None（`core/crates/node/runtime/src/peer/discovery.rs:114`）。
 - 重连先试新发现的地址，再试已保存的 endpoint，非网络载体不受发现影响（`core/crates/node/runtime/src/peer/discovery.rs:205`）。
 - 发现地址的传输由地址前缀推导：http:// 对应 Http，ws:// 对应 WebSocket，其余对应 Tcp（`core/crates/node/runtime/src/peer/discovery.rs:193`）。
@@ -97,7 +97,7 @@ date: 2026-11-11
 - 只有已鉴权的地址才会被提交：sessionId 或 sessionSecret 不符时返回 PEER_PAIRING_CHANGED 错误（`core/crates/node/runtime/src/peer/discovery.rs:223`）。
 - 并发的操作方编辑优先于正在进行的连接：endpoint 或 transport 已被改动时直接返回 Ok，不做变更（`core/crates/node/runtime/src/peer/discovery.rs:230`）。
 - 地址与传输已与目标一致时直接返回 Ok，不做任何事（`core/crates/node/runtime/src/peer/discovery.rs:231`）。
-- 地址更新成功后记日志并调用 `changed()`（`core/crates/node/runtime/src/peer/discovery.rs:234`）。
+- 地址更新成功后记日志并调用 `changed()`（`core/crates/node/runtime/src/peer/discovery.rs:235`）。
 
 ### 配对节流
 
@@ -114,7 +114,7 @@ date: 2026-11-11
 - 只有成功消费令牌后才调 `prune` 清理（`core/crates/node/runtime/src/peer/pairing_throttle.rs:101`）。
 - `prune` 在桶数超限时先丢弃已完全回补的桶，再按最小键删除，直到回到上限内（`core/crates/node/runtime/src/peer/pairing_throttle.rs:126`）。
 - `refill` 按流逝的墙钟时间回补令牌，并用饱和减法容忍时钟回拨（`core/crates/node/runtime/src/peer/pairing_throttle.rs:53`）。
-- 回补后的令牌数不超过容量上限（`core/crates/node/runtime/src/peer/pairing_throttle.rs:57`）。
+- 回补后的令牌数不超过容量上限（`core/crates/node/runtime/src/peer/pairing_throttle.rs:59`）。
 - 确认先查两只桶：`globalConfirmations` 与 `sourceConfirmations` 都允许时才消费，任一桶不允许时不消费另一只桶的额度（`core/crates/node/runtime/src/peer/pairing_throttle.rs:89`）。
 - 确认与新建配对使用互不共享的四只桶，配对流量不会互相消耗对方的额度（`core/crates/node/runtime/src/peer/pairing_throttle.rs:76`）。
 - 来源识别用实测地址：网络传输取 `remoteAddress` 的 IP，串口与蓝牙各共用一个以传输命名的桶（`core/crates/node/runtime/src/peer/pairing_throttle.rs:142`）。
@@ -156,7 +156,7 @@ date: 2026-11-11
 
 - peer-protocol.json 只剩 `revisions` 一项，sources 与 schemaRoots 已删除（`core/peer-protocol.json:2`）。
 - `revisions` 数组从 version 1 起编号（`core/peer-protocol.json:2`）。
-- 截至基线 ff5373fb6，最新修订为 version 24，hash 前缀 bb337252（`core/peer-protocol.json:96`）。
+- 截至基线 7a79245，最新修订为 version 30，hash 前缀 eda16101（`core/peer-protocol.json:120`）。
 - 清单的消费方式不在本页 seed 范围内：本页 seed 不含读取该清单的构建脚本，不对清单的用途做断言（`core/peer-protocol.json:2`）。
 
 ## 关键符号
@@ -187,7 +187,7 @@ date: 2026-11-11
 - `pairingSource` — 以实测来源地址分桶（`core/crates/node/runtime/src/peer/pairing_throttle.rs:142`）
 - `operit_core_route` — 路由宏属性（`core/crates/node/route-macros/src/lib.rs:86`）
 - `CoreRouteArguments` — 路由注解参数解析（`core/crates/node/route-macros/src/lib.rs:10`）
-- `validate_permission` — permission 格式校验（`core/crates/node/route-macros/src/lib.rs:62`）
+- `validate_permission` — permission 格式校验（`core/crates/node/route-macros/src/lib.rs:64`）
 - `expand_core_route` — 生成包装器与路由元数据（`core/crates/node/route-macros/src/lib.rs:223`）
 - `expand_owned_core_route` — owned future 路由展开（`core/crates/node/route-macros/src/lib.rs:122`）
 - `operit_plugin_sdk_expose` — 插件 SDK 暴露标记，原样返回（`core/crates/node/route-macros/src/lib.rs:97`）

@@ -269,11 +269,11 @@
 },
 {
 "fact": "writeProvider 把整个 ProviderProfile 以 provider_<id> 为键写入同步偏好",
-"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481"
+"ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572"
 },
 {
 "fact": "ProviderProfile 包含 apiKey 与 apiKeyPool",
-"ref": "core/crates/foundation/model/src/ModelConfigData.rs:631"
+"ref": "core/crates/foundation/model/src/ModelConfigData.rs:673"
 },
 {
 "fact": "PreferencesDataStore::newWithStorage 创建 Space 偏好 store",
@@ -313,7 +313,7 @@
 },
 {
 "fact": "link space approve/reject 由 Space 一侧对收到的加入申请做决定",
-"ref": "apps/cli/src/cli/link.rs:1027"
+"ref": "apps/cli/src/cli/link.rs:1030"
 },
 {
 "fact": "link space refresh 对发出的加入申请调用 refreshDeviceSpaceJoin 并打印更新后的回执",

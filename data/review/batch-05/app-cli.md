@@ -82,19 +82,19 @@ Windows CLI 运行时库包含 `operit_local_llm.dll`（`apps/cli/src/cli/host_o
 除 listen、session、qr、pair 外，`run_link_command` 先查 owner 是否在运行，有 owner 时经控制通道复用 owner 的 Core（`apps/cli/src/cli/link.rs:125`）。
 run_link_command 把 `session` 交给 `run_link_session`（`apps/cli/src/cli/link.rs:148`）。
 `link` 包含 `stream-probe` 与 `edge-call` 子命令（`apps/cli/src/cli/link.rs:126`）。
-`print_link_usage` 列出 link 的全部子命令用法（`apps/cli/src/cli/link.rs:1501`）。
+`print_link_usage` 列出 link 的全部子命令用法（`apps/cli/src/cli/link.rs:1504`）。
 link pair 配对时在接收设备上读六位确认码（`apps/cli/src/cli/link.rs:276`）。
 连接二维码有效期为 5 分钟（`apps/cli/src/cli/link.rs:396`）。
 link listen 接受 `http`、`ws`、`tcp`、`serial`、`bluetooth` 五种传输（`apps/cli/src/cli/link.rs:455`）。
-link discover 默认超时 2000 毫秒（`apps/cli/src/cli/link.rs:871`）。
-link discover 通过 `discoverPeers` 发现对端（`apps/cli/src/cli/link.rs:891`）。
-`link doctor` 默认只读，`--repair` 才隔离损坏的日记行（`apps/cli/src/cli/link.rs:801`）。
-`run_link_space_command` 处理设备空间的查看与成员管理（`apps/cli/src/cli/link.rs:902`）。
+link discover 默认超时 2000 毫秒（`apps/cli/src/cli/link.rs:874`）。
+link discover 通过 `discoverPeers` 发现对端（`apps/cli/src/cli/link.rs:894`）。
+`link doctor` 默认只读，`--repair` 才隔离损坏的日记行（`apps/cli/src/cli/link.rs:804`）。
+`run_link_space_command` 处理设备空间的查看与成员管理（`apps/cli/src/cli/link.rs:905`）。
 link space join 在只有一个已配对设备时不需要参数（`apps/cli/tests/network_control_session.py:152`）。
-`run_link_control_command` 处理空间网络控制策略命令（`apps/cli/src/cli/link.rs:1086`）。
+`run_link_control_command` 处理空间网络控制策略命令（`apps/cli/src/cli/link.rs:1089`）。
 `network_capabilities` 把 `all`、`audit`、`relay`、`storage`、`execute`、`view` 等短名映射为协议能力（`apps/cli/src/cli/network_control_ui.rs:155`）。
 `network_device_label` 用设备名、用户名、平台、型号拼接设备标签（`apps/cli/src/cli/network_control_ui.rs:10`）。
-`run_link_stream_probe_command` 用路由探测验证 StateFlow 与嵌入流（`apps/cli/src/cli/link.rs:1313`）。
+`run_link_stream_probe_command` 用路由探测验证 StateFlow 与嵌入流（`apps/cli/src/cli/link.rs:1316`）。
 `run_link_edge_call_command` 向指定设备发起 edge 调用（`apps/cli/src/cli/link.rs:678`）。
 
 ### daemon：无头 Core owner 与控制通道
@@ -118,7 +118,7 @@ mDNS 服务类型是 `_operit._tcp.local.`（`apps/cli/src/mdns.rs:7`）。
 mDNS 发现要求服务带 `deviceId` 属性（`apps/cli/src/mdns.rs:84`）。
 mDNS 发现只保留 IPv4 地址（`apps/cli/src/mdns.rs:72`）。
 mDNS 地址排序把私网地址排在最前（`apps/cli/src/mdns.rs:150`）。
-link discover 通过 `discoverPeers` 发现对端（`apps/cli/src/cli/link.rs:891`）。
+link discover 通过 `discoverPeers` 发现对端（`apps/cli/src/cli/link.rs:894`）。
 
 ### rescue：离线数据抢救，不启动 Core
 
@@ -180,10 +180,10 @@ mcp_http_streaming.rs 包含流式响应与超时测试 `streamed_responses_and_
 - `owner_link_command` — 有 owner 时把 link 管理命令发给 owner 执行（`apps/cli/src/daemon.rs:490`）。
 - `run_link_owner` — 统一持有 listen、session、qr 的身份并绑定控制服务器（`apps/cli/src/cli/link.rs:345`）。
 - `run_link_session` — 运行交互式 link 会话（`apps/cli/src/cli/link.rs:148`）。
-- `run_link_space_command` — 处理设备空间的查看与成员管理（`apps/cli/src/cli/link.rs:902`）。
-- `run_link_control_command` — 处理空间网络控制策略命令（`apps/cli/src/cli/link.rs:1086`）。
-- `run_link_doctor_command` — 运行共享空间诊断，默认只读（`apps/cli/src/cli/link.rs:790`）。
-- `run_link_stream_probe_command` — 用路由探测验证 StateFlow 与嵌入流（`apps/cli/src/cli/link.rs:1313`）。
+- `run_link_space_command` — 处理设备空间的查看与成员管理（`apps/cli/src/cli/link.rs:905`）。
+- `run_link_control_command` — 处理空间网络控制策略命令（`apps/cli/src/cli/link.rs:1089`）。
+- `run_link_doctor_command` — 运行共享空间诊断，默认只读（`apps/cli/src/cli/link.rs:793`）。
+- `run_link_stream_probe_command` — 用路由探测验证 StateFlow 与嵌入流（`apps/cli/src/cli/link.rs:1316`）。
 - `run_link_edge_call_command` — 向指定设备发起 edge 调用（`apps/cli/src/cli/link.rs:678`）。
 - `OwnerGuard` 的 `acquire` — 为一个身份抢占排他 Core 所有权锁（`apps/cli/src/daemon.rs:135`）。
 - `ControlServer` 的 `bind` — 在宿主控制端点上监听（`apps/cli/src/daemon.rs:309`）。

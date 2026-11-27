@@ -2,7 +2,7 @@
 title: Windows Host
 module: hosts
 platforms: [windows]
-sources: [hosts/windows/Cargo.toml, hosts/windows/src/lib.rs, hosts/windows/src/daemon.rs, hosts/windows/src/process.rs, hosts/windows/src/tools/terminal/mod.rs, hosts/windows/src/tools/terminal/conpty.rs, hosts/windows/src/tools/fs/mod.rs, hosts/windows/src/tools/runtime/mod.rs, hosts/windows/src/tools/storage/mod.rs, hosts/windows/src/tools/system/mod.rs, hosts/windows/src/tools/system/application_update.rs, hosts/windows/src/tools/system/application_update.ps1, hosts/windows/src/tools/system/packages.rs, hosts/windows/src/tools/browser/mod.rs, hosts/windows/src/tools/http/mod.rs, hosts/windows/src/tools/audio/mod.rs, hosts/windows/src/tools/bluetooth/mod.rs, hosts/windows/src/tools/tts/mod.rs, hosts/windows/src/tools/mci.rs, hosts/windows/src/plugin_sdk_ipc.rs, hosts/windows/src/plugin_sdk_pipe.rs, hosts/windows/src/ui_automation.ps1, hosts/common/managed_runtime_process.rs]
+sources: [hosts/windows/Cargo.toml, hosts/windows/src/lib.rs, hosts/windows/src/daemon.rs, hosts/windows/src/process.rs, hosts/windows/src/tools/terminal/mod.rs, hosts/windows/src/tools/terminal/conpty.rs, hosts/windows/src/tools/fs/mod.rs, hosts/windows/src/tools/runtime/mod.rs, hosts/windows/src/tools/storage/mod.rs, hosts/windows/src/tools/system/mod.rs, hosts/windows/src/tools/system/application_update.rs, hosts/windows/src/tools/system/application_update.ps1, hosts/windows/src/tools/system/packages.rs, hosts/windows/src/tools/browser/mod.rs, hosts/windows/src/tools/http/mod.rs, hosts/windows/src/tools/audio/mod.rs, hosts/windows/src/tools/bluetooth/mod.rs, hosts/windows/src/tools/tts/mod.rs, hosts/windows/src/tools/mci.rs, hosts/windows/src/plugin_sdk_ipc.rs, hosts/windows/src/plugin_sdk_pipe.rs, hosts/windows/src/ui_automation.ps1, hosts/common/managed_runtime_process.rs, hosts/common/operit-host-native-filesystem/src/grep.rs]
 date: 2026-11-11
 ---
 
@@ -11,8 +11,8 @@ date: 2026-11-11
 Windows Host crate 名为 `operit-host-windows-native`（`hosts/windows/Cargo.toml:2`）。
 `operit-host-windows-native` 声明 `publish` 为 false，不对外发布（`hosts/windows/Cargo.toml:6`）。
 `createRuntimeHostManager` 组装 Windows 自有的运行时 `HostManager`（`hosts/windows/src/lib.rs:36`）。
-Windows Host 的终端默认 PowerShell（`hosts/windows/src/tools/terminal/mod.rs:30`）。
-Windows Bash 只解析随包提供的 bash/bin/bash.exe（`hosts/windows/src/tools/terminal/mod.rs:1047`）。
+Windows Host 的终端默认 PowerShell（`hosts/windows/src/tools/terminal/mod.rs:34`）。
+Windows Bash 只解析随包提供的 bash/usr/bin/bash.exe（`hosts/windows/src/tools/terminal/mod.rs:1118`）。
 Windows Host 的 daemon 控制端点是命名管道，不使用文件系统 socket 探测（`hosts/windows/src/daemon.rs:29`）。
 Windows Host 的 Plugin SDK IPC 走命名管道，管道路径由 `pipeName` 映射（`hosts/windows/src/plugin_sdk_ipc.rs:84`）。
 对照阅读 [[host-android|Android Host]]、[[host-apple|Apple Host]]。
@@ -54,46 +54,46 @@ Windows Host 的 Plugin SDK IPC 走命名管道，管道路径由 `pipeName` 映
 运行时组合注册 `ServiceDiscoveryProvider` 作服务发现 Host（`hosts/windows/src/lib.rs:77`）。
 运行时存储 Host 由 `WindowsRuntimeStorageHost` 创建（`hosts/windows/src/lib.rs:44`）。
 运行时存储 Host 经 `withHostSecretStore` 注册为 Host 密钥库（`hosts/windows/src/lib.rs:62`）。
-Windows Host 依赖 `operit-host-native-common`，启用 tcp、serial、fs、http、scheduler、storage 与 app-install 特性（`hosts/windows/Cargo.toml:22`）。
+Windows Host 依赖 `operit-host-native-common`，启用 tcp、serial、fs、http、scheduler、storage 与 app-install 特性（`hosts/windows/Cargo.toml:20`）。
 daemon 模块只在 `daemon` 特性启用时编译（`hosts/windows/src/lib.rs:4`）。
 
 ### 终端：PowerShell 默认，随包 Bash
 
-Windows 终端的 `PLATFORM` 为 windows，`TERMINAL` 为 native，默认终端类型 `PRIMARY_TERMINAL_TYPE` 为 powershell（`hosts/windows/src/tools/terminal/mod.rs:30`）。
-`normalizeTerminalType` 只接受 powershell 与 bash 两种终端类型（`hosts/windows/src/tools/terminal/mod.rs:1589`）。
-`terminalInfo` 用 `bundledBashExecutable` 判断随包 Bash 是否可用（hosts/windows/src/tools/terminal/mod.rs:183、hosts/windows/src/tools/terminal/mod.rs:191）。
-PowerShell 类型的可用性按 `PowerShellSource` 区分：`OnDemand` 源始终报告可用，描述为 PowerShell 7 · downloads on first use；`Bundled` 源仍由 `bundledPowerShellExecutable` 解析随应用分发的 powershell/pwsh.exe 是否存在决定（`hosts/windows/src/tools/terminal/mod.rs:184`）。
-`bundledBashExecutable` 只解析运行程序同目录下的 bash/bin/bash.exe（`hosts/windows/src/tools/terminal/mod.rs:1042`）。
-PTY 会话经 `conpty::Process::spawn` 以 ConPTY 打开（`hosts/windows/src/tools/terminal/mod.rs:820`）。
-`windowsPtyCommand` 按 `PowerShellSource` 选择 PowerShell 7 可执行文件：`Bundled` 源用随应用分发的 powershell/pwsh.exe，`OnDemand` 源调用 `powershell_runtime::executable` 取缓存的按需下载版；仍加 -NoLogo、-NoProfile、-ExecutionPolicy Bypass、-NoExit 启动 PowerShell（`hosts/windows/src/tools/terminal/mod.rs:1076`）。
-`ptyCommand` 为 Bash 类型解析 `bundledBashExecutable` 的可执行文件（`hosts/windows/src/tools/terminal/mod.rs:903`）。
-Bash 会话的 `PROMPT_COMMAND` 在每次提示时输出 `OperitPrompt` 标记（`hosts/windows/src/tools/terminal/mod.rs:920`）。
-`ptyCommandLine` 把 Bash 命令交给 terminal_command 的 `posixCommandLine` 编码（`hosts/windows/src/tools/terminal/mod.rs:881`）。
-含控制字符的 PowerShell 命令经 Base64 编码后由 `Invoke-Expression` 执行（`hosts/windows/src/tools/terminal/mod.rs:889`）。
+Windows 终端的 `PLATFORM` 为 windows，`TERMINAL` 为 native，默认终端类型 `PRIMARY_TERMINAL_TYPE` 为 powershell（`hosts/windows/src/tools/terminal/mod.rs:32`）。
+`normalizeTerminalType` 只接受 powershell 与 bash 两种终端类型（`hosts/windows/src/tools/terminal/mod.rs:1630`）。
+`terminalInfo` 用 `bundledBashExecutable` 判断随包 Bash 是否可用（hosts/windows/src/tools/terminal/mod.rs:196、hosts/windows/src/tools/terminal/mod.rs:203）。
+PowerShell 类型的可用性按 `PowerShellSource` 区分：`OnDemand` 源始终报告可用，描述为 PowerShell 7 · downloads on first use；`Bundled` 源仍由 `bundledPowerShellExecutable` 解析随应用分发的 powershell/pwsh.exe 是否存在决定（`hosts/windows/src/tools/terminal/mod.rs:199`）。
+`bundledBashExecutable` 只解析运行程序同目录下的 bash/usr/bin/bash.exe（`hosts/windows/src/tools/terminal/mod.rs:1112`）。
+PTY 会话经 `conpty::Process::spawn` 以 ConPTY 打开（`hosts/windows/src/tools/terminal/mod.rs:851`）。
+`windowsPtyCommand` 按 `PowerShellSource` 选择 PowerShell 7 可执行文件：`Bundled` 源用随应用分发的 powershell/pwsh.exe，`OnDemand` 源调用 `powershell_runtime::executable` 取缓存的按需下载版；仍加 -NoLogo、-NoProfile、-ExecutionPolicy Bypass、-NoExit 启动 PowerShell（`hosts/windows/src/tools/terminal/mod.rs:1147`）。
+`ptyCommand` 为 Bash 类型解析 `bundledBashExecutable` 的可执行文件（`hosts/windows/src/tools/terminal/mod.rs:968`）。
+Bash 会话的 `PROMPT_COMMAND` 在每次提示时输出 `OperitPrompt` 标记（`hosts/windows/src/tools/terminal/mod.rs:993`）。
+`ptyCommandLine` 把 Bash 命令交给 terminal_command 的 `posixCommandLine` 编码（`hosts/windows/src/tools/terminal/mod.rs:955`）。
+含控制字符的 PowerShell 命令经 Base64 编码后由 `Invoke-Expression` 执行（`hosts/windows/src/tools/terminal/mod.rs:961`）。
 PTY 输出缓冲上限 `PTY_OUTPUT_LIMIT` 为 1 MiB（`hosts/windows/src/tools/terminal/mod.rs:29`）。
-`appendPtyOutput` 在缓冲超过 `PTY_OUTPUT_LIMIT` 时从队首丢弃旧字节（`hosts/windows/src/tools/terminal/mod.rs:847`）。
+`appendPtyOutput` 在缓冲超过 `PTY_OUTPUT_LIMIT` 时从队首丢弃旧字节（`hosts/windows/src/tools/terminal/mod.rs:878`）。
 PTY 提示标记前缀 `PTY_PROMPT_MARKER_PREFIX` 的值为 ESC ] 133 ; OperitPrompt =（`hosts/windows/src/tools/terminal/mod.rs:30`）。
-`findLastPtyPromptMarker` 在 PTY 输出中定位最后一个提示标记（`hosts/windows/src/tools/terminal/mod.rs:1145`）。
-提示标记载荷以冒号分隔，冒号前为退出码、后为工作目录（`hosts/windows/src/tools/terminal/mod.rs:1161`）。
-新建 PTY 会话等待初始提示最长 10000 毫秒（`hosts/windows/src/tools/terminal/mod.rs:858`）。
-命令完成以 `completedPtyPrompt` 检出提示标记并渲染出提示符确认，不再设 150 毫秒静默期（`hosts/windows/src/tools/terminal/mod.rs:691`）。
-会话已有命令运行时再次执行返回 Terminal session already has a command in progress 错误（`hosts/windows/src/tools/terminal/mod.rs:631`）。
-命令超时时返回 exitCode -1 与 timedOut true（`hosts/windows/src/tools/terminal/mod.rs:707`）。
+`findLastPtyPromptMarker` 在 PTY 输出中定位最后一个提示标记（`hosts/windows/src/tools/terminal/mod.rs:1216`）。
+提示标记载荷以冒号分隔，冒号前为退出码、后为工作目录（`hosts/windows/src/tools/terminal/mod.rs:1232`）。
+新建 PTY 会话等待初始提示最长 10000 毫秒（`hosts/windows/src/tools/terminal/mod.rs:890`）。
+命令完成以 `completedPtyPrompt` 检出提示标记并渲染出提示符确认，不再设 150 毫秒静默期（`hosts/windows/src/tools/terminal/mod.rs:1263`）。
+会话已有命令运行时再次执行返回 Terminal session already has a command in progress 错误（`hosts/windows/src/tools/terminal/mod.rs:645`）。
+命令超时时返回 exitCode -1 与 timedOut true（`hosts/windows/src/tools/terminal/mod.rs:719`）。
 超时取消先向 PTY 写 0x03，再等待 shell 就绪提示标记；3000 毫秒内等不到则中断过期，会话关闭（`hosts/windows/src/tools/terminal/mod.rs:740`）。
-`createOrGetSession` 在默认 powershell 类型上创建或复用会话（`hosts/windows/src/tools/terminal/mod.rs:348`）。
-同名会话仍存在时直接复用，返回结果的 `isNewSession` 为 false（`hosts/windows/src/tools/terminal/mod.rs:371`）。
-`executeHiddenCommand` 执行隐藏命令并返回 `HiddenTerminalCommandOutput`（`hosts/windows/src/tools/terminal/mod.rs:436`）。
-隐藏命令的空 `executorKey` 记为 default（`hosts/windows/src/tools/terminal/mod.rs:431`）。
-隐藏命令固定使用 `PRIMARY_TERMINAL_TYPE`，即 PowerShell（`hosts/windows/src/tools/terminal/mod.rs:435`）。
-`listSessions` 枚举 PTY 会话并用 `try_wait` 刷新退出状态（`hosts/windows/src/tools/terminal/mod.rs:329`）。
-会话列表条目的 `sessionKind` 为 pty（`hosts/windows/src/tools/terminal/mod.rs:339`）。
-会话屏幕输出的 rows 取自内容行数，cols 取自最长行的字符数（`hosts/windows/src/tools/terminal/mod.rs:530`）。
-`pollPtyExitCode` 对不存在的会话返回 PTY session does not exist 错误（`hosts/windows/src/tools/terminal/mod.rs:291`）。
-PTY 子进程退出码经 `try_wait` 查询（`hosts/windows/src/tools/terminal/mod.rs:300`）。
+`createOrGetSession` 在默认 powershell 类型上创建或复用会话（`hosts/windows/src/tools/terminal/mod.rs:365`）。
+同名会话仍存在时直接复用，返回结果的 `isNewSession` 为 false（`hosts/windows/src/tools/terminal/mod.rs:388`）。
+`executeHiddenCommand` 执行隐藏命令并返回 `HiddenTerminalCommandOutput`（`hosts/windows/src/tools/terminal/mod.rs:445`）。
+隐藏命令的空 `executorKey` 记为 default（`hosts/windows/src/tools/terminal/mod.rs:454`）。
+隐藏命令固定使用 `PRIMARY_TERMINAL_TYPE`，即 PowerShell（`hosts/windows/src/tools/terminal/mod.rs:452`）。
+`listSessions` 枚举 PTY 会话并用 `try_wait` 刷新退出状态（`hosts/windows/src/tools/terminal/mod.rs:337`）。
+会话列表条目的 `sessionKind` 为 pty（`hosts/windows/src/tools/terminal/mod.rs:356`）。
+会话屏幕输出的 rows 取自内容行数，cols 取自最长行的字符数（`hosts/windows/src/tools/terminal/mod.rs:543`）。
+`pollPtyExitCode` 对不存在的会话返回 PTY session does not exist 错误（`hosts/windows/src/tools/terminal/mod.rs:305`）。
+PTY 子进程退出码经 `try_wait` 查询（`hosts/windows/src/tools/terminal/mod.rs:314`）。
 PTY 子进程析构时经 `TerminateProcess` 终止并等待其退出（`hosts/windows/src/tools/terminal/conpty.rs:131`）。
-会话输入在未提供 input 且 control 经 `normalizeControl` 后为空时返回错误（`hosts/windows/src/tools/terminal/mod.rs:469`）。
+会话输入的 control 先经 `normalizeControl` 归一化，再由 `terminalInput` 与 input 编码为一次 PTY 写入；两者都未提供时返回错误（`core/crates/foundation/host-contract/src/TerminalControl.rs:32`）。
 `controlToSequence` 把 enter、tab、esc 与方向键映射为控制序列（`core/crates/foundation/host-contract/src/TerminalControl.rs:7`）。
-`normalizeControl` 把 return 与 escape 归一化为 enter 与 esc（`core/crates/foundation/host-contract/src/TerminalControl.rs:60`）。
+`normalizeControl` 把 return 与 escape 归一化为 enter 与 esc（`core/crates/foundation/host-contract/src/TerminalControl.rs:73`）。
 
 ### 进程与后台命令
 
@@ -128,23 +128,23 @@ Windows daemon 控制端点是命名管道，不使用文件系统 socket 探测
 Windows 后台命令以 `CREATE_NO_WINDOW` 创建，不分配控制台窗口（`hosts/windows/src/process.rs:10`）。
 Windows daemon 脱离调用方用 `DETACHED_PROCESS` 与 `CREATE_NEW_PROCESS_GROUP` 标志（`hosts/windows/src/daemon.rs:175`）。
 Windows 终止信号监听控制台关闭、注销与系统关机（`hosts/windows/src/daemon.rs:181`）。
-Windows Bash 只解析随包提供的 bash/bin/bash.exe（`hosts/windows/src/tools/terminal/mod.rs:1047`）。
-Windows 文件路径校验只接受绝对 Windows 路径（`hosts/windows/src/tools/fs/mod.rs:42`）。
+Windows Bash 只解析随包提供的 bash/usr/bin/bash.exe（`hosts/windows/src/tools/terminal/mod.rs:1118`）。
+Windows 文件路径校验只接受绝对 Windows 路径（`hosts/windows/src/tools/fs/mod.rs:40`）。
 Windows 密钥经 `CredReadW` 存取 Windows Credential Manager（`hosts/windows/src/tools/storage/mod.rs:53`）。
 Windows Plugin SDK IPC 走命名管道，管道路径由 `pipeName` 映射（`hosts/windows/src/plugin_sdk_ipc.rs:84`）。
 
 ### 文件系统与存储
 
-文件系统 Host 的 `envLabel` 为 windows（`hosts/windows/src/tools/fs/mod.rs:34`）。
-文件系统 Host 的 `environmentDescriptor` 返回 `HostEnvironmentDescriptor` 的 windows 描述（`hosts/windows/src/tools/fs/mod.rs:39`）。
-`validatePath` 只接受绝对路径，非绝对路径报错 Path must be an absolute Windows path（`hosts/windows/src/tools/fs/mod.rs:42`）。
-用 `ShellExecuteW` 以系统默认应用打开文件（`hosts/windows/src/tools/fs/mod.rs:482`）。
-在独立平台任务线程上以 `COINIT_APARTMENTTHREADED` 初始化 COM（`hosts/windows/src/tools/fs/mod.rs:467`）。
-通过 PowerShell 调用 Shell 项的 `InvokeVerb` 打开 Windows 分享面板（`hosts/windows/src/tools/fs/mod.rs:522`）。
-代码搜索以 `BinaryDetection` 的 quit 模式在 NUL 字节处停止（`hosts/windows/src/tools/fs/mod.rs:339`）。
-压缩使用 `CompressionMethod` 的 Deflated 方法（`hosts/windows/src/tools/fs/mod.rs:401`）。
-`zipFiles` 把文件或目录打包为 ZIP（`hosts/windows/src/tools/fs/mod.rs:389`）。
-`unzipFiles` 解压 ZIP 到目标目录（`hosts/windows/src/tools/fs/mod.rs:421`）。
+文件系统 Host 的 `envLabel` 为 windows（`hosts/windows/src/tools/fs/mod.rs:32`）。
+文件系统 Host 的 `environmentDescriptor` 返回 `HostEnvironmentDescriptor` 的 windows 描述（`hosts/windows/src/tools/fs/mod.rs:36`）。
+`validatePath` 只接受绝对路径，非绝对路径报错 Path must be an absolute Windows path（`hosts/windows/src/tools/fs/mod.rs:40`）。
+用 `ShellExecuteW` 以系统默认应用打开文件（`hosts/windows/src/tools/fs/mod.rs:416`）。
+在独立平台任务线程上以 `COINIT_APARTMENTTHREADED` 初始化 COM（`hosts/windows/src/tools/fs/mod.rs:401`）。
+通过 PowerShell 调用 Shell 项的 `InvokeVerb` 打开 Windows 分享面板（`hosts/windows/src/tools/fs/mod.rs:456`）。
+代码搜索以 `BinaryDetection` 的 quit 模式在 NUL 字节处停止（`hosts/common/operit-host-native-filesystem/src/grep.rs:41`）。
+压缩使用 `CompressionMethod` 的 Deflated 方法（`hosts/windows/src/tools/fs/mod.rs:335`）。
+`zipFiles` 把文件或目录打包为 ZIP（`hosts/windows/src/tools/fs/mod.rs:323`）。
+`unzipFiles` 解压 ZIP 到目标目录（`hosts/windows/src/tools/fs/mod.rs:355`）。
 默认运行时根目录为 `APPDATA` 下的 Operit2/runtime（`hosts/windows/src/tools/storage/mod.rs:28`）。
 默认工作区根目录为 `APPDATA` 下的 Operit2/workspaces（`hosts/windows/src/tools/storage/mod.rs:36`）。
 `readSecret` 用 `CredReadW` 读 Windows Credential Manager，未找到返回 None（`hosts/windows/src/tools/storage/mod.rs:53`）。
@@ -333,11 +333,11 @@ Plugin SDK 会话 ID 格式为 `plugin-sdk-windows-` 加序号（`hosts/windows/
 - `spawn_detached` — 以脱离标志启动 daemon（`hosts/windows/src/daemon.rs:173`）
 - `termination_signal` — 监听控制台关闭、注销与系统关机（`hosts/windows/src/daemon.rs:180`）
 - `background_command` — 以 `CREATE_NO_WINDOW` 创建后台命令（`hosts/windows/src/process.rs:8`）
-- `createPtySession` — 创建 PTY 会话（`hosts/windows/src/tools/terminal/mod.rs:806`）
-- `normalizeTerminalType` — 只接受 powershell 与 bash 两种终端类型（`hosts/windows/src/tools/terminal/mod.rs:1589`）
-- `bundledBashExecutable` — 解析随包 Bash 可执行文件（`hosts/windows/src/tools/terminal/mod.rs:1042`）
-- `findLastPtyPromptMarker` — 定位最后一个 PTY 提示标记（`hosts/windows/src/tools/terminal/mod.rs:1145`）
-- `validatePath` — 只接受绝对 Windows 路径（`hosts/windows/src/tools/fs/mod.rs:42`）
+- `createPtySession` — 创建 PTY 会话（`hosts/windows/src/tools/terminal/mod.rs:821`）
+- `normalizeTerminalType` — 只接受 powershell 与 bash 两种终端类型（`hosts/windows/src/tools/terminal/mod.rs:1630`）
+- `bundledBashExecutable` — 解析随包 Bash 可执行文件（`hosts/windows/src/tools/terminal/mod.rs:1112`）
+- `findLastPtyPromptMarker` — 定位最后一个 PTY 提示标记（`hosts/windows/src/tools/terminal/mod.rs:1216`）
+- `validatePath` — 只接受绝对 Windows 路径（`hosts/windows/src/tools/fs/mod.rs:40`）
 - `readSecret` — 用 `CredReadW` 读 Windows Credential Manager（`hosts/windows/src/tools/storage/mod.rs:51`）
 - `writeSecret` — 以 Operit2 为用户名写入凭据（`hosts/windows/src/tools/storage/mod.rs:73`）
 - `applicationUpdateTarget` — 转发给 application_update 的 `target`（`hosts/windows/src/tools/system/mod.rs:119`）
@@ -376,12 +376,12 @@ Plugin SDK 会话 ID 格式为 `plugin-sdk-windows-` 加序号（`hosts/windows/
 
 ### 终端命令执行
 
-1. `createOrGetSession` 在默认 powershell 类型上创建或复用会话（`hosts/windows/src/tools/terminal/mod.rs:348`）
-2. `ptyCommandLine` 把 Bash 命令交给 terminal_command 的 `posixCommandLine` 编码（`hosts/windows/src/tools/terminal/mod.rs:881`）
-3. 含控制字符的 PowerShell 命令经 Base64 编码后由 `Invoke-Expression` 执行（`hosts/windows/src/tools/terminal/mod.rs:889`）
-4. `findLastPtyPromptMarker` 在 PTY 输出中定位最后一个提示标记（`hosts/windows/src/tools/terminal/mod.rs:1145`）
-5. 命令完成以 `completedPtyPrompt` 检出提示标记并渲染出提示符确认，不再设 150 毫秒静默期（`hosts/windows/src/tools/terminal/mod.rs:691`）
-6. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/windows/src/tools/terminal/mod.rs:707`）
+1. `createOrGetSession` 在默认 powershell 类型上创建或复用会话（`hosts/windows/src/tools/terminal/mod.rs:365`）
+2. `ptyCommandLine` 把 Bash 命令交给 terminal_command 的 `posixCommandLine` 编码（`hosts/windows/src/tools/terminal/mod.rs:955`）
+3. 含控制字符的 PowerShell 命令经 Base64 编码后由 `Invoke-Expression` 执行（`hosts/windows/src/tools/terminal/mod.rs:961`）
+4. `findLastPtyPromptMarker` 在 PTY 输出中定位最后一个提示标记（`hosts/windows/src/tools/terminal/mod.rs:1216`）
+5. 命令完成以 `completedPtyPrompt` 检出提示标记并渲染出提示符确认，不再设 150 毫秒静默期（`hosts/windows/src/tools/terminal/mod.rs:1263`）
+6. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/windows/src/tools/terminal/mod.rs:719`）
 
 ### Plugin SDK IPC
 
@@ -433,3 +433,4 @@ Plugin SDK 会话 ID 格式为 `plugin-sdk-windows-` 加序号（`hosts/windows/
 - hosts/windows/src/plugin_sdk_pipe.rs
 - hosts/windows/src/ui_automation.ps1
 - hosts/common/managed_runtime_process.rs
+- hosts/common/operit-host-native-filesystem/src/grep.rs

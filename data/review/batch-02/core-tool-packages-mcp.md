@@ -46,7 +46,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - 包工具的 `accessSpec` 声明 `effect` 为 `WRITE`、`boundary` 为 `None`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:68）
 - 每次调用都新建一个 `PackageManagerJsRuntime`，并经 Host 的 `js_execution_provider` 创建包执行器（core/crates/tool/services/src/tools/PackageToolExecutor.rs:81）
 - `packageToolCallRequest` 把 `AITool` 转成 `JsPackageToolCallRequest`，参数变为 `name` 到 `value` 的映射（core/crates/tool/services/src/tools/PackageToolExecutor.rs:97）
-- `packageToolResult` 把 `JsPackageToolCallResult` 转成 `ToolResult`，文本结果经 `stringResultData` 包装（core/crates/tool/services/src/tools/PackageToolExecutor.rs:111）
+- `packageToolResult` 把 `JsPackageToolCallResult` 转成 `ToolResult`，成功的结果按 JSON 解析为 `JsonResultData`，失败的结果经 `stringResultData` 包装（core/crates/tool/services/src/tools/PackageToolExecutor.rs:110）
 - 包工具校验只核对通用命名空间边界，不从过期包元数据中选取工具（core/crates/tool/services/src/tools/PackageToolExecutor.rs:33）
 
 ### 技能加载与管理
@@ -168,7 +168,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - 请求的运行时与上下文键推断的运行时不一致时报错（core/crates/tool/services/src/tools/ToolJsRuntime.rs:323）
 - `main` 目标的上下文键必须等于 `toolpkg_main:` 后跟目标名（core/crates/tool/services/src/tools/ToolJsRuntime.rs:330）
 - 依赖调用要求被调用的提供方目标为 `main` 运行时，且提供方包不同于调用方包（core/crates/tool/services/src/tools/ToolJsRuntime.rs:347）
-- 依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 `main`（core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2262）
+- 依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 `main`（core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2282）
 - IPC 目标的 ToolPkg 容器不存在时报错 `ToolPkg container not found`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:342）
 - IPC 目标包被禁用时报错 `ToolPkg package is disabled`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:349）
 - 非 `main` 目标取不到已激活的执行引擎时报错 `ToolPkg runtime is not active`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:328）（core/crates/tool/services/src/tools/ToolJsRuntime.rs:387）
@@ -193,7 +193,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - `MCPBridgeClient` — 与 MCP 服务器通信的桥接客户端（core/crates/tool/services/src/tools/mcp/MCPManager.rs:5）
 - `ImageSaveTarget` — MCP 图片载荷的文件持久化目标（core/crates/tool/services/src/tools/mcp/MCPToolExecutor.rs:43）
 - `JsPackageToolCallRequest` — SDK 包工具调用请求（core/crates/tool/services/src/tools/PackageToolExecutor.rs:97）
-- `JsPackageToolCallResult` — SDK 包工具调用结果（core/crates/tool/services/src/tools/PackageToolExecutor.rs:111）
+- `JsPackageToolCallResult` — SDK 包工具调用结果（core/crates/tool/services/src/tools/PackageToolExecutor.rs:107）
 - `TOOLPKG_IPC_DISPATCH_FUNCTION_NAME` — ToolPkg IPC 分发函数名 `__operit_toolpkg_runtime_dispatch__`（core/crates/tool/services/src/tools/ToolJsRuntime.rs:21）
 
 ## 调用链
@@ -204,7 +204,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 2. `invokeAndStreamAsync` 新建 `PackageManagerJsRuntime`，经 Host 的 `js_execution_provider` 创建包执行器（core/crates/tool/services/src/tools/PackageToolExecutor.rs:81）
 3. `packageToolCallRequest` 把调用转成 `JsPackageToolCallRequest`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:97）
 4. 包执行器执行 JS 工具并返回 `JsPackageToolCallResult`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:106）
-5. `packageToolResult` 转回 `ToolResult`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:111）
+5. `packageToolResult` 转回 `ToolResult`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:107）
 
 ### 技能激活
 

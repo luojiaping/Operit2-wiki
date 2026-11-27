@@ -182,7 +182,7 @@
 {"fact": "transferBlob 按 64 KiB 分块传输 blob，完后校验持久化", "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1255"},
 {"fact": "scheduleSynchronization 合并触发原因后经 Host 调度器排队一轮异步同步任务", "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1309"},
 {"fact": "callLocal 经 application 目标调用本地应用方法", "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1405"},
-{"fact": "serviceCallRequest 对 NODE_SPACE_TARGET 与 NODE_SPACE_CONTROL_TARGET 直通，其余目标经 targetForSchema 解析", "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1533"},
+{"fact": "serviceCallRequest 对 NODE_SPACE_TARGET 与 NODE_SPACE_CONTROL_TARGET 直通，其余目标经 targetForSchema 解析", "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1539"},
 {"fact": "syncOperationCeiling 为对端消息上限减 4 KiB 信封余量", "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1594"},
 {"fact": "syncPageBudget 为对端消息上限的四分之三再减 64 KiB 余量", "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1601"},
 {"fact": "单个操作超过上限时返回 SYNC_OPERATION_TOO_LARGE", "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1630"},

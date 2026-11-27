@@ -85,11 +85,11 @@
   },
   {
     "fact": "发布包文件名由 `operit2-{product}-{platform}-{arch}{suffix}-{release_version()}.{extension}` 拼出。",
-    "ref": "tools/build_scripts/release_artifacts.py:74"
+    "ref": "tools/build_scripts/release_artifacts.py:75"
   },
   {
     "fact": "`release_version` 读取并校验 App 与 CLI 共用的单一发布版本。",
-    "ref": "tools/build_scripts/release_artifacts.py:42"
+    "ref": "tools/build_scripts/release_artifacts.py:43"
   },
   {
     "fact": "发布版本的来源之一是 `core/crates/runtime/application/Cargo.toml`。",
@@ -101,23 +101,23 @@
   },
   {
     "fact": "`versions[0]` 与 `versions[1]` 不一致时抛错。",
-    "ref": "tools/build_scripts/release_artifacts.py:56"
+    "ref": "tools/build_scripts/release_artifacts.py:57"
   },
   {
-    "fact": "支持的发布扩展名只有 `apk`、`hap`、`zip`、`tar.gz`、`pkg`、`ipa`、`msi`。",
-    "ref": "tools/build_scripts/release_artifacts.py:65"
+    "fact": "支持的发布扩展名只有 `apk`、`hap`、`zip`、`tar.gz`、`pkg`、`ipa`、`msi`、`dmg`。",
+    "ref": "tools/build_scripts/release_artifacts.py:66"
   },
   {
     "fact": "macOS App 的 `build_type` 缺省为 `sandbox`。",
-    "ref": "tools/build_scripts/release_artifacts.py:68"
-  },
-  {
-    "fact": "macOS App 的 `build_type` 只接受 `sandbox` 或 `unsandbox`。",
     "ref": "tools/build_scripts/release_artifacts.py:69"
   },
   {
+    "fact": "macOS App 的 `build_type` 只接受 `sandbox` 或 `unsandbox`。",
+    "ref": "tools/build_scripts/release_artifacts.py:70"
+  },
+  {
     "fact": "`build_type` 只适用于 macOS App 包，其他产品传入 `build_type` 时抛错。",
-    "ref": "tools/build_scripts/release_artifacts.py:71"
+    "ref": "tools/build_scripts/release_artifacts.py:72"
   },
   {
     "fact": "macOS App 包使用 `operit2-app-macos-universal-<sandbox|unsandbox>-<release-version>.zip`。",
@@ -137,7 +137,7 @@
   },
   {
     "fact": "`validate_release_assets` 拒绝文件名不在当前版本命名集合内的资产。",
-    "ref": "tools/build_scripts/release_artifacts.py:87"
+    "ref": "tools/build_scripts/release_artifacts.py:88"
   },
   {
     "fact": "`RELEASE_TARGETS` 列出发布资产的目标组合，含产品、平台、架构与扩展名。",
@@ -413,7 +413,7 @@
   },
   {
     "fact": "`release_asset_name` 拼出版本化发布包文件名。",
-    "ref": "tools/build_scripts/release_artifacts.py:61"
+    "ref": "tools/build_scripts/release_artifacts.py:62"
   },
   {
     "fact": "`verify_android_runtime_assets` 校验 APK 运行时资产与请求 ABI 一致。",

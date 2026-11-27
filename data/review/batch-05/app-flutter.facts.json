@@ -24,7 +24,7 @@
     "ref": "apps/flutter/app/README.md:4"
   },
   {
-    "fact": ".fvmrc 钉住的 Flutter 版本是 3.41.10-ohos-0.0.2-beta.operit.9",
+    "fact": ".fvmrc 钉住的 Flutter 版本是 3.41.10-ohos-0.0.2-beta.operit.13",
     "ref": "apps/flutter/app/.fvmrc:2"
   },
   {

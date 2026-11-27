@@ -182,11 +182,11 @@ date: 2026-11-11
 - 群组原始用户输入先以 `record_only` 持久化一次，再调用响应规划器（docs/chat-send-api.md:199）。
 - 群组中间回复用 `summaryPolicy: "defer"`，最后一条规划回复用 `"after_reply"`，只有它可触发完成通知（docs/chat-send-api.md:201）。
 - 续发完成不重复递增原始用户提交计数（docs/chat-send-api.md:205）。
-- 对话级上下文刷新取各绑定参与者估计值中的最大值作为存储窗口（docs/chat-send-api.md:244）。
-- 配置执行结果要求完整的 `historyPolicy` 对象，含 `isolateParticipants` 与 `labelUserMessages`；普通模型对话两者都为 false（docs/chat-send-api.md:263）。
-- 其他参与者的有序 Markdown 发言以前缀 `[From role: name]` 作为用户参考上下文（docs/chat-send-api.md:271）。
-- 群组用户输入加前缀 `[From user]`（docs/chat-send-api.md:273）。
-- 发送契约的可重复校验入口包括 `chat-send-contracts.test.mjs` 的 node 测试（docs/chat-send-api.md:225）。
+- 对话级上下文刷新取各绑定参与者估计值中的最大值作为存储窗口（docs/chat-send-api.md:262）。
+- 配置执行结果要求完整的 `historyPolicy` 对象，含 `isolateParticipants` 与 `labelUserMessages`；普通模型对话两者都为 false（docs/chat-send-api.md:282）。
+- 其他参与者的有序 Markdown 发言以前缀 `[From role: name]` 作为用户参考上下文（docs/chat-send-api.md:289）。
+- 群组用户输入加前缀 `[From user]`（docs/chat-send-api.md:291）。
+- 发送契约的可重复校验入口包括 `chat-send-contracts.test.mjs` 的 node 测试（docs/chat-send-api.md:243）。
 
 ## 关键符号
 

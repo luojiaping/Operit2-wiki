@@ -43,21 +43,21 @@ date: 2026-11-11
 - Android 系统设置在宿主组装时绑定 `settingReader` 与 `settingWriter` `tools/tests/android_runtime_contracts.test.mjs:66`
 - 共享 owner 设置适配器用 get_system_setting 与 modify_system_setting 平台无关协议读写设置 `tools/tests/android_runtime_contracts.test.mjs:83`
 - Owner 端设置读取按 system、secure、global 三命名空间分别走 Settings.System、Settings.Secure、Settings.Global 的 `getString` `tools/tests/android_runtime_contracts.test.mjs:99`
-- `NativeCrashActivity` 以 :crash 进程运行 `tools/tests/android_runtime_contracts.test.mjs:227`
-- Android 崩溃进程跳过重启动作与全部 Core 生命周期事件 `tools/tests/android_runtime_contracts.test.mjs:225`
-- Android 运行时创建用独立的 `runtimeCreationLock`，与 `runtimeLock` 分离 `tools/tests/android_runtime_contracts.test.mjs:254`
-- `runtimeLock` 只保护状态，不含 `prepareAndroidRuntimePaths`、`AndroidRuntimeAssets.prepare`、`OperitRuntimeNative.create` 与 destroy 等昂贵工作 `tools/tests/android_runtime_contracts.test.mjs:197`
-- Android 宿主广播经 `HostEventBridge` 走非阻塞运行时事件槽 `tools/tests/android_runtime_contracts.test.mjs:319`
+- `NativeCrashActivity` 以 :crash 进程运行 `tools/tests/android_runtime_contracts.test.mjs:250`
+- Android 崩溃进程跳过重启动作与全部 Core 生命周期事件 `tools/tests/android_runtime_contracts.test.mjs:248`
+- Android 运行时创建用独立的 `runtimeCreationLock`，与 `runtimeLock` 分离 `tools/tests/android_runtime_contracts.test.mjs:277`
+- `runtimeLock` 只保护状态，不含 `prepareAndroidRuntimePaths`、`AndroidRuntimeAssets.prepare`、`OperitRuntimeNative.create` 与 destroy 等昂贵工作 `tools/tests/android_runtime_contracts.test.mjs:220`
+- Android 宿主广播经 `HostEventBridge` 走非阻塞运行时事件槽 `tools/tests/android_runtime_contracts.test.mjs:342`
 - 该测试断言 AndroidRuntimeHost.kt 内 `OperitRuntimeNative.emitRuntimeEvent` 只出现一次调用 `tools/tests/android_runtime_contracts.test.mjs:352`
-- Android 发布先校验 APK 的运行时资产再复制到 dist：`verify_android_runtime_assets` 在 `publish_android_apk` 之前执行 `tools/tests/android_runtime_contracts.test.mjs:310`
-- Android Rust profile 跟随构建变体：debug 对应 debug，profile 与 release 对应 release `tools/tests/android_runtime_contracts.test.mjs:365`
-- ProGuard 保留 `AndroidRuntimeHost` 的 JNI 方法 `tools/tests/android_runtime_contracts.test.mjs:290`
+- Android 发布先校验 APK 的运行时资产再复制到 dist：`verify_android_runtime_assets` 在 `publish_android_apk` 之前执行 `tools/tests/android_runtime_contracts.test.mjs:333`
+- Android Rust profile 跟随构建变体：debug 对应 debug，profile 与 release 对应 release `tools/tests/android_runtime_contracts.test.mjs:388`
+- ProGuard 保留 `AndroidRuntimeHost` 的 JNI 方法 `tools/tests/android_runtime_contracts.test.mjs:313`
 
 ### 内置工具目录
 
 - 内置工具目录由 `SystemToolPrompts` 的公开提示与 `SystemToolPromptsInternal` 的内部提示共同组成 `tools/tests/builtin_tool_catalog.test.mjs:6`
 - 公开目录分 basic_tools、file_system_tools、http_tools 三类 `tools/tests/builtin_tool_catalog.test.mjs:25`
-- 内部目录由 `internalToolCategoriesEnSource` 与 `internalToolCategoriesCnSource` 提供 tools/tests/builtin_tool_catalog.test.mjs:27 `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:45` `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:1283`
+- 内部目录由 `internalToolCategoriesEnSource` 与 `internalToolCategoriesCnSource` 提供 tools/tests/builtin_tool_catalog.test.mjs:27 `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:45` `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:1284`
 - 英文与中文两套目录各自断言每个内置工具恰好出现一次 `tools/tests/builtin_tool_catalog.test.mjs:24`
 - builtin_tool_catalog.test.mjs 定义 2 个 `test`，在 En 与 Cn 双语下各跑一次，共 4 个用例（清点证据：wiki 仓库 tracking/count-tools-tests-ff5373fb6.txt）
 - `write_file` 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数 `tools/tests/builtin_tool_catalog.test.mjs:43`
@@ -87,9 +87,9 @@ date: 2026-11-11
 - `test()` — node:test 用例定义 `tools/tests/android_runtime_contracts.test.mjs:37`
 - `settingReader` / `settingWriter` — Android 系统设置在宿主组装时绑定的读写回调 `tools/tests/android_runtime_contracts.test.mjs:66`
 - get_system_setting / modify_system_setting — 共享 owner 设置适配器的平台无关协议 `tools/tests/android_runtime_contracts.test.mjs:83`
-- `HostEventBridge` — Android 宿主广播的非阻塞运行时事件槽入口 `tools/tests/android_runtime_contracts.test.mjs:319`
-- `runtimeCreationLock` / `runtimeLock` — 运行时创建锁与状态锁，二者分离 `tools/tests/android_runtime_contracts.test.mjs:254`
-- `verify_android_runtime_assets` — Android 发布前校验 APK 运行时资产 `tools/tests/android_runtime_contracts.test.mjs:310`
+- `HostEventBridge` — Android 宿主广播的非阻塞运行时事件槽入口 `tools/tests/android_runtime_contracts.test.mjs:342`
+- `runtimeCreationLock` / `runtimeLock` — 运行时创建锁与状态锁，二者分离 `tools/tests/android_runtime_contracts.test.mjs:277`
+- `verify_android_runtime_assets` — Android 发布前校验 APK 运行时资产 `tools/tests/android_runtime_contracts.test.mjs:333`
 - `declaration()` — 抽取 Rust 提示声明 `tools/tests/builtin_tool_catalog.test.mjs:10`
 - `toolNames()` — 从提示声明中读出工具名 `tools/tests/builtin_tool_catalog.test.mjs:18`
 - `write_file` / `write_file_binary` — 公开写文件工具与内部二进制写文件工具 `tools/tests/builtin_tool_catalog.test.mjs:47`
@@ -105,8 +105,8 @@ date: 2026-11-11
 1. `source()` 读取生产文件做跨语言宿主契约检查 `tools/tests/android_runtime_contracts.test.mjs:9`
 2. hosts/android 的 `getDeviceInfo` 要求 Android get_device_info 走 owner 通道 `tools/tests/android_runtime_contracts.test.mjs:42`
 3. OwnerSystemCapabilityChannel.kt 把 get_device_info 映射到 `AndroidHostDeviceInfo.read` `tools/tests/android_runtime_contracts.test.mjs:47`
-4. Android 宿主广播经 `HostEventBridge` 走非阻塞运行时事件槽 `tools/tests/android_runtime_contracts.test.mjs:319`
-5. Android 发布先校验 APK 的运行时资产再复制到 dist `tools/tests/android_runtime_contracts.test.mjs:310`
+4. Android 宿主广播经 `HostEventBridge` 走非阻塞运行时事件槽 `tools/tests/android_runtime_contracts.test.mjs:342`
+5. Android 发布先校验 APK 的运行时资产再复制到 dist `tools/tests/android_runtime_contracts.test.mjs:333`
 
 ### 内置工具目录检查
 
