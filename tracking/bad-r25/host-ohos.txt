@@ -1,0 +1,61 @@
+host-ohos.facts.json#60 `readRootfsSha256` not within ±5 of hosts/ohos/src/terminal.rs:748
+host-ohos.facts.json#67 `verifyRootfsPayload` not within ±5 of hosts/ohos/src/terminal.rs:814
+host-ohos.facts.json#67 `bin/busybox` not within ±5 of hosts/ohos/src/terminal.rs:814
+host-ohos.facts.json#67 `sbin/apk` not within ±5 of hosts/ohos/src/terminal.rs:814
+host-ohos.facts.json#67 `usr/bin/python3` not within ±5 of hosts/ohos/src/terminal.rs:814
+host-ohos.facts.json#67 `usr/bin/node` not within ±5 of hosts/ohos/src/terminal.rs:814
+host-ohos.facts.json#67 `usr/bin/uv` not within ±5 of hosts/ohos/src/terminal.rs:814
+host-ohos.facts.json#67 `usr/bin/pnpm` not within ±5 of hosts/ohos/src/terminal.rs:814
+host-ohos.facts.json#67 `usr/bin/tesseract` not within ±5 of hosts/ohos/src/terminal.rs:814
+host-ohos.facts.json#67 `usr/bin/pdftoppm` not within ±5 of hosts/ohos/src/terminal.rs:814
+host-ohos.facts.json#70 `createVrootShell` not within ±5 of hosts/ohos/src/terminal.rs:656
+host-ohos.facts.json#72 `VROOT_HOST_MOUNT_ROOT` not within ±5 of hosts/ohos/src/terminal.rs:675
+host-ohos.facts.json#73 `terminalInfo` not within ±5 of hosts/ohos/src/terminal.rs:439
+host-ohos.facts.json#74 `isAvailable` not within ±5 of hosts/ohos/src/terminal.rs:445
+host-ohos.facts.json#75 `/bin/sh` not within ±5 of hosts/ohos/src/terminal.rs:452
+host-ohos.facts.json#77 `VROOT_HOST_MOUNT_ROOT` not within ±5 of hosts/ohos/src/terminal.rs:428
+host-ohos.facts.json#78 `QEMU_VROOT_TERMINAL` not within ±5 of hosts/ohos/src/terminal.rs:548
+host-ohos.facts.json#79 `executeHiddenCommand` not within ±5 of hosts/ohos/src/terminal.rs:605
+host-ohos.facts.json#80 `listSessions` not within ±5 of hosts/ohos/src/terminal.rs:522
+host-ohos.facts.json#81 `closePtySession` not within ±5 of hosts/ohos/src/terminal.rs:515
+host-ohos.md:82 `terminalInfo` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:439']
+host-ohos.md:83 `isAvailable` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:445']
+host-ohos.md:84 `/bin/sh` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:452']
+host-ohos.md:87 `VROOT_HOST_MOUNT_ROOT` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:428']
+host-ohos.md:88 `QEMU_VROOT_TERMINAL` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:548']
+host-ohos.md:89 `executeHiddenCommand` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:605']
+host-ohos.md:90 `listSessions` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:522']
+host-ohos.md:91 `closePtySession` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:515']
+host-ohos.md:101 `readRootfsSha256` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:748']
+host-ohos.md:112 `verifyRootfsPayload` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:112 `bin/busybox` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:112 `sbin/apk` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:112 `usr/bin/python3` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:112 `usr/bin/node` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:112 `usr/bin/uv` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:112 `usr/bin/pnpm` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:112 `usr/bin/tesseract` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:112 `usr/bin/pdftoppm` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:113 `createVrootShell` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:656']
+host-ohos.md:115 `VROOT_HOST_MOUNT_ROOT` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:675']
+host-ohos.md:242 `readRootfsSha256` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:748']
+host-ohos.md:243 `verifyRootfsPayload` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:243 `bin/busybox` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:243 `sbin/apk` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:243 `usr/bin/python3` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:243 `usr/bin/node` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:243 `usr/bin/uv` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:243 `usr/bin/pnpm` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:243 `usr/bin/tesseract` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:243 `usr/bin/pdftoppm` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:244 `createVrootShell` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:656']
+host-ohos.md:245 `terminalInfo` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:439']
+host-ohos.md:268 `verifyRootfsPayload` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:268 `bin/busybox` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:268 `sbin/apk` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:268 `usr/bin/python3` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:268 `usr/bin/node` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:268 `usr/bin/uv` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:268 `usr/bin/pnpm` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:268 `usr/bin/tesseract` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']
+host-ohos.md:268 `usr/bin/pdftoppm` not within ±5 of any ref ['hosts/ohos/src/terminal.rs:814']

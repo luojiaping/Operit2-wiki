@@ -1,0 +1,267 @@
+agent-loop-overview.facts.json#1 `messageCoordinationDelegate` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:245
+agent-loop-overview.facts.json#3 `newEnhancedAiServiceForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:460
+agent-loop-overview.facts.json#3 `EnhancedAIService` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:460
+agent-loop-overview.facts.json#4 `sendUserMessage` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:638
+agent-loop-overview.facts.json#4 `operit_core_route` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:638
+agent-loop-overview.facts.json#5 `startUserMessage` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:651
+agent-loop-overview.facts.json#6 `receive` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:660
+agent-loop-overview.facts.json#6 `expectedByteLength` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:660
+agent-loop-overview.facts.json#7 `sendUserMessageStream` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:660
+agent-loop-overview.facts.json#8 `deferSequenceCompletion` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:711
+agent-loop-overview.facts.json#8 `nativeExecutionId` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:711
+agent-loop-overview.facts.json#9 `initializeChatConfiguration` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:502
+agent-loop-overview.facts.json#10 `dispatchRegisteredChatInputHooks` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:308
+agent-loop-overview.facts.json#16 `newEnhancedAiServiceForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:717
+agent-loop-overview.facts.json#18 `recordOnlySequenceInput` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:731
+agent-loop-overview.facts.json#19 `cancelNativeChatExecution` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:755
+agent-loop-overview.facts.json#19 `isNativeExecutionActive` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:755
+agent-loop-overview.facts.json#20 `finishNativeChatSequence` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:767
+agent-loop-overview.facts.json#20 `notifyReply` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:767
+agent-loop-overview.facts.json#20 `hasSubmittedInput` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:767
+agent-loop-overview.facts.json#21 `finalizeSequenceAndNotify` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:783
+agent-loop-overview.facts.json#22 `resume` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:789
+agent-loop-overview.facts.json#23 `resolveChatConfigurationForOptions` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:796
+agent-loop-overview.facts.json#24 `resumeFromRouteContext` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:837
+agent-loop-overview.facts.json#24 `CoreRouteResumeContext` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:837
+agent-loop-overview.facts.json#25 `ChatModelBindingService::beginExecution` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:866
+agent-loop-overview.facts.json#25 `executionLease` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:866
+agent-loop-overview.facts.json#26 `ChatConfigurationApi::ready` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:869
+agent-loop-overview.facts.json#27 `ChatConfigurationPurpose::Execution` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:873
+agent-loop-overview.facts.json#28 `sendRoutedContinuation` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:884
+agent-loop-overview.facts.json#29 `beforeChangeRoute` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:900
+agent-loop-overview.facts.json#30 `beginChatExecution` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:908
+agent-loop-overview.facts.json#31 `afterChangeRoute` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:919
+agent-loop-overview.facts.json#32 `beforeChangeRoute` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3823
+agent-loop-overview.facts.json#33 `summaryTaskForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:3869
+agent-loop-overview.facts.json#34 `insertSummary` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1559
+agent-loop-overview.facts.json#35 `summarizeMemory` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1608
+agent-loop-overview.facts.json#36 `addSummaryMessage` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1631
+agent-loop-overview.facts.json#37 `compactChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1684
+agent-loop-overview.facts.json#38 `compactChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1689
+agent-loop-overview.facts.json#38 `ChatModelBindingService::beginExecution` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1689
+agent-loop-overview.facts.json#39 `manuallySummarizeConversationForChat` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1698
+agent-loop-overview.facts.json#40 `executionLease` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:1709
+agent-loop-overview.facts.json#41 `initializeChatConfiguration` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:502
+agent-loop-overview.facts.json#43 `dispatchChatInputChanged` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:588
+agent-loop-overview.facts.json#44 `prepareChatInputSubmit` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:607
+agent-loop-overview.facts.json#45 `dispatchChatInputSubmitRequested` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:620
+agent-loop-overview.facts.json#47 `callToolPkgRoute` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:437
+agent-loop-overview.facts.json#47 `ToolPkgRouteRuntime::invoke` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:437
+agent-loop-overview.facts.json#48 `watchToolPkgRoute` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:444
+agent-loop-overview.facts.json#48 `ToolPkgRouteRuntime::stream` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:444
+agent-loop-overview.facts.json#49 `pushToolPkgRoute` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:452
+agent-loop-overview.facts.json#50 `toolPkgRouteHost` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:430
+agent-loop-overview.facts.json#52 `persistTurn` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:946
+agent-loop-overview.facts.json#52 `commitAssistantMessageSegment` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:946
+agent-loop-overview.facts.json#53 `steerMessage` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:962
+agent-loop-overview.facts.json#54 `tool_handler` not within ±5 of core/crates/runtime/application/src/services/ChatServiceCore.rs:408
+agent-loop-overview.facts.json#59 `buildReplyTag` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:772
+agent-loop-overview.facts.json#60 `buildAttachmentAttributes` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:976
+agent-loop-overview.facts.json#61 `isLocalToNode` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:830
+agent-loop-overview.facts.json#62 `registerDirectImageAttachment` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:903
+agent-loop-overview.facts.json#65 `maxImageHistoryUserTurnsFlow` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359
+agent-loop-overview.facts.json#65 `maxMediaHistoryUserTurnsFlow` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359
+agent-loop-overview.facts.json#66 `limitImageLinksInChatHistory` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:367
+agent-loop-overview.facts.json#66 `limitMediaLinksInChatHistory` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:367
+agent-loop-overview.facts.json#67 `MessageProcessingPluginRegistry::createExecutionIfMatched` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:371
+agent-loop-overview.facts.json#68 `disableStreamOutputFlow` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:403
+agent-loop-overview.facts.json#69 `ResumeRequest` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467
+agent-loop-overview.facts.json#69 `resume` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467
+agent-loop-overview.facts.json#69 `sendMessageWithConfiguration` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467
+agent-loop-overview.facts.json#70 `responseStream` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:486
+agent-loop-overview.facts.json#71 `scheduleHostRuntimeAsyncTask` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:499
+agent-loop-overview.facts.json#72 `cancellationToken` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1131
+agent-loop-overview.facts.json#73 `cancelConversation` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1147
+agent-loop-overview.facts.json#75 `previousSummary` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:546
+agent-loop-overview.facts.json#78 `MAX_CONVERSATION_REVIEW_ENTRIES` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1239
+agent-loop-overview.facts.json#78 `CONVERSATION_REVIEW_HEAD_ENTRIES` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1239
+agent-loop-overview.facts.json#82 `tokenUsageThreshold` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:656
+agent-loop-overview.facts.json#83 `estimateRequestWindowFromMemory` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:634
+agent-loop-overview.facts.json#84 `getMemoryFromMessages` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:666
+agent-loop-overview.facts.json#84 `lastSummaryIndex` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:666
+agent-loop-overview.facts.json#85 `isolateParticipants` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:674
+agent-loop-overview.facts.json#86 `[From role:` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:695
+agent-loop-overview.facts.json#87 `[From user]` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:703
+agent-loop-overview.facts.json#88 `SUMMARY` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:707
+agent-loop-overview.facts.json#88 `PromptTurnKind::SUMMARY` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:707
+agent-loop-overview.facts.json#89 `TOOL_CALL` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:733
+agent-loop-overview.facts.json#89 `PromptTurnKind::TOOL_CALL` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:733
+agent-loop-overview.facts.json#90 `TOOL_RESULT` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:748
+agent-loop-overview.facts.json#90 `PromptTurnKind::TOOL_RESULT` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:748
+agent-loop-overview.facts.json#91 `cancelCurrentOperation` not within ±5 of core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1094
+agent-loop-overview.facts.json#96 `USER.md:` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:1046
+agent-loop-overview.facts.json#96 `disable_user_preference_description` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:1046
+agent-loop-overview.facts.json#97 `{{aiName}}` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:1054
+agent-loop-overview.facts.json#97 `{aiName}` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:1054
+agent-loop-overview.facts.json#100 `normalize_conversation_history_for_model` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:290
+agent-loop-overview.facts.json#101 `PromptTurnKind::ASSISTANT` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:321
+agent-loop-overview.facts.json#102 `complete` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:347
+agent-loop-overview.facts.json#102 `wait_for_user_need` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:347
+agent-loop-overview.facts.json#103 `PromptTurnKind::TOOL_CALL` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:382
+agent-loop-overview.facts.json#103 `PromptTurnKind::TOOL_RESULT` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:382
+agent-loop-overview.facts.json#104 `APPLY_FILE_TOOL_NAME` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:772
+agent-loop-overview.facts.json#105 `apply_file` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:798
+agent-loop-overview.facts.json#105 `extract_apply_file_request_content` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:798
+agent-loop-overview.facts.json#106 `SUMMARY` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:476
+agent-loop-overview.facts.json#106 `getModelParametersForFunction` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:476
+agent-loop-overview.facts.json#106 `getServiceForFunction` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:476
+agent-loop-overview.facts.json#106 `FunctionType::SUMMARY` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:476
+agent-loop-overview.facts.json#107 `before_prepare_summary_prompt` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:506
+agent-loop-overview.facts.json#108 `before_send_to_model` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:535
+agent-loop-overview.facts.json#109 `after_generate_summary` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:599
+agent-loop-overview.facts.json#110 `available_tools` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:576
+agent-loop-overview.facts.json#111 `ensure_response_completed` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:586
+agent-loop-overview.facts.json#112 `validateSummaryContent` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:926
+agent-loop-overview.facts.json#113 `updateTokensForProviderModel` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:633
+agent-loop-overview.facts.json#114 `SUMMARY_GENERATION` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:644
+agent-loop-overview.facts.json#114 `recordProviderModelRequest` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:644
+agent-loop-overview.facts.json#114 `UsageRequestSource::SUMMARY_GENERATION` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:644
+agent-loop-overview.facts.json#115 `PromptTurnKind::SYSTEM` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:919
+agent-loop-overview.facts.json#116 `generateConversationTitle` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:656
+agent-loop-overview.facts.json#117 `sanitizeConversationTitle` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:998
+agent-loop-overview.facts.json#128 `prepareSummaryForSend` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:781
+agent-loop-overview.facts.json#129 `checkBeforeSend` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:803
+agent-loop-overview.facts.json#129 `summaryTaskForChat` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:803
+agent-loop-overview.facts.json#130 `shouldGenerateSummary` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:819
+agent-loop-overview.facts.json#130 `currentWindowSize` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:819
+agent-loop-overview.facts.json#131 `launchSummary` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:826
+agent-loop-overview.facts.json#132 `checkSummaryAfterReply` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:854
+agent-loop-overview.facts.json#133 `sendRoutedContinuation` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:482
+agent-loop-overview.facts.json#134 `suppressUserMessageInHistory` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:530
+agent-loop-overview.facts.json#134 `isResume` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:530
+agent-loop-overview.facts.json#135 `extensionOwner` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:491
+agent-loop-overview.facts.json#135 `MODEL_CONFIGURATION_OWNER` not within ±5 of core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:491
+agent-loop-overview.md:9 `sendRoutedContinuation` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:482']
+agent-loop-overview.md:13 `sendUserMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:638']
+agent-loop-overview.md:13 `operit_core_route` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:638']
+agent-loop-overview.md:14 `startUserMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:651']
+agent-loop-overview.md:15 `expectedByteLength` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:665']
+agent-loop-overview.md:16 `newEnhancedAiServiceForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:460']
+agent-loop-overview.md:16 `EnhancedAIService` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:460']
+agent-loop-overview.md:19 `getMemoryFromMessages` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:666']
+agent-loop-overview.md:23 `insertSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1559']
+agent-loop-overview.md:24 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1684']
+agent-loop-overview.md:27 `beforeChangeRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:900']
+agent-loop-overview.md:28 `afterChangeRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:919']
+agent-loop-overview.md:29 `resumeFromRouteContext` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:837']
+agent-loop-overview.md:30 `sendRoutedContinuation` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:482']
+agent-loop-overview.md:32 `callToolPkgRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:437']
+agent-loop-overview.md:34 `steerMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:962']
+agent-loop-overview.md:40 `sendUserMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:638']
+agent-loop-overview.md:40 `operit_core_route` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:638']
+agent-loop-overview.md:41 `startUserMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:651']
+agent-loop-overview.md:42 `initializeChatConfiguration` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:502']
+agent-loop-overview.md:43 `deferSequenceCompletion` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:711']
+agent-loop-overview.md:43 `nativeExecutionId` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:711']
+agent-loop-overview.md:44 `dispatchRegisteredChatInputHooks` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:308']
+agent-loop-overview.md:50 `newEnhancedAiServiceForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:717']
+agent-loop-overview.md:54 `maxImageHistoryUserTurnsFlow` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359']
+agent-loop-overview.md:54 `maxMediaHistoryUserTurnsFlow` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359']
+agent-loop-overview.md:55 `limitImageLinksInChatHistory` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:367']
+agent-loop-overview.md:55 `limitMediaLinksInChatHistory` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:367']
+agent-loop-overview.md:56 `MessageProcessingPluginRegistry::createExecutionIfMatched` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:371']
+agent-loop-overview.md:57 `disableStreamOutputFlow` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:403']
+agent-loop-overview.md:58 `resume` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467']
+agent-loop-overview.md:58 `ResumeRequest` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467']
+agent-loop-overview.md:58 `resume` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467']
+agent-loop-overview.md:58 `sendMessageWithConfiguration` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467']
+agent-loop-overview.md:59 `responseStream` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:486']
+agent-loop-overview.md:60 `scheduleHostRuntimeAsyncTask` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:499']
+agent-loop-overview.md:63 `USER.md:` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:1046']
+agent-loop-overview.md:63 `disable_user_preference_description` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:1046']
+agent-loop-overview.md:64 `{{aiName}}` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:1054']
+agent-loop-overview.md:64 `{aiName}` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:1054']
+agent-loop-overview.md:67 `PromptTurnKind::ASSISTANT` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:321']
+agent-loop-overview.md:68 `complete` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:347']
+agent-loop-overview.md:68 `wait_for_user_need` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:347']
+agent-loop-overview.md:69 `PromptTurnKind::TOOL_CALL` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:382']
+agent-loop-overview.md:69 `PromptTurnKind::TOOL_RESULT` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:382']
+agent-loop-overview.md:70 `getMemoryFromMessages` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:666']
+agent-loop-overview.md:70 `lastSummaryIndex` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:666']
+agent-loop-overview.md:71 `SUMMARY` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:707']
+agent-loop-overview.md:71 `PromptTurnKind::SUMMARY` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:707']
+agent-loop-overview.md:72 `TOOL_CALL` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:733']
+agent-loop-overview.md:72 `PromptTurnKind::TOOL_CALL` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:733']
+agent-loop-overview.md:73 `TOOL_RESULT` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:748']
+agent-loop-overview.md:73 `PromptTurnKind::TOOL_RESULT` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:748']
+agent-loop-overview.md:74 `persistTurn` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:946']
+agent-loop-overview.md:74 `commitAssistantMessageSegment` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:946']
+agent-loop-overview.md:75 `steerMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:962']
+agent-loop-overview.md:76 `cancellationToken` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1131']
+agent-loop-overview.md:77 `cancelConversation` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1147']
+agent-loop-overview.md:89 `beforeChangeRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:900']
+agent-loop-overview.md:90 `beginChatExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:908']
+agent-loop-overview.md:91 `beforeChangeRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3823']
+agent-loop-overview.md:92 `afterChangeRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:919']
+agent-loop-overview.md:97 `callToolPkgRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:437']
+agent-loop-overview.md:97 `ToolPkgRouteRuntime::invoke` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:437']
+agent-loop-overview.md:98 `watchToolPkgRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:444']
+agent-loop-overview.md:98 `ToolPkgRouteRuntime::stream` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:444']
+agent-loop-overview.md:99 `pushToolPkgRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:452']
+agent-loop-overview.md:100 `toolPkgRouteHost` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:430']
+agent-loop-overview.md:101 `resume` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:789']
+agent-loop-overview.md:102 `resolveChatConfigurationForOptions` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:796']
+agent-loop-overview.md:103 `resumeFromRouteContext` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:837']
+agent-loop-overview.md:103 `CoreRouteResumeContext` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:837']
+agent-loop-overview.md:104 `ChatModelBindingService::beginExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:866']
+agent-loop-overview.md:104 `executionLease` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:866']
+agent-loop-overview.md:105 `ChatConfigurationApi::ready` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:869']
+agent-loop-overview.md:106 `ChatConfigurationPurpose::Execution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:873']
+agent-loop-overview.md:107 `sendRoutedContinuation` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:884']
+agent-loop-overview.md:108 `extensionOwner` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:491']
+agent-loop-overview.md:108 `MODEL_CONFIGURATION_OWNER` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:491']
+agent-loop-overview.md:109 `suppressUserMessageInHistory` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:530']
+agent-loop-overview.md:109 `isResume` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:530']
+agent-loop-overview.md:113 `summaryTaskForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:3869']
+agent-loop-overview.md:114 `sendRoutedContinuation` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:482']
+agent-loop-overview.md:115 `prepareSummaryForSend` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:781']
+agent-loop-overview.md:116 `checkBeforeSend` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:803']
+agent-loop-overview.md:116 `summaryTaskForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:803']
+agent-loop-overview.md:117 `shouldGenerateSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:819']
+agent-loop-overview.md:117 `currentWindowSize` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:819']
+agent-loop-overview.md:118 `launchSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:826']
+agent-loop-overview.md:119 `checkSummaryAfterReply` not within ±5 of any ref ['core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:854']
+agent-loop-overview.md:120 `tokenUsageThreshold` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:656']
+agent-loop-overview.md:122 `previousSummary` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:546']
+agent-loop-overview.md:125 `MAX_CONVERSATION_REVIEW_ENTRIES` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1239']
+agent-loop-overview.md:125 `CONVERSATION_REVIEW_HEAD_ENTRIES` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1239']
+agent-loop-overview.md:129 `SUMMARY` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:476']
+agent-loop-overview.md:129 `getModelParametersForFunction` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:476']
+agent-loop-overview.md:129 `getServiceForFunction` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:476']
+agent-loop-overview.md:129 `FunctionType::SUMMARY` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:476']
+agent-loop-overview.md:130 `before_prepare_summary_prompt` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:506']
+agent-loop-overview.md:131 `before_send_to_model` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:535']
+agent-loop-overview.md:132 `after_generate_summary` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:599']
+agent-loop-overview.md:133 `available_tools` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:576']
+agent-loop-overview.md:134 `ensure_response_completed` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:586']
+agent-loop-overview.md:135 `validateSummaryContent` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:926']
+agent-loop-overview.md:136 `updateTokensForProviderModel` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:633']
+agent-loop-overview.md:137 `SUMMARY_GENERATION` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:644']
+agent-loop-overview.md:137 `recordProviderModelRequest` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:644']
+agent-loop-overview.md:137 `UsageRequestSource::SUMMARY_GENERATION` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:644']
+agent-loop-overview.md:138 `PromptTurnKind::SYSTEM` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:919']
+agent-loop-overview.md:139 `insertSummary` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1559']
+agent-loop-overview.md:140 `summarizeMemory` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1608']
+agent-loop-overview.md:141 `addSummaryMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1631']
+agent-loop-overview.md:142 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1684']
+agent-loop-overview.md:143 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1689']
+agent-loop-overview.md:143 `ChatModelBindingService::beginExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1689']
+agent-loop-overview.md:144 `manuallySummarizeConversationForChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1698']
+agent-loop-overview.md:145 `executionLease` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1709']
+agent-loop-overview.md:155 `CoreRouteResumeContext` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:840']
+agent-loop-overview.md:156 `ChatConfigurationPurpose::Execution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:873']
+agent-loop-overview.md:161 `PromptTurnKind::TOOL_CALL` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:733']
+agent-loop-overview.md:162 `PromptTurnKind::TOOL_RESULT` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:748']
+agent-loop-overview.md:163 `PromptTurnKind::SUMMARY` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:707']
+agent-loop-overview.md:171 `startUserMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:651']
+agent-loop-overview.md:178 `limitImageLinksInChatHistory` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:367']
+agent-loop-overview.md:178 `limitMediaLinksInChatHistory` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:367']
+agent-loop-overview.md:180 `resume` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467']
+agent-loop-overview.md:180 `ResumeRequest` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467']
+agent-loop-overview.md:180 `resume` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467']
+agent-loop-overview.md:180 `sendMessageWithConfiguration` not within ±5 of any ref ['core/crates/runtime/application/src/core/chat/AIMessageManager.rs:467']
+agent-loop-overview.md:182 `persistTurn` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:946']
+agent-loop-overview.md:182 `commitAssistantMessageSegment` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:946']
+agent-loop-overview.md:187 `beforeChangeRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:900']
+agent-loop-overview.md:188 `afterChangeRoute` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:919']
+agent-loop-overview.md:190 `sendRoutedContinuation` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:884']

@@ -1,0 +1,54 @@
+agent-memory.facts.json#72 `normalizeCandidateSearchText` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:82
+agent-memory.facts.json#74 `cleanMessage` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:118
+agent-memory.facts.json#75 `memoryByTitle` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:124
+agent-memory.facts.json#76 `merge` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:148
+agent-memory.facts.json#77 `profileAutoUpdateEnabled` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:153
+agent-memory.facts.json#77 `profileAutoUpdateLocked` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:153
+agent-memory.facts.json#79 `applyAnalysis` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:176
+agent-memory.facts.json#79 `created` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:176
+agent-memory.facts.json#79 `updated` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:176
+agent-memory.facts.json#79 `merged` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:176
+agent-memory.facts.json#79 `links` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:176
+agent-memory.facts.json#79 `profileUpdated` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:176
+agent-memory.facts.json#79 `skipped` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:176
+agent-memory.facts.json#80 `applyAnalysis` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:179
+agent-memory.facts.json#82 `saveMemory` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:205
+agent-memory.facts.json#83 `main` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:215
+agent-memory.facts.json#83 `memory_analysis` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:215
+agent-memory.facts.json#83 `credibility` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:215
+agent-memory.facts.json#83 `importance` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:215
+agent-memory.facts.json#85 `links` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:229
+agent-memory.facts.json#85 `createLink` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:229
+agent-memory.facts.json#86 `writeUser` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:233
+agent-memory.facts.json#86 `profileUpdated` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:233
+agent-memory.facts.json#87 `extractMessages` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:242
+agent-memory.facts.json#88 `MEMORY_SEARCH_THRESHOLD` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:252
+agent-memory.facts.json#90 `Tools.Chat.call` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254
+agent-memory.facts.json#90 `functionType` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254
+agent-memory.facts.json#90 `MEMORY` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254
+agent-memory.facts.json#90 `enableThinking` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254
+agent-memory.facts.json#90 `recordTokenUsage` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254
+agent-memory.facts.json#91 `extractMessages` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:242
+agent-memory.facts.json#92 `updateChatMemory` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:262
+agent-memory.facts.json#93 `slice(-10)` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:272
+agent-memory.facts.json#94 `autoCategorizeMemory` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:279
+agent-memory.facts.json#96 `moveMemories` not within ±5 of plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:291
+agent-memory.facts.json#143 `runMemoryJobs()` not within ±5 of plugins/packages/buildin/character_cards/src/service-runtime.ts:269
+agent-memory.md:67 `runMemoryJobs()` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/service-runtime.ts:269']
+agent-memory.md:83 `MEMORY_SEARCH_THRESHOLD` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:252']
+agent-memory.md:85 `Tools.Chat.call` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254']
+agent-memory.md:85 `functionType` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254']
+agent-memory.md:85 `MEMORY` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254']
+agent-memory.md:89 `mergeMemories` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:199']
+agent-memory.md:89 `credibility` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:199']
+agent-memory.md:89 `importance` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:199']
+agent-memory.md:90 `memory_analysis` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:215']
+agent-memory.md:90 `credibility` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:215']
+agent-memory.md:90 `importance` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:215']
+agent-memory.md:92 `createLink` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:229']
+agent-memory.md:93 `writeUser` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:233']
+agent-memory.md:162 `extractMessages` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:239']
+agent-memory.md:163 `updateChatMemory` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:262']
+agent-memory.md:164 `autoCategorizeMemory` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:276']
+agent-memory.md:165 `buildCandidateSearchQuery` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:93']
+agent-memory.md:198 `MEMORY` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254']

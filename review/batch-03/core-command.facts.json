@@ -281,15 +281,15 @@
   },
   {
     "fact": "catalog-status 与 `catalog-refresh` 共用同一分支，分别调 `getModelCatalogStatus` 与 `refreshModelCatalog`，查 `models.dev` 目录状态。",
-    "ref": "core/crates/command/core/src/commands/model.rs:379"
+    "ref": "core/crates/command/core/src/commands/model.rs:380"
   },
   {
     "fact": "`list` 调 `getAllModelSummaries`，按 `providerName` 再按 `modelId` 排序。",
-    "ref": "core/crates/command/core/src/commands/model.rs:395"
+    "ref": "core/crates/command/core/src/commands/model.rs:399"
   },
   {
     "fact": "`show` 无参数时默认取 `DEFAULT_PROVIDER_ID` 与 `DEFAULT_MODEL_ID` 的解析后配置。",
-    "ref": "core/crates/command/core/src/commands/model.rs:420"
+    "ref": "core/crates/command/core/src/commands/model.rs:422"
   },
   {
     "fact": "`use` 只把 `CHAT` 功能的模型绑定设为指定 provider 与 model。",
@@ -309,11 +309,11 @@
   },
   {
     "fact": "context-show 取解析后配置的 `context` 打印。",
-    "ref": "core/crates/command/core/src/commands/model.rs:546"
+    "ref": "core/crates/command/core/src/commands/model.rs:554"
   },
   {
-    "fact": "`context-set` 用含 `maxContextLength` 的 `ModelContextSpec` 调 `updateContextForModel` 更新上下文上限。",
-    "ref": "core/crates/command/core/src/commands/model.rs:575"
+    "fact": "`context-set` 把输入值按千 token 数解析，经 `ModelContextSpec::from_kilo_tokens` 换算为 `maxContextTokens` 装入 `ModelContextSpec`，再调 `updateContextForModel` 更新上下文上限。",
+    "ref": "core/crates/command/core/src/commands/model.rs:576"
   },
   {
     "fact": "summary-show 取解析后配置的 `summary` 打印。",
@@ -325,54 +325,54 @@
   },
   {
     "fact": "summary-set 调 `updateSummaryForModel` 更新摘要设置。",
-    "ref": "core/crates/command/core/src/commands/model.rs:621"
+    "ref": "core/crates/command/core/src/commands/model.rs:627"
   },
   {
     "fact": "`thinking` 无档位参数时读当前设置，有参数时用 `ThinkingLevel::fromName` 解析后调 `setThinkingLevelForModel` 设置。",
-    "ref": "core/crates/command/core/src/commands/model.rs:639"
+    "ref": "core/crates/command/core/src/commands/model.rs:644"
   },
   {
     "fact": "`thinking` 档位名限于 `off`、`enabled`、`minimal`、`low`、`medium`、`high`、`xhigh`、`max`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:634"
+    "ref": "core/crates/command/core/src/commands/model.rs:640"
   },
   {
     "fact": "function-list 遍历 `functionTypes()` 的 11 种功能类型，逐个读 `getModelBindingForFunction`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:664"
+    "ref": "core/crates/command/core/src/commands/model.rs:668"
   },
   {
     "fact": "`function-show` 先用 `parseFunctionType` 解析功能类型名。",
     "ref": "core/crates/command/core/src/commands/model.rs:688"
   },
   {
-    "fact": "`function-set` 调 `setModelForFunction` 写指定功能的模型绑定。",
-    "ref": "core/crates/command/core/src/commands/model.rs:724"
+    "fact": "function-set 调 `setModelForFunction` 写指定功能的模型绑定。",
+    "ref": "core/crates/command/core/src/commands/model.rs:730"
   },
   {
     "fact": "function-reset 带功能类型时调 `resetFunctionConfig` 重置单个绑定，不带时调 `resetAllFunctionConfigs` 重置全部。",
-    "ref": "core/crates/command/core/src/commands/model.rs:800"
+    "ref": "core/crates/command/core/src/commands/model.rs:806"
   },
   {
     "fact": "model 命令只接受 `CHAT`、`SUMMARY`、`TITLE_GENERATION`、`MEMORY`、`UI_CONTROLLER`、`TRANSLATION`、`GREP`、`ROLE_RESPONSE_PLANNER`、`IMAGE_RECOGNITION`、`AUDIO_RECOGNITION`、`VIDEO_RECOGNITION` 共 11 个功能类型名。",
-    "ref": "core/crates/command/core/src/commands/model.rs:832"
+    "ref": "core/crates/command/core/src/commands/model.rs:838"
   },
   {
     "fact": "`print_provider_profile` 只输出 API key 长度，不输出 key 本身。",
-    "ref": "core/crates/command/core/src/commands/model.rs:882"
+    "ref": "core/crates/command/core/src/commands/model.rs:883"
   },
   {
     "fact": "Provider JSON 只含 `apiKeyLength` 与密钥池元数据，不含 key 值。",
-    "ref": "core/crates/command/core/src/commands/model.rs:1052"
+    "ref": "core/crates/command/core/src/commands/model.rs:1062"
   },
   {
     "fact": "密钥池 JSON 每把 key 只输出 `id`、名称、启用状态、可用状态、使用次数、最后使用时间、错误次数与 `keyLength`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:1103"
+    "ref": "core/crates/command/core/src/commands/model.rs:1113"
   },
   {
     "fact": "`print_model_usage` 的用法列表包含 `operit2 model codex-login <browser|device>`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:1125"
+    "ref": "core/crates/command/core/src/commands/model.rs:1133"
   },
   {
     "fact": "未知 `model` 子命令落到 `print_model_usage`。",
-    "ref": "core/crates/command/core/src/commands/model.rs:811"
+    "ref": "core/crates/command/core/src/commands/model.rs:817"
   }
 ]

@@ -31,7 +31,7 @@ Web Host 的浏览器会话是模拟状态，不是应用内嵌的浏览器控�
 - `WebManagedRuntimeHost` — 托管运行时 Host（`hosts/web/src/tools/runtime/mod.rs:25`）
 - `WebRuntimeStorageHost` — 提供 `defaultRuntimeRoot` 的运行时存储 Host（`hosts/web/src/tools/storage/mod.rs:25`）
 - `WebSystemOperationHost` — 由 `createRuntimeHostManager` 创建的系统操作 Host（`hosts/web/src/lib.rs:41`）
-- `WebTerminalHost` — 实现 `TerminalHost` 的终端 Host（`hosts/web/src/tools/terminal/mod.rs:48`）
+- `WebTerminalHost` — 实现 `TerminalHost` 的终端 Host（`hosts/web/src/tools/terminal/mod.rs:49`）
 - `WebArchiveStagingHost` — 实现 `ArchiveStagingHost` 的归档暂存 Host（`hosts/web/src/tools/archive/mod.rs:21`）
 - `WebWebSocketHost` — 实现 `WebSocketHost` 的 WebSocket Host（`hosts/web/src/tools/websocket.rs:35`）
 - `WebBrowserSessionHost` — 模拟浏览器会话 Host（`hosts/web/src/tools/browser_session/mod.rs:24`）
@@ -182,19 +182,19 @@ Web Host 的浏览器会话是模拟状态，不是应用内嵌的浏览器控�
 终端桥接经 v86 启动浏览器本地 Buildroot Linux 客户机，方法交换原始虚拟串口字节（`hosts/web/README.md:68`）。
 Linux 客户机资产由 Flutter Web 构建钩子生成，服务前按固定 SHA-256 摘要核对（`hosts/web/README.md:71`）。
 Web 终端的平台为 `web-linux-vm`，终端为 `v86`，终端类型为 `shell`（`hosts/web/src/tools/terminal/mod.rs:20`）。
-终端信息把 Web 终端描述为带 `BusyBox`、`Node` 与 `Python` 的浏览器本地 Buildroot 虚拟机（`hosts/web/src/tools/terminal/mod.rs:81`）。
-工作目录解析把宿主目录映射到 `/mnt/operit-host/` 之下（`hosts/web/src/tools/terminal/mod.rs:59`）。
-启动 PTY 会话在 `rows` 或 `cols` 为零时报错（`hosts/web/src/tools/terminal/mod.rs:101`）。
-启动 PTY 会话调用桥接 `startPty` 并传入会话标识、行数与列数（`hosts/web/src/tools/terminal/mod.rs:106`）。
-终端会话标识按 `linux-vm-terminal-{value}` 分配（`hosts/web/src/tools/terminal/mod.rs:455`）。
-桥接值为空或未定义时 `pollPtyExitCode` 返回 `None`（`hosts/web/src/tools/terminal/mod.rs:171`）。
-会话列表只列出未退出的会话，条目 `sessionKind` 为 `linux-vm`（`hosts/web/src/tools/terminal/mod.rs:200`）。
-按名创建或复用类型化会话时，遇到同名会话直接复用，`isNewSession` 为 false（`hosts/web/src/tools/terminal/mod.rs:233`）。
-新建终端会话从根目录 `/` 启动，默认 24 行 80 列（`hosts/web/src/tools/terminal/mod.rs:245`）。
-会话内流式调度拒绝非零 `timeoutMs`，要求会话自有执行（`hosts/web/src/tools/terminal/mod.rs:309`）。
-`executeHiddenCommand` 报错，浏览器本地 Linux 虚拟机终端不提供隐藏命令执行（`hosts/web/src/tools/terminal/mod.rs:338`）。
-会话屏幕用 `vt100::Parser` 渲染保留的串口屏幕内容（`hosts/web/src/tools/terminal/mod.rs:375`）。
-会话内执行命令返回 `output`、`exitCode`、`timedOut`、`workingDir`（`hosts/web/src/tools/terminal/mod.rs:277`）。
+终端信息把 Web 终端描述为带 `BusyBox`、`Node` 与 `Python` 的浏览器本地 Buildroot 虚拟机（`hosts/web/src/tools/terminal/mod.rs:96`）。
+工作目录解析把宿主目录映射到 `/mnt/operit-host/` 之下（`hosts/web/src/tools/terminal/mod.rs:79`）。
+启动 PTY 会话在 `rows` 或 `cols` 为零时报错（`hosts/web/src/tools/terminal/mod.rs:115`）。
+启动 PTY 会话调用桥接 `startPty` 并传入会话标识、行数与列数（`hosts/web/src/tools/terminal/mod.rs:120`）。
+终端会话标识按 `linux-vm-terminal-{value}` 分配（`hosts/web/src/tools/terminal/mod.rs:483`）。
+桥接值为空或未定义时 `pollPtyExitCode` 返回 `None`（`hosts/web/src/tools/terminal/mod.rs:182`）。
+会话列表列出未退出的会话，进程所属会话即使已退出也会列出，条目 `sessionKind` 为 `linux-vm`（`hosts/web/src/tools/terminal/mod.rs:219`）。
+按名创建或复用类型化会话时，遇到同名会话直接复用，`isNewSession` 为 false（`hosts/web/src/tools/terminal/mod.rs:249`）。
+新建终端会话从根目录 `/` 启动，默认 24 行 80 列（`hosts/web/src/tools/terminal/mod.rs:261`）。
+会话内流式调度拒绝非零 `timeoutMs`，要求会话自有执行（`hosts/web/src/tools/terminal/mod.rs:324`）。
+`executeHiddenCommand` 报错，浏览器本地 Linux 虚拟机终端不提供隐藏命令执行（`hosts/web/src/tools/terminal/mod.rs:354`）。
+会话屏幕用 `vt100::Parser` 渲染保留的串口屏幕内容（`hosts/web/src/tools/terminal/mod.rs:403`）。
+会话内执行命令返回 `output`、`exitCode`、`timedOut`、`workingDir`（`hosts/web/src/tools/terminal/mod.rs:292`）。
 
 ### 归档、WebSocket 与系统操作
 
@@ -202,8 +202,8 @@ Web 终端的平台为 `web-linux-vm`，终端为 `v86`，终端类型为 `shell
 `sealArchive` 返回 `u64` 长度，负数报错（`hosts/web/src/tools/archive/mod.rs:78`）。
 `readArchive` 按偏移与长度读一段有界范围（`hosts/web/src/tools/archive/mod.rs:88`）。
 `archiveFileReference` 返回存储支持的浏览器文件 URL，不是归档字节数据（`hosts/web/src/tools/archive/mod.rs:59`）。
-归档暂存同样是 Worker 拥有的 OPFS：`createArchive` 预留声明字节范围，`appendArchive` 写有序分块，`sealArchive` 核对精确长度，`readArchive` 提供有界的 ZIP 读取范围（`hosts/web/README.md:87`）。
-浏览器文件选择留在 UI 线程，选中的 `Blob` 按有界 `openRead()` 分块读取并经 Core Link 推送（`hosts/web/README.md:90`）。
+归档暂存同样是 Worker 拥有的 OPFS：`createArchive` 预留声明字节范围，`appendArchive` 写有序分块，`sealArchive` 核对精确长度，`readArchive` 提供有界的 ZIP 读取范围（`hosts/web/README.md:101`）。
+浏览器文件选择留在 UI 线程，选中的 `Blob` 按有界 `openRead()` 分块读取并经 Core Link 推送（`hosts/web/README.md:104`）。
 打开 WebSocket 时 `streamId` 已打开则报错（`hosts/web/src/tools/websocket.rs:45`）。
 WebSocket 的二进制类型设为 `Arraybuffer`（`hosts/web/src/tools/websocket.rs:55`）。
 WebSocket 关闭码 1000 或 1005 视为正常关闭，其余关闭码视为错误（`hosts/web/src/tools/websocket.rs:71`）。
@@ -229,7 +229,7 @@ WebSocket 关闭码 1000 或 1005 视为正常关闭，其余关闭码视为错�
 - `WebManagedRuntimeHost` — 实现 `ManagedRuntimeHost`（`hosts/web/src/tools/runtime/mod.rs:25`）
 - `WebRuntimeStorageHost` — 提供 `defaultRuntimeRoot` 的运行时存储 Host（`hosts/web/src/tools/storage/mod.rs:25`）
 - `WebSystemOperationHost` — 由 `createRuntimeHostManager` 创建的系统操作 Host（`hosts/web/src/lib.rs:41`）
-- `WebTerminalHost` — 实现 `TerminalHost`（`hosts/web/src/tools/terminal/mod.rs:48`）
+- `WebTerminalHost` — 实现 `TerminalHost`（`hosts/web/src/tools/terminal/mod.rs:49`）
 - `WebArchiveStagingHost` — 实现 `ArchiveStagingHost`（`hosts/web/src/tools/archive/mod.rs:21`）
 - `WebWebSocketHost` — 实现 `WebSocketHost`（`hosts/web/src/tools/websocket.rs:35`）
 - `WebBrowserSessionHost` — 模拟浏览器会话 Host（`hosts/web/src/tools/browser_session/mod.rs:24`）

@@ -12,7 +12,7 @@ date: 2026-11-11
 记忆子系统现位于 plugins/packages/buildin/character_cards/src/memory-jobs，旧名 extended_memory_tools 在本页 7 个 seed 内零命中（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:1`）。
 一个记忆 owner 是角色卡（`character:` 加角色卡 id）或共享库（`shared:` 加共享库 id）（`plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:45`）。
 记忆写入分两步：先把候选排队，再由间隔任务批量提取（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:24`）。
-记忆提取直接消费原始消息，不经过聊天摘要（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:242`）。
+记忆提取直接消费原始消息，不经过聊天摘要（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:262`）。
 记忆任务代码是 TypeScript，在 JS 执行宿主上运行；同步数据库文件位于各 Host 的 Space 数据目录下（`plugins/packages/buildin/character_cards/src/storage/memory.ts:37`）。
 
 ## AI 速览
@@ -70,8 +70,8 @@ date: 2026-11-11
 ### 间隔推进
 
 - 间隔钩子每 60 秒调用 `runMemoryJobs()`（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:18`）。
-- 导出的 `runMemoryJobs()` 把调用转给服务实例（`plugins/packages/buildin/character_cards/src/service-runtime.ts:269`）。
-- 服务运行时的 `runMemoryJobs` 调用 `jobs.tick()`（`plugins/packages/buildin/character_cards/src/service-runtime.ts:117`）。
+- 导出的 `runMemoryJobs()` 把调用转给服务实例（`plugins/packages/buildin/character_cards/src/service-runtime.ts:290`）。
+- 服务运行时的 `runMemoryJobs` 调用 `jobs.tick()`（`plugins/packages/buildin/character_cards/src/service-runtime.ts:119`）。
 - `tick()` 在已有一次正在跑的 pass 时共享它（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:290`）。
 - 每轮先列出全部记忆 owner 再逐个推进（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:303`）。
 - 处理中超过 30 分钟租约的本设备候选会被打回 `pending`（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:327`）。
@@ -85,19 +85,19 @@ date: 2026-11-11
 - 提取前逐条校验候选源消息：已删除、版本变化或发送者变化的候选会被跳过并记为 failed（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:216`）。
 - 选定用户消息的批次只提取通过校验的选定用户消息（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:234`）。
 - 自动回复来源的批次只取截至最后一条候选时间戳的消息，且至多取最后 48 条（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:241`）。
-- 提取要求消息里有真实用户上下文，否则抛错（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:242`）。
-- 提取用 `MEMORY_SEARCH_THRESHOLD` 作为相关度阈值检索已有记忆（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:252`）。
-- 提取提示最多只带前 15 条检索到的候选记忆（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:253`）。
-- 提取调用 `Tools.Chat.call`，`functionType` 为 `MEMORY`，不启用思考（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254`）。
+- 提取要求输入里有用户消息，否则抛错；用户消息全部空白时返回空报告（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:262`）。
+- 提取用 `MEMORY_SEARCH_THRESHOLD` 作为相关度阈值检索已有记忆（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:279`）。
+- 提取提示最多只带前 15 条检索到的候选记忆（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:280`）。
+- 提取调用 `Tools.Chat.call`，`functionType` 为 `MEMORY`，不启用思考（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:281`）。
 - 模型输出先经 `parseModelJson` 去掉思考块与代码围栏，失败时回退到首尾花括号切片（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:16`）。
 - 空对象 `{}` 表示没有可复用的事实，分析结果为 null（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:66`）。
 - `new` 超过 5 条时提取抛错（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:72`）。
-- 合并用 `mergeMemories` 生成新记忆，`credibility` 与 `importance` 均为 0.5（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:199`）。
-- 主记录新建时 `source` 为 `memory_analysis`、`credibility` 为 1、`importance` 为 0.8（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:215`）。
-- 新建记忆时 `credibility` 与 `importance` 均为 0.5（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:222`）。
-- 连边用 `createLink` 按解析出的两端记忆 id 建边（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:229`）。
-- 资料更新通过 `writeUser` 写回（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:233`）。
-- 模型引用了无法解析的标题时只跳过该条，不丢弃整轮提取（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:198`）。
+- 合并用 `mergeMemories` 生成新记忆，`credibility` 与 `importance` 均为 0.5（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:222`）。
+- 主记录新建时 `source` 为 `memory_analysis`、`credibility` 为 1、`importance` 为 0.8（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:238`）。
+- 新建记忆时 `credibility` 与 `importance` 均为 0.5（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:246`）。
+- 连边用 `createLink` 按解析出的两端记忆 id 建边（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:252`）。
+- 资料更新通过 `writeUser` 写回（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:256`）。
+- 模型引用了无法解析的标题时只跳过该条，不丢弃整轮提取（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:221`）。
 - 提取提交后，已完成的候选从任务状态里删除（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:252`）。
 - 失败的候选保留在任务状态里，状态为 `failed` 并记录 `lastError`（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:197`）。
 
@@ -133,15 +133,15 @@ date: 2026-11-11
 
 ### 记忆与聊天摘要的关系
 
-- 记忆提取的输入是调用方传入的原始消息数组，输入中不含聊天摘要（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:242`）。
+- 记忆提取的输入是调用方传入的原始消息数组，输入中不含聊天摘要（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:262`）。
 - 摘要的正文不进入提取流程；`inputTokens`/`outputTokens` 只在 `assertChat` 校验里出现，`messageCount` 另用于 readMessages 界定读取范围（`plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:11`）。
-- 手动更新取最后一条非空助手回复为锚点，只分析锚点及之前的消息，至多取最后 10 条（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:272`）。
+- 手动更新取最后一条非空助手回复为锚点，只分析锚点及之前的消息，至多取最后 10 条（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:299`）。
 
 ### 自动分类
 
-- 自动分类只处理放在根文件夹的记忆（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:279`）。
-- 分类调用要求模型恰好为每条记忆返回一个文件夹，否则抛错（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:286`）。
-- 分类结果按标题把记忆移入指定文件夹（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:291`）。
+- 自动分类只处理放在根文件夹的记忆（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:303`）。
+- 分类调用要求模型恰好为每条记忆返回一个文件夹，否则抛错（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:313`）。
+- 分类结果按标题把记忆移入指定文件夹（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:318`）。
 
 ### 归属与权限
 
@@ -165,10 +165,10 @@ date: 2026-11-11
 - `processRebuildWindow` — 执行一个重建窗口（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:149`）
 - `MemoryJobPassError` — 按 owner 汇总失败（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:29`）
 - `MemoryJobStatusError` — 同时保留执行错误与状态发布错误（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:20`）
-- `extractMessages` — 调 MEMORY 模型提取并落库（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:239`）
-- `updateChatMemory` — 手动更新：取最后一条助手回复为锚点（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:262`）
-- `autoCategorizeMemory` — 根文件夹记忆自动分类（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:276`）
-- `buildCandidateSearchQuery` — 检索查询：最后提问、最后回答、最近上下文（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:93`）
+- `extractMessages` — 调 MEMORY 模型提取并落库（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:262`）
+- `updateChatMemory` — 手动更新：取最后一条助手回复为锚点（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:289`）
+- `autoCategorizeMemory` — 根文件夹记忆自动分类（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:303`）
+- `buildCandidateSearchQuery` — 检索查询：最后提问、最后回答、最近上下文（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:112`）
 - `parseModelJson` — 模型 JSON 解析（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:15`）
 - `requireChat` — 精确匹配聊天 id（`plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:17`）
 - `chatParticipants` — 从聊天选择解析参与者（`plugins/packages/buildin/character_cards/src/memory-jobs/chat.ts:27`）
@@ -195,14 +195,14 @@ date: 2026-11-11
 2. 助手回复落库后，消息钩子派发 `memory.candidate.enqueue`（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:14`）。
 3. 校验发送者、作者权限与 owner，写入一条 `pending` 候选（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:103`）。
 4. 每 60 秒，`onMemoryInterval` 调用 `runMemoryJobs()`（`plugins/packages/buildin/character_cards/src/memory-jobs/hooks.ts:18`）。
-5. `runMemoryJobs` 转给服务实例，调用 `jobs.tick()`（`plugins/packages/buildin/character_cards/src/service-runtime.ts:117`）。
+5. `runMemoryJobs` 转给服务实例，调用 `jobs.tick()`（`plugins/packages/buildin/character_cards/src/service-runtime.ts:119`）。
 6. 推进各 owner：先回收超租约与无生产设备的历史任务（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:324`）。
 7. 本设备的重建任务按窗口推进，每窗口先复核源消息版本再提取（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:165`）。
 8. 待处理候选达到 5 条时才开始组织批次（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:361`）。
 9. 批次按聊天分组，按触发时间戳最旧优先排序，每聊天至多取 20 条（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:365`）。
 10. 认领批次后，`processCandidates` 逐条校验源消息，提取有效的候选（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:202`）。
-11. 检索已有记忆、组装提示词、调 `MEMORY` 模型（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:254`）。
-12. 模型结果经解析、校验后落库，合并先于更新处理（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:198`）。
+11. 检索已有记忆、组装提示词、调 `MEMORY` 模型（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:281`）。
+12. 模型结果经解析、校验后落库，合并先于更新处理（`plugins/packages/buildin/character_cards/src/memory-jobs/analysis.ts:221`）。
 13. 提取提交后，已完成的候选从任务状态里删除（`plugins/packages/buildin/character_cards/src/memory-jobs/scheduler.ts:252`）。
 14. 云端嵌入开启时，记忆向量由 `embedTexts` 向云端端点批量请求（`plugins/packages/buildin/character_cards/src/memory-jobs/embeddings.ts:38`）。
 

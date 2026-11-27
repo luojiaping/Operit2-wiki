@@ -16,7 +16,7 @@ date: 2026-11-11
 - `core/peer-protocol.json` 是协议版本及 SHA-256 指纹的唯一记录。`docs/peer-protocol-versioning.md:9`
 - 构建只扫描带 `operit_core_route` 注解的方法签名与路由元数据。`docs/peer-protocol-versioning.md:10`
 - 旧的 `sources` 全文扫描与 `schemaRoots` 泛类型扫描已经移除。`docs/peer-protocol-versioning.md:21`
-- 最新协议版本为 `version` 26。`core/peer-protocol.json:104`
+- 最新协议版本为 `version` 30。`core/peer-protocol.json:120`
 - 协议版本不匹配返回 `PEER_PROTOCOL_MISMATCH`。`docs/peer-protocol-versioning.md:91`
 - 缺少协议声明返回 `PEER_PROTOCOL_UPGRADE_REQUIRED`。`docs/peer-protocol-versioning.md:92`
 - 同步总览见 [[sync-overview|同步总览：Space 持久化同步]]。`docs/peer-protocol-versioning.md:3`
@@ -25,8 +25,8 @@ date: 2026-11-11
 
 - `core/peer-protocol.json` — 协议版本及 SHA-256 指纹的唯一记录。`docs/peer-protocol-versioning.md:9`
 - `operit_core_route` — 构建只提取带此注解的方法签名与路由元数据。`docs/peer-protocol-versioning.md:10`
-- `revisions` — 版本与 hash 的历史记录，共 26 条。`core/peer-protocol.json:2`
-- 最新记录为 `version` 26，hash 为 `bb3372520ca577f16c2ba1b2ff265d777eac047fa50f844a1baf928481cd0cf9`。`core/peer-protocol.json:104`
+- `revisions` — 版本与 hash 的历史记录，共 30 条。`core/peer-protocol.json:2`
+- 最新记录为 `version` 30，hash 为 `eda16101e2c0806b0a6e45d37dca37548674cb8131695b394c88e82cbfdde32b`。`core/peer-protocol.json:120`
 - `operit-peer-session-fragments-v1` — v24 纳入指纹的认证会话分块修订标识。`docs/peer-protocol-versioning.md:30`
 - `maxMessageBytes` — 只限制一条物理 Link 报文，不再是认证后逻辑消息的大小上限。`docs/peer-protocol-versioning.md:42`
 - `PEER_PROTOCOL_MISMATCH` — 协议版本不匹配时返回的错误。`docs/peer-protocol-versioning.md:91`
@@ -73,7 +73,7 @@ date: 2026-11-11
 ## 关键符号
 
 - `operit_core_route` — 构建只提取带此注解的方法签名与路由元数据。`docs/peer-protocol-versioning.md:10`
-- `revisions` — 版本与 hash 的历史记录，共 26 条。`core/peer-protocol.json:2`
+- `revisions` — 版本与 hash 的历史记录，共 30 条。`core/peer-protocol.json:2`
 - `operit-peer-session-fragments-v1` — v24 纳入指纹的认证会话分块修订标识。`docs/peer-protocol-versioning.md:30`
 - `maxMessageBytes` — 只限制一条物理 Link 报文。`docs/peer-protocol-versioning.md:42`
 - `$peer.session/data` — 认证会话分块的发送信封。`docs/peer-protocol-versioning.md:47`
@@ -84,7 +84,7 @@ date: 2026-11-11
 - `PeerProtocol::VERSION` — 连接与业务同步统一使用它判断兼容性；同步收据没有独立版本。`docs/peer-protocol-versioning.md:36`
 - `consistencyReports` — 同时向远端发 `PeerSyncMethod::SyncConsistency` 并在本地调 `syncConsistency`。`core/crates/node/runtime/src/SyncConsistency.rs:25`
 - `reportsAtExchange` — 要求本地与远端报告的 `boundary` 分别等于各自收据的 `digest`。`core/crates/node/runtime/src/SyncConsistency.rs:129`
-- `verifyReports` — 校验两侧报告无错误，返回 `correctionPlans` 是否为空。`core/crates/node/runtime/src/SyncConsistency.rs:163`
+- `verifyReports` — 校验两侧报告无错误，返回 `correctionPlans` 是否为空。`core/crates/node/runtime/src/SyncConsistency.rs:164`
 
 ## 调用链
 
@@ -102,7 +102,7 @@ date: 2026-11-11
 12. 一致性取数：`consistencyReports` 同时向远端发 `PeerSyncMethod::SyncConsistency` 并在本地调 `syncConsistency`。`core/crates/node/runtime/src/SyncConsistency.rs:25`
 13. 边界校验：`reportsAtExchange` 要求本地与远端报告的 `boundary` 分别等于各自收据的 `digest`。`core/crates/node/runtime/src/SyncConsistency.rs:129`
 14. 完成校验：`verifyReports` 在任一侧有 `errors` 时返回错误。`core/crates/node/runtime/src/SyncConsistency.rs:159`
-15. 完成判定：有未决 `pendingOwners` 时 `verifyReports` 返回未完成。`core/crates/node/runtime/src/SyncConsistency.rs:242`
+15. 完成判定：有未决 `pendingOwners` 时 `verifyReports` 返回未完成。`core/crates/node/runtime/src/SyncConsistency.rs:243`
 
 ## 来源
 

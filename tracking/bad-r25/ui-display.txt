@@ -1,0 +1,8 @@
+ui-display.facts.json#52 `requiresNativeApplicationZoom` not within ±5 of apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408
+ui-display.facts.json#52 `false` not within ±5 of apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408
+ui-display.md:22 `requiresNativeApplicationZoom` not within ±5 of any ref ['apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408']
+ui-display.md:22 `false` not within ±5 of any ref ['apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408']
+ui-display.md:84 `requiresNativeApplicationZoom` not within ±5 of any ref ['apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408']
+ui-display.md:84 `false` not within ±5 of any ref ['apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408']
+ui-display.md:139 `requiresNativeApplicationZoom` not within ±5 of any ref ['apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408']
+ui-display.md:139 `false` not within ±5 of any ref ['apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408']

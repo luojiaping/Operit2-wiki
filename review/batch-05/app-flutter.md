@@ -13,8 +13,8 @@ Flutter 应用的 version 是 2.0.0+42（`apps/flutter/app/pubspec.yaml:19`）�
 Flutter 应用的 environment 要求 sdk ^3.10.8（`apps/flutter/app/pubspec.yaml:22`）。
 README 声明全部平台使用 AAswordman/flutter-ohos（`apps/flutter/app/README.md:3`）。
 README 写明的 fork 版本是 3.41.10-ohos-0.0.2-beta.operit.1（`apps/flutter/app/README.md:4`）。
-.fvmrc 钉住的 Flutter 版本是 3.41.10-ohos-0.0.2-beta.operit.9（`apps/flutter/app/.fvmrc:2`）。
-README 写明的版本与 .fvmrc 钉住的版本不一致，前者是 operit.1，后者是 operit.9（`apps/flutter/app/.fvmrc:2`）。
+.fvmrc 钉住的 Flutter 版本是 3.41.10-ohos-0.0.2-beta.operit.13（`apps/flutter/app/.fvmrc:2`）。
+README 写明的版本与 .fvmrc 钉住的版本不一致，前者是 operit.1，后者是 operit.13（`apps/flutter/app/.fvmrc:2`）。
 .fvmrc 的 flutterUrl 是 https://github.com/AAswordman/flutter-ohos.git（`apps/flutter/app/.fvmrc:3`）。
 FVM 把 fork 安装在 .fvm/flutter_sdk（`apps/flutter/app/README.md:5`）。
 构建脚本对全部平台使用同一份 SDK，包含 OpenHarmony（`apps/flutter/app/README.md:18`）。
@@ -158,5 +158,5 @@ operit_ui 要求在应用或预览启动时调用 prepareLiquidGlass 预载光�
 - 本页是总览页，只覆盖应用入口、桥接边界与目录分工；lib/ui 的功能页、bridge 的实现页、平台壳页在 v2 拆分。
 - 本页未覆盖官方 Flutter 缺失 OpenHarmony 支持的具体原因，README 与 pubspec 只写明 fork 与 OHOS 依赖的选用结果。
 - 本页未覆盖：lib/core/ 除 bridge 外的子目录（application、browser、compose、errors、host、link、logging、notifications、runtime、snapshot、theme、update、web_visit）的内部实现；lib/ui/ 除 main 与 rescue 入口外的 410 个 Dart 文件的界面实现；lib/data、lib/l10n、lib/util 的内容；bridge 的 src 内除 lib.rs、mod.rs、BridgeExports 导出入口、FfiTransport 连接入口外的实现文件；apps/flutter/thirdparty/ 的全部内容；各平台壳除入口文件前 3 行外的原生代码。
-- 已发现的不一致：README 写明的 fork 版本是 3.41.10-ohos-0.0.2-beta.operit.1，.fvmrc 钉住的版本是 3.41.10-ohos-0.0.2-beta.operit.9，两处数字不一致（`apps/flutter/app/.fvmrc:2`）。
+- 已发现的不一致：README 写明的 fork 版本是 3.41.10-ohos-0.0.2-beta.operit.1，.fvmrc 钉住的版本是 3.41.10-ohos-0.0.2-beta.operit.13，两处数字不一致（`apps/flutter/app/.fvmrc:2`）。
 - 本页只写抽查证实的内容，凡没读到的写“本页未覆盖”。

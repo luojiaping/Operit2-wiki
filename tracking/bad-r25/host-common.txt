@@ -1,0 +1,42 @@
+host-common.facts.json#68 `zipFiles` not within ±5 of hosts/common/operit-host-native-filesystem/src/lib.rs:477
+host-common.facts.json#69 `unzipFiles` not within ±5 of hosts/common/operit-host-native-filesystem/src/lib.rs:509
+host-common.facts.json#70 `openFile` not within ±5 of hosts/common/operit-host-native-filesystem/src/lib.rs:539
+host-common.facts.json#70 `open_file` not within ±5 of hosts/common/operit-host-native-filesystem/src/lib.rs:539
+host-common.facts.json#71 `shareFile` not within ±5 of hosts/common/operit-host-native-filesystem/src/lib.rs:545
+host-common.facts.json#71 `share_file` not within ±5 of hosts/common/operit-host-native-filesystem/src/lib.rs:545
+host-common.facts.json#106 `posix` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:32
+host-common.facts.json#113 `executeHiddenCommand` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:577
+host-common.facts.json#115 `requireNativeTerminal` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:1324
+host-common.facts.json#115 `TERMINAL` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:1324
+host-common.facts.json#116 `ptyCommandInput` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:1106
+host-common.facts.json#116 `posixCommandLine` not within ±5 of hosts/common/operit-host-native-terminal/src/lib.rs:1106
+host-common.facts.json#145 `--headless` not within ±5 of hosts/common/chromium_browser.rs:1050
+host-common.facts.json#146 `127.0.0.1` not within ±5 of hosts/common/chromium_browser.rs:1055
+host-common.facts.json#147 `operit2_browser_` not within ±5 of hosts/common/chromium_browser.rs:1035
+host-common.facts.json#149 `wait_for_document_ready` not within ±5 of hosts/common/chromium_browser.rs:1303
+host-common.facts.json#152 `browser_take_screenshot` not within ±5 of hosts/common/chromium_browser.rs:705
+host-common.facts.json#195 `spawn_browser` not within ±5 of hosts/common/chromium_browser.rs:1040
+host-common.facts.json#196 `wait_for_browser` not within ±5 of hosts/common/chromium_browser.rs:1110
+host-common.md:71 `zipFiles` not within ±5 of any ref ['hosts/common/operit-host-native-filesystem/src/lib.rs:477']
+host-common.md:72 `unzipFiles` not within ±5 of any ref ['hosts/common/operit-host-native-filesystem/src/lib.rs:509']
+host-common.md:119 `posix` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:32']
+host-common.md:126 `executeHiddenCommand` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:577']
+host-common.md:128 `requireNativeTerminal` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:1324']
+host-common.md:128 `TERMINAL` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:1324']
+host-common.md:129 `ptyCommandInput` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:1106']
+host-common.md:129 `posixCommandLine` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:1106']
+host-common.md:190 `openFile` not within ±5 of any ref ['hosts/common/operit-host-native-filesystem/src/lib.rs:539']
+host-common.md:190 `open_file` not within ±5 of any ref ['hosts/common/operit-host-native-filesystem/src/lib.rs:539']
+host-common.md:191 `shareFile` not within ±5 of any ref ['hosts/common/operit-host-native-filesystem/src/lib.rs:545']
+host-common.md:191 `share_file` not within ±5 of any ref ['hosts/common/operit-host-native-filesystem/src/lib.rs:545']
+host-common.md:212 `ptyCommandInput` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:1106']
+host-common.md:212 `posixCommandLine` not within ±5 of any ref ['hosts/common/operit-host-native-terminal/src/lib.rs:1106']
+host-common.md:217 `spawn_browser` not within ±5 of any ref ['hosts/common/chromium_browser.rs:1040']
+host-common.md:218 `--headless` not within ±5 of any ref ['hosts/common/chromium_browser.rs:1050']
+host-common.md:219 `127.0.0.1` not within ±5 of any ref ['hosts/common/chromium_browser.rs:1055']
+host-common.md:220 `operit2_browser_` not within ±5 of any ref ['hosts/common/chromium_browser.rs:1035']
+host-common.md:221 `wait_for_browser` not within ±5 of any ref ['hosts/common/chromium_browser.rs:1110']
+host-common.md:223 `wait_for_document_ready` not within ±5 of any ref ['hosts/common/chromium_browser.rs:1303']
+host-common.md:227 `browser_take_screenshot` not within ±5 of any ref ['hosts/common/chromium_browser.rs:705']
+host-common.md:328 `wait_for_browser` not within ±5 of any ref ['hosts/common/chromium_browser.rs:1110']
+host-common.md:329 `wait_for_document_ready` not within ±5 of any ref ['hosts/common/chromium_browser.rs:1303']

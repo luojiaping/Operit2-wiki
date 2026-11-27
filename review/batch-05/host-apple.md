@@ -2,7 +2,7 @@
 title: Apple Host（macOS 与 iOS 共享实现）
 module: hosts
 platforms: [macos, ios]
-sources: [hosts/apple/Cargo.toml, hosts/apple/src/lib.rs, hosts/apple/src/tools/fs/mod.rs, hosts/apple/src/tools/terminal/mod.rs, hosts/apple/src/tools/terminal/terminal_macos.rs, hosts/apple/src/tools/browser/mod.rs, hosts/apple/src/tools/runtime/mod.rs, hosts/apple/src/tools/storage/mod.rs, hosts/apple/src/tools/system/mod.rs, hosts/apple/src/tools/system/battery.rs, hosts/apple/src/tools/system/packages.rs, hosts/apple/src/tools/local_inference/mod.rs, hosts/apple/src/tools/tts/mod.rs, hosts/apple/src/tools/http/mod.rs, hosts/apple/src/tools/audio/mod.rs, hosts/apple/src/tools/bluetooth/mod.rs, hosts/apple/src/sandbox.rs, hosts/apple/src/service_discovery.rs, hosts/macos/src/lib.rs, hosts/common/managed_runtime_process.rs]
+sources: [hosts/apple/Cargo.toml, hosts/apple/src/lib.rs, hosts/apple/src/tools/fs/mod.rs, hosts/apple/src/tools/terminal/mod.rs, hosts/apple/src/tools/terminal/terminal_macos.rs, hosts/apple/src/tools/browser/mod.rs, hosts/apple/src/tools/runtime/mod.rs, hosts/apple/src/tools/storage/mod.rs, hosts/apple/src/tools/system/mod.rs, hosts/apple/src/tools/system/battery.rs, hosts/apple/src/tools/system/packages.rs, hosts/apple/src/tools/local_inference/mod.rs, hosts/apple/src/tools/tts/mod.rs, hosts/apple/src/tools/http/mod.rs, hosts/apple/src/tools/audio/mod.rs, hosts/apple/src/tools/bluetooth/mod.rs, hosts/apple/src/sandbox.rs, hosts/apple/src/service_discovery.rs, hosts/macos/src/lib.rs, hosts/common/managed_runtime_process.rs, hosts/common/operit-host-native-filesystem/src/grep.rs]
 date: 2026-11-11
 ---
 
@@ -56,26 +56,26 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - 签名查询失败时隔离级别回落为 `HostIsolation::OsAppSandbox`（`hosts/apple/src/sandbox.rs:15`）。
 - 非 macOS 目标上隔离级别直接为 `HostIsolation::OsAppSandbox`（`hosts/apple/src/sandbox.rs:21`）。
 - 沙盒判定检查签名授权项 `com.apple.security.app-sandbox`（`hosts/apple/src/sandbox.rs:69`）。
-- `validatePath` 要求路径为非空的 Apple 平台绝对路径（`hosts/apple/src/tools/fs/mod.rs:67`）。
-- 环境描述符的 `isolation` 取自 `processIsolation`（`hosts/apple/src/tools/fs/mod.rs:548`）。
-- 环境描述符的 `privilege` 为 `HostPrivilege::Normal`（`hosts/apple/src/tools/fs/mod.rs:547`）。
-- macOS 沙盒下容器外文件需用户选择文件夹授权，子进程仍受沙盒限制（`hosts/apple/src/tools/fs/mod.rs:626`）。
-- macOS 非沙盒时 `workspaceRoots` 把物理根 `/` 映射为 VFS 的 `/virtual/macos`（`hosts/apple/src/tools/fs/mod.rs:639`）。
-- macOS 下描述符追加 `screen.capture` 能力（`hosts/apple/src/tools/fs/mod.rs:645`）。
-- `openFile` 优先调用已注册的 `opener` 回调打开文件（`hosts/apple/src/tools/fs/mod.rs:477`）。
-- macOS 上无回调时调用 `open` 命令打开文件（`hosts/apple/src/tools/fs/mod.rs:483`）。
-- 非 macOS 且无回调时打开文件报错，提示应用方未注册 Apple file opener（`hosts/apple/src/tools/fs/mod.rs:491`）。
-- `shareFile` 在 macOS 上用 open -R 在 Finder 中揭示文件（`hosts/apple/src/tools/fs/mod.rs:503`）。
-- iOS 上文件分享报错，要求由 Flutter 方 UI 发起（`hosts/apple/src/tools/fs/mod.rs:515`）。
-- 文件查找用 `GlobBuilder` 按 pattern 匹配，并用 `WalkBuilder` 按 `maxDepth` 限制遍历深度（`hosts/apple/src/tools/fs/mod.rs:268`）。
-- 代码搜索用 `RegexMatcherBuilder` 编译正则（`hosts/apple/src/tools/fs/mod.rs:348`）。
-- 代码搜索以 `BinaryDetection::quit` 在 NUL 字节处停止，并以 `maxResults` 限制匹配数（`hosts/apple/src/tools/fs/mod.rs:359`）。
-- 压缩用 `CompressionMethod::Deflated`（`hosts/apple/src/tools/fs/mod.rs:421`）。
-- 解压用 `enclosed_name` 校验 zip 条目路径（`hosts/apple/src/tools/fs/mod.rs:457`）。
-- 入门要求只有通知一项，`isRequired` 为 `true`，初始状态为 `Missing`（`hosts/apple/src/tools/fs/mod.rs:666`）。
-- 能力列表含 `fs.read`、`fs.write`、`fs.search` 与 `fs.archive`（`hosts/apple/src/tools/fs/mod.rs:562`）。
-- 能力列表含 `system.notifications.send`、`system.location` 与 `ocr.recognition`（`hosts/apple/src/tools/fs/mod.rs:574`）。
-- 能力列表含 `runtime.process`、`runtime.storage` 与 `runtime.sqlite`（`hosts/apple/src/tools/fs/mod.rs:577`）。
+- `validatePath` 要求路径为非空的 Apple 平台绝对路径（`hosts/apple/src/tools/fs/mod.rs:65`）。
+- 环境描述符的 `isolation` 取自 `processIsolation`（`hosts/apple/src/tools/fs/mod.rs:483`）。
+- 环境描述符的 `privilege` 为 `HostPrivilege::Normal`（`hosts/apple/src/tools/fs/mod.rs:482`）。
+- macOS 沙盒下容器外文件需用户选择文件夹授权，子进程仍受沙盒限制（`hosts/apple/src/tools/fs/mod.rs:561`）。
+- macOS 非沙盒时 `workspaceRoots` 把物理根 `/` 映射为 VFS 的 `/virtual/macos`（`hosts/apple/src/tools/fs/mod.rs:574`）。
+- macOS 下描述符追加 `screen.capture` 能力（`hosts/apple/src/tools/fs/mod.rs:580`）。
+- `openFile` 优先调用已注册的 `opener` 回调打开文件（`hosts/apple/src/tools/fs/mod.rs:412`）。
+- macOS 上无回调时调用 `open` 命令打开文件（`hosts/apple/src/tools/fs/mod.rs:418`）。
+- 非 macOS 且无回调时打开文件报错，提示应用方未注册 Apple file opener（`hosts/apple/src/tools/fs/mod.rs:426`）。
+- `shareFile` 在 macOS 上用 open -R 在 Finder 中揭示文件（`hosts/apple/src/tools/fs/mod.rs:438`）。
+- iOS 上文件分享报错，要求由 Flutter 方 UI 发起（`hosts/apple/src/tools/fs/mod.rs:450`）。
+- 文件查找用 `GlobBuilder` 按 pattern 匹配，并用 `WalkBuilder` 按 `maxDepth` 限制遍历深度（`hosts/apple/src/tools/fs/mod.rs:266`）。
+- 代码搜索用 `RegexMatcherBuilder` 编译正则（`hosts/common/operit-host-native-filesystem/src/grep.rs:21`）。
+- 代码搜索以 `BinaryDetection::quit` 在 NUL 字节处停止，并以 `maxResults` 限制匹配数（`hosts/common/operit-host-native-filesystem/src/grep.rs:38`）。
+- 压缩用 `CompressionMethod::Deflated`（`hosts/apple/src/tools/fs/mod.rs:356`）。
+- 解压用 `enclosed_name` 校验 zip 条目路径（`hosts/apple/src/tools/fs/mod.rs:392`）。
+- 入门要求只有通知一项，`isRequired` 为 `true`，初始状态为 `Missing`（`hosts/apple/src/tools/fs/mod.rs:601`）。
+- 能力列表含 `fs.read`、`fs.write`、`fs.search` 与 `fs.archive`（`hosts/apple/src/tools/fs/mod.rs:497`）。
+- 能力列表含 `system.notifications.send`、`system.location` 与 `ocr.recognition`（`hosts/apple/src/tools/fs/mod.rs:509`）。
+- 能力列表含 `runtime.process`、`runtime.storage` 与 `runtime.sqlite`（`hosts/apple/src/tools/fs/mod.rs:512`）。
 
 ### 终端：macOS 真 PTY 与 iOS 桩
 
@@ -84,14 +84,14 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - 沙盒下只注册一个 bash 适配器，`withControllingTty(false)` 关闭控制终端（`hosts/apple/src/tools/terminal/terminal_macos.rs:38`）。
 - 非沙盒下注册 `/bin/bash` 与 `/bin/zsh` 两个登录 shell（`hosts/apple/src/tools/terminal/terminal_macos.rs:42`）。
 - 非沙盒下默认 shell 取自 `SHELL` 环境变量，缺省为 `/bin/zsh`（`hosts/apple/src/tools/terminal/terminal_macos.rs:47`）。
-- 沙盒下终端类型描述为 macOS sandbox PTY（without controlling TTY）（`hosts/apple/src/tools/terminal/terminal_macos.rs:161`）。
-- 非沙盒下终端类型描述为 macOS native 登录 PTY，带作业控制（`hosts/apple/src/tools/terminal/terminal_macos.rs:163`）。
+- 沙盒下终端类型描述为 macOS sandbox PTY（without controlling TTY）（`hosts/apple/src/tools/terminal/terminal_macos.rs:170`）。
+- 非沙盒下终端类型描述为 macOS native 登录 PTY，带作业控制（`hosts/apple/src/tools/terminal/terminal_macos.rs:172`）。
 - 只接受 `terminal` 为 native 的请求，否则报 Unsupported macOS terminal 错误（`hosts/apple/src/tools/terminal/terminal_macos.rs:70`）。
 - `hostForSession` 按 `ownsSession` 查找会话，未知会话报 Unknown macOS terminal session 错误（`hosts/apple/src/tools/terminal/terminal_macos.rs:83`）。
-- `createOrGetSession` 使用 `primary` 解释器创建或复用会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:275`）。
-- 开启 `arm64-runtime` 特性时 `terminal` 为 `arm64` 的请求转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:132`）。
-- 开启 `arm64-runtime` 特性时 `macos-arm64-` 前缀的会话 ID 转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:215`）。
-- `executeHiddenCommand` 使用 `primary` 解释器执行隐藏命令（`hosts/apple/src/tools/terminal/terminal_macos.rs:364`）。
+- `createOrGetSession` 使用 `primary` 解释器创建或复用会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:284`）。
+- 开启 `arm64-runtime` 特性时 `terminal` 为 `arm64` 的请求转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:141`）。
+- 开启 `arm64-runtime` 特性时 `macos-arm64-` 前缀的会话 ID 转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:224`）。
+- `executeHiddenCommand` 使用 `primary` 解释器执行隐藏命令（`hosts/apple/src/tools/terminal/terminal_macos.rs:373`）。
 - iOS 下 `terminalInfo` 返回“iOS does not expose a local PTY host”错误（`hosts/apple/src/tools/terminal/mod.rs:43`）。
 - iOS 下 `listSessions` 返回空列表而不报错（`hosts/apple/src/tools/terminal/mod.rs:78`）。
 
@@ -288,16 +288,16 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 
 ### 文件打开
 
-1. 调用方调 `openFile`，先校验路径为可读文件（`hosts/apple/src/tools/fs/mod.rs:477`）。
-2. 已注册 `opener` 回调时直接调用回调（`hosts/apple/src/tools/fs/mod.rs:477`）。
-3. macOS 上无回调时调用 `open` 命令打开文件（`hosts/apple/src/tools/fs/mod.rs:483`）。
-4. 非 macOS 且无回调时返回错误（`hosts/apple/src/tools/fs/mod.rs:491`）。
+1. 调用方调 `openFile`，先校验路径为可读文件（`hosts/apple/src/tools/fs/mod.rs:412`）。
+2. 已注册 `opener` 回调时直接调用回调（`hosts/apple/src/tools/fs/mod.rs:412`）。
+3. macOS 上无回调时调用 `open` 命令打开文件（`hosts/apple/src/tools/fs/mod.rs:418`）。
+4. 非 macOS 且无回调时返回错误（`hosts/apple/src/tools/fs/mod.rs:426`）。
 
 ### 终端会话创建（macOS）
 
 1. AppleTerminalHost 的 `new` 先以 `processIsolation` 判定沙盒状态（`hosts/apple/src/tools/terminal/terminal_macos.rs:32`）。
 2. 沙盒下只注册一个 `bash` 适配器，非沙盒下注册 `/bin/bash` 与 `/bin/zsh` 登录 shell（`hosts/apple/src/tools/terminal/terminal_macos.rs:38`）。
-3. 调用方调 `createOrGetSession`，复用 `primary` 解释器的同名会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:275`）。
+3. 调用方调 `createOrGetSession`，复用 `primary` 解释器的同名会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:284`）。
 4. 会话操作按 `ownsSession` 定位所属的底层 PTY Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:83`）。
 
 ### 服务发现订阅
@@ -336,3 +336,4 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - hosts/apple/src/service_discovery.rs
 - hosts/macos/src/lib.rs
 - hosts/common/managed_runtime_process.rs
+- hosts/common/operit-host-native-filesystem/src/grep.rs

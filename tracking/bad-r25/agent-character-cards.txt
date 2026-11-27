@@ -1,0 +1,62 @@
+agent-character-cards.facts.json#12 `initializeChatExtension` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:127
+agent-character-cards.facts.json#12 `prepareChatBinding` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:127
+agent-character-cards.facts.json#17 `{ version: 1, selection }` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:41
+agent-character-cards.facts.json#20 `registerChatInitialization` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:132
+agent-character-cards.facts.json#20 `chat-initialization` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:132
+agent-character-cards.facts.json#20 `beforeChatCreate` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:132
+agent-character-cards.facts.json#23 `before_create` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:118
+agent-character-cards.facts.json#24 `model:chat` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:122
+agent-character-cards.facts.json#29 `prepareChatBinding` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:126
+agent-character-cards.facts.json#29 `recordId` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:126
+agent-character-cards.facts.json#29 `schemaVersion` not within ±5 of plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:126
+agent-character-cards.facts.json#30 `prepareChatBinding` not within ±5 of plugins/packages/buildin/character_cards/src/storage/chats.ts:81
+agent-character-cards.facts.json#30 `draft_` not within ±5 of plugins/packages/buildin/character_cards/src/storage/chats.ts:81
+agent-character-cards.facts.json#31 `commitDraftBinding` not within ±5 of plugins/packages/buildin/character_cards/src/storage/chats.ts:98
+agent-character-cards.facts.json#33 `abortDraftBinding` not within ±5 of plugins/packages/buildin/character_cards/src/storage/chats.ts:110
+agent-character-cards.facts.json#34 `readDraftBinding` not within ±5 of plugins/packages/buildin/character_cards/src/storage/chats.ts:91
+agent-character-cards.facts.json#37 `bindingsForChats` not within ±5 of plugins/packages/buildin/character_cards/src/storage/chats.ts:37
+agent-character-cards.facts.json#38 `writeChatBinding` not within ±5 of plugins/packages/buildin/character_cards/src/storage/chats.ts:73
+agent-character-cards.facts.json#44 `deleteChatBinding` not within ±5 of plugins/packages/buildin/character_cards/src/storage/chats.ts:118
+agent-character-cards.facts.json#46 `chatsForMemoryOwner` not within ±5 of plugins/packages/buildin/character_cards/src/storage/chats.ts:48
+agent-character-cards.facts.json#54 `request.chatExtension` not within ±5 of plugins/packages/buildin/character_cards/src/domain.ts:383
+agent-character-cards.facts.json#54 `parseChatSelection` not within ±5 of plugins/packages/buildin/character_cards/src/domain.ts:383
+agent-character-cards.facts.json#56 `withGroupParticipantPrompt` not within ±5 of plugins/packages/buildin/character_cards/src/domain.ts:414
+agent-character-cards.facts.json#62 `shared:` not within ±5 of plugins/packages/buildin/character_cards/src/domain.ts:341
+agent-character-cards.md:16 `prepareChatBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:81']
+agent-character-cards.md:17 `commitDraftBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:98']
+agent-character-cards.md:18 `abortDraftBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:110']
+agent-character-cards.md:20 `withGroupParticipantPrompt` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/domain.ts:414']
+agent-character-cards.md:23 `registerChatInitialization` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:132']
+agent-character-cards.md:23 `chat-initialization` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:132']
+agent-character-cards.md:40 `initializeChatExtension` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:126']
+agent-character-cards.md:40 `prepareChatBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:126']
+agent-character-cards.md:41 `binding_` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:105']
+agent-character-cards.md:46 `{ version: 1, selection }` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:41']
+agent-character-cards.md:52 `registerChatInitialization` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:132']
+agent-character-cards.md:52 `chat-initialization` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:132']
+agent-character-cards.md:52 `beforeChatCreate` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:132']
+agent-character-cards.md:55 `before_create` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:118']
+agent-character-cards.md:56 `model:chat` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:122']
+agent-character-cards.md:61 `prepareChatBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:126']
+agent-character-cards.md:61 `recordId` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:126']
+agent-character-cards.md:61 `schemaVersion` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:126']
+agent-character-cards.md:62 `prepareChatBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:81']
+agent-character-cards.md:62 `draft_` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:81']
+agent-character-cards.md:63 `commitDraftBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:98']
+agent-character-cards.md:65 `abortDraftBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:110']
+agent-character-cards.md:66 `readDraftBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:91']
+agent-character-cards.md:69 `bindingsForChats` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:37']
+agent-character-cards.md:70 `writeChatBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:73']
+agent-character-cards.md:76 `deleteChatBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:118']
+agent-character-cards.md:78 `chatsForMemoryOwner` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:48']
+agent-character-cards.md:90 `parseChatSelection` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/domain.ts:383']
+agent-character-cards.md:92 `withGroupParticipantPrompt` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/domain.ts:414']
+agent-character-cards.md:98 `shared:` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/domain.ts:341']
+agent-character-cards.md:140 `registerChatInitialization` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:132']
+agent-character-cards.md:140 `chat-initialization` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:132']
+agent-character-cards.md:144 `withGroupParticipantPrompt` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/domain.ts:414']
+agent-character-cards.md:156 `before_create` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:118']
+agent-character-cards.md:158 `model:chat` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/chat-lifecycle.ts:122']
+agent-character-cards.md:161 `prepareChatBinding` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:81']
+agent-character-cards.md:161 `draft_` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/storage/chats.ts:81']
+agent-character-cards.md:165 `withGroupParticipantPrompt` not within ±5 of any ref ['plugins/packages/buildin/character_cards/src/domain.ts:414']

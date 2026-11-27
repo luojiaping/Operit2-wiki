@@ -1,0 +1,49 @@
+host-web.facts.json#87 `BusyBox` not within ±5 of hosts/web/src/tools/terminal/mod.rs:81
+host-web.facts.json#87 `Node` not within ±5 of hosts/web/src/tools/terminal/mod.rs:81
+host-web.facts.json#87 `Python` not within ±5 of hosts/web/src/tools/terminal/mod.rs:81
+host-web.facts.json#88 `/mnt/operit-host/` not within ±5 of hosts/web/src/tools/terminal/mod.rs:59
+host-web.facts.json#89 `cols` not within ±5 of hosts/web/src/tools/terminal/mod.rs:101
+host-web.facts.json#91 `linux-vm-terminal-{value}` not within ±5 of hosts/web/src/tools/terminal/mod.rs:455
+host-web.facts.json#92 `pollPtyExitCode` not within ±5 of hosts/web/src/tools/terminal/mod.rs:171
+host-web.facts.json#92 `None` not within ±5 of hosts/web/src/tools/terminal/mod.rs:171
+host-web.facts.json#93 `sessionKind` not within ±5 of hosts/web/src/tools/terminal/mod.rs:200
+host-web.facts.json#93 `linux-vm` not within ±5 of hosts/web/src/tools/terminal/mod.rs:200
+host-web.facts.json#94 `isNewSession` not within ±5 of hosts/web/src/tools/terminal/mod.rs:233
+host-web.facts.json#96 `timeoutMs` not within ±5 of hosts/web/src/tools/terminal/mod.rs:309
+host-web.facts.json#97 `executeHiddenCommand` not within ±5 of hosts/web/src/tools/terminal/mod.rs:338
+host-web.facts.json#98 `getSessionScreen` not within ±5 of hosts/web/src/tools/terminal/mod.rs:375
+host-web.facts.json#98 `vt100::Parser` not within ±5 of hosts/web/src/tools/terminal/mod.rs:375
+host-web.facts.json#99 `output` not within ±5 of hosts/web/src/tools/terminal/mod.rs:277
+host-web.facts.json#99 `exitCode` not within ±5 of hosts/web/src/tools/terminal/mod.rs:277
+host-web.facts.json#99 `timedOut` not within ±5 of hosts/web/src/tools/terminal/mod.rs:277
+host-web.facts.json#99 `workingDir` not within ±5 of hosts/web/src/tools/terminal/mod.rs:277
+host-web.facts.json#162 `createArchive` not within ±5 of hosts/web/README.md:87
+host-web.facts.json#162 `appendArchive` not within ±5 of hosts/web/README.md:87
+host-web.facts.json#162 `sealArchive` not within ±5 of hosts/web/README.md:87
+host-web.facts.json#162 `readArchive` not within ±5 of hosts/web/README.md:87
+host-web.facts.json#163 `Blob` not within ±5 of hosts/web/README.md:90
+host-web.facts.json#163 `openRead()` not within ±5 of hosts/web/README.md:90
+host-web.md:179 `BusyBox` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:81']
+host-web.md:179 `Node` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:81']
+host-web.md:179 `Python` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:81']
+host-web.md:180 `/mnt/operit-host/` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:59']
+host-web.md:181 `cols` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:101']
+host-web.md:183 `linux-vm-terminal-{value}` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:455']
+host-web.md:184 `pollPtyExitCode` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:171']
+host-web.md:184 `None` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:171']
+host-web.md:185 `sessionKind` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:200']
+host-web.md:185 `linux-vm` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:200']
+host-web.md:186 `isNewSession` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:233']
+host-web.md:188 `timeoutMs` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:309']
+host-web.md:189 `executeHiddenCommand` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:338']
+host-web.md:190 `vt100::Parser` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:375']
+host-web.md:191 `output` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:277']
+host-web.md:191 `exitCode` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:277']
+host-web.md:191 `timedOut` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:277']
+host-web.md:191 `workingDir` not within ±5 of any ref ['hosts/web/src/tools/terminal/mod.rs:277']
+host-web.md:199 `createArchive` not within ±5 of any ref ['hosts/web/README.md:87']
+host-web.md:199 `appendArchive` not within ±5 of any ref ['hosts/web/README.md:87']
+host-web.md:199 `sealArchive` not within ±5 of any ref ['hosts/web/README.md:87']
+host-web.md:199 `readArchive` not within ±5 of any ref ['hosts/web/README.md:87']
+host-web.md:200 `Blob` not within ±5 of any ref ['hosts/web/README.md:90']
+host-web.md:200 `openRead()` not within ±5 of any ref ['hosts/web/README.md:90']

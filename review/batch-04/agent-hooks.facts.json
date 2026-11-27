@@ -357,15 +357,15 @@
   },
   {
     "fact": "摘要生成在 after_generate_summary 阶段派发摘要 hook。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:598"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:587"
   },
   {
     "fact": "`before_prepare_summary_prompt` 分发前先用 `buildSummaryPreparedHistory` 预生成 `prepared_history`，不再传空历史。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:510"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:494"
   },
   {
     "fact": "分发后用 `reconcileSummaryPreparedHistory` 对账，取 hook 改动后的 preparedHistory。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:524"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:508"
   },
   {
     "fact": "同文件的测试把 after_generate_summary 列为不创建截止时间的阶段。",

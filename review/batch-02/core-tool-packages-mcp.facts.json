@@ -28,8 +28,8 @@
     "ref": "core/crates/tool/services/src/tools/PackageToolExecutor.rs:97"
   },
   {
-    "fact": "packageToolResult 把 JsPackageToolCallResult 转成 ToolResult，文本结果经 stringResultData 包装。",
-    "ref": "core/crates/tool/services/src/tools/PackageToolExecutor.rs:111"
+    "fact": "packageToolResult 把 JsPackageToolCallResult 转成 ToolResult，成功的结果按 JSON 解析为 JsonResultData，失败的结果经 stringResultData 包装。",
+    "ref": "core/crates/tool/services/src/tools/PackageToolExecutor.rs:110"
   },
   {
     "fact": "SkillPackage 由 name、description、directory 与 skillFile 四个字段组成，directory 与 skillFile 均为 PathBuf。",
@@ -489,7 +489,7 @@
   },
   {
     "fact": "依赖调用的调用方只需绑定 ToolPkg context，请求的目标运行时固定为 main。",
-    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2230"
+    "ref": "core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:2282"
   },
   {
     "fact": "`package_name` 参数指定要激活的包。",

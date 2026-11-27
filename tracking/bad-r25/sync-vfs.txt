@@ -1,0 +1,4 @@
+sync-vfs.facts.json#60 `cd core` not within ±5 of docs/filesystem-access-boundary.md:19
+sync-vfs.facts.json#60 `cargo test -p operit-tools --lib --test native_filesystem_boundary` not within ±5 of docs/filesystem-access-boundary.md:19
+sync-vfs.md:57 `cd core` not within ±5 of any ref ['docs/filesystem-access-boundary.md:19']
+sync-vfs.md:57 `cargo test -p operit-tools --lib --test native_filesystem_boundary` not within ±5 of any ref ['docs/filesystem-access-boundary.md:19']

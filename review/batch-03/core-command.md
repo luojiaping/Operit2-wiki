@@ -52,8 +52,8 @@ date: 2026-11-11
 - `chat` 组有 15 个子命令，分两段列出：`new`、`list`、`show`、`current`、`switch`、`delete`（`core/crates/command/core/src/commands/chat.rs:39`）。
 - 其余 9 个是 `delete-message`、`clear`、`rollback`、`branch`、`branches`、`lock`、`pin`、`send`、`stats`（`core/crates/command/core/src/commands/chat.rs:47`）。
 - `model` 组的 match 分支从委派分支起：`capabilities-show`、`capabilities-set`、`request-show`、`request-set`、`provider-set`、`profile-show`、`profile-set`、`builtin-tools-show`、`builtin-tool-set`、`param-set` 十个子命令交 `model_options` 处理（`core/crates/command/core/src/commands/model.rs:48`）；`codex-status` 分支在其后（`core/crates/command/core/src/commands/model.rs:57`）。
-- model 组的 match 分支到 `function-reset` 止（`core/crates/command/core/src/commands/model.rs:790`）。
-- catalog-status 与 `catalog-refresh` 共用一个分支，分别查与刷新 `models.dev` 目录（`core/crates/command/core/src/commands/model.rs:379`）。
+- model 组的 match 分支到 `function-reset` 止（`core/crates/command/core/src/commands/model.rs:796`）。
+- catalog-status 与 `catalog-refresh` 共用一个分支，分别查与刷新 `models.dev` 目录（`core/crates/command/core/src/commands/model.rs:380`）。
 - `tool` 组有 `list` 与 `show` 子命令（`core/crates/command/core/src/commands/tool.rs:22`）。
 - `tool` 组有 `exec` 子命令（`core/crates/command/core/src/commands/tool.rs:31`）。
 - `sync` 组只有 `reset-transactions` 一个子命令，且要求不带额外参数（`core/crates/command/core/src/commands/sync.rs:11`）。
@@ -80,8 +80,8 @@ date: 2026-11-11
 **密钥处理**
 
 - provider-set-key 只输出 API key 长度，不输出 key 本身（`core/crates/command/core/src/commands/model.rs:240`）。
-- `print_provider_profile` 只输出 API key 长度，不输出 key 本身（`core/crates/command/core/src/commands/model.rs:882`）。
-- Provider JSON 只含 `apiKeyLength` 与密钥池元数据，不含 key 值（`core/crates/command/core/src/commands/model.rs:1052`）。
+- `print_provider_profile` 只输出 API key 长度，不输出 key 本身（`core/crates/command/core/src/commands/model.rs:883`）。
+- Provider JSON 只含 `apiKeyLength` 与密钥池元数据，不含 key 值（`core/crates/command/core/src/commands/model.rs:1062`）。
 
 **条件与边界**
 
@@ -92,19 +92,19 @@ date: 2026-11-11
 - `stats` 只输出中性汇总统计：总会话数与总消息数（`core/crates/command/core/src/commands/chat.rs:367`）。
 - `tool exec` 用 `ToolExecutionPolicy::Direct` 策略执行，只取最后一个结果（`core/crates/command/core/src/commands/tool.rs:117`）。
 - `tool list` 的 `scope` 只接受 `public`、`internal`、`all`，其他值返回用法错误（`core/crates/command/core/src/commands/tool.rs:60`）。
-- `model use` 只把 `CHAT` 功能的模型绑定设为指定 provider 与 model（`core/crates/command/core/src/commands/model.rs:441`）。
-- provider-model-available-list 默认只保留 `isFetched` 的模型，传 `all` 才含历史（`core/crates/command/core/src/commands/model.rs:293`）。
-- provider-model-add 要求模型已在可用列表里，否则报错并提示用 `provider-model-create` 按 id 添加（`core/crates/command/core/src/commands/model.rs:334`）。
-- `summary-set` 要求恰好 5 个参数（`core/crates/command/core/src/commands/model.rs:608`）。
+- `model use` 只把 `CHAT` 功能的模型绑定设为指定 provider 与 model（`core/crates/command/core/src/commands/model.rs:443`）。
+- provider-model-available-list 默认只保留 `isFetched` 的模型，传 `all` 才含历史（`core/crates/command/core/src/commands/model.rs:294`）。
+- provider-model-add 要求模型已在可用列表里，否则报错并提示用 `provider-model-create` 按 id 添加（`core/crates/command/core/src/commands/model.rs:336`）。
+- `summary-set` 要求恰好 5 个参数（`core/crates/command/core/src/commands/model.rs:614`）。
 - `chat new` 的 `--set-current` 默认值为 `true`（`core/crates/command/core/src/commands/chat.rs:422`）。
 - `chat` 未知子命令返回错误，不打印用法（`core/crates/command/core/src/commands/chat.rs:52`）。
-- `model` 未知子命令落到 `print_model_usage`（`core/crates/command/core/src/commands/model.rs:811`）。
+- `model` 未知子命令落到 `print_model_usage`（`core/crates/command/core/src/commands/model.rs:817`）。
 - `tool` 未知子命令打印用法（`core/crates/command/core/src/commands/tool.rs:31`）。
 
 **用法文本与实现的两处不一致**
 
-- `print_model_usage` 的用法列表包含 `codex-login`（`core/crates/command/core/src/commands/model.rs:1125`）。
-- 未知 `model` 子命令落到 `print_model_usage`；用法里列出的 codex-login 没有对应的执行分支（`core/crates/command/core/src/commands/model.rs:811`）。
+- `print_model_usage` 的用法列表包含 `codex-login`（`core/crates/command/core/src/commands/model.rs:1135`）。
+- 未知 `model` 子命令落到 `print_model_usage`；用法里列出的 codex-login 没有对应的执行分支（`core/crates/command/core/src/commands/model.rs:817`）。
 - `print_chat_usage` 写 `operit2 chat show <chat-id> [--runtime]`（`core/crates/command/core/src/commands/chat.rs:711`）。
 - `show_chat` 只读 `args`[0] 作 `chatId`，不读后续参数，`--runtime` 不起作用（`core/crates/command/core/src/commands/chat.rs:89`）。
 - `print_chat_usage` 的 `chat new` 用法行没有列出 --workspace（`core/crates/command/core/src/commands/chat.rs:709`）。
@@ -155,6 +155,6 @@ date: 2026-11-11
 - core/crates/command/core/src/commands/chat.rs（729 行）
 - core/crates/command/core/src/commands/sync.rs（44 行）
 - core/crates/command/core/src/commands/tool.rs（156 行）
-- core/crates/command/core/src/commands/model.rs（1181 行）
+- core/crates/command/core/src/commands/model.rs（1191 行）
 
 命令层与应用门面的关系见 [[core-application|应用组装——CoreApplication 门面]]。

@@ -33,23 +33,23 @@
  },
  {
   "fact": "NativeCrashActivity 以 :crash 进程运行。",
-  "ref": "tools/tests/android_runtime_contracts.test.mjs:227"
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:250"
  },
  {
   "fact": "Android 崩溃进程跳过重启动作与全部 Core 生命周期事件。",
-  "ref": "tools/tests/android_runtime_contracts.test.mjs:225"
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:248"
  },
  {
   "fact": "Android 运行时创建用独立的 runtimeCreationLock，与 runtimeLock 分离。",
-  "ref": "tools/tests/android_runtime_contracts.test.mjs:254"
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:277"
  },
  {
   "fact": "runtimeLock 只保护状态，不含 prepareAndroidRuntimePaths、AndroidRuntimeAssets.prepare、OperitRuntimeNative.create 与 destroy 等昂贵工作。",
-  "ref": "tools/tests/android_runtime_contracts.test.mjs:197"
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:220"
  },
  {
   "fact": "Android 宿主广播经 HostEventBridge 走非阻塞运行时事件槽。",
-  "ref": "tools/tests/android_runtime_contracts.test.mjs:319"
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:342"
  },
  {
   "fact": "该测试断言 AndroidRuntimeHost.kt 内 OperitRuntimeNative.emitRuntimeEvent 只出现一次调用。",
@@ -57,15 +57,15 @@
  },
  {
   "fact": "Android 发布先校验 APK 的运行时资产再复制到 dist：verify_android_runtime_assets 在 publish_android_apk 之前执行。",
-  "ref": "tools/tests/android_runtime_contracts.test.mjs:310"
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:333"
  },
  {
   "fact": "Android Rust profile 跟随构建变体：debug 对应 debug，profile 与 release 对应 release。",
-  "ref": "tools/tests/android_runtime_contracts.test.mjs:365"
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:388"
  },
  {
   "fact": "ProGuard 保留 AndroidRuntimeHost 的 JNI 方法。",
-  "ref": "tools/tests/android_runtime_contracts.test.mjs:290"
+  "ref": "tools/tests/android_runtime_contracts.test.mjs:313"
  },
  {
   "fact": "内置工具目录由 SystemToolPrompts.rs 的公开提示与 SystemToolPromptsInternal.rs 的内部提示共同组成。",

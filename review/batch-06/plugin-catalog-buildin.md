@@ -45,7 +45,7 @@ Browser 自动化操作（browser）— 严格对齐 Playwright MCP 默认 brows
 Crossref 学术文献查询（crossref）— Crossref 学术文献查询工具，提供 DOI 查询、关键词搜索、作者搜索等功能，帮助用户查找和获取学术文章元数据；默认启用（`plugins/packages/buildin/crossref.ts:14`）（`plugins/packages/buildin/crossref.ts:4`）。
 增强文件工具（`extended_file_tools`）— 基于 v2 VFS 的增强文件工具：检查存在、压缩、解压、打开和分享。移动、复制和文件信息由内置文件工具提供；默认启用（`plugins/packages/buildin/extended_file_tools.ts:7`）。
 Operit 平台编辑器（operit_editor）— 通过真实的 core command 执行入口管理 Operit2 的包、Skill、MCP、模型、偏好设置、聊天与工作区，返回实际执行结果；默认启用（`plugins/packages/buildin/operit_editor.ts:13`）（`plugins/packages/buildin/operit_editor.ts:4`）。
-超级管理员（`com.operit.super_admin`）— 终端命令和会话管理，自动关闭闲置 10 分钟的工具终端；默认启用（`plugins/packages/buildin/super_admin/manifest.json:3`）（`plugins/packages/buildin/super_admin/manifest.json:9`）（`plugins/packages/buildin/super_admin/manifest.json:12`）。
+超级管理员（`com.operit.super_admin`）— 独立命令执行与持久交互终端，命令结束后闲置 10 分钟自动清理，交互终端须显式关闭；默认启用（`plugins/packages/buildin/super_admin/manifest.json:3`）（`plugins/packages/buildin/super_admin/manifest.json:9`）（`plugins/packages/buildin/super_admin/manifest.json:12`）。
 系统工具（`system_tools`）— 提供系统设置、应用管理、通知、位置、设备信息和蓝牙操作；默认启用（`plugins/packages/buildin/system_tools.ts:7`）。
 时间（`time`）— 提供时间相关功能。实际上，激活本包的同时已经能够获取时间了；默认启用（`plugins/packages/buildin/time.ts:14`）（`plugins/packages/buildin/time.ts:4`）。
 
@@ -82,7 +82,7 @@ AI 相互对话声明了 env：`AI_API_BASE_URL`、`AI_API_KEY`、`AI_MODEL_NAME
 
 ### character_cards 为什么这么大
 
-角色卡的 src/ 共 107 个文件，其中 .ts 文件 104 个、合计 16442 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
+角色卡的 src/ 共 107 个文件，其中 .ts 文件 104 个、合计 16518 行（`plugins/packages/buildin/character_cards/src/main.ts:1`）。
 对照：工作流的 src/ 共 14 个 .ts 文件、合计 2967 行（`plugins/packages/buildin/workflow/src/main.ts:1`）。
 角色卡另有 web/ 前端 3 个文件，其中 .ts 文件 2 个、合计 283 行（`plugins/packages/buildin/character_cards/web/app.ts:1`）。
 注：角色卡 src/ 的统计按上游 0f08fd43 清点，2026-11-15 对 ff5373fb6 复核无变化（102 个文件、99 个 .ts、15830 行）；web/ 按 ff5373fb6 重清点为 3 个文件、2 个 .ts、229 行；2026-11-18 对 753366ff4 复核：src/ 仍 102 个文件、99 个 .ts、合计 15865 行，web/ 仍 3 个文件、2 个 .ts、合计 236 行；行数只计 .ts 文件（src/ 另有 3 个 .json 文件不计）；2026-11-19 对 f9b7555 复核：src/ 仍 102 个文件、99 个 .ts、合计 15925 行，web/ 仍 3 个文件、2 个 .ts、合计 236 行。
@@ -157,5 +157,6 @@ Seed 文件（100% 读完）：
 2026-11-25 基线前移至 62dacc0：super_admin.ts 改为目录包 super_admin/（toolpkg_id com.operit.super_admin，version 1.0.0，manifest 的 enabled_by_default 为 true，新增闲置 10 分钟自动关闭会话）；单文件包 8→7、目录包 9→10，插件总数仍 17；character_cards 的 version 由 0.2.9 改为 0.2.10，src/ 行数 16364→16297（仍 106 个文件、103 个 .ts，按 find + wc -l 重清点；api.ts +17、search/state.ts +18、storage/memory-repository.ts +13、memory-search.ts +8、public-api.ts +6、model.ts +5、domain.ts +1、runtime-tools/memory.ts -66、search/text-index.ts -39、ui-memory-workspace.ts -17、operations.ts -8、canonical.ts -3、search/chunks.ts -2），web/ 仍 283 行、workflow src/ 仍 2967 行；api.ts 新增 MemoryPageOptions、MemoryLinkView，memory.graph/memory.list 支持分页、新增 memory.links 接口、memory.chunks 新增 start 参数（以上均未立新事实）；README.md 新增 super_admin 段落致 automatic_ui_base 段落下移（行号 5→9）。
 2026-11-25 基线前移至 f020fc4：character_cards 的 version 由 0.2.10 改为 0.2.12，src/ 行数 16297→16441（107 个文件、104 个 .ts，按 find + wc -l 重清点；新增 group-execution/public-turn.ts 102 行、api.ts +23、public-api.ts +14、native-transport.ts +5），web/ 仍 283 行、workflow src/ 仍 2967 行；api.ts 新增 ChatPresentation、ChatGroupTurnRequest/Reply/Status，新增 chat.presentation 与 chat.groupTurn 公开 API（以上均未立新事实）。
 2026-11-25 基线前移至 d0f7619：character_cards 的 version 由 0.2.12 改为 0.2.13；src/ 行数 16441→16442（仍 107 个文件、104 个 .ts，按 find + wc -l 重清点；public-api.ts +1，新增 `export { groupTurnApi }` 重导出），web/ 仍 283 行、workflow src/ 仍 2967 行；ai_chat_presentation（外部包，本页未收录）的 version 由 0.2.0 改为 0.2.1，src/ui.ts 更名为 src/settings.ui.ts（以上均未立新事实）。
+2026-11-27 基线前移至 7a79245：super_admin 的 version 由 1.0.0 改为 1.0.1，中文描述改写为独立命令执行与持久交互终端（命令结束后闲置 10 分钟自动清理，交互终端须显式关闭）；character_cards 的 src/ 行数 16442→16518（仍 107 个文件、104 个 .ts，按 find + wc -l 重清点；memory-jobs/analysis.ts +27、group-execution/executor.ts +22、service-runtime.ts +20、domain.ts +11、storage/chats.ts +10、group-execution/hooks.ts +9、chat-lifecycle.ts +9、configuration-reads.ts +2、ui-entity-native.ts +2、storage/database.ts +1、operations.ts -25、repository.ts -12），web/ 仍 283 行、workflow src/ 仍 2967 行；browser.ts 的 handle_dialog 更名为 dialog、run_code 改为异步 JavaScript 函数体、新增 take_screenshot，character_cards 的 executor.ts 的 submit 改为仅替换已取消 settled 序列并新增 stopForHistoryTruncate，database.ts 新增 deleteSelections 调用，automatic_ui_base 的 focus_window 描述新增 Android 虚拟屏幕句（以上均未立新事实）。
 
 相关页：[[plugin-toolpkg-overview|ToolPkg 2.0.0 总览]]、[[plugin-manifest|清单 manifest 与安装作用域]]。

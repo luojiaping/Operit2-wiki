@@ -13,15 +13,15 @@
  },
  {
   "fact": "Linux Host crate 依赖 operit-host-api",
-  "ref": "hosts/linux/Cargo.toml:21"
+  "ref": "hosts/linux/Cargo.toml:19"
  },
  {
   "fact": "Linux Host crate 依赖 operit-host-native-common，并启用 tcp、serial、fs、http、scheduler、storage、app-install 特性",
-  "ref": "hosts/linux/Cargo.toml:22"
+  "ref": "hosts/linux/Cargo.toml:20"
  },
  {
   "fact": "Linux Host crate 依赖 operit-host-native-plugin-sdk-ipc",
-  "ref": "hosts/linux/Cargo.toml:23"
+  "ref": "hosts/linux/Cargo.toml:21"
  },
  {
   "fact": "Linux Host crate 依赖 operit-host-local-inference",
@@ -29,11 +29,11 @@
  },
  {
   "fact": "Linux Host crate 依赖 portable-pty 0.9.0",
-  "ref": "hosts/linux/Cargo.toml:24"
+  "ref": "hosts/linux/Cargo.toml:22"
  },
  {
   "fact": "libc 与 zbus 只在 target_os 为 linux 时作为依赖引入",
-  "ref": "hosts/linux/Cargo.toml:34"
+  "ref": "hosts/linux/Cargo.toml:32"
  },
  {
   "fact": "daemon 模块只在启用 daemon 特性且目标为 Linux 时编译",
@@ -89,139 +89,139 @@
  },
  {
   "fact": "LinuxTerminalHost 是 Linux PTY 终端 Host",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:31"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:30"
  },
  {
   "fact": "PLATFORM 为 linux，TERMINAL 为 native，PRIMARY_TERMINAL_TYPE 为 bash",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:26"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:25"
  },
  {
   "fact": "terminalInfo 的 types 只含一项，terminalType 为 bash，描述为 Linux bash terminal",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:131"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:143"
  },
  {
   "fact": "normalizeTerminalType 只接受 PRIMARY_TERMINAL_TYPE",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:936"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:962"
  },
  {
   "fact": "requireNativeTerminal 只接受 TERMINAL 这一种终端实现",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:946"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:972"
  },
  {
   "fact": "linuxPtyCommand 构造 bash --noprofile --norc -i 子进程",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:779"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:805"
  },
  {
   "fact": "PTY 环境设置 TERM 为 xterm-256color、COLORTERM 为 truecolor、LANG 为 C.UTF-8、PS1 为 $PWD $ ",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:785"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:811"
  },
  {
   "fact": "PROMPT_COMMAND 在每次提示时输出 base64 编码的工作目录与退出码",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:790"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:816"
  },
  {
   "fact": "PTY 输出缓冲上限 PTY_OUTPUT_LIMIT 为 1024 * 1024 字节",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:23"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:22"
  },
  {
   "fact": "PTY 输出缓冲超限时从队首丢弃旧字节",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:591"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:600"
  },
  {
   "fact": "新建会话等待初始提示最长 10000 毫秒",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:754"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:778"
  },
  {
   "fact": "同一个终端会话同一时间只允许一条命令在执行",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:538"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:547"
  },
  {
   "fact": "命令超时时返回 exitCode -1 与 timedOut true",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:611"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:620"
  },
  {
   "fact": "取消超时命令时写入 \\x03",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:646"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:655"
  },
  {
   "fact": "取消超时命令后，共享的 waitForCommandEvent 以 3000 毫秒为限等待中断就绪",
-  "ref": "core/crates/foundation/host-contract/src/TerminalCommand.rs:153"
+  "ref": "core/crates/foundation/host-contract/src/TerminalCommand.rs:192"
  },
  {
   "fact": "新建终端会话默认尺寸为 24 行 80 列",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:302"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:314"
  },
  {
   "fact": "executorKey 为空时默认取 default",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:353"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:365"
  },
  {
   "fact": "隐藏会话名形如 hidden:{executorLabel}",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:491"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:500"
  },
  {
   "fact": "input 与 control 至少一个非空",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:383"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:395"
  },
  {
   "fact": "getSessionScreen 返回会话当前屏幕内容与行列数",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:432"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:433"
  },
  {
   "fact": "PTY 提示标记前缀为 \\x1b]133;OperitPrompt=",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:24"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:23"
  },
  {
   "fact": "LinuxFileSystemHost 是 Linux 文件系统 Host",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:19"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:17"
  },
  {
   "fact": "Linux 文件系统的 envLabel 返回 linux",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:33"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:31"
  },
  {
   "fact": "Linux 文件系统的 environmentDescriptor 返回 HostEnvironmentDescriptor::linux()",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:37"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:35"
  },
  {
   "fact": "validatePath 拒绝非绝对路径",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:46"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:44"
  },
  {
   "fact": "openAppendFile 委托给 NativeFileAppendHandle",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:29"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:27"
  },
  {
   "fact": "复制目录时要求 recursive 标志",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:211"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:209"
  },
  {
   "fact": "fileInfo 对不存在的目标返回 exists 为 false 而不是报错",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:279"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:277"
  },
  {
   "fact": "owner 与 group 字段为空字符串",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:311"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:309"
  },
  {
   "fact": "zipFiles 把文件或目录打包为 zip",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:388"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:322"
  },
  {
   "fact": "unzipFiles 把 zip 解包到目标目录",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:420"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:354"
  },
  {
   "fact": "openFile 用 xdg-open 打开文件",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:450"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:384"
  },
  {
   "fact": "分享请求用 xdg-email 发起",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:468"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:402"
  },
  {
   "fact": "权限字符串由 permissions_string 生成",
-  "ref": "hosts/linux/src/tools/fs/mod.rs:511"
+  "ref": "hosts/linux/src/tools/fs/mod.rs:445"
  },
  {
   "fact": "LinuxManagedRuntimeHost 是 Linux 托管运行时 Host",
@@ -717,11 +717,11 @@
  },
  {
   "fact": "listSessions 遍历全部 PTY 会话并刷新退出码",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:239"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:250"
  },
  {
   "fact": "会话列表条目的 sessionKind 为 pty",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:257"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:269"
  },
  {
   "fact": "getSystemLanguageCode 委托给 get_linux_system_language_code",
@@ -729,6 +729,6 @@
  },
  {
   "fact": "hiddenPtySessionId 按 executorKey 复用已存在的隐藏会话",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:471"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:480"
  }
 ]

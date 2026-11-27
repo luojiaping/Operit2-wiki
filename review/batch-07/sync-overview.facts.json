@@ -737,7 +737,7 @@
   },
   {
     "fact": "切分时操作保持完整，事务不被切分。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1608"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1611"
   },
   {
     "fact": "同一分块同时发给远端与本地的 `SyncApplyOperations` 应用。",
@@ -797,91 +797,91 @@
   },
   {
     "fact": "`blobPresence` 每端一次分发批量查询存在性，逐项保留错误。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1246"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1249"
   },
   {
     "fact": "Blob 存在性响应长度与引用数不符时返回错误。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1250"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1253"
   },
   {
     "fact": "按 `SYNC_BLOB_CHUNK_BYTES` 分块传输 Blob。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1283"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1286"
   },
   {
     "fact": "每块读写前后都重新调用 `requirePeerStorageProviders` 检查存储授权。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1288"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1291"
   },
   {
     "fact": "落盘后调用 `blobPresence` 验证 Blob 已持久化，未持久化时报错。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1302"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1305"
   },
   {
     "fact": "块为空时返回 `Invalid synchronization blob chunk: hash={} offset={offset} length={length} size={}` 错误。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1292"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1295"
   },
   {
     "fact": "块超出声明大小时返回 `Invalid synchronization blob chunk: hash={} offset={offset} length={length} size={}` 错误。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1292"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1295"
   },
   {
     "fact": "调度原因合并进 `synchronizationReasons` 集合。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1310"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1313"
   },
   {
     "fact": "已有待执行任务时直接返回，不重复排队，判定点为 `synchronizationScheduled`。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1314"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1317"
   },
   {
     "fact": "同步任务走 Host 阻塞异步任务 `core-node-space-persistence-sync`。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1322"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1325"
   },
   {
     "fact": "同步任务开始时记录 `sync_cycle.start`，含本地节点、修订号与合并后的触发原因。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1345"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1348"
   },
   {
     "fact": "同步任务结束时若仍有新变更请求或修订号变化，以 `changes_during_pass` 为原因重新调度。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1384"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1387"
   },
   {
     "fact": "投影协议协商只针对 `activePeerNodeIds` 中且 `hasPairing` 的直连对端，否则返回 None。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1475"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1478"
   },
   {
     "fact": "中继路由上的普通控制与业务同步不依赖投影协议协商。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1473"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1476"
   },
   {
     "fact": "`mergeSyncOperations` 把两端操作按 `Transaction` 的 `ordered` 排成确定顺序。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1574"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1577"
   },
   {
     "fact": "单条操作超过上限时返回 `SYNC_OPERATION_TOO_LARGE` 错误而不是发送。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1630"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1633"
   },
   {
     "fact": "`validateSyncReceipt` 只校验收据区间与内容的有效性，不再检查协议版本。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1432"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1435"
   },
   {
     "fact": "`validateSyncReceipt` 把时钟解析为 `SyncReceipt` 并调用其 `validate`。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1432"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1435"
   },
   {
     "fact": "`clockStateSummary` 取收据的非空 `stateSummary` 作为状态摘要，缺失时报错。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1442"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1445"
   },
   {
     "fact": "`callLocal` 通过本进程 Core 调用 `application` 目标的方法。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1405"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1408"
   },
   {
     "fact": "`callRemote` 通过 Router 向目标节点发 PeerSync 方法请求。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1491"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1494"
   },
   {
     "fact": "慢同步调用超过 250 毫秒时记 `sync_call.slow` 跟踪日志。",
-    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1519"
+    "ref": "core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1522"
   },
   {
     "fact": "`backoffElapsed` 在 `consecutiveFailures` 为 0 时返回 true。",

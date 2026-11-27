@@ -1,0 +1,4 @@
+core-foundation.md:37 `FileSystemHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3606']
+core-foundation.md:38 `TerminalHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:1909']
+core-foundation.md:39 `RuntimeStorageHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:2078']
+core-foundation.md:40 `SystemOperationHost` not within ±5 of any ref ['core/crates/foundation/host-contract/src/lib.rs:3523']

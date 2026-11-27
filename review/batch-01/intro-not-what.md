@@ -47,9 +47,9 @@ README 声明 `API` key、设备私钥、配对密钥、session 和本地平台�
 PreferencesDataStore 的 `newWithStorage` 创建 `Space` 偏好存储，见 `core/crates/persistence/store/src/PreferencesDataStore.rs:2968`。
 该存储为存储路径创建 `PreferencesSyncDescriptor` 形式的 `syncDescriptor`，见 `core/crates/persistence/store/src/PreferencesDataStore.rs:2999`。
 该存储挂接 `syncOperationStore`，见 `core/crates/persistence/store/src/PreferencesDataStore.rs:3005`。
-`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>`，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481`。
-`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`，见 `core/crates/foundation/model/src/ModelConfigData.rs:630`。
-因此 `Provider` 凭证存在随配置同步的路径，不要把 `Provider` 凭证与设备身份、配对密钥、操作系统权限统称不复制，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481`。
+`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>`，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572`。
+`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`，见 `core/crates/foundation/model/src/ModelConfigData.rs:672`。
+因此 `Provider` 凭证存在随配置同步的路径，不要把 `Provider` 凭证与设备身份、配对密钥、操作系统权限统称不复制，见 `core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572`。
 以上同步路径只核对到代码，未做真实双设备同步实验。
 `Full` 只表示 AI 能力限制放宽，不表示 `Host` 提权，也不能创造操作系统没有的能力，见 `README.md:129`。
 设备身份、配对 secret 和 `Host` 授权保持节点本地，`Space` 成员资格不授予其他节点直接读取本机文件或终端的能力，见 `docs/core-node-space-binding-architecture.md:472`。

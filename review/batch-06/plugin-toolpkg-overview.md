@@ -70,7 +70,7 @@ ToolPkg API `2.0.0` 基本所有公共接口都通过统一 host 能力提供跨
 子包的 `enabled_by_default` 表示是否默认启用，默认为 `false`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:236`）。
 每个 ToolPkg 的 `registerToolPkg()` 在独立的临时 JavaScript engine 中执行，注册状态不会跨包共享（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
 格式指南要求主脚本注册在 60 秒内完成，并要求终止同步死循环和超过时限的异步注册（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
-注册链路实际未执行该期限：注册执行传入的中断参数是 `HostJavaScriptExecutionInterrupt::unlimited()`，即无截止时间（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:631`）。
+注册链路实际未执行该期限：注册执行传入的中断参数是 `HostJavaScriptExecutionInterrupt::unlimited()`，即无截止时间（`core/crates/plugin/javascript-bridge/src/javascript/JsEngine.rs:637`）。
 注册期间禁止调用 `ToolPkg.readResource(...)` 和 `ToolPkg.wasm.call(...)`，调用会立即抛出异常（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:467`）。
 `ToolPkg.registerToolboxUiModule` 注册 UI 模块，`runtime` 默认 `compose_dsl`（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:473`）。
 `ToolPkg.registerUiRoute` 注册 UI 路由，不填 `route` 或 `routeId` 时宿主按 `toolpkg:<toolpkg_id>:ui:<id>` 自动生成稳定路由 ID（`plugins/docs/package_builder/TOOLPKG_FORMAT_GUIDE.md:479`）。

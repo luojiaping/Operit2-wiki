@@ -1,0 +1,6 @@
+intro-overview.md:145 `preferenceStore` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:151']
+intro-overview.md:146 `PreferencesDataStore::newWithStorage` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128']
+intro-overview.md:150 `ProviderProfile` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1360']
+intro-overview.md:151 `ProviderProfile` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:631']
+intro-overview.md:151 `apiKey` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:631']
+intro-overview.md:151 `apiKeyPool` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:631']

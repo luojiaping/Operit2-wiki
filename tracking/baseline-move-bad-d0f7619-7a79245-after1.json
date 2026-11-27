@@ -1,0 +1,42 @@
+{
+  "core-tool-execution": {
+    "batch": "batch-02",
+    "facts": 124,
+    "bad": 1,
+    "items": [
+      "core-tool-execution.md:154 `Tool approval failed: Tool approval requester is not installed.` not within ±5 of any ref ['core/crates/tool/services/src/tools/ToolPermissionSystem.rs:231']"
+    ]
+  },
+  "core-command": {
+    "batch": "batch-03",
+    "facts": 94,
+    "bad": 1,
+    "items": [
+      "core-command.facts.json#79 `context-set` not within ±5 of core/crates/command/core/src/commands/model.rs:578"
+    ]
+  },
+  "core-runtime-services": {
+    "batch": "batch-03",
+    "facts": 261,
+    "bad": 7,
+    "items": [
+      "core-runtime-services.md:61 `cancelMessage` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:964']",
+      "core-runtime-services.md:66 `setPendingQueueExpanded` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1133']",
+      "core-runtime-services.md:73 `compactChat` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:1776']",
+      "core-runtime-services.md:123 `TtsSynthesisService` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:306']",
+      "core-runtime-services.md:190 `synthesizeSpeech` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:306']",
+      "core-runtime-services.md:196 `builtinSkillNames` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:673']",
+      "core-runtime-services.md:219 `synthesizeSpeech` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:306']"
+    ]
+  },
+  "sync-protocol-version": {
+    "batch": "batch-07",
+    "facts": 57,
+    "bad": 3,
+    "items": [
+      "sync-protocol-version.facts.json#53 `consistencyReports` not within ±5 of core/crates/node/runtime/src/SyncConsistency.rs:26",
+      "sync-protocol-version.md:79 `consistencyReports` not within ±5 of any ref ['core/crates/node/runtime/src/SyncConsistency.rs:26']",
+      "sync-protocol-version.md:96 `consistencyReports` not within ±5 of any ref ['core/crates/node/runtime/src/SyncConsistency.rs:26']"
+    ]
+  }
+}

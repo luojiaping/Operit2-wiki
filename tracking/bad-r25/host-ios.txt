@@ -1,0 +1,77 @@
+host-ios.facts.json#49 `arm64` not within ±5 of hosts/ios/src/terminal.rs:313
+host-ios.facts.json#50 `systemShellAvailable` not within ±5 of hosts/ios/src/terminal.rs:307
+host-ios.facts.json#52 `terminalWorkspaceMount` not within ±5 of hosts/ios/src/terminal.rs:287
+host-ios.facts.json#52 `hostDirectory` not within ±5 of hosts/ios/src/terminal.rs:287
+host-ios.facts.json#52 `mountPoint` not within ±5 of hosts/ios/src/terminal.rs:287
+host-ios.facts.json#60 `terminalRead` not within ±5 of hosts/ios/src/terminal.rs:349
+host-ios.facts.json#60 `bytes` not within ±5 of hosts/ios/src/terminal.rs:349
+host-ios.facts.json#61 `acceptedBytes` not within ±5 of hosts/ios/src/terminal.rs:361
+host-ios.facts.json#62 `terminalWrite` not within ±5 of hosts/ios/src/terminal.rs:361
+host-ios.facts.json#62 `acceptedBytes` not within ±5 of hosts/ios/src/terminal.rs:361
+host-ios.facts.json#63 `terminalResize` not within ±5 of hosts/ios/src/terminal.rs:377
+host-ios.facts.json#63 `rows` not within ±5 of hosts/ios/src/terminal.rs:377
+host-ios.facts.json#63 `cols` not within ±5 of hosts/ios/src/terminal.rs:377
+host-ios.facts.json#64 `terminalPoll` not within ±5 of hosts/ios/src/terminal.rs:397
+host-ios.facts.json#64 `exitCode` not within ±5 of hosts/ios/src/terminal.rs:397
+host-ios.facts.json#64 `None` not within ±5 of hosts/ios/src/terminal.rs:397
+host-ios.facts.json#65 `terminalClose` not within ±5 of hosts/ios/src/terminal.rs:417
+host-ios.facts.json#66 `listSessions` not within ±5 of hosts/ios/src/terminal.rs:432
+host-ios.facts.json#66 `terminalList` not within ±5 of hosts/ios/src/terminal.rs:432
+host-ios.facts.json#66 `configurationId` not within ±5 of hosts/ios/src/terminal.rs:432
+host-ios.facts.json#67 `systemShellAvailable` not within ±5 of hosts/ios/src/terminal.rs:448
+host-ios.facts.json#71 `hidden:{executorKey}` not within ±5 of hosts/ios/src/terminal.rs:522
+host-ios.facts.json#72 `terminalSignal` not within ±5 of hosts/ios/src/terminal.rs:566
+host-ios.facts.json#72 `signal` not within ±5 of hosts/ios/src/terminal.rs:566
+host-ios.facts.json#74 `controlSequence` not within ±5 of hosts/ios/src/terminal.rs:767
+host-ios.facts.json#74 `interrupt` not within ±5 of hosts/ios/src/terminal.rs:767
+host-ios.facts.json#74 `eof` not within ±5 of hosts/ios/src/terminal.rs:767
+host-ios.facts.json#74 `newline` not within ±5 of hosts/ios/src/terminal.rs:767
+host-ios.facts.json#75 `terminalScreen` not within ±5 of hosts/ios/src/terminal.rs:600
+host-ios.facts.json#75 `contentBytes` not within ±5 of hosts/ios/src/terminal.rs:600
+host-ios.facts.json#76 `success` not within ±5 of hosts/ios/src/terminal.rs:584
+host-ios.facts.json#77 `terminalText` not within ±5 of hosts/ios/src/terminal.rs:734
+host-ios.facts.json#77 `String::from_utf8_lossy` not within ±5 of hosts/ios/src/terminal.rs:734
+host-ios.facts.json#78 `requiredText` not within ±5 of hosts/ios/src/terminal.rs:681
+host-ios.facts.json#79 `positiveDimension` not within ±5 of hosts/ios/src/terminal.rs:693
+host-ios.facts.json#80 `shellTerminalType` not within ±5 of hosts/ios/src/terminal.rs:671
+host-ios.facts.json#80 `shell` not within ±5 of hosts/ios/src/terminal.rs:671
+host-ios.md:39 `arm64` not within ±5 of any ref ['hosts/ios/src/terminal.rs:313']
+host-ios.md:40 `systemShellAvailable` not within ±5 of any ref ['hosts/ios/src/terminal.rs:307']
+host-ios.md:61 `listSessions` not within ±5 of any ref ['hosts/ios/src/terminal.rs:432']
+host-ios.md:61 `terminalList` not within ±5 of any ref ['hosts/ios/src/terminal.rs:432']
+host-ios.md:61 `configurationId` not within ±5 of any ref ['hosts/ios/src/terminal.rs:432']
+host-ios.md:69 `terminalRead` not within ±5 of any ref ['hosts/ios/src/terminal.rs:349']
+host-ios.md:69 `bytes` not within ±5 of any ref ['hosts/ios/src/terminal.rs:349']
+host-ios.md:70 `acceptedBytes` not within ±5 of any ref ['hosts/ios/src/terminal.rs:361']
+host-ios.md:71 `terminalWrite` not within ±5 of any ref ['hosts/ios/src/terminal.rs:361']
+host-ios.md:71 `acceptedBytes` not within ±5 of any ref ['hosts/ios/src/terminal.rs:361']
+host-ios.md:72 `terminalResize` not within ±5 of any ref ['hosts/ios/src/terminal.rs:377']
+host-ios.md:72 `rows` not within ±5 of any ref ['hosts/ios/src/terminal.rs:377']
+host-ios.md:72 `cols` not within ±5 of any ref ['hosts/ios/src/terminal.rs:377']
+host-ios.md:73 `terminalPoll` not within ±5 of any ref ['hosts/ios/src/terminal.rs:397']
+host-ios.md:73 `exitCode` not within ±5 of any ref ['hosts/ios/src/terminal.rs:397']
+host-ios.md:73 `None` not within ±5 of any ref ['hosts/ios/src/terminal.rs:397']
+host-ios.md:74 `terminalScreen` not within ±5 of any ref ['hosts/ios/src/terminal.rs:600']
+host-ios.md:74 `contentBytes` not within ±5 of any ref ['hosts/ios/src/terminal.rs:600']
+host-ios.md:75 `terminalClose` not within ±5 of any ref ['hosts/ios/src/terminal.rs:417']
+host-ios.md:76 `success` not within ±5 of any ref ['hosts/ios/src/terminal.rs:584']
+host-ios.md:77 `hidden:{executorKey}` not within ±5 of any ref ['hosts/ios/src/terminal.rs:522']
+host-ios.md:78 `terminalSignal` not within ±5 of any ref ['hosts/ios/src/terminal.rs:566']
+host-ios.md:78 `signal` not within ±5 of any ref ['hosts/ios/src/terminal.rs:566']
+host-ios.md:79 `controlSequence` not within ±5 of any ref ['hosts/ios/src/terminal.rs:767']
+host-ios.md:79 `interrupt` not within ±5 of any ref ['hosts/ios/src/terminal.rs:767']
+host-ios.md:79 `eof` not within ±5 of any ref ['hosts/ios/src/terminal.rs:767']
+host-ios.md:79 `newline` not within ±5 of any ref ['hosts/ios/src/terminal.rs:767']
+host-ios.md:81 `terminalText` not within ±5 of any ref ['hosts/ios/src/terminal.rs:734']
+host-ios.md:81 `String::from_utf8_lossy` not within ±5 of any ref ['hosts/ios/src/terminal.rs:734']
+host-ios.md:82 `requiredText` not within ±5 of any ref ['hosts/ios/src/terminal.rs:681']
+host-ios.md:83 `positiveDimension` not within ±5 of any ref ['hosts/ios/src/terminal.rs:693']
+host-ios.md:84 `shellTerminalType` not within ±5 of any ref ['hosts/ios/src/terminal.rs:671']
+host-ios.md:84 `shell` not within ±5 of any ref ['hosts/ios/src/terminal.rs:671']
+host-ios.md:86 `systemShellAvailable` not within ±5 of any ref ['hosts/ios/src/terminal.rs:448']
+host-ios.md:96 `terminalWorkspaceMount` not within ±5 of any ref ['hosts/ios/src/terminal.rs:287']
+host-ios.md:96 `hostDirectory` not within ±5 of any ref ['hosts/ios/src/terminal.rs:287']
+host-ios.md:96 `mountPoint` not within ±5 of any ref ['hosts/ios/src/terminal.rs:287']
+host-ios.md:180 `terminalWorkspaceMount` not within ±5 of any ref ['hosts/ios/src/terminal.rs:287']
+host-ios.md:180 `hostDirectory` not within ±5 of any ref ['hosts/ios/src/terminal.rs:287']
+host-ios.md:180 `mountPoint` not within ±5 of any ref ['hosts/ios/src/terminal.rs:287']

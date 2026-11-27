@@ -134,6 +134,6 @@
   {"fact": "比较范围：两端完成对应格式和 layout 迁移后，以确定序列化的文件值及同结构、固定顺序导出的同步 SQL 表计算摘要；比较范围由各端自己的本轮导出收据确定，无需两端同时采样", "ref": "docs/transaction-sync-contract.md:69"},
   {"fact": "强制校正：内容仍不一致说明事务链路已有损坏，对每个 owner 选完整且未损坏、同步业务内容字节数更大的一方，大小相同时按业务修订、节点优先序决定，复制其完整同步文件及检查点，沿用源业务修订；缺失文件一并补齐", "ref": "docs/transaction-sync-contract.md:70"},
   {"fact": "校正落地：以故障因素 F 允许权威内容替代损坏历史的重放结果；两端保存相同的整文件初始化事务，覆盖范围取双方已处理身份的并集，并删除已封存的旧载荷", "ref": "docs/transaction-sync-contract.md:71"},
-  {"fact": "提交时历史回收：原历史通过应用校验后才回收被覆盖载荷，后续赋值不能掩盖先前无效操作", "ref": "docs/transaction-sync-contract.md:73"},
-  {"fact": "验收依据：业务 owner 的实际合并与操作测试逐项满足情况及符号定义，覆盖 DataStore、聊天 SQL、插件 SQL、两种迁移和最终强制校正", "ref": "docs/transaction-sync-contract.md:75"}
+  {"fact": "提交时历史回收：原历史通过应用校验后才回收被覆盖载荷，后续赋值不能掩盖先前无效操作", "ref": "docs/transaction-sync-contract.md:75"},
+  {"fact": "验收依据：业务 owner 的实际合并与操作测试逐项满足情况及符号定义，覆盖 DataStore、聊天 SQL、插件 SQL、两种迁移和最终强制校正", "ref": "docs/transaction-sync-contract.md:77"}
 ]

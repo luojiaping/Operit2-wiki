@@ -164,15 +164,15 @@ date: 2026-11-11
 ### 文件分类
 
 - `FileUtils` 是供文件工具与工作区读取器共用的文件分类工具（core/crates/foundation/util/src/FileUtils.rs:1）。
-- `isTextLike` 对整段字节判断是否为文本（core/crates/foundation/util/src/FileUtils.rs:39）。
-- `isTextLikeSample` 只采样前 `sampleSize` 个字节（core/crates/foundation/util/src/FileUtils.rs:44）。
-- `isTextLikeSample` 对空输入返回 `true`（core/crates/foundation/util/src/FileUtils.rs:46）。
-- 非文本字节占比低于 10% 时判定为文本（core/crates/foundation/util/src/FileUtils.rs:75）。
-- `isTextBasedExtension` 按去空白转小写后的扩展名匹配已知文本扩展名集合（core/crates/foundation/util/src/FileUtils.rs:79）。
-- `isTextBasedFileName` 在无扩展名时按 `readme`、`makefile` 等裸文件名判定（core/crates/foundation/util/src/FileUtils.rs:196 core/crates/foundation/util/src/FileUtils.rs:209）
-- `isAsciiTextByte` 把可打印 ASCII（32..=126）与制表符、换行、回车当作文本字节（core/crates/foundation/util/src/FileUtils.rs:231）。
-- `utf8SequenceLength` 只接受首字节 `0xC2` 至 `0xF4` 开头的 2/3/4 字节序列（core/crates/foundation/util/src/FileUtils.rs:239）。
-- utf8SequenceLength 要求后续字节高两位为 10（`(byte & 0xC0) == 0x80`），否则返回 0（core/crates/foundation/util/src/FileUtils.rs:236 core/crates/foundation/util/src/FileUtils.rs:249）
+- `isTextLike` 对整段字节判断是否为文本（core/crates/foundation/util/src/FileUtils.rs:32）。
+- `isTextLikeSample` 只采样前 `sampleSize` 个字节（core/crates/foundation/util/src/FileUtils.rs:37）。
+- `isTextLikeSample` 对空输入返回 `true`（core/crates/foundation/util/src/FileUtils.rs:39）。
+- 非文本字节占比低于 10% 时判定为文本（core/crates/foundation/util/src/FileUtils.rs:68）。
+- `isTextBasedExtension` 按去空白转小写后的扩展名匹配已知文本扩展名集合（core/crates/foundation/util/src/FileUtils.rs:72）。
+- `isTextBasedFileName` 在无扩展名时按 `readme`、`makefile` 等裸文件名判定（core/crates/foundation/util/src/FileUtils.rs:189 core/crates/foundation/util/src/FileUtils.rs:202）
+- `isAsciiTextByte` 把可打印 ASCII（32..=126）与制表符、换行、回车当作文本字节（core/crates/foundation/util/src/FileUtils.rs:224）。
+- `utf8SequenceLength` 只接受首字节 `0xC2` 至 `0xF4` 开头的 2/3/4 字节序列（core/crates/foundation/util/src/FileUtils.rs:232）。
+- utf8SequenceLength 要求后续字节高两位为 10（`(byte & 0xC0) == 0x80`），否则返回 0（core/crates/foundation/util/src/FileUtils.rs:229 core/crates/foundation/util/src/FileUtils.rs:242）
 
 ### 流框架
 
@@ -261,10 +261,10 @@ date: 2026-11-11
 
 ### 一次文件分类判定
 
-1. `isTextLike` 调 `isTextLikeSample`（core/crates/foundation/util/src/FileUtils.rs:39）。
-2. `isTextLikeSample` 只采样前 `sampleSize` 个字节（core/crates/foundation/util/src/FileUtils.rs:44）。
-3. 空输入返回 `true`（core/crates/foundation/util/src/FileUtils.rs:46）。
-4. 非文本字节占比低于 10% 时判定为文本（core/crates/foundation/util/src/FileUtils.rs:75）。
+1. `isTextLike` 调 `isTextLikeSample`（core/crates/foundation/util/src/FileUtils.rs:32）。
+2. `isTextLikeSample` 只采样前 `sampleSize` 个字节（core/crates/foundation/util/src/FileUtils.rs:37）。
+3. 空输入返回 `true`（core/crates/foundation/util/src/FileUtils.rs:39）。
+4. 非文本字节占比低于 10% 时判定为文本（core/crates/foundation/util/src/FileUtils.rs:68）。
 
 ## 来源
 

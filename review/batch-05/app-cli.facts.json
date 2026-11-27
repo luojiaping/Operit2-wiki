@@ -217,27 +217,27 @@
   },
   {
     "fact": "link discover 默认超时 2000 毫秒",
-    "ref": "apps/cli/src/cli/link.rs:871"
+    "ref": "apps/cli/src/cli/link.rs:874"
   },
   {
     "fact": "link discover 通过 discoverPeers 发现对端",
-    "ref": "apps/cli/src/cli/link.rs:891"
+    "ref": "apps/cli/src/cli/link.rs:894"
   },
   {
     "fact": "link doctor 默认只读，--repair 才隔离损坏的日记行",
-    "ref": "apps/cli/src/cli/link.rs:790"
+    "ref": "apps/cli/src/cli/link.rs:793"
   },
   {
     "fact": "run_link_space_command 处理设备空间的查看与成员管理",
-    "ref": "apps/cli/src/cli/link.rs:902"
+    "ref": "apps/cli/src/cli/link.rs:905"
   },
   {
     "fact": "run_link_control_command 处理空间网络控制策略命令",
-    "ref": "apps/cli/src/cli/link.rs:1086"
+    "ref": "apps/cli/src/cli/link.rs:1089"
   },
   {
     "fact": "run_link_stream_probe_command 用路由探测验证 StateFlow 与嵌入流",
-    "ref": "apps/cli/src/cli/link.rs:1313"
+    "ref": "apps/cli/src/cli/link.rs:1316"
   },
   {
     "fact": "run_link_edge_call_command 向指定设备发起 edge 调用",
@@ -245,7 +245,7 @@
   },
   {
     "fact": "print_link_usage 列出 link 的全部子命令用法",
-    "ref": "apps/cli/src/cli/link.rs:1501"
+    "ref": "apps/cli/src/cli/link.rs:1504"
   },
   {
     "fact": "network_capabilities 把 all、audit、relay、storage、execute、view 等短名映射为协议能力",

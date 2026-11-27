@@ -289,7 +289,7 @@
   },
   {
     "fact": "applicationUpdateProgressFlow 观测 Host 下载进度而不暴露 URL 或原生文件路径。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:854"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:749"
   },
   {
     "fact": "downloadApplicationUpdate 下载选定版本并返回不透明原生回执。",
@@ -576,12 +576,12 @@
     "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:349"
   },
   {
-    "fact": "sendMessage 把历史中的图片与媒体链接上限取值自 ApiPreferences，流无值时分别缺省 2 与 1 个用户回合。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:360"
+    "fact": "sendMessage 把历史中的图片与媒体链接上限均取 i32::MAX，不再按 ApiPreferences 的每用户回合数截断。",
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:359"
   },
   {
     "fact": "sendMessage 先问 MessageProcessingPluginRegistry 是否有匹配的消息处理插件。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:370"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:363"
   },
   {
     "fact": "插件匹配时 sendMessage 直接返回插件执行流并结束本次操作，不调用 Provider。",
@@ -589,15 +589,15 @@
   },
   {
     "fact": "sendMessage 的流式开关取自 ApiPreferences 的 disableStreamOutput，缺省为 false 即开启流式。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:403"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:396"
   },
   {
     "fact": "预发送钩子等待期间操作被取消时，sendMessage 返回 RequestCancelled。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:456"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:449"
   },
   {
     "fact": "resume 为 true 时 sendMessage 调用 EnhancedAIService::resume，否则调用 sendMessageWithConfiguration。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:465"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:458"
   },
   {
     "fact": "Provider 返回流后先登记到操作记录，未登记成功时关闭流并返回 RequestCancelled。",
@@ -633,15 +633,15 @@
   },
   {
     "fact": "shouldGenerateSummary 要求开启摘要、maxTokens 大于 0 且当前 token 占比达到 tokenUsageThreshold。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:653"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:660"
   },
   {
     "fact": "getMemoryFromMessages 从最后一条 summary 消息起取相关消息，无 summary 时取全部消息。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:663"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:670"
   },
   {
     "fact": "isolateParticipants 开启时，getMemoryFromMessages 按持久化参与者 id 区分己方与他人消息，他人发言转为 [From role: 名字] 的用户回合。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:685"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:692"
   },
   {
     "fact": "isolateParticipants 开启时，AI 消息缺持久化作者或缺展示身份时 getMemoryFromMessages 返回错误。",
@@ -649,7 +649,7 @@
   },
   {
     "fact": "labelUserMessages 开启时，getMemoryFromMessages 给用户消息加 [From user] 前缀。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:696"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:703"
   },
   {
     "fact": "getMemoryFromMessages 把 sender 为 summary 的消息转为 SUMMARY 回合。",
@@ -657,19 +657,19 @@
   },
   {
     "fact": "assistantPromptTurnsFromParts 把 Markdown、Thinking、Status 部分累积为 ASSISTANT 回合，遇到 ToolCall 时先 flush 已累积文本。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:716"
-  },
-  {
-    "fact": "ToolCall 部分转为带 tool_name 的 TOOL_CALL 回合。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:727"
-  },
-  {
-    "fact": "ToolResult 部分转为带 tool_name 的 TOOL_RESULT 回合。",
     "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:740"
   },
   {
+    "fact": "ToolCall 部分转为带 tool_name 的 TOOL_CALL 回合。",
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:751"
+  },
+  {
+    "fact": "ToolResult 部分转为带 tool_name 的 TOOL_RESULT 回合。",
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:764"
+  },
+  {
     "fact": "buildReplyTag 把回复内容截断到 100 字符并加省略号。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:769"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:796"
   },
   {
     "fact": "buildAttachmentTag 对有 VFS 定位的同步附件先在本地解析物理路径并核对存在性与大小。",
@@ -677,7 +677,7 @@
   },
   {
     "fact": "非本节点附件直接返回普通 attachment 标签，不读文件 Host。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:816"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:854"
   },
   {
     "fact": "直接图片附件失败时记错误日志并回退为普通附件，不中止整次发送。",
@@ -717,7 +717,7 @@
   },
   {
     "fact": "cancelOperationForId 先从注册表取走操作，无操作时直接返回 Ok。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1108"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1140"
   },
   {
     "fact": "取消时立即调用 cancellationToken.cancel()。",
@@ -737,11 +737,11 @@
   },
   {
     "fact": "cancelAllOperations 把各聊天的取消错误用分号连接后返回。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1160"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1186"
   },
   {
     "fact": "appendConversationReview 把对话回顾上限控制在 100 条：超限时保留前 30 条与后 70 条，中间省略并注明条数。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1215"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1241"
   },
   {
     "fact": "cleanSummarySourceMessage 去掉 meta 标签、AI 消息的 think 内容与媒体链接。",
@@ -749,7 +749,7 @@
   },
   {
     "fact": "condenseAssistantMessageForReview 丢弃 Thinking 部分。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1292"
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:1318"
   },
   {
     "fact": "condenseAssistantMessageForReview 超过 25 段时只保留前 12 段与后 10 段并注明省略段数。",
@@ -764,8 +764,8 @@
     "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:181"
   },
   {
-    "fact": "calculateStableContextWindow 经 getMemoryFromMessages 生成记忆后调用 estimateRequestWindowFromMemory 估算窗口。",
-    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:627"
+    "fact": "calculateStableContextWindow 委托 calculateStableContextWindowWithBreakdown 估算窗口，该方法经 getMemoryFromMessages 生成记忆后调用 estimateRequestWindowFromMemoryWithBreakdown。",
+    "ref": "core/crates/runtime/application/src/core/chat/AIMessageManager.rs:622"
   },
   {
     "fact": "FileSystemHost 缺失时，newWithContext 在 chatFileSystemHost 处用 expect 直接 panic（无条件）。截至基线，聊天初始化直接要求 FileSystemHost；上游 053c6686 已改为 hostManager.vfs().expect(\"Chat runtime requires VFS\")（OperitApplication.rs:185）。",

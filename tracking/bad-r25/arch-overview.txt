@@ -1,0 +1,5 @@
+arch-overview.md:153 `PreferencesDataStore::newWithStorage` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128']
+arch-overview.md:155 `writeProvider` not within ±5 of any ref ['core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1481']
+arch-overview.md:157 `ProviderProfile` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:630']
+arch-overview.md:157 `apiKey` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:630']
+arch-overview.md:157 `apiKeyPool` not within ±5 of any ref ['core/crates/foundation/model/src/ModelConfigData.rs:630']

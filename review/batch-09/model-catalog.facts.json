@@ -209,15 +209,15 @@
   },
   {
     "fact": "文档称模型配置里的 *Override 字段只保存用户改过的值，按字段区分；没改过的字段在读取时按目录计算，目录更新后已添加模型里用户没改过的字段跟着更新（文档说法，未在代码验证）",
-    "ref": "docs/model-catalog.md:50"
+    "ref": "docs/model-catalog.md:64"
   },
   {
     "fact": "文档称保存时和目录值相同的字段不会记为用户设置；上下文按整千 token 比较，因为设置页按整千显示（文档说法，未在代码验证）",
-    "ref": "docs/model-catalog.md:52"
+    "ref": "docs/model-catalog.md:66"
   },
   {
     "fact": "文档称目录识别不了的模型使用添加时服务商列表自带的信息（目前只有 OpenRouter 提供），再使用默认值（文档说法，未在代码验证）",
-    "ref": "docs/model-catalog.md:53"
+    "ref": "docs/model-catalog.md:67"
   },
   {
     "fact": "文档称本机安装的本地模型不参与识别，按本地运行配置描述（文档说法，本页 seed 代码未验证）",
@@ -225,19 +225,19 @@
   },
   {
     "fact": "文档称模型能怎么思考取自 models.dev 条目的 reasoning 和 reasoning_options：一个开关、若干 effort 档位、一个 token 预算，或者都没有；厂商目录（models.json）不记录思考控制（文档说法，未在代码验证）",
-    "ref": "docs/model-catalog.md:58"
+    "ref": "docs/model-catalog.md:72"
   },
   {
     "fact": "文档称思考档位统一成 off、enabled、minimal、low、medium、high、xhigh、max，界面在各种语言下都显示这些写法（文档说法，未在代码验证）",
-    "ref": "docs/model-catalog.md:66"
+    "ref": "docs/model-catalog.md:80"
   },
   {
     "fact": "文档称档位按模型保存为 ModelProfile.thinkingLevel；没设置过的模型沿用最近一次在任意模型上设置的档位，换成该模型最接近的一档（文档说法，未在代码验证）",
-    "ref": "docs/model-catalog.md:69"
+    "ref": "docs/model-catalog.md:83"
   },
   {
     "fact": "文档称目录没有或说得不对的模型，用户可自己描述为 ModelProfile.thinkingOverride，描述整体替换目录的说法（文档说法，未在代码验证）",
-    "ref": "docs/model-catalog.md:72"
+    "ref": "docs/model-catalog.md:86"
   },
   {
     "fact": "文档称本机运行的本地模型由内置运行时处理，每个模型都可开关思考（文档说法，本页 seed 代码未验证）",
@@ -245,15 +245,15 @@
   },
   {
     "fact": "文档给出命令行 operit2 model catalog-status、operit2 model catalog-refresh 与 operit2 model thinking <provider-id> <model-id> [档位]（文档说法，未在代码验证）",
-    "ref": "docs/model-catalog.md:107"
+    "ref": "docs/model-catalog.md:121"
   },
   {
     "fact": "文档称 provider-model-available-list 的输出列出每个模型识别成的目录模型（文档说法，未在代码验证）",
-    "ref": "docs/model-catalog.md:112"
+    "ref": "docs/model-catalog.md:126"
   },
   {
     "fact": "OPENAI_CODEX 跳过服务商列表抓取",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:464"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:495"
   },
   {
     "fact": "ModelSpecResolver 的 new 对非 LOCAL_MODEL 服务商先要求完整目录",
@@ -293,6 +293,6 @@
   },
   {
     "fact": "服务商列表抓取前不再显式调用 requireCatalog 与 refreshCatalogIfStale，目录要求由 ModelSpecResolver::new 在构造时完成",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:461"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:492"
   }
 ]

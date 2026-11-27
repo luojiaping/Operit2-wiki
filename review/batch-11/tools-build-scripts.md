@@ -17,9 +17,9 @@ date: 2026-11-11
 
 ## AI 速览
 
-- `release_asset_name` — 拼出版本化发布包文件名。`tools/build_scripts/release_artifacts.py:61`
-- `release_version` — 读取并校验 App 与 CLI 共用的单一发布版本。`tools/build_scripts/release_artifacts.py:42`
-- `validate_release_assets` — 拒绝文件名不在当前版本命名集合内的资产。`tools/build_scripts/release_artifacts.py:87`
+- `release_asset_name` — 拼出版本化发布包文件名。`tools/build_scripts/release_artifacts.py:62`
+- `release_version` — 读取并校验 App 与 CLI 共用的单一发布版本。`tools/build_scripts/release_artifacts.py:43`
+- `validate_release_assets` — 拒绝文件名不在当前版本命名集合内的资产。`tools/build_scripts/release_artifacts.py:88`
 - build_local.py 的 `main` — 当前宿主构建入口。`tools/build_scripts/build_local.py:98`
 - build_flutter_android.py 的 `main` — Android 构建入口。`tools/build_scripts/build_flutter_android.py:119`
 - build_flutter_windows.py 的 `main` — Windows Flutter 构建入口。`tools/build_scripts/build_flutter_windows.py:48`
@@ -41,20 +41,20 @@ date: 2026-11-11
 - 本地构建与 GitHub Actions 共用同一批 Python 入口。`tools/build_scripts/README.md:2`
 - 构建脚本不设 `_action.py` / `_local.py` 平台包装。`tools/build_scripts/README.md:4`
 - 发布包文件名规则是 `operit2-<product>-<platform>-<architecture>-<release-version>.<extension>`。`tools/build_scripts/README.md:12`
-- 发布包文件名由 `operit2-{product}-{platform}-{arch}{suffix}-{release_version()}.{extension}` 拼出。`tools/build_scripts/release_artifacts.py:74`
-- `release_version` 读取并校验 App 与 CLI 共用的单一发布版本。`tools/build_scripts/release_artifacts.py:42`
+- 发布包文件名由 `operit2-{product}-{platform}-{arch}{suffix}-{release_version()}.{extension}` 拼出。`tools/build_scripts/release_artifacts.py:75`
+- `release_version` 读取并校验 App 与 CLI 共用的单一发布版本。`tools/build_scripts/release_artifacts.py:43`
 - 发布版本的来源之一是 `core/crates/runtime/application/Cargo.toml`。`tools/build_scripts/release_artifacts.py:10`
 - 发布版本的来源之二是 `apps/cli/Cargo.toml`。`tools/build_scripts/release_artifacts.py:11`
-- `versions[0]` 与 `versions[1]` 不一致时抛错。`tools/build_scripts/release_artifacts.py:56`
-- 支持的发布扩展名只有 `apk`、`hap`、`zip`、`tar.gz`、`pkg`、`ipa`、`msi`。`tools/build_scripts/release_artifacts.py:65`
-- macOS App 的 `build_type` 缺省为 `sandbox`。`tools/build_scripts/release_artifacts.py:68`
-- macOS App 的 `build_type` 只接受 `sandbox` 或 `unsandbox`。`tools/build_scripts/release_artifacts.py:69`
-- `build_type` 只适用于 macOS App 包，其他产品传入 `build_type` 时抛错。`tools/build_scripts/release_artifacts.py:71`
+- `versions[0]` 与 `versions[1]` 不一致时抛错。`tools/build_scripts/release_artifacts.py:57`
+- 支持的发布扩展名只有 `apk`、`hap`、`zip`、`tar.gz`、`pkg`、`ipa`、`msi`、`dmg`。`tools/build_scripts/release_artifacts.py:66`
+- macOS App 的 `build_type` 缺省为 `sandbox`。`tools/build_scripts/release_artifacts.py:69`
+- macOS App 的 `build_type` 只接受 `sandbox` 或 `unsandbox`。`tools/build_scripts/release_artifacts.py:70`
+- `build_type` 只适用于 macOS App 包，其他产品传入 `build_type` 时抛错。`tools/build_scripts/release_artifacts.py:72`
 - macOS App 包使用 `operit2-app-macos-universal-<sandbox|unsandbox>-<release-version>.zip`。`tools/build_scripts/README.md:15`
 - 沙箱 App Store 安装器沿用同一命名规则，扩展名为 `.pkg`。`tools/build_scripts/README.md:16`
 - macOS CLI 包保留目标架构并使用 `.tar.gz` 命名。`tools/build_scripts/README.md:17`
 - 构建与校验脚本不得为发布包另写 `.sha256` 文件或 `SHA256SUMS` 清单。`tools/build_scripts/README.md:18`
-- `validate_release_assets` 拒绝文件名不在当前版本命名集合内的资产。`tools/build_scripts/release_artifacts.py:87`
+- `validate_release_assets` 拒绝文件名不在当前版本命名集合内的资产。`tools/build_scripts/release_artifacts.py:88`
 - `RELEASE_TARGETS` 列出发布资产的目标组合，含产品、平台、架构与扩展名。`tools/build_scripts/release_artifacts.py:13`
 
 ### Flutter 构建入口
@@ -162,9 +162,9 @@ date: 2026-11-11
 
 ## 关键符号
 
-- `release_asset_name` — 拼出版本化发布包文件名。`tools/build_scripts/release_artifacts.py:61`
-- `release_version` — 读取并校验 App 与 CLI 共用的单一发布版本。`tools/build_scripts/release_artifacts.py:42`
-- `validate_release_assets` — 拒绝文件名不在当前版本命名集合内的资产。`tools/build_scripts/release_artifacts.py:87`
+- `release_asset_name` — 拼出版本化发布包文件名。`tools/build_scripts/release_artifacts.py:62`
+- `release_version` — 读取并校验 App 与 CLI 共用的单一发布版本。`tools/build_scripts/release_artifacts.py:43`
+- `validate_release_assets` — 拒绝文件名不在当前版本命名集合内的资产。`tools/build_scripts/release_artifacts.py:88`
 - `RELEASE_TARGETS` — 列出发布资产的目标组合，含产品、平台、架构与扩展名。`tools/build_scripts/release_artifacts.py:13`
 - `main`（build_local.py）— 当前宿主构建的入口。`tools/build_scripts/build_local.py:98`
 - `build_script` — 按 `{name}_{platform_name}.py` 拼出平台构建脚本路径。`tools/build_scripts/build_local.py:32`

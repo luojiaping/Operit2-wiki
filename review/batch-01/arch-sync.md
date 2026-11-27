@@ -162,7 +162,7 @@ date: 2026-11-11
 
 - docs/sync-architecture.md（131 行，全文已读）
 - docs/transaction-model.md（189 行，全文已读）
-- docs/transaction-sync-contract.md（75 行，全文已读）
+- docs/transaction-sync-contract.md（77 行，全文已读）
 - core/crates/node/runtime/src/SyncConsistency.rs（295 行，全文已读）
 - core/crates/node/runtime/src/SpacePersistenceSyncService.rs（1889 行，节选已读：第 885–910 行 recordPendingWork、第 991–998 行 failed 清单与 pendingWork 清零）
 

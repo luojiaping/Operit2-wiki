@@ -1,0 +1,5 @@
+core-overview.md:106 `RuntimeToolSupport` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:172', 'core/crates/runtime/application/Cargo.toml:2']
+core-overview.md:106 `ToolRuntimeSupport` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:172', 'core/crates/runtime/application/Cargo.toml:2']
+core-overview.md:112 `AIToolHandler` not within ±5 of any ref ['core/crates/tool/services/src/tools/AIToolHandler.rs:1238', 'core/crates/tool/services/Cargo.toml:2']
+core-overview.md:187 `RuntimeToolSupport` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:172', 'core/crates/runtime/application/Cargo.toml:2']
+core-overview.md:187 `ToolRuntimeSupport` not within ±5 of any ref ['core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:172', 'core/crates/runtime/application/Cargo.toml:2']

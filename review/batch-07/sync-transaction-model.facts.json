@@ -409,39 +409,39 @@
   },
   {
     "fact": "receive_validated_initialization 在初始化数据的 owner 或 domain 不符时返回 Initialization owner differs 错误",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1717"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1718"
   },
   {
     "fact": "提交快照时以 token 做 CAS，当前 token 与期望不符时返回 false",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1761"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1757"
   },
   {
     "fact": "提交快照时在定义给出时经 restore_schema 恢复表结构声明",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1769"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1766"
   },
   {
     "fact": "covered_by_initialization 按初始化覆盖表判断操作是否已被封存",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1804"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1801"
   },
   {
     "fact": "Form 要求实现 migrate 与 apply_rule",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1813"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1810"
   },
   {
     "fact": "Data 实现 Form",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1817"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1814"
   },
   {
     "fact": "Transaction 实现 Form",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1825"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1822"
   },
   {
     "fact": "Migrations 的 migrate 先在副本上迁移，成功后才替换原文",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1834"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1831"
   },
   {
     "fact": "Rule 的 apply 先在副本上应用规则，成功后才替换原文",
-    "ref": "core/crates/persistence/store/src/Transaction.rs:1842"
+    "ref": "core/crates/persistence/store/src/Transaction.rs:1839"
   },
   {
     "fact": "operation_digest 对事务引用返回其内容哈希，否则对事务操作做摘要",

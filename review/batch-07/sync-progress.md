@@ -25,7 +25,7 @@ date: 2026-11-11
 - `SyncProgressTracker` — 会话表与可见性门禁。`core/crates/node/runtime/src/SpaceSyncProgress.rs:66`
 - `SyncProgressSession` — 一次会话的进度、可见标志与待处理/错误账本。`core/crates/node/runtime/src/SpaceSyncProgress.rs:58`
 - `LARGE_SYNC_DELAY_MS` / `LARGE_SYNC_RECORDS` / `LARGE_SYNC_BYTES` — 3 秒 / 256 条 / 1 MiB 门槛。`core/crates/node/runtime/src/SpaceSyncProgress.rs:44`
-- `RuntimeActivityOverlay` — 根部统一订阅大同步状态的全局任务浮层。`docs/device-space-large-sync-progress.md:66`
+- `RuntimeActivityOverlay` — 根部统一订阅大同步状态的全局任务浮层。`docs/device-space-large-sync-progress.md:67`
 - 主入口函数：`begin`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:137`
 - 数据流向一句话：同步执行直接产生进度状态，经可见性门禁后由 `flow` 向界面发布，隐藏会话不越过代理。`core/crates/node/runtime/src/SpaceSyncProgress.rs:86`
 
@@ -53,7 +53,7 @@ date: 2026-11-11
 
 ### 进度何时向界面发布
 
-- 服务仅在任务持续 3 秒，且达到 256 条交换记录、总量 256 条、1 MiB 实际传输量或当前文件大小后发布可见进度。`docs/device-space-large-sync-progress.md:20`
+- 服务仅在任务持续 3 秒，且达到 256 条交换记录、总量 256 条、1 MiB 实际传输量或当前文件大小后发布可见进度。`docs/device-space-large-sync-progress.md:21`
 - 可见进度门槛常量为 `LARGE_SYNC_DELAY_MS` 3000 毫秒、`LARGE_SYNC_RECORDS` 256 条、`LARGE_SYNC_BYTES` 1024×1024 字节。`core/crates/node/runtime/src/SpaceSyncProgress.rs:44`
 - `hasSubstantialWork` 在 `exchangedRecords` 达到 256 条、`totalRecords` 达到 256 条、`transferredBytes` 达到 1 MiB 或 `fileSize` 达到 1 MiB 时返回真。`core/crates/node/runtime/src/SpaceSyncProgress.rs:49`
 - 仅在会话已有实质工作量（`hasSubstantialWork`）时把会话置为可见。`core/crates/node/runtime/src/SpaceSyncProgress.rs:205`
@@ -63,9 +63,9 @@ date: 2026-11-11
 - 剩余延迟等于 `LARGE_SYNC_DELAY_MS` 减去自 `startedAt` 经过的时间，夹在 0 到 3000 之间。`core/crates/node/runtime/src/SpaceSyncProgress.rs:194`
 - `flow` 只返回 `visible` 为真的会话进度，隐藏会话不越过代理、不重建界面。`core/crates/node/runtime/src/SpaceSyncProgress.rs:86`
 - `peer` 只返回已可见的会话进度，不把隐藏会话或已完成旧会话暴露给调用方。`core/crates/node/runtime/src/SpaceSyncProgress.rs:80`
-- 小同步的开始、批次和完成均不产生界面事件，也不额外统计全部待同步数据。`docs/device-space-large-sync-progress.md:20`
-- 进度显示后跨轮次保留，完成后保留 3 秒；界面由根部 `RuntimeActivityOverlay` 统一订阅，页面切换不影响任务展示；仅完成收起使用定时器。`docs/device-space-large-sync-progress.md:20`
-- 权限撤销、成员退出或空间切换时清除不再适用的进度。`docs/device-space-large-sync-progress.md:21`
+- 小同步的开始、批次和完成均不产生界面事件，也不额外统计全部待同步数据。`docs/device-space-large-sync-progress.md:21`
+- 进度显示后跨轮次保留，完成后保留 3 秒；界面由根部 `RuntimeActivityOverlay` 统一订阅，页面切换不影响任务展示；仅完成收起使用定时器。`docs/device-space-large-sync-progress.md:21`
+- 权限撤销、成员退出或空间切换时清除不再适用的进度。`docs/device-space-large-sync-progress.md:22`
 - 结束时，在 `pending` 为真、有 `error` 或 `pendingRecords` 大于 0 时状态置为 `Waiting`，否则置为 `Completed`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:323`
 - 结束时状态为 `Completed` 的会话清除 `error`，并把 `totalRecords` 置为 `completedRecords`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:330`
 - 快速成功的不可见已完成会话在结束后从会话列表中移除，不产生可观察的生命周期。`core/crates/node/runtime/src/SpaceSyncProgress.rs:338`
@@ -89,7 +89,7 @@ date: 2026-11-11
 - 测试：结束时 `pending` 为真则状态为 `Waiting`，并保留应用错误。`core/crates/node/runtime/src/SpaceSyncProgress.rs:385`
 - 测试：缺失清单时 `totalRecords` 为 `None`，不凭页面大小编造总量；小错误仍可见，结束时状态为 `Waiting`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:405`
 - 测试：失败的原始记录在后续轮次重新上报为空后，`completedRecords` 升到 512，`pendingRecords` 归零。`core/crates/node/runtime/src/SpaceSyncProgress.rs:394`
-- 验证范围要求 Rust 检查共享服务、任务跨轮次与重试、真实批次和文件统计、分页退出的 `pending` 语义。`docs/device-space-large-sync-progress.md:25`
+- 验证范围要求 Rust 检查共享服务、任务跨轮次与重试、真实批次和文件统计、分页退出的 `pending` 语义。`docs/device-space-large-sync-progress.md:26`
 
 ### 文件传输与字节统计
 
@@ -105,44 +105,44 @@ date: 2026-11-11
 
 ### 全局任务浮层与代理复用
 
-- `OperitTheme` 根部保留一个 `RuntimeActivityOverlay`，直接消费现有包加载状态与大同步状态，不新增通用任务框架。`docs/device-space-large-sync-progress.md:66`
-- 原 `PluginLoadingOverlay` 与设置页的 `SpaceSyncProgressCard`、同步订阅一起移除。`docs/device-space-large-sync-progress.md:67`
-- 折叠态为 232 × 64 的圆角卡片，含任务图标、两行摘要、底部细进度条；多任务增加数量提示。`docs/device-space-large-sync-progress.md:70`
-- 点击展开后在同一个可滚动面板中查看各设备同步、包启动详情和原有日志；卡片支持拖动并约束在安全区域内；跳过包加载只调用原有包加载接口，不中断同步。`docs/device-space-large-sync-progress.md:70`
-- 生成代理每次调用都会重建 facade；原 `localApplicationSharedClient()` 每次创建新的 `Arc`，导致同步服务注册表无法把后台 worker 与进度订阅识别为同一应用。`docs/device-space-large-sync-progress.md:76`
-- `LocalCoreProxy` 现在通过共享 `Weak` 缓存复用仍存活的应用客户端，避免强引用环，同时保留不同应用实例的隔离；原生双端测试实际经过这条代理链路。`docs/device-space-large-sync-progress.md:78`
+- `OperitTheme` 根部保留一个 `RuntimeActivityOverlay`，直接消费现有包加载状态与大同步状态，不新增通用任务框架。`docs/device-space-large-sync-progress.md:67`
+- 原 `PluginLoadingOverlay` 与设置页的 `SpaceSyncProgressCard`、同步订阅一起移除。`docs/device-space-large-sync-progress.md:68`
+- 折叠态为 232 × 64 的圆角卡片，含任务图标、两行摘要、底部细进度条；多任务增加数量提示。`docs/device-space-large-sync-progress.md:71`
+- 点击展开后在同一个可滚动面板中查看各设备同步、包启动详情和原有日志；卡片支持拖动并约束在安全区域内；跳过包加载只调用原有包加载接口，不中断同步。`docs/device-space-large-sync-progress.md:71`
+- 生成代理每次调用都会重建 facade；原 `localApplicationSharedClient()` 每次创建新的 `Arc`，导致同步服务注册表无法把后台 worker 与进度订阅识别为同一应用。`docs/device-space-large-sync-progress.md:77`
+- `LocalCoreProxy` 现在通过共享 `Weak` 缓存复用仍存活的应用客户端，避免强引用环，同时保留不同应用实例的隔离；原生双端测试实际经过这条代理链路。`docs/device-space-large-sync-progress.md:79`
 - `mirror` 把协调方的实际进度镜像到本端会话，并保留原 `startedAt`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:124`
 - 镜像后的会话置为可见（`visible` 为 `true`）。`core/crates/node/runtime/src/SpaceSyncProgress.rs:132`
 - 测试：镜像到不同空间的会话不进入 `flow`，`flow` 为空。`core/crates/node/runtime/src/SpaceSyncProgress.rs:561`
 - 测试：`retain` 以空成员列表清理后，`flow` 为空。`core/crates/node/runtime/src/SpaceSyncProgress.rs:575`
 - `retain` 只保留属于指定 `spaceId` 且对端在给定成员列表中的会话。`core/crates/node/runtime/src/SpaceSyncProgress.rs:107`
-- 测试协调器仅负责阶段屏障与系统截图，不提供业务响应或注入同步进度。`docs/device-space-large-sync-progress.md:42`
-- 包加载预览单独使用示例包状态，文件名以 `package-*-preview` 标注；同步进度与拓扑订阅始终使用原生 Core。`docs/device-space-large-sync-progress.md:43`
-- Flutter 检查小同步静默、慢同步显示、文件进度、完成收起、重试、空间切换及与包加载共用的展开/折叠界面；客户端契约通过真实代理生成工具更新。`docs/device-space-large-sync-progress.md:25`
+- 测试协调器仅负责阶段屏障与系统截图，不提供业务响应或注入同步进度。`docs/device-space-large-sync-progress.md:43`
+- 包加载预览单独使用示例包状态，文件名以 `package-*-preview` 标注；同步进度与拓扑订阅始终使用原生 Core。`docs/device-space-large-sync-progress.md:44`
+- Flutter 检查小同步静默、慢同步显示、文件进度、完成收起、重试、空间切换及与包加载共用的展开/折叠界面；客户端契约通过真实代理生成工具更新。`docs/device-space-large-sync-progress.md:26`
 
 ### 2026-10-25 验证记录
 
-- 2026-10-25 验证：`cargo check -p operit-proxy-local` 通过，使用原有生成器生成代理契约。`docs/device-space-large-sync-progress.md:29`
-- 2026-10-25 验证：先前设置页方案通过 50 项 Flutter 测试；当前已替换为全局任务浮层，下方记录最终全局方案的验证结果。`docs/device-space-large-sync-progress.md:30`
-- 2026-10-25 验证：Rust 进度状态 4 项、原同步服务 8 项测试全部通过；连续 20 次小同步只收到初始空快照，没有进度事件。`docs/device-space-large-sync-progress.md:31`
-- 2026-10-25 验证：设备空间行为回归 97 项中 95 项通过、2 项失败；最终全局方案已改为即使超过三秒仍保持静默，重建 facade 复用同一个 gate。`docs/device-space-large-sync-progress.md:32`
-- 2026-10-25 验证：两项失败为 `doctor_detects_quarantines_and_selfchecks_damaged_lines` 和 `target_space_change_does_not_block_withdrawal_of_an_old_request`。`docs/device-space-large-sync-progress.md:33`
-- 2026-10-25 验证：在隔离的 `6c1fa579` 源码副本上复用相同依赖、单独编译并运行，两项失败均在原断言失败，确认不由本次同步修改引入。`docs/device-space-large-sync-progress.md:33`
-- 2026-10-25 验证：当前 macOS 测试链接需要显式补充本地模型依赖的 Accelerate，命令为 `cargo rustc -p operit-node-runtime --lib --profile test -- -l framework=Accelerate`，随后运行生成的测试程序；没有修改项目链接配置。`docs/device-space-large-sync-progress.md:34`
-- 2026-10-25 验证：原有 `check_structure.py` 因 `coverage.json` 与测试清单不一致而失败；本次未新增或重命名该目录的测试用例，也未修改原有清单。`docs/device-space-large-sync-progress.md:35`
-- 2026-10-25 最终全局方案验证：macOS 与 iOS 27.0 / iPhone 18 Pro Max 模拟器完整原生集成测试均通过。`docs/device-space-large-sync-progress.md:83`
-- 2026-10-25 最终全局方案验证：首次加入传输 96 MiB 文件、断开监听并积压 96 MiB 文件后恢复增量，均落盘并核对 SHA-256。`docs/device-space-large-sync-progress.md:84`
-- 2026-10-25 最终全局方案验证：6 字节小文本两端实际同步成功，无新增可见进度事件，截图中无同步浮层。`docs/device-space-large-sync-progress.md:85`
-- 2026-10-25 最终全局方案验证：切换到工作空间页面后仍显示同一个全局同步浮层；完成后正常收起。`docs/device-space-large-sync-progress.md:86`
-- 2026-10-25 最终全局方案验证：原生联测发现“仅三秒门槛”误展示慢的小同步，因此增加实际工作量门槛；不额外遍历待同步数据。`docs/device-space-large-sync-progress.md:87`
-- 2026-10-25 最终全局方案验证：Flutter 全局浮层、设备设置、加入弹窗共 50 项通过；相关界面与集成测试静态分析无问题。`docs/device-space-large-sync-progress.md:88`
-- 2026-10-25 最终全局方案验证：Rust 进度状态 5 项、同步分页与错误处理 8 项、原调度 gate 4 项通过；新增慢小同步静默、延时后才跨越记录门槛的状态测试。`docs/device-space-large-sync-progress.md:89`
-- 2026-10-25 最终全局方案验证：两端原始截图及 `verification.json`、`native-events.json` 见 `docs/assets/sync-progress-2026-10-25/`。`docs/device-space-large-sync-progress.md:90`
-- 2026-10-25 最终全局方案验证：`compact-preview.png` 仅裁切并拼排原始系统截图；包加载截图为示例包状态的原生界面预览，同步截图来自真实网络传输。`docs/device-space-large-sync-progress.md:91`
-- 联调场景包括首次加入传输 96 MiB 工作区文件、暂停后台同步后积压 96 MiB 增量再恢复、最后同步一个小文本；大文件核对完整 SHA-256。`docs/device-space-large-sync-progress.md:60`
-- 原生集成测试 `integration_test/device_space_sync_native_test.dart` 在两端分别创建独立存储目录，通过真实 HTTP Peer Link 配对、申请加入、审批并启动原有后台同步。`docs/device-space-large-sync-progress.md:41`
-- 协调器启动命令为 `python3 apps/flutter/app/integration_test/device_space_sync_coordinator.py` `--output docs/assets/sync-progress-2026-10-25`。`docs/device-space-large-sync-progress.md:49`
-- 两端分别运行 `fvm flutter test integration_test/device_space_sync_native_test.dart -d macos --reporter expanded` 与同一命令的 -d iOS 模拟器 UDID 变体。`docs/device-space-large-sync-progress.md:56`
+- 2026-10-25 验证：`cargo check -p operit-proxy-local` 通过，使用原有生成器生成代理契约。`docs/device-space-large-sync-progress.md:30`
+- 2026-10-25 验证：先前设置页方案通过 50 项 Flutter 测试；当前已替换为全局任务浮层，下方记录最终全局方案的验证结果。`docs/device-space-large-sync-progress.md:31`
+- 2026-10-25 验证：Rust 进度状态 4 项、原同步服务 8 项测试全部通过；连续 20 次小同步只收到初始空快照，没有进度事件。`docs/device-space-large-sync-progress.md:32`
+- 2026-10-25 验证：设备空间行为回归 97 项中 95 项通过、2 项失败；最终全局方案已改为即使超过三秒仍保持静默，重建 facade 复用同一个 gate。`docs/device-space-large-sync-progress.md:33`
+- 2026-10-25 验证：两项失败为 `doctor_detects_quarantines_and_selfchecks_damaged_lines` 和 `target_space_change_does_not_block_withdrawal_of_an_old_request`。`docs/device-space-large-sync-progress.md:34`
+- 2026-10-25 验证：在隔离的 `6c1fa579` 源码副本上复用相同依赖、单独编译并运行，两项失败均在原断言失败，确认不由本次同步修改引入。`docs/device-space-large-sync-progress.md:34`
+- 2026-10-25 验证：当前 macOS 测试链接需要显式补充本地模型依赖的 Accelerate，命令为 `cargo rustc -p operit-node-runtime --lib --profile test -- -l framework=Accelerate`，随后运行生成的测试程序；没有修改项目链接配置。`docs/device-space-large-sync-progress.md:35`
+- 2026-10-25 验证：原有 `check_structure.py` 因 `coverage.json` 与测试清单不一致而失败；本次未新增或重命名该目录的测试用例，也未修改原有清单。`docs/device-space-large-sync-progress.md:36`
+- 2026-10-25 最终全局方案验证：macOS 与 iOS 27.0 / iPhone 18 Pro Max 模拟器完整原生集成测试均通过。`docs/device-space-large-sync-progress.md:84`
+- 2026-10-25 最终全局方案验证：首次加入传输 96 MiB 文件、断开监听并积压 96 MiB 文件后恢复增量，均落盘并核对 SHA-256。`docs/device-space-large-sync-progress.md:85`
+- 2026-10-25 最终全局方案验证：6 字节小文本两端实际同步成功，无新增可见进度事件，截图中无同步浮层。`docs/device-space-large-sync-progress.md:86`
+- 2026-10-25 最终全局方案验证：切换到工作空间页面后仍显示同一个全局同步浮层；完成后正常收起。`docs/device-space-large-sync-progress.md:87`
+- 2026-10-25 最终全局方案验证：原生联测发现“仅三秒门槛”误展示慢的小同步，因此增加实际工作量门槛；不额外遍历待同步数据。`docs/device-space-large-sync-progress.md:88`
+- 2026-10-25 最终全局方案验证：Flutter 全局浮层、设备设置、加入弹窗共 50 项通过；相关界面与集成测试静态分析无问题。`docs/device-space-large-sync-progress.md:89`
+- 2026-10-25 最终全局方案验证：Rust 进度状态 5 项、同步分页与错误处理 8 项、原调度 gate 4 项通过；新增慢小同步静默、延时后才跨越记录门槛的状态测试。`docs/device-space-large-sync-progress.md:90`
+- 2026-10-25 最终全局方案验证：两端原始截图及 `verification.json`、`native-events.json` 见 `docs/assets/sync-progress-2026-10-25/`。`docs/device-space-large-sync-progress.md:91`
+- 2026-10-25 最终全局方案验证：`compact-preview.png` 仅裁切并拼排原始系统截图；包加载截图为示例包状态的原生界面预览，同步截图来自真实网络传输。`docs/device-space-large-sync-progress.md:92`
+- 联调场景包括首次加入传输 96 MiB 工作区文件、暂停后台同步后积压 96 MiB 增量再恢复、最后同步一个小文本；大文件核对完整 SHA-256。`docs/device-space-large-sync-progress.md:61`
+- 原生集成测试 `integration_test/device_space_sync_native_test.dart` 在两端分别创建独立存储目录，通过真实 HTTP Peer Link 配对、申请加入、审批并启动原有后台同步。`docs/device-space-large-sync-progress.md:42`
+- 协调器启动命令为 `python3 apps/flutter/app/integration_test/device_space_sync_coordinator.py` `--output docs/assets/sync-progress-2026-10-25`。`docs/device-space-large-sync-progress.md:50`
+- 两端分别运行 `fvm flutter test integration_test/device_space_sync_native_test.dart -d macos --reporter expanded` 与同一命令的 -d iOS 模拟器 UDID 变体。`docs/device-space-large-sync-progress.md:57`
 
 ### 2026-11-11 iOS/macOS 联调记录
 
@@ -203,8 +203,8 @@ date: 2026-11-11
 
 ### 范围边界：未验收项
 
-- 真机上的大文件、弱网、移动端后台恢复还需实际验收；本次自动化结果不等于这些场景已经通过。`docs/device-space-large-sync-progress.md:37`
-- 实机、弱网与系统长时间后台挂起未在本轮验收范围内；这里的双端结果为 macOS 与 iOS 模拟器前台联测。`docs/device-space-large-sync-progress.md:93`
+- 真机上的大文件、弱网、移动端后台恢复还需实际验收；本次自动化结果不等于这些场景已经通过。`docs/device-space-large-sync-progress.md:38`
+- 实机、弱网与系统长时间后台挂起未在本轮验收范围内；这里的双端结果为 macOS 与 iOS 模拟器前台联测。`docs/device-space-large-sync-progress.md:94`
 - 2026-11-11 iOS/macOS 模拟器联调（dc4079ab9、Core 2.0.0-preview.31、协议 v13）写明：未验收范围包括 Mac 发起的全新配对、二维码、真机网络和本地网络授权、旧配对数据迁移、原身份加入失败、完整文件同步。`docs/device-space-native-testing.md:54`
 - 2026-11-11 iOS/macOS 模拟器联调（dc4079ab9、Core 2.0.0-preview.31、协议 v13）写明：此前服务驱动的原生集成测试有配对与加入成功记录，但完整同步测试未通过；新编写的双向传输矩阵未完成执行，已移除未验收的临时测试脚本；这些结果均不替代上述实际界面验证。`docs/device-space-native-testing.md:57`
 - 2026-11-11 v14 反向联调（Mac 发起 → iOS 接收，iOS 27.0 模拟器）写明：用户报告的另一处最新版双向缺少协议身份错误仍未复现，不能认定已修复；后续需要发生错误那一轮的完整错误或诊断日志，才能进一步核对实际接收阶段。`docs/device-space-native-testing.md:121`
@@ -240,12 +240,12 @@ date: 2026-11-11
 - `synchronizeOnce` — 先交换空间投影，再通过 change gate 做权限交换、设备偏好交换、版本检查和业务同步。`docs/device-space-large-sync-progress.md:7`
 - `synchronizeDomains` — 比较 `receipt`，合并双向差异，按操作数和传输字节分页。`docs/device-space-large-sync-progress.md:8`
 - `deviceSpaceSnapshotFlow` — 只有成员和拓扑，没有同步执行信息。`docs/device-space-large-sync-progress.md:10`
-- `RuntimeActivityOverlay` — 根部统一订阅大同步状态。`docs/device-space-large-sync-progress.md:66`
-- `OperitTheme` — 根部保留一个 `RuntimeActivityOverlay`。`docs/device-space-large-sync-progress.md:66`
-- `PluginLoadingOverlay` — 与设置页同步卡片、同步订阅一起移除。`docs/device-space-large-sync-progress.md:67`
-- `SpaceSyncProgressCard` — 设置页的同步卡片，与 `PluginLoadingOverlay` 一起移除。`docs/device-space-large-sync-progress.md:67`
-- `LocalCoreProxy` — 通过共享 `Weak` 缓存复用仍存活的应用客户端。`docs/device-space-large-sync-progress.md:78`
-- 原 `localApplicationSharedClient()` — 修复前每次创建新的 `Arc`，导致同步服务注册表无法把后台 worker 与进度订阅识别为同一应用。`docs/device-space-large-sync-progress.md:76`
+- `RuntimeActivityOverlay` — 根部统一订阅大同步状态。`docs/device-space-large-sync-progress.md:67`
+- `OperitTheme` — 根部保留一个 `RuntimeActivityOverlay`。`docs/device-space-large-sync-progress.md:67`
+- `PluginLoadingOverlay` — 与设置页同步卡片、同步订阅一起移除。`docs/device-space-large-sync-progress.md:68`
+- `SpaceSyncProgressCard` — 设置页的同步卡片，与 `PluginLoadingOverlay` 一起移除。`docs/device-space-large-sync-progress.md:68`
+- `LocalCoreProxy` — 通过共享 `Weak` 缓存复用仍存活的应用客户端。`docs/device-space-large-sync-progress.md:79`
+- 原 `localApplicationSharedClient()` — 修复前每次创建新的 `Arc`，导致同步服务注册表无法把后台 worker 与进度订阅识别为同一应用。`docs/device-space-large-sync-progress.md:77`
 
 ## 调用链
 
@@ -271,9 +271,9 @@ date: 2026-11-11
 20. 结束时，在 `pending` 为真、有 `error` 或 `pendingRecords` 大于 0 时状态置为 `Waiting`，否则置为 `Completed`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:323`
 21. 结束时状态为 `Completed` 的会话清除 `error`，并把 `totalRecords` 置为 `completedRecords`。`core/crates/node/runtime/src/SpaceSyncProgress.rs:330`
 22. 快速成功的不可见已完成会话在结束后从会话列表中移除，不产生可观察的生命周期。`core/crates/node/runtime/src/SpaceSyncProgress.rs:338`
-23. 界面：根部 `RuntimeActivityOverlay` 统一订阅，页面切换不影响任务展示；进度显示后跨轮次保留，完成后保留 3 秒收起。`docs/device-space-large-sync-progress.md:20`
-24. 联调验证：协调器启动命令为 `python3 apps/flutter/app/integration_test/device_space_sync_coordinator.py` `--output docs/assets/sync-progress-2026-10-25`。`docs/device-space-large-sync-progress.md:49`
-25. 联调验证：两端分别运行 `fvm flutter test integration_test/device_space_sync_native_test.dart -d macos --reporter expanded` 与同一命令的 -d iOS 模拟器 UDID 变体。`docs/device-space-large-sync-progress.md:56`
+23. 界面：根部 `RuntimeActivityOverlay` 统一订阅，页面切换不影响任务展示；进度显示后跨轮次保留，完成后保留 3 秒收起。`docs/device-space-large-sync-progress.md:21`
+24. 联调验证：协调器启动命令为 `python3 apps/flutter/app/integration_test/device_space_sync_coordinator.py` `--output docs/assets/sync-progress-2026-10-25`。`docs/device-space-large-sync-progress.md:50`
+25. 联调验证：两端分别运行 `fvm flutter test integration_test/device_space_sync_native_test.dart -d macos --reporter expanded` 与同一命令的 -d iOS 模拟器 UDID 变体。`docs/device-space-large-sync-progress.md:57`
 
 ## 来源
 
@@ -285,8 +285,8 @@ date: 2026-11-11
 - 此前服务驱动的原生集成测试有配对与加入成功记录，但完整同步测试未通过。`docs/device-space-native-testing.md:57`
 - 用户报告的另一处最新版双向缺少协议身份错误仍未复现，不能认定已修复。`docs/device-space-native-testing.md:121`
 - 用户现场缺少协议身份的根因仍未确认。`docs/device-space-native-testing.md:162`
-- 2026-10-25 验证：设备空间行为回归 97 项中 95 项通过、2 项失败。`docs/device-space-large-sync-progress.md:32`
-- 两项失败在隔离的 `6c1fa579` 源码副本上复现，确认不由本次同步修改引入。`docs/device-space-large-sync-progress.md:33`
+- 2026-10-25 验证：设备空间行为回归 97 项中 95 项通过、2 项失败。`docs/device-space-large-sync-progress.md:33`
+- 两项失败在隔离的 `6c1fa579` 源码副本上复现，确认不由本次同步修改引入。`docs/device-space-large-sync-progress.md:34`
 - 本次写作未对 seed 全仓做 grep 复核；如补做，须写明命令与范围，例如 `grep -rn "PEER_PROTOCOL" --include=*.rs core/`。
 - 用户提供的 Android 诊断日志原文不在 seed 仓库内，无法在基线 364d1d594 上复核。
 - 范围说明：联调记录文件本身在 wiki 基线内，但其记录的联调针对代码版本 `dc4079ab9`、Core `2.0.0-preview.31`、协议 v13/v14，与 wiki 基线 364d1d594 不是同一版本。`docs/device-space-native-testing.md:4`

@@ -204,7 +204,7 @@ README 把 `runtime/src/remote` 列为节点身份与会话持久化、配对、
 - `scheduleSynchronization` 合并触发原因后经 Host 调度器排队一轮异步同步任务（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1309`）。
 - `callLocal` 经 application 目标调用本地应用方法（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1405`）。
 - `serviceCallRequest` 按目标分发调用请求（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1526`）。
-- 对 `NODE_SPACE_TARGET` 与 `NODE_SPACE_CONTROL_TARGET` 直通，其余目标经 `targetForSchema` 解析（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1533`）。
+- 对 `NODE_SPACE_TARGET` 与 `NODE_SPACE_CONTROL_TARGET` 直通，其余目标经 `targetForSchema` 解析（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1539`）。
 - `syncOperationCeiling` 为对端消息上限减 4 KiB 信封余量（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1594`）。
 - `syncPageBudget` 为对端消息上限的四分之三再减 64 KiB 余量（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1601`）。
 - 单个操作超过上限时返回 `SYNC_OPERATION_TOO_LARGE`（`core/crates/node/runtime/src/SpacePersistenceSyncService.rs:1630`）。

@@ -205,11 +205,11 @@
   },
   {
     "fact": "`requiresNativeApplicationZoom` 的默认值为 `false`。",
-    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:408"
+    "ref": "apps/flutter/thirdparty/webview_flutter_platform_interface/lib/src/platform_webview_controller.dart:421"
   },
   {
     "fact": "需要原生内容缩放的后端返回 `true` 并实现 `setApplicationZoomFactor`，复合平台视图保持默认。",
-    "ref": "apps/flutter/thirdparty/webview_all_linux/lib/src/linux_webview_controller.dart:816"
+    "ref": "apps/flutter/thirdparty/webview_all_linux/lib/src/linux_webview_controller.dart:817"
   },
   {
     "fact": "`build` 在 `requiresNativeApplicationZoom` 为真时包一层 `_NativeZoomWebViewViewport`，否则直接返回原生视图。",

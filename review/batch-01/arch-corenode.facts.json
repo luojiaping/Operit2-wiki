@@ -549,7 +549,7 @@
   },
   {
     "fact": "newWithContext(hostManager) 从 HostManager 创建应用实例。",
-    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:142"
+    "ref": "core/crates/runtime/application/src/core/application/OperitApplication.rs:143"
   },
   {
     "fact": "普通请求（ordinary request）进入 LocalCoreProxy。",

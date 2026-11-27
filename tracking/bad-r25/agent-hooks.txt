@@ -1,0 +1,6 @@
+agent-hooks.facts.json#91 `buildSummaryPreparedHistory` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:510
+agent-hooks.facts.json#91 `prepared_history` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:510
+agent-hooks.facts.json#92 `reconcileSummaryPreparedHistory` not within ±5 of core/crates/provider/services/src/chat/enhance/ConversationService.rs:524
+agent-hooks.md:133 `buildSummaryPreparedHistory` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:510']
+agent-hooks.md:133 `prepared_history` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:510']
+agent-hooks.md:134 `reconcileSummaryPreparedHistory` not within ±5 of any ref ['core/crates/provider/services/src/chat/enhance/ConversationService.rs:524']

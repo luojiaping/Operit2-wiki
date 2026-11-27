@@ -1,0 +1,6 @@
+agent-chat-branch.md:180 `historyPolicy` not within ±5 of any ref ['docs/chat-send-api.md:263']
+agent-chat-branch.md:180 `isolateParticipants` not within ±5 of any ref ['docs/chat-send-api.md:263']
+agent-chat-branch.md:180 `labelUserMessages` not within ±5 of any ref ['docs/chat-send-api.md:263']
+agent-chat-branch.md:181 `[From role: name]` not within ±5 of any ref ['docs/chat-send-api.md:271']
+agent-chat-branch.md:182 `[From user]` not within ±5 of any ref ['docs/chat-send-api.md:273']
+agent-chat-branch.md:183 `chat-send-contracts.test.mjs` not within ±5 of any ref ['docs/chat-send-api.md:225']

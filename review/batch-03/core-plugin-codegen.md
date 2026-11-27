@@ -121,27 +121,27 @@ date: 2026-11-11
 - generate_js_tools_runtime 先校验 Host trait 声明的方法集合与绑定表完全一致，缺失或多余时返回 Rust Tools bindings differ from active host traits 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:299）。
 - generate_js_tools_runtime 生成的 JavaScript 先输出 __operitToolParameterRules，再定义 Tools 命名空间（core/crates/plugin/codegen/src/runtime_bindings.rs:313）。
 - 生成的 JavaScript 内嵌 chat_runtime.js、terminal_runtime.js 与 storage_runtime.js 三个手写运行时（core/crates/plugin/codegen/src/runtime_bindings.rs:401）。
-- Chat 命名空间的方法挂在 __operitToolPkgApi.namespace("Tools.Chat") 下（core/crates/plugin/codegen/src/runtime_bindings.rs:472）。
-- 生成输出末尾追加 compat/v1 的 9 个手写适配器与 DeviceTools.script.js（core/crates/plugin/codegen/src/runtime_bindings.rs:505）。
-- 生成输出在写入前用 tree-sitter 校验 JavaScript 语法（core/crates/plugin/codegen/src/runtime_bindings.rs:514）。
-- 生成输出以 __operitCanonicalTools 保存 Tools 命名空间的深拷贝（core/crates/plugin/codegen/src/runtime_bindings.rs:496）。
+- Chat 命名空间的方法挂在 __operitToolPkgApi.namespace("Tools.Chat") 下（core/crates/plugin/codegen/src/runtime_bindings.rs:473）。
+- 生成输出末尾追加 compat/v1 的 9 个手写适配器与 DeviceTools.script.js（core/crates/plugin/codegen/src/runtime_bindings.rs:506）。
+- 生成输出在写入前用 tree-sitter 校验 JavaScript 语法（core/crates/plugin/codegen/src/runtime_bindings.rs:515）。
+- 生成输出以 __operitCanonicalTools 保存 Tools 命名空间的深拷贝（core/crates/plugin/codegen/src/runtime_bindings.rs:497）。
 - AsyncIterator facade 经 __operitCreateToolStream 建流，并要求恰好一个请求参数（core/crates/plugin/codegen/src/runtime_bindings.rs:444）。
-- TerminalCallback 走 __operitExecTerminalStreaming，TerminalRun 走 __operitRunTerminal，TerminalWait 走 __operitWaitTerminal（core/crates/plugin/codegen/src/runtime_bindings.rs:446）。
-- Promise 与 Storage facade 走生成的 JS 函数（core/crates/plugin/codegen/src/runtime_bindings.rs:447）。
-- 未知 facade 返回 Unknown result facade 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:453）。
-- 带 API 版本变体的方法经 __operitToolPkgApi.method().since() 或 .between() 生成版本门控函数（core/crates/plugin/codegen/src/runtime_bindings.rs:462）。
-- 非 Chat 的版本变体方法再调 .build("Tools.<命名空间>.<方法>")（core/crates/plugin/codegen/src/runtime_bindings.rs:479）。
+- TerminalCallback 走 __operitExecTerminalStreaming，TerminalRun 走 __operitRunTerminal，TerminalWait 走 __operitWaitTerminal（core/crates/plugin/codegen/src/runtime_bindings.rs:447）。
+- Promise 与 Storage facade 走生成的 JS 函数（core/crates/plugin/codegen/src/runtime_bindings.rs:448）。
+- 未知 facade 返回 Unknown result facade 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:454）。
+- 带 API 版本变体的方法经 __operitToolPkgApi.method().since() 或 .between() 生成版本门控函数（core/crates/plugin/codegen/src/runtime_bindings.rs:463）。
+- 非 Chat 的版本变体方法再调 .build("Tools.<命名空间>.<方法>")（core/crates/plugin/codegen/src/runtime_bindings.rs:480）。
 - __operitInvokeToolsBinding 先构造参数，带设备上下文时调用 __operitDeviceToolCall，否则调用 toolCall（core/crates/plugin/codegen/src/runtime_bindings.rs:390）。
 - __operitToolsSelectOverload 在唯一重载时直接选它，首参为对象且存在扁平化重载时选扁平化重载，否则选参数最多的重载（core/crates/plugin/codegen/src/runtime_bindings.rs:349）。
 - __operitToolsBuildParameters 按选定重载映射参数：扁平化参数展开对象字段，标量联合后缀参数映射为标量字段，最后追加固定参数（core/crates/plugin/codegen/src/runtime_bindings.rs:362）。
 - 除 preserve_object_namespaces（Net、Media）内的命名空间外，扁平化参数展开对象字段时经 __operitToolsSnakeCase 转 snake_case；Net 与 Media 保留原字段名（core/crates/plugin/codegen/src/runtime_bindings.rs:372）。
-- generate_parameter_rules 读取 JS_TOOL_PARAMETER_RULES 常量，要求恰好 4 个字段：flatten_arguments、scalar_union_suffixes、preserve_object_namespaces、argument_names（core/crates/plugin/codegen/src/runtime_bindings.rs:561）。
-- generate_parameter_rules 要求每个参数别名是四元组且引用已声明的方法与参数，重复别名报错（core/crates/plugin/codegen/src/runtime_bindings.rs:587）。
-- argument_checks 为 strict_arguments 的方法生成参数校验：String 参数要求非空且首尾无空白，其他路径类型用 __operitSnapshotJsonObject 快照，不支持的类型报错（core/crates/plugin/codegen/src/runtime_bindings.rs:538）。
-- `read_host_method_arguments` 从 HOST_TRAITS 的 trait 中读取每个重载的有序参数名（core/crates/plugin/codegen/src/runtime_bindings.rs:641）。
-- `validate_javascript_syntax` 用 tree-sitter 解析生成的 JavaScript，含错误节点时返回 generated JavaScript Tools runtime contains a syntax error 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:681）。
-- `runtime_method_name` 去掉方法名前的 r# 前缀与 _overload_ 后缀（core/crates/plugin/codegen/src/runtime_bindings.rs:727）。
-- `pascal_case_to_snake_case` 把 PascalCase 变体名还原为 snake_case（core/crates/plugin/codegen/src/runtime_bindings.rs:734）。
+- generate_parameter_rules 读取 JS_TOOL_PARAMETER_RULES 常量，要求恰好 4 个字段：flatten_arguments、scalar_union_suffixes、preserve_object_namespaces、argument_names（core/crates/plugin/codegen/src/runtime_bindings.rs:562）。
+- generate_parameter_rules 要求每个参数别名是四元组且引用已声明的方法与参数，重复别名报错（core/crates/plugin/codegen/src/runtime_bindings.rs:588）。
+- argument_checks 为 strict_arguments 的方法生成参数校验：String 参数要求非空且首尾无空白，其他路径类型用 __operitSnapshotJsonObject 快照，不支持的类型报错（core/crates/plugin/codegen/src/runtime_bindings.rs:539）。
+- `read_host_method_arguments` 从 HOST_TRAITS 的 trait 中读取每个重载的有序参数名（core/crates/plugin/codegen/src/runtime_bindings.rs:642）。
+- `validate_javascript_syntax` 用 tree-sitter 解析生成的 JavaScript，含错误节点时返回 generated JavaScript Tools runtime contains a syntax error 错误（core/crates/plugin/codegen/src/runtime_bindings.rs:682）。
+- `runtime_method_name` 去掉方法名前的 r# 前缀与 _overload_ 后缀（core/crates/plugin/codegen/src/runtime_bindings.rs:728）。
+- `pascal_case_to_snake_case` 把 PascalCase 变体名还原为 snake_case（core/crates/plugin/codegen/src/runtime_bindings.rs:735）。
 
 ### 内置工具名与注册契约
 
