@@ -1,7 +1,7 @@
 [
   {
     "fact": "`ArchiveStagingHost` trait 定义含 8 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2280"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2286"
   },
   {
     "fact": "`ArchiveStagingHost` 在 HostManager 有注册槽位",
@@ -9,7 +9,7 @@
   },
   {
     "fact": "`AudioPlaybackHost` trait 定义含 9 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2960"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2966"
   },
   {
     "fact": "`AudioPlaybackHost` 在 HostManager 有注册槽位",
@@ -17,7 +17,7 @@
   },
   {
     "fact": "`BluetoothHost` trait 定义含 20 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3155"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3161"
   },
   {
     "fact": "`BluetoothHost` 在 HostManager 有注册槽位",
@@ -25,7 +25,7 @@
   },
   {
     "fact": "`BrowserAutomationHost` trait 定义含 1 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1121"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1129"
   },
   {
     "fact": "`BrowserAutomationHost` 在 HostManager 有注册槽位",
@@ -33,7 +33,7 @@
   },
   {
     "fact": "`BrowserSessionHost` trait 定义含 6 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1174"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1182"
   },
   {
     "fact": "`BrowserSessionHost` 在 HostManager 有注册槽位",
@@ -41,7 +41,7 @@
   },
   {
     "fact": "`ClipboardHost` trait 定义含 1 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3441"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3447"
   },
   {
     "fact": "`ClipboardHost` 在 HostManager 有注册槽位",
@@ -49,7 +49,7 @@
   },
   {
     "fact": "`ComposeDslWebViewHost` trait 定义含 3 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1352"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1360"
   },
   {
     "fact": "`ComposeDslWebViewHost` 在 HostManager 有注册槽位",
@@ -57,7 +57,7 @@
   },
   {
     "fact": "`DeviceIoHost` trait 定义含 2 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3238"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3244"
   },
   {
     "fact": "`DeviceIoHost` 在 HostManager 有注册槽位",
@@ -65,7 +65,7 @@
   },
   {
     "fact": "`FileSystemHost` trait 定义含 24 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3622"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3628"
   },
   {
     "fact": "`FileSystemHost` 在 HostManager 有注册槽位",
@@ -73,7 +73,7 @@
   },
   {
     "fact": "`FloatingWindowHost` trait 定义含 1 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3468"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3474"
   },
   {
     "fact": "`FloatingWindowHost` 在 HostManager 有注册槽位",
@@ -81,7 +81,7 @@
   },
   {
     "fact": "`HostJavaScriptRuntimeHost` trait 定义含 6 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2676"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2682"
   },
   {
     "fact": "`HostJavaScriptRuntimeHost` 在 HostManager 有注册槽位",
@@ -89,7 +89,7 @@
   },
   {
     "fact": "`HostRuntimeEventHost` trait 定义含 1 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2432"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2438"
   },
   {
     "fact": "`HostRuntimeEventHost` 在 HostManager 有注册槽位",
@@ -97,7 +97,7 @@
   },
   {
     "fact": "`HostRuntimeEventSchedulerHost` trait 定义含 1 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2464"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2470"
   },
   {
     "fact": "`HostRuntimeEventSchedulerHost` 在 HostManager 有注册槽位",
@@ -105,7 +105,7 @@
   },
   {
     "fact": "`HostRuntimeTaskSchedulerHost` trait 定义含 8 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2719"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2725"
   },
   {
     "fact": "`HostRuntimeTaskSchedulerHost` 在 HostManager 有注册槽位",
@@ -113,7 +113,7 @@
   },
   {
     "fact": "`HostSecretStore` trait 定义含 3 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2306"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2312"
   },
   {
     "fact": "`HostSecretStore` 在 HostManager 有注册槽位",
@@ -121,7 +121,7 @@
   },
   {
     "fact": "`HttpHost` trait 定义含 5 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1625"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1633"
   },
   {
     "fact": "`HttpHost` 在 HostManager 有注册槽位",
@@ -137,7 +137,7 @@
   },
   {
     "fact": "`LocalInferenceHost` trait 定义含 6 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3383"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3389"
   },
   {
     "fact": "`LocalInferenceHost` 在 HostManager 有注册槽位",
@@ -145,7 +145,7 @@
   },
   {
     "fact": "`ManagedRuntimeHost` trait 定义含 9 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1749"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1757"
   },
   {
     "fact": "`ManagedRuntimeHost` 在 HostManager 有注册槽位",
@@ -161,7 +161,7 @@
   },
   {
     "fact": "`RobotFaceHost` trait 定义含 2 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3262"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3268"
   },
   {
     "fact": "`RobotFaceHost` 在 HostManager 有注册槽位",
@@ -169,7 +169,7 @@
   },
   {
     "fact": "`RuntimeSqliteHost` trait 定义含 2 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2424"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2430"
   },
   {
     "fact": "`RuntimeSqliteHost` 在 HostManager 有注册槽位",
@@ -177,7 +177,7 @@
   },
   {
     "fact": "`RuntimeStorageHost` trait 定义含 20 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2094"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2100"
   },
   {
     "fact": "`RuntimeStorageHost` 在 HostManager 有注册槽位",
@@ -185,7 +185,7 @@
   },
   {
     "fact": "`RuntimeStorageWriteHost` trait 定义含 1 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2274"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2280"
   },
   {
     "fact": "`RuntimeStorageWriteHost` 在 HostManager 有注册槽位",
@@ -209,7 +209,7 @@
   },
   {
     "fact": "`SystemOperationHost` trait 定义含 21 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3539"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3545"
   },
   {
     "fact": "`SystemOperationHost` 在 HostManager 有注册槽位",
@@ -224,8 +224,8 @@
     "ref": "core/crates/foundation/host-api/src/HostManager.rs:155"
   },
   {
-    "fact": "`TerminalHost` trait 定义含 31 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1921"
+    "fact": "`TerminalHost` trait 定义含 32 个方法",
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1925"
   },
   {
     "fact": "`TerminalHost` 在 HostManager 有注册槽位",
@@ -233,7 +233,7 @@
   },
   {
     "fact": "`ToastHost` trait 定义含 1 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3436"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3442"
   },
   {
     "fact": "`ToastHost` 在 HostManager 有注册槽位",
@@ -241,7 +241,7 @@
   },
   {
     "fact": "`TtsPlaybackHost` trait 定义含 8 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3316"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3322"
   },
   {
     "fact": "`TtsPlaybackHost` 在 HostManager 有注册槽位",
@@ -249,7 +249,7 @@
   },
   {
     "fact": "`TtsSynthesisHost` trait 定义含 2 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3288"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3294"
   },
   {
     "fact": "`TtsSynthesisHost` 在 HostManager 有注册槽位",
@@ -265,7 +265,7 @@
   },
   {
     "fact": "`WebSocketHost` trait 定义含 4 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1593"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1601"
   },
   {
     "fact": "`WebSocketHost` 在 HostManager 有注册槽位",
@@ -273,7 +273,7 @@
   },
   {
     "fact": "`WebVisitHost` trait 定义含 1 个方法",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1105"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1113"
   },
   {
     "fact": "`WebVisitHost` 在 HostManager 有注册槽位",
@@ -309,11 +309,11 @@
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `AudioPlaybackHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2960"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2966"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `AudioPlaybackHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2960"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2966"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册 `AudioPlaybackHost`",
@@ -321,11 +321,11 @@
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `AudioPlaybackHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2960"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2966"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `AudioPlaybackHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2960"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2966"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册 `AudioPlaybackHost`",
@@ -337,11 +337,11 @@
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `BluetoothHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3155"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3161"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `BluetoothHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3155"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3161"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册 `BluetoothHost`",
@@ -349,11 +349,11 @@
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `BluetoothHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3155"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3161"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `BluetoothHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3155"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3161"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册 `BluetoothHost`",
@@ -365,51 +365,51 @@
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `BrowserAutomationHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1121"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1129"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `BrowserAutomationHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1121"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1129"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册中未查到 `BrowserAutomationHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1121"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1129"
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `BrowserAutomationHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1121"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1129"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `BrowserAutomationHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1121"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1129"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册中未查到 `BrowserAutomationHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1121"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1129"
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册中未查到 `BrowserAutomationHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1121"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1129"
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `BrowserSessionHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1174"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1182"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `BrowserSessionHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1174"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1182"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册中未查到 `BrowserSessionHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1174"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1182"
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `BrowserSessionHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1174"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1182"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `BrowserSessionHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1174"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1182"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册 `BrowserSessionHost`",
@@ -417,27 +417,27 @@
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册中未查到 `BrowserSessionHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1174"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1182"
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `ClipboardHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3441"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3447"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `ClipboardHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3441"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3447"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册中未查到 `ClipboardHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3441"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3447"
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `ClipboardHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3441"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3447"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `ClipboardHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3441"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3447"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册 `ClipboardHost`",
@@ -445,63 +445,63 @@
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册中未查到 `ClipboardHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3441"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3447"
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `ComposeDslWebViewHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1352"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1360"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `ComposeDslWebViewHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1352"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1360"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册中未查到 `ComposeDslWebViewHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1352"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1360"
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `ComposeDslWebViewHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1352"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1360"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `ComposeDslWebViewHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1352"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1360"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册中未查到 `ComposeDslWebViewHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1352"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1360"
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册中未查到 `ComposeDslWebViewHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1352"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1360"
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `DeviceIoHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3238"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3244"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `DeviceIoHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3238"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3244"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册中未查到 `DeviceIoHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3238"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3244"
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `DeviceIoHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3238"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3244"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `DeviceIoHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3238"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3244"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册中未查到 `DeviceIoHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3238"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3244"
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册中未查到 `DeviceIoHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3238"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3244"
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册 `FileSystemHost`",
@@ -533,31 +533,31 @@
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3468"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3474"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3468"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3474"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3468"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3474"
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3468"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3474"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3468"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3474"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3468"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3474"
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册中未查到 `FloatingWindowHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3468"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3474"
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册 `HostJavaScriptRuntimeHost`",
@@ -589,11 +589,11 @@
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `HostRuntimeEventHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2432"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2438"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `HostRuntimeEventHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2432"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2438"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册 `HostRuntimeEventHost`",
@@ -605,7 +605,7 @@
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `HostRuntimeEventHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2432"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2438"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册 `HostRuntimeEventHost`",
@@ -689,7 +689,7 @@
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `HostSecretStore`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:2306"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:2312"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册 `HostSecretStore`",
@@ -841,31 +841,31 @@
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `RobotFaceHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3262"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3268"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `RobotFaceHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3262"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3268"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册中未查到 `RobotFaceHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3262"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3268"
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `RobotFaceHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3262"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3268"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `RobotFaceHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3262"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3268"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册中未查到 `RobotFaceHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3262"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3268"
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册中未查到 `RobotFaceHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3262"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3268"
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册 `runtimeSqliteHost` 槽位",
@@ -1065,23 +1065,23 @@
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `TerminalHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1921"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1925"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `TerminalHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1921"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1925"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册中未查到 `TerminalHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1921"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1925"
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `TerminalHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1921"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1925"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `TerminalHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1921"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1925"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册 `TerminalHost`",
@@ -1089,27 +1089,27 @@
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册中未查到 `TerminalHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1921"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1925"
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `ToastHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3436"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3442"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `ToastHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3436"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3442"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册中未查到 `ToastHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3436"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3442"
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `ToastHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3436"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3442"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `ToastHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3436"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3442"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册 `ToastHost`",
@@ -1117,15 +1117,15 @@
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册中未查到 `ToastHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3436"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3442"
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `TtsPlaybackHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3316"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3322"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `TtsPlaybackHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3316"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3322"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册 `TtsPlaybackHost`",
@@ -1133,11 +1133,11 @@
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `TtsPlaybackHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3316"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3322"
   },
   {
     "fact": "OpenHarmony 的 createRuntimeHostManager 注册中未查到 `TtsPlaybackHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3316"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3322"
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册 `TtsPlaybackHost`",
@@ -1149,11 +1149,11 @@
   },
   {
     "fact": "Android 的 createRuntimeHostManager 注册中未查到 `TtsSynthesisHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3288"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3294"
   },
   {
     "fact": "iOS 的 createRuntimeHostManager 注册中未查到 `TtsSynthesisHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3288"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3294"
   },
   {
     "fact": "Linux 的 createRuntimeHostManager 注册 `TtsSynthesisHost`",
@@ -1161,7 +1161,7 @@
   },
   {
     "fact": "macOS 的 createRuntimeHostManager 注册中未查到 `TtsSynthesisHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3288"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3294"
   },
   {
     "fact": "OpenHarmony 不支持 TtsSynthesisHost：API 18 SDK 无公开系统语音合成接口，不提供 `SYSTEM_TTS`",
@@ -1169,7 +1169,7 @@
   },
   {
     "fact": "Web 的 createRuntimeHostManager 注册中未查到 `TtsSynthesisHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:3288"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:3294"
   },
   {
     "fact": "Windows 的 createRuntimeHostManager 注册 `TtsSynthesisHost`",
@@ -1261,7 +1261,7 @@
   },
   {
     "fact": "`HttpHost` 继承 `HttpStreamHost`",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1625"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1633"
   },
   {
     "fact": "iOS 把 `AppleFileSystemHost` 重导出为 `IosFileSystemHost`",
@@ -1341,7 +1341,7 @@
   },
   {
     "fact": "`HttpStreamHost` 是 `HttpHost` 的父 trait，无独立注册槽位",
-    "ref": "core/crates/foundation/host-contract/src/lib.rs:1625"
+    "ref": "core/crates/foundation/host-contract/src/lib.rs:1633"
   },
   {
     "fact": "OHOS README 的能力清单列出 PTY sessions",

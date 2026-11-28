@@ -60,7 +60,7 @@ date: 2026-11-11
 - 新的原生使用者需要明确的模块条目与理由，业务服务应依赖 VFS。`docs/filesystem-access-boundary.md:11`
 - 需要原生归档的包加载器收到经 VFS 解析的路径。`docs/filesystem-access-boundary.md:13`
 - 资源挂载暂存进运行时拥有的存储，导入完成后移除，导入流水线其余部分只见到解析出的原生文件。`docs/filesystem-access-boundary.md:13`
-- 边界与工具测试用 `cd core` 后 `cargo test -p operit-tools --lib --test native_filesystem_boundary` 运行。`docs/filesystem-access-boundary.md:33`
+- 边界与工具测试用 `cd core` 后 `cargo test -p operit-tools --lib --test native_filesystem_boundary` 运行。`docs/filesystem-access-boundary.md:41`
 - PathMapper 的 `resolve` 先查注册挂载，`mountRelativePath` 命中时按挂载解析。`core/crates/foundation/vfs/src/PathMapper.rs:426`
 - `native` 后端挂载把 `mount.root` 与相对路径拼接为物理路径。`core/crates/foundation/vfs/src/PathMapper.rs:433`
 - 非 `native` 后端挂载把挂载编码为 `FileSystemResource` 定位符。`core/crates/foundation/vfs/src/PathMapper.rs:436`

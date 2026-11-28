@@ -237,7 +237,7 @@
   },
   {
     "fact": "`readRootfsSha256` 要求校验和为 64 位十六进制字符并转小写。",
-    "ref": "hosts/ohos/src/terminal.rs:760"
+    "ref": "hosts/ohos/src/terminal.rs:768"
   },
   {
     "fact": "打包安装经 apk 以 `--no-network` 离线运行。",
@@ -265,7 +265,7 @@
   },
   {
     "fact": "`verifyRootfsPayload` 要求 rootfs 内存在 `bin/busybox`、`sbin/apk`、`usr/bin/python3`、`usr/bin/node`、`usr/bin/uv`、`usr/bin/pnpm`、`usr/bin/tesseract`、`usr/bin/pdftoppm`。",
-    "ref": "hosts/ohos/src/terminal.rs:827"
+    "ref": "hosts/ohos/src/terminal.rs:835"
   },
   {
     "fact": "`OhosTerminalHost` 的 `new` 接受显式的 runtimeRoot 与 workspaceRoot。",
@@ -277,11 +277,11 @@
   },
   {
     "fact": "`createVrootShell` 为 QEMU-vroot Alpine 创建 PTY 启动器。",
-    "ref": "hosts/ohos/src/terminal.rs:667"
+    "ref": "hosts/ohos/src/terminal.rs:675"
   },
   {
     "fact": "vroot shell 在 guest 内执行 cd \"$OPERIT_OHOS_HOST_WORKING_DIR\" || exit; exec /bin/sh \"$@\"，参数为 operit-shell、-i。",
-    "ref": "hosts/ohos/src/terminal.rs:682"
+    "ref": "hosts/ohos/src/terminal.rs:690"
   },
   {
     "fact": "vroot 会话默认工作目录为 `VROOT_HOST_MOUNT_ROOT` 拼接 workspaceRoot。",
@@ -309,19 +309,19 @@
   },
   {
     "fact": "`createOrGetTypedSession` 固定走 `QEMU_VROOT_TERMINAL` 后端。",
-    "ref": "hosts/ohos/src/terminal.rs:554"
+    "ref": "hosts/ohos/src/terminal.rs:562"
   },
   {
     "fact": "`executeHiddenCommand` 固定走 QemuVroot 后端。",
-    "ref": "hosts/ohos/src/terminal.rs:616"
+    "ref": "hosts/ohos/src/terminal.rs:624"
   },
   {
     "fact": "`listSessions` 合并 native 与 vroot 两路会话并逐条记录后端。",
-    "ref": "hosts/ohos/src/terminal.rs:533"
+    "ref": "hosts/ohos/src/terminal.rs:541"
   },
   {
     "fact": "`closePtySession` 关闭 PTY 后移除会话后端记录。",
-    "ref": "hosts/ohos/src/terminal.rs:526"
+    "ref": "hosts/ohos/src/terminal.rs:534"
   },
   {
     "fact": "`OhosManagedRuntimeHost` 的 `new` 接受终端 Host 与 workspaceRoot。",

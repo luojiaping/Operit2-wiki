@@ -64,7 +64,7 @@
     "ref": "tools/check_peer_protocol.py:50"
   },
   {
-    "fact": "core/peer-protocol.json 的 revisions 共 30 条。",
+    "fact": "core/peer-protocol.json 的 revisions 共 32 条。",
     "ref": "core/peer-protocol.json:2"
   },
   {
@@ -76,12 +76,12 @@
     "ref": "core/peer-protocol.json:4"
   },
   {
-    "fact": "core/peer-protocol.json 的最新 revision 为 version 30。",
-    "ref": "core/peer-protocol.json:120"
+    "fact": "core/peer-protocol.json 的最新 revision 为 version 32。",
+    "ref": "core/peer-protocol.json:128"
   },
   {
-    "fact": "core/peer-protocol.json 的最新 revision 的 hash 为 eda16101e2c0806b0a6e45d37dca37548674cb8131695b394c88e82cbfdde32b。",
-    "ref": "core/peer-protocol.json:121"
+    "fact": "core/peer-protocol.json 的最新 revision 的 hash 为 3228b217bf2f8f7a1bdfc821ddffe632e9bb3e822f6536ff46c475c0ea13bc66。",
+    "ref": "core/peer-protocol.json:129"
   },
   {
     "fact": "node-runtime 的 build.rs 只在启用 CARGO_FEATURE_ROUTE_CATALOG 特性时执行路由目录生成，否则直接返回。",
@@ -109,7 +109,7 @@
   },
   {
     "fact": "v24 把认证会话分块格式标识 operit-peer-session-fragments-v1 纳入指纹，v24 端点要求对端同为 v24。",
-    "ref": "docs/peer-protocol-versioning.md:30"
+    "ref": "docs/peer-protocol-versioning.md:34"
   },
   {
     "fact": "route_contract 把排序后的路由声明与方法签名编码为一个路由契约字符串，与生成的分发代码文本无关。",

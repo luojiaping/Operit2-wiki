@@ -15,7 +15,7 @@ date: 2026-11-11
 - 现状仍是单一 services crate，含 `chat`、`market`、`runtime_support`、`stt`、`tts` 五个公开模块。（core/crates/provider/services/src/lib.rs:3）
 - STT、TTS、market 都挂在 services crate 的顶层模块下，与 `chat`、`runtime_support` 并列。（core/crates/provider/services/src/lib.rs:3）
 - 本页讲三层：`AIService` 定义供应商接口，ClaudeProvider 是 Anthropic 协议的适配器实现，`EnhancedAIService` 编排对话、工具轮次与 token 用量，ProviderRuntimeSupport 把运行时能力交给 Provider 代码。（core/crates/provider/services/src/chat/EnhancedAIService.rs:88）
-- 本页定位见 [[intro-overview|Operit2 是什么]]；对话在节点间交接时经 `resume` 恢复，见 [[arch-routing|路由与转发]]。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1733）
+- 本页定位见 [[intro-overview|Operit2 是什么]]；对话在节点间交接时经 `resume` 恢复，见 [[arch-routing|路由与转发]]。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1743）
 
 ## AI 速览
 
@@ -37,7 +37,7 @@ date: 2026-11-11
 - `ChatConfigurationRequest` — 解析聊天配置的请求。（core/crates/provider/services/src/runtime_support.rs:59）
 - `ChatConfigurationPurpose` — Display 与 Execution 两种配置目的。（core/crates/provider/services/src/runtime_support.rs:48）
 - `ProviderFunctionModelBinding` — providerId 与 modelId 的绑定。（core/crates/provider/services/src/runtime_support.rs:23）
-- 主入口：EnhancedAIService 的 `sendMessage` — 用户消息经提示词、供应商、工具循环发送。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1624）
+- 主入口：EnhancedAIService 的 `sendMessage` — 用户消息经提示词、供应商、工具循环发送。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1634）
 - 数据流向：用户消息 → 对话历史准备 → 提示词定稿 → 请求窗口估算 → 模型请求 → 响应流收集 → 工具调用提取 → 工具执行 → 工具结果续轮 → 回复定稿。（core/crates/provider/services/src/chat/EnhancedAIService.rs:539）
 
 ## 核心机制
@@ -142,83 +142,83 @@ date: 2026-11-11
 - PreparedRequestWindow 的 `completeHistory` 只在历史长度等于请求时的长度时补一条助手回复，且同一轮最多补一次；空回复不产生合成回合。（core/crates/provider/services/src/chat/EnhancedAIService.rs:520）
 - `SendMessageLifecycleStage` 列出从 `SetProcessingState` 到 `UnregisterExecutionContext` 的 22 个发送阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:540）（core/crates/provider/services/src/chat/EnhancedAIService.rs:552）（core/crates/provider/services/src/chat/EnhancedAIService.rs:561）
 - `SendMessageRuntime` 含 `modelConfig`、`modelParameters`、`availableTools` 与 `aiService`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:575）（core/crates/provider/services/src/chat/EnhancedAIService.rs:592）（core/crates/provider/services/src/chat/EnhancedAIService.rs:595）
-- `RuntimePromptHistoryHooks` 把 `HistoryHookContext` 转为 `PromptHookContext` 分发历史钩子，并要求钩子保留 `prompt_function_type` 与 `processed_input`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:711）（core/crates/provider/services/src/chat/EnhancedAIService.rs:4095）
+- `RuntimePromptHistoryHooks` 把 `HistoryHookContext` 转为 `PromptHookContext` 分发历史钩子，并要求钩子保留 `prompt_function_type` 与 `processed_input`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:699）（core/crates/provider/services/src/chat/EnhancedAIService.rs:711）
 - `RuntimeSystemPromptComposer` 从 `tool_handler` 的 Host 环境与运行时存储 Host 解析工作区路径，每次请求重新解析。（core/crates/provider/services/src/chat/EnhancedAIService.rs:746）（core/crates/provider/services/src/chat/EnhancedAIService.rs:747）
-- 系统提示词组合从 `provider_runtime_context` 取 `aiVisibleSkillPackages`，取不到时 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:807）（core/crates/provider/services/src/chat/EnhancedAIService.rs:809）
-- 启用的包列表排除 ToolPkg 容器包。（core/crates/provider/services/src/chat/EnhancedAIService.rs:789）
-- EnhancedAIService 的 `new` 用 `provider_runtime_context` 创建 `ConversationService`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:859）
-- `MultiServiceManager::from_runtime_context` 要求 runtime support 提供 data 目录，否则 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:865）
-- `getAIServiceForFunction` 直接返回 `runtime.aiService`，忽略 `functionType` 与 provider/model 覆盖参数。（core/crates/provider/services/src/chat/EnhancedAIService.rs:892）（core/crates/provider/services/src/chat/EnhancedAIService.rs:899）
-- `getProviderAndModelForFunction` 在第一个冒号处切分 `providerModel`，无冒号时 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:902）
-- `getModelConfigForFunction` 直接返回 `runtime.modelConfig`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:912）（core/crates/provider/services/src/chat/EnhancedAIService.rs:919）
-- `refreshServiceForFunction` 在刷新失败时 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:926）
-- `refreshAllServices` 在刷新失败时 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:933）
-- `estimatePreparedRequestWindow` 调服务句柄的 `calculate_input_tokens` 估算请求窗口，`publishEstimate` 为真时发布估算值。（core/crates/provider/services/src/chat/EnhancedAIService.rs:965）（core/crates/provider/services/src/chat/EnhancedAIService.rs:993）
-- `prepareConversationHistory` 从模型配置能力取 `toolCall`、`directImage`、`directAudio`、`directVideo`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1062）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1085）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1086）
-- `prepareConversationHistory` 把执行上下文的 `chatId` 与 `participantId` 交给系统提示词组合器。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1062）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1095）
-- `prepareConversationHistory` 完成后把附件路径改写为相对路径。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1062）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1139）
-- `generateSummaryForConfiguration` 经 `ConversationService` 与 `multi_service_manager` 生成摘要。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1201）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1208）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1229）
-- `generateConversationTitle` 经 `ConversationService` 与 `multi_service_manager` 生成标题。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1208）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1324）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1332）
-- `generateSummaryForConfiguration` 在已选定的原生参与者下运行摘要，并走 `ToolExposureMode::Full` 的工具运行时上下文。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1201）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1228）
-- `getAvailableToolsForFunction` 在 `runtime.availableTools` 非空时直接返回，否则在 `functionType` 不是 CHAT 或模型不支持 `toolCall` 时返回空列表。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1336）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1346）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1349）
-- Cli 暴露模式下工具列表由 `CliToolModeSupport::buildCliPublicToolPrompts` 生成。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1354）
-- Full 暴露模式下工具列表取系统工具分类中已在 `tool_handler` 注册的工具，再追加 `package_proxy` 代理工具。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1357）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1385）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3535）
-- `estimateRequestWindowFromMemory` 先用 `prepareConversationHistory` 准备历史，再用 `getAvailableToolsForFunction` 取工具。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1414）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1466）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1474）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1402）
-- `estimateRequestWindowFromMemory` 转调 `estimateRequestWindowFromMemoryWithBreakdown`，由后者调用 `estimatePreparedRequestWindowWithBreakdown` 估算已准备请求的窗口大小。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1414）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1450）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1528）
-- `registerExecutionContext` 与 `unregisterExecutionContext` 把执行上下文登记进或移出共享状态。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1537）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1543）
-- `invalidateAllExecutionContexts` 使全部活动执行上下文失效。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1573）
-- `isExecutionContextActive` 要求上下文仍活跃、取消令牌未取消、且共享状态中仍登记为活跃。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1596）
-- `startAssistantResponseRound` 开新一轮并清空 `streamBuffer`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1600）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1602）
-- `sendMessage` 先检查取消令牌，再解析聊天配置，最后走 `sendMessageWithConfiguration`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1624）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1641）
-- `sendMessageWithConfiguration` 先校验 `ChatConfigurationResult`，失败返回 `RequestFailed`；再把 `participantName`、`executionParticipantId`、`chatConfiguration` 写进 options。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1644）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1655）
-- `chatConfigurationRequestForOptions` 要求 provider 与 model 覆盖必须同时设置，否则返回 `RequestFailed`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1664）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1685）
-- 未设覆盖时，默认模型绑定取 `support` 的 `modelBindingForChat`，传聊天 id 与 `functionType`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1682）
-- `resolveChatConfigurationForOptions` 经 `provider_runtime_context` 的 `support()` 再调 `resolveChatConfiguration` 解析执行配置。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1705）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1710）
-- `resume` 直接复用 `sendMessage`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1733）
-- `requestCoreRouteChange` 转给 `tool_handler` 的 `runtimeSupport()` 再调 `requestCoreRouteChange`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1748）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1754）
-- `createSendMessageRuntime` 先校验配置，再按 `profile.modelBinding` 取服务包，得到 `modelConfig`、`modelParameters` 与 `aiService`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1762）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1771）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1804）
-- `createSendMessageRuntime` 把 `disableUserPreferenceDescription` 固定为 false，注释说明插件执行档案已应用持久化的 USER.md 策略。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1762）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1789）
-- `createSendMessageRuntime` 的识别标志 `hasImageRecognition`、`hasAudioRecognition`、`hasVideoRecognition` 由 `multi_service_manager` 的 `hasImageRecognitionConfigured`、`hasAudioRecognitionConfigured`、`hasVideoRecognitionConfigured` 判定；直连标志 `chatModelHasDirectImage`、`chatModelHasDirectAudio`、`chatModelHasDirectVideo` 与 `useToolCallApi` 仍取模型能力。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1762）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1791）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1794）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1797）
-- `createSendMessageRuntime` 按 `modelConfig.apiProviderType` 解析工具暴露模式，分为 CLI 与 Full。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1762）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1799）
-- `sendMessageWithRuntime` 在调度前捕获 `execution_generation`，并用它创建执行上下文。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1811）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1818）
-- `sendMessageWithRuntime` 把响应任务以 `"enhanced-ai-response"` 为名交给 Host 任务调度器异步执行。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1811）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1832）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1847）
-- 响应任务出错时，取消或 generation 已变的错误不写入终端失败、不改输入处理状态；其他错误写入终端失败并把输入处理状态置为 Error。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1872）
-- `executeSendMessageWithRuntime` 在准备历史前记录 `PrepareConversationHistory` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1910）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1978）
-- `executeSendMessageWithRuntime` 在发模型请求前记录 `SendMessageRequest` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1910）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2175）
-- `executeSendMessageWithRuntime` 在收流时记录 `CollectResponseStream` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1910）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2251）
-- `executeSendMessageWithRuntime` 在落 token 用量时记录 `PersistTokenUsage` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1910）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2352）
-- `executeSendMessageWithRuntime` 在处理流完成时记录 `ProcessStreamCompletion` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1910）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2397）
-- `executeSendMessageWithRuntime` 在注销执行上下文时记录 `UnregisterExecutionContext` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1910）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2504）
-- `processToolResults` 在工具结果消息为空白时返回 `RequestFailed`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2531）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2560）
-- `processToolResults` 在 `guidanceInbox` 有待处理指导时暂停，不发下一轮模型请求，返回 false。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2531）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2630）
-- `processToolResults` 在 `maxTokens` 大于 0 且当前 token 用量占比达到 `tokenUsageThreshold` 时触发超限。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2531）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2694）
-- token 超限时触发 `onTokenLimitExceeded` 回调并使执行上下文失效，返回 false。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2718）
-- `processToolResults` 的续轮模型请求设置 `enable_retry` 为 true。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2726）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2776）
-- 首次模型请求同样设置 `enable_retry` 为 true。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2219）
-- `processStreamCompletion` 循环处理模型轮次与工具轮次：无工具调用时完成，有工具调用时执行工具并把结果送回模型，任一环节返回停止信号时结束。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2918）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2932）
-- `completeResponseRound` 在内容为空且 `disableWarning` 为真时直接定稿助手回复并结束；`disableWarning` 为假时发出空回复警告并继续一轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3013）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3017）
-- 纯思考回复且 `disableWarning` 为真时，`completeResponseRound` 直接定稿。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3013）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3062）
-- 纯思考回复且 `disableWarning` 为假时，`completeResponseRound` 发出纯思考警告并继续一轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3013）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3062）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3075）
-- `completeResponseRound` 先用 `enhanceToolDetection` 规范化工具调用 XML。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3013）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3086）
-- 无工具调用时，`completeResponseRound` 定稿助手回复并结束。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3013）
-- `handleToolInvocation` 要求至少一次调用，空列表返回 `RequestFailed`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3170）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3187）
-- `handleToolInvocation` 对每次调用触发 `onToolInvocation` 回调，显示名经 `resolveToolDisplayName` 解析。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3170）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3212）
-- `handleToolInvocation` 经 `ToolExecutionManager::executeInvocations` 执行整批工具调用，并传入 `extensionOwner` 与 `executionData`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3170）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3231）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3241）
-- 工具批产生 `routeChangeIntent` 时，`handleToolInvocation` 把意图存入 `pendingRouteChange` 并暂停本轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3170）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3253）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3257）
-- `finalizeAssistantResponse` 只保存最后回复内容。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3351）
-- `cancelConversation` 使全部执行上下文失效、取消全部流式发送、结束当前 token 请求，并把输入处理状态置回 Idle。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3356）
-- `beginRequestTokenUsage` 在上下文不活跃或已取消时返回 `RequestCancelled`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3426）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3436）
-- `setCurrentTurnTokenCounts` 把负数 token 计数钳制为 0。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3457）
-- `apply_finalized_current_user_turn` 在末轮 USER 内容与定稿相同时不改，与原文相同时替换为定稿内容（定稿为空时把该轮清空）；定稿为空且不命中前两种情况时返回历史，不追加新轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3504）
-- `apply_finalized_current_user_turn` 在其他情况下追加一个新的 USER 轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3504）
-- `resolveToolDisplayName` 把 `package_proxy` 与 `proxy` 解析为 `tool_name` 参数值，其他工具直接用工具名。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3534）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3540）
-- `package_proxy` 有 `tool_name` 参数，类型 string，必填。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3549）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3558）
-- `package_proxy` 有 `params` 参数，类型 object，必填。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3549）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3562）
-- `toolRuntimeContextForConfiguration` 先校验 `ChatConfigurationResult`，再构建 `ToolRuntimeContext`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3802）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3810）
-- 工具运行时上下文含 `callerParticipantId`（取配置 `profile.id`）、`extensionOwner` 与 `executionData`，暴露模式 Full 映射 FULL、Cli 映射 CLI。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3813）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3821）
-- `function_type_name` 覆盖 CHAT、SUMMARY、TITLE_GENERATION、MEMORY、UI_CONTROLLER、TRANSLATION、GREP、ROLE_RESPONSE_PLANNER、IMAGE_RECOGNITION、AUDIO_RECOGNITION、VIDEO_RECOGNITION 共 11 种功能类型。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3828）
-- `prompt_function_type_name` 只有 CHAT 与 VOICE 两种。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3844）
-- `resolve_workspace_path_mappings` 经 `VisualFileSystem` 校验并规范化路径，按规范化后的 vfs 路径去重，返回 `WorkspacePathMapping` 列表。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3913）
+- 系统提示词组合从 `provider_runtime_context` 取 `aiVisibleSkillPackages`，取不到时 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:817）（core/crates/provider/services/src/chat/EnhancedAIService.rs:819）
+- 启用的包列表排除 ToolPkg 容器包。（core/crates/provider/services/src/chat/EnhancedAIService.rs:799）
+- EnhancedAIService 的 `new` 用 `provider_runtime_context` 创建 `ConversationService`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:869）
+- `MultiServiceManager::from_runtime_context` 要求 runtime support 提供 data 目录，否则 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:875）
+- `getAIServiceForFunction` 直接返回 `runtime.aiService`，忽略 `functionType` 与 provider/model 覆盖参数。（core/crates/provider/services/src/chat/EnhancedAIService.rs:902）（core/crates/provider/services/src/chat/EnhancedAIService.rs:909）
+- `getProviderAndModelForFunction` 在第一个冒号处切分 `providerModel`，无冒号时 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:912）
+- `getModelConfigForFunction` 直接返回 `runtime.modelConfig`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:922）（core/crates/provider/services/src/chat/EnhancedAIService.rs:929）
+- `refreshServiceForFunction` 在刷新失败时 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:936）
+- `refreshAllServices` 在刷新失败时 panic。（core/crates/provider/services/src/chat/EnhancedAIService.rs:943）
+- `estimatePreparedRequestWindow` 调服务句柄的 `calculate_input_tokens` 估算请求窗口，`publishEstimate` 为真时发布估算值。（core/crates/provider/services/src/chat/EnhancedAIService.rs:975）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1003）
+- `prepareConversationHistory` 从模型配置能力取 `toolCall`、`directImage`、`directAudio`、`directVideo`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1072）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1095）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1096）
+- `prepareConversationHistory` 把执行上下文的 `chatId` 与 `participantId` 交给系统提示词组合器。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1072）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1105）
+- `prepareConversationHistory` 完成后把附件路径改写为相对路径。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1072）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1149）
+- `generateSummaryForConfiguration` 经 `ConversationService` 与 `multi_service_manager` 生成摘要。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1211）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1218）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1239）
+- `generateConversationTitle` 经 `ConversationService` 与 `multi_service_manager` 生成标题。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1218）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1334）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1342）
+- `generateSummaryForConfiguration` 在已选定的原生参与者下运行摘要，并走 `ToolExposureMode::Full` 的工具运行时上下文。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1211）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1238）
+- `getAvailableToolsForFunction` 在 `runtime.availableTools` 非空时直接返回，否则在 `functionType` 不是 CHAT 或模型不支持 `toolCall` 时返回空列表。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1346）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1356）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1359）
+- Cli 暴露模式下工具列表由 `CliToolModeSupport::buildCliPublicToolPrompts` 生成。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1364）
+- Full 暴露模式下工具列表取系统工具分类中已在 `tool_handler` 注册的工具，再追加 `package_proxy` 代理工具。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1367）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1395）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3565）
+- `estimateRequestWindowFromMemory` 先用 `prepareConversationHistory` 准备历史，再用 `getAvailableToolsForFunction` 取工具。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1424）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1476）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1484）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1412）
+- `estimateRequestWindowFromMemory` 转调 `estimateRequestWindowFromMemoryWithBreakdown`，由后者调用 `estimatePreparedRequestWindowWithBreakdown` 估算已准备请求的窗口大小。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1424）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1460）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1538）
+- `registerExecutionContext` 与 `unregisterExecutionContext` 把执行上下文登记进或移出共享状态。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1547）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1553）
+- `invalidateAllExecutionContexts` 使全部活动执行上下文失效。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1583）
+- `isExecutionContextActive` 要求上下文仍活跃、取消令牌未取消、且共享状态中仍登记为活跃。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1606）
+- `startAssistantResponseRound` 开新一轮并清空 `streamBuffer`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1610）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1612）
+- `sendMessage` 先检查取消令牌，再解析聊天配置，最后走 `sendMessageWithConfiguration`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1634）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1651）
+- `sendMessageWithConfiguration` 先校验 `ChatConfigurationResult`，失败返回 `RequestFailed`；再把 `participantName`、`executionParticipantId`、`chatConfiguration` 写进 options。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1654）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1665）
+- `chatConfigurationRequestForOptions` 要求 provider 与 model 覆盖必须同时设置，否则返回 `RequestFailed`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1674）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1695）
+- 未设覆盖时，默认模型绑定取 `support` 的 `modelBindingForChat`，传聊天 id 与 `functionType`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1692）
+- `resolveChatConfigurationForOptions` 经 `provider_runtime_context` 的 `support()` 再调 `resolveChatConfiguration` 解析执行配置。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1715）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1720）
+- `resume` 直接复用 `sendMessage`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1743）
+- `requestCoreRouteChange` 转给 `tool_handler` 的 `runtimeSupport()` 再调 `requestCoreRouteChange`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1758）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1764）
+- `createSendMessageRuntime` 先校验配置，再按 `profile.modelBinding` 取服务包，得到 `modelConfig`、`modelParameters` 与 `aiService`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1772）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1781）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1814）
+- `createSendMessageRuntime` 把 `disableUserPreferenceDescription` 固定为 false，注释说明插件执行档案已应用持久化的 USER.md 策略。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1772）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1799）
+- `createSendMessageRuntime` 的识别标志 `hasImageRecognition`、`hasAudioRecognition`、`hasVideoRecognition` 由 `multi_service_manager` 的 `hasImageRecognitionConfigured`、`hasAudioRecognitionConfigured`、`hasVideoRecognitionConfigured` 判定；直连标志 `chatModelHasDirectImage`、`chatModelHasDirectAudio`、`chatModelHasDirectVideo` 与 `useToolCallApi` 仍取模型能力。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1772）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1801）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1804）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1807）
+- `createSendMessageRuntime` 按 `modelConfig.apiProviderType` 解析工具暴露模式，分为 CLI 与 Full。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1772）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1809）
+- `sendMessageWithRuntime` 在调度前捕获 `execution_generation`，并用它创建执行上下文。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1821）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1828）
+- `sendMessageWithRuntime` 把响应任务以 `"enhanced-ai-response"` 为名交给 Host 任务调度器异步执行。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1821）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1842）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1857）
+- 响应任务出错时，取消或 generation 已变的错误不写入终端失败、不改输入处理状态；其他错误写入终端失败并把输入处理状态置为 Error。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1882）
+- `executeSendMessageWithRuntime` 在准备历史前记录 `PrepareConversationHistory` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1920）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1988）
+- `executeSendMessageWithRuntime` 在发模型请求前记录 `SendMessageRequest` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1920）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2185）
+- `executeSendMessageWithRuntime` 在收流时记录 `CollectResponseStream` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1920）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2261）
+- `executeSendMessageWithRuntime` 在落 token 用量时记录 `PersistTokenUsage` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1920）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2362）
+- `executeSendMessageWithRuntime` 在处理流完成时记录 `ProcessStreamCompletion` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1920）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2407）
+- `executeSendMessageWithRuntime` 在注销执行上下文时记录 `UnregisterExecutionContext` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1920）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2514）
+- `processToolResults` 在工具结果消息为空白时返回 `RequestFailed`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2541）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2570）
+- `processToolResults` 在 `guidanceInbox` 有待处理指导时暂停，不发下一轮模型请求，返回 false。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2541）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2640）
+- `processToolResults` 在 `maxTokens` 大于 0 且当前 token 用量占比达到 `tokenUsageThreshold` 时触发超限。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2541）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2704）
+- token 超限时触发 `onTokenLimitExceeded` 回调并使执行上下文失效，返回 false。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2728）
+- `processToolResults` 的续轮模型请求设置 `enable_retry` 为 true。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2736）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2786）
+- 首次模型请求同样设置 `enable_retry` 为 true。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2229）
+- `processStreamCompletion` 循环处理模型轮次与工具轮次：无工具调用时完成，有工具调用时执行工具并把结果送回模型，任一环节返回停止信号时结束。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2928）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2942）
+- `completeResponseRound` 在内容为空且 `disableWarning` 为真时直接定稿助手回复并结束；`disableWarning` 为假时发出空回复警告并继续一轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3023）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3027）
+- 纯思考回复且 `disableWarning` 为真时，`completeResponseRound` 直接定稿。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3023）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3072）
+- 纯思考回复且 `disableWarning` 为假时，`completeResponseRound` 发出纯思考警告并继续一轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3023）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3072）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3085）
+- `completeResponseRound` 先用 `enhanceToolDetection` 规范化工具调用 XML。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3023）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3096）
+- 无工具调用时，`completeResponseRound` 定稿助手回复并结束。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3023）
+- `handleToolInvocation` 要求至少一次调用，空列表返回 `RequestFailed`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3180）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3197）
+- `handleToolInvocation` 对每次调用触发 `onToolInvocation` 回调，显示名经 `resolveToolDisplayName` 解析。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3180）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3242）
+- `handleToolInvocation` 经 `ToolExecutionManager::executeInvocations` 执行整批工具调用，并传入 `extensionOwner` 与 `executionData`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3180）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3261）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3271）
+- 工具批产生 `routeChangeIntent` 时，`handleToolInvocation` 把意图存入 `pendingRouteChange` 并暂停本轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3180）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3283）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3287）
+- `finalizeAssistantResponse` 只保存最后回复内容。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3381）
+- `cancelConversation` 使全部执行上下文失效、取消全部流式发送、结束当前 token 请求，并把输入处理状态置回 Idle。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3386）
+- `beginRequestTokenUsage` 在上下文不活跃或已取消时返回 `RequestCancelled`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3456）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3466）
+- `setCurrentTurnTokenCounts` 把负数 token 计数钳制为 0。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3487）
+- `apply_finalized_current_user_turn` 在末轮 USER 内容与定稿相同时不改，与原文相同时替换为定稿内容（定稿为空时把该轮清空）；定稿为空且不命中前两种情况时返回历史，不追加新轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3534）
+- `apply_finalized_current_user_turn` 在其他情况下追加一个新的 USER 轮。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3534）
+- `resolveToolDisplayName` 把 `package_proxy` 与 `proxy` 解析为 `tool_name` 参数值，其他工具直接用工具名。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3564）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3570）
+- `package_proxy` 有 `tool_name` 参数，类型 string，必填。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3579）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3588）
+- `package_proxy` 有 `params` 参数，类型 object，必填。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3579）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3592）
+- `toolRuntimeContextForConfiguration` 先校验 `ChatConfigurationResult`，再构建 `ToolRuntimeContext`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3917）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3925）
+- 工具运行时上下文含 `callerParticipantId`（取配置 `profile.id`）、`extensionOwner` 与 `executionData`，暴露模式 Full 映射 FULL、Cli 映射 CLI。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3928）（core/crates/provider/services/src/chat/EnhancedAIService.rs:3936）
+- `function_type_name` 覆盖 CHAT、SUMMARY、TITLE_GENERATION、MEMORY、UI_CONTROLLER、TRANSLATION、GREP、ROLE_RESPONSE_PLANNER、IMAGE_RECOGNITION、AUDIO_RECOGNITION、VIDEO_RECOGNITION 共 11 种功能类型。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3943）
+- `prompt_function_type_name` 只有 CHAT 与 VOICE 两种。（core/crates/provider/services/src/chat/EnhancedAIService.rs:3959）
+- `resolve_workspace_path_mappings` 先按目录等价去重，再经 `VisualFileSystem` 校验并规范化路径，返回 `WorkspacePathMapping` 列表。（core/crates/provider/services/src/chat/EnhancedAIService.rs:4063）
 
 ### ProviderRuntimeSupport：向运行时索取能力
 
@@ -281,22 +281,22 @@ date: 2026-11-11
 
 ## 调用链
 
-1. `sendMessage` 检查取消令牌，再解析聊天配置，最后走 `sendMessageWithConfiguration`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1624）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1641）
-2. `sendMessageWithConfiguration` 校验 `ChatConfigurationResult`，把参与者信息写进 options。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1644）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1654）
-3. `createSendMessageRuntime` 按 `profile.modelBinding` 取服务包，得到 `modelConfig`、`modelParameters` 与 `aiService`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1762）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1771）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1804）
-4. `sendMessageWithRuntime` 捕获 `execution_generation`，创建执行上下文。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1811）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1818）
-5. `sendMessageWithRuntime` 把响应任务以 `"enhanced-ai-response"` 为名交给 Host 任务调度器异步执行。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1811）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1832）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1847）
-6. `executeSendMessageWithRuntime` 准备对话历史，记录 `PrepareConversationHistory` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1910）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1978）
-7. 执行 `before_finalize_prompt` 与 `before_send_to_model` 两轮提示词定稿钩子。（core/crates/provider/services/src/chat/EnhancedAIService.rs:692）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2110）
-8. 估算已准备请求的窗口大小，记录 `EstimatePreparedRequestWindow` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2147）
-9. 向 `AIService` 发模型请求，记录 `SendMessageRequest` 阶段，`enable_retry` 为 true。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2071）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2175）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2219）
-10. 收集响应流，记录 `CollectResponseStream` 阶段，落 token 用量时记录 `PersistTokenUsage` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2251）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2352）
-11. `processStreamCompletion` 循环：`completeResponseRound` 定稿或返回工具动作，`handleToolInvocation` 执行工具，`processToolResults` 把工具结果送回模型。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2918）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2958）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2964）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2984）
-12. 无工具调用时定稿助手回复，注销执行上下文，记录 `UnregisterExecutionContext` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2504）
+1. `sendMessage` 检查取消令牌，再解析聊天配置，最后走 `sendMessageWithConfiguration`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1634）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1651）
+2. `sendMessageWithConfiguration` 校验 `ChatConfigurationResult`，把参与者信息写进 options。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1654）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1664）
+3. `createSendMessageRuntime` 按 `profile.modelBinding` 取服务包，得到 `modelConfig`、`modelParameters` 与 `aiService`。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1772）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1781）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1814）
+4. `sendMessageWithRuntime` 捕获 `execution_generation`，创建执行上下文。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1821）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1828）
+5. `sendMessageWithRuntime` 把响应任务以 `"enhanced-ai-response"` 为名交给 Host 任务调度器异步执行。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1821）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1842）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1857）
+6. `executeSendMessageWithRuntime` 准备对话历史，记录 `PrepareConversationHistory` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1920）（core/crates/provider/services/src/chat/EnhancedAIService.rs:1988）
+7. 执行 `before_finalize_prompt` 与 `before_send_to_model` 两轮提示词定稿钩子。（core/crates/provider/services/src/chat/EnhancedAIService.rs:692）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2120）
+8. 估算已准备请求的窗口大小，记录 `EstimatePreparedRequestWindow` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2157）
+9. 向 `AIService` 发模型请求，记录 `SendMessageRequest` 阶段，`enable_retry` 为 true。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2081）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2185）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2229）
+10. 收集响应流，记录 `CollectResponseStream` 阶段，落 token 用量时记录 `PersistTokenUsage` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2261）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2362）
+11. `processStreamCompletion` 循环：`completeResponseRound` 定稿或返回工具动作，`handleToolInvocation` 执行工具，`processToolResults` 把工具结果送回模型。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2928）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2968）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2974）（core/crates/provider/services/src/chat/EnhancedAIService.rs:2994）
+12. 无工具调用时定稿助手回复，注销执行上下文，记录 `UnregisterExecutionContext` 阶段。（core/crates/provider/services/src/chat/EnhancedAIService.rs:2514）
 - ClaudeProvider 的 `send_message` 流式时经 Host 任务调度器以后台任务 `"claude-response-stream"` 发送，`RequestCancelled` 不视为终端失败，其他错误写入终端失败。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:796）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:811）
 14. `create_request_body` 组装 Anthropic 请求体：`model`、`messages`、`stream`、`system`、`max_tokens`、条件 `tools`。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:181）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:189）（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:196）
 15. `process_streaming_response` 对 JSON 媒体类型按非流式解析，否则按 SSE 解码事件流。（core/crates/provider/services/src/chat/llmprovider/ClaudeProvider.rs:991）
-16. `resume` 在目标 CoreNode 上同步历史后直接复用 `sendMessage` 恢复模型处理，见 [[arch-routing|路由与转发]]。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1733）
+16. `resume` 在目标 CoreNode 上同步历史后直接复用 `sendMessage` 恢复模型处理，见 [[arch-routing|路由与转发]]。（core/crates/provider/services/src/chat/EnhancedAIService.rs:1743）
 
 ## 来源
 

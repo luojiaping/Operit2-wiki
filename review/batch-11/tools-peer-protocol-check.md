@@ -51,10 +51,10 @@ tools/check_peer_protocol.py 是检查 `core/peer-protocol.json` 修订记录的
 替换旧哈希会改变 `revisions` 前缀，传 `--base` 的检查抛 `ValueError`。`tools/check_peer_protocol.py:33`
 替换旧哈希也使末条 `hash` 与构建算出的指纹不一致，构建侧校验报错。`core/crates/node/runtime/build_support/peer_protocol.rs:27`
 唯一合法的变更方式是在末尾追加更高 `version` 与新 `hash` 的 `revision`。`core/crates/node/runtime/build_support/peer_protocol.rs:28`
-清单现状：`revisions` 共 30 条，从 `version` 1 开始。`core/peer-protocol.json:2`
-清单现状：最新 revision 为 `version` 30，`hash` 为 `eda16101e2c0806b0a6e45d37dca37548674cb8131695b394c88e82cbfdde32b`。`core/peer-protocol.json:121`
+清单现状：`revisions` 共 32 条，从 `version` 1 开始。`core/peer-protocol.json:2`
+清单现状：最新 revision 为 `version` 32，`hash` 为 `3228b217bf2f8f7a1bdfc821ddffe632e9bb3e822f6536ff46c475c0ea13bc66`。`core/peer-protocol.json:129`
 `v23` 是切换至路由签名规则的首次记录，v1–v22 的历史 hash 保持原样。`docs/peer-protocol-versioning.md:21`
-v24 把认证会话分块格式的显式修订标识 `operit-peer-session-fragments-v1` 纳入指纹；v24 端点要求对端同为 v24，原有身份和配对凭据保留。`docs/peer-protocol-versioning.md:30`
+v24 把认证会话分块格式的显式修订标识 `operit-peer-session-fragments-v1` 纳入指纹；v24 端点要求对端同为 v24，原有身份和配对凭据保留。`docs/peer-protocol-versioning.md:34`
 
 ## 关键符号
 
@@ -70,7 +70,7 @@ v24 把认证会话分块格式的显式修订标识 `operit-peer-session-fragme
 `requireCompatible` — 本地 `version` 与 `VERSION` 不一致时返回 `PEER_PROTOCOL_MISMATCH`。`core/crates/node/runtime/src/PeerProtocol.rs:20`
 `requireAdvertised` — 协议声明缺失时返回 `PEER_PROTOCOL_UPGRADE_REQUIRED`。`core/crates/node/runtime/src/PeerProtocol.rs:35`
 `VERSION` — 构建生成的协议版本号常量，写进 `peer_protocol_identity.rs`。`core/crates/node/runtime/build_support/peer_protocol.rs:41`
-`revisions` — 清单中的版本记录数组，共 30 条。`core/peer-protocol.json:2`
+`revisions` — 清单中的版本记录数组，共 32 条。`core/peer-protocol.json:2`
 
 ## 调用链
 
@@ -87,11 +87,11 @@ v24 把认证会话分块格式的显式修订标识 `operit-peer-session-fragme
 ## 来源
 
 `tools/check_peer_protocol.py`（54 行，全文已读）。`tools/check_peer_protocol.py:2`
-`core/peer-protocol.json`（108 行，全文已读）。`core/peer-protocol.json:2`
+`core/peer-protocol.json`（132 行，全文已读）。`core/peer-protocol.json:2`
 `core/crates/node/runtime/build.rs`（全文已读，与构建时 SHA-256 校验直接相关）。`core/crates/node/runtime/build.rs:25`
 `core/crates/node/runtime/build_support/peer_protocol.rs`（全文已读，与构建时 SHA-256 校验直接相关）。`core/crates/node/runtime/build_support/peer_protocol.rs:15`
 `core/crates/node/runtime/src/PeerProtocol.rs`（全文已读，与运行时版本比较直接相关）。`core/crates/node/runtime/src/PeerProtocol.rs:5`
 `tools/tests/test_peer_protocol.py`（全文已读，与脚本行为断言直接相关）。`tools/tests/test_peer_protocol.py:16`
-`docs/peer-protocol-versioning.md`（全文已读，仅作背景对照，正文事实以代码为准）。`docs/peer-protocol-versioning.md:45`
+`docs/peer-protocol-versioning.md`（全文已读，仅作背景对照，正文事实以代码为准）。`docs/peer-protocol-versioning.md:49`
 否定性结论核验方法：2026-11-15，对基线 AAswordman/Operit2 @ ff5373fb6，用 `grep -n "hashlib\|sha256\|Sha256\|hash(" tools/check_peer_protocol.py` 在脚本全文 56 行内零命中，确认脚本本身不计算源码 SHA-256。`tools/check_peer_protocol.py:5`
 时效：本页事实以基线 7a79245 为准。

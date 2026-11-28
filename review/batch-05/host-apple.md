@@ -88,12 +88,12 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 - 非沙盒下终端类型描述为 macOS native 登录 PTY，带作业控制（`hosts/apple/src/tools/terminal/terminal_macos.rs:172`）。
 - 只接受 `terminal` 为 native 的请求，否则报 Unsupported macOS terminal 错误（`hosts/apple/src/tools/terminal/terminal_macos.rs:70`）。
 - `hostForSession` 按 `ownsSession` 查找会话，未知会话报 Unknown macOS terminal session 错误（`hosts/apple/src/tools/terminal/terminal_macos.rs:83`）。
-- `createOrGetSession` 使用 `primary` 解释器创建或复用会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:284`）。
+- `createOrGetSession` 使用 `primary` 解释器创建或复用会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:295`）。
 - 开启 `arm64-runtime` 特性时 `terminal` 为 `arm64` 的请求转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:141`）。
-- 开启 `arm64-runtime` 特性时 `macos-arm64-` 前缀的会话 ID 转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:224`）。
-- `executeHiddenCommand` 使用 `primary` 解释器执行隐藏命令（`hosts/apple/src/tools/terminal/terminal_macos.rs:373`）。
+- 开启 `arm64-runtime` 特性时 `macos-arm64-` 前缀的会话 ID 转交给 arm64 终端 Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:233`）。
+- `executeHiddenCommand` 使用 `primary` 解释器执行隐藏命令（`hosts/apple/src/tools/terminal/terminal_macos.rs:382`）。
 - iOS 下 `terminalInfo` 返回“iOS does not expose a local PTY host”错误（`hosts/apple/src/tools/terminal/mod.rs:43`）。
-- iOS 下 `listSessions` 返回空列表而不报错（`hosts/apple/src/tools/terminal/mod.rs:78`）。
+- iOS 下 `listSessions` 返回空列表而不报错（`hosts/apple/src/tools/terminal/mod.rs:83`）。
 
 ### 系统操作的分平台矩阵
 
@@ -297,7 +297,7 @@ iOS 的本地终端是报错桩，iOS 专属的终端与运行时细节见 [[hos
 
 1. AppleTerminalHost 的 `new` 先以 `processIsolation` 判定沙盒状态（`hosts/apple/src/tools/terminal/terminal_macos.rs:32`）。
 2. 沙盒下只注册一个 `bash` 适配器，非沙盒下注册 `/bin/bash` 与 `/bin/zsh` 登录 shell（`hosts/apple/src/tools/terminal/terminal_macos.rs:38`）。
-3. 调用方调 `createOrGetSession`，复用 `primary` 解释器的同名会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:284`）。
+3. 调用方调 `createOrGetSession`，复用 `primary` 解释器的同名会话（`hosts/apple/src/tools/terminal/terminal_macos.rs:295`）。
 4. 会话操作按 `ownsSession` 定位所属的底层 PTY Host（`hosts/apple/src/tools/terminal/terminal_macos.rs:83`）。
 
 ### 服务发现订阅

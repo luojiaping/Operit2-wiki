@@ -156,7 +156,7 @@ date: 2026-11-11
 
 - peer-protocol.json 只剩 `revisions` 一项，sources 与 schemaRoots 已删除（`core/peer-protocol.json:2`）。
 - `revisions` 数组从 version 1 起编号（`core/peer-protocol.json:2`）。
-- 截至基线 3dd6149，最新修订为 version 31，hash 前缀 3228b217（`core/peer-protocol.json:124`）。
+- 截至基线 e1aebc1，最新修订为 version 32，hash 前缀 3228b217（`core/peer-protocol.json:128`）。
 - 清单的消费方式不在本页 seed 范围内：本页 seed 不含读取该清单的构建脚本，不对清单的用途做断言（`core/peer-protocol.json:2`）。
 
 ## 关键符号

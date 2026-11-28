@@ -1,0 +1,2613 @@
+[
+ {
+  "page": "core-foundation",
+  "idx": 10,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3948",
+  "text": "声明 ServiceDiscovery 模块。",
+  "terms": [
+   "ServiceDiscovery"
+  ],
+  "window": "    fn composeDslFilePickerAllowsMultipleVisualMedia() {\n        let request = ComposeDslFilePickerRequest::parse(\n            r#\"{\"executionContextKey\":\"compose-route\",\"options\":{\"picker\":\"media\",\"allowMultiple\":true}}\"#,\n        )\n        .expect(\"visual-media multi-selection must parse\");\n\n      "
+ },
+ {
+  "page": "core-foundation",
+  "idx": 11,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:52",
+  "text": "HostResult<T> 是 Result<T, HostError> 的类型别名。",
+  "terms": [
+   "HostError",
+   "HostResult"
+  ],
+  "window": "use std::sync::atomic::{AtomicBool, Ordering};\nuse std::sync::{Arc, OnceLock, RwLock};\n\nuse async_trait::async_trait;\nuse serde::{Deserialize, Serialize};\nuse serde_json::Value;\n"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 12,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:964",
+  "text": "HostErrorKind 有 General、NotFound、Timeout、PermissionDenied 四个变体。",
+  "terms": [
+   "General",
+   "HostErrorKind",
+   "NotFound",
+   "PermissionDenied",
+   "Timeout"
+  ],
+  "window": "            action: HostRequirementAction::RuntimePermission,\n        },\n    ]\n}\n\n/// Classifies failures crossing a Host capability boundary.\n#[derive(Clone, Copy, Debug, PartialEq, Eq)]"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 16,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:103",
+  "text": "HostEnvironmentDescriptor 的字段包括 id、displayName、platform、privilege、isolation。",
+  "terms": [
+   "HostEnvironmentDescriptor",
+   "displayName",
+   "isolation",
+   "platform",
+   "privilege"
+  ],
+  "window": "        true\n    } else {\n        false\n    }\n}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 22,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:382",
+  "text": "Web 环境描述符声明 HostPlatform::Web 与 HostIsolation::OsAppSandbox。",
+  "terms": [
+   "HostIsolation",
+   "HostPlatform",
+   "OsAppSandbox"
+  ],
+  "window": "            workspaceRoots: Vec::new(),\n        }\n    }\n\n    /// Builds the browser host descriptor used by WebAssembly runtime prompts.\n    pub fn web() -> Self {\n        Self {"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 24,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:468",
+  "text": "esp32() 环境描述符的 capabilities 只有 device.gpio 一个值。",
+  "terms": [
+   "capabilities",
+   "device.gpio",
+   "esp32"
+  ],
+  "window": "                \"Use paths mounted by the ESP-IDF VFS, such as /data/config.json.\".to_string(),\n            pathStyleDescriptionCn: \"使用 ESP-IDF VFS 挂载的路径，例如 /data/config.json。\"\n                .to_string(),\n            examplePaths: vec![\"/data\".to_string(), \"/data/config.json\".to_string()],\n       "
+ },
+ {
+  "page": "core-foundation",
+  "idx": 25,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:476",
+  "text": "HostEnvironmentDescriptor 的 Default 实现返回 android() 的值。",
+  "terms": [
+   "Default",
+   "HostEnvironmentDescriptor",
+   "android"
+  ],
+  "window": "            structuredCapabilities: hostCapabilities(&[\"device.gpio\"]),\n            onboardingRequirements: Vec::new(),\n            workspaceRoots: Vec::new(),\n        }\n    }\n}\n"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 28,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:506",
+  "text": "HostIsolation 有 None、OsAppSandbox、Container、VirtualMachine 四个变体。",
+  "terms": [
+   "Container",
+   "HostIsolation",
+   "None",
+   "OsAppSandbox",
+   "VirtualMachine"
+  ],
+  "window": "    AndroidRoot,\n    Administrator,\n    Root,\n    ServiceAccount,\n}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 30,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:524",
+  "text": "CapabilityOperation 有 Read、Write、Execute、Connect 四个变体。",
+  "terms": [
+   "CapabilityOperation",
+   "Connect",
+   "Execute",
+   "Read",
+   "Write"
+  ],
+  "window": "    Network,\n    Runtime,\n    Device,\n    Media,\n}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 32,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:540",
+  "text": "HostOnboardingRequirement 的字段包括 id、title、description、capabilityIds、isRequired、status、action。",
+  "terms": [
+   "HostOnboardingRequirement",
+   "action",
+   "capabilityIds",
+   "description",
+   "isRequired",
+   "status",
+   "title"
+  ],
+  "window": "    pub id: String,\n    pub displayName: String,\n    pub scope: CapabilityScope,\n    pub operations: Vec<CapabilityOperation>,\n}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 34,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:558",
+  "text": "HostRequirementAction 有 RuntimePermission、OpenSystemSettings、HostManaged、None 四个变体。",
+  "terms": [
+   "HostManaged",
+   "HostRequirementAction",
+   "None",
+   "OpenSystemSettings",
+   "RuntimePermission"
+  ],
+  "window": "pub enum HostRequirementStatus {\n    Satisfied,\n    Missing,\n    Unavailable,\n}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 35,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:566",
+  "text": "WorkspaceRootDescriptor 的字段包括 id、displayName、vfsRoot、physicalRoot。",
+  "terms": [
+   "WorkspaceRootDescriptor",
+   "displayName",
+   "physicalRoot",
+   "vfsRoot"
+  ],
+  "window": "    RuntimePermission,\n    OpenSystemSettings,\n    HostManaged,\n    None,\n}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 36,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:573",
+  "text": "defaultHostCapabilities 定义宿主能力 id 到 HostCapability 的映射。",
+  "terms": [
+   "HostCapability",
+   "defaultHostCapabilities"
+  ],
+  "window": "pub struct WorkspaceRootDescriptor {\n    pub id: String,\n    pub displayName: String,\n    pub vfsRoot: String,\n    pub physicalRoot: String,\n}\n"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 38,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:800",
+  "text": "windowsOnboardingRequirements 返回包含 windows.admin 的前置要求。",
+  "terms": [
+   "windows.admin",
+   "windowsOnboardingRequirements"
+  ],
+  "window": "                .unwrap_or_else(|| panic!(\"host capability is not defined: {id}\"))\n                .clone()\n        })\n        .collect()\n}\n\n/// Builds Windows onboarding requirements for elevation."
+ },
+ {
+  "page": "core-foundation",
+  "idx": 39,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:814",
+  "text": "androidOnboardingRequirements 返回包含 android.fileManagement 的前置要求。",
+  "terms": [
+   "android.fileManagement",
+   "androidOnboardingRequirements"
+  ],
+  "window": "        isRequired: true,\n        status: HostRequirementStatus::Missing,\n        action: HostRequirementAction::HostManaged,\n    }]\n}\n\n/// Builds Android onboarding requirements for runtime permissions."
+ },
+ {
+  "page": "core-foundation",
+  "idx": 43,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:937",
+  "text": "ohosOnboardingRequirements 返回包含 ohos.location 的前置要求。",
+  "terms": [
+   "ohos.location",
+   "ohosOnboardingRequirements"
+  ],
+  "window": "            action: HostRequirementAction::HostManaged,\n        },\n    ]\n}\n\n/// Builds OpenHarmony runtime permission requirements for host onboarding.\n#[allow(non_snake_case)]"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 45,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1109",
+  "text": "WebVisitHost 声明 visitWeb，入参为 WebVisitRequest、出参为 WebVisitResult。",
+  "terms": [
+   "WebVisitHost",
+   "WebVisitRequest",
+   "WebVisitResult",
+   "visitWeb"
+  ],
+  "window": "    pub title: String,\n    pub content: String,\n    pub metadata: Vec<(String, String)>,\n    pub links: Vec<WebVisitLinkData>,\n    pub imageLinks: Vec<String>,\n}\n"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 48,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1356",
+  "text": "ComposeDslWebViewHost 声明 handleControllerCommand 与 openFilePicker。",
+  "terms": [
+   "ComposeDslWebViewHost",
+   "handleControllerCommand",
+   "openFilePicker"
+  ],
+  "window": "        if request.options.extensions.iter().any(|extension| extension.is_empty() || !extension.chars().all(|value| value.is_ascii_alphanumeric())) {\n            return Err(HostError::new(\"Compose DSL file save extensions must be nonempty alphanumeric tokens\"));\n        }\n        Ok(request)\n    }\n}"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 49,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1364",
+  "text": "saveFile 把导出内容保存到宿主用户选定的目标。",
+  "terms": [
+   "saveFile"
+  ],
+  "window": "    /// Executes one imperative WebView controller command for a Compose DSL screen.\n    fn handleControllerCommand(&self, payload: &Value) -> HostResult<Value>;\n\n    /// Opens one validated Compose DSL file picker through the platform owner.\n    fn openFilePicker(&self, request: ComposeDslFilePicke"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 58,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1418",
+  "text": "httpDownloadPartialTargetPath 在目标路径后追加 .operit-download.partial 后缀。",
+  "terms": [
+   "download.partial",
+   "httpDownloadPartialTargetPath",
+   "operit"
+  ],
+  "window": "    pub url: String,\n    pub targetPath: String,\n    pub headers: Vec<(String, String)>,\n    pub expectedBytes: u64,\n}\n\n/// Returns the durable partial-file path reserved for one HTTP download target."
+ },
+ {
+  "page": "core-foundation",
+  "idx": 59,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1436",
+  "text": "HttpDownloadProgressState 有 Started、Downloading、Completed 三个变体。",
+  "terms": [
+   "Completed",
+   "Downloading",
+   "HttpDownloadProgressState",
+   "Started"
+  ],
+  "window": "    pub followRedirects: bool,\n    pub ignoreSsl: bool,\n    pub proxyHost: String,\n    pub proxyPort: u16,\n}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 60,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1471",
+  "text": "HttpDownloadControl 用 AtomicBool 记录取消状态。",
+  "terms": [
+   "AtomicBool",
+   "HttpDownloadControl"
+  ],
+  "window": "pub struct HttpDownloadResult {\n    pub downloadId: String,\n    pub files: Vec<HttpDownloadFileResult>,\n    pub downloadedBytes: u64,\n}\n\n#[derive(Clone, Default)]"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 62,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1534",
+  "text": "onCancel 订阅取消回调。",
+  "terms": [
+   "onCancel"
+  ],
+  "window": "        );\n        for callback in callbacks.into_values() {\n            callback();\n        }\n    }\n\n    /// Subscribes atomically with cancellation, including already cancelled tokens."
+ },
+ {
+  "page": "core-foundation",
+  "idx": 63,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1554",
+  "text": "isCancelled 返回是否已请求取消。",
+  "terms": [
+   "isCancelled"
+  ],
+  "window": "        HttpDownloadCancellationSubscription {\n            control: self.clone(),\n            id,\n        }\n    }\n\n    /// Returns whether cancellation has been requested."
+ },
+ {
+  "page": "core-foundation",
+  "idx": 68,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1639",
+  "text": "downloadToFile 接收 &dyn FileTarget 目标，默认返回不支持错误。",
+  "terms": [
+   "FileTarget",
+   "downloadToFile"
+  ],
+  "window": "\n    /// Executes one buffered HTTP request.\n    fn executeHttpRequest(&self, request: HttpRequestData) -> HostResult<HttpResponseData>;\n\n    /// Streams one successful HTTP response to a file without a declared byte count.\n    /// Implementations must not publish an incomplete response as the desti"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 69,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1650",
+  "text": "downloadFilesTo 把下载写入绑定的 VFS 目标，文件与目标数量不一致时报错。",
+  "terms": [
+   "downloadFilesTo"
+  ],
+  "window": "    ) -> HostResult<HttpFileDownloadResult> {\n        Err(HostError::new(\n            \"HTTP download to file is not supported by this host\",\n        ))\n    }\n\n    /// Downloads into bound VFS targets, keeping platform locations inside the host boundary."
+ },
+ {
+  "page": "core-foundation",
+  "idx": 75,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1774",
+  "text": "ManagedRuntimeHost 的 openPath 默认返回不支持错误。",
+  "terms": [
+   "ManagedRuntimeHost",
+   "openPath"
+  ],
+  "window": "    }\n    /// Starts a process using bound directory and executable capabilities.\n    fn startRuntimeProcessWithFiles(&self, mut request: RuntimeProcessRequest, directory: Option<&dyn FileSource>, executable: Option<&dyn FileSource>) -> HostResult<Box<dyn ManagedRuntimeProcess>> {\n        request.cw"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 76,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1755",
+  "text": "openFilePath 打开 VFS 能力，位置只在宿主边界翻译。",
+  "terms": [
+   "openFilePath"
+  ],
+  "window": "    fn isRunning(&self) -> HostResult<bool>;\n    /// Terminates the managed runtime process.\n    fn kill(&self) -> HostResult<()>;\n}\n\npub trait ManagedRuntimeHost: Send + Sync {\n    /// Opens a VFS capability, translating its location only at the host boundary."
+ },
+ {
+  "page": "core-foundation",
+  "idx": 77,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1759",
+  "text": "runRuntimeCommandAt 在所给 VFS 能力拥有的目录中运行命令。",
+  "terms": [
+   "runRuntimeCommandAt"
+  ],
+  "window": "\npub trait ManagedRuntimeHost: Send + Sync {\n    /// Opens a VFS capability, translating its location only at the host boundary.\n    fn openFilePath(&self, file: &dyn FileSource, action: RuntimePathAction) -> HostResult<()> {\n        self.openPath(&file.nativePath()?, action)\n    }\n    /// Runs a co"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 78,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1764",
+  "text": "startRuntimeProcessAt 在所给 VFS 能力拥有的目录中启动进程。",
+  "terms": [
+   "startRuntimeProcessAt"
+  ],
+  "window": "    }\n    /// Runs a command in a directory owned by the supplied VFS capability.\n    fn runRuntimeCommandAt(&self, mut request: RuntimeProcessRequest, directory: &dyn FileSource) -> HostResult<RuntimeCommandOutput> {\n        request.cwd = Some(directory.nativePath()?);\n        self.runRuntimeComman"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 79,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1769",
+  "text": "startRuntimeProcessWithFiles 用绑定的目录与可执行文件能力启动进程。",
+  "terms": [
+   "startRuntimeProcessWithFiles"
+  ],
+  "window": "    }\n    /// Starts a process in a directory owned by the supplied VFS capability.\n    fn startRuntimeProcessAt(&self, mut request: RuntimeProcessRequest, directory: &dyn FileSource) -> HostResult<Box<dyn ManagedRuntimeProcess>> {\n        request.cwd = Some(directory.nativePath()?);\n        self.st"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 80,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1964",
+  "text": "TerminalHost 的 resolveNativeWorkingDirectory 默认拒绝文档与资源挂载路径，拒绝进入 shell。",
+  "terms": [
+   "TerminalHost",
+   "resolveNativeWorkingDirectory",
+   "shell"
+  ],
+  "window": "    fn terminalProfileSettings(&self) -> HostResult<TerminalProfileSettings> {\n        Err(HostError::new(\"Terminal profile registry is not installed\"))\n    }\n    /// Saves a validated configuration while retaining ownership of existing sessions.\n    fn saveTerminalProfileSettings(&self, _settings: "
+ },
+ {
+  "page": "core-foundation",
+  "idx": 81,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1981",
+  "text": "startPtySession 创建会话。",
+  "terms": [
+   "startPtySession"
+  ],
+  "window": "    /// Resolves a working directory in the exact selected terminal filesystem.\n    fn resolveWorkingDirectory(\n        &self,\n        terminal: &str,\n        terminalType: &str,\n        workingDir: &str,\n        resolveHostDirectory: &dyn Fn(&str) -> HostResult<String>,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 82,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1991",
+  "text": "readPtySession、writePtySession、resizePtySession、pollPtyExitCode、closePtySession 覆盖会话的读写、尺寸调整、退出码轮询与关闭。",
+  "terms": [
+   "closePtySession",
+   "pollPtyExitCode",
+   "readPtySession",
+   "resizePtySession",
+   "writePtySession"
+  ],
+  "window": "        &self,\n        sessionName: &str,\n        terminal: &str,\n        terminalType: &str,\n        workingDir: &str,\n        rows: u16,\n        cols: u16,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 83,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1995",
+  "text": "listSessions 列出会话。",
+  "terms": [
+   "listSessions"
+  ],
+  "window": "        workingDir: &str,\n        rows: u16,\n        cols: u16,\n    ) -> HostResult<String>;\n    fn readPtySession(&self, sessionId: &str) -> HostResult<Vec<u8>>;\n    /// Waits for output or EOF from the backend that owns the PTY session.\n    fn nextPtySessionOutput<'a>(&'a self, sessionId: &'a str)"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 84,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:1997",
+  "text": "createOrGetSession 在宿主默认终端创建或复用命名会话。",
+  "terms": [
+   "createOrGetSession"
+  ],
+  "window": "        cols: u16,\n    ) -> HostResult<String>;\n    fn readPtySession(&self, sessionId: &str) -> HostResult<Vec<u8>>;\n    /// Waits for output or EOF from the backend that owns the PTY session.\n    fn nextPtySessionOutput<'a>(&'a self, sessionId: &'a str) -> TerminalPtyOutputFuture<'a>;\n    fn write"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 85,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2014",
+  "text": "executeInSession 在会话中执行命令。",
+  "terms": [
+   "executeInSession"
+  ],
+  "window": "        if entry.terminal != terminal {\n            return Err(HostError::new(\"Explicit terminal implementation selection is unsupported\"));\n        }\n        self.createOrGetTypedSession(sessionName, terminalType)\n    }\n    /// Creates or reuses a named session of exactly the requested interpreter "
+ },
+ {
+  "page": "core-foundation",
+  "idx": 86,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2028",
+  "text": "executeInSessionStreaming 默认返回不支持错误。",
+  "terms": [
+   "executeInSessionStreaming"
+  ],
+  "window": "        command: &str,\n        timeoutMs: u64,\n    ) -> HostResult<TerminalCommandOutput>;\n    /// Executes in the same session while forwarding raw PTY bytes before completion.\n    /// Output and close events wake the command observer. A callback error interrupts\n    /// the command and waits for s"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 87,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2064",
+  "text": "executeHiddenCommand 执行隐藏命令。",
+  "terms": [
+   "executeHiddenCommand"
+  ],
+  "window": "        scheduler.scheduleHostRuntimeCooperativeAsyncTask(\"terminal-command-stream\", Box::new(move || Box::pin(async move {\n            let result = TerminalCommand::runTerminalBlocking(commandScheduler.clone(), \"terminal-command-start\", move || {\n                self.beginInSessionStreaming(session"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 88,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2082",
+  "text": "getSessionScreen 读取会话屏幕。",
+  "terms": [
+   "getSessionScreen"
+  ],
+  "window": "        &self,\n        sessionId: &str,\n        input: Option<&str>,\n        control: Option<&str>,\n    ) -> HostResult<TerminalInputOutput>;\n    fn closeSession(&self, sessionId: &str) -> HostResult<TerminalCloseOutput>;\n    /// Close only an idle session belonging to the named session family. Host"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 90,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2104",
+  "text": "openTransactionDatabase 默认返回不支持错误。",
+  "terms": [
+   "openTransactionDatabase"
+  ],
+  "window": "    /// Excludes Host-private storage from portable snapshots before traversal or replacement.\n    /// Paths use the logical runtime namespace; exclusions include the entire addressed subtree.\n    fn isSnapshotExcludedPath(&self, _path: &str) -> bool { false }\n\n    /// Opens a private sequential wri"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 91,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2111",
+  "text": "retainPreferencesCache 默认返回 true。",
+  "terms": [
+   "retainPreferencesCache",
+   "true"
+  ],
+  "window": "        Ok(None)\n    }\n\n    /// Opens a transaction journal in this storage namespace.\n    fn openTransactionDatabase(&self, _path: &str) -> HostResult<Box<dyn RuntimeSqliteConnection>> {\n        Err(HostError::new(\"This storage host does not provide a SQL transaction journal\"))\n    }"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 92,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2114",
+  "text": "nodeLocalApplicationHistoryLimit 默认返回 None。",
+  "terms": [
+   "None",
+   "nodeLocalApplicationHistoryLimit"
+  ],
+  "window": "    /// Opens a transaction journal in this storage namespace.\n    fn openTransactionDatabase(&self, _path: &str) -> HostResult<Box<dyn RuntimeSqliteConnection>> {\n        Err(HostError::new(\"This storage host does not provide a SQL transaction journal\"))\n    }\n\n    /// Whether parsed preferences sh"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 93,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2120",
+  "text": "readBytes 从虚拟运行时存储路径读字节。",
+  "terms": [
+   "readBytes"
+  ],
+  "window": "    /// reload node-local durable bytes on reads and release idle store state.\n    /// Concurrent handles still share a transaction; returned snapshots are immutable.\n    fn retainPreferencesCache(&self) -> bool { true }\n    /// Explicit terminal Space-application retention for bounded endpoint stor"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 94,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2122",
+  "text": "readBytesRange 默认返回不支持错误。",
+  "terms": [
+   "readBytesRange"
+  ],
+  "window": "    fn retainPreferencesCache(&self) -> bool { true }\n    /// Explicit terminal Space-application retention for bounded endpoint storage.\n    /// Cache eviction alone never authorizes deleting durable application history.\n    fn nodeLocalApplicationHistoryLimit(&self) -> Option<usize> { None }\n    /"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 95,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2129",
+  "text": "writeBytes 向虚拟运行时存储路径写字节。",
+  "terms": [
+   "writeBytes"
+  ],
+  "window": "    fn workspaceRootDir(&self) -> Option<PathBuf>;\n    /// Reads bytes from a virtual runtime storage path.\n    fn readBytes(&self, path: &str) -> HostResult<Vec<u8>>;\n    /// Reads one bounded byte range without materializing the complete storage object.\n    fn readBytesRange(&self, path: &str, off"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 96,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2140",
+  "text": "writeBytesAtomically 默认返回不支持错误。",
+  "terms": [
+   "writeBytesAtomically"
+  ],
+  "window": "    fn writeBytes(&self, path: &str, content: &[u8]) -> HostResult<()>;\n    /// Reads a file modification time as Unix microseconds without reading its contents.\n    fn modifiedAt(&self, _path: &str) -> HostResult<i64> {\n        Err(HostError::new(\"Runtime storage host does not expose file modificat"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 97,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2159",
+  "text": "appendBytes、delete、exists、list 分别追加、删除、判存与列出虚拟运行时存储条目。",
+  "terms": [
+   "appendBytes",
+   "delete",
+   "exists",
+   "list"
+  ],
+  "window": "    fn flushFile(&self, path: &str) -> HostResult<()>;\n    /// Makes a group of files durable; hosts may coalesce shared directory flushes.\n    fn flushFiles(&self, paths: &[&str]) -> HostResult<()> {\n        for path in paths { self.flushFile(path)?; }\n        Ok(())\n    }\n    /// Completes publica"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 99,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2268",
+  "text": "discard 丢弃待发布文件。",
+  "terms": [
+   "discard"
+  ],
+  "window": "    /// Hosts without separate file/directory flushing may keep the fully durable commit.\n    fn commitFile(self: Box<Self>) -> HostResult<()> {\n        self.commit()\n    }\n\n    /// Publishes a fully written file without forcing a device flush for each entry.\n    fn commitFast(self: Box<Self>) -> Ho"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 100,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2274",
+  "text": "RuntimeStorageWriteHost 声明 createWriteSession 创建顺序写入器。",
+  "terms": [
+   "RuntimeStorageWriteHost",
+   "createWriteSession"
+  ],
+  "window": "    fn commitFast(self: Box<Self>) -> HostResult<()> {\n        self.commit()\n    }\n\n    /// Discards the pending storage file without publishing it.\n    fn discard(self: Box<Self>) -> HostResult<()>;\n}"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 101,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2280",
+  "text": "ArchiveStagingHost 声明 createArchive 创建空暂存归档。",
+  "terms": [
+   "ArchiveStagingHost",
+   "createArchive"
+  ],
+  "window": "}\n\n/// Creates host-owned sequential writers for runtime storage files.\npub trait RuntimeStorageWriteHost: Send + Sync {\n    /// Opens a new writer for one virtual runtime storage path.\n    fn createWriteSession(&self, path: &str) -> HostResult<Box<dyn RuntimeStorageWriteSession>>;\n}"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 102,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2295",
+  "text": "sealArchive 定稿归档并返回持久化字节长度。",
+  "terms": [
+   "sealArchive"
+  ],
+  "window": "\n    /// Writes a bounded export range, including ZIP header updates.\n    fn writeExportArchive(&self, archiveId: &str, offset: u64, chunk: &[u8]) -> HostResult<()>;\n\n    /// Returns a file-backed reference without reading archive bytes into application memory.\n    fn archiveFileReference(&self, arc"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 103,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2305",
+  "text": "HostSecretStore 声明 readSecret、writeSecret、deleteSecret。",
+  "terms": [
+   "HostSecretStore",
+   "deleteSecret",
+   "readSecret",
+   "writeSecret"
+  ],
+  "window": "    /// Finalizes a staged archive and returns its persisted byte length.\n    fn sealArchive(&self, archiveId: &str) -> HostResult<u64>;\n\n    /// Reads a bounded byte range from a finalized staged archive.\n    fn readArchive(&self, archiveId: &str, offset: u64, length: usize) -> HostResult<Vec<u8>>;"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 104,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2311",
+  "text": "SqliteValue 有 Null、Integer、Real、Text、Blob 五个变体。",
+  "terms": [
+   "Blob",
+   "Integer",
+   "Null",
+   "Real",
+   "SqliteValue",
+   "Text"
+  ],
+  "window": "    /// Removes one staged archive and all platform-owned resources for it.\n    fn removeArchive(&self, archiveId: &str) -> HostResult<()>;\n}\n\npub trait HostSecretStore: Send + Sync {\n    fn readSecret(&self, key: &str) -> HostResult<Option<Vec<u8>>>;\n    fn writeSecret(&self, key: &str, content: &["
+ },
+ {
+  "page": "core-foundation",
+  "idx": 105,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2360",
+  "text": "valueAt 按下标取值，越界报错。",
+  "terms": [
+   "valueAt"
+  ],
+  "window": "        matches!(self, SqliteValue::Null)\n    }\n}\n\n#[derive(Clone, Debug, PartialEq)]\npub struct SqliteRow {\n    pub columns: Vec<String>,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 106,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2366",
+  "text": "valueNamed 按列名取值，未找到列报错。",
+  "terms": [
+   "valueNamed"
+  ],
+  "window": "    pub columns: Vec<String>,\n    pub values: Vec<SqliteValue>,\n}\n\nimpl SqliteRow {\n    pub fn valueAt(&self, index: usize) -> HostResult<&SqliteValue> {\n        self.values"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 108,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2400",
+  "text": "lastInsertRowId 与 beginTransaction 分别读最后插入行 id 与开始事务。",
+  "terms": [
+   "beginTransaction",
+   "lastInsertRowId"
+  ],
+  "window": "    fn execute(&mut self, sql: &str, params: Vec<SqliteValue>) -> HostResult<usize>;\n    fn query(&mut self, sql: &str, params: Vec<SqliteValue>) -> HostResult<Vec<SqliteRow>>;\n    fn columnSize(&mut self, _table:&str, _column:&str, _row:i64)->HostResult<usize> { Err(HostError::new(\"SQLite host does"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 109,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2379",
+  "text": "visit_sqlite_pages 按 LIMIT 1 OFFSET 逐页访问行。",
+  "terms": [
+   "LIMIT",
+   "OFFSET",
+   "visit_sqlite_pages"
+  ],
+  "window": "            .columns\n            .iter()\n            .position(|column| column == name)\n            .ok_or_else(|| HostError::new(format!(\"sqlite column not found: {name}\")))?;\n        self.valueAt(index)\n    }\n}"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 110,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2425",
+  "text": "RuntimeSqliteHost 声明 openSqliteDatabase 打开数据库。",
+  "terms": [
+   "RuntimeSqliteHost",
+   "openSqliteDatabase"
+  ],
+  "window": "        visit_sqlite_pages(sql, params, |page, params| self.query(page, params), visitor)\n    }\n    fn lastInsertRowId(&self) -> HostResult<i64>;\n    fn commit(self: Box<Self>) -> HostResult<()>;\n    /// Aborts this transaction explicitly and reports any rollback failure.\n    fn rollback(self: Box<S"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 111,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2431",
+  "text": "HostRuntimeEventHost 声明 startHostRuntimeEventStream 启动宿主运行时事件流。",
+  "terms": [
+   "HostRuntimeEventHost",
+   "startHostRuntimeEventStream"
+  ],
+  "window": "}\n\npub trait RuntimeSqliteHost: Send + Sync {\n    /// The same storage boundary supplies disk-backed synchronization staging and blobs.\n    fn runtimeStorage(&self) -> Option<Arc<dyn RuntimeStorageHost>> { None }\n    fn openSqliteDatabase(&self, path: &str) -> HostResult<Box<dyn RuntimeSqliteConnect"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 113,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2464",
+  "text": "HostRuntimeEventSchedulerHost 声明 replaceHostRuntimeEventSchedules 替换全部活动 ToolPkg 定时并安装触发回调。",
+  "terms": [
+   "HostRuntimeEventSchedulerHost",
+   "ToolPkg",
+   "replaceHostRuntimeEventSchedules"
+  ],
+  "window": "}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]\npub struct HostRuntimeEventScheduleFire {\n    pub scheduleId: String,\n    pub scheduledAtMillis: u64,\n    pub firedAtMillis: u64,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 115,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2720",
+  "text": "HostRuntimeTaskSchedulerHost 声明 monotonicTimeMillis 读取与墙钟变化无关的单调毫秒。",
+  "terms": [
+   "HostRuntimeTaskSchedulerHost",
+   "monotonicTimeMillis"
+  ],
+  "window": "\n    /// Destroys one affine JavaScript runtime state and rejects later operations.\n    fn destroyHostJavaScriptRuntimeState(\n        &self,\n        handle: HostJavaScriptRuntimeStateHandle,\n    ) -> HostResult<()>;\n}"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 116,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2726",
+  "text": "scheduleHostRuntimeTask 调度命名一次性运行时任务。",
+  "terms": [
+   "scheduleHostRuntimeTask"
+  ],
+  "window": "}\n\npub trait HostRuntimeTaskSchedulerHost: Send + Sync {\n    /// Reads monotonic milliseconds from this Host's timer clock, independent of wall-clock changes.\n    /// Readings must remain comparable across tasks using the same scheduler instance.\n    fn monotonicTimeMillis(&self) -> HostResult<u64>;"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 117,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2790",
+  "text": "AppInstallState 有 PermissionRequired、InstallerOpened、RestartRequired、Completed 四个变体。",
+  "terms": [
+   "AppInstallState",
+   "Completed",
+   "InstallerOpened",
+   "PermissionRequired",
+   "RestartRequired"
+  ],
+  "window": "\n#[derive(Clone, Debug, PartialEq, Eq)]\npub struct SystemSettingData {\n    pub namespace: String,\n    pub setting: String,\n    pub value: String,\n}"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 118,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3510",
+  "text": "AppInstallTiming 有 Immediate、AfterProcessExit 两个变体，默认 Immediate。",
+  "terms": [
+   "AfterProcessExit",
+   "AppInstallTiming",
+   "Immediate"
+  ],
+  "window": "}\n\n/// Selects one authoritative package source without probing alternate providers on failure.\npub enum ApplicationUpdateBase {\n    InstalledPackage(Box<dyn FileSource>),\n    RetainedPackage,\n    Unavailable,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 120,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3560",
+  "text": "SystemOperationHost 的 applicationUpdateTarget 默认返回 None，禁用应用内更新。",
+  "terms": [
+   "None",
+   "SystemOperationHost",
+   "applicationUpdateTarget"
+  ],
+  "window": "        Err(HostError::new(\"Installer transformation is not supported by this host\"))\n    }\n    /// Selects the platform's package source; desktop installers use node-local retained packages.\n    fn applicationUpdateBase(&self) -> HostResult<ApplicationUpdateBase> {\n        Ok(ApplicationUpdateBase:"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 121,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3577",
+  "text": "startAppWithActivity 在指定 activity 时返回不支持错误，否则调用 startApp。",
+  "terms": [
+   "activity",
+   "startApp",
+   "startAppWithActivity"
+  ],
+  "window": "        &self,\n        namespace: &str,\n        setting: &str,\n        value: &str,\n    ) -> HostResult<SystemSettingData>;\n    fn getSystemSetting(&self, namespace: &str, setting: &str) -> HostResult<SystemSettingData>;\n    /// Installs a file reference, resolving its native location inside the pla"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 122,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3573",
+  "text": "installApp、uninstallApp、listInstalledApps、startApp 覆盖应用安装、卸载、列表与启动。",
+  "terms": [
+   "installApp",
+   "listInstalledApps",
+   "startApp",
+   "uninstallApp"
+  ],
+  "window": "    }\n    fn getSystemLanguageCode(&self) -> HostResult<String>;\n    fn sendNotification(&self, request: &SystemNotificationRequest) -> HostResult<()>;\n    fn modifySystemSetting(\n        &self,\n        namespace: &str,\n        setting: &str,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 123,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3583",
+  "text": "stopApp 与 getNotifications 分别停止应用与读取通知。",
+  "terms": [
+   "getNotifications",
+   "stopApp"
+  ],
+  "window": "    /// Installs a file reference, resolving its native location inside the platform provider.\n    fn installApp(&self, source: &dyn FileSource, timing: AppInstallTiming) -> HostResult<AppOperationData>;\n    fn uninstallApp(&self, packageName: &str) -> HostResult<AppOperationData>;\n    fn listInstal"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 124,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3595",
+  "text": "getDeviceLocation 与 getDeviceInfo 分别读取设备位置与设备信息。",
+  "terms": [
+   "getDeviceInfo",
+   "getDeviceLocation"
+  ],
+  "window": "    fn getNotifications(&self, limit: i32, includeOngoing: bool) -> HostResult<NotificationData>;\n    fn getAppUsageTime(\n        &self,\n        packageName: &str,\n        sinceHours: i32,\n        limit: i32,\n        includeSystemApps: bool,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 125,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3601",
+  "text": "captureScreenshot 截屏；recognizeText 对指定图片能力做 OCR 识别文本。",
+  "terms": [
+   "captureScreenshot",
+   "recognizeText"
+  ],
+  "window": "        includeSystemApps: bool,\n    ) -> HostResult<AppUsageTimeResultData>;\n    fn getDeviceLocation(\n        &self,\n        timeout: i32,\n        highAccuracy: bool,\n        includeAddress: bool,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 126,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3601",
+  "text": "captureScreenshotTo 把截屏字节发布到选定的 VFS 目标，默认返回不支持错误。",
+  "terms": [
+   "captureScreenshotTo"
+  ],
+  "window": "        includeSystemApps: bool,\n    ) -> HostResult<AppUsageTimeResultData>;\n    fn getDeviceLocation(\n        &self,\n        timeout: i32,\n        highAccuracy: bool,\n        includeAddress: bool,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 127,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:2958",
+  "text": "AudioPlaybackHost 声明 playFile、playAudio、playMusicFile、playMusic、pauseMusic、resumeMusic、stopMusic、seekMusic、setMusicVolum",
+  "terms": [
+   "AudioPlaybackHost",
+   "musicStatus",
+   "pauseMusic",
+   "playAudio",
+   "playFile",
+   "playMusic",
+   "playMusicFile",
+   "resumeMusic",
+   "seekMusic",
+   "setMusicVolume",
+   "stopMusic"
+  ],
+  "window": "    pub sourceType: Option<String>,\n    pub title: Option<String>,\n    pub artist: Option<String>,\n    pub durationMs: Option<i64>,\n    pub positionMs: i64,\n    pub bufferedPositionMs: i64,\n    pub volume: f64,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 128,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3155",
+  "text": "BluetoothHost 声明 supportsClassicListening 声明入站 RFCOMM 支持。",
+  "terms": [
+   "BluetoothHost",
+   "RFCOMM",
+   "supportsClassicListening"
+  ],
+  "window": "    pub timestamp: i64,\n}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]\npub struct BluetoothBleNotificationData {\n    pub sessionId: String,\n    pub notifications: Vec<BluetoothBleNotificationEntry>,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 129,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3160",
+  "text": "scanBluetoothDevices 扫描设备。",
+  "terms": [
+   "scanBluetoothDevices"
+  ],
+  "window": "    pub sessionId: String,\n    pub notifications: Vec<BluetoothBleNotificationEntry>,\n}\n\npub trait BluetoothHost: Send + Sync {\n    /// Declares inbound RFCOMM support independently of BLE operations and permissions.\n    fn supportsClassicListening(&self) -> bool;"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 130,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3238",
+  "text": "DeviceIoHost 声明 setDigitalOutput 写数字输出并返回已提交状态。",
+  "terms": [
+   "DeviceIoHost",
+   "setDigitalOutput"
+  ],
+  "window": "\n/// Describes the current state of one digital output.\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]\npub struct DeviceDigitalOutputState {\n    pub pin: u8,\n    pub level: bool,\n}"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 131,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3244",
+  "text": "getDigitalOutput 读一个数字输出的最后已提交状态。",
+  "terms": [
+   "getDigitalOutput"
+  ],
+  "window": "}\n\n/// Provides board-level digital I/O through the host capability boundary.\npub trait DeviceIoHost: Send + Sync {\n    /// Writes one digital output and returns its committed state.\n    fn setDigitalOutput(\n        &self,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 132,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3262",
+  "text": "RobotFaceHost 声明 setExpression 写一个机器人表情并返回已提交显示状态。",
+  "terms": [
+   "RobotFaceHost",
+   "setExpression"
+  ],
+  "window": "}\n\n/// Describes the current expression shown by a robot face display.\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]\npub struct RobotFaceState {\n    pub expression: String,\n}"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 134,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3287",
+  "text": "TtsSynthesisHost 声明 synthesizeSpeech 合成一次语音。",
+  "terms": [
+   "TtsSynthesisHost",
+   "synthesizeSpeech"
+  ],
+  "window": "    pub outputFormat: String,\n}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]\n#[allow(non_snake_case)]\npub struct TtsSynthesisResponse {\n    pub audioPath: String,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 135,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3289",
+  "text": "synthesizeSpeechBytes 直接返回合成音频字节，默认返回不支持错误。",
+  "terms": [
+   "synthesizeSpeechBytes"
+  ],
+  "window": "\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]\n#[allow(non_snake_case)]\npub struct TtsSynthesisResponse {\n    pub audioPath: String,\n    pub details: String,\n}"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 137,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3328",
+  "text": "speakText 发起一次平台系统语音请求。",
+  "terms": [
+   "speakText"
+  ],
+  "window": "        let mut status = self.playAudio(&file.nativePath()?)?;\n        status.path = file.vfsPath().into();\n        Ok(status)\n    }\n    /// Returns whether this host can speak text through a platform system voice.\n    fn supportsSystemSpeech(&self) -> bool;\n"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 138,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3316",
+  "text": "playFile 播放文件能力并把可移植标识返回给 Core。",
+  "terms": [
+   "Core",
+   "playFile"
+  ],
+  "window": "#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]\n#[allow(non_snake_case)]\npub struct TtsPlaybackStatus {\n    pub path: String,\n    pub active: bool,\n    pub paused: bool,\n    pub details: String,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 139,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3406",
+  "text": "LocalInferenceHost 声明 transcribeLocalSpeech 通过平台推理引擎转录本地音频。",
+  "terms": [
+   "LocalInferenceHost",
+   "transcribeLocalSpeech"
+  ],
+  "window": "    fn synthesizeLocalFiles(&self, mut request: LocalTtsInferenceHostRequest, model: &dyn FileSource, engine: Option<&dyn FileSource>, output: &dyn FileTarget) -> HostResult<LocalTtsInferenceHostResponse> {\n        request.modelDirectory = model.nativePath()?;\n        if let Some(engine) = engine { "
+ },
+ {
+  "page": "core-foundation",
+  "idx": 140,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3412",
+  "text": "synthesizeLocalSpeech 通过平台推理引擎合成语音。",
+  "terms": [
+   "synthesizeLocalSpeech"
+  ],
+  "window": "        if result.audioPath != expected { return Err(HostError::new(\"Inference host wrote outside the selected output capability\")); }\n        result.audioPath = output.vfsPath().into();\n        Ok(result)\n    }\n    /// Transcribes one local audio request through a platform inference engine.\n    fn "
+ },
+ {
+  "page": "core-foundation",
+  "idx": 141,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3382",
+  "text": "generateLocalChat 用平台宿主解析的模型能力生成聊天文本，默认返回不可用错误。",
+  "terms": [
+   "generateLocalChat"
+  ],
+  "window": "    pub optionsJson: String,\n}\n\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]\n#[allow(non_snake_case)]\npub struct LocalTtsInferenceHostResponse {\n    pub audioPath: String,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 142,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3386",
+  "text": "unloadLocalChat 释放宿主上的原生模型缓存。",
+  "terms": [
+   "unloadLocalChat"
+  ],
+  "window": "#[allow(non_snake_case)]\npub struct LocalTtsInferenceHostResponse {\n    pub audioPath: String,\n    pub outputFormat: String,\n}\n\npub trait LocalInferenceHost: Send + Sync {    /// Generates chat text using a model capability resolved by the platform host."
+ },
+ {
+  "page": "core-foundation",
+  "idx": 143,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3388",
+  "text": "transcribeLocalFiles 转录文件能力指向的本地音频，原生位置不出宿主。",
+  "terms": [
+   "transcribeLocalFiles"
+  ],
+  "window": "    pub audioPath: String,\n    pub outputFormat: String,\n}\n\npub trait LocalInferenceHost: Send + Sync {    /// Generates chat text using a model capability resolved by the platform host.\n    fn generateLocalChat(&self, _engine: &str, _model: &dyn FileSource, _request: &str, _settings: &str) -> HostR"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 144,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3395",
+  "text": "synthesizeLocalFiles 把语音合成进 VFS 输出能力并保留其公开标识。",
+  "terms": [
+   "synthesizeLocalFiles"
+  ],
+  "window": "    }\n    /// Releases the native model cache on its owning host.\n    fn unloadLocalChat(&self) -> HostResult<()> { Err(HostError::new(\"Local chat inference is unavailable on this host\")) }\n    /// Transcribes files whose native locations remain inside the consuming host.\n    fn transcribeLocalFiles"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 145,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3436",
+  "text": "ToastHost 声明 toast 在前端内呈现一条短暂消息。",
+  "terms": [
+   "ToastHost",
+   "toast"
+  ],
+  "window": "\n#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]\n/// Describes one system notification together with its activation destination.\npub struct SystemNotificationRequest {\n    pub title: String,\n    pub message: String,\n    pub activation: SystemNotificationActivation,"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 146,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3441",
+  "text": "ClipboardHost 声明 setClipboardText 替换系统剪贴板文本并返回已存文本。",
+  "terms": [
+   "ClipboardHost",
+   "setClipboardText"
+  ],
+  "window": "    pub message: String,\n    pub activation: SystemNotificationActivation,\n}\n\npub trait ToastHost: Send + Sync {\n    /// Presents one transient message inside the active frontend.\n    fn toast(&self, message: &str) -> HostResult<()>;"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 147,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3468",
+  "text": "FloatingWindowHost 声明 command 处理一条浮窗命令。",
+  "terms": [
+   "FloatingWindowHost",
+   "command"
+  ],
+  "window": "{\n    /// Invokes the frontend-owned clipboard writer.\n    fn setClipboardText(&self, text: &str) -> HostResult<String> {\n        self(text)\n    }\n}\n"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 148,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3621",
+  "text": "FileSystemHost 声明 envLabel 与 environmentDescriptor。",
+  "terms": [
+   "FileSystemHost",
+   "envLabel",
+   "environmentDescriptor"
+  ],
+  "window": "}\n\n/// Owns a sequential append handle for a file managed exclusively by its caller.\npub trait FileAppendHandle: Send {\n    /// Returns the initial length plus completed appends; discard the handle after an append error.\n    fn byteLength(&self) -> u64;\n    /// Submits all bytes to the file system b"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 150,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3636",
+  "text": "writeFile 与 writeFileBytes 分别写文本与字节。",
+  "terms": [
+   "writeFile",
+   "writeFileBytes"
+  ],
+  "window": "    fn readFile(&self, path: &str) -> HostResult<String>;\n    fn readFileWithLimit(&self, path: &str, maxBytes: usize) -> HostResult<String>;\n    fn readFileBytes(&self, path: &str) -> HostResult<Vec<u8>>;\n    /// Reads one bounded byte range without materializing the complete file.\n    /// Streamin"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 151,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3651",
+  "text": "deleteFile、fileExists、moveFile、copyFile、makeDirectory 覆盖删除、判存、移动、复制与建目录。",
+  "terms": [
+   "copyFile",
+   "deleteFile",
+   "fileExists",
+   "makeDirectory",
+   "moveFile"
+  ],
+  "window": "    fn openAppendFile(&self, _path: &str) -> HostResult<Box<dyn FileAppendHandle>> {\n        Err(HostError::new(\"File system host does not expose append handles\"))\n    }\n    /// Appends bytes to a binary file, creating it when missing.\n    /// Streaming hosts must override this; unsupported hosts fa"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 152,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3658",
+  "text": "findFiles、fileInfo、grepCode、zipFiles、unzipFiles、openFile、shareFile 覆盖查找、元信息、代码检索、压缩、解压、打开与分享。",
+  "terms": [
+   "fileInfo",
+   "findFiles",
+   "grepCode",
+   "openFile",
+   "shareFile",
+   "unzipFiles",
+   "zipFiles"
+  ],
+  "window": "        Err(HostError::new(\n            \"File system host does not expose binary appends\",\n        ))\n    }\n    fn deleteFile(&self, path: &str, recursive: bool) -> HostResult<()>;\n    fn fileExists(&self, path: &str) -> HostResult<FileExistence>;\n    fn moveFile(&self, source: &str, destination: &s"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 153,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3630",
+  "text": "readFileBytesRange 默认返回不支持错误。",
+  "terms": [
+   "readFileBytesRange"
+  ],
+  "window": "\npub trait FileSystemHost: Send + Sync {\n    fn envLabel(&self) -> &str;\n    fn environmentDescriptor(&self) -> HostEnvironmentDescriptor;\n    fn validatePath(&self, path: &str, paramName: &str) -> HostResult<()>;\n    fn listFiles(&self, path: &str) -> HostResult<Vec<FileEntry>>;\n    fn readFile(&se"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 154,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3640",
+  "text": "openAppendFile 默认返回不支持错误。",
+  "terms": [
+   "openAppendFile"
+  ],
+  "window": "    /// Streaming hosts must override this; unsupported hosts fail explicitly.\n    fn readFileBytesRange(&self, path: &str, offset: u64, length: usize) -> HostResult<Vec<u8>> {\n        let _ = (path, offset, length);\n        Err(HostError::new(\n            \"File system host does not expose bounded r"
+ },
+ {
+  "page": "core-foundation",
+  "idx": 155,
+  "ref": "core/crates/foundation/host-contract/src/lib.rs:3646",
+  "text": "appendFileBytes 默认返回不支持错误。",
+  "terms": [
+   "appendFileBytes"
+  ],
+  "window": "    }\n    fn writeFile(&self, path: &str, content: &str, append: bool) -> HostResult<()>;\n    fn writeFileBytes(&self, path: &str, content: &[u8]) -> HostResult<()>;\n    /// Opens an existing file for repeated appends, creating it when absent.\n    /// Callers must drop the handle before truncating, "
+ },
+ {
+  "page": "core-overview",
+  "idx": 91,
+  "ref": "docs/peer-protocol-versioning.md:62",
+  "text": "指纹变化时构建失败并打印新的 SHA-256，须在 revisions 末尾追加 version 递增的新记录，历史记录保持原样。",
+  "terms": [
+   "revisions",
+   "version"
+  ],
+  "window": "物理分块的认证接收及成功写入均计入通道活动，持续传输不会仅因尚未重组完成而触发心跳超时。\n本机制不建立额外连接，不自动重试或断点续传；网络中断仍向调用方报告失败。\n\n修改流程：\n\n1. 修改协议相关源码，运行正常的 Cargo 构建或检查。\n2. 如果指纹变化，构建会失败，并打印新的 SHA-256。"
+ },
+ {
+  "page": "core-overview",
+  "idx": 94,
+  "ref": "docs/peer-protocol-versioning.md:91",
+  "text": "协议版本不匹配返回 PEER_PROTOCOL_MISMATCH，缺少协议声明返回 PEER_PROTOCOL_UPGRADE_REQUIRED。",
+  "terms": [
+   "PEER_PROTOCOL_MISMATCH",
+   "PEER_PROTOCOL_UPGRADE_REQUIRED"
+  ],
+  "window": "\n- 新配对与已有凭据重连都声明协议版本；版本纳入认证 transcript。\n- 空间投影协商声明同一协议版本，供 Core 与 Edge 准入及控制同步使用。\n- 业务同步通过 `$node.sync` 的 `protocol` 方法读取最终目标的协议版本，适用于中继路由。\n- 同步收据只检查区间和内容的有效性，不承担兼容性协商。\n- 拓扑复用连接所有者的协议拒绝并比较设备资料中的 `protocolVersion`；已认证直连\n  使用握手确认的当前版本，避免旧资料在升级后继续显示不兼容。Edge 无需伪造 Core 软件版本。"
+ },
+ {
+  "page": "core-overview",
+  "idx": 98,
+  "ref": "docs/peer-protocol-versioning.md:30",
+  "text": "v24 将认证会话分块格式的显式修订标识 operit-peer-session-fragments-v1 纳入指纹，该标识保留为指纹的固定命名空间；连接始终要求双方使用同一个当前协议版本，原有身份和配对凭据保留。",
+  "terms": [
+   "fragments",
+   "operit",
+   "peer",
+   "session"
+  ],
+  "window": "\nHash 仅供构建和开发检查使用，不随握手、同步请求或设备资料发送，运行时也不比较。\n\nv32 将工作区终端 PTY 输入、输出从 Base64 字符串改为 Core Link 二进制值。\n输出由 Host 事件驱动，客户端接收 `Stream<Uint8List>`；两端及生成的客户端需要一起更新。\n本次修改未改变注解路由签名，版本记录沿用 v31 的指纹以声明报文语义变化。\n"
+ },
+ {
+  "page": "core-overview",
+  "idx": 99,
+  "ref": "docs/peer-protocol-versioning.md:42",
+  "text": "认证会话透明分块：maxMessageBytes 只限制一条物理 Link 报文，不再限制认证后逻辑消息大小，每块有效负载最多 64 KiB。",
+  "terms": [
+   "Link",
+   "maxMessageBytes"
+  ],
+  "window": "不再声明或检查独立的格式版本、一致性版本；最终目标的 `$node.sync/protocol`\n与连接握手都使用 `PeerProtocol::VERSION`。内容清单仍包含 `contentBytes` 和恢复基线，\n完整内容校验、恢复基线优先级及强制矫正规则不依赖另一套版本协商。\n设备空间复用 `VersionMismatch`，以橙色显示版本不兼容造成的连接不可用。\n\n## 认证会话透明分块\n"
+ },
+ {
+  "page": "core-overview",
+  "idx": 100,
+  "ref": "docs/peer-protocol-versioning.md:64",
+  "text": "指纹记录追加后，再次构建并执行 Core/Edge 互通回归，发布软件时无需再额外递增协议版本。",
+  "terms": [
+   "Core",
+   "Edge"
+  ],
+  "window": "\n修改流程：\n\n1. 修改协议相关源码，运行正常的 Cargo 构建或检查。\n2. 如果指纹变化，构建会失败，并打印新的 SHA-256。\n3. 在 `revisions` 末尾追加记录，将 `version` 递增并填写当前 hash。仅语义变化也必须\n   递增同一个版本，此时 hash 可以不变。历史记录保持原样。"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 86,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:299",
+  "text": "ChatGuidanceInbox 的 enqueue 拒绝空消息与已关闭的回合。",
+  "terms": [
+   "ChatGuidanceInbox",
+   "enqueue"
+  ],
+  "window": "        let message = message.trim().to_string();\n        if message.is_empty() {\n            return Err(\"Guidance message cannot be empty\".to_string());\n        }\n        let mut state = self.state.lock().expect(\"chat guidance inbox mutex poisoned\");\n        if !state.accepting {\n            return"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 87,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:328",
+  "text": "drainOrClose 在无待处理指导时关闭收件箱，之后 enqueue 全部拒绝；有待处理指导时返回全部条目且保持开放。",
+  "terms": [
+   "drainOrClose",
+   "enqueue"
+  ],
+  "window": "        if state.pending.is_empty() {\n            state.accepting = false;\n            return Vec::new();\n        }\n        state.pending.drain(..).collect()\n    }\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 96,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:807",
+  "text": "系统提示词组合从 provider_runtime_context 取 aiVisibleSkillPackages，取不到时 panic。",
+  "terms": [
+   "aiVisibleSkillPackages",
+   "panic",
+   "provider_runtime_context"
+  ],
+  "window": "                    })\n                    .collect::<Vec<_>>();\n                let mcp_servers = package_manager_guard\n                    .getAvailableServerPackages()\n                    .into_iter()\n                    .map(|(name, server_config)| PackageInfo {\n                        name,"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 97,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:789",
+  "text": "启用的包列表排除 ToolPkg 容器包。",
+  "terms": [
+   "ToolPkg"
+  ],
+  "window": "                context.terminalHost.as_deref(), filesystem.as_ref(), primary_directory, &workspace_folders,\n            );\n            let package_manager = self.tool_handler.getOrCreatePackageManager();\n            let (enabled_packages, mcp_servers) = {\n                let package_manager_guard ="
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 98,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:863",
+  "text": "EnhancedAIService::new 用 provider_runtime_context 创建 ConversationService。",
+  "terms": [
+   "ConversationService",
+   "EnhancedAIService",
+   "provider_runtime_context"
+  ],
+  "window": "                custom_intro_prompt: request.intro_prompt.clone(),\n            })\n            .await\n        })\n    }\n}\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 101,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:905",
+  "text": "getProviderAndModelForFunction 在第一个冒号处切分 providerModel，无冒号时 panic。",
+  "terms": [
+   "getProviderAndModelForFunction",
+   "panic",
+   "providerModel"
+  ],
+  "window": "    pub fn getAIServiceForFunction(\n        &mut self,\n        _functionType: FunctionType,\n        _chatProviderIdOverride: Option<String>,\n        _chatModelIdOverride: Option<String>,\n        runtime: &SendMessageRuntime,\n    ) -> SharedAIServiceHandle {"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 103,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:926",
+  "text": "refreshServiceForFunction 在刷新失败时 panic。",
+  "terms": [
+   "panic",
+   "refreshServiceForFunction"
+  ],
+  "window": "        &mut self,\n        _functionType: FunctionType,\n        _chatProviderIdOverride: Option<String>,\n        _chatModelIdOverride: Option<String>,\n        runtime: &SendMessageRuntime,\n    ) -> ResolvedModelConfig {\n        runtime.modelConfig.clone()"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 104,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:933",
+  "text": "refreshAllServices 在刷新失败时 panic。",
+  "terms": [
+   "panic",
+   "refreshAllServices"
+  ],
+  "window": "    }\n\n    pub async fn refreshServiceForFunction(&mut self, functionType: FunctionType) {\n        self.multi_service_manager\n            .refreshServiceForFunction(functionType)\n            .await\n            .expect(\"refreshServiceForFunction must succeed\");"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 106,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1086",
+  "text": "prepareConversationHistory 从模型配置能力取 toolCall、directImage、directAudio、directVideo。",
+  "terms": [
+   "directAudio",
+   "directImage",
+   "directVideo",
+   "prepareConversationHistory",
+   "toolCall"
+  ],
+  "window": "        functionType: FunctionType,\n        chatProviderIdOverride: Option<String>,\n        chatModelIdOverride: Option<String>,\n        purpose: PromptPreparationPurpose,\n        runtime: &SendMessageRuntime,\n    ) -> Result<Vec<PromptTurn>, AiServiceError> {\n        let config = self.getModelConfi"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 107,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1095",
+  "text": "prepareConversationHistory 把执行上下文的 chatId 与 participantId 交给系统提示词组合器。",
+  "terms": [
+   "chatId",
+   "participantId",
+   "prepareConversationHistory"
+  ],
+  "window": "            chatModelIdOverride,\n            runtime,\n        );\n        let useToolCallApi = config.capabilities.toolCall;\n        let chatModelHasDirectImage = config.capabilities.directImage;\n        let chatModelHasDirectAudio = config.capabilities.directAudio;\n        let chatModelHasDirectVide"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 108,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1139",
+  "text": "prepareConversationHistory 完成后把附件路径改写为相对路径。",
+  "terms": [
+   "prepareConversationHistory"
+  ],
+  "window": "                    chat_model_has_direct_image: chatModelHasDirectImage,\n                    tool_exposure_mode: runtime.toolExposureMode.clone(),\n                    prompt_metadata: runtime.promptMetadata.clone(),\n                    user_preferences_text: runtime.userPreferencesText.clone(),\n   "
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 109,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1229",
+  "text": "generateSummaryForConfiguration 经 ConversationService 与 multi_service_manager 生成摘要。",
+  "terms": [
+   "ConversationService",
+   "generateSummaryForConfiguration",
+   "multi_service_manager"
+  ],
+  "window": "            \"chat.summary.context chatId={} participantId={} reusedPreparedContext={} sourceTurns={}\",\n            chatId, configuration.profile.id, prepared.is_some(), messages.len(),\n        ), operit_util::AppLogger::VERBOSE_LEVEL_2);\n        let prepared = match prepared {\n            Some(conte"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 111,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1228",
+  "text": "generateSummaryForConfiguration 在已选定的原生参与者下运行摘要，并走 ToolExposureMode::Full 的工具运行时上下文。",
+  "terms": [
+   "Full",
+   "ToolExposureMode",
+   "generateSummaryForConfiguration"
+  ],
+  "window": "        AppLogger::v_with_level(TAG, &format!(\n            \"chat.summary.context chatId={} participantId={} reusedPreparedContext={} sourceTurns={}\",\n            chatId, configuration.profile.id, prepared.is_some(), messages.len(),\n        ), operit_util::AppLogger::VERBOSE_LEVEL_2);\n        let pre"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 113,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1354",
+  "text": "Cli 暴露模式下工具列表由 CliToolModeSupport::buildCliPublicToolPrompts 生成。",
+  "terms": [
+   "CliToolModeSupport",
+   "buildCliPublicToolPrompts"
+  ],
+  "window": "        _participantId: Option<String>,\n        _chatProviderIdOverride: Option<String>,\n        _chatModelIdOverride: Option<String>,\n        runtime: &SendMessageRuntime,\n    ) -> Vec<ToolPrompt> {\n        if !runtime.availableTools.is_empty() {\n            return runtime.availableTools.clone();"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 114,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1385",
+  "text": "Full 暴露模式下工具列表取系统工具分类中已在 tool_handler 注册的工具，再追加 package_proxy 代理工具。",
+  "terms": [
+   "Full",
+   "package_proxy",
+   "tool_handler"
+  ],
+  "window": "                runtime.chatModelHasDirectImage,\n                false,\n                false,\n                runtime.chatModelHasDirectAudio,\n                runtime.chatModelHasDirectVideo,\n                &[],\n                &host_environment,"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 116,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1528",
+  "text": "estimateRequestWindowFromMemory 转调 estimateRequestWindowFromMemoryWithBreakdown，由后者调用 estimatePreparedRequestWindowWithB",
+  "terms": [
+   "estimatePreparedRequestWindowWithBreakdown",
+   "estimateRequestWindowFromMemory",
+   "estimateRequestWindowFromMemoryWithBreakdown"
+  ],
+  "window": "            prepared_history: preparedHistory,\n            model_parameters: serializePromptHookModelParameters(&modelParameters),\n            available_tools: serializePromptHookToolPrompts(&availableTools),\n            metadata,\n            ..PromptHookContext::default()\n        };\n        let fin"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 117,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1537",
+  "text": "registerExecutionContext 与 unregisterExecutionContext 把执行上下文登记进或移出共享状态。",
+  "terms": [
+   "registerExecutionContext",
+   "unregisterExecutionContext"
+  ],
+  "window": "            .ok_or_else(|| AiServiceError::RequestFailed(\"Estimate hooks removed processed input\".into()))?;\n        let preparedHistory = self.applyFinalizedCurrentUserTurn(\n            finalized.prepared_history, &message, &processedInput,\n        );\n        self.estimatePreparedRequestWindowWithB"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 118,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1573",
+  "text": "invalidateAllExecutionContexts 使全部活动执行上下文失效。",
+  "terms": [
+   "invalidateAllExecutionContexts"
+  ],
+  "window": "            operit_util::AppLogger::VERBOSE_LEVEL_2,\n        );\n        context.isConversationActive = false;\n        context.executionCancellation.cancel();\n        if let Some(active) = self\n            .shared_state()\n            .active_execution_contexts"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 119,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1596",
+  "text": "isExecutionContextActive 要求上下文仍活跃、取消令牌未取消、且共享状态中仍登记为活跃。",
+  "terms": [
+   "isExecutionContextActive"
+  ],
+  "window": "            && !context\n                .cancellationToken\n                .as_ref()\n                .is_some_and(MessageCancellationToken::isCancelled)\n            && shared_state\n                .lock()\n                .expect(\"EnhancedAIService shared_state mutex poisoned\")"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 120,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1602",
+  "text": "startAssistantResponseRound 开新一轮并清空 streamBuffer。",
+  "terms": [
+   "startAssistantResponseRound",
+   "streamBuffer"
+  ],
+  "window": "                .expect(\"EnhancedAIService shared_state mutex poisoned\")\n                .active_execution_contexts\n                .get(&context.executionId)\n                .map(|active| active.isConversationActive)\n                .expect(\"execution context must be registered\")\n    }\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 124,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1682",
+  "text": "未设覆盖时，默认模型绑定取 support 的 modelBindingForChat，传聊天 id 与 functionType。",
+  "terms": [
+   "functionType",
+   "modelBindingForChat",
+   "support"
+  ],
+  "window": "        let defaultModelBinding = match (\n            options.chatProviderIdOverride.as_ref(),\n            options.chatModelIdOverride.as_ref(),\n        ) {\n            (Some(providerId), Some(modelId))\n                if !providerId.trim().is_empty() && !modelId.trim().is_empty() =>\n            {"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 125,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1709",
+  "text": "resolveChatConfigurationForOptions 经 provider_runtime_context.support().resolveChatConfiguration 解析执行配置。",
+  "terms": [
+   "provider_runtime_context.support",
+   "resolveChatConfiguration",
+   "resolveChatConfigurationForOptions"
+  ],
+  "window": "            promptFunctionType: options.promptFunctionType.clone(),\n            defaultModelBinding,\n            defaultTtsConfigId: support\n                .defaultTtsConfigId()\n                .map_err(AiServiceError::RequestFailed)?,\n        })\n    }"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 126,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1733",
+  "text": "resume 直接复用 sendMessage。",
+  "terms": [
+   "resume",
+   "sendMessage"
+  ],
+  "window": "        runtime: &mut SendMessageRuntime,\n    ) -> Result<(), AiServiceError> {\n        let configuration = self.resolveChatConfigurationForOptions(options).await?;\n        if configuration.profile.modelBinding != runtime.chatConfiguration.profile.modelBinding {\n            let mut next = self.creat"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 129,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1789",
+  "text": "createSendMessageRuntime 把 disableUserPreferenceDescription 固定为 false，注释说明插件执行档案已应用持久化的 USER.md 策略。",
+  "terms": [
+   "USER.md",
+   "createSendMessageRuntime",
+   "disableUserPreferenceDescription",
+   "false"
+  ],
+  "window": "        let introPrompt = profile.introPrompt.clone();\n        let aiName = profile.name.clone();\n        let userPreferencesText = profile.userPreferencesText.clone();\n\n        Ok(SendMessageRuntime {\n            textOnly: options.textOnly,\n            chatConfiguration: configuration,"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 130,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1794",
+  "text": "createSendMessageRuntime 的识别标志 hasImageRecognition、hasAudioRecognition、hasVideoRecognition 由 multi_service_manager 的 has",
+  "terms": [
+   "chatModelHasDirectAudio",
+   "chatModelHasDirectImage",
+   "chatModelHasDirectVideo",
+   "createSendMessageRuntime",
+   "hasAudioRecognition",
+   "hasAudioRecognitionConfigured",
+   "hasImageRecognition",
+   "hasImageRecognitionConfigured",
+   "hasVideoRecognition",
+   "hasVideoRecognitionConfigured",
+   "multi_service_manager",
+   "useToolCallApi"
+  ],
+  "window": "            textOnly: options.textOnly,\n            chatConfiguration: configuration,\n            promptMetadata: BTreeMap::new(),\n            useEnglish: false,\n            userPreferencesText,\n            introPrompt,\n            // The plugin execution profile already applies its persisted USER.m"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 131,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1799",
+  "text": "createSendMessageRuntime 按 modelConfig.apiProviderType 解析工具暴露模式，分为 CLI 与 Full。",
+  "terms": [
+   "Full",
+   "createSendMessageRuntime",
+   "modelConfig.apiProviderType"
+  ],
+  "window": "            introPrompt,\n            // The plugin execution profile already applies its persisted USER.md policy.\n            // Do not let the retired Core preference silently veto the plugin's switch.\n            disableUserPreferenceDescription: false,\n            aiName,\n            hasImageRec"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 133,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1847",
+  "text": "sendMessageWithRuntime 把响应任务以 \"enhanced-ai-response\" 为名交给 Host 任务调度器异步执行。",
+  "terms": [
+   "Host",
+   "enhanced",
+   "response",
+   "sendMessageWithRuntime"
+  ],
+  "window": "            operit_util::stream::HotStream::mutable_shared_stream(usize::MAX),\n        );\n        let toolRuntimeContext = toolRuntimeContextForConfiguration(\n            &runtime.chatConfiguration,\n            options.chatId.clone(),\n            options.workspacePath.clone(),\n            options.wo"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 135,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:1978",
+  "text": "executeSendMessageWithRuntime 在准备历史前记录 PrepareConversationHistory 阶段。",
+  "terms": [
+   "PrepareConversationHistory",
+   "executeSendMessageWithRuntime"
+  ],
+  "window": "        }\n\n        let mut lifecycle = Vec::new();\n        if !isSubTask {\n            self.shared_state().responseRound = 0;\n            lifecycle.push(SendMessageLifecycleStage::SetProcessingState);\n            self.setInputProcessingState(InputProcessingState::Processing {"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 136,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2175",
+  "text": "executeSendMessageWithRuntime 在发模型请求前记录 SendMessageRequest 阶段。",
+  "terms": [
+   "SendMessageRequest",
+   "executeSendMessageWithRuntime"
+  ],
+  "window": "            TAG,\n            &format!(\n                \"sendMessage请求前准备耗时: {}ms, 流式输出: {}\",\n                tBeforeRequest\n                    .startedAtMs\n                    .saturating_sub(startTime.startedAtMs),\n                stream"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 137,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2251",
+  "text": "executeSendMessageWithRuntime 在收流时记录 CollectResponseStream 阶段。",
+  "terms": [
+   "CollectResponseStream",
+   "executeSendMessageWithRuntime"
+  ],
+  "window": "                AppLogger::e(TAG, &format!(\"发送消息时发生错误: {}\", error));\n                self.unregisterExecutionContext(&execContext);\n                return Err(error);\n            }\n        };\n        execContext.preparedRequest = Some(PreparedRequestWindow {\n            historyLength: requestHistory"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 139,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2397",
+  "text": "executeSendMessageWithRuntime 在处理流完成时记录 ProcessStreamCompletion 阶段。",
+  "terms": [
+   "ProcessStreamCompletion",
+   "executeSendMessageWithRuntime"
+  ],
+  "window": "        );\n        runtimeSupport.logMessageTiming(\n            \"enhanced.sendMessage.streamComplete\",\n            requestStartTime.clone(),\n            Some(format!(\n                \"functionType={}, totalChars={}, stream={}\",\n                function_type_name(&functionType),"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 140,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2504",
+  "text": "executeSendMessageWithRuntime 在注销执行上下文时记录 UnregisterExecutionContext 阶段。",
+  "terms": [
+   "UnregisterExecutionContext",
+   "executeSendMessageWithRuntime"
+  ],
+  "window": "            completedContextWindow.is_some(),\n        ),\n            operit_util::AppLogger::VERBOSE_LEVEL_2,\n        );\n        AppLogger::v_with_level(\n            TAG,\n            &format!("
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 141,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2560",
+  "text": "processToolResults 在工具结果消息为空白时返回 RequestFailed。",
+  "terms": [
+   "RequestFailed",
+   "processToolResults"
+  ],
+  "window": "        chatModelIdOverride: Option<String>,\n        stream: bool,\n        toolResultMessage: String,\n        callbacks: Option<Arc<dyn SendMessageCallbacks + Send + Sync>>,\n        runtime: &mut SendMessageRuntime,\n    ) -> Result<bool, AiServiceError> {\n        let toolNames = results"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 142,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2632",
+  "text": "processToolResults 在 guidanceInbox 有待处理指导时暂停，不发下一轮模型请求，返回 false。",
+  "terms": [
+   "false",
+   "guidanceInbox",
+   "processToolResults"
+  ],
+  "window": "            TAG,\n            &format!(\n                \"chat.tool_result.history_ready executionId={} round={} historyTurns={} messageBytes={}\",\n                context.executionId,\n                context.roundManager.roundIndex,\n                currentChatHistory.len(),\n                toolResultM"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 143,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2694",
+  "text": "processToolResults 在 maxTokens 大于 0 且当前 token 用量占比达到 tokenUsageThreshold 时触发超限。",
+  "terms": [
+   "maxTokens",
+   "processToolResults",
+   "token",
+   "tokenUsageThreshold"
+  ],
+  "window": "            .estimatePreparedRequestWindow(\n                runtime.aiService.clone(),\n                &currentChatHistory,\n                &availableTools,\n                true,\n            )\n            .await?;"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 145,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2776",
+  "text": "processToolResults 的续轮模型请求设置 enable_retry 为 true。",
+  "terms": [
+   "enable_retry",
+   "processToolResults",
+   "true"
+  ],
+  "window": "            );\n            service\n                .send_message(SendMessageRequest {\n                    chat_history: currentChatHistory,\n                    model_parameters: modelParameters,\n                    thinking: RequestThinking::for_model(\n                        &runtime.modelConfig.th"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 146,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2219",
+  "text": "首次模型请求同样设置 enable_retry 为 true。",
+  "terms": [
+   "enable_retry",
+   "true"
+  ],
+  "window": "            );\n            service\n                .send_message(SendMessageRequest {\n                    chat_history: requestHistory.clone(),\n                    model_parameters: modelParameters.clone(),\n                    thinking: RequestThinking::for_model(\n                        &runtime.mo"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 147,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2918",
+  "text": "processStreamCompletion 循环处理模型轮次与工具轮次：无工具调用时完成，有工具调用时执行工具并把结果送回模型，任一环节返回停止信号时结束。",
+  "terms": [
+   "processStreamCompletion"
+  ],
+  "window": "                accumulatedCachedInputTokenCount,\n                context.executionId,\n                context.roundManager.roundIndex,\n                displayToolNames\n            ),\n            operit_util::AppLogger::VERBOSE_LEVEL_2,\n        );"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 148,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3035",
+  "text": "completeResponseRound 在内容为空且 disableWarning 为真时直接定稿助手回复并结束；disableWarning 为假时发出空回复警告并继续一轮。",
+  "terms": [
+   "completeResponseRound",
+   "disableWarning"
+  ],
+  "window": "\n        let content = context.streamBuffer.trim().to_string();\n        AppLogger::v_with_level(\n            TAG,\n            &format!(\n                \"chat.response.complete_start executionId={} round={} contentChars={} historyTurns={}\",\n                context.executionId,"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 151,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3086",
+  "text": "completeResponseRound 先用 enhanceToolDetection 规范化工具调用 XML。",
+  "terms": [
+   "completeResponseRound",
+   "enhanceToolDetection"
+  ],
+  "window": "            }\n            let pureThinkingWarning =\n                ConversationMarkupManager::createWarningStatus(ENHANCED_PURE_THINKING_ONLY_WARNING);\n            context\n                .roundManager\n                .appendContent(&format!(\"\\n{pureThinkingWarning}\"));\n            collector.emit_c"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 152,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3164",
+  "text": "无工具调用时，completeResponseRound 定稿助手回复并结束。",
+  "terms": [
+   "completeResponseRound"
+  ],
+  "window": "        }\n\n        AppLogger::v_with_level(\n            TAG,\n            &format!(\n                \"chat.response.finalize_no_tools executionId={} round={} displayChars={} historyTurns={}\",\n                context.executionId,"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 153,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3188",
+  "text": "handleToolInvocation 要求至少一次调用，空列表返回 RequestFailed。",
+  "terms": [
+   "RequestFailed",
+   "handleToolInvocation"
+  ],
+  "window": "        isSubTask: bool,\n        participantName: Option<String>,\n        participantId: Option<String>,\n        chatId: Option<String>,\n        onToolInvocation: Option<Arc<dyn Fn(String) + Send + Sync>>,\n        runtime: &mut SendMessageRuntime,\n    ) -> Result<Option<ToolResultContinuation>, AiSe"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 154,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3212",
+  "text": "handleToolInvocation 对每次调用触发 onToolInvocation 回调，显示名经 resolveToolDisplayName 解析。",
+  "terms": [
+   "handleToolInvocation",
+   "onToolInvocation",
+   "resolveToolDisplayName"
+  ],
+  "window": "        } else {\n            None\n        };\n        for invocation in &mut toolInvocations {\n            configureModelFileRead(\n                &mut invocation.tool,\n                runtime.chatModelHasDirectImage,"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 155,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3231",
+  "text": "handleToolInvocation 经 ToolExecutionManager::executeInvocations 执行整批工具调用，并传入 extensionOwner 与 executionData。",
+  "terms": [
+   "ToolExecutionManager",
+   "executeInvocations",
+   "executionData",
+   "extensionOwner",
+   "handleToolInvocation"
+  ],
+  "window": "            TAG,\n            &format!(\n                \"chat.tool_call.handle_start executionId={} round={} toolCount={} tools=[{}] historyTurns={}\",\n                context.executionId,\n                context.roundManager.roundIndex,\n                toolInvocations.len(),\n                toolNames"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 156,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3257",
+  "text": "工具批产生 routeChangeIntent 时，handleToolInvocation 把意图存入 pendingRouteChange 并暂停本轮。",
+  "terms": [
+   "handleToolInvocation",
+   "pendingRouteChange",
+   "routeChangeIntent"
+  ],
+  "window": "        }\n\n        let toolExposureMode = match runtime.toolExposureMode {\n            ToolExposureMode::Cli => RuntimeToolExposureMode::CLI,\n            ToolExposureMode::Full => RuntimeToolExposureMode::FULL,\n        };\n        let toolBatch = context.awaitExecution("
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 157,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3351",
+  "text": "finalizeAssistantResponse 只保存最后回复内容。",
+  "terms": [
+   "finalizeAssistantResponse"
+  ],
+  "window": "            }\n            cursor = tool_match.end;\n        }\n        output.push_str(&content[cursor..]);\n        output\n    }\n"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 158,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3356",
+  "text": "cancelConversation 使全部执行上下文失效、取消全部流式发送、结束当前 token 请求，并把输入处理状态置回 Idle。",
+  "terms": [
+   "Idle",
+   "cancelConversation",
+   "token"
+  ],
+  "window": "    }\n\n    fn normalizeToolXml(&self, xml: &str) -> String {\n        let mut result = xml.trim().to_string();\n        if let Some(toolTagName) = ChatMarkupRegex::extract_opening_tag_name(&result) {\n            if ChatMarkupRegex::is_tool_tag_name(Some(&toolTagName)) {\n                let tool_attr ="
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 159,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3434",
+  "text": "beginRequestTokenUsage 在上下文不活跃或已取消时返回 RequestCancelled。",
+  "terms": [
+   "RequestCancelled",
+   "beginRequestTokenUsage"
+  ],
+  "window": "        self.shared_state().request_window_estimate\n    }\n\n    #[allow(non_snake_case)]\n    pub fn getRequestWindowBreakdown(&self) -> Option<ContextWindowBreakdown> {\n        self.shared_state().request_window_breakdown\n    }"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 160,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3464",
+  "text": "setCurrentTurnTokenCounts 把负数 token 计数钳制为 0。",
+  "terms": [
+   "setCurrentTurnTokenCounts",
+   "token"
+  ],
+  "window": "        if !context.isConversationActive\n            || context.cancellationToken.as_ref().is_some_and(MessageCancellationToken::isCancelled)\n            || !shared.active_execution_contexts.get(&context.executionId)\n                .is_some_and(|active| active.isConversationActive)\n        {\n      "
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 161,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3504",
+  "text": "apply_finalized_current_user_turn 在末轮 USER 内容与定稿相同时不改，与原文相同时替换为定稿内容（定稿为空时把该轮清空）；定稿为空且不命中前两种情况时返回历史，不追加新轮。",
+  "terms": [
+   "USER",
+   "apply_finalized_current_user_turn"
+  ],
+  "window": "    pub fn resetTokenCounters(&mut self) {\n        self.turnTokenUsage().reset();\n    }\n}\n\nimpl Clone for EnhancedAIService {\n    fn clone(&self) -> Self {"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 162,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3504",
+  "text": "apply_finalized_current_user_turn 在其他情况下追加一个新的 USER 轮。",
+  "terms": [
+   "USER",
+   "apply_finalized_current_user_turn"
+  ],
+  "window": "    pub fn resetTokenCounters(&mut self) {\n        self.turnTokenUsage().reset();\n    }\n}\n\nimpl Clone for EnhancedAIService {\n    fn clone(&self) -> Self {"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 163,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3534",
+  "text": "resolveToolDisplayName 把 package_proxy 与 proxy 解析为 tool_name 参数值，其他工具直接用工具名。",
+  "terms": [
+   "package_proxy",
+   "proxy",
+   "resolveToolDisplayName",
+   "tool_name"
+  ],
+  "window": "}\n\n/// Replaces an existing current turn exactly, including explicit empty text.\nfn apply_finalized_current_user_turn(\n    preparedHistory: Vec<PromptTurn>,\n    originalCurrentMessage: &str,\n    finalizedCurrentMessage: &str,"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 167,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3817",
+  "text": "工具运行时上下文含 callerParticipantId（取配置 profile.id）、extensionOwner 与 executionData，暴露模式 Full 映射 FULL、Cli 映射 CLI。",
+  "terms": [
+   "FULL",
+   "Full",
+   "callerParticipantId",
+   "executionData",
+   "extensionOwner",
+   "profile.id"
+  ],
+  "window": "            .as_ref()\n            .map(prompt_function_type_name)\n            .map(ToOwned::to_owned),\n        use_english: Some(useEnglish),\n        available_tools: serializePromptHookToolPrompts(&availableTools),\n        metadata: HashMap::from([(\n            \"executionContext\".to_string(),"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 168,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3828",
+  "text": "function_type_name 覆盖 CHAT、SUMMARY、TITLE_GENERATION、MEMORY、UI_CONTROLLER、TRANSLATION、GREP、ROLE_RESPONSE_PLANNER、IMAGE_RE",
+  "terms": [
+   "AUDIO_RECOGNITION",
+   "CHAT",
+   "GREP",
+   "IMAGE_RECOGNITION",
+   "MEMORY",
+   "ROLE_RESPONSE_PLANNER",
+   "SUMMARY",
+   "TITLE_GENERATION",
+   "TRANSLATION",
+   "UI_CONTROLLER",
+   "VIDEO_RECOGNITION",
+   "function_type_name"
+  ],
+  "window": "        )]),\n        ..PromptHookContext::default()\n    })).await.map_err(AiServiceError::RequestFailed)?;\n    deserializePromptHookToolPrompts(hookContext.available_tools)\n}\n\n/// Supplies model-only media policy from this turn without changing direct plugin SDK calls."
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 169,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3844",
+  "text": "prompt_function_type_name 只有 CHAT 与 VOICE 两种。",
+  "terms": [
+   "CHAT",
+   "VOICE",
+   "prompt_function_type_name"
+  ],
+  "window": "            // Malformed envelopes remain unchanged so the ordinary proxy validator reports them.\n            if let Ok(parameters) = serde_json::from_str::<serde_json::Map<String, serde_json::Value>>(&parameter.value) {\n                let mut target = operit_tools::ToolExecutionManager::ToolCall {"
+ },
+ {
+  "page": "core-provider-services",
+  "idx": 170,
+  "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:3913",
+  "text": "resolve_workspace_path_mappings 经 VisualFileSystem 校验并规范化路径，按规范化后的 vfs 路径去重，返回 WorkspacePathMapping 列表。",
+  "terms": [
+   "VisualFileSystem",
+   "WorkspacePathMapping",
+   "resolve_workspace_path_mappings"
+  ],
+  "window": "        assert_eq!(params[\"direct_image\"], \"false\");\n        assert_eq!(params[\"direct_audio\"], \"true\");\n        assert!(params.get(\"intent\").is_none());\n    }\n}\n\n/// Constructs the native-authenticated tool snapshot from this turn's already-resolved configuration."
+ },
+ {
+  "page": "core-tool-execution",
+  "idx": 88,
+  "ref": "core/crates/tool/services/src/tools/ToolRegistration.rs:85",
+  "text": "BuiltinToolName::UsePackage 执行时先准备 MCP 包。",
+  "terms": [
+   "BuiltinToolName",
+   "UsePackage"
+  ],
+  "window": "                Box::pin(async move {\n                    let tool = &tool;\n                    let packageName = requiredParameterValue(tool, \"package_name\");\n                    if let Err(error) = RuntimePackageManager::prepareMcpPackage(&usePackageManager, &packageName).await {\n                 "
+ },
+ {
+  "page": "core-proxy",
+  "idx": 113,
+  "ref": "core/crates/proxy/dart-codegen/src/lib.rs:299",
+  "text": "每个 schema 命名空间生成一个 Dart 类。",
+  "terms": [
+   "Dart",
+   "schema"
+  ],
+  "window": "    }\n\n    let mut output = String::new();\n    output.push_str(&format!(\"class {class_name} {{\\n\"));\n    output.push_str(&format!(\"  const {class_name}._(this.bridge);\\n\\n\"));\n    output.push_str(\"  final OperitRuntimeBridge bridge;\\n\\n\");\n    for child in children {"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 235,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:282",
+  "text": "RuntimeTerminalService::getInstance 要求 TerminalHost 已配置，否则 panic",
+  "terms": [
+   "RuntimeTerminalService",
+   "TerminalHost",
+   "getInstance",
+   "panic"
+  ],
+  "window": "            terminal: format!(\"profile:{}\", selected.id),\n            terminalType: selected.terminalType.clone(),\n            types: settings\n                .profiles\n                .into_iter()\n                .map(|profile| {\n                    let available = !profile.options.is_empty()"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 236,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:289",
+  "text": "listTerminalSessions 列出宿主当前已知终端会话并发布快照",
+  "terms": [
+   "listTerminalSessions"
+  ],
+  "window": "                        || info.types.iter().any(|entry| {\n                            entry.terminal == profile.terminal\n                                && entry.terminalType == profile.terminalType\n                                && entry.available\n                        });\n                    R"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 237,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:295",
+  "text": "terminalSessionsFlow 返回已发布终端会话的状态流",
+  "terms": [
+   "terminalSessionsFlow"
+  ],
+  "window": "                        terminal: format!(\"profile:{}\", profile.id),\n                        terminalType: profile.terminalType,\n                        available,\n                        description: profile.name,\n                        nameKey: profile.nameKey,\n                    }\n             "
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 238,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:304",
+  "text": "defaultTerminalType 返回宿主声明的默认终端类型",
+  "terms": [
+   "defaultTerminalType"
+  ],
+  "window": "    }\n\n    /// Reads terminal profiles owned by the active Core device.\n    pub fn terminalProfileSettings(&self) -> Result<TerminalProfileSettings, String> {\n        self.terminalHost\n            .terminalProfileSettings()\n            .map_err(|error| error.message)"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 239,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:313",
+  "text": "terminalInfo 返回活跃宿主暴露的每个终端类型",
+  "terms": [
+   "terminalInfo"
+  ],
+  "window": "    /// Lists editable fields registered by each platform terminal implementation.\n    pub fn terminalProfileSupport(&self) -> Result<Vec<TerminalProfileSupport>, String> {\n        self.terminalHost\n            .terminalProfileSupport()\n            .map_err(|error| error.message)\n    }\n"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 240,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:533",
+  "text": "startTerminalPty 返回 Future，在宿主阻塞池上启动 PTY 终端会话并挂接输出流，启动期间不持有 Core proxy 锁",
+  "terms": [
+   "Core",
+   "Future",
+   "proxy",
+   "startTerminalPty"
+  ],
+  "window": "    /// Resolves the working directory, starts the host PTY, and publishes it.\n    fn start_terminal_pty(\n        &self,\n        sessionName: String,\n        terminal: String,\n        terminalType: String,\n        workingDir: String,"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 241,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:614",
+  "text": "startTerminalPty 在 enterTerminalDirectory 失败时关闭已建会话并返回错误",
+  "terms": [
+   "enterTerminalDirectory",
+   "startTerminalPty"
+  ],
+  "window": "        close_terminal_pty_output_stream(&sessionId);\n        self.terminalHost\n            .closePtySession(&sessionId)\n            .map_err(|error| error.message)?;\n        publish_terminal_sessions(self.terminalHost.as_ref())?;\n        Ok(())\n    }"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 242,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:630",
+  "text": "terminalPtyOutput 返回指定 PTY 会话的共享输出流",
+  "terms": [
+   "terminalPtyOutput"
+  ],
+  "window": "\n    #[allow(non_snake_case)]\n    /// Reads the current screen contents for a terminal session.\n    pub fn getTerminalSessionScreen(\n        &self,\n        sessionId: String,\n    ) -> Result<RuntimeTerminalScreen, String> {"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 243,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:636",
+  "text": "writeTerminalPty 向 PTY 会话写入 base64 解码后的字节并返回写入字节数",
+  "terms": [
+   "base64",
+   "writeTerminalPty"
+  ],
+  "window": "    ) -> Result<RuntimeTerminalScreen, String> {\n        self.terminalHost\n            .getSessionScreen(&sessionId)\n            .map_err(|error| error.message)\n            .map(|screen| RuntimeTerminalScreen {\n                sessionId: screen.sessionId,\n                platform: screen.platform,"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 244,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:648",
+  "text": "resizeTerminalPty 调整 PTY 会话的行列数",
+  "terms": [
+   "resizeTerminalPty"
+  ],
+  "window": "                commandRunning: screen.commandRunning,\n            })\n    }\n\n    #[allow(non_snake_case)]\n    fn ensureTerminalPtyOutputStream(&self, sessionId: String) -> MutableSharedStreamImpl<CoreBuffer> {\n        let mut streams = terminal_pty_output_streams()"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 245,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:656",
+  "text": "pollTerminalPtyExit 轮询 PTY 会话的退出码",
+  "terms": [
+   "pollTerminalPtyExit"
+  ],
+  "window": "            .expect(\"terminal pty output streams mutex poisoned\");\n        if let Some(entry) = streams.get(&sessionId) {\n            return entry.stream.clone();\n        }\n        let stream = MutableSharedStreamImpl::new(512);\n        streams.insert(\n            sessionId.clone(),"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 246,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:664",
+  "text": "closeTerminalPty 关闭 PTY 会话并移除其输出流，随后重新发布会话快照",
+  "terms": [
+   "closeTerminalPty"
+  ],
+  "window": "                stream: stream.clone(),\n            },\n        );\n        let taskScheduler = self\n            .context\n            .hostRuntimeTaskSchedulerHost\n            .clone()"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 247,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:675",
+  "text": "inputTerminalSession 向终端会话发送文本输入并返回接受的字符数",
+  "terms": [
+   "inputTerminalSession"
+  ],
+  "window": "            sessionId,\n            stream.clone(),\n        );\n        stream\n    }\n}\n"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 248,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:684",
+  "text": "getTerminalSessionScreen 读取终端会话的当前屏幕内容",
+  "terms": [
+   "getTerminalSessionScreen"
+  ],
+  "window": "    context: &HostManager,\n    terminalHost: &dyn TerminalHost,\n    workingDir: &str,\n) -> Result<String, String> {\n    let filesystem = terminal_vfs(context)?;\n    let path = filesystem.resolveResourcePath(None, workingDir.trim())?;\n    filesystem.terminalDirectory(terminalHost, &path)"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 249,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:704",
+  "text": "ensureTerminalPtyOutputStream 复用已有输出流，不为同一会话重复创建读取器",
+  "terms": [
+   "ensureTerminalPtyOutputStream"
+  ],
+  "window": "        let value = operit_link::toCoreValue(replay[0].clone()).unwrap();\n        match value {\n            operit_link::CoreValue::Bytes(decoded) => {\n                assert_eq!(decoded.as_ref(), bytes.as_ref());\n                assert_eq!(decoded.as_ptr(), bytes.as_ptr());\n            }\n          "
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 250,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:711",
+  "text": "PTY 输出流用 MutableSharedStreamImpl::new(512) 创建，共享缓冲容量为 512",
+  "terms": [
+   "MutableSharedStreamImpl"
+  ],
+  "window": "        }\n    }\n}\n\n/// Builds the host VFS used only for directories owned by the current runtime.\nfn terminal_vfs(context: &HostManager) -> Result<VisualFileSystem, String> {\n    context.vfs()"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 251,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:217",
+  "text": "start_terminal_pty_output_reader 每轮轮询后等 waitForHostRuntimeDelay(40)，即 40 毫秒",
+  "terms": [
+   "start_terminal_pty_output_reader",
+   "waitForHostRuntimeDelay"
+  ],
+  "window": "                    }\n                }\n                // The host drains its final bytes before producing EOF.\n                let _ = publish_terminal_sessions(terminalHost.as_ref());\n                close_terminal_pty_output_stream(&sessionId);\n            })),\n        )"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 252,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:232",
+  "text": "poll_terminal_pty_output 在退出码出现后先排空最后到达的字节再关闭流",
+  "terms": [
+   "poll_terminal_pty_output"
+  ],
+  "window": "            terminalHost: context\n                .terminalHost\n                .clone()\n                .expect(\"TerminalHost must be configured for RuntimeTerminalService\"),\n            context: context.clone(),\n        }\n    }"
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 253,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:734",
+  "text": "resolve_terminal_working_dir 不再按路径分支，全部路径经 VFS 的 resolveResourcePath 解析后由 terminalDirectory 处理",
+  "terms": [
+   "resolveResourcePath",
+   "resolve_terminal_working_dir",
+   "terminalDirectory"
+  ],
+  "window": ""
+ },
+ {
+  "page": "core-runtime-services",
+  "idx": 254,
+  "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:592",
+  "text": "startTerminalPty 仍先由 TerminalHost::resolveWorkingDirectory 处理所选终端的命名空间，再经 VFS 回调解析工作目录",
+  "terms": [
+   "TerminalHost",
+   "resolveWorkingDirectory",
+   "startTerminalPty"
+  ],
+  "window": "            .map_err(|error| error.message)\n    }\n\n    #[allow(non_snake_case)]\n    /// Resizes a PTY session.\n    pub fn resizeTerminalPty(&self, sessionId: String, rows: i32, cols: i32) -> Result<(), String> {\n        self.terminalHost"
+ },
+ {
+  "page": "host-android",
+  "idx": 30,
+  "ref": "hosts/android/src/terminal.rs:1218",
+  "text": "normalizeAndroidTerminalType 只接受 bash 与 shell 两种终端类型",
+  "terms": [
+   "bash",
+   "normalizeAndroidTerminalType",
+   "shell"
+  ],
+  "window": "            \"Invalid terminal exit code marker '{exitCodeText}': {error}\"\n        ))\n    })\n}\n\nfn writeAndroidPtyBytes(writer: &Arc<Mutex<RawFd>>, data: &[u8]) -> HostResult<usize> {\n    let fd = writer"
+ },
+ {
+  "page": "host-android",
+  "idx": 35,
+  "ref": "hosts/android/src/terminal.rs:1611",
+  "text": "shell 会话执行 exec /system/bin/sh -i",
+  "terms": [
+   "exec",
+   "shell",
+   "system"
+  ],
+  "window": ") -> HostResult<AndroidPtyCommand> {\n    use crate::terminal_privilege::ShellTransport;\n\n    let workDir = androidSystemShellWorkingDirectory(\n        &transport,\n        &nonBlank(workingDir, \"working_directory\")?,\n        internalRoot,"
+ },
+ {
+  "page": "host-android",
+  "idx": 39,
+  "ref": "hosts/android/src/terminal.rs:1694",
+  "text": "androidPtyPromptCommand 在每次提示时输出 base64 编码的 $PWD 与退出码",
+  "terms": [
+   "androidPtyPromptCommand",
+   "base64"
+  ],
+  "window": "        } else {\n            cstringPath(&internalRoot)?\n        },\n        shizuku: transport == ShellTransport::Shizuku,\n        dropRootToShell: false,\n        workingDir: Some(workDir),\n        startupInput: managedPrompt.then(|| include_str!(\"system_shell_init.sh\").to_string()),"
+ },
+ {
+  "page": "host-android",
+  "idx": 41,
+  "ref": "hosts/android/src/terminal.rs:807",
+  "text": "PTY 输出缓冲超过 PTY_OUTPUT_LIMIT 时从队首丢弃旧字节",
+  "terms": [
+   "PTY_OUTPUT_LIMIT"
+  ],
+  "window": "    /// Registers a wakeup and parses available protocol records without waiting.\n    fn pollOutput(\n        &mut self,\n        context: &mut std::task::Context<'_>,\n        expired: bool,\n        onOutput: &mut dyn FnMut(&[u8]) -> HostResult<()>,\n    ) -> std::task::Poll<HostResult<TerminalCommandO"
+ },
+ {
+  "page": "host-android",
+  "idx": 46,
+  "ref": "hosts/android/src/terminal.rs:906",
+  "text": "超时命令中断失败时会话关闭并移除，错误文本含 could not be interrupted",
+  "terms": [
+   "could",
+   "interrupted"
+  ],
+  "window": "    /// Releases the busy flag only after completion, or closes an unresponsive session.\n    fn finish(\n        self: Box<Self>,\n        result: HostResult<TerminalCommandOutput>,\n        settled: HostResult<()>,\n    ) -> HostResult<TerminalCommandOutput> {\n        let mut state = self.host.lockStat"
+ },
+ {
+  "page": "host-android",
+  "idx": 47,
+  "ref": "hosts/android/src/terminal.rs:621",
+  "text": "隐藏命令固定使用 PRIMARY_TERMINAL_TYPE（bash），空 executorKey 记为 default",
+  "terms": [
+   "PRIMARY_TERMINAL_TYPE",
+   "bash",
+   "default",
+   "executorKey"
+  ],
+  "window": "        -> HostResult<Box<dyn operit_host_api::TerminalCommand::TerminalCommandExecution>> {\n        Ok(Box::new(self.beginCommand(&sessionId, &command, timeoutMs)?))\n    }\n\n\n\n    fn executeHiddenCommand("
+ },
+ {
+  "page": "host-android",
+  "idx": 48,
+  "ref": "hosts/android/src/terminal.rs:556",
+  "text": "同名会话仍存在时直接复用，返回结果的 isNewSession 为 false",
+  "terms": [
+   "false",
+   "isNewSession"
+  ],
+  "window": "        let normalizedTerminalType = nonBlank(terminalType, \"type\")?;\n        let terminal = self.implementation(&normalizedTerminalType)?;\n        let key = sessionKey(&normalizedTerminalType, &normalizedSessionName);\n        {\n            let mut state = self.lockState()?;\n            if let Some("
+ },
+ {
+  "page": "host-android",
+  "idx": 49,
+  "ref": "hosts/android/src/terminal.rs:532",
+  "text": "createOrGetSession 在默认 PRIMARY_TERMINAL_TYPE 上创建或复用会话",
+  "terms": [
+   "PRIMARY_TERMINAL_TYPE",
+   "createOrGetSession"
+  ],
+  "window": "                sessionName: session.sessionName.clone(),\n                platform: PLATFORM.to_string(),\n                terminal: session.terminal.clone(),\n                terminalType: session.terminalType.clone(),\n                sessionKind: \"pty\".to_string(),\n                workingDir: sessio"
+ },
+ {
+  "page": "host-android",
+  "idx": 50,
+  "ref": "hosts/android/src/terminal.rs:523",
+  "text": "会话列表只包含未退出的交互式会话，条目 sessionKind 为 pty",
+  "terms": [
+   "sessionKind"
+  ],
+  "window": "                    session.exitCode = Some(exitCode);\n                }\n            }\n            if session.exitCode.is_some() { session.commandRunning = false; }\n            if session.exitCode.is_some() && !session.processOwned {\n                continue;\n            }"
+ },
+ {
+  "page": "host-android",
+  "idx": 51,
+  "ref": "hosts/android/src/terminal.rs:707",
+  "text": "会话屏幕输出的 rows 取自内容行数，cols 取自最长行的字符数",
+  "terms": [
+   "cols",
+   "rows"
+  ],
+  "window": "            .ok_or_else(|| {\n                HostError::new(format!(\"Terminal session does not exist: {sessionId}\"))\n            })?;\n        if session.processOwned && session.exitCode.is_none() {\n            session.exitCode = pollPidExitCode(&mut session.process)?;\n            if session.exitCode"
+ },
+ {
+  "page": "host-android",
+  "idx": 55,
+  "ref": "hosts/android/src/terminal.rs:2233",
+  "text": "Shizuku 进程退出码经 terminal_privilege 的 call 发 operation poll 查询",
+  "terms": [
+   "Shizuku",
+   "call",
+   "operation",
+   "poll",
+   "terminal_privilege"
+  ],
+  "window": "        if result != 0 {\n            androidLogError(&format!(\n                \"ioctl TIOCSWINSZ failed fd={fd} rows={rows} cols={cols}\"\n            ));\n            return Err(HostError::new(\"ioctl TIOCSWINSZ failed for Android PTY\"));\n        }\n        Ok(())"
+ },
+ {
+  "page": "host-android",
+  "idx": 56,
+  "ref": "hosts/android/src/terminal.rs:2259",
+  "text": "本地 PTY 进程退出码用 waitpid 加 WNOHANG 轮询",
+  "terms": [
+   "WNOHANG",
+   "waitpid"
+  ],
+  "window": "            };\n        }\n        AndroidPtyProcess::Local(pid) => *pid,\n    };\n    #[cfg(not(target_os = \"android\"))]\n    {\n        let _ = pid;"
+ },
+ {
+  "page": "host-android",
+  "idx": 57,
+  "ref": "hosts/android/src/terminal.rs:1824",
+  "text": "终止本地 PTY 进程时先发 SIGHUP 再发 SIGKILL",
+  "terms": [
+   "SIGHUP",
+   "SIGKILL"
+  ],
+  "window": "            if let Err(error) = crate::terminal_privilege::call(\n                serde_json::json!({\"operation\": \"close\", \"pid\": pid}),\n            ) {\n                androidLogError(&format!(\"Shizuku terminal close failed: {error}\"));\n            }\n        }\n        AndroidPtyProcess::Local(pid) ="
+ },
+ {
+  "page": "host-android",
+  "idx": 60,
+  "ref": "hosts/android/src/terminal.rs:2317",
+  "text": "androidPrivilegedPtyOperation 为特权 Binder 服务提供 PTY 原语，不调用应用运行时",
+  "terms": [
+   "Binder",
+   "androidPrivilegedPtyOperation"
+  ],
+  "window": "        .ok_or_else(|| HostError::new(\"Missing PTY cwd\"))?;\n    Ok(AndroidPtyCommand {\n        executable,\n        argv,\n        envp: strings(\"env\")?,\n        cwd: cstring(cwd)?,\n        shizuku: false,"
+ },
+ {
+  "page": "host-android",
+  "idx": 61,
+  "ref": "hosts/android/src/terminal.rs:2328",
+  "text": "特权 PTY 支持 start 操作",
+  "terms": [
+   "start"
+  ],
+  "window": "}\n\n/// Provides PTY primitives to the privileged Binder service without invoking the app runtime.\n#[cfg(target_os = \"android\")]\npub fn androidPrivilegedPtyOperation(request: &str) -> HostResult<String> {\n    use serde_json::{json, Value};\n    let request: Value ="
+ },
+ {
+  "page": "host-android",
+  "idx": 62,
+  "ref": "hosts/android/src/terminal.rs:2343",
+  "text": "特权 PTY 的 poll 操作调用 pollPidExitCode 返回 exitCode",
+  "terms": [
+   "exitCode",
+   "poll",
+   "pollPidExitCode"
+  ],
+  "window": "        Some(\"start\") => {\n            let command = privilegedPtyCommand(&request)?;\n            let rows = u16::try_from(requiredPtyInteger(&request, \"rows\")?)\n                .map_err(|e| HostError::new(e.to_string()))?;\n            let cols = u16::try_from(requiredPtyInteger(&request, \"cols\")?)\n"
+ },
+ {
+  "page": "host-android",
+  "idx": 63,
+  "ref": "hosts/android/src/terminal.rs:2346",
+  "text": "特权 PTY 的 close 操作调用 terminateAndroidPtyProcess 终止本地进程",
+  "terms": [
+   "close",
+   "terminateAndroidPtyProcess"
+  ],
+  "window": "                .map_err(|e| HostError::new(e.to_string()))?;\n            let cols = u16::try_from(requiredPtyInteger(&request, \"cols\")?)\n                .map_err(|e| HostError::new(e.to_string()))?;\n            let (pid, fd) = forkPtyExecve(&command, rows, cols)?;\n            json!({\"pid\": pid, \"fd"
+ },
+ {
+  "page": "host-android",
+  "idx": 64,
+  "ref": "hosts/android/src/terminal.rs:2356",
+  "text": "特权 PTY 调整窗口时调用 setPtyWindowSize",
+  "terms": [
+   "setPtyWindowSize"
+  ],
+  "window": "        }\n        Some(\"poll\") => {\n            json!({\"exitCode\": pollPidExitCode(&mut AndroidPtyProcess::Local(requiredPtyInteger(&request, \"pid\")?))?})\n        }\n        Some(\"close\") => {\n            terminateAndroidPtyProcess(&AndroidPtyProcess::Local(requiredPtyInteger(\n                &reques"
+ },
+ {
+  "page": "host-android",
+  "idx": 65,
+  "ref": "hosts/android/src/terminal.rs:2334",
+  "text": "特权 PTY 启动以 forkPtyExecve 创建进程，响应含 pid 与 fd",
+  "terms": [
+   "forkPtyExecve"
+  ],
+  "window": "    let request: Value =\n        serde_json::from_str(request).map_err(|e| HostError::new(e.to_string()))?;\n    if request.get(\"operation\").and_then(Value::as_str) != Some(\"start\")\n        && request.get(\"operation\").and_then(Value::as_str) != Some(\"exec\")\n        && requiredPtyInteger(&request, \"pi"
+ },
+ {
+  "page": "host-android",
+  "idx": 70,
+  "ref": "hosts/android/src/terminal.rs:1569",
+  "text": "Shizuku 系统 shell 把应用私有目录下的工作目录映射到 /sdcard",
+  "terms": [
+   "Shizuku",
+   "sdcard",
+   "shell"
+  ],
+  "window": "        workingDir,\n        &runtimeDir,\n        &internalRoot,\n        &tmpDir,\n        &nativeLibraryDir,\n        &systemPath,\n    )"
+ },
+ {
+  "page": "host-apple",
+  "idx": 20,
+  "ref": "hosts/apple/src/tools/terminal/mod.rs:78",
+  "text": "iOS 下 listSessions 返回空列表而不报错",
+  "terms": [
+   "listSessions"
+  ],
+  "window": "        fn pollPtyExitCode(&self, _: &str) -> HostResult<Option<i32>> {\n            Err(HostError::new(\"iOS does not expose a local PTY host\"))\n        }\n\n        fn closePtySession(&self, _: &str) -> HostResult<()> {\n            Err(HostError::new(\"iOS does not expose a local PTY host\"))\n        }"
+ },
+ {
+  "page": "host-apple",
+  "idx": 74,
+  "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:284",
+  "text": "createOrGetSession 使用 primary 解释器创建或复用会话",
+  "terms": [
+   "createOrGetSession",
+   "primary"
+  ],
+  "window": "            entry.platform = PLATFORM.to_string();\n            entry.terminal = TERMINAL.to_string();\n        }\n        #[cfg(all(feature = \"arm64-runtime\", target_arch = \"aarch64\"))]\n        entries.extend(\n            self.arm64\n                .listSessions()?"
+ },
+ {
+  "page": "host-apple",
+  "idx": 78,
+  "ref": "hosts/apple/src/tools/terminal/terminal_macos.rs:373",
+  "text": "executeHiddenCommand 使用 primary 解释器执行隐藏命令",
+  "terms": [
+   "executeHiddenCommand",
+   "primary"
+  ],
+  "window": "        Ok(operit_host_api::TerminalCommand::mapTerminalCommandExecution(execution, |mut output| {\n            output.platform = PLATFORM.to_string();\n            output.terminal = TERMINAL.to_string();\n            Ok(output)\n        }))\n    }\n"
+ },
+ {
+  "page": "host-linux",
+  "idx": 26,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:962",
+  "text": "normalizeTerminalType 只接受 PRIMARY_TERMINAL_TYPE",
+  "terms": [
+   "PRIMARY_TERMINAL_TYPE",
+   "normalizeTerminalType"
+  ],
+  "window": "    if lines\n        .last()\n        .is_some_and(|line| line.trim_end() == prompt.as_str())\n    {\n        lines.pop();\n    }\n    lines.join(\"\\n\").trim().to_string()"
+ },
+ {
+  "page": "host-linux",
+  "idx": 27,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:972",
+  "text": "requireNativeTerminal 只接受 TERMINAL 这一种终端实现",
+  "terms": [
+   "TERMINAL",
+   "requireNativeTerminal"
+  ],
+  "window": "fn toHostError(error: impl std::fmt::Display) -> HostError {\n    HostError::new(error.to_string())\n}\n\n#[allow(non_snake_case)]\nfn normalizeTerminalType(terminalType: &str) -> HostResult<String> {\n    match terminalType.trim() {"
+ },
+ {
+  "page": "host-linux",
+  "idx": 28,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:805",
+  "text": "linuxPtyCommand 构造 bash --noprofile --norc -i 子进程",
+  "terms": [
+   "bash",
+   "linuxPtyCommand",
+   "noprofile",
+   "norc"
+  ],
+  "window": "        terminalType,\n        workingDir,\n        child,\n        readerTask: Some(readerTask),\n        master: pair.master,\n        writer,\n        output,"
+ },
+ {
+  "page": "host-linux",
+  "idx": 29,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:811",
+  "text": "PTY 环境设置 TERM 为 xterm-256color、COLORTERM 为 truecolor、LANG 为 C.UTF-8、PS1 为 $PWD $ ",
+  "terms": [
+   "C.UTF",
+   "COLORTERM",
+   "LANG",
+   "TERM",
+   "color",
+   "truecolor",
+   "xterm"
+  ],
+  "window": "        output,\n        commandOutput,\n        screenOutput,\n        commandRunning: !managedPrompt,\n        processOwned: !managedPrompt,\n        exitCode: None,\n    })"
+ },
+ {
+  "page": "host-linux",
+  "idx": 30,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:816",
+  "text": "PROMPT_COMMAND 在每次提示时输出 base64 编码的工作目录与退出码",
+  "terms": [
+   "PROMPT_COMMAND",
+   "base64"
+  ],
+  "window": "        exitCode: None,\n    })\n}\n\nfn linuxPtyCommand(workingDir: &str) -> CommandBuilder {\n    let mut command = CommandBuilder::new(\"bash\");\n    command.arg(\"--noprofile\");"
+ },
+ {
+  "page": "host-linux",
+  "idx": 39,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:365",
+  "text": "executorKey 为空时默认取 default",
+  "terms": [
+   "default",
+   "executorKey"
+  ],
+  "window": "    fn beginInSessionStreaming(self: Arc<Self>, sessionId: String, command: String, timeoutMs: u64)\n        -> HostResult<Box<dyn operit_host_api::TerminalCommand::TerminalCommandExecution>> {\n        Ok(Box::new(self.beginCommand(&sessionId, &command, timeoutMs)?))\n    }\n\n    fn executeHiddenComman"
+ },
+ {
+  "page": "host-linux",
+  "idx": 41,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:395",
+  "text": "input 与 control 至少一个非空",
+  "terms": [
+   "control",
+   "input"
+  ],
+  "window": "            platform: PLATFORM.to_string(),\n            terminal: TERMINAL.to_string(),\n            terminalType: normalizedTerminalType,\n            timedOut: output.timedOut,\n        })\n    }\n"
+ },
+ {
+  "page": "host-linux",
+  "idx": 42,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:433",
+  "text": "getSessionScreen 返回会话当前屏幕内容与行列数",
+  "terms": [
+   "getSessionScreen"
+  ],
+  "window": "            .ok_or_else(|| HostError::new(format!(\"Terminal session does not exist: {id}\")))?;\n        if !operit_host_api::terminalSessionNameMatches(&session.sessionName, &name) {\n            return Err(HostError::new(\"Terminal session name does not match\"));\n        }\n        if session.commandRu"
+ },
+ {
+  "page": "host-linux",
+  "idx": 180,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:250",
+  "text": "listSessions 遍历全部 PTY 会话并刷新退出码",
+  "terms": [
+   "listSessions"
+  ],
+  "window": "    }\n\n    /// Removes registry ownership before tearing down a potentially blocking OS process.\n    fn closePtySession(&self, sessionId: &str) -> HostResult<()> {\n        let removed = {\n            let mut state = self.lockState()?;\n            let removed = state.ptySessions.remove(sessionId).ok_"
+ },
+ {
+  "page": "host-linux",
+  "idx": 181,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:269",
+  "text": "会话列表条目的 sessionKind 为 pty",
+  "terms": [
+   "sessionKind"
+  ],
+  "window": "                if let Some(status) = session.child.try_wait()? {\n                    session.exitCode = Some(status.exit_code() as i32);\n                }\n            }\n            if session.exitCode.is_some() { session.commandRunning = false; }\n            if session.exitCode.is_some() && !sessio"
+ },
+ {
+  "page": "host-linux",
+  "idx": 183,
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:480",
+  "text": "hiddenPtySessionId 按 executorKey 复用已存在的隐藏会话",
+  "terms": [
+   "executorKey",
+   "hiddenPtySessionId"
+  ],
+  "window": "        })\n    }\n}\n\nimpl LinuxTerminalHost {\n    #[allow(non_snake_case)]\n    fn lockState(&self) -> HostResult<std::sync::MutexGuard<'_, TerminalState>> {"
+ },
+ {
+  "page": "host-ohos",
+  "idx": 71,
+  "ref": "hosts/ohos/src/terminal.rs:682",
+  "text": "vroot shell 在 guest 内执行 cd \"$OPERIT_OHOS_HOST_WORKING_DIR\" || exit; exec /bin/sh \"$@\"，参数为 operit-shell、-i。",
+  "terms": [
+   "OPERIT_OHOS_HOST_WORKING_DIR",
+   "exec",
+   "exit",
+   "guest",
+   "operit",
+   "shell",
+   "vroot"
+  ],
+  "window": "        arguments: vec![\n            \"-E\".to_string(),\n            \"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\".to_string(),\n            \"-E\".to_string(),\n            \"HOME=/root\".to_string(),\n            \"-E\".to_string(),\n            \"LD_LIBRARY_PATH=\".to_string(),"
+ },
+ {
+  "page": "host-windows",
+  "idx": 53,
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:740",
+  "text": "超时取消先向 PTY 写 0x03，再等待 shell 就绪提示标记；3000 毫秒内等不到则中断过期，会话关闭",
+  "terms": [
+   "shell"
+  ],
+  "window": "                exitCode,\n                sessionId: self.sessionId.clone(),\n                platform: PLATFORM.to_string(),\n                terminal: TERMINAL.to_string(),\n                terminalType: self.terminalType.clone(),\n                timedOut,\n            }))"
+ },
+ {
+  "page": "host-windows",
+  "idx": 61,
+  "ref": "hosts/windows/src/tools/terminal/mod.rs:543",
+  "text": "会话屏幕输出的 rows 取自内容行数，cols 取自最长行的字符数",
+  "terms": [
+   "cols",
+   "rows"
+  ],
+  "window": "            .ok_or_else(|| {\n                HostError::new(format!(\"Terminal session does not exist: {sessionId}\"))\n            })?;\n        if session.processOwned && session.exitCode.is_none() {\n            session.exitCode = session.process.try_wait()?;\n            if session.exitCode.is_some() "
+ },
+ {
+  "page": "sync-protocol-version",
+  "idx": 21,
+  "ref": "docs/peer-protocol-versioning.md:43",
+  "text": "hello 声明本端帧上限，认证 transcript 同时绑定双方帧上限，双向使用较小值。",
+  "terms": [
+   "hello",
+   "transcript"
+  ],
+  "window": "与连接握手都使用 `PeerProtocol::VERSION`。内容清单仍包含 `contentBytes` 和恢复基线，\n完整内容校验、恢复基线优先级及强制矫正规则不依赖另一套版本协商。\n设备空间复用 `VersionMismatch`，以橙色显示版本不兼容造成的连接不可用。\n\n## 认证会话透明分块\n\n`maxMessageBytes` 继续限制一条物理 Link 报文，不再作为认证后的逻辑消息大小上限。"
+ },
+ {
+  "page": "sync-protocol-version",
+  "idx": 22,
+  "ref": "docs/peer-protocol-versioning.md:45",
+  "text": "每块有效负载最多 64 KiB，适用于现有 TCP、HTTP、WebSocket、串口和蓝牙载体。",
+  "terms": [
+   "HTTP",
+   "WebSocket"
+  ],
+  "window": "设备空间复用 `VersionMismatch`，以橙色显示版本不兼容造成的连接不可用。\n\n## 认证会话透明分块\n\n`maxMessageBytes` 继续限制一条物理 Link 报文，不再作为认证后的逻辑消息大小上限。\nhello 声明本端帧上限，认证 transcript 同时绑定双方帧上限，双向使用较小值。\n会话层扣除外层 Link 信封、长度字段、16 字节分块头和 AEAD tag 后选择有效负载大小，"
+ },
+ {
+  "page": "sync-protocol-version",
+  "idx": 24,
+  "ref": "docs/peer-protocol-versioning.md:50",
+  "text": "接收端检查长度、偏移、认证和顺序，只在收齐后向 Call、Watch、Push 分发完整的原始逻辑消息，上层接口不感知分块。",
+  "terms": [
+   "Call",
+   "Push",
+   "Watch"
+  ],
+  "window": "hello 声明本端帧上限，认证 transcript 同时绑定双方帧上限，双向使用较小值。\n会话层扣除外层 Link 信封、长度字段、16 字节分块头和 AEAD tag 后选择有效负载大小，\n每块有效负载最多 64 KiB，适用于现有 TCP、HTTP、WebSocket、串口和蓝牙载体。\n\n每块仍通过同一个 `$peer.session/data` 认证信封发送。加密明文的前 16 字节依次为\n大端 u64 的完整消息字节数、当前块偏移，其后为这一块的逻辑消息字节。头和内容一起\n接受 AEAD 认证；nonce 逐块递增。单条逻辑消息以及既有 reply batch 持有同一有序写锁，"
+ },
+ {
+  "page": "sync-protocol-version",
+  "idx": 25,
+  "ref": "docs/peer-protocol-versioning.md:53",
+  "text": "部分接收状态跨 receive future 取消保留，断线或认证失败后释放，不交付半条消息。",
+  "terms": [
+   "future",
+   "receive"
+  ],
+  "window": "\n每块仍通过同一个 `$peer.session/data` 认证信封发送。加密明文的前 16 字节依次为\n大端 u64 的完整消息字节数、当前块偏移，其后为这一块的逻辑消息字节。头和内容一起\n接受 AEAD 认证；nonce 逐块递增。单条逻辑消息以及既有 reply batch 持有同一有序写锁，\n不会与其他业务消息交错。接收端检查长度、偏移、认证和顺序，只在收齐后向 Call、Watch、\nPush 分发完整的原始逻辑消息，上层接口不感知分块。\n"
+ },
+ {
+  "page": "sync-protocol-version",
+  "idx": 30,
+  "ref": "docs/peer-protocol-versioning.md:60",
+  "text": "按文档规定，修改协议相关源码后运行正常的 Cargo 构建或检查。",
+  "terms": [
+   "Cargo"
+  ],
+  "window": "部分接收状态跨 receive future 取消保留，断线或认证失败后释放，不交付半条消息。\n内存按已接收的数据增长，不按对端声明的总长度预分配；完整消息仍需能放入接收端内存。\n物理分块的认证接收及成功写入均计入通道活动，持续传输不会仅因尚未重组完成而触发心跳超时。\n本机制不建立额外连接，不自动重试或断点续传；网络中断仍向调用方报告失败。\n\n修改流程：\n"
+ },
+ {
+  "page": "sync-protocol-version",
+  "idx": 37,
+  "ref": "docs/peer-protocol-versioning.md:85",
+  "text": "新配对与已有凭据重连都声明协议版本，版本纳入认证 transcript。",
+  "terms": [
+   "transcript"
+  ],
+  "window": "```sh\npython3 tools/check_peer_protocol.py --base HEAD\ncargo check --manifest-path core/Cargo.toml -p operit-node-runtime --no-default-features --features peer-runtime\n```\n\n## 运行时检查\n"
+ },
+ {
+  "page": "sync-protocol-version",
+  "idx": 38,
+  "ref": "docs/peer-protocol-versioning.md:86",
+  "text": "空间投影协商声明同一协议版本，供 Core 与 Edge 准入及控制同步使用。",
+  "terms": [
+   "Core",
+   "Edge"
+  ],
+  "window": "python3 tools/check_peer_protocol.py --base HEAD\ncargo check --manifest-path core/Cargo.toml -p operit-node-runtime --no-default-features --features peer-runtime\n```\n\n## 运行时检查\n\n- 新配对与已有凭据重连都声明协议版本；版本纳入认证 transcript。"
+ },
+ {
+  "page": "sync-protocol-version",
+  "idx": 44,
+  "ref": "docs/peer-protocol-versioning.md:102",
+  "text": "此前未声明统一协议版本的 Core 或 Edge 程序需要升级一次；已有设备身份和配对凭据保留。",
+  "terms": [
+   "Core",
+   "Edge"
+  ],
+  "window": "出站握手明确拒绝协议后，连接所有者保留本地拒绝原因，停止该设备的普通自动拨号。\n不可达设备不会进入业务同步；拒绝原因也直接参与设备空间状态投影，不需要等待旧设备\n资料更新。该状态不写入共享断联策略，不改动配对凭据或同步设备资料。\n用户重新扫描设备、更新连接地址或重启连接服务后可以重新协商；成功的兼容入站连接\n也会清除此状态。后台发现刷新不会清除拒绝原因。旧端自己的拨号行为由旧端控制，\n本端继续在握手阶段拒绝其不兼容请求。\n"
+ },
+ {
+  "page": "tools-peer-protocol-check",
+  "idx": 28,
+  "ref": "docs/peer-protocol-versioning.md:30",
+  "text": "v24 把认证会话分块格式标识 operit-peer-session-fragments-v1 纳入指纹，v24 端点要求对端同为 v24。",
+  "terms": [
+   "fragments",
+   "operit",
+   "peer",
+   "session"
+  ],
+  "window": "\nHash 仅供构建和开发检查使用，不随握手、同步请求或设备资料发送，运行时也不比较。\n\nv32 将工作区终端 PTY 输入、输出从 Base64 字符串改为 Core Link 二进制值。\n输出由 Host 事件驱动，客户端接收 `Stream<Uint8List>`；两端及生成的客户端需要一起更新。\n本次修改未改变注解路由签名，版本记录沿用 v31 的指纹以声明报文语义变化。\n"
+ },
+ {
+  "page": "tools-tests",
+  "idx": 20,
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:27",
+  "text": "内部目录由 internalToolCategoriesEnSource 与 internalToolCategoriesCnSource 提供。",
+  "terms": [
+   "internalToolCategoriesCnSource",
+   "internalToolCategoriesEnSource"
+  ],
+  "window": "  test(`${language} read_file exposes path and pagination only`, () => {\n    const files = declaration(publicPrompts, `file_system_tools_${suffix}`);\n    const read = files.match(/tool\\(\"read_file\",[\\s\\S]*?\\n\\s*\\]\\)/)?.[0];\n    assert.ok(read);\n    assert.deepEqual(Array.from(read.matchAll(/param\\(\""
+ },
+ {
+  "page": "tools-tests",
+  "idx": 22,
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:43",
+  "text": "write_file 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数。",
+  "terms": [
+   "append",
+   "content",
+   "path",
+   "schema",
+   "write_file"
+  ],
+  "window": "    assert.ok(publicNames.length > 0);\n    assert.ok(internalNames.length > 0);\n    const seen = new Set();\n    for (const name of names) {\n      assert.ok(!seen.has(name), `Duplicate builtin tool catalog entry: ${name}`);\n      seen.add(name);\n    }"
+ }
+]
