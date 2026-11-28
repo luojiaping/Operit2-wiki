@@ -135,20 +135,20 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 
 - `core/peer-protocol.json` 是 Core/Edge 通信协议版本及 SHA-256 指纹的唯一记录（`docs/peer-protocol-versioning.md:9`）
 - core/peer-protocol.json 只含 `revisions` 数组，不再有 sources 与 schemaRoots（`core/peer-protocol.json:2`）
-- core/peer-protocol.json 的 `revisions` 记录 26 个协议版本，从 version 1 到 version 26（`core/peer-protocol.json:2` `core/peer-protocol.json:104`）
-- core/peer-protocol.json 的最新版本 26 的 SHA-256 指纹是 `bb3372520ca577f16c2ba1b2ff265d777eac047fa50f844a1baf928481cd0cf9`（`core/peer-protocol.json:105`）
+- core/peer-protocol.json 的 `revisions` 记录 32 个协议版本，从 version 1 到 version 32（`core/peer-protocol.json:2` `core/peer-protocol.json:128`）
+- core/peer-protocol.json 的最新版本 32 的 SHA-256 指纹是 `3228b217bf2f8f7a1bdfc821ddffe632e9bb3e822f6536ff46c475c0ea13bc66`（`core/peer-protocol.json:129`）
 - 构建扫描 `core/crates/runtime/application/src`，仅提取带 `operit_core_route` 注解的方法（`docs/peer-protocol-versioning.md:10`）
 - 旧的 `sources` 全文扫描与 `schemaRoots` 泛类型扫描已经移除，v23 是切换至路由签名规则的首次记录，v1–v22 的历史 hash 保持原样（`docs/peer-protocol-versioning.md:21`）
-- v24 将认证会话分块格式的显式修订标识 `operit-peer-session-fragments-v1` 纳入指纹，该标识保留为指纹的固定命名空间；连接始终要求双方使用同一个当前协议版本，原有身份和配对凭据保留（`docs/peer-protocol-versioning.md:30`）
+- v24 将认证会话分块格式的显式修订标识 `operit-peer-session-fragments-v1` 纳入指纹，该标识保留为指纹的固定命名空间；连接始终要求双方使用同一个当前协议版本，原有身份和配对凭据保留（`docs/peer-protocol-versioning.md:34`）
 - 提取方法签名与路由元数据，排序并按固定格式编码后计算指纹，生成的 Rust 分发代码本身不参与哈希（`docs/peer-protocol-versioning.md:16`）
 - 函数体、普通注释、文档、格式、未注解的方法、无关 DTO、类型别名及自定义编解码实现的改动均不会触发协议版本更新（`docs/peer-protocol-versioning.md:17`）
-- 指纹变化时构建失败并打印新的 SHA-256，须在 `revisions` 末尾追加 version 递增的新记录，历史记录保持原样（`docs/peer-protocol-versioning.md:62`）
+- 指纹变化时构建失败并打印新的 SHA-256，须在 `revisions` 末尾追加 version 递增的新记录，历史记录保持原样（`docs/peer-protocol-versioning.md:66`）
 - 协议指纹的哈希只供构建和开发检查使用，不随握手、同步请求或设备资料发送，运行时也不比较哈希（`docs/peer-protocol-versioning.md:28`）
 - 运行时只比较协议版本，相同继续配对、重连、路由和同步，不同返回明确的协议不兼容错误（`docs/peer-protocol-versioning.md:4`）
-- 协议版本不匹配返回 `PEER_PROTOCOL_MISMATCH`，缺少协议声明返回 `PEER_PROTOCOL_UPGRADE_REQUIRED`（`docs/peer-protocol-versioning.md:91`）
+- 协议版本不匹配返回 `PEER_PROTOCOL_MISMATCH`，缺少协议声明返回 `PEER_PROTOCOL_UPGRADE_REQUIRED`（`docs/peer-protocol-versioning.md:95`）
 - 软件发布版本、厂商固件版本与协议版本各自独立，软件版本只用于展示，不参与兼容判断（`docs/peer-protocol-versioning.md:3`）
-- 认证会话透明分块：`maxMessageBytes` 只限制一条物理 Link 报文，不再限制认证后逻辑消息大小，每块有效负载最多 64 KiB（`docs/peer-protocol-versioning.md:42`）
-- 指纹记录追加后，再次构建并执行 Core/Edge 互通回归，发布软件时无需再额外递增协议版本（`docs/peer-protocol-versioning.md:64`）
+- 认证会话透明分块：`maxMessageBytes` 只限制一条物理 Link 报文，不再限制认证后逻辑消息大小，每块有效负载最多 64 KiB（`docs/peer-protocol-versioning.md:46`）
+- 指纹记录追加后，再次构建并执行 Core/Edge 互通回归，发布软件时无需再额外递增协议版本（`docs/peer-protocol-versioning.md:68`）
 - CI 将版本记录与 PR/push 的基线比较，拒绝覆盖历史 hash、回退版本或不递增版本的修改（`docs/peer-protocol-versioning.md:75`）
 
 ## 关键符号
@@ -194,9 +194,9 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 3. 父级 `operit-runtime` 安装该 trait，例如 `RuntimeProviderSupport` 实现 `ProviderRuntimeSupport`（`core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:443` `core/crates/runtime/application/Cargo.toml:2`）
 4. 按 trait 机制，子 crate 通过 trait 对象调用父级服务，不直接依赖 `operit-runtime` 的内部实现（`operit-node-runtime` 的 javascript 可选依赖除外，见不一致小节）（`core/CRATE_BOUNDARIES.md:98` `core/crates/node/runtime/Cargo.toml:2` `core/crates/node/runtime/Cargo.toml:38`）
 5. 修改协议相关源码后运行 Cargo 构建，构建扫描带 `operit_core_route` 注解的方法算路由契约指纹（`docs/peer-protocol-versioning.md:10`）
-6. 指纹变化时构建失败并打印新的 SHA-256，须在 `revisions` 末尾追加 version 递增的新记录（`docs/peer-protocol-versioning.md:62`）
-7. 指纹记录追加后，再次构建并执行 Core/Edge 互通回归，发布软件时无需再额外递增协议版本（`docs/peer-protocol-versioning.md:30`）
-8. 运行时只比较协议版本，版本不匹配返回 `PEER_PROTOCOL_MISMATCH`（`docs/peer-protocol-versioning.md:91`）
+6. 指纹变化时构建失败并打印新的 SHA-256，须在 `revisions` 末尾追加 version 递增的新记录（`docs/peer-protocol-versioning.md:66`）
+7. 指纹记录追加后，再次构建并执行 Core/Edge 互通回归，发布软件时无需再额外递增协议版本（`docs/peer-protocol-versioning.md:68`）
+8. 运行时只比较协议版本，版本不匹配返回 `PEER_PROTOCOL_MISMATCH`（`docs/peer-protocol-versioning.md:95`）
 
 ## 来源
 

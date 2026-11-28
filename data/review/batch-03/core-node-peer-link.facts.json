@@ -396,8 +396,8 @@
     "ref": "core/peer-protocol.json:2"
   },
   {
-    "fact": "截至基线 3dd6149，最新修订为 version 31，hash 前缀 3228b217。",
-    "ref": "core/peer-protocol.json:124"
+    "fact": "截至基线 e1aebc1，最新修订为 version 32，hash 前缀 3228b217。",
+    "ref": "core/peer-protocol.json:128"
   },
   {
     "fact": "StateFlow 远端订阅失败时，生成的包装器以 panic 报错，而不是返回错误。",

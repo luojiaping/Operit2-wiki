@@ -1,6 +1,6 @@
 {
   "issue": 38,
-  "source_commit": "3dd6149",
+  "source_commit": "e1aebc1",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Subagent 并行：5 个模型工具、并发上限 8、无唤醒轮询、重启标 interrupted",

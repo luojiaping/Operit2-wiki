@@ -89,59 +89,59 @@
  },
  {
   "fact": "LinuxTerminalHost 是 Linux PTY 终端 Host",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:30"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:31"
  },
  {
   "fact": "PLATFORM 为 linux，TERMINAL 为 native，PRIMARY_TERMINAL_TYPE 为 bash",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:25"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:26"
  },
  {
   "fact": "terminalInfo 的 types 只含一项，terminalType 为 bash，描述为 Linux bash terminal",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:143"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:145"
  },
  {
   "fact": "normalizeTerminalType 只接受 PRIMARY_TERMINAL_TYPE",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:962"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:973"
  },
  {
   "fact": "requireNativeTerminal 只接受 TERMINAL 这一种终端实现",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:972"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:983"
  },
  {
   "fact": "linuxPtyCommand 构造 bash --noprofile --norc -i 子进程",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:805"
- },
- {
-  "fact": "PTY 环境设置 TERM 为 xterm-256color、COLORTERM 为 truecolor、LANG 为 C.UTF-8、PS1 为 $PWD $ ",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:811"
- },
- {
-  "fact": "PROMPT_COMMAND 在每次提示时输出 base64 编码的工作目录与退出码",
   "ref": "hosts/linux/src/tools/terminal/mod.rs:816"
  },
  {
+  "fact": "PTY 环境设置 TERM 为 xterm-256color、COLORTERM 为 truecolor、LANG 为 C.UTF-8、PS1 为 $PWD $ ",
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:822"
+ },
+ {
+  "fact": "PROMPT_COMMAND 在每次提示时输出 base64 编码的工作目录与退出码",
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:827"
+ },
+ {
   "fact": "PTY 输出缓冲上限 PTY_OUTPUT_LIMIT 为 1024 * 1024 字节",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:22"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:23"
  },
  {
   "fact": "PTY 输出缓冲超限时从队首丢弃旧字节",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:600"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:610"
  },
  {
   "fact": "新建会话等待初始提示最长 10000 毫秒",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:778"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:789"
  },
  {
   "fact": "同一个终端会话同一时间只允许一条命令在执行",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:547"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:557"
  },
  {
   "fact": "命令超时时返回 exitCode -1 与 timedOut true",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:620"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:630"
  },
  {
   "fact": "取消超时命令时写入 \\x03",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:655"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:665"
  },
  {
   "fact": "取消超时命令后，共享的 waitForCommandEvent 以 3000 毫秒为限等待中断就绪",
@@ -149,27 +149,27 @@
  },
  {
   "fact": "新建终端会话默认尺寸为 24 行 80 列",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:314"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:324"
  },
  {
   "fact": "executorKey 为空时默认取 default",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:365"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:375"
  },
  {
   "fact": "隐藏会话名形如 hidden:{executorLabel}",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:500"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:510"
  },
  {
   "fact": "input 与 control 至少一个非空",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:395"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:405"
  },
  {
   "fact": "getSessionScreen 返回会话当前屏幕内容与行列数",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:433"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:443"
  },
  {
   "fact": "PTY 提示标记前缀为 \\x1b]133;OperitPrompt=",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:23"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:24"
  },
  {
   "fact": "LinuxFileSystemHost 是 Linux 文件系统 Host",
@@ -717,11 +717,11 @@
  },
  {
   "fact": "listSessions 遍历全部 PTY 会话并刷新退出码",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:250"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:260"
  },
  {
   "fact": "会话列表条目的 sessionKind 为 pty",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:269"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:279"
  },
  {
   "fact": "getSystemLanguageCode 委托给 get_linux_system_language_code",
@@ -729,6 +729,6 @@
  },
  {
   "fact": "hiddenPtySessionId 按 executorKey 复用已存在的隐藏会话",
-  "ref": "hosts/linux/src/tools/terminal/mod.rs:480"
+  "ref": "hosts/linux/src/tools/terminal/mod.rs:490"
  }
 ]

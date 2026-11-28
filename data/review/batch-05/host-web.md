@@ -186,15 +186,15 @@ Web 终端的平台为 `web-linux-vm`，终端为 `v86`，终端类型为 `shell
 工作目录解析把宿主目录映射到 `/mnt/operit-host/` 之下（`hosts/web/src/tools/terminal/mod.rs:79`）。
 启动 PTY 会话在 `rows` 或 `cols` 为零时报错（`hosts/web/src/tools/terminal/mod.rs:115`）。
 启动 PTY 会话调用桥接 `startPty` 并传入会话标识、行数与列数（`hosts/web/src/tools/terminal/mod.rs:120`）。
-终端会话标识按 `linux-vm-terminal-{value}` 分配（`hosts/web/src/tools/terminal/mod.rs:483`）。
-桥接值为空或未定义时 `pollPtyExitCode` 返回 `None`（`hosts/web/src/tools/terminal/mod.rs:182`）。
-会话列表列出未退出的会话，进程所属会话即使已退出也会列出，条目 `sessionKind` 为 `linux-vm`（`hosts/web/src/tools/terminal/mod.rs:219`）。
-按名创建或复用类型化会话时，遇到同名会话直接复用，`isNewSession` 为 false（`hosts/web/src/tools/terminal/mod.rs:249`）。
-新建终端会话从根目录 `/` 启动，默认 24 行 80 列（`hosts/web/src/tools/terminal/mod.rs:261`）。
-会话内流式调度拒绝非零 `timeoutMs`，要求会话自有执行（`hosts/web/src/tools/terminal/mod.rs:324`）。
-`executeHiddenCommand` 报错，浏览器本地 Linux 虚拟机终端不提供隐藏命令执行（`hosts/web/src/tools/terminal/mod.rs:354`）。
-会话屏幕用 `vt100::Parser` 渲染保留的串口屏幕内容（`hosts/web/src/tools/terminal/mod.rs:403`）。
-会话内执行命令返回 `output`、`exitCode`、`timedOut`、`workingDir`（`hosts/web/src/tools/terminal/mod.rs:292`）。
+终端会话标识按 `linux-vm-terminal-{value}` 分配（`hosts/web/src/tools/terminal/mod.rs:501`）。
+桥接值为空或未定义时 `pollPtyExitCode` 返回 `None`（`hosts/web/src/tools/terminal/mod.rs:195`）。
+会话列表列出未退出的会话，进程所属会话即使已退出也会列出，条目 `sessionKind` 为 `linux-vm`（`hosts/web/src/tools/terminal/mod.rs:232`）。
+按名创建或复用类型化会话时，遇到同名会话直接复用，`isNewSession` 为 false（`hosts/web/src/tools/terminal/mod.rs:262`）。
+新建终端会话从根目录 `/` 启动，默认 24 行 80 列（`hosts/web/src/tools/terminal/mod.rs:274`）。
+会话内流式调度拒绝非零 `timeoutMs`，要求会话自有执行（`hosts/web/src/tools/terminal/mod.rs:337`）。
+`executeHiddenCommand` 报错，浏览器本地 Linux 虚拟机终端不提供隐藏命令执行（`hosts/web/src/tools/terminal/mod.rs:367`）。
+会话屏幕用 `vt100::Parser` 渲染保留的串口屏幕内容（`hosts/web/src/tools/terminal/mod.rs:416`）。
+会话内执行命令返回 `output`、`exitCode`、`timedOut`、`workingDir`（`hosts/web/src/tools/terminal/mod.rs:305`）。
 
 ### 归档、WebSocket 与系统操作
 

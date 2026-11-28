@@ -56,12 +56,12 @@ date: 2026-11-11
 ### 内置工具目录
 
 - 内置工具目录由 `SystemToolPrompts` 的公开提示与 `SystemToolPromptsInternal` 的内部提示共同组成 `tools/tests/builtin_tool_catalog.test.mjs:6`
-- 公开目录分 basic_tools、file_system_tools、http_tools 三类 `tools/tests/builtin_tool_catalog.test.mjs:25`
-- 内部目录由 `internalToolCategoriesEnSource` 与 `internalToolCategoriesCnSource` 提供 tools/tests/builtin_tool_catalog.test.mjs:27 `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:45` `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:1295`
-- 英文与中文两套目录各自断言每个内置工具恰好出现一次 `tools/tests/builtin_tool_catalog.test.mjs:24`
-- builtin_tool_catalog.test.mjs 定义 2 个 `test`，在 En 与 Cn 双语下各跑一次，共 4 个用例（清点证据：wiki 仓库 tracking/count-tools-tests-ff5373fb6.txt）
-- `write_file` 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数 `tools/tests/builtin_tool_catalog.test.mjs:43`
-- `write_file` 不在内部目录中，内部目录对应项是 `write_file_binary` `tools/tests/builtin_tool_catalog.test.mjs:47`
+- 公开目录分 basic_tools、file_system_tools、http_tools 三类 `tools/tests/builtin_tool_catalog.test.mjs:36`
+- 内部目录由 `internalToolCategoriesEnSource` 与 `internalToolCategoriesCnSource` 提供 tools/tests/builtin_tool_catalog.test.mjs:27 `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:45` `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:1307`
+- 英文与中文两套目录各自断言每个内置工具恰好出现一次 `tools/tests/builtin_tool_catalog.test.mjs:35`
+- builtin_tool_catalog.test.mjs 定义 3 个 `test`，在 En 与 Cn 双语下各跑一次，共 6 个用例（清点证据：wiki 仓库 tracking/count-tools-tests-ff5373fb6.txt）
+- `write_file` 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数 `tools/tests/builtin_tool_catalog.test.mjs:54`
+- `write_file` 不在内部目录中，内部目录对应项是 `write_file_binary` `tools/tests/builtin_tool_catalog.test.mjs:58`
 
 ### Compose DSL 产物
 
@@ -92,7 +92,7 @@ date: 2026-11-11
 - `verify_android_runtime_assets` — Android 发布前校验 APK 运行时资产 `tools/tests/android_runtime_contracts.test.mjs:333`
 - `declaration()` — 抽取 Rust 提示声明 `tools/tests/builtin_tool_catalog.test.mjs:10`
 - `toolNames()` — 从提示声明中读出工具名 `tools/tests/builtin_tool_catalog.test.mjs:18`
-- `write_file` / `write_file_binary` — 公开写文件工具与内部二进制写文件工具 `tools/tests/builtin_tool_catalog.test.mjs:47`
+- `write_file` / `write_file_binary` — 公开写文件工具与内部二进制写文件工具 `tools/tests/builtin_tool_catalog.test.mjs:58`
 - `compileComposeModule()` — 构建 Compose 产物 `tools/tests/compose_dsl_artifact.test.mjs:22`
 - `OperitComposeCompiler` — 运行时编译器，加载产物时不走 lowering `tools/tests/compose_dsl_artifact.test.mjs:30`
 - `__operit_render_compose_dsl` — 运行时注册后为函数 `tools/tests/compose_dsl_artifact.test.mjs:118`
@@ -113,8 +113,8 @@ date: 2026-11-11
 1. 内置工具目录由 `SystemToolPrompts` 的公开提示与 `SystemToolPromptsInternal` 的内部提示共同组成 `tools/tests/builtin_tool_catalog.test.mjs:6`
 2. `declaration()` 抽取 Rust 提示声明 `tools/tests/builtin_tool_catalog.test.mjs:10`
 3. `toolNames()` 从提示声明中读出工具名 `tools/tests/builtin_tool_catalog.test.mjs:18`
-4. 英文与中文两套目录各自断言每个内置工具恰好出现一次 `tools/tests/builtin_tool_catalog.test.mjs:24`
-5. `write_file` 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数 `tools/tests/builtin_tool_catalog.test.mjs:43`
+4. 英文与中文两套目录各自断言每个内置工具恰好出现一次 `tools/tests/builtin_tool_catalog.test.mjs:35`
+5. `write_file` 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数 `tools/tests/builtin_tool_catalog.test.mjs:54`
 
 ### Compose DSL 产物检查
 
@@ -128,7 +128,7 @@ date: 2026-11-11
 
 - 种子文件（3 个，均已读全文）：
   - tools/tests/android_runtime_contracts.test.mjs（395 行，24 个 test 用例）
-  - tools/tests/builtin_tool_catalog.test.mjs（50 行，2 个 test 定义 × En/Cn 双语 = 4 个用例）
+  - tools/tests/builtin_tool_catalog.test.mjs（61 行，3 个 test 定义 × En/Cn 双语 = 6 个用例）
   - tools/tests/compose_dsl_artifact.test.mjs（129 行，8 个 test 用例）
-- 文件总数与分类核验方法：2026-11-15 对上游 AAswordman/Operit2 @ ff5373fb6，用 `git ls-tree -r --name-only ff5373fb6 tools/tests/ | wc -l` 得 169，`git ls-tree --name-only ff5373fb6 tools/tests/` 得 141 条、减 4 个子目录条目得顶层文件 137，顶层扩展名与文件名前缀用 `git ls-tree` 清点，子目录文件数用 `git ls-tree -r` 清点，用例数用 `grep -c '^test('` 计数。清点记录与完整文件清单见 wiki 仓库 tracking/count-tools-tests-ff5373fb6.txt（取代旧记录 tracking/count-tools-tests-0f08fd43.txt）；聚合总数与单文件用例总数只保留在正文，不再以无依据的引用出现在 facts.json 里。计数按上游 ff5373fb6 清点；单文件用例定义数 24/8/2×2 经核与当前源码一致，仍见旧清点记录 tracking/count-tools-tests-364d1d594.txt。
+- 文件总数与分类核验方法：2026-11-15 对上游 AAswordman/Operit2 @ ff5373fb6，用 `git ls-tree -r --name-only ff5373fb6 tools/tests/ | wc -l` 得 169，`git ls-tree --name-only ff5373fb6 tools/tests/` 得 141 条、减 4 个子目录条目得顶层文件 137，顶层扩展名与文件名前缀用 `git ls-tree` 清点，子目录文件数用 `git ls-tree -r` 清点，用例数用 `grep -c '^test('` 计数。清点记录与完整文件清单见 wiki 仓库 tracking/count-tools-tests-ff5373fb6.txt（取代旧记录 tracking/count-tools-tests-0f08fd43.txt）；聚合总数与单文件用例总数只保留在正文，不再以无依据的引用出现在 facts.json 里。计数按上游 ff5373fb6 清点；单文件用例定义数 24/8/3×2 经核与当前源码一致，仍见旧清点记录 tracking/count-tools-tests-364d1d594.txt。
 - 范围限定：本页三个种子文件仅作示例，其余 166 个文件未逐个列出、未读内容；android 前缀 9 个文件、compose_dsl 前缀 9 个文件按文件名前缀归类，内容只核对了三个种子文件。

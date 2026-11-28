@@ -64,7 +64,7 @@ iOS README 记录原生 bootstrap 通道把已持久化的 runtime/workspace 根
 - 配置标识变化时仅丢弃 ARM64 会话的注册，系统 shell 会话保留；新标识取自 `arm64RuntimeConfigurationId`（`hosts/ios/src/terminal.rs:141`）。
 - ARM64 会话启动在取 `sessionId` 前用 `requireArm64Configuration` 校验创建响应（`hosts/ios/src/terminal.rs:217`）。
 - `requireArm64Configuration` 在响应 `configurationId` 与当前配置不一致时返回错误（`hosts/ios/src/terminal.rs:156`）。
-- `listSessions` 发送 `terminalList`，只保留 `configurationId` 与当前代次一致的 ARM64 会话（`hosts/ios/src/terminal.rs:453`）。
+- `listSessions` 发送 `terminalList`，只保留 `configurationId` 与当前代次一致的 ARM64 会话（`hosts/ios/src/terminal.rs:463`）。
 
 ### 会话操作
 
@@ -73,23 +73,23 @@ iOS README 记录原生 bootstrap 通道把已持久化的 runtime/workspace 根
 - ARM64 会话内执行以 `terminalExecuteAsync` 为命令提交异步原生调用，输出为收集的字节解码文本，退出码取自完成结果（`hosts/ios/src/bridge.rs:152`）。
 - ARM64 流式执行调用 `beginArm64TerminalCommand` 提交异步命令，输出与完成结果由返回的事件句柄持有（`hosts/ios/src/bridge.rs:133`）。
 - ARM64 会话读取发送 `terminalRead`，返回 `bytes` 字段的字节（`hosts/ios/src/terminal.rs:369`）。
-- ARM64 写入一次发送整段数据，`acceptedBytes` 与数据长度不一致时返回错误（`hosts/ios/src/terminal.rs:384`）。
-- ARM64 写入发送 `terminalWrite`，用 `acceptedBytes` 校验原生侧接受的字节数（`hosts/ios/src/terminal.rs:383`）。
-- ARM64 会话调整大小发送 `terminalResize`，携带 `rows` 与 `cols`（`hosts/ios/src/terminal.rs:397`）。
-- ARM64 退出码轮询发送 `terminalPoll`，`exitCode` 为 null 或缺失时返回 `None`（`hosts/ios/src/terminal.rs:417`）。
-- ARM64 会话屏幕查询发送 `terminalScreen`，内容取自 `contentBytes` 字段（`hosts/ios/src/terminal.rs:620`）。
-- ARM64 会话关闭发送 `terminalClose`，随后移除会话注册（`hosts/ios/src/terminal.rs:439`）。
-- 关闭会话返回 `TerminalCloseOutput`，`success` 为 true，消息为 “iOS terminal session closed”（`hosts/ios/src/terminal.rs:592`）。
-- 隐藏命令执行先创建或复用名为 `hidden:{executorKey}` 的会话，再在该会话内执行命令（`hosts/ios/src/terminal.rs:544`）。
-- ARM64 会话收到 `interrupt` 控制时发送 `terminalSignal`，`signal` 为 2（`hosts/ios/src/terminal.rs:576`）。
-- 终端输入把 `interrupt` 映射为 U+0003，把 `eof` 映射为 U+0004，把 `newline` 映射为换行符，映射已内联在 inputInSession 中（原 controlSequence 函数已删除）（`hosts/ios/src/terminal.rs:571`）。
-- iOS 终端输入文本与控制序列均缺失时返回错误；同时传入文本与控制序列时，`interrupt`、`eof`、`newline` 按内联映射取值、其余控制交由 `TerminalControl::terminalInput` 编码，不再像旧版那样一律返回错误（`hosts/ios/src/terminal.rs:571`）。
-- `terminalText` 用 `String::from_utf8_lossy` 把 PTY 字节解码为文本（`hosts/ios/src/terminal.rs:754`）。
-- `requiredText` 去除首尾空白，空白值返回错误（`hosts/ios/src/terminal.rs:701`）。
-- `positiveDimension` 拒绝为零的行列尺寸（`hosts/ios/src/terminal.rs:713`）。
-- `shellTerminalType` 只接受 `shell` 类型，其他值返回错误（`hosts/ios/src/terminal.rs:691`）。
+- ARM64 写入一次发送整段数据，`acceptedBytes` 与数据长度不一致时返回错误（`hosts/ios/src/terminal.rs:394`）。
+- ARM64 写入发送 `terminalWrite`，用 `acceptedBytes` 校验原生侧接受的字节数（`hosts/ios/src/terminal.rs:393`）。
+- ARM64 会话调整大小发送 `terminalResize`，携带 `rows` 与 `cols`（`hosts/ios/src/terminal.rs:407`）。
+- ARM64 退出码轮询发送 `terminalPoll`，`exitCode` 为 null 或缺失时返回 `None`（`hosts/ios/src/terminal.rs:427`）。
+- ARM64 会话屏幕查询发送 `terminalScreen`，内容取自 `contentBytes` 字段（`hosts/ios/src/terminal.rs:630`）。
+- ARM64 会话关闭发送 `terminalClose`，随后移除会话注册（`hosts/ios/src/terminal.rs:449`）。
+- 关闭会话返回 `TerminalCloseOutput`，`success` 为 true，消息为 “iOS terminal session closed”（`hosts/ios/src/terminal.rs:602`）。
+- 隐藏命令执行先创建或复用名为 `hidden:{executorKey}` 的会话，再在该会话内执行命令（`hosts/ios/src/terminal.rs:554`）。
+- ARM64 会话收到 `interrupt` 控制时发送 `terminalSignal`，`signal` 为 2（`hosts/ios/src/terminal.rs:586`）。
+- 终端输入把 `interrupt` 映射为 U+0003，把 `eof` 映射为 U+0004，把 `newline` 映射为换行符，映射已内联在 inputInSession 中（原 controlSequence 函数已删除）（`hosts/ios/src/terminal.rs:581`）。
+- iOS 终端输入文本与控制序列均缺失时返回错误；同时传入文本与控制序列时，`interrupt`、`eof`、`newline` 按内联映射取值、其余控制交由 `TerminalControl::terminalInput` 编码，不再像旧版那样一律返回错误（`hosts/ios/src/terminal.rs:581`）。
+- `terminalText` 用 `String::from_utf8_lossy` 把 PTY 字节解码为文本（`hosts/ios/src/terminal.rs:764`）。
+- `requiredText` 去除首尾空白，空白值返回错误（`hosts/ios/src/terminal.rs:711`）。
+- `positiveDimension` 拒绝为零的行列尺寸（`hosts/ios/src/terminal.rs:723`）。
+- `shellTerminalType` 只接受 `shell` 类型，其他值返回错误（`hosts/ios/src/terminal.rs:701`）。
 - 未注册的会话标识返回 “iOS terminal session backend is not registered” 错误（`hosts/ios/src/terminal.rs:180`）。
-- 会话列表仅在 `systemShellAvailable` 为真时追加系统 shell 会话（`hosts/ios/src/terminal.rs:465`）。
+- 会话列表仅在 `systemShellAvailable` 为真时追加系统 shell 会话（`hosts/ios/src/terminal.rs:475`）。
 
 ### Bind Mount 与工作目录
 

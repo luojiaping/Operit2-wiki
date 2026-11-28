@@ -18,7 +18,7 @@ HTTP 服务器、TCP 与串口 Host 直接取自 operit-host-native-common（`ho
 
 ## AI 速览
 
-- `LinuxTerminalHost` — Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:30`）
+- `LinuxTerminalHost` — Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:31`）
 - `LinuxFileSystemHost` — Linux 文件系统 Host（`hosts/linux/src/tools/fs/mod.rs:17`）
 - `LinuxManagedRuntimeHost` — Linux 托管运行时 Host（`hosts/linux/src/tools/runtime/mod.rs:17`）
 - `LinuxRuntimeStorageHost` — Linux 运行时存储与密钥 Host（`hosts/linux/src/tools/storage/mod.rs:13`）
@@ -65,30 +65,30 @@ TTS 由 Linux 自有实现提供（`hosts/linux/src/lib.rs:52`）。
 
 ### 终端：只要 bash 的 PTY
 
-`LinuxTerminalHost` 是 Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:30`）。
-`PLATFORM` 为 linux，`TERMINAL` 为 native，`PRIMARY_TERMINAL_TYPE` 为 bash（`hosts/linux/src/tools/terminal/mod.rs:25`）。
-`terminalInfo` 的 `types` 只含一项，`terminalType` 为 bash，描述为 Linux bash terminal（`hosts/linux/src/tools/terminal/mod.rs:143`）。
-`normalizeTerminalType` 只接受 `PRIMARY_TERMINAL_TYPE`（`hosts/linux/src/tools/terminal/mod.rs:962`）。
-`requireNativeTerminal` 只接受 `TERMINAL` 这一种终端实现（`hosts/linux/src/tools/terminal/mod.rs:972`）。
-`linuxPtyCommand` 构造 bash `--noprofile` `--norc` -i 子进程（`hosts/linux/src/tools/terminal/mod.rs:805`）。
-PTY 环境设置 `TERM` 为 xterm-256color、`COLORTERM` 为 truecolor、`LANG` 为 C.UTF-8、`PS1` 为 $PWD $ （`hosts/linux/src/tools/terminal/mod.rs:811`）。
-`PROMPT_COMMAND` 在每次提示时输出 base64 编码的工作目录与退出码（`hosts/linux/src/tools/terminal/mod.rs:816`）。
-PTY 输出缓冲上限 `PTY_OUTPUT_LIMIT` 为 1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:22`）。
-PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:600`）。
-新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:778`）。
-同一个终端会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:547`）。
-命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:620`）。
-取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:655`）。
+`LinuxTerminalHost` 是 Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:31`）。
+`PLATFORM` 为 linux，`TERMINAL` 为 native，`PRIMARY_TERMINAL_TYPE` 为 bash（`hosts/linux/src/tools/terminal/mod.rs:26`）。
+`terminalInfo` 的 `types` 只含一项，`terminalType` 为 bash，描述为 Linux bash terminal（`hosts/linux/src/tools/terminal/mod.rs:145`）。
+`normalizeTerminalType` 只接受 `PRIMARY_TERMINAL_TYPE`（`hosts/linux/src/tools/terminal/mod.rs:973`）。
+`requireNativeTerminal` 只接受 `TERMINAL` 这一种终端实现（`hosts/linux/src/tools/terminal/mod.rs:983`）。
+`linuxPtyCommand` 构造 bash `--noprofile` `--norc` -i 子进程（`hosts/linux/src/tools/terminal/mod.rs:816`）。
+PTY 环境设置 `TERM` 为 xterm-256color、`COLORTERM` 为 truecolor、`LANG` 为 C.UTF-8、`PS1` 为 $PWD $ （`hosts/linux/src/tools/terminal/mod.rs:822`）。
+`PROMPT_COMMAND` 在每次提示时输出 base64 编码的工作目录与退出码（`hosts/linux/src/tools/terminal/mod.rs:827`）。
+PTY 输出缓冲上限 `PTY_OUTPUT_LIMIT` 为 1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:23`）。
+PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:610`）。
+新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:789`）。
+同一个终端会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:557`）。
+命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:630`）。
+取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:665`）。
 取消超时命令后，共享的 `waitForCommandEvent` 以 3000 毫秒为限等待中断就绪（`core/crates/foundation/host-contract/src/TerminalCommand.rs:192`）。
-`listSessions` 遍历全部 PTY 会话并刷新退出码（`hosts/linux/src/tools/terminal/mod.rs:250`）。
-会话列表条目的 `sessionKind` 为 pty（`hosts/linux/src/tools/terminal/mod.rs:269`）。
-新建终端会话默认尺寸为 24 行 80 列（`hosts/linux/src/tools/terminal/mod.rs:314`）。
-`executorKey` 为空时默认取 default（`hosts/linux/src/tools/terminal/mod.rs:365`）。
-隐藏会话名形如 `hidden:{executorLabel}`（`hosts/linux/src/tools/terminal/mod.rs:500`）。
-`hiddenPtySessionId` 按 `executorKey` 复用已存在的隐藏会话（`hosts/linux/src/tools/terminal/mod.rs:480`）。
-input 与 control 至少一个非空（`hosts/linux/src/tools/terminal/mod.rs:395`）。
-`getSessionScreen` 返回会话当前屏幕内容与行列数（`hosts/linux/src/tools/terminal/mod.rs:433`）。
-PTY 提示标记前缀为 \x1b]133;OperitPrompt=（`hosts/linux/src/tools/terminal/mod.rs:23`）。
+`listSessions` 遍历全部 PTY 会话并刷新退出码（`hosts/linux/src/tools/terminal/mod.rs:260`）。
+会话列表条目的 `sessionKind` 为 pty（`hosts/linux/src/tools/terminal/mod.rs:279`）。
+新建终端会话默认尺寸为 24 行 80 列（`hosts/linux/src/tools/terminal/mod.rs:324`）。
+`executorKey` 为空时默认取 default（`hosts/linux/src/tools/terminal/mod.rs:375`）。
+隐藏会话名形如 `hidden:{executorLabel}`（`hosts/linux/src/tools/terminal/mod.rs:510`）。
+`hiddenPtySessionId` 按 `executorKey` 复用已存在的隐藏会话（`hosts/linux/src/tools/terminal/mod.rs:490`）。
+input 与 control 至少一个非空（`hosts/linux/src/tools/terminal/mod.rs:405`）。
+`getSessionScreen` 返回会话当前屏幕内容与行列数（`hosts/linux/src/tools/terminal/mod.rs:443`）。
+PTY 提示标记前缀为 \x1b]133;OperitPrompt=（`hosts/linux/src/tools/terminal/mod.rs:24`）。
 
 ### 文件系统：绝对路径与桌面工具
 
@@ -268,7 +268,7 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 
 - `operit-host-linux-native` — Linux Host crate（`hosts/linux/Cargo.toml:2`）
 - `createRuntimeHostManager` — 组装 Linux 运行时 `HostManager` 的主入口（`hosts/linux/src/lib.rs:56`）
-- `LinuxTerminalHost` — Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:30`）
+- `LinuxTerminalHost` — Linux PTY 终端 Host（`hosts/linux/src/tools/terminal/mod.rs:31`）
 - `LinuxFileSystemHost` — Linux 文件系统 Host（`hosts/linux/src/tools/fs/mod.rs:17`）
 - `LinuxManagedRuntimeHost` — Linux 托管运行时 Host（`hosts/linux/src/tools/runtime/mod.rs:17`）
 - `LinuxRuntimeStorageHost` — Linux 运行时存储与密钥 Host（`hosts/linux/src/tools/storage/mod.rs:13`）
@@ -285,8 +285,8 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 - `ScriptUiAutomationHost` — UI 自动化 Host（`hosts/linux/src/lib.rs:80`）
 - `captureScreenshotTo` — 截图字节经 VFS 能力写出（`hosts/linux/src/tools/system/mod.rs:138`）
 - `synthesizeSpeechBytes` — 导出合成音频字节（`hosts/linux/src/tools/tts/mod.rs:199`）
-- `PTY_OUTPUT_LIMIT` — PTY 输出缓冲上限，1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:22`）
-- `PTY_PROMPT_MARKER_PREFIX` — PTY 提示标记前缀（`hosts/linux/src/tools/terminal/mod.rs:23`）
+- `PTY_OUTPUT_LIMIT` — PTY 输出缓冲上限，1024 * 1024 字节（`hosts/linux/src/tools/terminal/mod.rs:23`）
+- `PTY_PROMPT_MARKER_PREFIX` — PTY 提示标记前缀（`hosts/linux/src/tools/terminal/mod.rs:24`）
 - `validateSecretKey` — 校验 Host 密钥 key，只允许字母数字与 . _ -（`hosts/linux/src/tools/storage/mod.rs:190`）
 - `bluez_connection` — 建立 BlueZ 系统总线连接（`hosts/linux/src/tools/bluetooth/mod.rs:842`）
 - `rfcomm_channel` — 解析 RFCOMM 通道号（`hosts/linux/src/tools/bluetooth/mod.rs:747`）
@@ -295,12 +295,12 @@ daemon 能力的实现细节见 [[host-common|Host 公共实现]]（`hosts/linux
 
 ### 终端执行一条命令
 
-1. `createOrGetSession` 新建或复用 bash 会话（`hosts/linux/src/tools/terminal/mod.rs:279`）
-2. 同一会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:547`）
-3. 新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:778`）
-4. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:620`）
-5. 取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:655`）
-6. PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:600`）
+1. `createOrGetSession` 新建或复用 bash 会话（`hosts/linux/src/tools/terminal/mod.rs:289`）
+2. 同一会话同一时间只允许一条命令在执行（`hosts/linux/src/tools/terminal/mod.rs:557`）
+3. 新建会话等待初始提示最长 10000 毫秒（`hosts/linux/src/tools/terminal/mod.rs:789`）
+4. 命令超时时返回 exitCode -1 与 timedOut true（`hosts/linux/src/tools/terminal/mod.rs:630`）
+5. 取消超时命令时写入 \x03（`hosts/linux/src/tools/terminal/mod.rs:665`）
+6. PTY 输出缓冲超限时从队首丢弃旧字节（`hosts/linux/src/tools/terminal/mod.rs:610`）
 
 ### 安装一个应用
 

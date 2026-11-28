@@ -937,83 +937,83 @@
   },
   {
     "fact": "RuntimeTerminalService::getInstance 要求 TerminalHost 已配置，否则 panic",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:282"
-  },
-  {
-    "fact": "listTerminalSessions 列出宿主当前已知终端会话并发布快照",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:289"
-  },
-  {
-    "fact": "terminalSessionsFlow 返回已发布终端会话的状态流",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:295"
-  },
-  {
-    "fact": "defaultTerminalType 返回宿主声明的默认终端类型",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:304"
-  },
-  {
-    "fact": "terminalInfo 返回活跃宿主暴露的每个终端类型",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:313"
-  },
-  {
-    "fact": "startTerminalPty 返回 Future，在宿主阻塞池上启动 PTY 终端会话并挂接输出流，启动期间不持有 Core proxy 锁",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:533"
-  },
-  {
-    "fact": "startTerminalPty 在 enterTerminalDirectory 失败时关闭已建会话并返回错误",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:614"
-  },
-  {
-    "fact": "terminalPtyOutput 返回指定 PTY 会话的共享输出流",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:630"
-  },
-  {
-    "fact": "writeTerminalPty 向 PTY 会话写入 base64 解码后的字节并返回写入字节数",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:636"
-  },
-  {
-    "fact": "resizeTerminalPty 调整 PTY 会话的行列数",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:648"
-  },
-  {
-    "fact": "pollTerminalPtyExit 轮询 PTY 会话的退出码",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:656"
-  },
-  {
-    "fact": "closeTerminalPty 关闭 PTY 会话并移除其输出流，随后重新发布会话快照",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:664"
-  },
-  {
-    "fact": "inputTerminalSession 向终端会话发送文本输入并返回接受的字符数",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:675"
-  },
-  {
-    "fact": "getTerminalSessionScreen 读取终端会话的当前屏幕内容",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:684"
-  },
-  {
-    "fact": "ensureTerminalPtyOutputStream 复用已有输出流，不为同一会话重复创建读取器",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:704"
-  },
-  {
-    "fact": "PTY 输出流用 MutableSharedStreamImpl::new(512) 创建，共享缓冲容量为 512",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:711"
-  },
-  {
-    "fact": "start_terminal_pty_output_reader 每轮轮询后等 waitForHostRuntimeDelay(40)，即 40 毫秒",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:217"
-  },
-  {
-    "fact": "poll_terminal_pty_output 在退出码出现后先排空最后到达的字节再关闭流",
     "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:232"
   },
   {
+    "fact": "listTerminalSessions 列出宿主当前已知终端会话并发布快照",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:239"
+  },
+  {
+    "fact": "terminalSessionsFlow 返回已发布终端会话的状态流",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:245"
+  },
+  {
+    "fact": "defaultTerminalType 返回宿主声明的默认终端类型",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:254"
+  },
+  {
+    "fact": "terminalInfo 返回活跃宿主暴露的每个终端类型",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:263"
+  },
+  {
+    "fact": "startTerminalPty 返回 Future，在宿主阻塞池上启动 PTY 终端会话并挂接输出流，启动期间不持有 Core proxy 锁",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:483"
+  },
+  {
+    "fact": "startTerminalPty 在 enterTerminalDirectory 失败时关闭已建会话并返回错误",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:564"
+  },
+  {
+    "fact": "terminalPtyOutput 返回指定 PTY 会话的共享输出流",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:580"
+  },
+  {
+    "fact": "writeTerminalPty 向 PTY 会话直接写入二进制字节并返回写入字节数",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:586"
+  },
+  {
+    "fact": "resizeTerminalPty 调整 PTY 会话的行列数",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:594"
+  },
+  {
+    "fact": "pollTerminalPtyExit 轮询 PTY 会话的退出码",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:602"
+  },
+  {
+    "fact": "closeTerminalPty 关闭 PTY 会话并移除其输出流，随后重新发布会话快照",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:610"
+  },
+  {
+    "fact": "inputTerminalSession 向终端会话发送文本输入并返回接受的字符数",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:621"
+  },
+  {
+    "fact": "getTerminalSessionScreen 读取终端会话的当前屏幕内容",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:630"
+  },
+  {
+    "fact": "ensureTerminalPtyOutputStream 复用已有输出流，不为同一会话重复创建读取器",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:650"
+  },
+  {
+    "fact": "PTY 输出流用 MutableSharedStreamImpl::new(512) 创建，共享缓冲容量为 512",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:657"
+  },
+  {
+    "fact": "start_terminal_pty_output_reader 不再按 40 毫秒轮询等待，改为 await 宿主推送的输出并以二进制 CoreBuffer 发出",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:200"
+  },
+  {
+    "fact": "poll_terminal_pty_output 已删除；宿主在 EOF 前排空最后到达的字节，start_terminal_pty_output_reader 随后发布会话快照并关闭输出流",
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:200"
+  },
+  {
     "fact": "resolve_terminal_working_dir 不再按路径分支，全部路径经 VFS 的 resolveResourcePath 解析后由 terminalDirectory 处理",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:734"
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:680"
   },
   {
     "fact": "startTerminalPty 仍先由 TerminalHost::resolveWorkingDirectory 处理所选终端的命名空间，再经 VFS 回调解析工作目录",
-    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:592"
+    "ref": "core/crates/runtime/application/src/services/RuntimeTerminalService.rs:542"
   },
   {
     "fact": "startUserMessage 先经 captureUserMessageStarter 捕获共享聊天状态与起始选择，再由 ChatUserMessageStarter 执行发送管线",

@@ -149,11 +149,11 @@
   },
   {
     "fact": "执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2698"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2708"
   },
   {
     "fact": "超限后调用 `onTokenLimitExceeded` 回调",
-    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2718"
+    "ref": "core/crates/provider/services/src/chat/EnhancedAIService.rs:2728"
   },
   {
     "fact": "handleTokenLimitExceeded 先等 `summaryTaskForChat` 返回的进行中摘要任务完成，再调用 `isCurrentChatTurn` 校验回合归属",

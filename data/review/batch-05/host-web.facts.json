@@ -361,39 +361,39 @@
  },
  {
   "fact": "终端会话标识按 `linux-vm-terminal-{value}` 分配",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:483"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:501"
  },
  {
   "fact": "桥接值为空或未定义时 `pollPtyExitCode` 返回 `None`",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:182"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:195"
  },
  {
   "fact": "会话列表列出未退出的会话，进程所属会话即使已退出也会列出，条目 `sessionKind` 为 `linux-vm`",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:219"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:232"
  },
  {
   "fact": "按名创建或复用类型化会话时，遇到同名会话直接复用，`isNewSession` 为 false",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:249"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:262"
  },
  {
   "fact": "新建终端会话从根目录 `/` 启动，默认 24 行 80 列",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:261"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:274"
  },
  {
   "fact": "会话内流式调度拒绝非零 `timeoutMs`，要求会话自有执行",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:324"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:337"
  },
  {
   "fact": "`executeHiddenCommand` 报错，浏览器本地 Linux 虚拟机终端不提供隐藏命令执行",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:354"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:367"
  },
  {
   "fact": "`getSessionScreen` 用 `vt100::Parser` 渲染保留的串口屏幕内容",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:403"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:416"
  },
  {
   "fact": "会话内执行命令返回 `output`、`exitCode`、`timedOut`、`workingDir`",
-  "ref": "hosts/web/src/tools/terminal/mod.rs:292"
+  "ref": "hosts/web/src/tools/terminal/mod.rs:305"
  },
  {
   "fact": "`createArchive` 把声明的字节长度转成 `i64` 再传给桥接",

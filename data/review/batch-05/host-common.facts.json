@@ -449,19 +449,19 @@
   },
   {
     "fact": "NativePtyTerminalHost 的 `executeHiddenCommand` 按执行器键复用隐藏会话",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:587"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:597"
   },
   {
     "fact": "NativePtyTerminalHost 的 `getSessionScreen` 返回渲染后的屏幕文本与行列数",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:664"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:674"
   },
   {
     "fact": "`requireNativeTerminal` 只接受 `TERMINAL` 终端实现",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1347"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1359"
   },
   {
     "fact": "`ptyCommandInput` 先经 `posixCommandLine` 编码命令再按协议追加完成标记",
-    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1129"
+    "ref": "hosts/common/operit-host-native-terminal/src/lib.rs:1141"
   },
   {
     "fact": "超时取消的安顿等待为 3000 毫秒",

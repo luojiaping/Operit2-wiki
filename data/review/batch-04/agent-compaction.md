@@ -80,8 +80,8 @@ date: 2026-11-11
 - MessageCoordinationDelegate 的 `checkSummaryAfterReply` 在回复后调用 `refreshStableContextWindow` 重算稳定窗口（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:922`）。
 - checkSummaryAfterReply 逐个参与者调用 `shouldGenerateSummary` 核对各自模型的摘要阈值（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:935`）。
 - 在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1228`）。
-- 执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2698`）。
-- 超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2718`）。
+- 执行中 `usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2708`）。
+- 超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2728`）。
 - MessageCoordinationDelegate 的 `handleTokenLimitExceeded` 先等 summaryTaskForChat 返回的进行中摘要任务完成，再调用 isCurrentChatTurn 校验回合归属（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1252`、`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1262`）。
 - handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1290`）。
 - handleTokenLimitExceeded 压缩后调用 `sendMessageInternal` 续跑同一已提交用户回合（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1307`）。
@@ -196,8 +196,8 @@ date: 2026-11-11
 9. 发送前自动压缩：窗口占比达到阈值时 `shouldGenerateSummary` 判断并启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:884`）。
 10. 回复后自动压缩：在已准入回合完成、且回合工作要求回复后摘要（`summaryPolicy` 为 `AfterReply`，`core/crates/runtime/application/src/services/core/ChatTurnTransport.rs:71`）且结果已提交完成时，ToolRuntimeSupportService 调用 `checkSummaryAfterReply`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:1228`）。
 11. 回复后自动压缩：checkSummaryAfterReply 逐个参与者核对摘要阈值（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:935`）。
-12. 执行中超限：`usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2698`）。
-13. 执行中超限：超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2718`）。
+12. 执行中超限：`usageRatio` 达到 `tokenUsageThreshold` 时记 `chat.token_limit` 日志（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2708`）。
+13. 执行中超限：超限后调用 `onTokenLimitExceeded` 回调（`core/crates/provider/services/src/chat/EnhancedAIService.rs:2728`）。
 14. 执行中超限：handleTokenLimitExceeded 以 `autoContinue` 为真启动摘要（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1290`）。
 15. 执行中超限：压缩后 `sendMessageInternal` 续跑同一已提交用户回合（`core/crates/runtime/application/src/services/core/MessageCoordinationDelegate.rs:1307`）。
 16. 摘要生成：summarizeMemory 只总结上一次摘要之后的用户与 AI 消息（`core/crates/runtime/application/src/core/chat/AIMessageManager.rs:537`）。

@@ -73,7 +73,7 @@
  },
  {
   "fact": "公开目录分 basic_tools、file_system_tools、http_tools 三类。",
-  "ref": "tools/tests/builtin_tool_catalog.test.mjs:25"
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:36"
  },
  {
   "fact": "内部目录由 internalToolCategoriesEnSource 与 internalToolCategoriesCnSource 提供。",
@@ -81,15 +81,15 @@
  },
  {
   "fact": "英文与中文两套目录各自断言每个内置工具恰好出现一次。",
-  "ref": "tools/tests/builtin_tool_catalog.test.mjs:24"
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:35"
  },
  {
   "fact": "write_file 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数。",
-  "ref": "tools/tests/builtin_tool_catalog.test.mjs:43"
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:54"
  },
  {
   "fact": "write_file 不在内部目录中，内部目录对应项是 write_file_binary。",
-  "ref": "tools/tests/builtin_tool_catalog.test.mjs:47"
+  "ref": "tools/tests/builtin_tool_catalog.test.mjs:58"
  },
  {
   "fact": "compose_dsl_artifact.test.mjs 用 compileComposeModule 构建 Compose 产物。",

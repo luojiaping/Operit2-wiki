@@ -16,7 +16,7 @@ date: 2026-11-11
 - `core/peer-protocol.json` 是协议版本及 SHA-256 指纹的唯一记录。`docs/peer-protocol-versioning.md:9`
 - 构建只扫描带 `operit_core_route` 注解的方法签名与路由元数据。`docs/peer-protocol-versioning.md:10`
 - 旧的 `sources` 全文扫描与 `schemaRoots` 泛类型扫描已经移除。`docs/peer-protocol-versioning.md:21`
-- 最新协议版本为 `version` 30。`core/peer-protocol.json:120`
+- 最新协议版本为 `version` 32。`core/peer-protocol.json:128`
 - 协议版本不匹配返回 `PEER_PROTOCOL_MISMATCH`。`docs/peer-protocol-versioning.md:91`
 - 缺少协议声明返回 `PEER_PROTOCOL_UPGRADE_REQUIRED`。`docs/peer-protocol-versioning.md:92`
 - 同步总览见 [[sync-overview|同步总览：Space 持久化同步]]。`docs/peer-protocol-versioning.md:3`
@@ -25,8 +25,8 @@ date: 2026-11-11
 
 - `core/peer-protocol.json` — 协议版本及 SHA-256 指纹的唯一记录。`docs/peer-protocol-versioning.md:9`
 - `operit_core_route` — 构建只提取带此注解的方法签名与路由元数据。`docs/peer-protocol-versioning.md:10`
-- `revisions` — 版本与 hash 的历史记录，共 30 条。`core/peer-protocol.json:2`
-- 最新记录为 `version` 30，hash 为 `eda16101e2c0806b0a6e45d37dca37548674cb8131695b394c88e82cbfdde32b`。`core/peer-protocol.json:120`
+- `revisions` — 版本与 hash 的历史记录，共 32 条。`core/peer-protocol.json:2`
+- 最新记录为 `version` 32，hash 为 `3228b217bf2f8f7a1bdfc821ddffe632e9bb3e822f6536ff46c475c0ea13bc66`。`core/peer-protocol.json:128`
 - `operit-peer-session-fragments-v1` — v24 纳入指纹的认证会话分块修订标识。`docs/peer-protocol-versioning.md:30`
 - `maxMessageBytes` — 只限制一条物理 Link 报文，不再是认证后逻辑消息的大小上限。`docs/peer-protocol-versioning.md:42`
 - `PEER_PROTOCOL_MISMATCH` — 协议版本不匹配时返回的错误。`docs/peer-protocol-versioning.md:91`
@@ -52,11 +52,11 @@ date: 2026-11-11
 - v24 将认证会话分块格式的显式修订标识 `operit-peer-session-fragments-v1` 纳入指纹。`docs/peer-protocol-versioning.md:30`
 - 连接始终要求双方使用同一个当前协议版本；原有身份和配对凭据保留。`docs/peer-protocol-versioning.md:32`
 - `maxMessageBytes` 继续限制一条物理 Link 报文，不再作为认证后的逻辑消息大小上限。`docs/peer-protocol-versioning.md:42`
-- hello 声明本端帧上限，认证 transcript 同时绑定双方帧上限，双向使用较小值。`docs/peer-protocol-versioning.md:43`
-- 每块有效负载最多 64 KiB，适用于现有 TCP、HTTP、WebSocket、串口和蓝牙载体。`docs/peer-protocol-versioning.md:45`
-- 每块仍通过同一个 `$peer.session/data` 认证信封发送，加密明文前 16 字节依次为大端 u64 的完整消息字节数与当前块偏移，头和内容一起接受 `AEAD` 认证，`nonce` 逐块递增。`docs/peer-protocol-versioning.md:47`
-- 接收端检查长度、偏移、认证和顺序，只在收齐后向 Call、Watch、Push 分发完整的原始逻辑消息，上层接口不感知分块。`docs/peer-protocol-versioning.md:50`
-- 部分接收状态跨 receive future 取消保留，断线或认证失败后释放，不交付半条消息。`docs/peer-protocol-versioning.md:53`
+- hello 声明本端帧上限，认证 transcript 同时绑定双方帧上限，双向使用较小值。`docs/peer-protocol-versioning.md:47`
+- 每块有效负载最多 64 KiB，适用于现有 TCP、HTTP、WebSocket、串口和蓝牙载体。`docs/peer-protocol-versioning.md:49`
+- 每块仍通过同一个 `$peer.session/data` 认证信封发送，加密明文前 16 字节依次为大端 u64 的完整消息字节数与当前块偏移，头和内容一起接受 `AEAD` 认证，`nonce` 逐块递增。`docs/peer-protocol-versioning.md:51`
+- 接收端检查长度、偏移、认证和顺序，只在收齐后向 Call、Watch、Push 分发完整的原始逻辑消息，上层接口不感知分块。`docs/peer-protocol-versioning.md:54`
+- 部分接收状态跨 receive future 取消保留，断线或认证失败后释放，不交付半条消息。`docs/peer-protocol-versioning.md:57`
 - 内存按已接收的数据增长，不按对端声明的总长度预分配；完整消息仍需能放入接收端内存。`docs/peer-protocol-versioning.md:54`
 - 物理分块的认证接收及成功写入均计入通道活动，持续传输不会仅因尚未重组完成而触发心跳超时。`docs/peer-protocol-versioning.md:55`
 - 本机制不建立额外连接，不自动重试或断点续传；网络中断仍向调用方报告失败。`docs/peer-protocol-versioning.md:56`
@@ -64,7 +64,7 @@ date: 2026-11-11
 - 按文档规定，Cargo 构建检查路由契约指纹与当前记录一致；CI 将版本记录与 PR / push 的基线比较，拒绝覆盖历史 hash、回退版本或不递增版本的修改。`docs/peer-protocol-versioning.md:75`
 - 文档给出的本地检查命令为 `python3 tools/check_peer_protocol.py --base HEAD`。`docs/peer-protocol-versioning.md:79`
 - 文档给出的本地检查命令为 `cargo check --manifest-path core/Cargo.toml -p operit-node-runtime --no-default-features --features peer-runtime`。`docs/peer-protocol-versioning.md:80`
-- 此前未声明统一协议版本的 Core 或 Edge 程序需要升级一次；已有设备身份和配对凭据保留。`docs/peer-protocol-versioning.md:102`
+- 此前未声明统一协议版本的 Core 或 Edge 程序需要升级一次；已有设备身份和配对凭据保留。`docs/peer-protocol-versioning.md:106`
 - 此后软件版本变化、协议版本不变时，不要求厂商同步升级。`docs/peer-protocol-versioning.md:103`
 - 配对安全报文、投影分页及持久化记录的内部格式不构成另一套设备兼容性协商；破坏互通的修改统一追加 `core/peer-protocol.json` 中的协议版本。`docs/peer-protocol-versioning.md:104`
 - v26 统一连接、路由和业务同步的兼容性判断；同步收据和时钟摘要只传递业务数据，不再声明或检查独立的格式版本、一致性版本。`docs/peer-protocol-versioning.md:34`
@@ -73,7 +73,7 @@ date: 2026-11-11
 ## 关键符号
 
 - `operit_core_route` — 构建只提取带此注解的方法签名与路由元数据。`docs/peer-protocol-versioning.md:10`
-- `revisions` — 版本与 hash 的历史记录，共 30 条。`core/peer-protocol.json:2`
+- `revisions` — 版本与 hash 的历史记录，共 32 条。`core/peer-protocol.json:2`
 - `operit-peer-session-fragments-v1` — v24 纳入指纹的认证会话分块修订标识。`docs/peer-protocol-versioning.md:30`
 - `maxMessageBytes` — 只限制一条物理 Link 报文。`docs/peer-protocol-versioning.md:42`
 - `$peer.session/data` — 认证会话分块的发送信封。`docs/peer-protocol-versioning.md:47`
@@ -88,12 +88,12 @@ date: 2026-11-11
 
 ## 调用链
 
-1. 修改协议相关源码：按文档规定，修改协议相关源码后运行正常的 Cargo 构建或检查。`docs/peer-protocol-versioning.md:60`
+1. 修改协议相关源码：按文档规定，修改协议相关源码后运行正常的 Cargo 构建或检查。`docs/peer-protocol-versioning.md:64`
 2. 指纹变化：按文档规定，指纹变化时构建失败并打印新的 SHA-256。`docs/peer-protocol-versioning.md:61`
 3. 追加记录：修改后在 `revisions` 末尾追加记录，将 `version` 递增并填写当前 hash；仅语义变化也必须递增同一个版本，此时 hash 可以不变。历史记录保持原样。`docs/peer-protocol-versioning.md:62`
 4. 回归验证：再次构建并执行 Core / Edge 互通回归；发布软件时无需再额外递增协议版本。`docs/peer-protocol-versioning.md:64`
-5. 配对与重连：新配对与已有凭据重连都声明协议版本，版本纳入认证 transcript。`docs/peer-protocol-versioning.md:85`
-6. 投影协商：空间投影协商声明同一协议版本，供 Core 与 Edge 准入及控制同步使用。`docs/peer-protocol-versioning.md:86`
+5. 配对与重连：新配对与已有凭据重连都声明协议版本，版本纳入认证 transcript。`docs/peer-protocol-versioning.md:89`
+6. 投影协商：空间投影协商声明同一协议版本，供 Core 与 Edge 准入及控制同步使用。`docs/peer-protocol-versioning.md:90`
 7. 业务同步：业务同步通过 `$node.sync` 的 `protocol` 方法读取最终目标的协议版本，适用于中继路由。`docs/peer-protocol-versioning.md:87`
 8. 拓扑比较：拓扑状态比较设备资料中的 `protocolVersion`，Edge 无需伪造 Core 软件版本。`docs/peer-protocol-versioning.md:89`
 9. 版本不匹配：协议版本不匹配返回 `PEER_PROTOCOL_MISMATCH`。`docs/peer-protocol-versioning.md:91`

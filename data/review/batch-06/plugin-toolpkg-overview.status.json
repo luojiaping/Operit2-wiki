@@ -1,6 +1,6 @@
 {
   "issue": 58,
-  "source_commit": "3dd6149",
+  "source_commit": "e1aebc1",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "ToolPkg 2.0.0 总览：ZIP 格式、manifest 三版本号、API 2.0.0 与 1.0.x 关系、buildin/external/examples 三类包打包区别",
