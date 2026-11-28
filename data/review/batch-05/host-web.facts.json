@@ -65,7 +65,7 @@
  },
  {
   "fact": "`sqlite_value_to_js` 把 `SqliteValue::Integer` 转成字符串",
-  "ref": "hosts/web/src/common.rs:565"
+  "ref": "hosts/web/src/common.rs:570"
  },
  {
   "fact": "`js_i64` 先尝试把字符串解析为 `i64`，再接受 JS 数字",
@@ -89,7 +89,7 @@
  },
  {
   "fact": "`withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts` 装配 `WebFileSystemHost`、`WebWebVisitHost`、`WebHttpHost`、`WebManagedRuntimeHost` 与系统操作 Host",
-  "ref": "hosts/web/src/lib.rs:43"
+  "ref": "hosts/web/src/lib.rs:50"
  },
  {
   "fact": "系统操作 Host 同时注册为 toast Host 与 clipboard Host",
@@ -149,19 +149,19 @@
  },
  {
   "fact": "`httpServerHost`、`tcpHost`、`serialPortHost`、`serviceDiscoveryHost` 在 Web Host 组装后保持为 `None`",
-  "ref": "core/crates/foundation/host-api/src/HostManager.rs:413"
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:425"
  },
  {
   "fact": "`uiAutomationHost`、`browserAutomationHost`、`floatingWindowHost`、`composeDslWebViewHost` 在 Web Host 组装后同样保持为 `None`",
-  "ref": "core/crates/foundation/host-api/src/HostManager.rs:408"
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:420"
  },
  {
   "fact": "`deviceIoHost`、`robotFaceHost`、`ttsSynthesisHost` 在 Web Host 组装后同样保持为 `None`",
-  "ref": "core/crates/foundation/host-api/src/HostManager.rs:422"
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:434"
  },
  {
   "fact": "`pluginSdkIpcHost` 与 `coreCommandExecutor` 在 Web Host 组装后同样保持为 `None`",
-  "ref": "core/crates/foundation/host-api/src/HostManager.rs:437"
+  "ref": "core/crates/foundation/host-api/src/HostManager.rs:449"
  },
  {
   "fact": "`src/tools/fs/mod.rs` 实现 `FileSystemHost`",
@@ -657,7 +657,7 @@
  },
  {
   "fact": "`call_data_rescue` 调用桥接 `dataRescue` 模块",
-  "ref": "hosts/web/src/common.rs:46"
+  "ref": "hosts/web/src/common.rs:52"
  },
  {
   "fact": "`snapshotResult` 对非 JSON 兼容的生命周期返回值抛 `TypeError`",

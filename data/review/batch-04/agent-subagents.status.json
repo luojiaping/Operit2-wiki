@@ -1,10 +1,10 @@
 {
   "issue": 38,
-  "source_commit": "b3b897c",
+  "source_commit": "3dd6149",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Subagent 并行：5 个模型工具、并发上限 8、无唤醒轮询、重启标 interrupted",
-  "updated": "2026-11-27",
+  "updated": "2026-11-28",
   "approved_by_comment_id": 6796548627,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-11 13:21 UTC"

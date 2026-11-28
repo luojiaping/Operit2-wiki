@@ -60,7 +60,7 @@ date: 2026-11-11
 ### Flutter 构建入口
 
 - `build_flutter_<platform>.py` 覆盖 Android、iOS、Linux、macOS、OpenHarmony、Windows 六个平台的 Flutter 构建。`tools/build_scripts/README.md:23`
-- `build_flutter_macos.py` 缺省为 `sandbox`。`tools/build_scripts/README.md:160`
+- `build_flutter_macos.py` 缺省为 `sandbox`。`tools/build_scripts/README.md:207`
 - Android 构建执行 flutter build apk --release --split-per-abi。`tools/build_scripts/build_flutter_android.py:135`
 - Android 构建限定 --target-platform android-arm64。`tools/build_scripts/build_flutter_android.py:141`
 - Android 构建传入 `--android-project-arg=operitRuntime=app`。`tools/build_scripts/build_flutter_android.py:142`

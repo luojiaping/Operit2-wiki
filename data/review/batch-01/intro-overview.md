@@ -148,14 +148,14 @@ Operit2 采用从外到内逐层收紧的能力模型（README.md:109）：
 
 - Space 成员资格不会授予其他节点读取本机文件、使用本机终端或获得管理员/root 能力（README.md:127）
 - README 声明 API key、设备私钥、配对密钥、session 和本地平台权限默认属于节点本地，不会因为加入 Space 自动复制（README.md:128）
-- ModelConfigManager 的 `default` 用 `preferenceStore` 创建模型配置存储（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:153）
-- `preferenceStore` 调用 `PreferencesDataStore::newWithStorage`（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:130）
+- ModelConfigManager 的 `default` 用 `preferenceStore` 创建模型配置存储（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:156）
+- `preferenceStore` 调用 `PreferencesDataStore::newWithStorage`（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:133）
 - `newWithStorage` 创建 Space 偏好存储（core/crates/persistence/store/src/PreferencesDataStore.rs:2968）
 - 同步偏好存储创建时建立 `PreferencesSyncDescriptor`（core/crates/persistence/store/src/PreferencesDataStore.rs:2999）
 - 同步偏好存储创建时建立 `SyncOperationStore` 同步操作存储（core/crates/persistence/store/src/PreferencesDataStore.rs:3005）
-- ModelConfigManager 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>`（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572）
-- 该 `ProviderProfile` 包含 `apiKey` 和 `apiKeyPool`（core/crates/foundation/model/src/ModelConfigData.rs:673）
-- 因此 Provider 凭证存在随配置同步的路径，不能把它与设备身份、配对密钥、OS 权限统称“不复制”（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572）
+- ModelConfigManager 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>`（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1762）
+- 该 `ProviderProfile` 包含 `apiKey` 和 `apiKeyPool`（core/crates/foundation/model/src/ModelConfigData.rs:698）
+- 因此 Provider 凭证存在随配置同步的路径，不能把它与设备身份、配对密钥、OS 权限统称“不复制”（core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1762）
 - 该路径与 README.md:128 的“不复制”原则存在冲突（README.md:128）
 - 本页未做真实双设备同步实验，上述路径是否实际触发同步未验证
 - `Full` 只表示 AI 能力限制放宽，不表示 Host 提权，也不能创造操作系统没有的能力（README.md:129）

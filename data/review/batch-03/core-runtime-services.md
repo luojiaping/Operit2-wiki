@@ -10,8 +10,8 @@ date: 2026-11-11
 
 ## 概述
 
-本页写 core/crates/runtime/application/src/services/ 下的四个服务：聊天核心 `ChatServiceCore`（core/crates/runtime/application/src/services/ChatServiceCore.rs:243）、Provider 支持 `ProviderRuntimeSupportService`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:29）、工具支持 `ToolRuntimeSupportService`（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:51）、终端服务 `RuntimeTerminalService`（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:104）。
-`ChatServiceCore` 是聊天回合的执行入口：收用户消息、跑提交钩子、驱动模型与工具回合、管理聊天历史与工作区（core/crates/runtime/application/src/services/ChatServiceCore.rs:243）。
+本页写 core/crates/runtime/application/src/services/ 下的四个服务：聊天核心 `ChatServiceCore`（core/crates/runtime/application/src/services/ChatServiceCore.rs:249）、Provider 支持 `ProviderRuntimeSupportService`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:29）、工具支持 `ToolRuntimeSupportService`（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:51）、终端服务 `RuntimeTerminalService`（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:104）。
+`ChatServiceCore` 是聊天回合的执行入口：收用户消息、跑提交钩子、驱动模型与工具回合、管理聊天历史与工作区（core/crates/runtime/application/src/services/ChatServiceCore.rs:249）。
 `ProviderRuntimeSupportService` 与 `ToolRuntimeSupportService` 是两座桥：把 provider crate 与 tools crate 要的接口接到 runtime 自有的管理器与注册表上（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:29、core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:51）。
 `RuntimeTerminalService` 是宿主终端 API 的外观：PTY 会话的创建、输入、输出流与退出码都经它走（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:104）。
 浏览器服务不在本页 4 个 seed 文件中，本页不写浏览器挂接。
@@ -19,82 +19,82 @@ date: 2026-11-11
 
 ## AI 速览
 
-- `ChatServiceCore` — 聊天回合的执行入口，持有三个 delegate 与每聊天一个 `EnhancedAIService`（core/crates/runtime/application/src/services/ChatServiceCore.rs:248）
-- `MessageProcessingDelegate` — 消息处理状态，由 ChatServiceCore 持有并分发给协调 delegate（core/crates/runtime/application/src/services/ChatServiceCore.rs:249）
-- `ChatHistoryDelegate` — 聊天历史操作，由 ChatServiceCore 持有（core/crates/runtime/application/src/services/ChatServiceCore.rs:250）
-- MessageCoordinationDelegate — 回合协调，由 ChatServiceCore 在 `initializeDelegates` 里新建（core/crates/runtime/application/src/services/ChatServiceCore.rs:503）
-- `ChatUserMessageStarter` — 一次发送的依赖持有者，发送管线在后台执行时不借用 ChatServiceCore（core/crates/runtime/application/src/services/ChatServiceCore.rs:263）
+- `ChatServiceCore` — 聊天回合的执行入口，持有三个 delegate 与每聊天一个 `EnhancedAIService`（core/crates/runtime/application/src/services/ChatServiceCore.rs:254）
+- `MessageProcessingDelegate` — 消息处理状态，由 ChatServiceCore 持有并分发给协调 delegate（core/crates/runtime/application/src/services/ChatServiceCore.rs:255）
+- `ChatHistoryDelegate` — 聊天历史操作，由 ChatServiceCore 持有（core/crates/runtime/application/src/services/ChatServiceCore.rs:256）
+- MessageCoordinationDelegate — 回合协调，由 ChatServiceCore 在 `initializeDelegates` 里新建（core/crates/runtime/application/src/services/ChatServiceCore.rs:509）
+- `ChatUserMessageStarter` — 一次发送的依赖持有者，发送管线在后台执行时不借用 ChatServiceCore（core/crates/runtime/application/src/services/ChatServiceCore.rs:269）
 - `ChatConfigurationApi` — 聊天配置解析入口，插件后端可选，原生模型路径独立可用（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:50）
 - `MODEL_CONFIGURATION_OWNER` — 内置模型会话归属常量，值为 `host.chat.model`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:39）
 - `RuntimeProviderSupport` — `ProviderRuntimeSupport` trait 的 runtime 实现（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:441）
 - `RuntimeToolSupport` — ToolRuntimeSupport trait 的 runtime 实现（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:81）
 - `RuntimeTerminalService` — 宿主终端 API 的外观（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:104）
-- `ChatState` — 一次聊天运行时的状态快照：标题、工作区、加载态、待发队列、工具权限请求（core/crates/runtime/application/src/services/ChatServiceCore.rs:183）
-- `PendingChatQueueState` — 一次聊天的待发消息队列状态（core/crates/runtime/application/src/services/ChatServiceCore.rs:202）
+- `ChatState` — 一次聊天运行时的状态快照：标题、工作区、加载态、待发队列、工具权限请求（core/crates/runtime/application/src/services/ChatServiceCore.rs:189）
+- `PendingChatQueueState` — 一次聊天的待发消息队列状态（core/crates/runtime/application/src/services/ChatServiceCore.rs:208）
 - `ChatInputMenuSettings` — 输入框行为设置：权限模式、流式开关、画像描述开关、插件开关（core/crates/runtime/application/src/services/ChatServiceCore.rs:124）
-- `ChatPluginPage` — 插件列表一页：条目加总数（core/crates/runtime/application/src/services/ChatServiceCore.rs:156）
-- `ChatPluginDetails` — 一个插件的有界详情：描述、工具名、偏移与总数（core/crates/runtime/application/src/services/ChatServiceCore.rs:163）
+- `ChatPluginPage` — 插件列表一页：条目加总数（core/crates/runtime/application/src/services/ChatServiceCore.rs:162）
+- `ChatPluginDetails` — 一个插件的有界详情：描述、工具名、偏移与总数（core/crates/runtime/application/src/services/ChatServiceCore.rs:169）
 - `RuntimeTerminalSessionInfo` — 已发布的终端会话元数据（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:26）
 - `RuntimeTerminalScreen` — 宿主返回的当前终端屏幕快照（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:39）
-- 主入口：`sendUserMessage`（core/crates/runtime/application/src/services/ChatServiceCore.rs:656）
+- 主入口：`sendUserMessage`（core/crates/runtime/application/src/services/ChatServiceCore.rs:662）
 - 主入口：`ChatConfigurationApi` 的 `ready`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:57）
 - 主入口：ToolRuntimeSupportService 的 `create`（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:55）
 - 主入口：RuntimeTerminalService 的 `getInstance`（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:277）
-- 数据流向：用户消息 → 提交钩子 → MessageCoordinationDelegate → EnhancedAIService → 模型与工具回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:702）
+- 数据流向：用户消息 → 提交钩子 → MessageCoordinationDelegate → EnhancedAIService → 模型与工具回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:708）
 
 ## 核心机制
 
-ChatServiceCore 的 `new` 按 `ChatSelectionMode` 决定 `chatInputRuntime`：`FOLLOW_GLOBAL` 用 `ChatRuntime::Main`，`LOCAL_ONLY` 用 `ChatRuntime::Floating`（core/crates/runtime/application/src/services/ChatServiceCore.rs:371）。
-`initializeDelegates` 新建 `ChatHistoryDelegate`、`MessageProcessingDelegate` 与 MessageCoordinationDelegate（core/crates/runtime/application/src/services/ChatServiceCore.rs:503）。
-`initializeChatConfiguration` 首次调用恢复持久化历史并缓存结果，重复调用直接返回缓存结果（core/crates/runtime/application/src/services/ChatServiceCore.rs:520）。
-initializeChatConfiguration 成功后置 `initialized` 为 true（core/crates/runtime/application/src/services/ChatServiceCore.rs:532）。
-`newEnhancedAiServiceForChat` 按 chatId 返回独立的 `EnhancedAIService` 实例并缓存（core/crates/runtime/application/src/services/ChatServiceCore.rs:478）。
-`sendUserMessage` 是带 `operit_core_route` 的公开发送入口，binding 为 `chatIdOverride`（core/crates/runtime/application/src/services/ChatServiceCore.rs:656）。
-sendUserMessage 转交给 `startUserMessage` 执行（core/crates/runtime/application/src/services/ChatServiceCore.rs:668）。
-`sendUserMessageStream` 要求显式空提交块加 EOF，中断上传不得把已收前缀变成聊天消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:676）。
-sendUserMessageStream 先经 `chat_input_stream::receive` 收齐流式文本，再由捕获的 starter 执行发送管线（core/crates/runtime/application/src/services/ChatServiceCore.rs:695）。
-`startUserMessage` 要求 admittedLease、deferSequenceCompletion、nativeExecutionId 三者一致，否则返回错误（core/crates/runtime/application/src/services/ChatServiceCore.rs:702）。
-`startUserMessage` 先经 `captureUserMessageStarter` 捕获共享聊天状态与起始选择，再由 starter 执行发送管线（core/crates/runtime/application/src/services/ChatServiceCore.rs:702、core/crates/runtime/application/src/services/ChatServiceCore.rs:715）。
-startUserMessage 在提交前先派发 `CHAT_INPUT_EVENT_SUBMIT_REQUESTED` 钩子（core/crates/runtime/application/src/services/ChatServiceCore.rs:314）。
-提交钩子返回 `BLOCK` 或 `CONSUME` 时本轮不进入生成，`CONSUME` 对应 outcome `Consumed`，`BLOCK` 对应 outcome Blocked（core/crates/runtime/application/src/services/ChatServiceCore.rs:324）。
-提交钩子返回 `REPLACE` 或 `ALLOW` 时继续执行，`REPLACE` 用决策文本替换原消息文本（core/crates/runtime/application/src/services/ChatServiceCore.rs:333）。
-startUserMessage 在 SUBMIT_REQUESTED 之后还派发 `CHAT_INPUT_EVENT_SUBMITTED` 钩子（core/crates/runtime/application/src/services/ChatServiceCore.rs:347）。
-`generateLocalLlm` 只在 Binding 归属节点做模型推理，对话与工具走各自的路由（core/crates/runtime/application/src/services/ChatServiceCore.rs:421）。
-`resume` 在已拥有聊天的 CoreNode 上恢复 AI 回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:807）。
-`resumeFromRouteContext` 用路由变更携带的 `CoreRouteResumeContext` 恢复目标聊天（core/crates/runtime/application/src/services/ChatServiceCore.rs:855）。
-`beforeChangeRoute` 在路由变更前开启执行租约并立即释放以校验执行归属（core/crates/runtime/application/src/services/ChatServiceCore.rs:918）。
-afterChangeRoute 把恢复交给 `resumeFromRouteContext`（core/crates/runtime/application/src/services/ChatServiceCore.rs:942）。
-`cancelMessage` 取消指定聊天的消息生成，persistTurn 为真时提交已生成的部分消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:964、core/crates/runtime/application/src/services/ChatServiceCore.rs:951）。
-`steerMessage` 在不取消当前模型或工具回合的前提下引导进行中的逻辑回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:980）。
-`enqueuePendingQueueMessage` 向指定聊天的待发消息队列追加一条消息并置 wasBlocked 为 true（core/crates/runtime/application/src/services/ChatServiceCore.rs:988）。
-`takeNextPendingQueueMessageIfReady` 仅当聊天未在处理、队列曾被阻塞且未被抑制时取出下一条排队消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:1069）。
-`restorePendingQueueMessage` 把被拒绝的排队消息插回所属聊天队列头部（core/crates/runtime/application/src/services/ChatServiceCore.rs:1099）。
-`setPendingQueueExpanded` 更新指定聊天待发消息队列在界面上的展开状态（core/crates/runtime/application/src/services/ChatServiceCore.rs:1133、core/crates/runtime/application/src/services/ChatServiceCore.rs:1115）。
-`chatConfiguration` 只解析通用展示身份、有序参与者与插件初始化数据（core/crates/runtime/application/src/services/ChatServiceCore.rs:1273）。
-`chatConfigurationForMessage` 按消息的配置归属解析模型与语音回放用的消息作者（core/crates/runtime/application/src/services/ChatServiceCore.rs:1303）。
-`chatConfigurationForParticipant` 精确解析指定执行参与者，解析出的 profile 与请求不一致且归属不是 MODEL_CONFIGURATION_OWNER 时返回错误（core/crates/runtime/application/src/services/ChatServiceCore.rs:1342）。
-`projectMessagesForDisplay` 对客户端消息快照做一次深度查询并经消息变换桥批量投影显示（core/crates/runtime/application/src/services/ChatServiceCore.rs:1146）。
-`messageTransformRevisionFlow` 暴露消息变换处理器的修订号流（core/crates/runtime/application/src/services/ChatServiceCore.rs:1133）。
-`deleteChatHistory` 删除会话前先取消破坏性变更中的消息生成并删除待发队列（core/crates/runtime/application/src/services/ChatServiceCore.rs:1390）。
-`compactChat` 手动把当前聊天压缩为检查点，不论阈值是否达到（core/crates/runtime/application/src/services/ChatServiceCore.rs:1776、core/crates/runtime/application/src/services/ChatServiceCore.rs:1730）。
-`insertSummary` 仅在用户或 AI 消息处插入总结，其他发送者返回失败（core/crates/runtime/application/src/services/ChatServiceCore.rs:1594）。
-`updateMessage` 在持久化前经 `ToolPkgMessageTransformBridge` 对编辑后消息做 before_persist 变换，变换失败返回 false（core/crates/runtime/application/src/services/ChatServiceCore.rs:1461、core/crates/runtime/application/src/services/ChatServiceCore.rs:1507）。
-`rollbackToMessage` 仅当目标消息是用户消息时回滚聊天到该消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:2044）。
-`rewindAndResendMessage` 回滚用户消息后用编辑内容作为新回合重新发送（core/crates/runtime/application/src/services/ChatServiceCore.rs:2064）。
-`regenerateSingleAiMessage` 原地重新生成一条 AI 消息，保留周围聊天历史（core/crates/runtime/application/src/services/ChatServiceCore.rs:2093）。
-`handleAttachment` 按前缀分发粘贴文本与粘贴图片附件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2168）。
-handleAttachment 收到 `screen_capture`、`notifications_capture`、location_capture 时分别做屏幕 OCR、通知与位置捕获（core/crates/runtime/application/src/services/ChatServiceCore.rs:2185、core/crates/runtime/application/src/services/ChatServiceCore.rs:2189）。
-handleAttachment 用 `PACKAGE_ATTACHMENT_PREFIX` 与 `WORKSPACE_MENTION_ATTACHMENT_PREFIX` 分发包附件与工作区引用附件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2197、core/crates/runtime/application/src/services/ChatServiceCore.rs:2201）。
-`chatAvailablePlugins` 只列出已启用且包名不超过 108 字符的插件容器（core/crates/runtime/application/src/services/ChatServiceCore.rs:2955）。
-chatAvailablePlugins 的 items 用 `take(6)` 截取，每页返回 6 个插件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2969）。
-chatPluginDetails 的 tools 用 `take(3)` 截取，每页返回 3 个工具名（core/crates/runtime/application/src/services/ChatServiceCore.rs:3000）。
-`chatPluginStatus` 只运行插件自有的诊断导出，不做只读模块存在检查（core/crates/runtime/application/src/services/ChatServiceCore.rs:3008）。
-chatPluginStatus 的 `testKind` 缺省为 `connection`，对应 `test_connection`；`tool` 对应 `test_tool_call`（core/crates/runtime/application/src/services/ChatServiceCore.rs:3019）。
-`chatMessagesWindowFlow` 按消息索引分页显示窗口，不传输完整历史或工具负载（core/crates/runtime/application/src/services/ChatServiceCore.rs:2813）。
-`chatMessagesWindowFlow` 向前翻页时一次加载 14 条消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:2817）。
-chatImagePreviewChunk 先校验图片归属再返回图像预览分块，格式仅支持 `rgb565le`（core/crates/runtime/application/src/services/ChatServiceCore.rs:2843）。
-`authorizeChatImage` 仅当图片 id 被本聊天的消息引用且长度不超过 80 字符时才授权（core/crates/runtime/application/src/services/ChatServiceCore.rs:3737）。
-localChatStateFlow 用 `combine5` 合并执行状态、显示窗口状态、文件上下文、待发队列与工具权限请求五路流（core/crates/runtime/application/src/services/ChatServiceCore.rs:3293）。
+ChatServiceCore 的 `new` 按 `ChatSelectionMode` 决定 `chatInputRuntime`：`FOLLOW_GLOBAL` 用 `ChatRuntime::Main`，`LOCAL_ONLY` 用 `ChatRuntime::Floating`（core/crates/runtime/application/src/services/ChatServiceCore.rs:377）。
+`initializeDelegates` 新建 `ChatHistoryDelegate`、`MessageProcessingDelegate` 与 MessageCoordinationDelegate（core/crates/runtime/application/src/services/ChatServiceCore.rs:509）。
+`initializeChatConfiguration` 首次调用恢复持久化历史并缓存结果，重复调用直接返回缓存结果（core/crates/runtime/application/src/services/ChatServiceCore.rs:526）。
+initializeChatConfiguration 成功后置 `initialized` 为 true（core/crates/runtime/application/src/services/ChatServiceCore.rs:538）。
+`newEnhancedAiServiceForChat` 按 chatId 返回独立的 `EnhancedAIService` 实例并缓存（core/crates/runtime/application/src/services/ChatServiceCore.rs:484）。
+`sendUserMessage` 是带 `operit_core_route` 的公开发送入口，binding 为 `chatIdOverride`（core/crates/runtime/application/src/services/ChatServiceCore.rs:662）。
+sendUserMessage 转交给 `startUserMessage` 执行（core/crates/runtime/application/src/services/ChatServiceCore.rs:674）。
+`sendUserMessageStream` 要求显式空提交块加 EOF，中断上传不得把已收前缀变成聊天消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:682）。
+sendUserMessageStream 先经 `chat_input_stream::receive` 收齐流式文本，再由捕获的 starter 执行发送管线（core/crates/runtime/application/src/services/ChatServiceCore.rs:701）。
+`startUserMessage` 要求 admittedLease、deferSequenceCompletion、nativeExecutionId 三者一致，否则返回错误（core/crates/runtime/application/src/services/ChatServiceCore.rs:708）。
+`startUserMessage` 先经 `captureUserMessageStarter` 捕获共享聊天状态与起始选择，再由 starter 执行发送管线（core/crates/runtime/application/src/services/ChatServiceCore.rs:708、core/crates/runtime/application/src/services/ChatServiceCore.rs:721）。
+startUserMessage 在提交前先派发 `CHAT_INPUT_EVENT_SUBMIT_REQUESTED` 钩子（core/crates/runtime/application/src/services/ChatServiceCore.rs:320）。
+提交钩子返回 `BLOCK` 或 `CONSUME` 时本轮不进入生成，`CONSUME` 对应 outcome `Consumed`，`BLOCK` 对应 outcome Blocked（core/crates/runtime/application/src/services/ChatServiceCore.rs:330）。
+提交钩子返回 `REPLACE` 或 `ALLOW` 时继续执行，`REPLACE` 用决策文本替换原消息文本（core/crates/runtime/application/src/services/ChatServiceCore.rs:339）。
+startUserMessage 在 SUBMIT_REQUESTED 之后还派发 `CHAT_INPUT_EVENT_SUBMITTED` 钩子（core/crates/runtime/application/src/services/ChatServiceCore.rs:353）。
+`generateLocalLlm` 只在 Binding 归属节点做模型推理，对话与工具走各自的路由（core/crates/runtime/application/src/services/ChatServiceCore.rs:427）。
+`resume` 在已拥有聊天的 CoreNode 上恢复 AI 回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:813）。
+`resumeFromRouteContext` 用路由变更携带的 `CoreRouteResumeContext` 恢复目标聊天（core/crates/runtime/application/src/services/ChatServiceCore.rs:861）。
+`beforeChangeRoute` 在路由变更前开启执行租约并立即释放以校验执行归属（core/crates/runtime/application/src/services/ChatServiceCore.rs:924）。
+afterChangeRoute 把恢复交给 `resumeFromRouteContext`（core/crates/runtime/application/src/services/ChatServiceCore.rs:948）。
+`cancelMessage` 取消指定聊天的消息生成，persistTurn 为真时提交已生成的部分消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:970、core/crates/runtime/application/src/services/ChatServiceCore.rs:957）。
+`steerMessage` 在不取消当前模型或工具回合的前提下引导进行中的逻辑回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:986）。
+`enqueuePendingQueueMessage` 向指定聊天的待发消息队列追加一条消息并置 wasBlocked 为 true（core/crates/runtime/application/src/services/ChatServiceCore.rs:994）。
+`takeNextPendingQueueMessageIfReady` 仅当聊天未在处理、队列曾被阻塞且未被抑制时取出下一条排队消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:1075）。
+`restorePendingQueueMessage` 把被拒绝的排队消息插回所属聊天队列头部（core/crates/runtime/application/src/services/ChatServiceCore.rs:1105）。
+`setPendingQueueExpanded` 更新指定聊天待发消息队列在界面上的展开状态（core/crates/runtime/application/src/services/ChatServiceCore.rs:1139、core/crates/runtime/application/src/services/ChatServiceCore.rs:1121）。
+`chatConfiguration` 只解析通用展示身份、有序参与者与插件初始化数据（core/crates/runtime/application/src/services/ChatServiceCore.rs:1279）。
+`chatConfigurationForMessage` 按消息的配置归属解析模型与语音回放用的消息作者（core/crates/runtime/application/src/services/ChatServiceCore.rs:1309）。
+`chatConfigurationForParticipant` 精确解析指定执行参与者，解析出的 profile 与请求不一致且归属不是 MODEL_CONFIGURATION_OWNER 时返回错误（core/crates/runtime/application/src/services/ChatServiceCore.rs:1348）。
+`projectMessagesForDisplay` 对客户端消息快照做一次深度查询并经消息变换桥批量投影显示（core/crates/runtime/application/src/services/ChatServiceCore.rs:1152）。
+`messageTransformRevisionFlow` 暴露消息变换处理器的修订号流（core/crates/runtime/application/src/services/ChatServiceCore.rs:1139）。
+`deleteChatHistory` 删除会话前先取消破坏性变更中的消息生成并删除待发队列（core/crates/runtime/application/src/services/ChatServiceCore.rs:1396）。
+`compactChat` 手动把当前聊天压缩为检查点，不论阈值是否达到（core/crates/runtime/application/src/services/ChatServiceCore.rs:1782、core/crates/runtime/application/src/services/ChatServiceCore.rs:1736）。
+`insertSummary` 仅在用户或 AI 消息处插入总结，其他发送者返回失败（core/crates/runtime/application/src/services/ChatServiceCore.rs:1600）。
+`updateMessage` 在持久化前经 `ToolPkgMessageTransformBridge` 对编辑后消息做 before_persist 变换，变换失败返回 false（core/crates/runtime/application/src/services/ChatServiceCore.rs:1467、core/crates/runtime/application/src/services/ChatServiceCore.rs:1513）。
+`rollbackToMessage` 仅当目标消息是用户消息时回滚聊天到该消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:2050）。
+`rewindAndResendMessage` 回滚用户消息后用编辑内容作为新回合重新发送（core/crates/runtime/application/src/services/ChatServiceCore.rs:2070）。
+`regenerateSingleAiMessage` 原地重新生成一条 AI 消息，保留周围聊天历史（core/crates/runtime/application/src/services/ChatServiceCore.rs:2099）。
+`handleAttachment` 按前缀分发粘贴文本与粘贴图片附件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2176）。
+handleAttachment 收到 `screen_capture`、`notifications_capture`、location_capture 时分别做屏幕 OCR、通知与位置捕获（core/crates/runtime/application/src/services/ChatServiceCore.rs:2193、core/crates/runtime/application/src/services/ChatServiceCore.rs:2197）。
+handleAttachment 用 `PACKAGE_ATTACHMENT_PREFIX` 与 `WORKSPACE_MENTION_ATTACHMENT_PREFIX` 分发包附件与工作区引用附件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2205、core/crates/runtime/application/src/services/ChatServiceCore.rs:2209）。
+`chatAvailablePlugins` 只列出已启用且包名不超过 108 字符的插件容器（core/crates/runtime/application/src/services/ChatServiceCore.rs:2963）。
+chatAvailablePlugins 的 items 用 `take(6)` 截取，每页返回 6 个插件（core/crates/runtime/application/src/services/ChatServiceCore.rs:2977）。
+chatPluginDetails 的 tools 用 `take(3)` 截取，每页返回 3 个工具名（core/crates/runtime/application/src/services/ChatServiceCore.rs:3008）。
+`chatPluginStatus` 只运行插件自有的诊断导出，不做只读模块存在检查（core/crates/runtime/application/src/services/ChatServiceCore.rs:3016）。
+chatPluginStatus 的 `testKind` 缺省为 `connection`，对应 `test_connection`；`tool` 对应 `test_tool_call`（core/crates/runtime/application/src/services/ChatServiceCore.rs:3027）。
+`chatMessagesWindowFlow` 按消息索引分页显示窗口，不传输完整历史或工具负载（core/crates/runtime/application/src/services/ChatServiceCore.rs:2821）。
+`chatMessagesWindowFlow` 向前翻页时一次加载 14 条消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:2825）。
+chatImagePreviewChunk 先校验图片归属再返回图像预览分块，格式仅支持 `rgb565le`（core/crates/runtime/application/src/services/ChatServiceCore.rs:2851）。
+`authorizeChatImage` 仅当图片 id 被本聊天的消息引用且长度不超过 80 字符时才授权（core/crates/runtime/application/src/services/ChatServiceCore.rs:3770）。
+localChatStateFlow 用 `combine5` 合并执行状态、显示窗口状态、文件上下文、待发队列与工具权限请求五路流（core/crates/runtime/application/src/services/ChatServiceCore.rs:3326）。
 `ChatConfigurationApi` 的 `ready` 加载可选插件后端，不把插件就绪作为聊天前提（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:57）。
 `extensionOwner` 无插件时返回 `MODEL_CONFIGURATION_OWNER`，有插件时返回插件归属（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:89）。
 `pluginConfiguration` 以 CONFIGURATION_TIMEOUT_MILLIS 为限调用插件公开 API，失败后禁用插件并回退（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:96）。
@@ -156,27 +156,27 @@ start_terminal_pty_output_reader 每轮轮询后等 `waitForHostRuntimeDelay(40)
 
 ## 关键符号
 
-- `ChatServiceCore` — 聊天回合的执行入口（core/crates/runtime/application/src/services/ChatServiceCore.rs:243）
-- `ChatState` — 一次聊天运行时的状态快照（core/crates/runtime/application/src/services/ChatServiceCore.rs:183）
+- `ChatServiceCore` — 聊天回合的执行入口（core/crates/runtime/application/src/services/ChatServiceCore.rs:249）
+- `ChatState` — 一次聊天运行时的状态快照（core/crates/runtime/application/src/services/ChatServiceCore.rs:189）
 - `ChatInputMenuSettings` — 输入框行为设置（core/crates/runtime/application/src/services/ChatServiceCore.rs:124）
 - `ChatInputMenuSummary` — 输入框摘要：窗口大小与 token 计数（core/crates/runtime/application/src/services/ChatServiceCore.rs:134）
-- `ChatPluginPage` — 插件列表一页（core/crates/runtime/application/src/services/ChatServiceCore.rs:156）
-- `ChatPluginDetails` — 一个插件的有界详情（core/crates/runtime/application/src/services/ChatServiceCore.rs:163）
-- `PendingChatQueueState` — 一次聊天的待发消息队列状态（core/crates/runtime/application/src/services/ChatServiceCore.rs:202）
-- `PendingChatQueueStore` — 在各聊天 surface 间共享待发消息队列（core/crates/runtime/application/src/services/ChatServiceCore.rs:225）
+- `ChatPluginPage` — 插件列表一页（core/crates/runtime/application/src/services/ChatServiceCore.rs:162）
+- `ChatPluginDetails` — 一个插件的有界详情（core/crates/runtime/application/src/services/ChatServiceCore.rs:169）
+- `PendingChatQueueState` — 一次聊天的待发消息队列状态（core/crates/runtime/application/src/services/ChatServiceCore.rs:208）
+- `PendingChatQueueStore` — 在各聊天 surface 间共享待发消息队列（core/crates/runtime/application/src/services/ChatServiceCore.rs:231）
 - `ChatServiceUiBridge` — 聊天服务 UI 桥 trait，当前实现为空桥（core/crates/runtime/application/src/services/ChatServiceCore.rs:91）
 - `EmptyChatServiceUiBridge` — 空的 UI 桥实现（core/crates/runtime/application/src/services/ChatServiceCore.rs:93）
-- `sendUserMessage` — 公开发送入口（core/crates/runtime/application/src/services/ChatServiceCore.rs:656）
-- `startUserMessage` — 内部发送管线：钩子、队列、delegate（core/crates/runtime/application/src/services/ChatServiceCore.rs:702）
-- `captureUserMessageStarter` — 捕获共享聊天状态与起始选择，供发送管线在后台执行（core/crates/runtime/application/src/services/ChatServiceCore.rs:725）
-- `recordOnlySequenceInput` — 只提交原始输入的序列入口（core/crates/runtime/application/src/services/ChatServiceCore.rs:749）
-- `finishNativeChatSequence` — 校验收据后发布序列级完成（core/crates/runtime/application/src/services/ChatServiceCore.rs:785）
-- `chatConfiguration` — 解析通用展示配置（core/crates/runtime/application/src/services/ChatServiceCore.rs:1273）
-- `chatConfigurationForMessage` — 按消息归属解析消息作者配置（core/crates/runtime/application/src/services/ChatServiceCore.rs:1303）
-- `chatConfigurationForParticipant` — 精确解析指定执行参与者（core/crates/runtime/application/src/services/ChatServiceCore.rs:1342）
-- `projectMessagesForDisplay` — 对客户端消息快照做消息变换投影（core/crates/runtime/application/src/services/ChatServiceCore.rs:1146）
-- `projectMessageForDisplay` — 投影单条客户端消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:1138）
-- `messageTransformRevisionFlow` — 消息变换处理器修订号流（core/crates/runtime/application/src/services/ChatServiceCore.rs:1133）
+- `sendUserMessage` — 公开发送入口（core/crates/runtime/application/src/services/ChatServiceCore.rs:662）
+- `startUserMessage` — 内部发送管线：钩子、队列、delegate（core/crates/runtime/application/src/services/ChatServiceCore.rs:708）
+- `captureUserMessageStarter` — 捕获共享聊天状态与起始选择，供发送管线在后台执行（core/crates/runtime/application/src/services/ChatServiceCore.rs:731）
+- `recordOnlySequenceInput` — 只提交原始输入的序列入口（core/crates/runtime/application/src/services/ChatServiceCore.rs:755）
+- `finishNativeChatSequence` — 校验收据后发布序列级完成（core/crates/runtime/application/src/services/ChatServiceCore.rs:791）
+- `chatConfiguration` — 解析通用展示配置（core/crates/runtime/application/src/services/ChatServiceCore.rs:1279）
+- `chatConfigurationForMessage` — 按消息归属解析消息作者配置（core/crates/runtime/application/src/services/ChatServiceCore.rs:1309）
+- `chatConfigurationForParticipant` — 精确解析指定执行参与者（core/crates/runtime/application/src/services/ChatServiceCore.rs:1348）
+- `projectMessagesForDisplay` — 对客户端消息快照做消息变换投影（core/crates/runtime/application/src/services/ChatServiceCore.rs:1152）
+- `projectMessageForDisplay` — 投影单条客户端消息（core/crates/runtime/application/src/services/ChatServiceCore.rs:1144）
+- `messageTransformRevisionFlow` — 消息变换处理器修订号流（core/crates/runtime/application/src/services/ChatServiceCore.rs:1139）
 - `ProviderRuntimeSupportService` — 创建 provider 运行时服务的工厂（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:29）
 - `MODEL_CONFIGURATION_OWNER` — 内置模型会话归属常量（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:39）
 - `ChatConfigurationApi` — 聊天配置解析入口（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:50）
@@ -208,25 +208,25 @@ start_terminal_pty_output_reader 每轮轮询后等 `waitForHostRuntimeDelay(40)
 - `RuntimeTerminalPtyOutputStream` — 暴露 PTY 输出给 Kotlin 风格收集器的流包装（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:111）
 - `startTerminalPty` — 启动 PTY 终端会话（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:533）
 - `terminalPtyOutput` — 返回 PTY 会话的共享输出流（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:630）
-- `getMimeTypeFromPath` — 按扩展名返回 MIME 类型（core/crates/runtime/application/src/services/ChatServiceCore.rs:3660）
-- `authorizeChatImage` — 校验图片归属后授权预览（core/crates/runtime/application/src/services/ChatServiceCore.rs:3737）
+- `getMimeTypeFromPath` — 按扩展名返回 MIME 类型（core/crates/runtime/application/src/services/ChatServiceCore.rs:3693）
+- `authorizeChatImage` — 校验图片归属后授权预览（core/crates/runtime/application/src/services/ChatServiceCore.rs:3770）
 
 ## 调用链
 
-1. 用户发消息 → `sendUserMessage` → startUserMessage（core/crates/runtime/application/src/services/ChatServiceCore.rs:656）。
-2. startUserMessage 派发 `CHAT_INPUT_EVENT_SUBMIT_REQUESTED` 钩子：BLOCK/CONSUME 拦截本轮，REPLACE/ALLOW 继续执行（core/crates/runtime/application/src/services/ChatServiceCore.rs:314）。
-3. startUserMessage 再派发 `CHAT_INPUT_EVENT_SUBMITTED` 钩子，然后把回合交给 MessageCoordinationDelegate（core/crates/runtime/application/src/services/ChatServiceCore.rs:347）。
-4. 协调 delegate 用按 chatId 缓存的 `EnhancedAIService` 跑模型与工具回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:478）；收据经 `finishNativeChatSequence` 校验后发布（core/crates/runtime/application/src/services/ChatServiceCore.rs:785）。
+1. 用户发消息 → `sendUserMessage` → startUserMessage（core/crates/runtime/application/src/services/ChatServiceCore.rs:662）。
+2. startUserMessage 派发 `CHAT_INPUT_EVENT_SUBMIT_REQUESTED` 钩子：BLOCK/CONSUME 拦截本轮，REPLACE/ALLOW 继续执行（core/crates/runtime/application/src/services/ChatServiceCore.rs:320）。
+3. startUserMessage 再派发 `CHAT_INPUT_EVENT_SUBMITTED` 钩子，然后把回合交给 MessageCoordinationDelegate（core/crates/runtime/application/src/services/ChatServiceCore.rs:353）。
+4. 协调 delegate 用按 chatId 缓存的 `EnhancedAIService` 跑模型与工具回合（core/crates/runtime/application/src/services/ChatServiceCore.rs:484）；收据经 `finishNativeChatSequence` 校验后发布（core/crates/runtime/application/src/services/ChatServiceCore.rs:791）。
 5. 配置解析：`ChatConfigurationApi` 的 `ready`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:57）找公开 API 为 `chat.configuration.resolve`（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:69）的插件后端；有插件时走插件解析，失败或无插件时走原生模型路径。
 6. 原生模型路径：modelProfile 生成 id 为 `model:chat` 的参与者，`nativeModelExecution` 生成 `schemaVersion` 为 1 的执行数据（core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:302）。
-7. 路由变更：`beforeChangeRoute` 开启并释放执行租约，afterChangeRoute 经 resumeFromRouteContext 在目标 Core 恢复（core/crates/runtime/application/src/services/ChatServiceCore.rs:918）。
+7. 路由变更：`beforeChangeRoute` 开启并释放执行租约，afterChangeRoute 经 resumeFromRouteContext 在目标 Core 恢复（core/crates/runtime/application/src/services/ChatServiceCore.rs:924）。
 8. 工具侧发送：RuntimeToolSupport 的 `sendChatMessage` 在 Holder 之外跑权威提交钩子，再调 ChatServiceCore::startUserMessage 并等待提交收据（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:965）。
 9. 插件发送：`openPluginChatMessage` 准入一次已认证发送，异步任务跑回合并做最终收据与租约清理（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:891）。
 10. 语音合成：`synthesizeSpeech` → TtsSynthesisService；朗读：speakSpeech → TtsPlaybackService；转录：transcribeSpeech → SttRecognitionService（core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:294）。
 11. 终端：`getInstance` 取宿主 `TerminalHost`（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:277），`startTerminalPty` 建会话并挂输出流（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:533）。
 12. 终端输入输出：`terminalPtyOutput` 读输出（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:630）、`writeTerminalPty` 写输入（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:636）。
 13. 终端退出：`pollTerminalPtyExit` 查退出码（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:656）、`closeTerminalPty` 关闭（core/crates/runtime/application/src/services/RuntimeTerminalService.rs:664）。
-14. 状态聚合：localChatStateFlow 用 `combine5` 合并执行状态、显示窗口状态、文件上下文、待发队列、工具权限请求，产出 ChatState（core/crates/runtime/application/src/services/ChatServiceCore.rs:3293）。
+14. 状态聚合：localChatStateFlow 用 `combine5` 合并执行状态、显示窗口状态、文件上下文、待发队列、工具权限请求，产出 ChatState（core/crates/runtime/application/src/services/ChatServiceCore.rs:3326）。
 
 ## 来源
 

@@ -103,8 +103,8 @@ loadToolPkgFromBundledExternalAsset 已删除，捆绑外部资源加载改由�
 捆绑外部资源加载时，归档未声明安装范围默认使用 `ToolPkgConfigScope::Device`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:482`）。
 loadToolPkgFromBuiltInAsset 已删除，内置资源加载改由包注册表扫描直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）。
 内置资源加载以 `ToolPkgSourceType::ASSET` 标记来源（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:65`）。
-loadToolPkgFromMarketFile 已删除，市场文件加载改由 RuntimePackageManager 导入路径直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5138`）。
-市场文件加载以 `ToolPkgSourceType::MARKET` 标记来源（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5135`）。
+loadToolPkgFromMarketFile 已删除，市场文件加载改由 RuntimePackageManager 导入路径直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5163`）。
+市场文件加载以 `ToolPkgSourceType::MARKET` 标记来源（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5160`）。
 非内置加载时，归档要求的安装范围与传入范围不一致时返回错误（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:32`）。
 归档加载调用 `readThemeTemplates` 校验主题模板（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:37`）。
 归档字节用 `ZipArchive` 打开（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:39`）。
@@ -164,7 +164,7 @@ ToolPkg.wasm 的 `call` 参数只有模块 id、导出名与 `args`，无超时�
 - loadToolPkgFromExternalFile — 已删除，外部文件加载改由调用方直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）
 - loadToolPkgFromBundledExternalAsset — 已删除，捆绑外部资源加载改由调用方直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）
 - loadToolPkgFromBuiltInAsset — 已删除，内置资源加载改由包注册表扫描直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/PackageRegistryScan.rs:275`）
-- loadToolPkgFromMarketFile — 已删除，市场文件加载改由 RuntimePackageManager 导入路径直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5138`）
+- loadToolPkgFromMarketFile — 已删除，市场文件加载改由 RuntimePackageManager 导入路径直接调 `loadToolPkgFromArchiveBytes`（`core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5163`）
 - `loadToolPkgFromArchiveBytes` — 归档字节解析与主脚本注册入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:16`）
 - `parseWithTextResources` — 主注册脚本解析入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgLoader.rs:65`）
 - `buildToolPkgRegistrationBridgeScript` — 注册桥脚本生成器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgRegistrationBridge.rs:3`）

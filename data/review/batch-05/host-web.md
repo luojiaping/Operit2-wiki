@@ -50,7 +50,7 @@ Web Host 的浏览器会话是模拟状态，不是应用内嵌的浏览器控�
 桥接方法返回 `Promise` 时返回异步 `Promise` 错误，不等待它完成（`hosts/web/src/common.rs:137`）。
 桥接值使用与 `operit-host-api` 相同的字段名，二进制数据以 `Uint8Array` 传递（`hosts/web/README.md:74`）。
 SQLite 整数以字符串形式跨 JS 传递，以保留 64 位值（`hosts/web/README.md:75`）。
-`sqlite_value_to_js` 把 `SqliteValue::Integer` 转成字符串（`hosts/web/src/common.rs:565`）。
+`sqlite_value_to_js` 把 `SqliteValue::Integer` 转成字符串（`hosts/web/src/common.rs:570`）。
 `js_i64` 先尝试把字符串解析为 `i64`，再接受 JS 数字（`hosts/web/src/common.rs:838`）。
 `OperitWebHost` 桥接类型列出 `fileSystem`、`webVisit`、`managedRuntime`、`managedRuntimeProcess`、`runtimeStorage`、`sqlite`、`terminal`、`systemOperation`、`localInference`（`hosts/web/README.md:60`）。
 
@@ -59,7 +59,7 @@ SQLite 整数以字符串形式跨 JS 传递，以保留 64 位值（`hosts/web/
 `createRuntimeHostManager` 返回 `HostManager`（`hosts/web/src/lib.rs:36`）。
 `runtimeSqliteHost` 是 `runtimeStorageHost` 的克隆（`hosts/web/src/lib.rs:38`）。
 `hostSecretStore` 是 `runtimeStorageHost` 的克隆（`hosts/web/src/lib.rs:39`）。
-`withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts` 装配 `WebFileSystemHost`、`WebWebVisitHost`、`WebHttpHost`、`WebManagedRuntimeHost` 与系统操作 Host（`hosts/web/src/lib.rs:43`）。
+`withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts` 装配 `WebFileSystemHost`、`WebWebVisitHost`、`WebHttpHost`、`WebManagedRuntimeHost` 与系统操作 Host（`hosts/web/src/lib.rs:50`）。
 系统操作 Host 同时注册为 toast Host 与 clipboard Host（`hosts/web/src/lib.rs:51`）。
 运行时存储写 Host 通过 `withRuntimeStorageWriteHost` 注册（`hosts/web/src/lib.rs:54`）。
 归档暂存 Host 通过 `withArchiveStagingHost` 注册（`hosts/web/src/lib.rs:55`）。
@@ -74,11 +74,11 @@ TTS 播放 Host 通过 `withTtsPlaybackHost` 注册 `WebTtsPlaybackHost`（`host
 运行时任务调度 Host 通过 `withHostRuntimeTaskSchedulerHost` 注册（`hosts/web/src/lib.rs:67`）。
 JS 运行时 Host 通过 `withHostJavaScriptRuntimeHost` 注册 `WebHostJavaScriptRuntimeHost`（`hosts/web/src/lib.rs:68`）。
 运行时事件 Host 通过 `withHostRuntimeEventHost` 注册 `WebHostRuntimeEventHost`（`hosts/web/src/lib.rs:69`）。
-`httpServerHost`、`tcpHost`、`serialPortHost`、`serviceDiscoveryHost` 在 Web Host 组装后保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:413`）。
-`uiAutomationHost`、`browserAutomationHost`、`floatingWindowHost`、`composeDslWebViewHost` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:408`）。
-`deviceIoHost`、`robotFaceHost`、`ttsSynthesisHost` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:422`）。
-`pluginSdkIpcHost` 与 `coreCommandExecutor` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:437`）。
-`call_data_rescue` 调用桥接 `dataRescue` 模块（`hosts/web/src/common.rs:46`）。
+`httpServerHost`、`tcpHost`、`serialPortHost`、`serviceDiscoveryHost` 在 Web Host 组装后保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:425`）。
+`uiAutomationHost`、`browserAutomationHost`、`floatingWindowHost`、`composeDslWebViewHost` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:420`）。
+`deviceIoHost`、`robotFaceHost`、`ttsSynthesisHost` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:434`）。
+`pluginSdkIpcHost` 与 `coreCommandExecutor` 在 Web Host 组装后同样保持为 `None`（`core/crates/foundation/host-api/src/HostManager.rs:449`）。
+`call_data_rescue` 调用桥接 `dataRescue` 模块（`hosts/web/src/common.rs:52`）。
 
 ### 插件 JS 执行：浏览器原生引擎
 

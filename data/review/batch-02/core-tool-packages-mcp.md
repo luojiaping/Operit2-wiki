@@ -46,7 +46,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 - 包工具的 `accessSpec` 声明 `effect` 为 `WRITE`、`boundary` 为 `None`（core/crates/tool/services/src/tools/PackageToolExecutor.rs:68）
 - 每次调用都新建一个 `PackageManagerJsRuntime`，并经 Host 的 `js_execution_provider` 创建包执行器（core/crates/tool/services/src/tools/PackageToolExecutor.rs:81）
 - `packageToolCallRequest` 把 `AITool` 转成 `JsPackageToolCallRequest`，参数变为 `name` 到 `value` 的映射（core/crates/tool/services/src/tools/PackageToolExecutor.rs:97）
-- `packageToolResult` 把 `JsPackageToolCallResult` 转成 `ToolResult`，成功的结果按 JSON 解析为 `JsonResultData`，失败的结果经 `stringResultData` 包装（core/crates/tool/services/src/tools/PackageToolExecutor.rs:110）
+- `packageToolResult` 把 `JsPackageToolCallResult` 转成 `ToolResult`，成功的结果按 JSON 解析为 `JsonResultData`，失败的结果经 `stringResultData` 包装（core/crates/tool/services/src/tools/PackageToolExecutor.rs:110）（core/crates/plugin/sdk/src/js_sdk/results.rs:139）
 - 包工具校验只核对通用命名空间边界，不从过期包元数据中选取工具（core/crates/tool/services/src/tools/PackageToolExecutor.rs:33）
 
 ### 技能加载与管理
@@ -211,7 +211,7 @@ JS 执行引擎由 Host 提供：包执行器经 `host.runtimeDependencies().js_
 1. SkillManager 的 `refreshAvailableSkills` 扫描 device 与 space 两个位置（core/crates/tool/services/src/tools/skill/SkillManager.rs:53）
 2. 扫描按 `SKILL.md` 优先、`skill.md` 兜底解析元数据，冲突与缺失记入错误集合（core/crates/tool/services/src/tools/skill/SkillManager.rs:127）
 3. 模型调用 use_package 工具，`package_name` 参数指定技能名（core/crates/tool/services/src/tools/ToolRegistration.rs:84）
-4. `executeUsePackageTool` 调 `usePackage` 执行激活（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1112）（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1059）
+4. `executeUsePackageTool` 调 `usePackage` 执行激活（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1117）（core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1065）
 5. 命中技能时返回 `getSkillSystemPrompt` 生成的提示词（core/crates/tool/services/src/tools/skill/SkillManager.rs:434）
 6. `getSkillSystemPrompt` 生成含目录树与 `SKILL.md` 全文的激活提示词（core/crates/tool/services/src/tools/skill/SkillManager.rs:434）（core/crates/tool/services/src/tools/skill/SkillManager.rs:465）
 

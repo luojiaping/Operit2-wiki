@@ -1,10 +1,10 @@
 {
   "issue": 72,
-  "source_commit": "b3b897c",
+  "source_commit": "3dd6149",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "VFS 根入口挂载、VisualFileSystem 与 FileSystemHost 的分工、模块级原生访问边界及 Host 文件选择结果到 VFS 路径的转换",
-  "updated": "2026-11-27",
+  "updated": "2026-11-28",
   "approved_by_comment_id": 6854374781,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-13 13:34 UTC"

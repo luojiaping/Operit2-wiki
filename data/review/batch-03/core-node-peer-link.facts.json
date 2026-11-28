@@ -265,127 +265,127 @@
   },
   {
     "fact": "`operit_core_route` 是一个过程宏属性。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:86"
+    "ref": "core/crates/node/route-macros/src/lib.rs:96"
   },
   {
-    "fact": "路由注解的 `binding` 参数是必需的标识符，缺失时编译报错 \"missing `binding = argument`\"。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:45"
+    "fact": "路由注解的 `binding` 或 `target` 参数二选一必需，缺失时编译报错 \"missing `binding = argument` or `target = argument`\"。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:55"
   },
   {
     "fact": "`permission` 省略时默认为空字符串。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:54"
+    "ref": "core/crates/node/route-macros/src/lib.rs:64"
   },
   {
     "fact": "`permission` 必须写成 `caller:capability` 或 `target:capability`，否则编译报错。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:69"
+    "ref": "core/crates/node/route-macros/src/lib.rs:79"
   },
   {
     "fact": "`create_binding` 必须是非空字符串，否则编译报错 \"binding creation requires a target capability\"。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:51"
+    "ref": "core/crates/node/route-macros/src/lib.rs:61"
   },
   {
     "fact": "`sdk` 是一个无值的开关标志。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:34"
+    "ref": "core/crates/node/route-macros/src/lib.rs:38"
   },
   {
     "fact": "被注解方法的原实现改名为 `__operit_core_local_` 加原方法名，包装器保留原方法签名。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:229"
+    "ref": "core/crates/node/route-macros/src/lib.rs:239"
   },
   {
     "fact": "被路由方法最多接受一个 `ReverseStream` 输入，否则编译报错。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:242"
-  },
-  {
-    "fact": "带 `ReverseStream` 的路由方法必须是 async 方法，否则编译报错。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:246"
-  },
-  {
-    "fact": "被路由方法必须声明 `binding` 参数，否则编译报错。",
     "ref": "core/crates/node/route-macros/src/lib.rs:252"
   },
   {
+    "fact": "带 `ReverseStream` 的路由方法必须是 async 方法，否则编译报错。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:256"
+  },
+  {
+    "fact": "被路由方法必须声明 `binding` 参数，否则编译报错。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:262"
+  },
+  {
     "fact": "宏生成 `__operit_core_binding_` 加原方法名，返回 binding 名对应的静态字符串。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:285"
+    "ref": "core/crates/node/route-macros/src/lib.rs:295"
   },
   {
     "fact": "宏生成 `__operit_core_permission_` 加原方法名，返回 permission 对应的静态字符串。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:286"
-  },
-  {
-    "fact": "宏生成 `__operit_core_route_call_` 加原方法名的调用辅助函数。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:287"
-  },
-  {
-    "fact": "宏生成 `__operit_core_route_watch_snapshot_` 与 `__operit_core_route_watch_` 加原方法名的两个订阅辅助函数。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:289"
-  },
-  {
-    "fact": "路由参数排除反向流输入，逐个经 `core_arg_entry` 序列化。",
     "ref": "core/crates/node/route-macros/src/lib.rs:296"
   },
   {
+    "fact": "宏生成 `__operit_core_route_call_` 加原方法名的调用辅助函数。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:297"
+  },
+  {
+    "fact": "宏生成 `__operit_core_route_watch_snapshot_` 与 `__operit_core_route_watch_` 加原方法名的两个订阅辅助函数。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:299"
+  },
+  {
+    "fact": "路由参数排除反向流输入，逐个经 `core_arg_entry` 序列化。",
+    "ref": "core/crates/node/route-macros/src/lib.rs:306"
+  },
+  {
     "fact": "反向流路由包装器先问 `shouldRoute`，命中时走 `core_route_reverse_stream`。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:309"
+    "ref": "core/crates/node/route-macros/src/lib.rs:319"
   },
   {
     "fact": "返回状态流的包装器用 `shouldRouteWatch` 与 `shouldUseLocalWatchSource` 决定走远端订阅还是本地源订阅。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:358"
+    "ref": "core/crates/node/route-macros/src/lib.rs:368"
   },
   {
     "fact": "远端订阅经 `core_route_state_flow` 建立。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:321"
+    "ref": "core/crates/node/route-macros/src/lib.rs:331"
   },
   {
     "fact": "本地源订阅经 `core_route_state_flow_with_local_source` 建立，本地实现作为数据源传入。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:336"
+    "ref": "core/crates/node/route-macros/src/lib.rs:346"
   },
   {
     "fact": "异步调用包装器先问 `shouldRoute`，命中时经 `core_route_call_response` 发起远端调用并按声明的返回类型解码。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:378"
+    "ref": "core/crates/node/route-macros/src/lib.rs:388"
   },
   {
     "fact": "同步方法不走路由，包装器直接调本地实现。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:393"
+    "ref": "core/crates/node/route-macros/src/lib.rs:403"
   },
   {
     "fact": "反向流方法生成 `__operit_core_route_push_` 加原方法名的推送辅助函数。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:398"
+    "ref": "core/crates/node/route-macros/src/lib.rs:408"
   },
   {
     "fact": "对 `ReverseStream` 方法做值调用时返回 `REVERSE_STREAM_REQUIRES_PUSH` 错误，要求改走 Push 传输。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:429"
+    "ref": "core/crates/node/route-macros/src/lib.rs:439"
   },
   {
     "fact": "被路由方法返回 owned future（impl Future + 'static）时，`expand_core_route` 改走 `expand_owned_core_route` 展开。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:225"
+    "ref": "core/crates/node/route-macros/src/lib.rs:235"
   },
   {
     "fact": "`expand_owned_core_route` 同步捕获路由操作，只暴露不依赖服务借用的 future。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:122"
+    "ref": "core/crates/node/route-macros/src/lib.rs:132"
   },
   {
     "fact": "`operit_plugin_sdk_expose` 原样返回被注解项，不做任何改写。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:97"
+    "ref": "core/crates/node/route-macros/src/lib.rs:107"
   },
   {
     "fact": "`operit_core_internal` 原样返回被注解项，只做内部方法标记。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:742"
+    "ref": "core/crates/node/route-macros/src/lib.rs:752"
   },
   {
     "fact": "`before_change_route` 标记在 Core 路由变更前立即调用的生命周期回调。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:748"
+    "ref": "core/crates/node/route-macros/src/lib.rs:758"
   },
   {
     "fact": "`after_change_route` 标记在 Core 路由到达目标后调用的生命周期回调。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:754"
+    "ref": "core/crates/node/route-macros/src/lib.rs:764"
   },
   {
     "fact": "unit 返回值编码为 `CoreValue::Null`。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:605"
+    "ref": "core/crates/node/route-macros/src/lib.rs:615"
   },
   {
     "fact": "成功时经 `to_core_value` 编码，失败时转为 `CoreLinkError::internal`。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:615"
+    "ref": "core/crates/node/route-macros/src/lib.rs:625"
   },
   {
     "fact": "peer-protocol.json 只剩 `revisions` 一项，sources 与 schemaRoots 已删除。",
@@ -396,19 +396,19 @@
     "ref": "core/peer-protocol.json:2"
   },
   {
-    "fact": "截至基线 7a79245，最新修订为 version 30，hash 前缀 eda16101。",
-    "ref": "core/peer-protocol.json:120"
+    "fact": "截至基线 3dd6149，最新修订为 version 31，hash 前缀 3228b217。",
+    "ref": "core/peer-protocol.json:124"
   },
   {
     "fact": "StateFlow 远端订阅失败时，生成的包装器以 panic 报错，而不是返回错误。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:329"
+    "ref": "core/crates/node/route-macros/src/lib.rs:339"
   },
   {
     "fact": "StateFlow 本地源订阅失败时，生成的包装器同样以 panic 报错。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:345"
+    "ref": "core/crates/node/route-macros/src/lib.rs:355"
   },
   {
     "fact": "远端调用响应解码失败时，`decode_core_call_response` 的结果经 expect 解包，失败即 panic。",
-    "ref": "core/crates/node/route-macros/src/lib.rs:710"
+    "ref": "core/crates/node/route-macros/src/lib.rs:720"
   }
 ]

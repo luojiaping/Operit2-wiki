@@ -31,7 +31,7 @@ Operit2 处于 Preview 阶段，底层结构、数据格式、插件契约与跨
 - `nodeId` — 发现广播与连接码中的节点标识（`docs/device-space-lan-discovery.md:9`）
 - `ServiceDiscovery` — 记录发现接口、地址、守护进程错误与扫描总数的日志来源（`docs/device-space-lan-discovery.md:52`）
 - `RuntimePeerService` — 记录广播总数与四类过滤总数的组件（`docs/device-space-lan-discovery.md:57`）
-- `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:669`）
+- `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:694`）
 - ModelConfigManager 的 `preferenceStore` — 模型配置管理器入口，用 newWithStorage 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128`）
 - PreferencesDataStore 的 `newWithStorage` — 创建 Space 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2968`）
 - `SpaceJoinRequest` — 加入申请记录，状态字段是 SpaceJoinStatus（`core/crates/node/runtime/src/NodeSpaceService.rs:313`）
@@ -152,9 +152,9 @@ Provider 配置走另一条路，与上面这句 README 原则冲突：
 ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128`）。
 `preferenceStore` 用 PreferencesDataStore 的 `newWithStorage` 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:132`）。
 `newWithStorage` 创建的是 `Space` 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2968`）。
-`writeProvider` 把整个 `ProviderProfile` 以 `provider_<id>` 为键写入同步偏好（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572`）。
-`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:673`）。
-结论：Provider 凭证存在随配置同步的实现路径，加入 Space 不会自动复制不能作为当前实现的保证（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572`）。
+`writeProvider` 把整个 `ProviderProfile` 以 `provider_<id>` 为键写入同步偏好（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1762`）。
+`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:698`）。
+结论：Provider 凭证存在随配置同步的实现路径，加入 Space 不会自动复制不能作为当前实现的保证（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1762`）。
 范围说明：以上只核实了代码里的同步偏好写入路径，没有做真实双设备同步实验，不保证另一台设备实际收到凭证。
 
 ## 关键符号
@@ -168,7 +168,7 @@ ModelConfigManager 的模型配置 store 由 `preferenceStore` 创建（`core/cr
 - `nodeId` — 发现广播与连接码中的节点标识（`docs/device-space-lan-discovery.md:9`）
 - `ServiceDiscovery` — 记录发现接口、地址、守护进程错误与扫描总数的日志来源（`docs/device-space-lan-discovery.md:52`）
 - `RuntimePeerService` — 记录广播总数与四类过滤总数的组件（`docs/device-space-lan-discovery.md:57`）
-- `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:673`）
+- `ProviderProfile` — 模型 Provider 配置，含 apiKey 与 apiKeyPool（`core/crates/foundation/model/src/ModelConfigData.rs:694`）
 - ModelConfigManager 的 `preferenceStore` — 模型配置管理器入口，用 newWithStorage 打开偏好 store（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:128`）
 - PreferencesDataStore 的 `newWithStorage` — 创建 Space 偏好 store（`core/crates/persistence/store/src/PreferencesDataStore.rs:2968`）
 - `SpaceJoinRequest` — 加入申请记录，状态字段是 SpaceJoinStatus（`core/crates/node/runtime/src/NodeSpaceService.rs:313`）

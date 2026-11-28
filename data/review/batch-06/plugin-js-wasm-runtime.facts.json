@@ -217,11 +217,11 @@
   },
   {
     "fact": "loadToolPkgFromMarketFile 已删除，市场文件加载改由 RuntimePackageManager 的导入路径直接调 loadToolPkgFromArchiveBytes",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5138"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5163"
   },
   {
     "fact": "市场文件加载以 ToolPkgSourceType::MARKET 标记来源",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5135"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:5160"
   },
   {
     "fact": "非内置加载时，归档要求的安装范围与传入范围不一致时返回错误",

@@ -253,7 +253,7 @@
   },
   {
     "fact": "OPENAI_CODEX 跳过服务商列表抓取",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:495"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:498"
   },
   {
     "fact": "ModelSpecResolver 的 new 对非 LOCAL_MODEL 服务商先要求完整目录",
@@ -293,6 +293,6 @@
   },
   {
     "fact": "服务商列表抓取前不再显式调用 requireCatalog 与 refreshCatalogIfStale，目录要求由 ModelSpecResolver::new 在构造时完成",
-    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:492"
+    "ref": "core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:488"
   }
 ]

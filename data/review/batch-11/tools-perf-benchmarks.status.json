@@ -1,10 +1,10 @@
 {
   "issue": 108,
-  "source_commit": "b3b897c",
+  "source_commit": "3dd6149",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "Link 端到端性能场景与 macOS/iOS 基准脚本：跨节点场景链路、报告字段与 trace 测量口径",
-  "updated": "2026-11-27",
+  "updated": "2026-11-28",
   "approved_by_comment_id": 6854435096,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-13 13:35 UTC"

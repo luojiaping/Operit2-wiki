@@ -261,7 +261,7 @@
   },
   {
     "fact": "`runToolPkgMainHook` 是不限时的主 hook 入口。",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:4643"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:4701"
   },
   {
     "fact": "摘要桥用 `ToolPkgPreHookTimeout::forStage` 按当前阶段取预算，偏好读取失败时直接返回错误。",
@@ -349,23 +349,23 @@
   },
   {
     "fact": "摘要生成在 before_prepare_summary_prompt 阶段派发摘要 hook。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:521"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:511"
   },
   {
     "fact": "摘要生成在 before_send_to_model 阶段派发摘要 hook。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:555"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:545"
   },
   {
     "fact": "摘要生成在 after_generate_summary 阶段派发摘要 hook。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:587"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:605"
   },
   {
     "fact": "`before_prepare_summary_prompt` 分发前先用 `buildSummaryPreparedHistory` 预生成 `prepared_history`，不再传空历史。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:494"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:500"
   },
   {
     "fact": "分发后用 `reconcileSummaryPreparedHistory` 对账，取 hook 改动后的 preparedHistory。",
-    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:508"
+    "ref": "core/crates/provider/services/src/chat/enhance/ConversationService.rs:514"
   },
   {
     "fact": "同文件的测试把 after_generate_summary 列为不创建截止时间的阶段。",

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-27 16:07 UTC",
+  "updated": "2026-11-28 00:20 UTC",
   "entries": [
     {
       "id": "batch-00/outline",
@@ -17,7 +17,7 @@
       "refs_valid": "115/115 页 seed 已核实存在（清点时逐个 ls）",
       "critic": "用户已批准（主聊 2026-11-11 13:59）",
       "summary": "大纲 v1 已批准：11 章 115 页，基线 AAswordman/Operit2 @ 364d1d594（2026-11-11）。六路只读清点，seed 逐个核实存在，est_lines 合计约 580,324 行（含跨页重复引用）。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-01/arch-binding",
@@ -35,7 +35,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Binding：不透明 key 对应的下一次路由执行由哪个 CoreNode 完成；generation 比较写入单调递增，切换不移动数据与 Agent。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-01/arch-corenode",
@@ -53,7 +53,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "CoreNode 是运行 Operit Core 的应用实例：Space 划定协作范围，Binding 决定聊天的下一步在哪个 CoreNode 执行，持久化同步与实时传输是两条独立路径。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-01/arch-overview",
@@ -71,7 +71,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "整体架构总览：CoreNode、Space、Binding 三概念，两条数据路径，Core crate 依赖方向与父级 trait 注入。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-01/arch-routing",
@@ -89,7 +89,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "路由与转发：Binding 决定执行节点、RoutedLink 逐跳转发、加权路由与共享 Watch 树、工具边界切换与待清理项。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-01/arch-space",
@@ -107,7 +107,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Space 是节点成员、路由和持久化同步的范围，只负责协作范围、承载连接与同步范围三件事，不表达执行位置与数据归属。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-01/arch-sync",
@@ -125,7 +125,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "持久化同步总览：Space 内持久化操作与 Blob 的交换、事务模型与强制校正",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-01/intro-not-what",
@@ -143,7 +143,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Operit2 不是什么：无固定主节点、加入 Space 不继承权限、不搬迁运行中状态、Binding 只决定下一步不移动数据、不是中心化 Server、不是全平台相同。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-01/intro-overview",
@@ -161,7 +161,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Operit2 是什么：面向个人用户的开源跨设备 Agent 项目，CoreNode + Host + Space + Binding，预览阶段，11 章大纲第 1 页。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-01/intro-preview",
@@ -179,7 +179,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "预览版与破坏性变更：Preview 阶段未冻结的四类内容、SemVer 版本号规则与更新通道、仅有的两份 release notes 及其覆盖缺口。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-01/intro-quickstart",
@@ -197,7 +197,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "第一次运行：环境、CLI 入口（以 apps/cli 源码核对）、发现与配对、Web Access、备份与迁移、安全边界",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-02/core-foundation-util",
@@ -215,7 +215,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "基础层通用工具库 operit-util：日志器、文件分类与流框架，48 个公开模块清点与 3 个 full feature 门。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-02/core-foundation",
@@ -233,7 +233,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "基础层——共享契约与数据模型：host-api 宿主能力契约、HostManager、model 聊天消息与模型目录、Link 协议层",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-02/core-overview",
@@ -251,7 +251,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Core 总览与 crate 边界：11 个领域分组、29 个真 crate、依赖方向、父级行为 trait 机制与 peer-protocol.json",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-02/core-persistence-rescue",
@@ -269,7 +269,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "离线便携式数据救援：不启动 Core/数据库，ZIP 归档加 manifest 校验后暂存发布",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-02/core-persistence-store",
@@ -287,7 +287,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "持久化 store 聚合 crate：SQLite 连接与事务、节点身份、Binding、Space 成员与选路、偏好存储的同步与节点本地两种形态。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-02/core-persistence-sync",
@@ -305,7 +305,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "持久化同步存储：操作日志、时钟、实体版本、blob、工作区清单、文件策略与偏好合并声明的存法。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-02/core-provider-local-model",
@@ -323,7 +323,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "本地模型：已装模型与引擎注册表、清单结构、桌面 Sherpa STT/TTS 推理与 LocalModelRuntimeSupport。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-02/core-provider-services",
@@ -341,7 +341,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Provider 服务聚合：AIService 接口、ClaudeProvider 适配器、EnhancedAIService 对话编排与 ProviderRuntimeSupport 运行时支持",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-02/core-tool-execution",
@@ -359,7 +359,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "工具系统执行与注册：解析、批处理、注册表、权限与 hook 的完整链路。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-02/core-tool-packages-mcp",
@@ -377,7 +377,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "工具系统——包、技能与 MCP：包工具执行、技能加载管理、MCP 接入调用与 JS 运行时",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-application",
@@ -395,7 +395,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "应用组装——CoreApplication 门面：runtime、proxy、node、access 四类 crate 组装成一棵 Core 树，Host 只拿公开句柄",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-command",
@@ -413,7 +413,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "命令层——CLI 命令编排：core crate 的命令入口、chat/model/tool/sync 四组命令与 OperitApplication 门面的关系",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-node-peer-link",
@@ -431,7 +431,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "节点——PeerLink 传输与路由宏：五载体传输契约与载体探测、mDNS 发现与重连、配对令牌桶节流、路由宏生成的包装器与路由元数据、peer-protocol 清单",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-node-runtime",
@@ -449,7 +449,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "节点运行时：CoreNodeRouter 的本地/跨节点路由决策、SpaceRuntime 本地执行、持久化同步与 NodeSpaceService 准入；核实 README 的 runtime/src/remote 为文档滞后",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-plugin-codegen",
@@ -467,7 +467,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "SDK 代码生成（声明树、JS 运行时、四语言客户端、注册契约）与 sdk-ipc 通道及 36 行桥接器。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-plugin-js-bridge",
@@ -485,7 +485,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "插件——JS 桥：JsEngine 实现 JsExecutionEngine，HostJsExecutionProvider 实现 JsExecutionProvider，JS 经 37 个同步与 11 个异步宿主绑定、9 个 Core 路由调宿主操作。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-plugin-sdk",
@@ -503,7 +503,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Plugin SDK：ToolPkg 包模型与加载流程、Hook 挂载点、Compose DSL UI 声明、JS SDK 宿主契约",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-plugin-theme",
@@ -521,7 +521,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "主题 v1 契约：纯契约 crate，只做内存内校验，校验通过不等于安装与渲染安全",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-proxy",
@@ -539,7 +539,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "代理生成：扫描从源码生成代理 IR，Rust 与 Dart 发射器分别生成分发代码与客户端，本地代理运行时分发调用与管理流。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-rslink",
@@ -557,7 +557,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "RsLink——Rust 间 Link 协议层：值转换、路由调用、流与 watch、反向流、内嵌流与 codegen 共享 IR/类型解析",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-runtime-data",
@@ -575,7 +575,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Runtime 数据与插件宿主：Operit1 快照导入迁移、偏好导入分流、插件注册表与 ToolPkg 会话创建钩子桥",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-runtime-services",
@@ -593,7 +593,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Runtime 业务服务：ChatServiceCore 聊天管线、Provider/Tool 两座运行时支持桥、终端 PTY 服务",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-03/core-runtime",
@@ -611,7 +611,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Runtime 总览与 OperitApplication：进程级运行时组装、启动生命周期、CORE_VERSION 与聊天消息管理",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-04/agent-character-cards",
@@ -629,7 +629,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "角色卡与聊天绑定、生命周期、提示词组装与主题引用的机制。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-04/agent-chat-branch",
@@ -647,7 +647,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "会话、消息、变体、分支的 SQLite 存法与插件发送契约：ChatHistoryManager 三表模型、变体提升与重编号、分支创建读取与整段删除语义、chat-send-api 三个发送入口",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-04/agent-compaction",
@@ -665,7 +665,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "上下文压缩与摘要：手动入口 compactChat，自动压缩存在且默认启用（阈值 0.85），三处触发与三阶段摘要 hook。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-04/agent-hooks",
@@ -683,7 +683,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ToolPkg hook 注册类型、聊天运行时桥接、before-hook 超时与 SummaryHook 关系",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-04/agent-loop-overview",
@@ -701,7 +701,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Agent 回路总览：一轮发送链路、switch_core 切换边界、Binding 路由配合、切换不触发总结压缩",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-04/agent-memory",
@@ -719,7 +719,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "记忆：按 owner 划分的同步记忆空间，候选入队后由 60 秒间隔任务批量提取并落库",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-04/agent-slash",
@@ -737,7 +737,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "TUI 补全表 81 条、25 个顶层词；交互式 shell 分发 13 个命令词；/resume 切最新聊天；插件命令来自 Core，seed 内无用户自定义 slash 加载机制",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-04/agent-subagents",
@@ -755,7 +755,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Subagent 并行：5 个模型工具、并发上限 8、无唤醒轮询、重启标 interrupted",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/app-android-module",
@@ -775,7 +775,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Android 模块应用：与 Flutter APK 共享同一 Core 与 JNI 库的 Root 模块打包/启动形态，业务数据位于 /data/adb/operit2，更新时保留。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/app-cli",
@@ -793,7 +793,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "命令行应用 operit2：进程内完整 CoreNode，31 个固有命令族加插件命令，link 配对/空间/网络控制、daemon owner 控制通道、离线 rescue 与终端 TUI。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/app-flutter",
@@ -811,7 +811,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Flutter 应用总览页：单一代价覆盖七平台、FFI ABI v3 桥接、flutter-ohos fork、lib/core 与 lib/ui 分工",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/app-host-capability-matrix",
@@ -829,7 +829,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "能力 × 平台矩阵：34 个 HostManager 槽位能力 × 7 个平台共 238 格，由脚本按 host-api trait 定义与各平台 createRuntimeHostManager 注册生成",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/app-server",
@@ -847,7 +847,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "服务端应用为空目录占位：apps/server 下仅有 1 字节的 .gitkeep，无代码与 README，尚未实现。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/host-android",
@@ -865,7 +865,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Android Host：proot bash 与 android-system shell 双终端、Root/Shizuku/App 特权传输、托管运行时、文档资源文件系统、密钥桥接与蓝牙/TTS/系统操作能力",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/host-apple",
@@ -883,7 +883,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Apple Host：macOS 与 iOS 共享 hosts/apple 实现，macOS 壳重命名导出并以 createRuntimeHostManager 组装；沙盒决定文件与终端可用范围，iOS 终端为报错桩。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/host-common",
@@ -901,7 +901,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Host 共享实现：8 个共享 crate、顶层源文件、Unix daemon 与数据救援的共享机制",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/host-ios-linux-runtime",
@@ -919,7 +919,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "iOS 内嵌 ARM64 Linux 运行时：C++17 解释器 + Linux 用户 ABI，24 组矩阵分实现/接线/验证三态，ELF、fork/COW、文件/网络/PTY 各归属模块与交付验收状态。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/host-ios",
@@ -937,7 +937,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "iOS Host：ARM64 与系统 shell 双后端终端经 JSON 桥接调用原生运行时，Host 目录以原始绝对路径 bind mount，串口无原生 accessory provider，容器 UUID 变化时靠配置代次丢弃旧会话注册。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/host-linux",
@@ -955,7 +955,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Linux Host：bash PTY 终端、桌面包管理、D-Bus 蓝牙与插件 IPC，HTTP 与存储委托共享实现，daemon 为共享实现",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/host-ohos",
@@ -973,7 +973,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "OpenHarmony Host：QEMU-vroot Alpine 双终端与托管运行时、Sherpa ONNX 本地推理、AVPlayer TTS 播放、离线 OCR/PDF 与显式存储根",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/host-web",
@@ -991,7 +991,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Web/WASM Host：浏览器原生引擎插件 JS 执行、结构化克隆加 MessagePack 64 KiB 共享缓冲区同步调用、浏览器环境中已实现的一组 Host 适配器经 globalThis.__operitHost 桥接实现",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-05/host-windows",
@@ -1009,7 +1009,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Windows Host：PowerShell 默认、随包 Bash 双终端 PTY、命名管道 daemon 控制端点、MSI/ZIP 退出后静默更新、MCI 音频与 TTS、WinSock 经典蓝牙与 WinRT BLE、命名管道 Plugin SDK IPC",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-catalog-buildin",
@@ -1027,7 +1027,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "内置插件目录：16 个内置插件（9 个单文件 .ts 包＋7 个目录包）、默认启用情况、单文件包与目录包的区别、character_cards 体量（src/ 统计按上游 0f08fd43 更新为 102 文件/99 个 .ts/15830 行）",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-catalog-external",
@@ -1045,7 +1045,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "外置插件目录：external 目录 30 个插件与 tsconfig.json 的磁盘清点，subagents 五个工具、六个演示性质插件与 image_workbench、waifu、wechat、qqbot 的边界。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-compose-dsl",
@@ -1063,7 +1063,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Compose DSL 以 ABI 4 布局程序声明界面，ctx.useEffect 按依赖变化或处置清理，主题与传输快照加事务修订号驱动渲染。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-js-wasm-runtime",
@@ -1081,7 +1081,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "JS/TS 与 Wasm 运行时：QuickJS 类型声明、ToolPkg.wasm 的 JS API、wasmi Rust 宿主、归档加载与注册桥。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-manifest",
@@ -1099,7 +1099,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ToolPkg 清单 manifest 字段、device/space 安装作用域、环境变量与配置归属及 1.0.x 在 2.0.0 运行时的加载兼容性",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-mcp",
@@ -1117,7 +1117,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "MCP 作为 Core 工具运行时：服务器配置、安装、启用、工具发现与执行、设备空间共享",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-packagebuilder",
@@ -1135,7 +1135,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "PackageBuilder 随软件携带的插件开发 Skill：标准开发流程、API 2.0.0 manifest 声明与 1.0.x 旧包迁移检查",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-quick-plugin-creator",
@@ -1153,7 +1153,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "QuickPluginCreator 入口只准备 PackageBuilder 与 operit_editor 并把需求填为聊天草稿，不自动生成源码；现场插件的安装、测试与发布按 operit_editor 命令流程走。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-skills",
@@ -1171,7 +1171,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Skills 机制：SKILL.md 目录包、device/space 双位置扫描、随包/zip/GitHub/直接输入四种导入、激活时 SKILL.md 全文拼进系统提示，PackageBuilder 为随包 Skill。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-theme",
@@ -1189,7 +1189,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "主题即插件：manifest 的 themes 数组声明模板，模板只是创建源，应用时烘焙成独立 ThemeConfig，安装同步卸载由普通包管理系统负责，moss_atelier 含 moss 与 dune 两套模板。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-06/plugin-toolpkg-overview",
@@ -1207,7 +1207,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ToolPkg 2.0.0 总览：ZIP 格式、manifest 三版本号、API 2.0.0 与 1.0.x 关系、buildin/external/examples 三类包打包区别",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-07/sync-discovery-join",
@@ -1225,7 +1225,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "局域网发现、配对与加入 Space：mDNS 发现、Link 三操作、配对授权边界与 space_join 的 refresh 流程。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-07/sync-overview",
@@ -1243,7 +1243,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "同步总览：Space 内具备 storage.provide 的节点经 SpacePersistenceSyncService 交换持久化操作与 Blob，四类校验分工与授权、交换、分页、Blob、调度机制。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-07/sync-progress",
@@ -1261,7 +1261,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "大同步进度：首次加入与离线增量走同一链路，3 秒加 256 条/1 MiB 门槛后才向界面发布可见进度，接收成功不等于业务应用成功，附 2026-10-25 与 2026-11-11 iOS/macOS 模拟器联调记录。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-07/sync-protocol-version",
@@ -1279,7 +1279,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Core 与 Edge 共用整数协议版本，构建指纹由 peer-protocol.json 记录，版本不匹配返回 PEER_PROTOCOL_MISMATCH。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-07/sync-routing",
@@ -1297,7 +1297,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "设备间路由与实时分发：承载层与 Operit 选路分层、Dijkstra 代价选路、SharedWatchHub 一条边只发一次再分发，及 PeerSync 对端同步调用面。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-07/sync-transaction-model",
@@ -1315,7 +1315,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "事务模型与同步契约：记号体系、统一顺序合并、三类迁移与强制校正，文档定义与 Transaction.rs 实现逐条对照",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-07/sync-vfs",
@@ -1333,7 +1333,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "VFS 根入口挂载、VisualFileSystem 与 FileSystemHost 的分工、模块级原生访问边界及 Host 文件选择结果到 VFS 路径的转换",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-07/sync-workspace-files",
@@ -1351,7 +1351,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "工作区文件同步与 .operit/sync.json：三类受管目录、默认同步策略、跳过规则与产出目录绑定继承",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-08/theme-render",
@@ -1369,7 +1369,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "主题渲染与媒体校验：Rust 侧 L4 图片/SVG/字体/九宫格像素检查与确定性 Stored ZIP 导出",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-08/theme-studio",
@@ -1387,7 +1387,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Theme Studio 预览协议 v1：同源 MessagePort 固定握手、Rust/WASM 预览核内校验、themeSha256 与素材 SHA-256 一致性比对、真实帧回执、帧捕获与确定性 .toolpkg 导出。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-08/theme-sync",
@@ -1405,7 +1405,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "主题的安装、作用域与同步：模板安装与 device/space 归属由普通插件管理系统负责，从模板创建的独立配置随 Space 同步；插件 dataStore 与 Rust PreferencesDataStore 共用同一套 PreferenceMerge 执行器，schema 迁移由 withSchema 声明、原生引擎经 Transaction::migration::Context 执行；主题偏好 schema 3→4 迁移已定位：UserPreferencesManager::store 以 withMigration(5) 打开用户偏好文件，3 分支做旧主题偏好解码与快照迁移，4 分支把 chat_style 拆分为 user_chat_style / ai_chat_style。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-08/ui-display",
@@ -1423,7 +1423,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "工具展示语义与 WebView 渲染：展示声明由工具所有者写、Core 传递、Flutter 按声明渲染；应用缩放与页面缩放相互独立，乘积送入原生页面 API。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-09/model-catalog",
@@ -1441,7 +1441,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "模型目录与模型识别：models.dev 双文件目录的下载、缓存与过期刷新，及无列表接口服务商的固定列表",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-09/model-chat-send",
@@ -1459,7 +1459,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "模型调用与聊天发送契约：SDK 恰好暴露 sendMessage、sendMessageStreaming、cancel 三个方法，Rust 权威实现与 TypeScript 导出分列 chat.rs 与 chat.d.ts，发送、取消、流式输出的执行控制按一次准入、原生租约、观察释放三分。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-09/model-tts",
@@ -1477,7 +1477,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "TTS 供应商目录：Rust TtsCatalog 内 22 行供应商定义，文档七家供应商的默认模型、音频格式、鉴权头、响应管道、预置音色与在线查询页数均经代码逐行核验",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-acceptance-v1",
@@ -1494,8 +1494,8 @@
       "facts_count": 79,
       "refs_valid": "",
       "critic": "",
-      "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界；README 引用按上游 0f08fd43 核验（:53→:57），其余内容仍按基线 b3b897c。",
-      "updated": "2026-11-27"
+      "summary": "Edge 统一验收与 V1 收尾记录：统一验收入口、SDK 全功能测试与 8 种组合依赖审计、固件容量阻塞修复及不代表真机通过的验收边界；README 引用按上游 0f08fd43 核验（:53→:57），其余内容仍按基线 3dd6149。",
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-architecture",
@@ -1513,7 +1513,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 在设备空间中的职责与边界：硬件 Edge 节点与完整 CoreNode 的区别、内置 edge 角色权限、五种成员操作的影响、ESP32 两条聊天路径的切换条件。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-core-entry-protocol",
@@ -1531,7 +1531,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "受限设备的空间与展示链路：控制状态按版本快照发布与校验，审批证据经 ConsentProjection 投影展示且投影不能代替授权，聊天内容由 Core 投影后经窗口订阅进入设备展示。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-esp32-chat",
@@ -1549,7 +1549,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ESP32 两套聊天实现：独立聊天直连模型服务 HTTP 端点，远端 Core 模式下 Edge 只保留显示缓存与执行摘要，迟到结果经会话守卫隔离。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-esp32-editor",
@@ -1567,7 +1567,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ESP32 编辑器提供共享 C/Wasm UI 预览、Rust Edge 模拟器、固件构建与真机调试四项能力，模拟器直接编译固件模块并经真实 TCP 与桌面 Core 配对连通。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-esp32-firmware",
@@ -1585,7 +1585,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ESP32-2432S028 固件：六位码配对、Station/设置 AP 双模 Wi-Fi、独立聊天与远端 Core 聊天的上下文规则、设备 preference 上限与合并规则及原生 HTTP/语音传输。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-esp32-resources",
@@ -1603,7 +1603,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "ESP32 模拟器 Rust 堆 262,144 字节固定预算与 252,208 字节峰值分项实测，附严格栈预算复验与 Peer/IPC 清理后验证。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-headless-sensor",
@@ -1621,7 +1621,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "无屏传感器产品：暴露 manufacturer.sensor/read 与 manufacturer.agent/run，控制台 pair→confirm→join→refresh 配对加入，演示后端可换真实 HAL 或 HttpBackend",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-manufacturer-guide",
@@ -1639,7 +1639,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "厂商接入指南：三种需求的功能开关、最小装配六步、配对与空间授权的区分及 ESP32 模拟器内存预算。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-overview",
@@ -1657,7 +1657,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 总览：edge/ 收纳厂商 SDK、接入文档与完整产品三类东西，产品形态由厂商决定，新增旧安卓手机 Edge APK（上游 0f08fd43），ESP32 完整模拟器验收入口为 npm run test:device-budget。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-pb-sbc01-h3",
@@ -1675,7 +1675,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "PB_SBC01_H3 机器人：完整 Core 控制器与本地脸部控制台渲染器，共用机器人脸部状态文件。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-sdk-contract",
@@ -1693,7 +1693,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 契约 crate：稳定的 Edge 对象与属性标识符及序列化数据契约，不实现 Host 能力、Link 分发、传输载体或应用行为；Node 与 Proxy 各自依赖它而不互相依赖。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-sdk-entry",
@@ -1711,7 +1711,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "operit-edge-sdk 入口与功能开关：稳定厂商入口、agent/space/http-agent/scene 四功能、SpaceDevice::assemble 与 EdgeNode::headless 两种装配方式、依赖审计脚本的 8 种功能组合检查",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-sdk-node",
@@ -1729,7 +1729,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 节点 crate：类型化设备服务与 EdgePeerRouter 只接受本地 Target 路由，配对与 Space 准入分开，无 storage.provide 时只能持久化自身配置与有界偏好。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-sdk-proxy",
@@ -1747,7 +1747,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Edge 代理 crate：在内部封装 Link 请求构造与响应/事件解码，调用方只用类型化方法。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-10/edge-sdk-scene",
@@ -1765,7 +1765,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Scene 服务与资源格式：原生 edge.scene 服务管有界索引资源、持久显示配置、条带绘制与本地触摸命中测试，配置与资源以一次原子快照保存恢复，线路与 ESP1/ESI1 资产格式见 plugins/docs/edge-scene.md。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/dev-building",
@@ -1783,7 +1783,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "构建指南：仓库布局、通用与各平台前置要求、钉死的构建输入与来源规则、iOS/插件资产/工作流插件钉死值、发布脚本与云端构建、Flutter/Android/OpenHarmony/Web 构建链、Windows GNU 工具链排障与清理。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/dev-contributing",
@@ -1801,7 +1801,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "贡献指南：改动范围、本地检查、分支提交、PR 流程、AGPL-3.0 许可与行为规范。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/dev-release",
@@ -1819,7 +1819,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "版本与发布：SemVer 命名与通道规则由 docs/release-versioning.md 定义，release notes 现有两份、最高覆盖到 2.0.0-preview.27，云端构建由六个 workflow 负责（以版本文档记载为准，本轮未读 workflow 文件）。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/migrate-operit1",
@@ -1837,7 +1837,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "从 Operit1 迁移：快照预检与导入 CLI 入口、可迁移与不可迁移数据、数据救援流程，详细 FAQ 指到 Operit-wiki 附录草稿。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-build-scripts",
@@ -1855,7 +1855,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "构建脚本入口：按产品/平台/操作命名，Flutter、CLI、ESP32 三类入口脚本与发布包文件名规则 operit2-<product>-<platform>-<arch>-<version>.<ext>，仅覆盖 10 个代表性入口。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-docs-whitepaper",
@@ -1873,7 +1873,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "白皮书 PDF 构建：原稿路径未在基线核实到，构建器、排版规范与字体嵌入均按脚本与 README 写实。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-figma",
@@ -1891,7 +1891,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Figma 界面桥接工具：当前为静态图层，两个入口共用 .operit-design.json，完整可交互应用与实时客户端均未完成验收",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-overview",
@@ -1909,7 +1909,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "tools 总览：本地构建与 GitHub Actions 共用同一批 Python 构建入口，产物进 tools/release/work 与 dist，凭据进 tools/release/secrets。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-peer-protocol-check",
@@ -1927,7 +1927,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "协议版本检查脚本：校验 peer-protocol.json 修订记录不可变、变更须递增版本，与 node-runtime 构建时 SHA-256 指纹校验分工配合。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-perf-benchmarks",
@@ -1945,7 +1945,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Link 端到端性能场景与 macOS/iOS 基准脚本：跨节点场景链路、报告字段与 trace 测量口径",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-release",
@@ -1963,7 +1963,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "发布流程：版本、tag、通道与包资产规则由 docs/release-versioning.md 定义，build_release.py 构建资产，download_action_artifacts.py 收集云端产物，publish_dist.py 发布，release_interactive.py 提供交互入口。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-runtime-kits",
@@ -1981,7 +1981,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "四个运行时工具包（Android、iOS、OpenHarmony、Web）各准备的内容、iOS 独立 AArch64 Linux 运行时与 V86 的区分，以及各工具包构建说明的位置。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-tests",
@@ -1999,7 +1999,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "tools/tests/ 跨边界测试集索引页：159 个文件按顶层平铺与 4 子目录组织（上游 0f08fd43 清点），示例覆盖 Android 运行时契约、内置工具目录与 Compose DSL 产物。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-theme-studio",
@@ -2017,7 +2017,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "主题工具与 Web Studio：ToolPkg 主题包格式、build_preview.py 不可变预览内核构建、Studio 与 Rust/WASM 校验器的 MessagePort/Web Worker 协议摘要、prepare_builtin_fonts.py 内置字体子集化配方。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/tools-windows-installer",
@@ -2035,7 +2035,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Windows MSI 安装器与卸载数据清理：MSI 默认保留数据、完整卸载界面勾选清理，压缩包版用独立清理工具，六处清理范围不可回滚，附 MSI 契约测试与打包流程。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/troubleshoot-desktop",
@@ -2053,7 +2053,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "桌面端排障：Impeller 渲染目标失败的 iOS 崩溃证据与引擎层修复链，及 WebView 渲染与 Windows WebView2 合成。",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/troubleshoot-mobile",
@@ -2071,7 +2071,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "排障·移动端（Android / iOS）：Android root shell 能力边界与风险、iOS 性能定位、TestFlight 反馈排查",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     },
     {
       "id": "batch-11/troubleshoot-web",
@@ -2089,7 +2089,7 @@
       "refs_valid": "",
       "critic": "",
       "summary": "Web Access 部署与跨域隔离头、浏览器会话生命周期、七后端 WebView 渲染缩放差异排查",
-      "updated": "2026-11-27"
+      "updated": "2026-11-28"
     }
   ]
 }

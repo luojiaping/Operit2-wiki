@@ -80,8 +80,8 @@ date: 2026-11-11
 - 展示声明和结果载荷分别保存在已有 `MessagePart.attributes` 的 `display`、`result_data` 属性中。`docs/tool-display-semantics.md:56`
 - 通用文本视图不额外附加重复的结构化结果。`docs/tool-display-semantics.md:56`
 - 完整结构化结果仅在现有单条工具结果预算内附加，超过预算时仍保留原有的有界文本结果。`docs/tool-display-semantics.md:56`
-- 提供给模型的工具结果及历史序列化排除 `display` 和 `result_data`。`docs/tool-display-semantics.md:58`
-- 工具分组继续使用既有 `ThinkToolsXmlNodeGrouper` / `ToolCallResultMergeRender` 机制。`docs/tool-display-semantics.md:58`
+- 提供给模型的工具结果及历史序列化排除 `display`、`result_data` 和 `model_content`。`docs/tool-display-semantics.md:80`
+- 工具分组继续使用既有 `ThinkToolsXmlNodeGrouper` / `ToolCallResultMergeRender` 机制。`docs/tool-display-semantics.md:80`
 
 ### 应用缩放与页面缩放为何独立
 
@@ -151,7 +151,7 @@ date: 2026-11-11
 1. 内置工具：`ToolResultMap` 字段的 `display` 属性 `core/crates/plugin/sdk/src/js_sdk/tool_types.rs:10` → `tool_display` 宏生成 `BuiltinToolName` 的 `display` 方法 `core/crates/plugin/sdk-macros/src/lib.rs:118` → `ToolDisplayDeclaration` 的 `builtin` 方法按 `action` 从 `tool_display_labels.json` 取本地化文本 `core/crates/plugin/sdk/src/js_sdk/tool_display.rs:34`
 2. 插件工具：插件元数据的工具声明带可选 `display` → `PackageTool` 的 `display` 字段解析为 `ToolDisplayDeclaration` → Core 从当前运行时声明读取，不跨身份、节点或 Host 查询。`core/crates/plugin/sdk/src/package.rs:127`
 3. 展示：Core 在消息展示投影中传递声明并保留原生 `ToolResultData` → Flutter 按声明的 `resultRenderer` 选视图并校验数据结构 → 实时调用的声明附加在 Markdown XML 事件的 `display` 属性中。`docs/tool-display-semantics.md:54`
-4. 模型侧：提供给模型的工具结果及历史序列化排除 `display` 和 `result_data`。`docs/tool-display-semantics.md:58`
+4. 模型侧：提供给模型的工具结果及历史序列化排除 `display`、`result_data` 和 `model_content`。`docs/tool-display-semantics.md:80`
 5. WebView 缩放：`WebViewScaleScope` 提供应用缩放 `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:24` → `WebViewWidget` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:67`（现为 `StatefulWidget`，`build` 位于其 state `_WebViewWidgetState` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:167`）按 `requiresNativeApplicationZoom` 决定是否包 `_NativeZoomWebViewViewport` `apps/flutter/thirdparty/webview_all/lib/src/webview_widget.dart:210`。
 6. 乘积发给原生页面 API：原生覆盖后端经 `NativeWebViewZoom` 把 `applicationZoom * pageZoom` 发给原生页面 API `docs/webview-rendering.md:26`，复合后端保留应用绘制缩放。
 7. iOS 几何：`OperitSafeWebView` 在 UIKit 布局前校验 frame 与 bounds → 非法几何停用原生视图，`CALayerInvalidGeometry` 经导航错误通道上报一次。`docs/webview-rendering.md:84`
