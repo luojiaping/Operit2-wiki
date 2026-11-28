@@ -32,7 +32,7 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 - `operit-edge-contract` — 共享的 Edge 服务地址与属性名（`core/CRATE_BOUNDARIES.md:49`）
 - `operit-node-edge` — 轻量设备侧 Edge Core 节点（`core/CRATE_BOUNDARIES.md:51`）
 - `operit-command-core` — CLI 命令层（`core/CRATE_BOUNDARIES.md:56`）
-- `ToolRuntimeSupport` — 工具侧对父级运行时的请求 trait（`core/crates/tool/services/src/runtime_support.rs:381`）
+- `ToolRuntimeSupport` — 工具侧对父级运行时的请求 trait（`core/crates/tool/services/src/runtime_support.rs:397`）
 - `ProviderRuntimeSupport` — Provider 侧对父级运行时的请求 trait（`core/crates/provider/services/src/runtime_support.rs:281`）
 - `LocalModelRuntimeSupport` — 本地模型侧对父级运行时的请求 trait（`core/crates/provider/local-model/src/runtime_support.rs:7`）
 - `HostManager` — 活动宿主能力集与面向生命周期的宿主句柄（`core/crates/foundation/host-api/src/HostManager.rs:139`）
@@ -81,7 +81,7 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 - `operit-local-models` 依赖 `operit-host-api` 与 `operit-util`，不依赖 operit-runtime（`core/crates/provider/local-model/Cargo.toml:2` `core/crates/provider/local-model/Cargo.toml:14`）
 - `operit-providers` 依赖 `operit-tools`、`operit-store`、`operit-plugin-sdk`、`operit-model`、`operit-util`、`operit-host-api` 与 `operit-link`，不依赖 operit-runtime（`core/crates/provider/services/Cargo.toml:2` `core/crates/provider/services/Cargo.toml:22`）
 - `operit-js-bridge` 依赖 `operit-plugin-sdk`、`operit-store`、`operit-util`、`operit-host-api`，不依赖 operit-tools（`core/crates/plugin/javascript-bridge/Cargo.toml:2` `core/crates/plugin/javascript-bridge/Cargo.toml:24`）
-- `operit-runtime` 依赖 `operit-tools`、`operit-providers`、`operit-store`、`operit-model`、`operit-util`、`operit-plugin-sdk`、`operit-plugin-theme`、`operit-local-models`（`core/crates/runtime/application/Cargo.toml:2` `core/crates/runtime/application/Cargo.toml:33`）
+- `operit-runtime` 依赖 `operit-tools`、`operit-providers`、`operit-store`、`operit-model`、`operit-util`、`operit-plugin-sdk`、`operit-plugin-theme`、`operit-local-models`（`core/crates/runtime/application/Cargo.toml:2` `core/crates/runtime/application/Cargo.toml:34`）
 - `operit-runtime` 还依赖 `operit-host-api`、`operit-link`、`operit-rslink-runtime`、`operit-route-macros`，其中 `operit-js-bridge` 是可选依赖（`core/crates/runtime/application/Cargo.toml:2` `core/crates/runtime/application/Cargo.toml:27`）
 - `operit-runtime` 依赖 `operit-edge-contract`（`core/crates/runtime/application/Cargo.toml:2` `core/crates/runtime/application/Cargo.toml:14`）
 - `operit-proxy-local` 依赖 `operit-proxy-bridge`、`operit-rslink-runtime`、`operit-host-api`、`operit-link`、`operit-local-models`、`operit-model`、`operit-plugin-sdk`、`operit-plugin-sdk-ipc`、`operit-providers`、`operit-runtime`（`core/crates/proxy/local/Cargo.toml:2` `core/crates/proxy/local/Cargo.toml:18`）
@@ -108,7 +108,7 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 ### 父级行为机制
 
 - 子 crate 需要父级行为时，子 crate 定义 trait 并消费 trait 对象，父级 runtime 实现并安装该 trait（`core/CRATE_BOUNDARIES.md:98`）
-- `ToolRuntimeSupport` trait 定义在 `core/crates/tool/services/src/runtime_support.rs:381`（`core/crates/tool/services/src/runtime_support.rs:381`）
+- `ToolRuntimeSupport` trait 定义在 `core/crates/tool/services/src/runtime_support.rs:397`（`core/crates/tool/services/src/runtime_support.rs:397`）
 - `operit-runtime` 在 services/ToolRuntimeSupportService.rs 中以 `RuntimeToolSupport` 实现 `ToolRuntimeSupport`（`core/crates/runtime/application/src/services/ToolRuntimeSupportService.rs:178` `core/crates/runtime/application/Cargo.toml:2`）
 - `ProviderRuntimeSupport` trait 定义在 `core/crates/provider/services/src/runtime_support.rs:281`（`core/crates/provider/services/src/runtime_support.rs:281`）
 - `operit-runtime` 在 services/ProviderRuntimeSupportService.rs 中以 `RuntimeProviderSupport` 实现 `ProviderRuntimeSupport`（`core/crates/runtime/application/src/services/ProviderRuntimeSupportService.rs:443` `core/crates/runtime/application/Cargo.toml:2`）
@@ -176,7 +176,7 @@ core/CRATE_BOUNDARIES.md 定义以 `operit-runtime` 为中心的 crate 拆分：
 - `operit-proxy-edge` — edge/sdk/proxy — Edge 服务的类型化投影（`core/CRATE_BOUNDARIES.md:181`）
 - `operit-host-contract` — 新基线新增的 foundation 领域 crate，宿主能力 trait 定义所在地（`core/crates/foundation/host-contract/Cargo.toml:2`）
 - `operit-vfs` — 新基线新增的 foundation 领域 crate，共享虚拟文件系统（`core/crates/foundation/vfs/Cargo.toml:2`）
-- `ToolRuntimeSupport` — 工具侧对父级运行时的请求 trait（`core/crates/tool/services/src/runtime_support.rs:381`）
+- `ToolRuntimeSupport` — 工具侧对父级运行时的请求 trait（`core/crates/tool/services/src/runtime_support.rs:397`）
 - `ProviderRuntimeSupport` — Provider 侧对父级运行时的请求 trait（`core/crates/provider/services/src/runtime_support.rs:281`）
 - `LocalModelRuntimeSupport` — 本地模型侧对父级运行时的请求 trait（`core/crates/provider/local-model/src/runtime_support.rs:7`）
 - `GitHubTokenSource` — 请求已登录 GitHub 账号访问令牌的 trait（`core/crates/provider/services/src/market/MarketStatsApiService.rs:512`）

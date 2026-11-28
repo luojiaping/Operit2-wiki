@@ -57,7 +57,7 @@ date: 2026-11-11
 
 - 内置工具目录由 `SystemToolPrompts` 的公开提示与 `SystemToolPromptsInternal` 的内部提示共同组成 `tools/tests/builtin_tool_catalog.test.mjs:6`
 - 公开目录分 basic_tools、file_system_tools、http_tools 三类 `tools/tests/builtin_tool_catalog.test.mjs:25`
-- 内部目录由 `internalToolCategoriesEnSource` 与 `internalToolCategoriesCnSource` 提供 tools/tests/builtin_tool_catalog.test.mjs:27 `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:45` `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:1284`
+- 内部目录由 `internalToolCategoriesEnSource` 与 `internalToolCategoriesCnSource` 提供 tools/tests/builtin_tool_catalog.test.mjs:27 `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:45` `core/crates/provider/services/src/chat/config/SystemToolPromptsInternal.rs:1295`
 - 英文与中文两套目录各自断言每个内置工具恰好出现一次 `tools/tests/builtin_tool_catalog.test.mjs:24`
 - builtin_tool_catalog.test.mjs 定义 2 个 `test`，在 En 与 Cn 双语下各跑一次，共 4 个用例（清点证据：wiki 仓库 tracking/count-tools-tests-ff5373fb6.txt）
 - `write_file` 保持 AI 可见，公开 schema 含 path 与 content 必填参数和 append 可选参数 `tools/tests/builtin_tool_catalog.test.mjs:43`

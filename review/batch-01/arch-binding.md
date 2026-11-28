@@ -40,9 +40,9 @@ Binding 是 [[arch-corenode|CoreNode]] 与 [[arch-space|Space]] 之间的执行�
 - `changeRoute` — 交接主线：校验目标、同步目标、比较写入提交 Binding、安装 Binding 到目标、调用 AfterChangeRoute。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:969`
 - `requestChangeRoute` — 提交 Binding 变更、在目标安装 Binding 并在目标恢复执行。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:947`
 - `CoreRouteResumeContext` — 交接运输的上下文，包含 runtimeChatHistory 等字段。`core/crates/tool/services/src/runtime_support.rs:21`
-- `resumeFromRouteContext` — 目标接收上下文并取得本地执行 lease。`core/crates/runtime/application/src/services/ChatServiceCore.rs:855`
-- `beforeChangeRoute` — Binding 移动前校验执行归属。`core/crates/runtime/application/src/services/ChatServiceCore.rs:918`
-- `effectiveBinding` — 目标不可达时选本机执行，不改动归属。`core/crates/node/runtime/src/CoreNodeRouter.rs:452`
+- `resumeFromRouteContext` — 目标接收上下文并取得本地执行 lease。`core/crates/runtime/application/src/services/ChatServiceCore.rs:861`
+- `beforeChangeRoute` — Binding 移动前校验执行归属。`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`
+- `effectiveBinding` — 目标不可达时选本机执行，不改动归属。`core/crates/node/runtime/src/CoreNodeRouter.rs:453`
 
 主入口：`CoreNodeBindingStore::compareAndSet`（比较写入切换 Binding）与 `CoreNodeBindingStore::create`（新建 Binding）。
 
@@ -104,7 +104,7 @@ CoreNode 切换必须发生在工具调用已经完成、工具结果已经持�
 
 架构文档规定 Binding 目标不可达时由发起设备原子接管，显式设备调用仍返回明确错误。`docs/core-node-space-binding-architecture.md:488`
 
-当前实现与该规定不一致：目标不可达时 `effectiveBinding` 只把所读记录副本的 `nodeId` 改为本机，不提交 CAS、不持久化新归属、不递增 generation。`core/crates/node/runtime/src/CoreNodeRouter.rs:452`
+当前实现与该规定不一致：目标不可达时 `effectiveBinding` 只把所读记录副本的 `nodeId` 改为本机，不提交 CAS、不持久化新归属、不递增 generation。`core/crates/node/runtime/src/CoreNodeRouter.rs:453`
 
 该行为被列为当前实现的待清理项：本次请求的有效执行节点被静默替换，不符合禁止回退的约束。`docs/link-access-architecture.md:247`
 
@@ -180,9 +180,9 @@ upsert 操作的 `payload` 中 `binding.key` 必须与 `entityId` 一致。`core
 - `changeRoute` — 交接主线：校验目标、同步目标、比较写入、安装 Binding、调用 AfterChangeRoute。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:969`
 - `requestChangeRoute` — 提交 Binding 变更、在目标安装 Binding 并在目标恢复执行。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:947`
 - `CoreRouteResumeContext` — 交接运输的上下文，包含 runtimeChatHistory 等字段。`core/crates/tool/services/src/runtime_support.rs:21`
-- `resumeFromRouteContext` — 目标接收上下文并取得本地执行 lease。`core/crates/runtime/application/src/services/ChatServiceCore.rs:855`
-- `beforeChangeRoute` — Binding 移动前校验执行归属。`core/crates/runtime/application/src/services/ChatServiceCore.rs:918`
-- `effectiveBinding` — 目标不可达时把记录副本的 nodeId 改为本机，不改动归属。`core/crates/node/runtime/src/CoreNodeRouter.rs:452`
+- `resumeFromRouteContext` — 目标接收上下文并取得本地执行 lease。`core/crates/runtime/application/src/services/ChatServiceCore.rs:861`
+- `beforeChangeRoute` — Binding 移动前校验执行归属。`core/crates/runtime/application/src/services/ChatServiceCore.rs:924`
+- `effectiveBinding` — 目标不可达时把记录副本的 nodeId 改为本机，不改动归属。`core/crates/node/runtime/src/CoreNodeRouter.rs:453`
 
 ## 调用链
 
@@ -203,17 +203,17 @@ upsert 操作的 `payload` 中 `binding.key` 必须与 `entityId` 一致。`core
 11. changeRoute 调用 `installRouteBindingOnTarget`，把已提交的 Binding operation 安装到 node-D。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1089`
 12. `installRouteBindingOnTarget` 在目标安装该操作，不推进持久化同步时钟。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1135`
 13. changeRoute 调用 `AfterChangeRoute` 生命周期回调，把 CoreRouteResumeContext 送到 node-D。`core/crates/node/runtime/src/RuntimeRemoteLinkService.rs:1110`
-14. node-D 的 `afterChangeRoute` 接收 `CoreRouteResumeContext`。`core/crates/runtime/application/src/services/ChatServiceCore.rs:937`
-15. afterChangeRoute 调用 `resumeFromRouteContext`，由目标恢复聊天。`core/crates/runtime/application/src/services/ChatServiceCore.rs:946`
-16. resumeFromRouteContext 经 `ChatModelBindingService::beginExecution` 取得本地执行 lease（其内部先清理已删 provider 或模型的旧选择，再调 `beginChatExecution`）。`core/crates/runtime/application/src/services/ChatServiceCore.rs:884` `core/crates/runtime/application/src/services/ChatModelBindingService.rs:20`
-17. resumeFromRouteContext 经 `sendRoutedContinuation` 发送路由续接。`core/crates/runtime/application/src/services/ChatServiceCore.rs:902`
+14. node-D 的 `afterChangeRoute` 接收 `CoreRouteResumeContext`。`core/crates/runtime/application/src/services/ChatServiceCore.rs:943`
+15. afterChangeRoute 调用 `resumeFromRouteContext`，由目标恢复聊天。`core/crates/runtime/application/src/services/ChatServiceCore.rs:952`
+16. resumeFromRouteContext 经 `ChatModelBindingService::beginExecution` 取得本地执行 lease（其内部先清理已删 provider 或模型的旧选择，再调 `beginChatExecution`）。`core/crates/runtime/application/src/services/ChatServiceCore.rs:890` `core/crates/runtime/application/src/services/ChatModelBindingService.rs:20`
+17. resumeFromRouteContext 经 `sendRoutedContinuation` 发送路由续接。`core/crates/runtime/application/src/services/ChatServiceCore.rs:908`
 
 ## 来源
 
 - `docs/core-node-space-binding-architecture.md`（494 行，100% 已读）
-- `core/crates/persistence/store/src/CoreNodeBindingStore.rs`（481 行，100% 已读）
+- `core/crates/persistence/store/src/CoreNodeBindingStore.rs`（493 行，100% 已读）
 - `core/crates/node/runtime/src/RuntimeRemoteLinkService.rs`（1421 行；交接路径节选已读：`changeRoute` :969-1131、`installRouteBindingOnTarget` :1135-1155）
-- `core/crates/node/runtime/src/CoreNodeRouter.rs`（5846 行；`effectiveBinding` :452-457、`bindingRouteStatus` :461-476 已读）
-- `core/crates/runtime/application/src/services/ChatServiceCore.rs`（4354 行；`resumeFromRouteContext` :855-913、`beforeChangeRoute` :918-932、`afterChangeRoute` :937-947 已读）
-- `core/crates/tool/services/src/runtime_support.rs`（893 行；`CoreRouteResumeContext` :21-35 已读）
+- `core/crates/node/runtime/src/CoreNodeRouter.rs`（5934 行；`effectiveBinding` :453-459、`bindingRouteStatus` :462-479 已读）
+- `core/crates/runtime/application/src/services/ChatServiceCore.rs`（4464 行；`resumeFromRouteContext` :861-919、`beforeChangeRoute` :924-938、`afterChangeRoute` :943-953 已读）
+- `core/crates/tool/services/src/runtime_support.rs`（931 行；`CoreRouteResumeContext` :21-35 已读）
 - `docs/link-access-architecture.md`（252 行；架构约束与待清理项 :232-252 已读）

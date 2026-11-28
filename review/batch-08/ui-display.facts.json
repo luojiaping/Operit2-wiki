@@ -156,12 +156,12 @@
     "ref": "docs/tool-display-semantics.md:56"
   },
   {
-    "fact": "提供给模型的工具结果及历史序列化排除 `display` 和 `result_data`。",
-    "ref": "docs/tool-display-semantics.md:58"
+    "fact": "提供给模型的工具结果及历史序列化排除 `display`、`result_data` 和 `model_content`。",
+    "ref": "docs/tool-display-semantics.md:80"
   },
   {
     "fact": "工具分组继续使用既有 `ThinkToolsXmlNodeGrouper` / `ToolCallResultMergeRender` 机制。",
-    "ref": "docs/tool-display-semantics.md:58"
+    "ref": "docs/tool-display-semantics.md:80"
   },
   {
     "fact": "测试断言 `ReadFile` 的 `display()` 结果 `target_parameter` 为 `path`、`icon` 为 `file`、`result_renderer` 为 `Text`。",

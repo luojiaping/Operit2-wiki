@@ -114,7 +114,7 @@ date: 2026-11-11
 - 4 分支同时把已存配置快照里的 `chatStyle` 拆分为 `userChatStyle` 与 `aiChatStyle`，已显式设置的值不被覆盖。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:131`
 - 插件 schema（当前 v1）与用户偏好文件 format 0–5 是两套体系；不存在未发布的插件 v2 格式，也不存在 v1 到 v2 的迁移。`docs/plugin-storage.md:57` `core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
 - 偏好文件侧是 format 0–5：`store` 打开 `USER_PREFERENCES_PATH` 时以 `withMigration(5, Self::migration)` 注册迁移，目标格式版本为 5。`core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
-- 原先只搜 `withSchema` 会漏检：`withSchema(3` 的两处生产代码命中分别是同步偏好布局与包管理器偏好，均非主题偏好迁移；真正的主题偏好迁移走 `withMigration`。`core/crates/runtime/application/src/data/preferences/PreferenceSpaceMerge.rs:196` `core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:447` `core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
+- 原先只搜 `withSchema` 会漏检：`withSchema(3` 的两处生产代码命中分别是同步偏好布局与包管理器偏好，均非主题偏好迁移；真正的主题偏好迁移走 `withMigration`。`core/crates/runtime/application/src/data/preferences/PreferenceSpaceMerge.rs:196` `core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:453` `core/crates/runtime/application/src/data/preferences/UserPreferencesManager.rs:44`
 - `data()` 返回不可变快照；`get()` 把已存的 `null` 与缺失键（`undefined`）区分开；`edit()` 接受同步或异步回调，通过原生偏好事务发布变更；回调抛异常时不发布任何偏好变更。`docs/plugin-storage.md:20`
 - 原生快照校验拒绝并发编辑且不重跑回调；回调结束后可变视图不可再用。`docs/plugin-storage.md:20`
 

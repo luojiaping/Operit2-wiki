@@ -1,0 +1,36 @@
+{
+  "arch-binding": {
+    "batch": "batch-01",
+    "facts": 73,
+    "bad": 1,
+    "items": [
+      "arch-binding.md:202 `beginChatExecution` not within ±5 of any ref ['core/crates/runtime/application/src/services/ChatServiceCore.rs:890', 'core/crates/runtime/application/src/services/ChatModelBindingService.rs:14']"
+    ]
+  },
+  "core-plugin-sdk": {
+    "batch": "batch-03",
+    "facts": 154,
+    "bad": 1,
+    "items": [
+      "core-plugin-sdk.md:34 `public_api` not within ±5 of any ref ['core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:703']"
+    ]
+  },
+  "host-android": {
+    "batch": "batch-05",
+    "facts": 190,
+    "bad": 1,
+    "items": [
+      "host-android.md:40 `createRuntimeHostManager` not within ±5 of any ref ['hosts/android/src/lib.rs:89']"
+    ]
+  },
+  "tools-overview": {
+    "batch": "batch-11",
+    "facts": 154,
+    "bad": 3,
+    "items": [
+      "tools-overview.md:30 `run_cli.py` not within ±5 of any ref ['tools/build_scripts/README.md:361']",
+      "tools-overview.md:146 `run_cli.py` not within ±5 of any ref ['tools/build_scripts/README.md:361']",
+      "tools-overview.md:193 `run_cli.py` not within ±5 of any ref ['tools/build_scripts/README.md:361']"
+    ]
+  }
+}

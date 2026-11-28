@@ -45,63 +45,63 @@
  },
  {
   "fact": "createRuntimeHostManager 组装 Android 自有的运行时 HostManager",
-  "ref": "hosts/android/src/lib.rs:78"
- },
- {
-  "fact": "createRuntimeHostManager 以 AndroidRuntimeStorageHost 作 Host 密钥库",
   "ref": "hosts/android/src/lib.rs:82"
  },
  {
-  "fact": "运行时组合以 `NativeLocalInferenceHost::withSpeech` 包装 `AndroidLocalInferenceHost` 注册本地推理 Host",
-  "ref": "hosts/android/src/lib.rs:97"
+  "fact": "createRuntimeHostManager 以 AndroidRuntimeStorageHost 作 Host 密钥库",
+  "ref": "hosts/android/src/lib.rs:89"
  },
  {
-  "fact": "运行时组合以 acquireMulticastLease 作 ServiceDiscovery 的网络租约来源",
+  "fact": "运行时组合以 `NativeLocalInferenceHost::withSpeech` 包装 `AndroidLocalInferenceHost` 注册本地推理 Host",
   "ref": "hosts/android/src/lib.rs:101"
  },
  {
+  "fact": "运行时组合以 acquireMulticastLease 作 ServiceDiscovery 的网络租约来源",
+  "ref": "hosts/android/src/lib.rs:105"
+ },
+ {
   "fact": "运行时组合注册 AndroidPluginSdkIpcHost",
-  "ref": "hosts/android/src/lib.rs:104"
+  "ref": "hosts/android/src/lib.rs:108"
  },
  {
   "fact": "createPrivilegedRuntimeHostManager 组装不含应用自有 JNI 注册的特权 Android Host",
-  "ref": "hosts/android/src/lib.rs:109"
+  "ref": "hosts/android/src/lib.rs:113"
  },
  {
   "fact": "特权组合以 NativeFileSecretStore(secretRoot) 作 Host 密钥库",
-  "ref": "hosts/android/src/lib.rs:123"
- },
- {
-  "fact": "特权组合使用 NativeHostRuntimeEventSchedulerHost 作运行时事件调度 Host",
   "ref": "hosts/android/src/lib.rs:127"
  },
  {
+  "fact": "特权组合使用 NativeHostRuntimeEventSchedulerHost 作运行时事件调度 Host",
+  "ref": "hosts/android/src/lib.rs:131"
+ },
+ {
   "fact": "createBaseRuntimeHostManager 组装应用与独立模块所有者共享的 Android 能力",
-  "ref": "hosts/android/src/lib.rs:133"
- },
- {
-  "fact": "基础组合以 AndroidFileSystemHost、AndroidHttpHost 与 AndroidManagedRuntimeHost 装配 HostManager",
-  "ref": "hosts/android/src/lib.rs:155"
- },
- {
-  "fact": "基础组合注册 NativeHttpServerHost、NativeTcpHost 与 NativeSerialPortHost",
-  "ref": "hosts/android/src/lib.rs:165"
- },
- {
-  "fact": "基础组合注册 AndroidHostJavaScriptRuntimeHost 与 AndroidHostRuntimeTaskSchedulerHost",
-  "ref": "hosts/android/src/lib.rs:169"
- },
- {
-  "fact": "归档暂存 Host 使用 archiveRuntimeRoot，因为 Android 共享存储以 ENOSYS 拒绝 flock，模块运行时根目录是私有的",
-  "ref": "hosts/android/src/lib.rs:152"
- },
- {
-  "fact": "createBaseRuntimeHostManager 的 webVisitHost 由调用方传入",
   "ref": "hosts/android/src/lib.rs:137"
  },
  {
+  "fact": "基础组合以 AndroidFileSystemHost、AndroidHttpHost 与 AndroidManagedRuntimeHost 装配 HostManager",
+  "ref": "hosts/android/src/lib.rs:159"
+ },
+ {
+  "fact": "基础组合注册 NativeHttpServerHost、NativeTcpHost 与 NativeSerialPortHost",
+  "ref": "hosts/android/src/lib.rs:169"
+ },
+ {
+  "fact": "基础组合注册 AndroidHostJavaScriptRuntimeHost 与 AndroidHostRuntimeTaskSchedulerHost",
+  "ref": "hosts/android/src/lib.rs:173"
+ },
+ {
+  "fact": "归档暂存 Host 使用 archiveRuntimeRoot，因为 Android 共享存储以 ENOSYS 拒绝 flock，模块运行时根目录是私有的",
+  "ref": "hosts/android/src/lib.rs:156"
+ },
+ {
+  "fact": "createBaseRuntimeHostManager 的 webVisitHost 由调用方传入",
+  "ref": "hosts/android/src/lib.rs:141"
+ },
+ {
   "fact": "lib.rs 导出 androidPrivilegedPtyOperation",
-  "ref": "hosts/android/src/lib.rs:38"
+  "ref": "hosts/android/src/lib.rs:42"
  },
  {
   "fact": "terminalInfo 把 PROOT_TERMINAL 列为默认终端、PRIMARY_TERMINAL_TYPE 列为默认终端类型",

@@ -23,46 +23,46 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 - `PluginPackageManager` — JavaScript 包与 ToolPkg 状态的对外管理器（`core/crates/plugin/sdk/src/PackageManager.rs:23`）
 - `ToolPkgHookDispatcher` — hook 分发的契约，只有一个方法 `dispatchToolPkgHook`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:211`）
 - `ToolPkgHookInvocation` — 一次 hook 调用的完整输入（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:190`）
-- `CoreHost` — 插件调用工具与完成执行的宿主契约（`core/crates/plugin/sdk/src/js_sdk/core.rs:171`）
+- `CoreHost` — 插件调用工具与完成执行的宿主契约（`core/crates/plugin/sdk/src/js_sdk/core.rs:191`）
 - `ToolCatalog` — 设备发现返回的公开工具名与模式列表（`core/crates/plugin/sdk/src/js_sdk/core.rs:59`）
-- 主入口函数：ToolPkgArchiveParser 的 `parseToolPkgFromIndexedEntries`（解析）（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1012`）
-- 主入口函数：ToolPkgArchiveParser 的 `readToolPkgManifest`（只读清单）（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:848`）
-- 主入口函数：ToolPkgArchiveParser 的 `readToolPkgCatalog`（只读目录）（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:864`）
+- 主入口函数：ToolPkgArchiveParser 的 `parseToolPkgFromIndexedEntries`（解析）（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1019`）
+- 主入口函数：ToolPkgArchiveParser 的 `readToolPkgManifest`（只读清单）（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:854`）
+- 主入口函数：ToolPkgArchiveParser 的 `readToolPkgCatalog`（只读目录）（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:870`）
 - 主入口函数：PluginPackageManager 的 `registerToolPkg`（注册）（`core/crates/plugin/sdk/src/PackageManager.rs:85`）
-- 主入口函数：ToolPkgManager 的 `dispatchToolPkgHook`（执行 hook）（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1074`）
+- 主入口函数：ToolPkgManager 的 `dispatchToolPkgHook`（执行 hook）（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1103`）
 - 数据流向：`.toolpkg` 归档或目录 → manifest 与 main 脚本 → `ToolPkgLoadResult` → 注册进容器与子包两张运行时表 → 依赖排序 → 按需取 main 脚本与 JS 引擎执行 hook 或 Compose DSL 界面。
 
 ## 核心机制
 
 ### 包模型：ToolPkg 清单
 
-- `ToolPkgManifest` 含 `schema_version`、`toolpkg_id`、`version` 与 `api_version`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:688`）。
-- `ToolPkgManifest` 含 `public_api`、`requires` 与 `main`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:697`）。
-- ToolPkgManifest 含 display_name、`description`、`author`、`logo` 与 `license`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:709`）。
-- `ToolPkgManifest` 含 `enabled_by_default`、`market_only` 与 `installation_scope`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:717`）。
-- `ToolPkgManifest` 含 `subpackages`、`themes`、`resources` 与 `wasm_modules`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:723`）。
-- `ToolPkgManifest` 含 `workspace_templates`，并以 `#[serde(flatten)]` 收纳全部扩展字段（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:730`）。
+- `ToolPkgManifest` 含 `schema_version`、`toolpkg_id`、`version` 与 `api_version`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:691`）。
+- `ToolPkgManifest` 含 `public_api`、`requires` 与 `main`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:697` `core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:703`）。
+- ToolPkgManifest 含 display_name、`description`、`author`、`logo` 与 `license`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:715`）。
+- `ToolPkgManifest` 含 `enabled_by_default`、`market_only` 与 `installation_scope`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:723`）。
+- `ToolPkgManifest` 含 `subpackages`、`themes`、`resources` 与 `wasm_modules`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:729`）。
+- `ToolPkgManifest` 含 `workspace_templates`，并以 `#[serde(flatten)]` 收纳全部扩展字段（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:736`）。
 - schema_version 省略时默认 1（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2826`）。
 - 省略 `api_version` 的清单按 1.0.0 解析（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:691`；缺省值函数见 `core/crates/plugin/sdk/src/toolpkg/ToolPkgApiVersion.rs:65`）。
-- enabled_by_default 省略时默认 true（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2832`）。
+- enabled_by_default 省略时默认 true（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2848`）。
 - `ToolPkgSourceType` 只有 `ASSET`、`MARKET`、`EXTERNAL` 三种，默认 `ASSET`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:19`）。
-- `findManifestEntry` 先找根目录的 `manifest.hjson`，找不到再找 `manifest.json`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2730`）。
+- `findManifestEntry` 先找根目录的 `manifest.hjson`，找不到再找 `manifest.json`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2738`）。
 - 根目录没有清单时，findManifestEntry 再按子目录 `manifest.hjson`、子目录 manifest.json 的顺序找（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2741`）。
-- `readToolPkgManifest` 只读归档清单并校验 toolpkg_id 非空，不触碰可执行条目（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:848`）。
-- `readToolPkgCatalog` 只读清单、子包元数据与资源路径，产出 `ToolPkgLoadResult`，不评估脚本（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:864`）。
+- `readToolPkgManifest` 只读归档清单并校验 toolpkg_id 非空，不触碰可执行条目（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:854`）。
+- `readToolPkgCatalog` 只读清单、子包元数据与资源路径，产出 `ToolPkgLoadResult`，不评估脚本（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:870`）。
 
 ### 清单校验规则
 
-- 解析时先校验 manifest 的 api_version 是否受支持，不支持直接失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1041`）。
-- `manifest.toolpkg_id` 为空时解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1062`）。
-- `manifest.public_api` 必须引用包内已存在的 TypeScript 文件（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1072`）。
-- `manifest.main` 为空且声明了 public_api 或子包时解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1099`）。
+- 解析时先校验 manifest 的 api_version 是否受支持，不支持直接失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1048`）。
+- `manifest.toolpkg_id` 为空时解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1069`）。
+- `manifest.public_api` 必须引用包内已存在的 TypeScript 文件（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1079`）。
+- `manifest.main` 为空且声明了 public_api 或子包时解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1106`）。
 - 声明了子包但一个都未成功加载时解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1198`）。
-- wasm 模块的 `abi` 只接受 `scalar` 与 `memory`，其他值解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1277`）。
+- wasm 模块的 `abi` 只接受 `scalar` 与 `memory`，其他值解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1284`）。
 - 一个 ToolPkg 最多注册一个 chat lifecycle hook，超过一个解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1616`）。
-- v1 契约自动补两条兼容依赖：`com.operit.workflow` 最低 0.2.0、`com.operit.character_cards` 最低 0.1.0（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2493`）。
+- v1 契约自动补两条兼容依赖：`com.operit.workflow` 最低 0.2.0、`com.operit.character_cards` 最低 0.1.0（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2501`）。
 - 兼容提供方自身不得使用 v1 契约，否则解析失败（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2508`）。
-- validateProtectedEntryPolicy 的函数体直接返回 `Ok`，未执行保护策略校验（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2037`）。
+- validateProtectedEntryPolicy 的函数体直接返回 `Ok`，未执行保护策略校验（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:2045`）。
 
 ### 包管理：三层状态与条件状态
 
@@ -90,15 +90,15 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 
 ### 依赖解析：拓扑排序与问题码
 
-- `resolveToolPkgDependencies` 把前置排在依赖方之前，并为每个未满足依赖标注问题（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:516`）。
-- 依赖不存在时问题码为 `missing`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:527`）。
-- 版本越界时问题码为 `version_incompatible`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:528`）。
-- 依赖未启用时问题码为 `disabled`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:529`）。
-- 循环或自依赖等无法解析时问题码为 `unresolved`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:560`）。
-- `getEnabledToolPkgContainerRuntimes` 只返回无依赖问题且自身或任一子包已启用的容器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:574`）。
+- `resolveToolPkgDependencies` 把前置排在依赖方之前，并为每个未满足依赖标注问题（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:531`）。
+- 依赖不存在时问题码为 `missing`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:549`）。
+- 版本越界时问题码为 `version_incompatible`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:550`）。
+- 依赖未启用时问题码为 `disabled`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:552`）。
+- 循环或自依赖等无法解析时问题码为 `unresolved`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:589`）。
+- `getEnabledToolPkgContainerRuntimes` 只返回无依赖问题且自身或任一子包已启用的容器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:603`）。
 - `isEnabledToolPkgContainer` 只在容器及其传递前置都可执行时返回真（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:479`）。
 - `ToolPkgDependencyIssue` 记录依赖 id、问题码、要求版本上下限、已安装版本与是否启用（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:743`）。
-- `ToolPkgManifestRequirement` 含 `id`、`description`、`min_version` 与 `max_version`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:752`）。
+- `ToolPkgManifestRequirement` 含 `id`、`description`、`min_version` 与 `max_version`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:758`）。
 
 ### Hook 系统：挂载点
 
@@ -106,7 +106,7 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 - ToolPkgMainRegistration 含 `appLifecycleHooks`、`messageProcessingPlugins`、`xmlRenderPlugins`、`inputMenuTogglePlugins` 四组 hook 注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:486`）。
 - ToolPkgMainRegistration 含 `chatInputHooks`、`chatViewHooks` 与 `chatMessageHooks` 三组聊天 hook 注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:494`）。
 - ToolPkgMainRegistration 含 `messageTransformHooks`、`messageStreamTransforms` 与 `chatLifecycleHooks` 三组聊天 hook 注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:502`）。
-- ToolPkgContainerRuntime 含 `messageTransformHooks` 与 `messageStreamTransforms` 两组消息变换 hook 运行时记录（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:624`）。
+- ToolPkgContainerRuntime 含 `messageTransformHooks` 与 `messageStreamTransforms` 两组消息变换 hook 运行时记录（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:627`）。
 - ToolPkgMainRegistration 含 `promptInputHooks`、`promptHistoryHooks` 与 `promptEstimateHistoryHooks` 三组提示词 hook 注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:520`）。
 - ToolPkgMainRegistration 含 `systemPromptComposeHooks`、`toolPromptComposeHooks`、`promptFinalizeHooks`、`promptEstimateFinalizeHooks` 与 `summaryGenerateHooks` 五组提示词 hook 注册（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:528`）。
 - `ToolPkgAppLifecycleHookRegistration` 含容器包名、`hookId`、事件名、函数名与可选函数源码（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:11`）。
@@ -133,29 +133,29 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 - ToolPkgHookInvocation 含 `pluginId`、`inlineFunctionSource`、`eventPayload`、`executionContextKey` 与 `runtimeKind`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:196`）。
 - ToolPkgHookInvocation 含 `envOverrides` 与 `timestampMs`，`timeoutMillis` 只约束显式定时的 before hook（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:201`）。
 - `ToolPkgHookDispatcher` 只有一个方法 `dispatchToolPkgHook`，按启用包名集合与一次调用入参执行 hook（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:211`）。
-- dispatchToolPkgHook 有 `timeoutMillis` 时走带超时的执行入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1085`）。
+- dispatchToolPkgHook 有 `timeoutMillis` 时走带超时的执行入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1114`）。
 - dispatchToolPkgHook 无 timeoutMillis 时走普通执行入口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1099`）。
-- `dispatchToolPkgHookAsync` 是 `dispatchToolPkgHook` 的异步包装（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1119`）。
-- hook 参数含 `event` 与 `eventName`，`eventName` 省略时取 `event`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1160`）。
-- hook 参数含 `eventPayload`、`timestampMs` 与 `functionName`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1167`）。
-- hook 参数含 `toolPkgId`、`containerPackageName` 与 `__operit_toolpkg_api_version`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1179`）。
-- resolveToolPkgExecutionContextKey 未指定执行上下文键时默认 toolpkg_main:{容器包名}（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1264`）。
+- `dispatchToolPkgHookAsync` 是 `dispatchToolPkgHook` 的异步包装（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1148`）。
+- hook 参数含 `event` 与 `eventName`，`eventName` 省略时取 `event`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1189`）。
+- hook 参数含 `eventPayload`、`timestampMs` 与 `functionName`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1196`）。
+- hook 参数含 `toolPkgId`、`containerPackageName` 与 `__operit_toolpkg_api_version`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1208`）。
+- resolveToolPkgExecutionContextKey 未指定执行上下文键时默认 toolpkg_main:{容器包名}（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1293`）。
 - `decodeToolPkgHookResult` 把空串当字符串返回，能解析为 JSON 的返回 JSON 值，否则返回原字符串（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:226`）。
-- `addToolPkgRuntimeChangeListener` 注册监听器后立即推送一次当前活跃容器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:587`）。
-- `notifyToolPkgRuntimeChangeListeners` 向全部已注册监听器推送活跃容器列表（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:604`）。
+- `addToolPkgRuntimeChangeListener` 注册监听器后立即推送一次当前活跃容器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:616`）。
+- `notifyToolPkgRuntimeChangeListeners` 向全部已注册监听器推送活跃容器列表（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:633`）。
 
 ### Compose DSL：UI 声明
 
 - `ToolPkgUiModuleRuntime` 含 `id`、`runtime`、`screen`、`screenExport`、`title` 与 `keepAlive`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:57`）。
-- 注册的 UI 路由未声明 `runtime` 时，解析器以 `TOOLPKG_RUNTIME_COMPOSE_DSL` 补默认值（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1426`）。
-- 工具箱 UI 模块与导航条目的路由 id 由 `buildToolPkgRouteId` 按容器包名与模块 id 生成（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1389`）。
+- 注册的 UI 路由未声明 `runtime` 时，解析器以 `TOOLPKG_RUNTIME_COMPOSE_DSL` 补默认值（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1433`）。
+- 工具箱 UI 模块与导航条目的路由 id 由 `buildToolPkgRouteId` 按容器包名与模块 id 生成（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1396`）。
 - 嵌入式 UI surface 的导航路由 id 必须以 toolpkg:{容器包名}:ui: 开头（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1542`）。
-- 嵌入式 UI surface 的导航路由必须使用 `TOOLPKG_RUNTIME_COMPOSE_DSL` 运行时（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1552`）。
-- 聊天输入框插槽只接受 `TOOLPKG_CHAT_COMPOSER_SLOT_ABOVE_INPUT` 一个 slot 值（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1497`）。
+- 嵌入式 UI surface 的导航路由必须使用 `TOOLPKG_RUNTIME_COMPOSE_DSL` 运行时（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1559`）。
+- 聊天输入框插槽只接受 `TOOLPKG_CHAT_COMPOSER_SLOT_ABOVE_INPUT` 一个 slot 值（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1504`）。
 - `ToolPkgSubpackageRuntime` 含 `packageName`、`containerPackageName`、`subpackageId`、`entryPath` 四个身份字段（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:238`）。
 - ToolPkgSubpackageRuntime 还含 `displayName`、`description`、`enabledByDefault` 与 `toolCount`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:245`）。
-- `ToolPkgManifestSubpackage` 只含 `id` 与 `entry` 两个字段（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:760`）。
-- `ToolPkgManifestTheme` 含 `id`、`path`、`preview` 与 `files`，拒绝未知字段（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:770`）。
+- `ToolPkgManifestSubpackage` 只含 `id` 与 `entry` 两个字段（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:766`）。
+- `ToolPkgManifestTheme` 含 `id`、`path`、`preview` 与 `files`，拒绝未知字段（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:776`）。
 
 ### 执行引擎与租约
 
@@ -165,40 +165,40 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 - `ToolPkgAssetSource` 按资源名返回内嵌 ToolPkg 归档字节（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:52`）。
 - `ToolPkgExecutionEngineEntry` 把一个缓存 JS 引擎与所属容器包名、活跃租约数与容器持有标记绑在一起（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:60`）。
 - `ToolPkgExecutionEngineLease` 在 `Drop` 时释放执行租约（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:76`）。
-- `getToolPkgExecutionEngine` 取缓存引擎或新建一个，不计租约（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:674`）。
-- `acquireToolPkgExecutionEngine` 为一个执行上下文计一次租约（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:684`）。
-- `leaseToolPkgExecutionEngine` 取引擎与租约对象，租约 Drop 时释放（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:690`）。
-- `leaseToolPkgMainExecutionEngine` 以 toolpkg_main:{包名} 为上下文键租用容器持有的 main realm（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:700`）。
-- `revokeContainerExecutionContexts` 撤销一个容器的全部上下文，包括已租出的上下文（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:910`）。
+- `getToolPkgExecutionEngine` 取缓存引擎或新建一个，不计租约（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:703`）。
+- `acquireToolPkgExecutionEngine` 为一个执行上下文计一次租约（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:713`）。
+- `leaseToolPkgExecutionEngine` 取引擎与租约对象，租约 Drop 时释放（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:719`）。
+- `leaseToolPkgMainExecutionEngine` 以 toolpkg_main:{包名} 为上下文键租用容器持有的 main realm（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:729`）。
+- `revokeContainerExecutionContexts` 撤销一个容器的全部上下文，包括已租出的上下文（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:939`）。
 - `updateExecutionEngineFactory` 更换引擎工厂并销毁全部缓存引擎（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:137`）。
 - `shutdownExecutionEngines` 结束 Core 生命周期内的全部引擎，包括在途与容器持有的 realm，并拒绝此后调度的旧工作（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:148`）。
-- getToolPkgMainScriptInternal 只返回已启用容器的 main 脚本，未启用或 main 入口为空时返回 `None`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:627`）。
-- `getRegisteredToolPkgMainScript` 不检查启用状态，只要求 main 入口非空（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:636`）。
-- readToolPkgTextResource 先按容器名找运行时，找不到再按子包 id 找所属容器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:646`）。
+- getToolPkgMainScriptInternal 只返回已启用容器的 main 脚本，未启用或 main 入口为空时返回 `None`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:656`）。
+- `getRegisteredToolPkgMainScript` 不检查启用状态，只要求 main 入口非空（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:665`）。
+- readToolPkgTextResource 先按容器名找运行时，找不到再按子包 id 找所属容器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:675`）。
 - readToolPkgTextResource 要求容器本身或其任一子包在启用名集合中，否则返回 `None`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:667`）。
-- `EXTERNAL` 与 `MARKET` 来源的目录源直接读文件（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1006`）。
-- `.toolpkg` 文件源先读整个归档文件，再按条目名取资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1018`）。
-- `ASSET` 来源从内嵌归档字节中按条目名读资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1033`）。
-- `normalizeToolPkgEntryPath` 拒绝空路径、绝对路径与含 `..` 的路径（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1279`）。
+- `EXTERNAL` 与 `MARKET` 来源的目录源直接读文件（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1035`）。
+- `.toolpkg` 文件源先读整个归档文件，再按条目名取资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1047`）。
+- `ASSET` 来源从内嵌归档字节中按条目名读资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1062`）。
+- `normalizeToolPkgEntryPath` 拒绝空路径、绝对路径与含 `..` 的路径（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1308`）。
 
 ### JS SDK：宿主契约与工具目录
 
 - `JsonObject` 是保留完整值的 JSON 对象类型别名（`core/crates/plugin/sdk/src/js_sdk/core.rs:9`）。
-- `ToolParams` 以 `flatten` 的 `BTreeMap` 存任意具名参数（`core/crates/plugin/sdk/src/js_sdk/core.rs:22`）。
-- `ToolConfig` 含工具类别、工具名、参数与流式中间结果回调（`core/crates/plugin/sdk/src/js_sdk/core.rs:32`）。
-- `ToolCatalogParameter` 含参数名、类型、描述、是否必填与默认值（`core/crates/plugin/sdk/src/js_sdk/core.rs:40`）。
-- `ToolCatalogEntry` 含工具名、描述、参数列表、类别、来源与所属包名（`core/crates/plugin/sdk/src/js_sdk/core.rs:52`）。
+- `ToolParams` 以 `flatten` 的 `BTreeMap` 存任意具名参数（`core/crates/plugin/sdk/src/js_sdk/core.rs:42`）。
+- `ToolConfig` 含工具类别、工具名、参数与流式中间结果回调（`core/crates/plugin/sdk/src/js_sdk/core.rs:52`）。
+- `ToolCatalogParameter` 含参数名、类型、描述、是否必填与默认值（`core/crates/plugin/sdk/src/js_sdk/core.rs:60`）。
+- `ToolCatalogEntry` 含工具名、描述、参数列表、类别、来源与所属包名（`core/crates/plugin/sdk/src/js_sdk/core.rs:72`）。
 - `ToolCatalog` 是设备发现返回的公开工具名与模式列表（`core/crates/plugin/sdk/src/js_sdk/core.rs:59`）。
-- `DeviceToolOptions` 的 `timeoutMs` 含连接与权限检查在内，默认 120000 毫秒；`signal` 用于中止时关闭远程执行流（`core/crates/plugin/sdk/src/js_sdk/core.rs:64`）。
-- BaseResult 以 `success` 与 `error` 报告操作是否成功（`core/crates/plugin/sdk/src/js_sdk/core.rs:83`）。
-- `ToolResult` 分 `String`、`Boolean`、`Number`、`Dynamic` 四种结果（`core/crates/plugin/sdk/src/js_sdk/core.rs:153`）。
-- CoreHost 提供按类别与工具名调用工具的重载 `toolCall_overload_1`（`core/crates/plugin/sdk/src/js_sdk/core.rs:177`）。
-- CoreHost 提供动态工具名调用 `toolCall_overload_6`（`core/crates/plugin/sdk/src/js_sdk/core.rs:210`）。
-- CoreHost 的 `complete` 完成工具执行，返回值必须可 JSON 序列化（`core/crates/plugin/sdk/src/js_sdk/core.rs:216`）。
-- LodashApi 提供 `isEmpty`、`isString`、`isNumber`、`isBoolean`、`isObject`、`isArray` 六组类型判断（`core/crates/plugin/sdk/src/js_sdk/core.rs:233`）。
-- LodashApi 提供 `forEach` 与 `map` 两组集合迭代（`core/crates/plugin/sdk/src/js_sdk/core.rs:244`）。
-- `DataUtilsApi` 提供 `parseJson`、`stringifyJson` 与 `formatDate` 三组数据转换（`core/crates/plugin/sdk/src/js_sdk/core.rs:260`）。
-- `AbortSignal` 含 `aborted` 与 `reason` 两个字段，是每个插件运行时的标准取消信号（`core/crates/plugin/sdk/src/js_sdk/core.rs:272`）。
+- `DeviceToolOptions` 的 `timeoutMs` 含连接与权限检查在内，默认 120000 毫秒；`signal` 用于中止时关闭远程执行流（`core/crates/plugin/sdk/src/js_sdk/core.rs:84`）。
+- BaseResult 以 `success` 与 `error` 报告操作是否成功（`core/crates/plugin/sdk/src/js_sdk/core.rs:103`）。
+- `ToolResult` 分 `String`、`Boolean`、`Number`、`Dynamic` 四种结果（`core/crates/plugin/sdk/src/js_sdk/core.rs:173`）。
+- CoreHost 提供按类别与工具名调用工具的重载 `toolCall_overload_1`（`core/crates/plugin/sdk/src/js_sdk/core.rs:197`）。
+- CoreHost 提供动态工具名调用 `toolCall_overload_6`（`core/crates/plugin/sdk/src/js_sdk/core.rs:230`）。
+- CoreHost 的 `complete` 完成工具执行，返回值必须可 JSON 序列化（`core/crates/plugin/sdk/src/js_sdk/core.rs:236`）。
+- LodashApi 提供 `isEmpty`、`isString`、`isNumber`、`isBoolean`、`isObject`、`isArray` 六组类型判断（`core/crates/plugin/sdk/src/js_sdk/core.rs:253`）。
+- LodashApi 提供 `forEach` 与 `map` 两组集合迭代（`core/crates/plugin/sdk/src/js_sdk/core.rs:264`）。
+- `DataUtilsApi` 提供 `parseJson`、`stringifyJson` 与 `formatDate` 三组数据转换（`core/crates/plugin/sdk/src/js_sdk/core.rs:280`）。
+- `AbortSignal` 含 `aborted` 与 `reason` 两个字段，是每个插件运行时的标准取消信号（`core/crates/plugin/sdk/src/js_sdk/core.rs:292`）。
 - `AbortController` 暴露 `signal` 字段（`core/crates/plugin/sdk/src/js_sdk/core.rs:292`）。
 - AbortController 的 `abort` 恰好取消一次，可带原因（`core/crates/plugin/sdk/src/js_sdk/core.rs:300`）。
 
@@ -209,7 +209,7 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 - `ToolPkgLoadResult` — 解析一条 ToolPkg 的产物（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:672`）
 - `ToolPkgMainRegistration` — main 脚本注册的全部贡献汇总（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:470`）
 - `ToolPkgMainRegistrationParseResult` — main 注册解析结果，只有 `Success` 与 `Failure`（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:545`）
-- `ToolPkgArchiveParser` — ToolPkg 归档解析器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:843`）
+- `ToolPkgArchiveParser` — ToolPkg 归档解析器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:849`）
 - ToolPkgEntryIndex — 归档条目归一化索引（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:797`）
 - `ToolPkgManager` — 容器运行时、资源与执行引擎的管理者（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:105`）
 - `PluginPackageManager` — JavaScript 包与 ToolPkg 状态的对外管理器（`core/crates/plugin/sdk/src/PackageManager.rs:23`）
@@ -218,17 +218,17 @@ ToolPkg 的执行与管理（包工具调用、MCP 桥接）见 [[core-tool-pack
 - `ToolPkgAssetSource` — 内嵌 ToolPkg 归档字节的宿主接口（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:52`）
 - `ToolPkgHookDispatcher` — hook 分发的契约（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:211`）
 - `ToolPkgHookInvocation` — 一次 hook 调用的完整输入（`core/crates/plugin/sdk/src/toolpkg/ToolPkgHooks.rs:190`）
-- `CoreHost` — 插件调用工具的宿主契约（`core/crates/plugin/sdk/src/js_sdk/core.rs:171`）
+- `CoreHost` — 插件调用工具的宿主契约（`core/crates/plugin/sdk/src/js_sdk/core.rs:191`）
 - `ToolCatalog` — 设备发现返回的公开工具列表（`core/crates/plugin/sdk/src/js_sdk/core.rs:59`）
 
 ## 调用链
 
 1. 宿主创建 `PluginPackageManager`，注入执行引擎工厂、资源源、文件系统与包状态解析器（`core/crates/plugin/sdk/src/PackageManager.rs:34`）。第三组输入为 `filesystem: Arc<VisualFileSystem>`（`core/crates/plugin/sdk/src/PackageManager.rs:37`），同一 VFS 实例传给 ToolPkgManager（ToolPkgManager.rs:102、110）；直接传入旧 Arc<dyn FileSystemHost> 与当前签名不匹配。
-2. 解析 ToolPkg：ToolPkgArchiveParser 的 `parseToolPkgFromIndexedEntries` 建条目索引、找 manifest、校验 api_version 与清单字段、解析子包与 main 注册，产出 ToolPkgLoadResult（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1012`）。
+2. 解析 ToolPkg：ToolPkgArchiveParser 的 `parseToolPkgFromIndexedEntries` 建条目索引、找 manifest、校验 api_version 与清单字段、解析子包与 main 注册，产出 ToolPkgLoadResult（`core/crates/plugin/sdk/src/toolpkg/ToolPkgParser.rs:1019`）。
 3. 注册：PluginPackageManager 的 `registerToolPkg` 先经 `canRegisterToolPkg` 校验名字冲突，再由 ToolPkgManager 的 `registerToolPkg` 登记容器与子包两张运行时表（`core/crates/plugin/sdk/src/PackageManager.rs:85`）。
-4. 启用与依赖排序：setEnabledPackageNames 替换启用集合，`resolveToolPkgDependencies` 做拓扑排序并标注问题码，getEnabledToolPkgContainerRuntimes 取可执行容器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:516`）。
-5. 执行 hook：ToolPkgManager 的 `dispatchToolPkgHook` 经 prepareToolPkgHook 取 main 脚本、租用执行引擎、组装事件参数，再调脚本函数执行（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1074`）。
-6. 读资源：readToolPkgTextResource 按包名或子包 id 找容器并校验启用状态，再按来源类型读文本资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:646`）。
+4. 启用与依赖排序：setEnabledPackageNames 替换启用集合，`resolveToolPkgDependencies` 做拓扑排序并标注问题码，getEnabledToolPkgContainerRuntimes 取可执行容器（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:531`）。
+5. 执行 hook：ToolPkgManager 的 `dispatchToolPkgHook` 经 prepareToolPkgHook 取 main 脚本、租用执行引擎、组装事件参数，再调脚本函数执行（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:1103`）。
+6. 读资源：readToolPkgTextResource 按包名或子包 id 找容器并校验启用状态，再按来源类型读文本资源（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:675`）。
 7. 读 main 脚本：getToolPkgMainScriptInternal 只返回已启用容器的 main 脚本（`core/crates/plugin/sdk/src/toolpkg/ToolPkgManager.rs:620`）。
 
 ## 来源

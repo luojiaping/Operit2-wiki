@@ -27,8 +27,8 @@ date: 2026-11-11
 
 ## 概述
 
-本页是 Operit2 能力 × 平台矩阵：能力全集取自 host-contract 的 trait 定义，平台列取自各平台 createRuntimeHostManager 的注册实测 (core/crates/foundation/host-api/src/HostManager.rs:139)。
-能力全集的唯一权威来源是 host-contract 的 trait 定义与 HostManager 的注册槽位，库里不存在统一的 Host 能力清单数据文件 (core/crates/foundation/host-api/src/HostManager.rs:139)。
+本页是 Operit2 能力 × 平台矩阵：能力全集取自 host-contract 的 trait 定义，平台列取自各平台 createRuntimeHostManager 的注册实测 (core/crates/foundation/host-api/src/HostManager.rs:151)。
+能力全集的唯一权威来源是 host-contract 的 trait 定义与 HostManager 的注册槽位，库里不存在统一的 Host 能力清单数据文件 (core/crates/foundation/host-api/src/HostManager.rs:151)。
 矩阵共 35 个能力 × 7 个平台 = 245 格：支持 140、部分支持 15、不支持 1、未查到 89，数字是生成脚本的输出(/tmp/gen_host_matrix.py)。
 平台列共 7 列，由生成脚本按 hosts 下含 createRuntimeHostManager 的目录确定(/tmp/gen_host_matrix.py)。
 hosts/apple 不占平台列：iOS 把 AppleFileSystemHost 重导出为 IosFileSystemHost (hosts/ios/src/lib.rs:22)。
@@ -80,7 +80,7 @@ macOS 把 AppleFileSystemHost 重导出为 MacosFileSystemHost (hosts/macos/src/
 - OpenHarmony 的 `createRuntimeHostManager` 是平台入口 (hosts/ohos/src/lib.rs:43)
 - Web 的 `createRuntimeHostManager` 是平台入口 (hosts/web/src/lib.rs:36)
 - Windows 的 `createRuntimeHostManager` 是平台入口 (hosts/windows/src/lib.rs:36)
-- 数据流向：平台方组装 HostManager → Core 经 HostManager 字段取 trait 对象调用平台实现 (core/crates/foundation/host-api/src/HostManager.rs:139)
+- 数据流向：平台方组装 HostManager → Core 经 HostManager 字段取 trait 对象调用平台实现 (core/crates/foundation/host-api/src/HostManager.rs:151)
 - 槽位未注册时取用方报错：未注册 HTTP server 时 defaultHttpServerHost 返回明确错误 (core/crates/foundation/host-api/src/HostManager.rs:22)
 
 ## 核心机制
@@ -88,7 +88,7 @@ macOS 把 AppleFileSystemHost 重导出为 MacosFileSystemHost (hosts/macos/src/
 ### 能力全集从哪来
 
 host-contract 的 src 下共定义 53 个 pub trait，数字是生成脚本的枚举输出(/tmp/gen_host_matrix.py)。
-其中 35 个在 HostManager 有注册槽位，是矩阵的能力行 (core/crates/foundation/host-api/src/HostManager.rs:139)。
+其中 35 个在 HostManager 有注册槽位，是矩阵的能力行 (core/crates/foundation/host-api/src/HostManager.rs:151)。
 其余 18 个是辅助 trait，无独立注册槽位，逐项列出如下。
 `DiscoveryAdvertisement` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/ServiceDiscovery.rs:23)。
 `DiscoverySubscription` 是辅助 trait，无独立注册槽位 (core/crates/foundation/host-contract/src/ServiceDiscovery.rs:21)。
@@ -124,10 +124,10 @@ host-contract 的 src 下共定义 53 个 pub trait，数字是生成脚本的�
 取数范围是各平台 lib.rs 内的 createRuntimeHostManager，以 Android 入口为例 (hosts/android/src/lib.rs:78)。
 Android 另有特权版 createPrivilegedRuntimeHostManager (hosts/android/src/lib.rs:109)。
 两个 Android 版本共用 createBaseRuntimeHostManager (hosts/android/src/lib.rs:133)。
-复合构造器一次填充多个槽位，如 withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts 一次填充七个槽位 (core/crates/foundation/host-api/src/HostManager.rs:392)。
+复合构造器一次填充多个槽位，如 withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts 一次填充七个槽位 (core/crates/foundation/host-api/src/HostManager.rs:404)。
 注册缺失的后果：未注册 HTTP server 时 defaultHttpServerHost 返回明确错误 (core/crates/foundation/host-api/src/HostManager.rs:22)。
 未注册 TCP 时 defaultTcpHost 返回明确错误 (core/crates/foundation/host-api/src/HostManager.rs:32)。
-defaultHttpHost 未配置时以 expect 报错 (core/crates/foundation/host-api/src/HostManager.rs:88)。
+defaultHttpHost 未配置时以 expect 报错 (core/crates/foundation/host-api/src/HostManager.rs:100)。
 本次矩阵由写手一次性脚本生成，源码中无自动定期生成机制；全库 grep 未发现能力矩阵生成脚本(/tmp/gen_host_matrix.py)。
 重新生成：任一 `hosts/<平台>/src/lib.rs` 或 host-contract trait 定义变动后，重跑生成脚本再核对本页 (/tmp/gen_host_matrix.py)。
 RuntimeSqliteHost 等格的注册行只含 camelCase 字段名(如 runtimeSqliteHost)，facts.json 用字段形式措辞，矩阵表首列能力名因同一原因用 plain 文本(/tmp/gen_host_matrix.py)。
@@ -207,14 +207,14 @@ Web 的 localInference 执行已安装的 Sherpa ONNX Web STT 与 TTS 包 (hosts
 
 ## 关键符号
 
-- `HostManager` — 宿主能力注册表，字段是 Option 包装的 trait 对象槽位 (core/crates/foundation/host-api/src/HostManager.rs:139)
+- `HostManager` — 宿主能力注册表，字段是 Option 包装的 trait 对象槽位 (core/crates/foundation/host-api/src/HostManager.rs:151)
 - `HostEnvironmentDescriptor` — 平台环境描述符 (core/crates/foundation/host-contract/src/lib.rs:99)
 - `HostCapability` — 能力声明，含 id、displayName、scope 与 operations (core/crates/foundation/host-contract/src/lib.rs:528)
 - `CapabilityScope` — 能力范围枚举 (core/crates/foundation/host-contract/src/lib.rs:510)
 - `CapabilityOperation` — 能力操作枚举 (core/crates/foundation/host-contract/src/lib.rs:520)
-- `withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts` — 一次填充七个槽位的复合构造器 (core/crates/foundation/host-api/src/HostManager.rs:392)
-- `withFileSystemWebVisitAndSystemOperationHosts` — 填充文件系统、Web 访问与系统操作三个槽位 (core/crates/foundation/host-api/src/HostManager.rs:336)
-- `withFileSystemAndWebVisitHosts` — 填充文件系统与 Web 访问两个槽位 (core/crates/foundation/host-api/src/HostManager.rs:288)
+- `withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts` — 一次填充七个槽位的复合构造器 (core/crates/foundation/host-api/src/HostManager.rs:404)
+- `withFileSystemWebVisitAndSystemOperationHosts` — 填充文件系统、Web 访问与系统操作三个槽位 (core/crates/foundation/host-api/src/HostManager.rs:348)
+- `withFileSystemAndWebVisitHosts` — 填充文件系统与 Web 访问两个槽位 (core/crates/foundation/host-api/src/HostManager.rs:300)
 - Android 的 `createRuntimeHostManager` 是平台入口 (hosts/android/src/lib.rs:78)
 - Android 的 `createPrivilegedRuntimeHostManager` 是特权版入口 (hosts/android/src/lib.rs:109)
 - Android 的 `createBaseRuntimeHostManager` 是两版本共用的组装函数 (hosts/android/src/lib.rs:133)
@@ -228,7 +228,7 @@ Web 的 localInference 执行已安装的 Sherpa ONNX Web STT 与 TTS 包 (hosts
 ## 调用链
 
 1. 平台方调用本平台的 `createRuntimeHostManager`，传入运行时根与工作区根 (hosts/android/src/lib.rs:78)
-2. create 函数经复合构造器或单个 with 调用填充 HostManager 槽位，如 `withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts` 一次填充七个槽位 (core/crates/foundation/host-api/src/HostManager.rs:392)
+2. create 函数经复合构造器或单个 with 调用填充 HostManager 槽位，如 `withFileSystemWebVisitSystemOperationAndManagedRuntimeHosts` 一次填充七个槽位 (core/crates/foundation/host-api/src/HostManager.rs:404)
 3. Core 经 `HostManager` 字段取 trait 对象调用平台实现；文件系统、终端、浏览器、HTTP 和平台交互都来自该节点自己的 `HostManager` (docs/core-node-space-binding-architecture.md:51)
 4. 槽位未注册时取用方报错：未注册 HTTP server 时 `defaultHttpServerHost` 返回明确错误 (core/crates/foundation/host-api/src/HostManager.rs:22)
 5. 业务文件操作不直接调 `FileSystemHost`，先经 `VisualFileSystem` 解析路径 (docs/filesystem-access-boundary.md:3)

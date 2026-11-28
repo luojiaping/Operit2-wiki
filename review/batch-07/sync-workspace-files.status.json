@@ -1,10 +1,10 @@
 {
   "issue": 71,
-  "source_commit": "b3b897c",
+  "source_commit": "3dd6149",
   "source_repo": "operit2",
   "status": "approved",
   "summary": "工作区文件同步与 .operit/sync.json：三类受管目录、默认同步策略、跳过规则与产出目录绑定继承",
-  "updated": "2026-11-27",
+  "updated": "2026-11-28",
   "approved_by_comment_id": 6854372961,
   "approved_by": "luojiaping",
   "approved_at": "2026-11-13 13:34 UTC"

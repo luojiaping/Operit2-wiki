@@ -156,11 +156,11 @@ Space 成员资格不授予其他节点读取本机文件、使用本机终端�
 
 README 声明 API 密钥、设备私钥、配对密钥、会话与本地平台权限默认属于节点本地，加入 Space 不自动复制（`README.md:128`）。
 
-实现与该原则存在冲突：`ModelConfigManager` 的 `preferenceStore` 经 `PreferencesDataStore::newWithStorage` 打开 Space 偏好存储（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:130`）。
+实现与该原则存在冲突：`ModelConfigManager` 的 `preferenceStore` 经 `PreferencesDataStore::newWithStorage` 打开 Space 偏好存储（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:133`）。
 
-`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>` 键（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1572`）。
+`writeProvider` 把完整 `ProviderProfile` 作为同步偏好值写入 `provider_<id>` 键（`core/crates/runtime/application/src/data/preferences/ModelConfigManager.rs:1762`）。
 
-`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:672`）。
+`ProviderProfile` 包含 `apiKey` 与 `apiKeyPool`（`core/crates/foundation/model/src/ModelConfigData.rs:697`）。
 
 Space 偏好存储构造时创建同步描述符 `PreferencesSyncDescriptor`（`core/crates/persistence/store/src/PreferencesDataStore.rs:2999`）。
 

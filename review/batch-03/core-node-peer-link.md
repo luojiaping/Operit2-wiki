@@ -19,7 +19,7 @@ date: 2026-11-11
 - 各载体的具体实现在 transport 子模块，本页 seed 只含 lib.rs 的契约层，不展开各载体的实现细节（`core/crates/node/peer-link/src/lib.rs:10`）。
 - 载体是否可用取决于 Host 装了什么：`detectTransport` 在 Host 未安装 TCP Host 时直接返回 "TCP Host is not installed" 错误（`core/crates/node/peer-link/src/lib.rs:164`）。
 - 发现与配对节流由节点运行时的 `HostRuntimePeerService` 承载，详见 [[core-node-runtime|节点——节点运行时]]（`core/crates/node/runtime/src/peer/discovery.rs:19`）。
-- 路由宏在编译期给被注解方法生成包装器与路由元数据，运行时由包装器决定本地执行还是远端调用（`core/crates/node/route-macros/src/lib.rs:86`）。
+- 路由宏在编译期给被注解方法生成包装器与路由元数据，运行时由包装器决定本地执行还是远端调用（`core/crates/node/route-macros/src/lib.rs:96`）。
 - peer-protocol.json 只剩 revisions 一项，列出 peer 协议修订版本（`core/peer-protocol.json:2`）。
 
 ## AI 速览
@@ -38,16 +38,16 @@ date: 2026-11-11
 - `discoveredPeerEndpoints` — 从共享缓存取回发现记录并按节点过滤（`core/crates/node/runtime/src/peer/discovery.rs:189`）
 - `PairingThrottle` — 内存令牌桶，限制确认与新建配对（`core/crates/node/runtime/src/peer/pairing_throttle.rs:76`）
 - `pairingSource` — 以实测来源地址分桶，串口与蓝牙各共用一桶（`core/crates/node/runtime/src/peer/pairing_throttle.rs:142`）
-- `operit_core_route` — 路由宏属性，生成包装器与路由元数据（`core/crates/node/route-macros/src/lib.rs:86`）
-- `__operit_core_binding_` 加原方法名 — 生成的元数据函数，返回 binding 名（`core/crates/node/route-macros/src/lib.rs:285`）
-- `__operit_core_permission_` 加原方法名 — 生成的元数据函数，返回 permission 字符串（`core/crates/node/route-macros/src/lib.rs:286`）
-- `expand_owned_core_route` — owned future 路由展开（`core/crates/node/route-macros/src/lib.rs:122`）
+- `operit_core_route` — 路由宏属性，生成包装器与路由元数据（`core/crates/node/route-macros/src/lib.rs:96`）
+- `__operit_core_binding_` 加原方法名 — 生成的元数据函数，返回 binding 名（`core/crates/node/route-macros/src/lib.rs:295`）
+- `__operit_core_permission_` 加原方法名 — 生成的元数据函数，返回 permission 字符串（`core/crates/node/route-macros/src/lib.rs:296`）
+- `expand_owned_core_route` — owned future 路由展开（`core/crates/node/route-macros/src/lib.rs:132`）
 - 主入口：传输侧是 PeerLink 的 `connect`（`core/crates/node/peer-link/src/lib.rs:129`）。
 - 主入口：监听侧是 PeerLink 的 `listen`（`core/crates/node/peer-link/src/lib.rs:138`）。
-- 主入口：路由侧是 `operit_core_route` 注解（`core/crates/node/route-macros/src/lib.rs:86`）。
+- 主入口：路由侧是 `operit_core_route` 注解（`core/crates/node/route-macros/src/lib.rs:96`）。
 - 数据流向：调用方经 PeerLink 的 `connect` 建连（`core/crates/node/peer-link/src/lib.rs:129`）。
 - 数据流向：连接上传输 `PeerMessage` 信封，保留 Call、Watch、Push 三种操作（`core/crates/node/peer-link/src/lib.rs:50`）。
-- 数据流向：路由宏包装器按 `shouldRoute` 决定本地执行或远端调用（`core/crates/node/route-macros/src/lib.rs:378`）。
+- 数据流向：路由宏包装器按 `shouldRoute` 决定本地执行或远端调用（`core/crates/node/route-macros/src/lib.rs:388`）。
 - 数据流向：发现订阅 `_operit-link._tcp.local.` 服务，配对走令牌桶节流（`core/crates/node/runtime/src/peer/discovery.rs:104`）。
 
 ## 核心机制
@@ -121,42 +121,42 @@ date: 2026-11-11
 
 ### 路由宏
 
-- `operit_core_route` 是过程宏属性，注解在方法上（`core/crates/node/route-macros/src/lib.rs:86`）。
-- `binding` 参数是必需的标识符，缺失时编译报错（`core/crates/node/route-macros/src/lib.rs:45`）。
-- `permission` 省略时默认为空字符串（`core/crates/node/route-macros/src/lib.rs:54`）。
-- `permission` 必须写成 caller:capability 或 target:capability，否则编译报错（`core/crates/node/route-macros/src/lib.rs:69`）。
-- `create_binding` 必须是非空字符串，否则编译报错（`core/crates/node/route-macros/src/lib.rs:51`）。
-- `sdk` 是一个无值的开关标志（`core/crates/node/route-macros/src/lib.rs:34`）。
-- 原实现改名为 `__operit_core_local_` 加原方法名，包装器保留原方法签名（`core/crates/node/route-macros/src/lib.rs:229`）。
-- 返回 owned future（impl Future + 'static）的方法改走 `expand_owned_core_route` 展开，同步捕获路由操作，只暴露不依赖服务借用的 future（`core/crates/node/route-macros/src/lib.rs:225`）。
-- 被路由方法最多接受一个 ReverseStream 输入，且必须是 async 方法（`core/crates/node/route-macros/src/lib.rs:242`）。
-- 被路由方法必须声明 `binding` 参数，否则编译报错（`core/crates/node/route-macros/src/lib.rs:252`）。
-- 生成的元数据函数：`__operit_core_binding_` 加原方法名，返回 binding 名；`__operit_core_permission_` 加原方法名，返回 permission 字符串（`core/crates/node/route-macros/src/lib.rs:285`）。
-- 生成的辅助函数：调用辅助 `__operit_core_route_call_` 加原方法名，订阅辅助 `__operit_core_route_watch_snapshot_` 与 `__operit_core_route_watch_` 加原方法名（`core/crates/node/route-macros/src/lib.rs:287`）。
-- 路由参数排除反向流输入，逐个经 `core_arg_entry` 序列化（`core/crates/node/route-macros/src/lib.rs:296`）。
-- 反向流路由：包装器先问 `shouldRoute`，命中时走 `core_route_reverse_stream`（`core/crates/node/route-macros/src/lib.rs:309`）。
-- 反向流方法生成 `__operit_core_route_push_` 加原方法名的推送辅助函数（`core/crates/node/route-macros/src/lib.rs:398`）。
-- 对反向流方法做值调用时返回 `REVERSE_STREAM_REQUIRES_PUSH` 错误，要求改走 Push 传输（`core/crates/node/route-macros/src/lib.rs:429`）。
-- 返回状态流的包装器用 `shouldRouteWatch` 与 `shouldUseLocalWatchSource` 决定走远端订阅还是本地源订阅（`core/crates/node/route-macros/src/lib.rs:358`）。
-- 远端订阅经 `core_route_state_flow` 建立（`core/crates/node/route-macros/src/lib.rs:321`）。
-- 本地源订阅经 `core_route_state_flow_with_local_source` 建立，本地实现作为数据源传入（`core/crates/node/route-macros/src/lib.rs:336`）。
-- 状态流远端订阅失败时，生成的包装器以 panic 报错，而不是返回错误（`core/crates/node/route-macros/src/lib.rs:329`）。
-- 状态流本地源订阅失败时，生成的包装器同样以 panic 报错（`core/crates/node/route-macros/src/lib.rs:345`）。
-- 异步调用包装器：`shouldRoute` 命中时经 `core_route_call_response` 发起远端调用并按声明的返回类型解码（`core/crates/node/route-macros/src/lib.rs:378`）。
-- 远端调用响应解码失败时经 expect 解包，失败即 panic（`core/crates/node/route-macros/src/lib.rs:710`）。
-- 同步方法不走路由，包装器直接调本地实现（`core/crates/node/route-macros/src/lib.rs:393`）。
-- unit 返回值编码为 `CoreValue::Null`（`core/crates/node/route-macros/src/lib.rs:605`）。
-- 成功时经 `to_core_value` 编码，失败时转为 `CoreLinkError::internal`（`core/crates/node/route-macros/src/lib.rs:615`）。
-- `operit_plugin_sdk_expose` 原样返回被注解项，不做任何改写（`core/crates/node/route-macros/src/lib.rs:97`）。
-- `operit_core_internal` 原样返回被注解项，只做内部方法标记（`core/crates/node/route-macros/src/lib.rs:742`）。
-- `before_change_route` 标记在 Core 路由变更前立即调用的生命周期回调（`core/crates/node/route-macros/src/lib.rs:748`）。
-- `after_change_route` 标记在 Core 路由到达目标后调用的生命周期回调（`core/crates/node/route-macros/src/lib.rs:754`）。
+- `operit_core_route` 是过程宏属性，注解在方法上（`core/crates/node/route-macros/src/lib.rs:96`）。
+- `binding` 或 `target` 参数二选一必需，缺失时编译报错（`core/crates/node/route-macros/src/lib.rs:55`）。
+- `permission` 省略时默认为空字符串（`core/crates/node/route-macros/src/lib.rs:64`）。
+- `permission` 必须写成 caller:capability 或 target:capability，否则编译报错（`core/crates/node/route-macros/src/lib.rs:79`）。
+- `create_binding` 必须是非空字符串，否则编译报错（`core/crates/node/route-macros/src/lib.rs:61`）。
+- `sdk` 是一个无值的开关标志（`core/crates/node/route-macros/src/lib.rs:38`）。
+- 原实现改名为 `__operit_core_local_` 加原方法名，包装器保留原方法签名（`core/crates/node/route-macros/src/lib.rs:239`）。
+- 返回 owned future（impl Future + 'static）的方法改走 `expand_owned_core_route` 展开，同步捕获路由操作，只暴露不依赖服务借用的 future（`core/crates/node/route-macros/src/lib.rs:235`）。
+- 被路由方法最多接受一个 ReverseStream 输入，且必须是 async 方法（`core/crates/node/route-macros/src/lib.rs:252`）。
+- 被路由方法必须声明 `binding` 参数，否则编译报错（`core/crates/node/route-macros/src/lib.rs:262`）。
+- 生成的元数据函数：`__operit_core_binding_` 加原方法名，返回 binding 名；`__operit_core_permission_` 加原方法名，返回 permission 字符串（`core/crates/node/route-macros/src/lib.rs:295`）。
+- 生成的辅助函数：调用辅助 `__operit_core_route_call_` 加原方法名，订阅辅助 `__operit_core_route_watch_snapshot_` 与 `__operit_core_route_watch_` 加原方法名（`core/crates/node/route-macros/src/lib.rs:297`）。
+- 路由参数排除反向流输入，逐个经 `core_arg_entry` 序列化（`core/crates/node/route-macros/src/lib.rs:306`）。
+- 反向流路由：包装器先问 `shouldRoute`，命中时走 `core_route_reverse_stream`（`core/crates/node/route-macros/src/lib.rs:319`）。
+- 反向流方法生成 `__operit_core_route_push_` 加原方法名的推送辅助函数（`core/crates/node/route-macros/src/lib.rs:408`）。
+- 对反向流方法做值调用时返回 `REVERSE_STREAM_REQUIRES_PUSH` 错误，要求改走 Push 传输（`core/crates/node/route-macros/src/lib.rs:439`）。
+- 返回状态流的包装器用 `shouldRouteWatch` 与 `shouldUseLocalWatchSource` 决定走远端订阅还是本地源订阅（`core/crates/node/route-macros/src/lib.rs:368`）。
+- 远端订阅经 `core_route_state_flow` 建立（`core/crates/node/route-macros/src/lib.rs:331`）。
+- 本地源订阅经 `core_route_state_flow_with_local_source` 建立，本地实现作为数据源传入（`core/crates/node/route-macros/src/lib.rs:346`）。
+- 状态流远端订阅失败时，生成的包装器以 panic 报错，而不是返回错误（`core/crates/node/route-macros/src/lib.rs:339`）。
+- 状态流本地源订阅失败时，生成的包装器同样以 panic 报错（`core/crates/node/route-macros/src/lib.rs:355`）。
+- 异步调用包装器：`shouldRoute` 命中时经 `core_route_call_response` 发起远端调用并按声明的返回类型解码（`core/crates/node/route-macros/src/lib.rs:388`）。
+- 远端调用响应解码失败时经 expect 解包，失败即 panic（`core/crates/node/route-macros/src/lib.rs:720`）。
+- 同步方法不走路由，包装器直接调本地实现（`core/crates/node/route-macros/src/lib.rs:403`）。
+- unit 返回值编码为 `CoreValue::Null`（`core/crates/node/route-macros/src/lib.rs:615`）。
+- 成功时经 `to_core_value` 编码，失败时转为 `CoreLinkError::internal`（`core/crates/node/route-macros/src/lib.rs:625`）。
+- `operit_plugin_sdk_expose` 原样返回被注解项，不做任何改写（`core/crates/node/route-macros/src/lib.rs:107`）。
+- `operit_core_internal` 原样返回被注解项，只做内部方法标记（`core/crates/node/route-macros/src/lib.rs:752`）。
+- `before_change_route` 标记在 Core 路由变更前立即调用的生命周期回调（`core/crates/node/route-macros/src/lib.rs:758`）。
+- `after_change_route` 标记在 Core 路由到达目标后调用的生命周期回调（`core/crates/node/route-macros/src/lib.rs:764`）。
 
 ### peer-protocol 清单
 
 - peer-protocol.json 只剩 `revisions` 一项，sources 与 schemaRoots 已删除（`core/peer-protocol.json:2`）。
 - `revisions` 数组从 version 1 起编号（`core/peer-protocol.json:2`）。
-- 截至基线 7a79245，最新修订为 version 30，hash 前缀 eda16101（`core/peer-protocol.json:120`）。
+- 截至基线 3dd6149，最新修订为 version 31，hash 前缀 3228b217（`core/peer-protocol.json:124`）。
 - 清单的消费方式不在本页 seed 范围内：本页 seed 不含读取该清单的构建脚本，不对清单的用途做断言（`core/peer-protocol.json:2`）。
 
 ## 关键符号
@@ -185,12 +185,12 @@ date: 2026-11-11
 - `PairingThrottle` — 内存令牌桶节流器（`core/crates/node/runtime/src/peer/pairing_throttle.rs:76`）
 - `TokenBucket` — 定容令牌桶，按墙钟回补（`core/crates/node/runtime/src/peer/pairing_throttle.rs:40`）
 - `pairingSource` — 以实测来源地址分桶（`core/crates/node/runtime/src/peer/pairing_throttle.rs:142`）
-- `operit_core_route` — 路由宏属性（`core/crates/node/route-macros/src/lib.rs:86`）
+- `operit_core_route` — 路由宏属性（`core/crates/node/route-macros/src/lib.rs:96`）
 - `CoreRouteArguments` — 路由注解参数解析（`core/crates/node/route-macros/src/lib.rs:10`）
-- `validate_permission` — permission 格式校验（`core/crates/node/route-macros/src/lib.rs:64`）
-- `expand_core_route` — 生成包装器与路由元数据（`core/crates/node/route-macros/src/lib.rs:223`）
-- `expand_owned_core_route` — owned future 路由展开（`core/crates/node/route-macros/src/lib.rs:122`）
-- `operit_plugin_sdk_expose` — 插件 SDK 暴露标记，原样返回（`core/crates/node/route-macros/src/lib.rs:97`）
+- `validate_permission` — permission 格式校验（`core/crates/node/route-macros/src/lib.rs:74`）
+- `expand_core_route` — 生成包装器与路由元数据（`core/crates/node/route-macros/src/lib.rs:231`）
+- `expand_owned_core_route` — owned future 路由展开（`core/crates/node/route-macros/src/lib.rs:132`）
+- `operit_plugin_sdk_expose` — 插件 SDK 暴露标记，原样返回（`core/crates/node/route-macros/src/lib.rs:107`）
 
 ## 调用链
 
@@ -205,10 +205,10 @@ date: 2026-11-11
 9. 重连时先试新发现的地址，再试已保存的 endpoint（`core/crates/node/runtime/src/peer/discovery.rs:205`）。
 10. 新发现地址被采用前，`saveAuthenticatedEndpoint` 核对 sessionId 与 sessionSecret，不符返回 PEER_PAIRING_CHANGED（`core/crates/node/runtime/src/peer/discovery.rs:223`）。
 11. 配对确认与新建各过两只令牌桶，先查后扣（`core/crates/node/runtime/src/peer/pairing_throttle.rs:89`）。
-12. 异步路由方法先由包装器问 `shouldRoute`，命中则远端调用，否则本地执行（`core/crates/node/route-macros/src/lib.rs:378`）。
-13. 状态流订阅：包装器按 `shouldRouteWatch` 与 `shouldUseLocalWatchSource` 分流远端订阅与本地源订阅（`core/crates/node/route-macros/src/lib.rs:358`）。
-14. 反向流路由：包装器按 `shouldRoute` 命中后走 `core_route_reverse_stream`（`core/crates/node/route-macros/src/lib.rs:309`）。
-15. 路由元数据：`__operit_core_binding_` 加原方法名，返回 binding 名；`__operit_core_permission_` 加原方法名，返回 permission（`core/crates/node/route-macros/src/lib.rs:285`）。
+12. 异步路由方法先由包装器问 `shouldRoute`，命中则远端调用，否则本地执行（`core/crates/node/route-macros/src/lib.rs:388`）。
+13. 状态流订阅：包装器按 `shouldRouteWatch` 与 `shouldUseLocalWatchSource` 分流远端订阅与本地源订阅（`core/crates/node/route-macros/src/lib.rs:368`）。
+14. 反向流路由：包装器按 `shouldRoute` 命中后走 `core_route_reverse_stream`（`core/crates/node/route-macros/src/lib.rs:319`）。
+15. 路由元数据：`__operit_core_binding_` 加原方法名，返回 binding 名；`__operit_core_permission_` 加原方法名，返回 permission（`core/crates/node/route-macros/src/lib.rs:295`）。
 
 ## 来源
 

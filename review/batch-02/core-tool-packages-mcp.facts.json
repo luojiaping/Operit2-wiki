@@ -29,7 +29,7 @@
   },
   {
     "fact": "packageToolResult 把 JsPackageToolCallResult 转成 ToolResult，成功的结果按 JSON 解析为 JsonResultData，失败的结果经 stringResultData 包装。",
-    "ref": "core/crates/tool/services/src/tools/PackageToolExecutor.rs:110"
+    "ref": "core/crates/plugin/sdk/src/js_sdk/results.rs:139"
   },
   {
     "fact": "SkillPackage 由 name、description、directory 与 skillFile 四个字段组成，directory 与 skillFile 均为 PathBuf。",
@@ -501,6 +501,6 @@
   },
   {
     "fact": "激活经 `usePackage` 执行。",
-    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1059"
+    "ref": "core/crates/tool/services/src/tools/packTool/RuntimePackageManager.rs:1065"
   }
 ]

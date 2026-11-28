@@ -257,7 +257,7 @@
   },
   {
     "fact": "files.d.ts 的 `ApplyFileType` 不以 Files 开头，经 prefixed_path 输出到根，不在 Files 命名空间内。",
-    "ref": "plugins/types/files.d.ts:256"
+    "ref": "plugins/types/files.d.ts:233"
   },
   {
     "fact": "infer_declaration 把 chat.d.ts、toolpkg.d.ts 的声明分别归入 Chat、ToolPkg 命名空间。",
